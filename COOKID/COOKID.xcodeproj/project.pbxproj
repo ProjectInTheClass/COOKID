@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35F38978263984FE0090848D /* EatingDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F38977263984FE0090848D /* EatingDataViewController.swift */; };
+		35F3897A263988350090848D /* EatingDataCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F38979263988350090848D /* EatingDataCollectionViewCell.swift */; };
 		35FBFF3B262F0C5F007A948A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FBFF3A262F0C5F007A948A /* MainViewController.swift */; };
 		C65B474A26207D2A0001EC9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65B474926207D2A0001EC9E /* AppDelegate.swift */; };
 		C65B474C26207D2A0001EC9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65B474B26207D2A0001EC9E /* SceneDelegate.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35F38977263984FE0090848D /* EatingDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatingDataViewController.swift; sourceTree = "<group>"; };
+		35F38979263988350090848D /* EatingDataCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatingDataCollectionViewCell.swift; sourceTree = "<group>"; };
 		35FBFF3A262F0C5F007A948A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C65B474626207D2A0001EC9E /* COOKID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = COOKID.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C65B474926207D2A0001EC9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,7 +66,9 @@
 				C65B474B26207D2A0001EC9E /* SceneDelegate.swift */,
 				C65B474D26207D2A0001EC9E /* ViewController.swift */,
 				35FBFF3A262F0C5F007A948A /* MainViewController.swift */,
+				35F38979263988350090848D /* EatingDataCollectionViewCell.swift */,
 				C65B474F26207D2A0001EC9E /* Main.storyboard */,
+				35F38977263984FE0090848D /* EatingDataViewController.swift */,
 				C65B475226207D300001EC9E /* Assets.xcassets */,
 				C65B475426207D300001EC9E /* LaunchScreen.storyboard */,
 				C65B475726207D300001EC9E /* Info.plist */,
@@ -140,8 +146,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35F3897A263988350090848D /* EatingDataCollectionViewCell.swift in Sources */,
 				C65B474E26207D2A0001EC9E /* ViewController.swift in Sources */,
 				C65B474A26207D2A0001EC9E /* AppDelegate.swift in Sources */,
+				35F38978263984FE0090848D /* EatingDataViewController.swift in Sources */,
 				C65B474C26207D2A0001EC9E /* SceneDelegate.swift in Sources */,
 				35FBFF3B262F0C5F007A948A /* MainViewController.swift in Sources */,
 			);

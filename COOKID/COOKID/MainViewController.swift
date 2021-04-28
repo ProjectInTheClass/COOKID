@@ -7,12 +7,48 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    var numberOfCell : Int = 5
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    //데이터가 몇 개인가?
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.numberOfCell
+    }
+    
+    
+    //데이터가 무엇인가?
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let eatingDataCell = collectionView.dequeueReusableCell(withReuseIdentifier: "EatingDataCell", for: indexPath) as! EatingDataCollectionViewCell
+        
+        let addCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddCell", for: indexPath) as! EatingDataCollectionViewCell
+        
+        eatingDataCell.layer.cornerRadius = 5.0
+        eatingDataCell.layer.backgroundColor = UIColor.gray.cgColor
+        addCell.layer.cornerRadius = 5.0
+        addCell.layer.backgroundColor = UIColor.green.cgColor
+        
+        if eatingDataCell.foodNameLabel.text == "something" {
+            return eatingDataCell
+        } else {
+            return addCell
+        }
+    }
+    
+    @IBOutlet var collectionMain: UICollectionView!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        collectionMain.delegate = self
+        collectionMain.dataSource = self
     }
     
 
