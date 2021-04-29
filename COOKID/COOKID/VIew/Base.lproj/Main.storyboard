@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zea-oy-YMh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zea-oy-YMh">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -56,6 +56,7 @@
                                     <navigationItem title="Title" id="mAB-9Y-Bdy">
                                         <barButtonItem key="rightBarButtonItem" title="저장" id="y7z-BR-fKV">
                                             <connections>
+                                                <action selector="saveButtonTapped:" destination="PTd-OV-2mr" id="IV9-33-na7"/>
                                                 <segue destination="gTl-Oe-cpO" kind="unwind" unwindAction="unwindToMain:" id="qF5-wX-3aA"/>
                                             </connections>
                                         </barButtonItem>
@@ -180,6 +181,13 @@
                             <constraint firstItem="DN3-HD-eIN" firstAttribute="top" secondItem="1TO-6F-XHY" secondAttribute="bottom" constant="12" id="w7L-sg-TSH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outletCollection property="dayButton" destination="vii-nX-adP" collectionClass="NSMutableArray" id="rZg-6r-o0E"/>
+                        <outletCollection property="dayButton" destination="wDV-Pc-O9a" collectionClass="NSMutableArray" id="eSP-wT-ydL"/>
+                        <outletCollection property="dayButton" destination="dPr-TY-nE4" collectionClass="NSMutableArray" id="JED-lJ-e8C"/>
+                        <outletCollection property="dayButton" destination="yOm-Ij-DB6" collectionClass="NSMutableArray" id="TzP-hl-cek"/>
+                        <outletCollection property="dayButton" destination="5Th-Rc-Y41" collectionClass="NSMutableArray" id="mRe-BB-aW3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-wP-owD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="gTl-Oe-cpO" userLabel="Exit" sceneMemberID="exit"/>
@@ -194,18 +202,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4월 내 목표식비" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1o-Ax-kEi">
-                                <rect key="frame" x="36" y="78" width="250.5" height="48"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Github testing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDy-5z-AtF">
-                                <rect key="frame" x="186" y="217" width="108" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="kHw-fc-QTQ">
+                                <rect key="frame" x="20" y="78" width="230.5" height="171"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4월 내 목표식비" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1o-Ax-kEi">
+                                        <rect key="frame" x="0.0" y="0.0" width="189" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="현재까지 46,900원, 목표 식비의 30%를 사용하셨어요!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afX-c1-rbb">
+                                        <rect key="frame" x="0.0" y="58" width="230.5" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.47450983520000001" green="0.47450983520000001" blue="0.47450977560000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="TeB-yl-t7u">
+                                        <rect key="frame" x="0.0" y="121" width="160" height="50"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="kkF-vW-Xm0">
+                                                <rect key="frame" x="0.0" y="0.0" width="158.5" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내 마트털이" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMT-Zo-Od8">
+                                                        <rect key="frame" x="0.0" y="0.0" width="78" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25,600원" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5T4-RW-oQN">
+                                                        <rect key="frame" x="108" y="0.0" width="50.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wyt-6D-K25">
+                                                <rect key="frame" x="0.0" y="24.5" width="160" height="1"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="160" id="3D7-fJ-jRg"/>
+                                                    <constraint firstAttribute="height" constant="1" id="Njn-cQ-BOu"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="59" translatesAutoresizingMaskIntoConstraints="NO" id="RY4-Ml-1P1">
+                                                <rect key="frame" x="0.0" y="29.5" width="156.5" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내 외식" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LE9-oB-tEt">
+                                                        <rect key="frame" x="0.0" y="0.0" width="48.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21,300원" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4t-ud-oRr">
+                                                        <rect key="frame" x="107.5" y="0.0" width="49" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LRU-wc-eLu">
                                 <rect key="frame" x="20" y="395" width="374" height="400"/>
                                 <subviews>
@@ -219,7 +279,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EatingDataCell" id="Vh4-0F-fo3" customClass="EatingDataCollectionViewCell" customModule="projectPractice" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EatingDataCell" id="Vh4-0F-fo3" customClass="EatingDataCollectionViewCell" customModule="COOKID" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="m7S-5a-CF5">
@@ -260,7 +320,7 @@
                                                     <segue destination="PTd-OV-2mr" kind="presentation" id="l6u-Uo-ifp"/>
                                                 </connections>
                                             </collectionViewCell>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddCell" id="QjO-A6-OGB" customClass="EatingDataCollectionViewCell" customModule="projectPractice" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddCell" id="QjO-A6-OGB" customClass="EatingDataCollectionViewCell" customModule="COOKID" customModuleProvider="target">
                                                 <rect key="frame" x="224" y="0.0" width="150" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="EZN-kV-eYx">
@@ -305,15 +365,14 @@
                         <viewLayoutGuide key="safeArea" id="PYH-T9-K3Q"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="z4X-db-3ai" firstAttribute="leading" secondItem="V1o-Ax-kEi" secondAttribute="leading" id="278-JU-Jal"/>
                             <constraint firstItem="LRU-wc-eLu" firstAttribute="leading" secondItem="PYH-T9-K3Q" secondAttribute="leading" constant="20" id="BCI-AV-cIW"/>
                             <constraint firstItem="LRU-wc-eLu" firstAttribute="leading" secondItem="dHS-pm-F7W" secondAttribute="leadingMargin" id="CRf-oh-C9d"/>
-                            <constraint firstItem="hDy-5z-AtF" firstAttribute="top" secondItem="V1o-Ax-kEi" secondAttribute="bottom" constant="91" id="Djy-mh-JNh"/>
-                            <constraint firstItem="V1o-Ax-kEi" firstAttribute="top" secondItem="PYH-T9-K3Q" secondAttribute="top" constant="34" id="E0i-cN-9Wj"/>
                             <constraint firstItem="z4X-db-3ai" firstAttribute="top" secondItem="dHS-pm-F7W" secondAttribute="top" constant="341" id="MDk-hp-ES0"/>
                             <constraint firstItem="LRU-wc-eLu" firstAttribute="trailing" secondItem="dHS-pm-F7W" secondAttribute="trailingMargin" id="X4I-4e-vkg"/>
                             <constraint firstItem="PYH-T9-K3Q" firstAttribute="bottom" secondItem="LRU-wc-eLu" secondAttribute="bottom" constant="18" id="Xwa-Oa-EZb"/>
                             <constraint firstItem="LRU-wc-eLu" firstAttribute="top" secondItem="z4X-db-3ai" secondAttribute="bottom" constant="8" symbolic="YES" id="ZN1-54-yw4"/>
+                            <constraint firstItem="kHw-fc-QTQ" firstAttribute="top" secondItem="PYH-T9-K3Q" secondAttribute="top" constant="34" id="gf8-Qk-NPh"/>
+                            <constraint firstItem="kHw-fc-QTQ" firstAttribute="leading" secondItem="28G-aD-o3e" secondAttribute="leading" id="mt3-my-ewo"/>
                             <constraint firstItem="PYH-T9-K3Q" firstAttribute="trailing" secondItem="z4X-db-3ai" secondAttribute="trailing" constant="282" id="z5k-1F-zck"/>
                         </constraints>
                     </view>

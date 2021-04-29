@@ -62,18 +62,42 @@
 		C65B474826207D2A0001EC9E /* COOKID */ = {
 			isa = PBXGroup;
 			children = (
-				C65B474926207D2A0001EC9E /* AppDelegate.swift */,
-				C65B474B26207D2A0001EC9E /* SceneDelegate.swift */,
-				C65B474D26207D2A0001EC9E /* ViewController.swift */,
-				35FBFF3A262F0C5F007A948A /* MainViewController.swift */,
-				35F38979263988350090848D /* EatingDataCollectionViewCell.swift */,
-				C65B474F26207D2A0001EC9E /* Main.storyboard */,
-				35F38977263984FE0090848D /* EatingDataViewController.swift */,
+				DB69A9B4263A6951008C9718 /* ViewControllers */,
+				DB69A9B6263A6977008C9718 /* VIew */,
+				DB69A9B5263A6959008C9718 /* Supporting Files */,
 				C65B475226207D300001EC9E /* Assets.xcassets */,
-				C65B475426207D300001EC9E /* LaunchScreen.storyboard */,
 				C65B475726207D300001EC9E /* Info.plist */,
 			);
 			path = COOKID;
+			sourceTree = "<group>";
+		};
+		DB69A9B4263A6951008C9718 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C65B474D26207D2A0001EC9E /* ViewController.swift */,
+				35FBFF3A262F0C5F007A948A /* MainViewController.swift */,
+				35F38979263988350090848D /* EatingDataCollectionViewCell.swift */,
+				35F38977263984FE0090848D /* EatingDataViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DB69A9B5263A6959008C9718 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C65B474926207D2A0001EC9E /* AppDelegate.swift */,
+				C65B474B26207D2A0001EC9E /* SceneDelegate.swift */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DB69A9B6263A6977008C9718 /* VIew */ = {
+			isa = PBXGroup;
+			children = (
+				C65B474F26207D2A0001EC9E /* Main.storyboard */,
+				C65B475426207D300001EC9E /* LaunchScreen.storyboard */,
+			);
+			path = VIew;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
