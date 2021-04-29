@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zea-oy-YMh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zea-oy-YMh">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -56,8 +56,7 @@
                                     <navigationItem title="Title" id="mAB-9Y-Bdy">
                                         <barButtonItem key="rightBarButtonItem" title="저장" id="y7z-BR-fKV">
                                             <connections>
-                                                <action selector="saveButtonTapped:" destination="PTd-OV-2mr" id="IV9-33-na7"/>
-                                                <segue destination="gTl-Oe-cpO" kind="unwind" unwindAction="unwindToMain:" id="qF5-wX-3aA"/>
+                                                <action selector="saveButtonTapped:" destination="PTd-OV-2mr" id="brf-f7-C6O"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -131,10 +130,14 @@
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DN3-HD-eIN">
                                 <rect key="frame" x="20" y="68" width="374" height="222"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="222" id="2iF-dX-Evk"/>
                                     <constraint firstAttribute="width" constant="374" id="dg7-Gh-wol"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="lDy-1K-NMt" appends="YES" id="ff5-BK-zDR"/>
+                                </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="음식 정보" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6k4-cf-kag">
                                 <rect key="frame" x="20" y="421" width="92.5" height="30"/>
@@ -182,15 +185,23 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outletCollection property="dayButton" destination="vii-nX-adP" collectionClass="NSMutableArray" id="rZg-6r-o0E"/>
-                        <outletCollection property="dayButton" destination="wDV-Pc-O9a" collectionClass="NSMutableArray" id="eSP-wT-ydL"/>
-                        <outletCollection property="dayButton" destination="dPr-TY-nE4" collectionClass="NSMutableArray" id="JED-lJ-e8C"/>
-                        <outletCollection property="dayButton" destination="yOm-Ij-DB6" collectionClass="NSMutableArray" id="TzP-hl-cek"/>
-                        <outletCollection property="dayButton" destination="5Th-Rc-Y41" collectionClass="NSMutableArray" id="mRe-BB-aW3"/>
+                        <outlet property="categoryButton" destination="KHf-SG-leW" id="haq-Hf-Zpj"/>
+                        <outlet property="estimatedPriceTextField" destination="vKt-68-nFF" id="pmn-Fc-AdW"/>
+                        <outlet property="foodImageView" destination="DN3-HD-eIN" id="YHm-2r-9Gk"/>
+                        <outlet property="foodNameTextField" destination="493-26-gnp" id="a6g-BT-DtE"/>
+                        <outletCollection property="buttons" destination="vii-nX-adP" collectionClass="NSMutableArray" id="lUL-eq-go9"/>
+                        <outletCollection property="buttons" destination="wDV-Pc-O9a" collectionClass="NSMutableArray" id="5wG-5f-o7c"/>
+                        <outletCollection property="buttons" destination="dPr-TY-nE4" collectionClass="NSMutableArray" id="8N7-Dq-xbA"/>
+                        <outletCollection property="buttons" destination="yOm-Ij-DB6" collectionClass="NSMutableArray" id="mAZ-lQ-2hW"/>
+                        <outletCollection property="buttons" destination="5Th-Rc-Y41" collectionClass="NSMutableArray" id="Mnz-Ee-Twd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-wP-owD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="gTl-Oe-cpO" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="lDy-1K-NMt">
+                    <connections>
+                        <action selector="didTapFoodImageView:" destination="PTd-OV-2mr" id="qBV-w5-bm7"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-3478.2608695652175" y="1474.5535714285713"/>
         </scene>
@@ -317,7 +328,6 @@
                                                     <outlet property="eatingTimeLabel" destination="TXd-9T-4Ko" id="Oeo-ev-JfX"/>
                                                     <outlet property="foodImage" destination="ljs-3N-lyD" id="d3c-TF-oOO"/>
                                                     <outlet property="foodNameLabel" destination="CEk-nm-wzd" id="H8o-8e-O7O"/>
-                                                    <segue destination="PTd-OV-2mr" kind="presentation" id="l6u-Uo-ifp"/>
                                                 </connections>
                                             </collectionViewCell>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddCell" id="QjO-A6-OGB" customClass="EatingDataCollectionViewCell" customModule="COOKID" customModuleProvider="target">
@@ -329,9 +339,6 @@
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPt-k1-kWY">
                                                             <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                                            <connections>
-                                                                <segue destination="PTd-OV-2mr" kind="presentation" id="li3-qt-tVq"/>
-                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -379,6 +386,7 @@
                     <tabBarItem key="tabBarItem" title="메인" id="z5O-7X-Lvv"/>
                     <connections>
                         <outlet property="collectionMain" destination="28G-aD-o3e" id="uot-iy-Vxx"/>
+                        <segue destination="PTd-OV-2mr" kind="presentation" identifier="MoveToEatingDataView" id="dtM-ex-zNt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9D-dR-JHs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -405,9 +413,6 @@
             <point key="canvasLocation" x="-168" y="462"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="li3-qt-tVq"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

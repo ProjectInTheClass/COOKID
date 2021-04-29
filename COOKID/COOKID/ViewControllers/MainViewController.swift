@@ -33,11 +33,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         addCell.layer.cornerRadius = 5.0
         addCell.layer.backgroundColor = UIColor.green.cgColor
         
-        if eatingDataCell.foodNameLabel.text == "something" {
-            return eatingDataCell
-        } else {
-            return addCell
-        }
+        return eatingDataCell
     }
     
     @IBOutlet var collectionMain: UICollectionView!
@@ -51,6 +47,9 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionMain.dataSource = self
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "MoveToEatingDataView", sender: self)
+    }
 
     /*
     // MARK: - Navigation
