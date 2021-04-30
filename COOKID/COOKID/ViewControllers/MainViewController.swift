@@ -7,9 +7,12 @@
 
 import UIKit
 
+var foods: [FoodInfo] = [FoodInfo(image: UIImage(named: "pizza")!, when: "아침", name: "피자"),
+                         FoodInfo(image: UIImage(named: "takoyaki")!, when: "점심", name: "타코야키"),
+                         FoodInfo(image: UIImage(named: "poke")!, when: "저녁", name: "삼겸살"),]
+
+
 class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    var numberOfCell : Int = 5
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -17,21 +20,32 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     //데이터가 몇 개인가?
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.numberOfCell
+        return foods.count + 1
     }
     
     
     //데이터가 무엇인가?
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.row == foods.count {
+            let addCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddCell", for: indexPath) as! EatingDataCollectionViewCell
+            
+            addCell.layer.cornerRadius = 5.0
+            addCell.layer.backgroundColor = UIColor.green.cgColor
+
+            return addCell
+        }
+        
+        let foodInfo = foods[indexPath.row]
         
         let eatingDataCell = collectionView.dequeueReusableCell(withReuseIdentifier: "EatingDataCell", for: indexPath) as! EatingDataCollectionViewCell
         
-        let addCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddCell", for: indexPath) as! EatingDataCollectionViewCell
-        
         eatingDataCell.layer.cornerRadius = 5.0
         eatingDataCell.layer.backgroundColor = UIColor.gray.cgColor
-        addCell.layer.cornerRadius = 5.0
-        addCell.layer.backgroundColor = UIColor.green.cgColor
+        
+        /// 셀에 정보 보여주기.
+        eatingDataCell.foodImage.image = foodInfo.image
+        eatingDataCell.eatingTimeLabel.text = foodInfo.when
+        eatingDataCell.foodNameLabel.text = foodInfo.name
         
         return eatingDataCell
     }
