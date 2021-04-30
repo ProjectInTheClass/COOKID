@@ -90,3 +90,12 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+SandBox/MyDatePicker/MyDatePicker/Info.plist
+SandBox/MyDatePicker/MyDatePicker/Base.lproj/Main.storyboard
+SandBox/MyDatePicker/MyDatePicker/Base.lproj/LaunchScreen.storyboard
+SandBox/MyDatePicker/MyDatePicker/Assets.xcassets/AppIcon.appiconset/Contents.json
+SandBox/MyDatePicker/MyDatePicker/Assets.xcassets/Contents.json
+SandBox/MyDatePicker/MyDatePicker.xcodeproj/project.pbxproj
+SandBox/MyDatePicker/MyDatePicker.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+SandBox/MyDatePicker/MyDatePicker.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+COOKID/COOKID.xcodeproj/xcuserdata/imhyeonji.xcuserdatad/xcschemes/xcschememanagement.plist
