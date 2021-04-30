@@ -1,12 +1,13 @@
 //
-//  EatingDateViewController.swift
-//  COOKID
+//  ViewController.swift
+//  MyDatePicker
 //
-//  Created by 임현지 on 2021/04/30.
+//  Created by 임현지 on 2021/04/19.
+//
 
 import UIKit
 
-class DateViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -61,4 +62,5 @@ class DateViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
 }
+
 
