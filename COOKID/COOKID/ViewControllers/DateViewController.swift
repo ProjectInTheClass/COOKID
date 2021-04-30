@@ -34,14 +34,14 @@ class DateViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
 
     @IBAction func datePickerTapped(_ sender: Any) {
-        //datePicker.addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
+        
     }
     
     func configureDatePickerView() {
-        datePickerView.layer.cornerRadius = 15
-        datePickerView.layer.shadowColor = UIColor.systemGray4.cgColor
-        datePickerView.layer.shadowOpacity = 0.6
-        datePickerView.layer.shadowRadius = 6
+//        datePickerView.layer.cornerRadius = 15
+//        datePickerView.layer.shadowColor = UIColor.systemGray4.cgColor
+//        datePickerView.layer.shadowOpacity = 0.6
+//        datePickerView.layer.shadowRadius = 6
     }
     
 //    func add(childVC: UIViewController, to containerView: UIView) {

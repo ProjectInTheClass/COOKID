@@ -9,6 +9,12 @@ import UIKit
 
 class EatingDataViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    @IBOutlet weak var naviBarTop: UINavigationBar!
+    
+    var foodSelected: FoodInfo?
+    /// 결과 업데이트 되었음을 알려주자.
+    var closureAfterSaved: (() -> Void)?
+    
     @IBOutlet var buttons : [UIButton]!
     @IBOutlet var foodNameTextField: UITextField!
     @IBOutlet var estimatedPriceTextField: UITextField!
@@ -22,8 +28,19 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
+        
+        if foodSelected == nil { // 신규 추가
+            naviBarTop.topItem?.title = "신규 추가"
+            naviBarTop.topItem?.rightBarButtonItem?.title = "추가"
+        }
+        else { // 디테일 조회?
+            naviBarTop.topItem?.title = "참 맛있었다"
+            naviBarTop.topItem?.rightBarButtonItem?.title = "수정"
+        }
+        
+        foodNameTextField.text = foodSelected?.name
+        foodImageView.image = foodSelected?.image
         
         for buttons in buttons {
             buttons.layer.borderWidth = 0.5
@@ -44,7 +61,14 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        foods.append(FoodInfo(image: UIImage(named: "pizza")!, when: "야식", name: "핏자"))
+        
+
+//        closureAfterSaved?()
+        
+        dismiss(animated: true) {
+            if let c = self.closureAfterSaved { c() }
+        }
     }
     
     @IBAction func didTapFoodImageView(_ sender: UITapGestureRecognizer) {
