@@ -203,41 +203,48 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="9BJ-WM-44l">
                                 <rect key="frame" x="20" y="306" width="368" height="85"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="37" translatesAutoresizingMaskIntoConstraints="NO" id="74Z-W6-zva">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="74Z-W6-zva">
                                         <rect key="frame" x="0.0" y="0.0" width="368" height="36"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vii-nX-adP">
-                                                <rect key="frame" x="0.0" y="0.0" width="44" height="36"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="48" height="36"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="아침">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wDV-Pc-O9a">
-                                                <rect key="frame" x="81" y="0.0" width="44" height="36"/>
+                                                <rect key="frame" x="64" y="0.0" width="48" height="36"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="아점">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPr-TY-nE4">
-                                                <rect key="frame" x="162" y="0.0" width="44" height="36"/>
+                                                <rect key="frame" x="128" y="0.0" width="48" height="36"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="점심">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOm-Ij-DB6">
-                                                <rect key="frame" x="243" y="0.0" width="44" height="36"/>
+                                                <rect key="frame" x="192" y="0.0" width="48" height="36"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="점저">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Th-Rc-Y41">
-                                                <rect key="frame" x="324" y="0.0" width="44" height="36"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8W-ON-ozh">
+                                                <rect key="frame" x="256" y="0.0" width="48" height="36"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="저녁">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Th-Rc-Y41">
+                                                <rect key="frame" x="320" y="0.0" width="48" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="간식">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
                                             </button>
@@ -323,16 +330,17 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="DinnerButton" destination="r8W-ON-ozh" id="EYx-y2-B4N"/>
+                        <outlet property="breakfastButton" destination="vii-nX-adP" id="Hdf-HL-hcA"/>
+                        <outlet property="brunchButton" destination="wDV-Pc-O9a" id="x1j-7e-adN"/>
                         <outlet property="categoryButton" destination="KHf-SG-leW" id="haq-Hf-Zpj"/>
                         <outlet property="estimatedPriceTextField" destination="vKt-68-nFF" id="pmn-Fc-AdW"/>
                         <outlet property="foodImageView" destination="DN3-HD-eIN" id="YHm-2r-9Gk"/>
                         <outlet property="foodNameTextField" destination="493-26-gnp" id="a6g-BT-DtE"/>
+                        <outlet property="lunDinnetButton" destination="yOm-Ij-DB6" id="Ezr-4P-DzJ"/>
+                        <outlet property="lunchButton" destination="dPr-TY-nE4" id="aqK-fz-gt5"/>
                         <outlet property="naviBarTop" destination="1TO-6F-XHY" id="7Iz-dK-JmZ"/>
-                        <outletCollection property="buttons" destination="vii-nX-adP" collectionClass="NSMutableArray" id="lUL-eq-go9"/>
-                        <outletCollection property="buttons" destination="wDV-Pc-O9a" collectionClass="NSMutableArray" id="5wG-5f-o7c"/>
-                        <outletCollection property="buttons" destination="dPr-TY-nE4" collectionClass="NSMutableArray" id="8N7-Dq-xbA"/>
-                        <outletCollection property="buttons" destination="yOm-Ij-DB6" collectionClass="NSMutableArray" id="mAZ-lQ-2hW"/>
-                        <outletCollection property="buttons" destination="5Th-Rc-Y41" collectionClass="NSMutableArray" id="Mnz-Ee-Twd"/>
+                        <outlet property="snackButton" destination="5Th-Rc-Y41" id="vvu-if-H0R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-wP-owD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -342,7 +350,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1494" y="1475"/>
+            <point key="canvasLocation" x="-1494.2028985507247" y="1474.5535714285713"/>
         </scene>
         <!--메인-->
         <scene sceneID="VHm-eP-VAg">
@@ -561,6 +569,7 @@
                     <view key="view" contentMode="scaleToFill" id="hz6-QD-DPk">
                         <rect key="frame" x="0.0" y="0.0" width="374" height="207"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="bJc-up-tFR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
@@ -575,6 +584,7 @@
                     <view key="view" contentMode="scaleToFill" id="FLJ-GG-cMg">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="KVx-x2-j89"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>

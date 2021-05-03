@@ -7,9 +7,7 @@
 
 import UIKit
 
-var foods: [FoodInfo] = [FoodInfo(image: UIImage(named: "pizza")!, when: "아침", name: "피자"),
-                         FoodInfo(image: UIImage(named: "takoyaki")!, when: "점심", name: "타코야키"),
-                         FoodInfo(image: UIImage(named: "poke")!, when: "저녁", name: "삼겸살"),]
+var foods: [FoodInfo] = []
 
 
 class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -48,10 +46,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         eatingDataCell.layer.backgroundColor = UIColor.gray.cgColor
         
         /// 셀에 정보 보여주기.
-        eatingDataCell.foodImage.image = foodInfo.image
-        eatingDataCell.eatingTimeLabel.text = foodInfo.when
-        eatingDataCell.foodNameLabel.text = foodInfo.name
-        
+        eatingDataCell.foodImage.image = foodInfo.foodImage
+        eatingDataCell.eatingTimeLabel.text = foodInfo.mealType.rawValue
+        eatingDataCell.foodNameLabel.text = foodInfo.foodName
+    
         return eatingDataCell
     }
     

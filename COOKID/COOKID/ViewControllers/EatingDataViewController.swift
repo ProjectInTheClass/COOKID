@@ -15,7 +15,13 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     /// 결과 업데이트 되었음을 알려주자.
     var closureAfterSaved: (() -> Void)?
     
-    @IBOutlet var buttons : [UIButton]!
+    @IBOutlet var breakfastButton: UIButton!
+    @IBOutlet var brunchButton: UIButton!
+    @IBOutlet var lunchButton: UIButton!
+    @IBOutlet var lunDinnetButton: UIButton!
+    @IBOutlet var DinnerButton: UIButton!
+    @IBOutlet var snackButton: UIButton!
+    
     @IBOutlet var foodNameTextField: UITextField!
     @IBOutlet var estimatedPriceTextField: UITextField!
     @IBOutlet var categoryButton: UIButton!
@@ -25,27 +31,31 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         if foodSelected == nil { // 신규 추가
-            naviBarTop.topItem?.title = "신규 추가"
+            naviBarTop.topItem?.title = "식사 기록하기"
             naviBarTop.topItem?.rightBarButtonItem?.title = "추가"
         }
         else { // 디테일 조회?
-            naviBarTop.topItem?.title = "참 맛있었다"
+            naviBarTop.topItem?.title = "식사 수정하기"
             naviBarTop.topItem?.rightBarButtonItem?.title = "수정"
         }
         
-        foodNameTextField.text = foodSelected?.name
-        foodImageView.image = foodSelected?.image
+        foodNameTextField.text = foodSelected?.foodName
+        foodImageView.image = foodSelected?.foodImage
+        
+        let buttons : [UIButton] = [breakfastButton, brunchButton, lunchButton, lunDinnetButton, DinnerButton, snackButton]
+     
         
         for buttons in buttons {
             buttons.layer.borderWidth = 0.5
             buttons.layer.borderColor = UIColor.systemGray.cgColor
             buttons.layer.cornerRadius = 3
+            buttons.setBackgoundColor(.white, for: .normal)
+            buttons.setBackgoundColor(.systemBlue, for: .selected)
         }
         
         let fields = [foodNameTextField, estimatedPriceTextField, categoryButton]
@@ -60,9 +70,22 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
         foodImageView.addGestureRecognizer(tapGestureRecognizer)
     }
     
+
+//
+//    @IBAction func mealTypeButtonTapped(_ sender: UIButton){
+//        switch sender {
+//        case breakfastButton:
+//
+//        default:
+//            <#code#>
+//        }
+//    }
+//
+//    func buttonSelected (sender : UIButton) -> Bool {
+//
+//    }
+//
     @IBAction func saveButtonTapped(_ sender: Any) {
-        foods.append(FoodInfo(image: UIImage(named: "pizza")!, when: "야식", name: "핏자"))
-        
 
 //        closureAfterSaved?()
         
@@ -70,7 +93,7 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
             if let c = self.closureAfterSaved { c() }
         }
     }
-    
+
     @IBAction func didTapFoodImageView(_ sender: UITapGestureRecognizer) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -107,4 +130,21 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
         
     }
     
+    
 }
+
+
+extension UIButton {
+    func setBackgoundColor(_ color : UIColor, for state: UIControl.State) {
+        UIGraphicsBeginImageContext(CGSize(width: 1.0, height: 1.0))
+        guard let context = UIGraphicsGetCurrentContext() else {return}
+        context.setFillColor(color.cgColor)
+        context.fill(CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0))
+        
+        let backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        self.setBackgroundImage(backgroundImage, for: state)
+    }
+}
+
