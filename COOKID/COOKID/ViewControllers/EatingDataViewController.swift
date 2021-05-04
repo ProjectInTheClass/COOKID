@@ -9,7 +9,34 @@ import UIKit
 
 class EatingDataViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    var foodSelected: FoodInfo?
+    /// 결과 업데이트 되었음을 알려주자.
+    var closureAfterSaved: (() -> Void)?
+    
+    var restoreFrameValue : CGFloat = 0.0
     var category = ["밥류", "찌개류", "볶음류", "빵, 과자류", "탕류", "튀김류", "우유, 유제품"]
+
+    
+    @IBOutlet weak var naviBarTop: UINavigationBar!
+    
+    @IBOutlet var breakfastButton: UIButton!
+    @IBOutlet var brunchButton: UIButton!
+    @IBOutlet var lunchButton: UIButton!
+    @IBOutlet var lunDinnerButton: UIButton!
+    @IBOutlet var DinnerButton: UIButton!
+    @IBOutlet var snackButton: UIButton!
+    
+    @IBOutlet var foodNameTextField: UITextField!
+    @IBOutlet var estimatedPriceTextField: UITextField!
+    @IBOutlet var categoryLabel: UITextField!
+    @IBOutlet var foodImageView: UIImageView! {
+        didSet {
+            foodImageView.isUserInteractionEnabled = true
+        }
+    }
+    @IBOutlet var eatOutSwitch: UISwitch!
+    
+    //피커뷰
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -44,29 +71,6 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     @objc func ButtonAction() {
         categoryLabel.resignFirstResponder()
     }
-    
-    @IBOutlet weak var naviBarTop: UINavigationBar!
-    
-    var foodSelected: FoodInfo?
-    /// 결과 업데이트 되었음을 알려주자.
-    var closureAfterSaved: (() -> Void)?
-    
-    @IBOutlet var breakfastButton: UIButton!
-    @IBOutlet var brunchButton: UIButton!
-    @IBOutlet var lunchButton: UIButton!
-    @IBOutlet var lunDinnerButton: UIButton!
-    @IBOutlet var DinnerButton: UIButton!
-    @IBOutlet var snackButton: UIButton!
-    
-    @IBOutlet var foodNameTextField: UITextField!
-    @IBOutlet var estimatedPriceTextField: UITextField!
-    @IBOutlet var categoryLabel: UITextField!
-    @IBOutlet var foodImageView: UIImageView! {
-        didSet {
-            foodImageView.isUserInteractionEnabled = true
-        }
-    }
-    @IBOutlet var eatOutSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +111,20 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
         
         createPickerView()
         dismissPickerView()
+        
+        restoreFrameValue = self.view.frame.origin.y
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(noti:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(noti:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
 
@@ -183,6 +201,48 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     
+}
+
+extension EatingDataViewController {
+    
+    @objc func keyboardWillAppear(noti : NSNotification) {
+        if let keyboardFrame : NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            self.view.frame.origin.y -= keyboardHeight
+        }
+        print("keyboard Will Appear Execute")
+    }
+    
+    @objc func keyboardWillDisappear(noti : NSNotification) {
+        if self.view.frame.origin.y != restoreFrameValue {
+            if let keyboardFrame : NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                self.view.frame.origin.y += keyboardHeight
+            }
+            print("keyboard Will Disappear Execute")
+            
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.frame.origin.y = restoreFrameValue
+        print("touchesBegan Execute")
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("textFieldShouldReturn Execute")
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print("textFieldShouldEndEditing Execute")
+        self.view.frame.origin.y = self.restoreFrameValue
+        return true
+    }
 }
 
 
