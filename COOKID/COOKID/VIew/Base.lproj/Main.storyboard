@@ -212,6 +212,9 @@
                                                 <state key="normal" title="아침">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="mealTypeButtonTapped:" destination="PTd-OV-2mr" eventType="touchUpInside" id="tFR-LQ-zML"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wDV-Pc-O9a">
                                                 <rect key="frame" x="64" y="0.0" width="48" height="36"/>
@@ -219,6 +222,9 @@
                                                 <state key="normal" title="아점">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="mealTypeButtonTapped:" destination="PTd-OV-2mr" eventType="touchUpInside" id="PVg-ip-c7p"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPr-TY-nE4">
                                                 <rect key="frame" x="128" y="0.0" width="48" height="36"/>
@@ -226,6 +232,9 @@
                                                 <state key="normal" title="점심">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="mealTypeButtonTapped:" destination="PTd-OV-2mr" eventType="touchUpInside" id="4rp-So-mAM"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOm-Ij-DB6">
                                                 <rect key="frame" x="192" y="0.0" width="48" height="36"/>
@@ -233,6 +242,9 @@
                                                 <state key="normal" title="점저">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="mealTypeButtonTapped:" destination="PTd-OV-2mr" eventType="touchUpInside" id="IiJ-ub-dSI"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8W-ON-ozh">
                                                 <rect key="frame" x="256" y="0.0" width="48" height="36"/>
@@ -240,6 +252,9 @@
                                                 <state key="normal" title="저녁">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="mealTypeButtonTapped:" destination="PTd-OV-2mr" eventType="touchUpInside" id="H29-bf-sWO"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Th-Rc-Y41">
                                                 <rect key="frame" x="320" y="0.0" width="48" height="36"/>
@@ -247,6 +262,9 @@
                                                 <state key="normal" title="간식">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="mealTypeButtonTapped:" destination="PTd-OV-2mr" eventType="touchUpInside" id="slz-p6-S8Q"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -291,7 +309,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="YDn-nL-gW9">
-                                <rect key="frame" x="20" y="481" width="374" height="156"/>
+                                <rect key="frame" x="20" y="481" width="374" height="160"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="음식 이름을 적어주세요." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="493-26-gnp">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="34"/>
@@ -303,12 +321,11 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KHf-SG-leW">
-                                        <rect key="frame" x="0.0" y="126" width="374" height="30"/>
-                                        <state key="normal" title="  카테고리 탭해주세요.">
-                                            <color key="titleColor" red="0.8156862855" green="0.8156862855" blue="0.82352948189999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        </state>
-                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="카테고리 " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2OT-ma-F8i">
+                                        <rect key="frame" x="0.0" y="126" width="374" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -333,11 +350,12 @@
                         <outlet property="DinnerButton" destination="r8W-ON-ozh" id="EYx-y2-B4N"/>
                         <outlet property="breakfastButton" destination="vii-nX-adP" id="Hdf-HL-hcA"/>
                         <outlet property="brunchButton" destination="wDV-Pc-O9a" id="x1j-7e-adN"/>
-                        <outlet property="categoryButton" destination="KHf-SG-leW" id="haq-Hf-Zpj"/>
+                        <outlet property="categoryLabel" destination="2OT-ma-F8i" id="n4i-jh-E9x"/>
+                        <outlet property="eatOutSwitch" destination="YPa-89-faZ" id="7Nm-gm-wMo"/>
                         <outlet property="estimatedPriceTextField" destination="vKt-68-nFF" id="pmn-Fc-AdW"/>
                         <outlet property="foodImageView" destination="DN3-HD-eIN" id="YHm-2r-9Gk"/>
                         <outlet property="foodNameTextField" destination="493-26-gnp" id="a6g-BT-DtE"/>
-                        <outlet property="lunDinnetButton" destination="yOm-Ij-DB6" id="Ezr-4P-DzJ"/>
+                        <outlet property="lunDinnerButton" destination="yOm-Ij-DB6" id="aYt-9X-gKx"/>
                         <outlet property="lunchButton" destination="dPr-TY-nE4" id="aqK-fz-gt5"/>
                         <outlet property="naviBarTop" destination="1TO-6F-XHY" id="7Iz-dK-JmZ"/>
                         <outlet property="snackButton" destination="5Th-Rc-Y41" id="vvu-if-H0R"/>

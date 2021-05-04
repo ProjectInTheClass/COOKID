@@ -19,21 +19,22 @@ enum MealType: String, CaseIterable {
 
 enum Category: String, CaseIterable {
     
-    case rice
-    case snack
-    case noodle
-    case stew
-    case steamedDish
-    case diary
-    case fruit
-    case riceCake
-    case friedFood
+    case rice = "밥류"
+    case snack = "빵, 과자류"
+    case noodle = "면류"
+    case stew = "국, 찌개류"
+    case steamedDish = "찜류"
+    case diary = "우유 , 유제품"
+    case fruit = "과일류"
+    case riceCake = "떡류"
+    case stirFriedFood = "볶음류"
+    case friedFood = "튀김류"
 }
 
 struct FoodInfo {
     
     let foodImage: UIImage //uiImage
-    let mealType: MealType
+    var mealType: MealType
     let eatOut: Bool
     let foodName: String
     let price: Int

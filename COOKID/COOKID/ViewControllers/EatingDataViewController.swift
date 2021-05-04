@@ -7,7 +7,43 @@
 
 import UIKit
 
-class EatingDataViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EatingDataViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    var category = ["밥류", "찌개류", "볶음류", "빵, 과자류", "탕류", "튀김류", "우유, 유제품"]
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return category.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return category[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        categoryLabel.text = category[row]
+    }
+    
+    func createPickerView() {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        categoryLabel.inputView = pickerView
+    }
+    
+    func dismissPickerView() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let button = UIBarButtonItem(title: "선택", style: .done, target: self, action: #selector(ButtonAction))
+        toolbar.setItems([button], animated: true)
+        toolbar.isUserInteractionEnabled = true
+        categoryLabel.inputAccessoryView = toolbar
+    }
+    
+    @objc func ButtonAction() {
+        categoryLabel.resignFirstResponder()
+    }
     
     @IBOutlet weak var naviBarTop: UINavigationBar!
     
@@ -18,18 +54,19 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet var breakfastButton: UIButton!
     @IBOutlet var brunchButton: UIButton!
     @IBOutlet var lunchButton: UIButton!
-    @IBOutlet var lunDinnetButton: UIButton!
+    @IBOutlet var lunDinnerButton: UIButton!
     @IBOutlet var DinnerButton: UIButton!
     @IBOutlet var snackButton: UIButton!
     
     @IBOutlet var foodNameTextField: UITextField!
     @IBOutlet var estimatedPriceTextField: UITextField!
-    @IBOutlet var categoryButton: UIButton!
+    @IBOutlet var categoryLabel: UITextField!
     @IBOutlet var foodImageView: UIImageView! {
         didSet {
             foodImageView.isUserInteractionEnabled = true
         }
     }
+    @IBOutlet var eatOutSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,18 +84,17 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
         foodNameTextField.text = foodSelected?.foodName
         foodImageView.image = foodSelected?.foodImage
         
-        let buttons : [UIButton] = [breakfastButton, brunchButton, lunchButton, lunDinnetButton, DinnerButton, snackButton]
+        let buttons : [UIButton] = [breakfastButton, brunchButton, lunchButton, lunDinnerButton, DinnerButton, snackButton]
      
         
         for buttons in buttons {
             buttons.layer.borderWidth = 0.5
             buttons.layer.borderColor = UIColor.systemGray.cgColor
             buttons.layer.cornerRadius = 3
-            buttons.setBackgoundColor(.white, for: .normal)
-            buttons.setBackgoundColor(.systemBlue, for: .selected)
+
         }
         
-        let fields = [foodNameTextField, estimatedPriceTextField, categoryButton]
+        let fields = [foodNameTextField, estimatedPriceTextField, categoryLabel]
         
         for i in 0...2 {
             fields[i]?.layer.borderWidth = 0.5
@@ -68,24 +104,40 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapFoodImageView(_:)))
         foodImageView.addGestureRecognizer(tapGestureRecognizer)
+        
+        createPickerView()
+        dismissPickerView()
     }
-    
 
-//
-//    @IBAction func mealTypeButtonTapped(_ sender: UIButton){
-//        switch sender {
-//        case breakfastButton:
-//
-//        default:
-//            <#code#>
-//        }
-//    }
-//
-//    func buttonSelected (sender : UIButton) -> Bool {
-//
-//    }
-//
+
+    @IBAction func mealTypeButtonTapped(_ sender: UIButton){
+        switch sender {
+        case breakfastButton:
+            foodSelected?.mealType = .breakfast
+            print("아침 버튼, \(String(describing: foodSelected?.mealType))")
+        case brunchButton :
+            foodSelected?.mealType = .brunch
+            print("아점 버튼, \(String(describing: foodSelected?.mealType))")
+        case lunchButton :
+            foodSelected?.mealType = .lunch
+            print("점심 버튼, \(String(describing: foodSelected?.mealType))")
+        case lunDinnerButton :
+            foodSelected?.mealType = .lundinner
+            print("점저 버튼, \(String(describing: foodSelected?.mealType))")
+        case DinnerButton :
+            foodSelected?.mealType = .dinner
+            print("저녁 버튼, \(String(describing: foodSelected?.mealType))")
+        case snackButton :
+            foodSelected?.mealType = .snack
+            print("간식 버튼, \(String(describing: foodSelected?.mealType))")
+        default:
+            foodSelected?.mealType = .init(rawValue: " ")!
+        }
+    }
+
+
     @IBAction func saveButtonTapped(_ sender: Any) {
+//        foodSelected = FoodInfo(foodImage: UIImage(named: ""), mealType: , eatOut: eatOutSwitch.isOn, foodName: foodNameTextField.text, price: estimatedPriceTextField.text, category: .diary)
 
 //        closureAfterSaved?()
         
@@ -133,18 +185,4 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     
 }
 
-
-extension UIButton {
-    func setBackgoundColor(_ color : UIColor, for state: UIControl.State) {
-        UIGraphicsBeginImageContext(CGSize(width: 1.0, height: 1.0))
-        guard let context = UIGraphicsGetCurrentContext() else {return}
-        context.setFillColor(color.cgColor)
-        context.fill(CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0))
-        
-        let backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        self.setBackgroundImage(backgroundImage, for: state)
-    }
-}
 
