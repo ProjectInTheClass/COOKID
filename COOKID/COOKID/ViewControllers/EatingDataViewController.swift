@@ -15,7 +15,13 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     
     var restoreFrameValue : CGFloat = 0.0
     var category = Category.allCases.map{$0.rawValue}
-    
+
+    //키보드[x]
+    //버튼눌렀을 떄, isSelected. [x]
+    //밀타입 넣는 문제
+    //저장되는 것까지
+    //--> 뷰모델 매니저를 다시 설계해야함
+    //--> 뷰컨트롤러 리팩토링 시급함
     
     @IBOutlet weak var naviBarTop: UINavigationBar!
     
@@ -25,6 +31,8 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet var lunDinnerButton: UIButton!
     @IBOutlet var DinnerButton: UIButton!
     @IBOutlet var snackButton: UIButton!
+    @IBOutlet var mealTypeButtons: [UIButton]!
+    
     
     @IBOutlet var foodNameTextField: UITextField!
     @IBOutlet var estimatedPriceTextField: UITextField!
@@ -75,6 +83,10 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        //텍스트 필드 델리게이트
+        foodNameTextField.delegate = self
+        estimatedPriceTextField.delegate = self
         
         if foodSelected == nil { // 신규 추가
             naviBarTop.topItem?.title = "식사 기록하기"
@@ -128,6 +140,15 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func mealTypeButtonTapped(_ sender: UIButton){
+        
+        for button in self.mealTypeButtons {
+            button.isSelected = false
+        }
+        
+        sender.isSelected = !sender.isSelected
+        
+        //닐이어서 안되는 것. 저장해 두었다가 나중에 객체를 넣음
+        
         switch sender {
         case breakfastButton:
             foodSelected?.mealType = .breakfast
@@ -210,6 +231,7 @@ extension EatingDataViewController {
             let keyboardHeight = keyboardRectangle.height
             self.view.frame.origin.y -= keyboardHeight
         }
+        
         print("keyboard Will Appear Execute")
     }
     
@@ -231,6 +253,8 @@ extension EatingDataViewController {
         self.view.endEditing(true)
     }
     
+    
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("textFieldShouldReturn Execute")
         textField.resignFirstResponder()
@@ -245,3 +269,15 @@ extension EatingDataViewController {
 }
 
 
+extension EatingDataViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        if foodNameTextField.isFirstResponder {
+            estimatedPriceTextField.resignFirstResponder()
+        } else if estimatedPriceTextField.isFirstResponder {
+            foodNameTextField.resignFirstResponder()
+        }
+        
+    }
+}

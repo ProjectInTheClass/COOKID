@@ -7,6 +7,16 @@
 
 import Foundation
 
+class FoodListManager {
+    
+    static let shared = FoodListManager()
+    static var lastId = 0
+    
+    var foods = [FoodInfo]()
+    
+    
+}
+
 class FoodListViewModel {
     
     var foodListViewModel: [FoodViewModel]

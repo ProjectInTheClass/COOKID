@@ -35,7 +35,7 @@ struct FoodInfo {
     
     let foodImage: UIImage //uiImage
     var mealType: MealType
-    let eatOut: Bool
+    let eatOut: Bool = false
     let foodName: String
     let price: Int
     let category: Category
