@@ -39,5 +39,6 @@ struct FoodInfo {
     let foodName: String
     let price: Int
     let category: Category
+    let date : Date
 }
 

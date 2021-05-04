@@ -14,8 +14,8 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
     var closureAfterSaved: (() -> Void)?
     
     var restoreFrameValue : CGFloat = 0.0
-    var category = ["밥류", "찌개류", "볶음류", "빵, 과자류", "탕류", "튀김류", "우유, 유제품"]
-
+    var category = Category.allCases.map{$0.rawValue}
+    
     
     @IBOutlet weak var naviBarTop: UINavigationBar!
     
@@ -126,28 +126,27 @@ class EatingDataViewController: UIViewController, UIImagePickerControllerDelegat
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
-
+    
     @IBAction func mealTypeButtonTapped(_ sender: UIButton){
         switch sender {
         case breakfastButton:
             foodSelected?.mealType = .breakfast
-            print("아침 버튼, \(String(describing: foodSelected?.mealType))")
+            print("아침 버튼, \(MealType.breakfast.rawValue)")
         case brunchButton :
             foodSelected?.mealType = .brunch
-            print("아점 버튼, \(String(describing: foodSelected?.mealType))")
+            print("아점 버튼, \(foodSelected?.mealType.rawValue)")
         case lunchButton :
             foodSelected?.mealType = .lunch
-            print("점심 버튼, \(String(describing: foodSelected?.mealType))")
+            print("점심 버튼, \(foodSelected?.mealType.rawValue)")
         case lunDinnerButton :
             foodSelected?.mealType = .lundinner
-            print("점저 버튼, \(String(describing: foodSelected?.mealType))")
+            print("점저 버튼, \(foodSelected?.mealType.rawValue)")
         case DinnerButton :
             foodSelected?.mealType = .dinner
-            print("저녁 버튼, \(String(describing: foodSelected?.mealType))")
+            print("저녁 버튼, \(foodSelected?.mealType.rawValue)")
         case snackButton :
             foodSelected?.mealType = .snack
-            print("간식 버튼, \(String(describing: foodSelected?.mealType))")
+            print("간식 버튼, \(foodSelected?.mealType.rawValue)")
         default:
             foodSelected?.mealType = .init(rawValue: " ")!
         }
