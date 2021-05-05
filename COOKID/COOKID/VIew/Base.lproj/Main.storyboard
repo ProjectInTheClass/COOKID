@@ -62,7 +62,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oye-OP-kxj">
                                 <rect key="frame" x="20" y="172" width="374" height="321"/>
                                 <subviews>
-                                    <datePicker contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="KEn-1V-dPk">
+                                    <datePicker clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="KEn-1V-dPk">
                                         <rect key="frame" x="15" y="15" width="344" height="318"/>
                                         <color key="tintColor" systemColor="systemIndigoColor"/>
                                         <locale key="locale" localeIdentifier="ko_KR"/>
@@ -78,50 +78,44 @@
                                     <constraint firstAttribute="trailing" secondItem="KEn-1V-dPk" secondAttribute="trailing" constant="15" id="g7C-MT-XdH"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="K2f-SO-Chu">
-                                <rect key="frame" x="20" y="578" width="374" height="284"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Y8h-Ap-6sS">
+                                <rect key="frame" x="20" y="519" width="374" height="276"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xEj-ha-VEQ">
-                                    <size key="itemSize" width="374" height="99"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BS7-hs-6Dn">
+                                    <size key="itemSize" width="372" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemCell" id="IF8-dD-Vk6" customClass="itemViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="99"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CostCell" id="0VG-p9-uyp" customClass="CostCollectionViewCell" customModule="COOKID" customModuleProvider="target">
+                                        <rect key="frame" x="1" y="0.0" width="372" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="HQn-GD-fg6">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="99"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ecf-zF-Lj7">
+                                            <rect key="frame" x="0.0" y="0.0" width="372" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GrG-D3-j04">
-                                                    <rect key="frame" x="26" y="16" width="52" height="24"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDd-S1-Utp">
+                                                    <rect key="frame" x="29" y="25" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ya-gw-Wgv">
-                                                    <rect key="frame" x="26" y="56" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xA4-tO-ZCN">
+                                                    <rect key="frame" x="29" y="76" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="0ya-gw-Wgv" secondAttribute="bottom" constant="22" id="3tJ-yP-eMI"/>
-                                                <constraint firstItem="0ya-gw-Wgv" firstAttribute="leading" secondItem="HQn-GD-fg6" secondAttribute="leading" constant="26" id="4Kj-Zd-4P1"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GrG-D3-j04" secondAttribute="trailing" constant="20" symbolic="YES" id="H9L-On-WMG"/>
-                                                <constraint firstItem="0ya-gw-Wgv" firstAttribute="top" secondItem="GrG-D3-j04" secondAttribute="bottom" constant="16" id="Ika-HN-sar"/>
-                                                <constraint firstItem="0ya-gw-Wgv" firstAttribute="leading" secondItem="GrG-D3-j04" secondAttribute="leading" id="OBl-ca-tDL"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0ya-gw-Wgv" secondAttribute="trailing" constant="20" symbolic="YES" id="o0J-vh-4Z6"/>
-                                            </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="374" height="99"/>
+                                        <size key="customSize" width="372" height="128"/>
                                         <connections>
-                                            <outlet property="dateLabel" destination="GrG-D3-j04" id="tMg-fN-SaD"/>
-                                            <outlet property="descriptionLabel" destination="0ya-gw-Wgv" id="w1o-hD-PQY"/>
+                                            <outlet property="costLabel" destination="UDd-S1-Utp" id="ZcV-Ex-ggc"/>
+                                            <outlet property="dateLabel" destination="xA4-tO-ZCN" id="4gR-V5-REc"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -144,10 +138,14 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="식비관리" id="vD5-kz-TNg"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="CostCollectionView" destination="Y8h-Ap-6sS" id="fE2-wy-CCy"/>
+                        <outlet property="datePicker" destination="KEn-1V-dPk" id="75h-BG-NlP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Itl-0H-C3c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2196" y="1475"/>
+            <point key="canvasLocation" x="2195.6521739130435" y="1474.5535714285713"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="LmK-iU-f9l">

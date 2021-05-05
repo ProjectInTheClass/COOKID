@@ -18,6 +18,7 @@
 		C65B475126207D2A0001EC9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C65B474F26207D2A0001EC9E /* Main.storyboard */; };
 		C65B475326207D300001EC9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C65B475226207D300001EC9E /* Assets.xcassets */; };
 		C65B475626207D300001EC9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C65B475426207D300001EC9E /* LaunchScreen.storyboard */; };
+		C6F40DDC2642567800DAB3CD /* CostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F40DDB2642567800DAB3CD /* CostCollectionViewCell.swift */; };
 		DBA774AA263FB16600D16EED /* FoodInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA774A9263FB16600D16EED /* FoodInfo.swift */; };
 		DBA774AC263FB1AE00D16EED /* FoodInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA774AB263FB1AE00D16EED /* FoodInfoViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		C65B475226207D300001EC9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C65B475526207D300001EC9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C65B475726207D300001EC9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6F40DDB2642567800DAB3CD /* CostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBA774A9263FB16600D16EED /* FoodInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodInfo.swift; sourceTree = "<group>"; };
 		DBA774AB263FB1AE00D16EED /* FoodInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodInfoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +92,7 @@
 				35F38979263988350090848D /* EatingDataCollectionViewCell.swift */,
 				35F38977263984FE0090848D /* EatingDataViewController.swift */,
 				C61A9658263C390100F01203 /* DateViewController.swift */,
+				C6F40DDB2642567800DAB3CD /* CostCollectionViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				35F38978263984FE0090848D /* EatingDataViewController.swift in Sources */,
 				C65B474C26207D2A0001EC9E /* SceneDelegate.swift in Sources */,
 				DBA774AA263FB16600D16EED /* FoodInfo.swift in Sources */,
+				C6F40DDC2642567800DAB3CD /* CostCollectionViewCell.swift in Sources */,
 				35FBFF3B262F0C5F007A948A /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

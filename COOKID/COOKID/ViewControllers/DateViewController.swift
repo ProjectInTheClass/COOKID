@@ -6,59 +6,40 @@
 
 import UIKit
 
-class DateViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class DateViewController: UIViewController {
     
+    static var dates = String()
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath) as? itemCell else { return UICollectionViewCell() }
-        return cell
-    }
-    
-    
-    @IBOutlet weak var childView: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var datePickerView: UIView!
+    @IBOutlet weak var CostCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureDatePickerView()
-        
-//        datePicker.datePickerStyle
-//        let childVC = ChildVC(nibName: nil, bundle: nil)
-//        add(childVC: childVC, to: self.childView)
-        
+        CostCollectionView.dataSource = self
+        CostCollectionView.delegate = self
     }
-
+    
     @IBAction func datePickerTapped(_ sender: Any) {
-        
-    }
-    
-    func configureDatePickerView() {
-//        datePickerView.layer.cornerRadius = 15
-//        datePickerView.layer.shadowColor = UIColor.systemGray4.cgColor
-//        datePickerView.layer.shadowOpacity = 0.6
-//        datePickerView.layer.shadowRadius = 6
-    }
-    
-//    func add(childVC: UIViewController, to containerView: UIView) {
-//        addChild(childVC)
-//        containerView.addSubview(childVC.view)
-//        childVC.view.frame = containerView.bounds
-//        childVC.didMove(toParent: self)
-//    }
-    
-    class itemCell : UICollectionViewCell {
-        
-        @IBOutlet weak var dateLabel: UILabel!
-        @IBOutlet weak var descriptionLabel: UILabel!
-        
-        func update() {
-            
-        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        let costVC = CostCollectionView
+        costVC?.reloadData()
     }
 }
 
+
+
+extension DateViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CostCell", for: indexPath) as! CostCollectionViewCell
+        
+        let dates = datePicker.date
+        return cell
+    }
+    
+}
