@@ -7,37 +7,26 @@
 
 import UIKit
 
-var foods: [FoodInfo] = []
-
+var foods: [FoodInfo] = [FoodInfo(foodImage: UIImage(named: "pizza")!, mealType: .breakfast, foodName: "피자", price: 30000, category: .fruit, date: Date()),
+                         FoodInfo(foodImage: UIImage(named: "poke")!, mealType: .lunch, foodName: "삼겹살", price: 28000, category: .stirFriedFood, date: Date()),
+                         FoodInfo(foodImage: UIImage(named: "takoyaki")!, mealType: .dinner, foodName: "타코야키", price: 5000, category: .riceCake, date: Date())
+]
 
 class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 1
     }
     
     //데이터가 몇 개인가?
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
-            return foods.count
-        }
-        else {
-            return 1
-        }
+        return foods.count
     }
     
     
     //데이터가 무엇인가?
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 1 {
-            let addCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddCell", for: indexPath) as! EatingDataCollectionViewCell
-            
-            addCell.layer.cornerRadius = 5.0
-            addCell.layer.backgroundColor = UIColor.green.cgColor
 
-            return addCell
-        }
-        
         let foodInfo = foods[indexPath.row]
         
         let eatingDataCell = collectionView.dequeueReusableCell(withReuseIdentifier: "EatingDataCell", for: indexPath) as! EatingDataCollectionViewCell

@@ -15,7 +15,7 @@ class EatingDataViewController: UIViewController {
     var restoreFrameValue : CGFloat = 0.0
     var category = Category.allCases.map{$0.rawValue}
     
-    //키보드[x]
+    //키보드[x] -> 카테고리에서 다른 텍스트 필드로 넘어갈 때 부자연스러움 해결하기
     //버튼눌렀을 떄, isSelected. [x]
     //밀타입 넣는 문제
     //저장되는 것까지
@@ -65,9 +65,8 @@ class EatingDataViewController: UIViewController {
         foodNameTextField.text = foodSelected?.foodName
         foodImageView.image = foodSelected?.foodImage
         
-        let buttons : [UIButton] = [breakfastButton, brunchButton, lunchButton, lunDinnerButton, DinnerButton, snackButton]
         let fields = [foodNameTextField, estimatedPriceTextField, categoryLabel]
-        for buttons in buttons {
+        for buttons in self.mealTypeButtons {
             buttons.layer.borderWidth = 0.5
             buttons.layer.borderColor = UIColor.systemGray.cgColor
             buttons.layer.cornerRadius = 3
@@ -147,7 +146,7 @@ class EatingDataViewController: UIViewController {
     
 }
 
-//categoryLabel 피커뷰
+//MARK - categoryLabel 피커뷰
 extension EatingDataViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     
     
@@ -188,8 +187,8 @@ extension EatingDataViewController : UIPickerViewDelegate, UIPickerViewDataSourc
     
 }
 
-//키보드 노티피케이션
-extension EatingDataViewController {
+//MARK - 키보드 노티피케이션
+extension EatingDataViewController : UITextFieldDelegate{
     
     func addKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(noti:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -238,10 +237,6 @@ extension EatingDataViewController {
         self.view.frame.origin.y = self.restoreFrameValue
         return true
     }
-}
-
-
-extension EatingDataViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if foodNameTextField.isFirstResponder {
@@ -252,7 +247,7 @@ extension EatingDataViewController: UITextFieldDelegate {
     }
 }
 
-//이미지 선택
+//MARK - imageView
 extension EatingDataViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBAction func didTapFoodImageView(_ sender: UITapGestureRecognizer) {

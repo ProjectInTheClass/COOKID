@@ -509,28 +509,6 @@
                                                     <segue destination="PTd-OV-2mr" kind="presentation" identifier="MoveToEatingDataView" id="luJ-wJ-l73"/>
                                                 </connections>
                                             </collectionViewCell>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddCell" id="QjO-A6-OGB" customClass="EatingDataCollectionViewCell" customModule="COOKID" customModuleProvider="target">
-                                                <rect key="frame" x="224" y="10" width="150" height="150"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="EZN-kV-eYx">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <subviews>
-                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPt-k1-kWY">
-                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                                        </button>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="NPt-k1-kWY" secondAttribute="trailing" id="9eV-yE-TBY"/>
-                                                        <constraint firstItem="NPt-k1-kWY" firstAttribute="top" secondItem="EZN-kV-eYx" secondAttribute="top" id="dg8-fH-mE5"/>
-                                                        <constraint firstItem="NPt-k1-kWY" firstAttribute="leading" secondItem="EZN-kV-eYx" secondAttribute="leading" id="dyM-nD-YIc"/>
-                                                        <constraint firstAttribute="bottom" secondItem="NPt-k1-kWY" secondAttribute="bottom" id="hEz-X3-6YS"/>
-                                                    </constraints>
-                                                </collectionViewCellContentView>
-                                                <connections>
-                                                    <segue destination="PTd-OV-2mr" kind="presentation" identifier="MoveToEatingAddView" id="79C-Sf-5uG"/>
-                                                </connections>
-                                            </collectionViewCell>
                                         </cells>
                                     </collectionView>
                                 </subviews>
@@ -541,8 +519,8 @@
                                     <constraint firstAttribute="bottom" secondItem="28G-aD-o3e" secondAttribute="bottom" id="geX-U3-UIW"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4월 20일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4X-db-3ai">
-                                <rect key="frame" x="36" y="341" width="96" height="46"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="4월 20일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4X-db-3ai">
+                                <rect key="frame" x="20" y="341" width="96" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="hGy-7D-Z53"/>
                                 </constraints>
@@ -550,10 +528,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="puT-Yf-LU4">
+                                <rect key="frame" x="312" y="349" width="82" height="30"/>
+                                <state key="normal" title="식사 추가하기"/>
+                                <connections>
+                                    <segue destination="PTd-OV-2mr" kind="presentation" identifier="MoveToEatingAddView" id="F96-sc-BzG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PYH-T9-K3Q"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="28G-aD-o3e" firstAttribute="top" secondItem="puT-Yf-LU4" secondAttribute="bottom" constant="16" id="8Hp-FB-xUn"/>
                             <constraint firstItem="LRU-wc-eLu" firstAttribute="leading" secondItem="PYH-T9-K3Q" secondAttribute="leading" constant="20" id="BCI-AV-cIW"/>
                             <constraint firstItem="LRU-wc-eLu" firstAttribute="leading" secondItem="dHS-pm-F7W" secondAttribute="leadingMargin" id="CRf-oh-C9d"/>
                             <constraint firstItem="z4X-db-3ai" firstAttribute="top" secondItem="dHS-pm-F7W" secondAttribute="top" constant="341" id="MDk-hp-ES0"/>
@@ -562,6 +548,7 @@
                             <constraint firstItem="LRU-wc-eLu" firstAttribute="top" secondItem="z4X-db-3ai" secondAttribute="bottom" constant="8" symbolic="YES" id="ZN1-54-yw4"/>
                             <constraint firstItem="kHw-fc-QTQ" firstAttribute="top" secondItem="PYH-T9-K3Q" secondAttribute="top" constant="34" id="gf8-Qk-NPh"/>
                             <constraint firstItem="kHw-fc-QTQ" firstAttribute="leading" secondItem="28G-aD-o3e" secondAttribute="leading" id="mt3-my-ewo"/>
+                            <constraint firstItem="PYH-T9-K3Q" firstAttribute="trailing" secondItem="puT-Yf-LU4" secondAttribute="trailing" constant="20" id="uXD-1G-mRt"/>
                             <constraint firstItem="PYH-T9-K3Q" firstAttribute="trailing" secondItem="z4X-db-3ai" secondAttribute="trailing" constant="282" id="z5k-1F-zck"/>
                         </constraints>
                     </view>
@@ -625,7 +612,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="luJ-wJ-l73"/>
+        <segue reference="F96-sc-BzG"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">
