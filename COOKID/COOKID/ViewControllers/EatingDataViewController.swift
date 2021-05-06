@@ -8,8 +8,6 @@
 import UIKit
 
 class EatingDataViewController: UIViewController {
-    /// 마지막 키보드 높이.
-    var lastKeyboardHeight: CGFloat = 0
     
     var foodSelected: FoodInfo?
     /// 결과 업데이트 되었음을 알려주자.
@@ -134,8 +132,9 @@ class EatingDataViewController: UIViewController {
     
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        //        foodSelected = FoodInfo(foodImage: UIImage(named: ""), mealType: , eatOut: eatOutSwitch.isOn, foodName: foodNameTextField.text, price: estimatedPriceTextField.text, category: .diary)
         
+//        foodSelected = FoodInfo(foodImage: foodImageView.image, mealType: foodSelected?.mealType , foodName: foodNameTextField.text, price: String(estimatedPriceTextField.text), category: categoryLabel, date: Date())
+//
         //        closureAfterSaved?()
         
         dismiss(animated: true) {
@@ -207,14 +206,7 @@ extension EatingDataViewController : UITextFieldDelegate{
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             
-            print(keyboardHeight)
-            
-            /// 큰 키보드 찾기.
-            if keyboardHeight > lastKeyboardHeight {
-                lastKeyboardHeight = keyboardHeight
-            }
-            
-            self.view.frame.origin.y -= lastKeyboardHeight
+            self.view.frame.origin.y -= keyboardHeight
         }
         print("keyboard Will Appear Execute")
     }

@@ -44,7 +44,7 @@ extension FoodViewModel {
     var mealType: String {
         return foodInfo.mealType.rawValue
     }
-    
+
     var foodName: String {
         return foodInfo.foodName
     }
