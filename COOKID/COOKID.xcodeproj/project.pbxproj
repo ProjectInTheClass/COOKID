@@ -19,6 +19,7 @@
 		C65B475326207D300001EC9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C65B475226207D300001EC9E /* Assets.xcassets */; };
 		C65B475626207D300001EC9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C65B475426207D300001EC9E /* LaunchScreen.storyboard */; };
 		C6F40DDC2642567800DAB3CD /* CostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F40DDB2642567800DAB3CD /* CostCollectionViewCell.swift */; };
+		DB59EFFD26442D0F0065F5B1 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59EFFC26442D0F0065F5B1 /* Storage.swift */; };
 		DBA774AA263FB16600D16EED /* FoodInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA774A9263FB16600D16EED /* FoodInfo.swift */; };
 		DBA774AC263FB1AE00D16EED /* FoodInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA774AB263FB1AE00D16EED /* FoodInfoViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		C65B475526207D300001EC9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C65B475726207D300001EC9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6F40DDB2642567800DAB3CD /* CostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB59EFFC26442D0F0065F5B1 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		DBA774A9263FB16600D16EED /* FoodInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodInfo.swift; sourceTree = "<group>"; };
 		DBA774AB263FB1AE00D16EED /* FoodInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodInfoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +74,7 @@
 		C65B474826207D2A0001EC9E /* COOKID */ = {
 			isa = PBXGroup;
 			children = (
+				DB59EFFB26442D040065F5B1 /* Storage */,
 				DBA774A8263FB12300D16EED /* View Model */,
 				DBA774A7263FB11A00D16EED /* Model */,
 				DB69A9B4263A6951008C9718 /* ViewControllers */,
@@ -81,6 +84,14 @@
 				C65B475726207D300001EC9E /* Info.plist */,
 			);
 			path = COOKID;
+			sourceTree = "<group>";
+		};
+		DB59EFFB26442D040065F5B1 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				DB59EFFC26442D0F0065F5B1 /* Storage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		DB69A9B4263A6951008C9718 /* ViewControllers */ = {
@@ -206,6 +217,7 @@
 				35F3897A263988350090848D /* EatingDataCollectionViewCell.swift in Sources */,
 				C65B474E26207D2A0001EC9E /* ViewController.swift in Sources */,
 				121B1A6E263C509B00827B44 /* FoodInfoModel.swift in Sources */,
+				DB59EFFD26442D0F0065F5B1 /* Storage.swift in Sources */,
 				C65B474A26207D2A0001EC9E /* AppDelegate.swift in Sources */,
 				35F38978263984FE0090848D /* EatingDataViewController.swift in Sources */,
 				C65B474C26207D2A0001EC9E /* SceneDelegate.swift in Sources */,
