@@ -7,9 +7,9 @@
 
 import UIKit
 
-var foods: [FoodInfo] = [FoodInfo(foodImage: UIImage(named: "pizza")!, mealType: .breakfast, foodName: "피자", price: 30000, category: .fruit, date: Date()),
-                         FoodInfo(foodImage: UIImage(named: "poke")!, mealType: .lunch, foodName: "삼겹살", price: 28000, category: .stirFriedFood, date: Date()),
-                         FoodInfo(foodImage: UIImage(named: "takoyaki")!, mealType: .dinner, foodName: "타코야키", price: 5000, category: .riceCake, date: Date())
+var foods: [Food] = [Food(foodImage: UIImage(named: "pizza")!, mealType: .breakfast, foodName: "피자", price: 30000, category: .fruit, date: Date()),
+                         Food(foodImage: UIImage(named: "poke")!, mealType: .lunch, foodName: "삼겹살", price: 28000, category: .stirFriedFood, date: Date()),
+                         Food(foodImage: UIImage(named: "takoyaki")!, mealType: .dinner, foodName: "타코야키", price: 5000, category: .riceCake, date: Date())
 ]
 
 class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {

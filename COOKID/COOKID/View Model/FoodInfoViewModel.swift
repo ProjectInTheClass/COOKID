@@ -12,7 +12,7 @@ class FoodListManager {
     static let shared = FoodListManager()
     static var lastId = 0
     
-    var foods = [FoodInfo]()
+    var foods = [Food]()
     
     
 }
@@ -36,7 +36,7 @@ class FoodListViewModel {
 }
 
 struct FoodViewModel {
-    let foodInfo: FoodInfo
+    let foodInfo: Food
 }
 
 extension FoodViewModel {

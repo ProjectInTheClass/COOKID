@@ -20,7 +20,7 @@
 		C65B475626207D300001EC9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C65B475426207D300001EC9E /* LaunchScreen.storyboard */; };
 		C6F40DDC2642567800DAB3CD /* CostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F40DDB2642567800DAB3CD /* CostCollectionViewCell.swift */; };
 		DB59EFFD26442D0F0065F5B1 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59EFFC26442D0F0065F5B1 /* Storage.swift */; };
-		DBA774AA263FB16600D16EED /* FoodInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA774A9263FB16600D16EED /* FoodInfo.swift */; };
+		DBA774AA263FB16600D16EED /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA774A9263FB16600D16EED /* Food.swift */; };
 		DBA774AC263FB1AE00D16EED /* FoodInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA774AB263FB1AE00D16EED /* FoodInfoViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +40,7 @@
 		C65B475726207D300001EC9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6F40DDB2642567800DAB3CD /* CostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB59EFFC26442D0F0065F5B1 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		DBA774A9263FB16600D16EED /* FoodInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodInfo.swift; sourceTree = "<group>"; };
+		DBA774A9263FB16600D16EED /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		DBA774AB263FB1AE00D16EED /* FoodInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodInfoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,7 +129,7 @@
 		DBA774A7263FB11A00D16EED /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DBA774A9263FB16600D16EED /* FoodInfo.swift */,
+				DBA774A9263FB16600D16EED /* Food.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -221,7 +221,7 @@
 				C65B474A26207D2A0001EC9E /* AppDelegate.swift in Sources */,
 				35F38978263984FE0090848D /* EatingDataViewController.swift in Sources */,
 				C65B474C26207D2A0001EC9E /* SceneDelegate.swift in Sources */,
-				DBA774AA263FB16600D16EED /* FoodInfo.swift in Sources */,
+				DBA774AA263FB16600D16EED /* Food.swift in Sources */,
 				C6F40DDC2642567800DAB3CD /* CostCollectionViewCell.swift in Sources */,
 				35FBFF3B262F0C5F007A948A /* MainViewController.swift in Sources */,
 			);

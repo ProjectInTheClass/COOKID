@@ -9,7 +9,7 @@ import UIKit
 
 class EatingDataViewController: UIViewController {
     
-    var foodSelected: FoodInfo?
+    var foodSelected: Food?
     /// 결과 업데이트 되었음을 알려주자.
     var closureAfterSaved: (() -> Void)?
     var restoreFrameValue : CGFloat = 0.0
