@@ -33,12 +33,38 @@ enum Category: String, CaseIterable, Codable {
 
 struct Food: Codable, Equatable {
     
-    let foodImage: UIImage //uiImage
+    let id: Int
+    var foodImage: Data //uiImage
     var mealType: MealType
-    let eatOut: Bool = false
-    let foodName: String
-    let price: Int
-    let category: Category
-    let date : Date
+    var eatOut: Bool
+    var foodName: String
+    var price: Int
+    var category: Category
+    var date : Date
+    
+    public init(photo: UIImage, mealType: MealType, eatOut: Bool, foodName: String, price: Int, category: Category, date: Date) {
+        self.foodImage = photo.pngData()!
+        self.mealType = mealType
+        self.eatOut = eatOut
+        self.foodName = foodName
+        self.price = price
+        self.category = category
+        self.date = date
+    }
+    
+    
+    mutating func updateFood(_ food: Food){
+        self.foodImage = food.foodImage
+        self.mealType = food.mealType
+        self.eatOut = food.eatOut
+        self.foodName = food.foodName
+        self.price = food.price
+        self.category = food.category
+        self.date = food.date
+    }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool{
+        return lhs.id == rhs.id
+    }
 }
 
