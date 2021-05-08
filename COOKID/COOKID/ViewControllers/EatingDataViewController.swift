@@ -15,12 +15,17 @@ class EatingDataViewController: UIViewController {
     var restoreFrameValue : CGFloat = 0.0
     var category = Category.allCases.map{$0.rawValue}
     
-    //키보드[x] -> 카테고리에서 다른 텍스트 필드로 넘어갈 때 부자연스러움 해결하기
-    //버튼눌렀을 떄, isSelected. [x]
-    //밀타입 넣는 문제
-    //저장되는 것까지
-    //--> 뷰모델 매니저를 다시 설계해야함
-    //--> 뷰컨트롤러 리팩토링 시급함
+    let foodListVM = FoodListViewModel()
+    
+    let id: Int
+    var foodImage: Data
+    var mealType: MealType
+    var eatOut: Bool
+    var foodName: String
+    var price: Int
+    var selectedCategory: Category
+    var date : Date
+    
     
     @IBOutlet weak var naviBarTop: UINavigationBar!
     
@@ -48,6 +53,9 @@ class EatingDataViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        foodListVM.retrieveFood()
+        
+        
         //텍스트 필드 델리게이트
         foodNameTextField.delegate = self
         estimatedPriceTextField.delegate = self
@@ -63,7 +71,7 @@ class EatingDataViewController: UIViewController {
         }
         
         foodNameTextField.text = foodSelected?.foodName
-        foodImageView.image = foodSelected?.foodImage
+        foodImageView.image = UIImage(data: foodSelected!.foodImage)
         
         let fields = [foodNameTextField, estimatedPriceTextField, categoryLabel]
         for buttons in self.mealTypeButtons {
@@ -104,29 +112,21 @@ class EatingDataViewController: UIViewController {
         
         sender.isSelected = !sender.isSelected
         
-        //닐이어서 안되는 것. 저장해 두었다가 나중에 객체를 넣음
-        
         switch sender {
         case breakfastButton:
-            foodSelected?.mealType = .breakfast
-            print("아침 버튼, \(MealType.breakfast.rawValue)")
+            self.mealType = .breakfast
         case brunchButton :
-            foodSelected?.mealType = .brunch
-            print("아점 버튼, \(foodSelected?.mealType.rawValue)")
+            self.mealType = .brunch
         case lunchButton :
-            foodSelected?.mealType = .lunch
-            print("점심 버튼, \(foodSelected?.mealType.rawValue)")
+            self.mealType = .lunch
         case lunDinnerButton :
-            foodSelected?.mealType = .lundinner
-            print("점저 버튼, \(foodSelected?.mealType.rawValue)")
+            self.mealType = .lundinner
         case DinnerButton :
-            foodSelected?.mealType = .dinner
-            print("저녁 버튼, \(foodSelected?.mealType.rawValue)")
+            self.mealType = .dinner
         case snackButton :
-            foodSelected?.mealType = .snack
-            print("간식 버튼, \(foodSelected?.mealType.rawValue)")
+            self.mealType = .snack
         default:
-            foodSelected?.mealType = .init(rawValue: " ")!
+            self.mealType = .snack
         }
     }
     
@@ -137,14 +137,14 @@ class EatingDataViewController: UIViewController {
 //
         //        closureAfterSaved?()
         
+        //추가와 수정
+        
+        
+        
         dismiss(animated: true) {
             if let c = self.closureAfterSaved { c() }
         }
     }
-    
-    
-    
-    
 }
 
 //MARK - categoryLabel 피커뷰
@@ -281,6 +281,7 @@ extension EatingDataViewController : UIImagePickerControllerDelegate, UINavigati
             guard let selectedImage = info[.originalImage] as? UIImage else { return }
             
             foodImageView.image = selectedImage
+            
             dismiss(animated: true, completion: nil)
         }
         

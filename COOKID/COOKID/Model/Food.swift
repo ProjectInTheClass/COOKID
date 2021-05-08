@@ -42,17 +42,6 @@ struct Food: Codable, Equatable {
     var category: Category
     var date : Date
     
-    public init(photo: UIImage, mealType: MealType, eatOut: Bool, foodName: String, price: Int, category: Category, date: Date) {
-        self.foodImage = photo.pngData()!
-        self.mealType = mealType
-        self.eatOut = eatOut
-        self.foodName = foodName
-        self.price = price
-        self.category = category
-        self.date = date
-    }
-    
-    
     mutating func updateFood(_ food: Food){
         self.foodImage = food.foodImage
         self.mealType = food.mealType

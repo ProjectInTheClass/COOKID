@@ -78,7 +78,7 @@
 				DBA774A8263FB12300D16EED /* View Model */,
 				DBA774A7263FB11A00D16EED /* Model */,
 				DB69A9B4263A6951008C9718 /* ViewControllers */,
-				DB69A9B6263A6977008C9718 /* VIew */,
+				DB69A9B6263A6977008C9718 /* View */,
 				DB69A9B5263A6959008C9718 /* Supporting Files */,
 				C65B475226207D300001EC9E /* Assets.xcassets */,
 				C65B475726207D300001EC9E /* Info.plist */,
@@ -117,13 +117,13 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		DB69A9B6263A6977008C9718 /* VIew */ = {
+		DB69A9B6263A6977008C9718 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				C65B474F26207D2A0001EC9E /* Main.storyboard */,
 				C65B475426207D300001EC9E /* LaunchScreen.storyboard */,
 			);
-			path = VIew;
+			path = View;
 			sourceTree = "<group>";
 		};
 		DBA774A7263FB11A00D16EED /* Model */ = {
