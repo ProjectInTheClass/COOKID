@@ -17,14 +17,13 @@ class EatingDataViewController: UIViewController {
     
     let foodListVM = FoodListViewModel()
     
-    let id: Int
-    var foodImage: Data
-    var mealType: MealType
-    var eatOut: Bool
-    var foodName: String
-    var price: Int
-    var selectedCategory: Category
-    var date : Date
+    var foodImage: Data?
+    var mealType: MealType?
+    var eatOut: Bool?
+    var foodName: String?
+    var price: Int?
+    var selectedCategory: Category?
+    var date : Date?
     
     
     @IBOutlet weak var naviBarTop: UINavigationBar!
@@ -138,7 +137,10 @@ class EatingDataViewController: UIViewController {
         //        closureAfterSaved?()
         
         //추가와 수정
+        //객체 생성후 저장
         
+        self.foodName = self.foodNameTextField.text
+        self.price = Int(self.estimatedPriceTextField.text!)
         
         
         dismiss(animated: true) {
@@ -281,7 +283,7 @@ extension EatingDataViewController : UIImagePickerControllerDelegate, UINavigati
             guard let selectedImage = info[.originalImage] as? UIImage else { return }
             
             foodImageView.image = selectedImage
-            
+            self.foodImage = selectedImage.pngData()
             dismiss(animated: true, completion: nil)
         }
         
