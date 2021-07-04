@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03C96E792692026A006F1486 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C96E772692026A006F1486 /* Meal.swift */; };
 		03C96E7A2692026A006F1486 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C96E782692026A006F1486 /* Food.swift */; };
 		121B1A6E263C509B00827B44 /* FoodInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121B1A6D263C509B00827B44 /* FoodInfoModel.swift */; };
 		35F38978263984FE0090848D /* EatingDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F38977263984FE0090848D /* EatingDataViewController.swift */; };
@@ -27,7 +26,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		03C96E772692026A006F1486 /* Meal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		03C96E782692026A006F1486 /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		121B1A6D263C509B00827B44 /* FoodInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodInfoModel.swift; sourceTree = "<group>"; };
 		35F38977263984FE0090848D /* EatingDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatingDataViewController.swift; sourceTree = "<group>"; };
@@ -62,7 +60,6 @@
 		03C96E762692026A006F1486 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				03C96E772692026A006F1486 /* Meal.swift */,
 				03C96E782692026A006F1486 /* Food.swift */,
 			);
 			name = Model;
@@ -229,7 +226,6 @@
 			files = (
 				DBA774AC263FB1AE00D16EED /* FoodInfoViewModel.swift in Sources */,
 				C61A9659263C390100F01203 /* DateViewController.swift in Sources */,
-				03C96E792692026A006F1486 /* Meal.swift in Sources */,
 				35F3897A263988350090848D /* EatingDataCollectionViewCell.swift in Sources */,
 				C65B474E26207D2A0001EC9E /* ViewController.swift in Sources */,
 				121B1A6E263C509B00827B44 /* FoodInfoModel.swift in Sources */,

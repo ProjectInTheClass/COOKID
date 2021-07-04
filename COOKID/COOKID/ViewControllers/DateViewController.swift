@@ -10,6 +10,7 @@ class DateViewController: UIViewController {
     
     static var dates = String()
     
+    
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var CostCollectionView: UICollectionView!
     

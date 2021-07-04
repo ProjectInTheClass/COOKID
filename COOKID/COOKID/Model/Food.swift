@@ -57,3 +57,4 @@ struct Food: Codable, Equatable {
     }
 }
 
+var foodList = [Food]()
