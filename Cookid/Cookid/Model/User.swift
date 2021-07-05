@@ -14,7 +14,7 @@ struct User {
     var userType: UserType
 }
 
-enum UserType {
-    case preferDineOut
-    case preferDineIn
+enum UserType: String {
+    case preferDineOut = "외식러"
+    case preferDineIn = "집밥러"
 }

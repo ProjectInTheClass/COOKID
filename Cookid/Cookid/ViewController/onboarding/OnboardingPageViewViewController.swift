@@ -29,24 +29,19 @@ class OnboardingPageViewViewController: UIPageViewController {
         self.dataSource = self
         self.delegate = self
         
-        let sb = UIStoryboard(name: "Main", bundle: nil)
-        
         let viewModel = OnboardingViewModel()
         
-        let firstPage = sb.instantiateViewController(withIdentifier: "FirstPageViewController") as! FirstPageViewController
+        var firstPage = FirstPageViewController.instantiate(storyboardID: "Main")
+        firstPage.bind(viewModel: viewModel)
         
-        firstPage.completionHandler = { [weak self] in
-            print("tapped")
-            self?.goToNextPage()
-        }
+        var secondPage = SecondPageViewController.instantiate(storyboardID: "Main")
+        secondPage.bind(viewModel: viewModel)
         
-        firstPage.viewModel = viewModel
+        var thirdPage = ThirdPageViewController.instantiate(storyboardID: "Main")
+        thirdPage.bind(viewModel: viewModel)
         
-        let secondPage = sb.instantiateViewController(withIdentifier: "SecondPageViewController") as! SecondPageViewController
-        let thirdPage = sb.instantiateViewController(withIdentifier: "ThirdPageViewController") as! ThirdPageViewController
-        let fourthPage = sb.instantiateViewController(withIdentifier: "FourthPageViewController") as! FourthPageViewController
-        
-        fourthPage.viewModel = viewModel
+        var fourthPage = FourthPageViewController.instantiate(storyboardID: "Main")
+        fourthPage.bind(viewModel: viewModel)
         
         pages.append(firstPage)
         pages.append(secondPage)

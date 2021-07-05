@@ -10,24 +10,19 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 
-class FirstPageViewController: UIViewController, ViewModelBindable {
+class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
    
     var viewModel: OnboardingViewModel!
     
     @IBOutlet weak var nickNameTextField: UITextField!
     @IBOutlet weak var nextPageButton: UIButton!
-    @IBOutlet weak var nicknameLabel: UILabel!
-    
-    
-    var completionHandler: (()->Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   
+        nextPageButton.isHidden = true
     }
     
     func bindViewModel() {
-        nextPageButton.isHidden = true
         
         nickNameTextField.rx.text.orEmpty
             .do(onNext: { [weak self] text in
@@ -41,21 +36,7 @@ class FirstPageViewController: UIViewController, ViewModelBindable {
             .bind(to: viewModel.input.nickname)
             .disposed(by: rx.disposeBag)
         
-        viewModel.output.userInformation
-            .subscribe(onNext: { [weak self] user in
-                self?.nicknameLabel.text = user.nickname
-            })
-            .disposed(by: rx.disposeBag)
     }
- 
-    
-    @IBAction func nextButtonAction(_ sender: UIButton) {
-        if let completionHandler = completionHandler {
-            completionHandler()
-        }
-    }
-    
-    
     
 }
 

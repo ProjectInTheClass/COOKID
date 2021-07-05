@@ -110,9 +110,6 @@
                                 <state key="normal" image="arrow.right.circle.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50" scale="large"/>
                                 </state>
-                                <connections>
-                                    <action selector="nextButtonAction:" destination="8RI-Ra-iLp" eventType="touchUpInside" id="H5S-zp-qZ9"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3CS-28-L9Z">
                                 <rect key="frame" x="50" y="320" width="227" height="46"/>
@@ -122,20 +119,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="avw-1E-IT0">
-                                <rect key="frame" x="186.5" y="676" width="41.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KPh-8V-jSQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="3CS-28-L9Z" firstAttribute="leading" secondItem="jxX-ho-ra6" secondAttribute="leading" id="4q0-LJ-yZq"/>
-                            <constraint firstItem="avw-1E-IT0" firstAttribute="top" secondItem="rq4-S9-wDB" secondAttribute="bottom" constant="85" id="B4w-p1-MCt"/>
                             <constraint firstItem="jxX-ho-ra6" firstAttribute="centerY" secondItem="ofg-Y6-VIt" secondAttribute="centerY" id="Mc8-7h-NjZ"/>
-                            <constraint firstItem="avw-1E-IT0" firstAttribute="centerX" secondItem="ofg-Y6-VIt" secondAttribute="centerX" id="MkN-GD-h6f"/>
                             <constraint firstItem="jxX-ho-ra6" firstAttribute="top" secondItem="3CS-28-L9Z" secondAttribute="bottom" constant="40" id="NtO-T9-Hku"/>
                             <constraint firstItem="3CS-28-L9Z" firstAttribute="top" secondItem="3kX-Tc-gHs" secondAttribute="bottom" constant="40" id="Si0-go-kxL"/>
                             <constraint firstItem="jxX-ho-ra6" firstAttribute="centerX" secondItem="ofg-Y6-VIt" secondAttribute="centerX" id="Wn5-hL-43r"/>
@@ -149,8 +138,7 @@
                     </view>
                     <connections>
                         <outlet property="nextPageButton" destination="rq4-S9-wDB" id="GxW-bt-P2E"/>
-                        <outlet property="nickNameTextField" destination="6jM-Ee-kMh" id="yDn-4o-FdW"/>
-                        <outlet property="nicknameLabel" destination="avw-1E-IT0" id="dwo-9q-6Tj"/>
+                        <outlet property="nickNameTextField" destination="6jM-Ee-kMh" id="gzi-U1-kAM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BG2-T9-0FQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -204,6 +192,10 @@
                             <constraint firstItem="Sma-vm-DpE" firstAttribute="trailing" secondItem="OEd-l8-GGH" secondAttribute="trailing" constant="50" id="fb4-X0-qrT"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="monthlyGoal" destination="zFm-zD-JWe" id="EJp-GF-95O"/>
+                        <outlet property="nextPageButton" destination="XRd-0w-G7B" id="3pj-fR-Axd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MGQ-Mc-hpq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -261,6 +253,10 @@
                             <constraint firstItem="yBf-Nf-rMA" firstAttribute="leading" secondItem="k3P-9X-rIL" secondAttribute="leading" constant="50" id="y0p-Xr-zdl"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="nextPageButton" destination="GzA-au-XVB" id="m14-3a-jL2"/>
+                        <outlet property="usertypeSegment" destination="J07-5B-HPH" id="mpK-bS-oj0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="na1-3y-KWw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -348,6 +344,8 @@
                     </view>
                     <connections>
                         <outlet property="determinationLabel" destination="8N2-Px-kIZ" id="Irf-Ts-RyM"/>
+                        <outlet property="determinationTextField" destination="6FB-un-vAH" id="1FN-JI-mo4"/>
+                        <outlet property="finishPageButton" destination="sOt-IG-kRd" id="Cik-Hn-icW"/>
                         <outlet property="monthlyGoalLabel" destination="LoA-mT-Ej0" id="d4R-Jg-WQt"/>
                         <outlet property="nicknameLabel" destination="GmZ-aX-1Kl" id="H4x-cW-aVO"/>
                         <outlet property="usertypeLabel" destination="UKj-f5-e1D" id="J1R-4e-iEJ"/>

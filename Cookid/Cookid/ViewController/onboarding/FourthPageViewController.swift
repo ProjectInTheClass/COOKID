@@ -10,9 +10,13 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 
-class FourthPageViewController: UIViewController, ViewModelBindable {
+class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     var viewModel: OnboardingViewModel!
+    
+    @IBOutlet weak var determinationTextField: UITextField!
+    @IBOutlet weak var finishPageButton: UIButton!
+    
     
     @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var determinationLabel: UILabel!
@@ -27,10 +31,23 @@ class FourthPageViewController: UIViewController, ViewModelBindable {
     
     func bindViewModel() {
         
+        determinationTextField.rx.text.orEmpty
+            .do(onNext: { [weak self] text in
+                if let text = self?.determinationTextField.text,
+                   !text.isEmpty {
+                    self?.finishPageButton.isHidden = false
+                } else {
+                    self?.finishPageButton.isHidden = true
+                }
+            })
+            .bind(to: viewModel.input.determination)
+            .disposed(by: rx.disposeBag)
+        
         viewModel.output.userInformation
-            .subscribe(onNext: { [weak self] user in
+            .drive(onNext: { [weak self] user in
                 self?.nicknameLabel.text = user.nickname
                 self?.determinationLabel.text = user.determination
+                self?.usertypeLabel.text = user.userType.rawValue
                 self?.monthlyGoalLabel.text = String(user.priceGoal)
             })
             .disposed(by: rx.disposeBag)

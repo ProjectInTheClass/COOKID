@@ -9,14 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol ViewModelType {
-    associatedtype Input
-    associatedtype Output
-    
-    var input: Input { get }
-    var output: Output { get }
-}
-
 class OnboardingViewModel: ViewModelType {
     
     struct Input {
@@ -27,7 +19,7 @@ class OnboardingViewModel: ViewModelType {
     }
     
     struct Output {
-        let userInformation: Observable<User>
+        let userInformation: Driver<User>
     }
     
     var input: Input
@@ -41,13 +33,12 @@ class OnboardingViewModel: ViewModelType {
         let usertype = BehaviorSubject(value: UserType.preferDineIn)
         let determination = BehaviorSubject(value: "화이팅!")
         
-        let userInformation = Observable.combineLatest(nickname, determination, usertype, monthlyGoal)
-            .map { o1, o2, o3, o4 -> User in
-                let newUser = User(nickname: o1, determination: o2, priceGoal: o4, userType: o3)
-                return newUser
-            }
+        let userInformation = Observable.combineLatest(nickname, determination, usertype, monthlyGoal, resultSelector: { name, deter, usertype, monthlyGoal -> User in
+            return User(nickname: name, determination: deter, priceGoal: monthlyGoal, userType: usertype)
+        })
+            .asDriver(onErrorJustReturn: User(nickname: "노네임", determination: "아자아자! 화이팅!", priceGoal: 10000, userType: .preferDineIn))
         
-        self.input = Input(nickname: nickname.asObserver(), monthlyGoal: monthlyGoal.asObserver(), usertype: usertype.asObserver(), determination: determination.asObserver())
+        self.input = Input(nickname: nickname, monthlyGoal: monthlyGoal, usertype: usertype, determination: determination)
         
         self.output = Output(userInformation: userInformation)
     }
