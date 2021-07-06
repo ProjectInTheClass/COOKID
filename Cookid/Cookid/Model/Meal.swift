@@ -16,18 +16,6 @@ class Meal {
     var image: URL?
     var mealType: MealType
     var mealTime: MealTime
-    var converToDic: [String:Any] {
-        let dic: [String:Any] = [
-            "id":id,
-            "price":price,
-            "date": date.dateToString(),
-            "image": URL(string: image!.absoluteString)!,
-            "name":name,
-            "mealType":mealType.rawValue,
-            "mealTime":mealTime.rawValue
-        ]
-        return dic
-    }
     
     init(price: Int, date: Date, name: String, image: URL, mealType: MealType, mealTime: MealTime) {
         self.price = price
@@ -57,13 +45,6 @@ enum MealTime: String {
 struct GroceryShopping {
     let date: Date
     var groceries: [Grocery]
-    var converToDic: [String:Any] {
-        let dic: [String:Any] = [
-            "date" : date.dateToString(),
-            "groceries" : groceries.map{ $0.converToDic }
-        ]
-        return dic
-    }
     
     func totalPrice(groceries: [Grocery]) -> Int {
         return self.groceries.reduce(0) { result, grocery in
@@ -75,14 +56,6 @@ struct GroceryShopping {
 struct Grocery {
     let name: String
     let price: Int
-    
-    var converToDic: [String:Any] {
-        let dic: [String:Any] = [
-            "name":name,
-            "price":price
-        ]
-        return dic
-    }
 }
 
 
