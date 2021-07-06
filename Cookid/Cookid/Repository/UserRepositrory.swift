@@ -34,10 +34,10 @@ class UserRepository {
     }
     
     
-    func uploadUserInfo() {
-        let dummyUser = DummyData.shared.user
-        db.child(FBChild.user).setValue(dummyUser.convertToDic)
-    }
+//    func uploadUserInfo() {
+//        let dummyUser = DummyData.shared.user
+//        db.child(FBChild.user).setValue(dummyUser.convertToDic)
+//    }
 }
 
 
@@ -45,19 +45,19 @@ class UserRepository {
 
 class UserService {
     
-    func loadUserInfo(userID: String, completion: @escaping (User) -> Void) {
-        UserRepository.shared.fetchUserInfo(userID: userID) { userEntity in
-            var users: User!
-            
-            for userEntity in userEntity {
-                let userinfo = User(
-                    nickname: userEntity.nickname,
-                    determination: userEntity.determination,
-                    priceGoal: userEntity.priceGoal,
-                    userType: UserType(rawValue: userEntity.userType)!)
-            }
-        }
-    }
+//    func loadUserInfo(userID: String, completion: @escaping (User) -> Void) {
+//        UserRepository.shared.fetchUserInfo(userID: userID) { userEntity in
+//            var users: User!
+//
+//            for userEntity in userEntity {
+//                let userinfo = User(
+//                    nickname: userEntity.nickname,
+//                    determination: userEntity.determination,
+//                    priceGoal: userEntity.priceGoal,
+//                    userType: UserType(rawValue: userEntity.userType)!)
+//            }
+//        }
+//    }
     
     
 }
@@ -67,28 +67,28 @@ class MealService {
     
     static let shared = MealService()
     
-    func loadMeal(completion: @escaping (Meal) -> Void) {
-        MealRepository.shared.fetchMeals { mealEntity in
-            var meals: Meal!
-            // 모델수정 요망
-            // 왜 안되냐?? ㅡㅡ
-            // ...
-            for mealEntity in mealEntity {
-
-                let urlString = mealEntity.image!
-                let url = URL(string: urlString)!
-
-                let meal = Meal(price: mealEntity.price,
-                                date: mealEntity.date.StringTodate()!,
-                                name: mealEntity.name,
-                                image: url,
-                                mealType: MealType(rawValue: mealEntity.mealType) ?? .dineIn,
-                                mealTime: MealTime(rawValue: mealEntity.mealTime) ?? .breakfast)
-                meals = meal
-            }
-            completion(meals)
-        }
-    }
+//    func loadMeal(completion: @escaping (Meal) -> Void) {
+//        MealRepository.shared.fetchMeals { mealEntity in
+//            var meals: Meal!
+//            // 모델수정 요망
+//            // 왜 안되냐?? ㅡㅡ
+//            // ...
+//            for mealEntity in mealEntity {
+//
+//                let urlString = mealEntity.image!
+//                let url = URL(string: urlString)!
+//
+//                let meal = Meal(price: mealEntity.price,
+//                                date: mealEntity.date.StringTodate()!,
+//                                name: mealEntity.name,
+//                                image: url,
+//                                mealType: MealType(rawValue: mealEntity.mealType) ?? .dineIn,
+//                                mealTime: MealTime(rawValue: mealEntity.mealTime) ?? .breakfast)
+//                meals = meal
+//            }
+//            completion(meals)
+//        }
+//    }
 
 }
 

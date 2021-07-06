@@ -18,9 +18,18 @@ class DummyData {
                                                        Grocery(name: "만가닥버섯", price: 800)
                                            ])
     
-    var myMeals = [Meal]()
+    var myMeals = [
+        Meal(price: 8000, date: Date(), name: "순대국밥", image: UIImage(systemName: "photo.on.rectangle.angled")!, mealType: .dineOut, mealTime: .lunch),
+        Meal(price: 8000, date: Date(), name: "순대국밥", image: UIImage(systemName: "photo.on.rectangle.angled")!, mealType: .dineOut, mealTime: .lunch),
+        Meal(price: 8000, date: Date(), name: "순대국밥", image: UIImage(systemName: "photo.on.rectangle.angled")!, mealType: .dineOut, mealTime: .lunch),
+        Meal(price: 8000, date: Date(), name: "순대국밥", image: UIImage(systemName: "photo.on.rectangle.angled")!, mealType: .dineIn, mealTime: .lunch),
+        Meal(price: 8000, date: Date(), name: "순대국밥", image: UIImage(systemName: "photo.on.rectangle.angled")!, mealType: .dineIn, mealTime: .lunch)]
     
     var myShoppings = [GroceryShopping]()
     
+    func dineInProgressCalc(meals: [Meal]) -> CGFloat {
+        let newMeals = meals.filter { $0.mealType == .dineIn }
+        return CGFloat(newMeals.count/meals.count)
+    }
     
 }

@@ -39,7 +39,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Hz0-jF-xY3">
                                                                 <rect key="frame" x="8" y="8" width="112.5" height="25"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crown.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uM5-7m-KC8">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crown" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uM5-7m-KC8">
                                                                         <rect key="frame" x="0.0" y="0.0" width="25" height="23.5"/>
                                                                         <color key="tintColor" red="1" green="0.85126666839999998" blue="0.5112892175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
@@ -84,7 +84,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="NhI-vX-JQH">
                                                                 <rect key="frame" x="8" y="8" width="127.5" height="25"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollarsign.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JUi-r9-0mh">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollarsign.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JUi-r9-0mh">
                                                                         <rect key="frame" x="0.0" y="2" width="25" height="20.5"/>
                                                                         <color key="tintColor" red="1" green="0.85126666839999998" blue="0.5112892175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
@@ -115,8 +115,8 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Wql-Lz-wJO">
                                                                 <rect key="frame" x="8" y="8" width="142" height="25"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deskclock.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6yf-Kx-vEt">
-                                                                        <rect key="frame" x="0.0" y="2.5" width="25" height="20.5"/>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock.arrow.circlepath" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6yf-Kx-vEt">
+                                                                        <rect key="frame" x="0.0" y="2" width="25" height="20.5"/>
                                                                         <color key="tintColor" red="1" green="0.85126666839999998" blue="0.5112892175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="25" id="RVP-LW-6Fz"/>
@@ -146,7 +146,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="RXu-cJ-4Fo">
                                                                 <rect key="frame" x="8" y="8" width="93.5" height="25"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deskclock.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JFa-QM-xxQ">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deskclock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JFa-QM-xxQ">
                                                                         <rect key="frame" x="0.0" y="2.5" width="25" height="20.5"/>
                                                                         <color key="tintColor" red="1" green="0.85126666839999998" blue="0.5112892175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
@@ -155,7 +155,7 @@
                                                                         </constraints>
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기타 등등" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bai-Un-6Kx">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="식사 타임" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bai-Un-6Kx">
                                                                         <rect key="frame" x="30" y="0.0" width="63.5" height="25"/>
                                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="17"/>
                                                                         <nil key="textColor"/>
@@ -237,6 +237,7 @@
                     <navigationItem key="navigationItem" title="식사 통계" id="M6U-3F-ik0"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="dineInProgressBar" destination="0sH-H2-mV5" id="Cal-Vr-YCF"/>
                         <outlet property="dineStaticView" destination="G8g-Pl-Rga" id="ibV-rF-ir1"/>
                         <outlet property="latestMealStaticView" destination="HUr-Hx-e7B" id="LaI-J9-KLB"/>
                         <outlet property="mostExpensiveStaticView" destination="NBj-BN-3X9" id="JiX-Zy-PG7"/>
@@ -273,9 +274,11 @@
     <resources>
         <image name="chart.pie" catalog="system" width="128" height="121"/>
         <image name="chart.pie.fill" catalog="system" width="128" height="121"/>
-        <image name="crown.fill" catalog="system" width="128" height="92"/>
+        <image name="clock.arrow.circlepath" catalog="system" width="128" height="110"/>
+        <image name="crown" catalog="system" width="128" height="92"/>
+        <image name="deskclock" catalog="system" width="128" height="124"/>
         <image name="deskclock.fill" catalog="system" width="128" height="124"/>
-        <image name="dollarsign.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="dollarsign.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

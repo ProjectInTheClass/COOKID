@@ -35,8 +35,8 @@ class GroceryRepository {
     }
     
     
-    func uploadGroceryInfo() {
-        let dummyGroceries = DummyData.shared.mySingleShopping
-        db.child(FBChild.groceries).setValue(dummyGroceries.converToDic)
-    }
+//    func uploadGroceryInfo() {
+//        let dummyGroceries = DummyData.shared.mySingleShopping
+//        db.child(FBChild.groceries).setValue(dummyGroceries.converToDic)
+//    }
 }
