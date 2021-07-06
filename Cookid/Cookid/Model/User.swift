@@ -8,7 +8,6 @@
 import UIKit
 
 struct User {
-    var userId: String
     var nickname: String
     var determination: String
     var priceGoal: Int

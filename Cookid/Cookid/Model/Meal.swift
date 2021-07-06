@@ -9,12 +9,11 @@ import UIKit
 import Firebase
 
 class Meal {
-    
     let id: String = UUID().uuidString // UUID?
     var price: Int
     var date: Date
     var name: String
-    var image: UIImage?
+    var image: URL?
     var mealType: MealType
     var mealTime: MealTime
     var converToDic: [String:Any] {
@@ -22,6 +21,7 @@ class Meal {
             "id":id,
             "price":price,
             "date": date.dateToString(),
+            "image": URL(string: image!.absoluteString)!,
             "name":name,
             "mealType":mealType.rawValue,
             "mealTime":mealTime.rawValue
@@ -29,7 +29,7 @@ class Meal {
         return dic
     }
     
-    init(price: Int, date: Date, name: String, image: UIImage?, mealType: MealType, mealTime: MealTime) {
+    init(price: Int, date: Date, name: String, image: URL, mealType: MealType, mealTime: MealTime) {
         self.price = price
         self.date = date
         self.name = name

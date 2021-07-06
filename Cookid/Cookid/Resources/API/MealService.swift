@@ -11,14 +11,19 @@ class MealService {
     
     static let shared = MealService()
     
-    func convertToMeal(completion: @escaping (Meal) -> Void) {
+    func loadMeal(completion: @escaping (Meal) -> Void) {
         MealRepository.shared.fetchMeals { mealEntity in
             var meals: Meal!
+            
             for mealEntity in mealEntity {
+                
+                let urlString = mealEntity.image!
+                let url = URL(string: urlString)!
+                
                 let meal = Meal(price: mealEntity.price,
                                 date: mealEntity.date.StringTodate()!,
                                 name: mealEntity.name,
-                                image: nil,
+                                image: url,
                                 mealType: MealType(rawValue: mealEntity.mealType) ?? .dineIn,
                                 mealTime: MealTime(rawValue: mealEntity.mealTime) ?? .breakfast)
                 meals = meal

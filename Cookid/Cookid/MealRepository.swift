@@ -57,8 +57,8 @@ class MealRepository {
         
         db.child(FBChild.meal).setValue(mySingleMeal.converToDic)
         
-        guard let image = mySingleMeal.image else { return }
-        self.uploadMealImage(mealID: mySingleMeal.id, image: image)
+        //guard let image = mySingleMeal.image else { return }
+        //self.uploadMealImage(mealID: mySingleMeal.id, image: image)
     }
     
     
