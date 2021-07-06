@@ -71,6 +71,7 @@ class MealService {
         MealRepository.shared.fetchMeals { mealEntity in
             var meals: Meal!
             // 모델수정 요망
+            // 왜 안되냐?? ㅡㅡ
             for mealEntity in mealEntity {
 
                 let urlString = mealEntity.image!
