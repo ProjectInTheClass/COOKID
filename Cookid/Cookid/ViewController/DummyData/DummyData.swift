@@ -18,6 +18,8 @@ class DummyData {
                                                        Grocery(name: "만가닥버섯", price: 800)
                                            ])
     
+    var singleUser = User(userID: nil, nickname: "천가닥버섯", determination: "아자아자", priceGoal: "100000", userType: .preferDineIn)
+    
     var myMeals = [Meal]()
     
     var myShoppings = [GroceryShopping]()

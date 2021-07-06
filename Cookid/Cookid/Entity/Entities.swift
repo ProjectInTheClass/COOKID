@@ -42,13 +42,13 @@ struct GroceryEntity: Codable {
 struct UserEntity: Codable {
     var nickname: String
     var determination: String
-    var priceGoal: Int
+    var priceGoal: String
     var userType: String
     
     init(userDic: [String:Any]) {
         self.nickname = userDic["nickname"] as? String ?? ""
         self.determination = userDic["determination"] as? String ?? ""
-        self.priceGoal = userDic["priceGoal"] as? Int ?? 0
+        self.priceGoal = userDic["priceGoal"] as? String ?? ""
         self.userType = userDic["userType"] as? String ?? ""
     }
 }

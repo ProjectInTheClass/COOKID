@@ -28,12 +28,12 @@ class Meal {
     
 }
 
-enum MealType {
+enum MealType: String {
     case dineOut
     case dineIn
 }
 
-enum MealTime {
+enum MealTime: String {
     case breakfast
     case brunch
     case lunch

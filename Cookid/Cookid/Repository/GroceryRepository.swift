@@ -30,13 +30,11 @@ class GroceryRepository {
                 print("Cannot fetch grocery info.. \(error.localizedDescription)")
             }
         }
-        let key = db.childByAutoId()
-        print(key.key)
     }
     
     
-    func uploadGroceryInfo() {
-        let dummyGroceries = DummyData.shared.mySingleShopping
-        db.child(FBChild.groceries).setValue(dummyGroceries.converToDic)
-    }
+//    func uploadGroceryInfo() {
+//        let dummyGroceries = DummyData.shared.mySingleShopping
+//        db.child(FBChild.groceries).setValue(dummyGroceries.converToDic)
+//    }
 }
