@@ -9,7 +9,7 @@ import Foundation
 
 class Service {
     
-
+//service testing
     
 //    var delegate: PassingSpend?
     var currentSpend: Int = 0
