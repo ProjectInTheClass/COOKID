@@ -36,10 +36,7 @@ class OnboardingViewModel: ViewModelType {
         let userInformation = Observable.combineLatest(nickname, determination, usertype, monthlyGoal, resultSelector: { name, deter, usertype, monthlyGoal -> User in
             return User(nickname: name, determination: deter, priceGoal: monthlyGoal, userType: usertype)
         })
-        
-        .asDriver(onErrorJustReturn: User(nickname: "노네임", determination: "아자아자! 화이팅!", priceGoal: 10000, userType: .preferDineIn))
-        
-            .asDriver(onErrorJustReturn: User(nickname: "노네임", determination: "아자아자! 화이팅!", priceGoal: "200000", userType: .preferDineIn))
+        .asDriver(onErrorJustReturn: User(nickname: "노네임", determination: "아자아자! 화이팅!", priceGoal: "200000", userType: .preferDineIn))
         
         
         self.input = Input(nickname: nickname, monthlyGoal: monthlyGoal, usertype: usertype, determination: determination)
