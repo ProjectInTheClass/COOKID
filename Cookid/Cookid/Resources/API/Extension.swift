@@ -17,7 +17,6 @@ extension UIPageViewController {
     
 }
 
-
 extension Date {
     func dateToString() -> String {
         let dateFormatter = DateFormatter()
