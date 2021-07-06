@@ -17,6 +17,25 @@ extension UIPageViewController {
     
 }
 
+
+extension Date {
+    func dateToString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        return dateFormatter.string(from: self)
+    }
+}
+
+
+extension String {
+    func StringTodate() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        return dateFormatter.date(from: self)
+    }
+}
+
+
 extension UIView {
     
     func makeShadow() {
