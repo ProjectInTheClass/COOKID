@@ -13,7 +13,7 @@ class OnboardingViewModel: ViewModelType {
     
     struct Input {
         let nickname: BehaviorSubject<String>
-        let monthlyGoal: BehaviorSubject<Int>
+        let monthlyGoal: BehaviorSubject<String>
         let usertype: BehaviorSubject<UserType>
         let determination: BehaviorSubject<String>
     }
@@ -29,18 +29,22 @@ class OnboardingViewModel: ViewModelType {
     init() {
         
         let nickname = BehaviorSubject(value: "노네임")
-        let monthlyGoal = BehaviorSubject(value: 0)
+        let monthlyGoal = BehaviorSubject(value: "00")
         let usertype = BehaviorSubject(value: UserType.preferDineIn)
         let determination = BehaviorSubject(value: "화이팅!")
         
         let userInformation = Observable.combineLatest(nickname, determination, usertype, monthlyGoal, resultSelector: { name, deter, usertype, monthlyGoal -> User in
             return User(nickname: name, determination: deter, priceGoal: monthlyGoal, userType: usertype)
         })
-            .asDriver(onErrorJustReturn: User(nickname: "노네임", determination: "아자아자! 화이팅!", priceGoal: 10000, userType: .preferDineIn))
+            .asDriver(onErrorJustReturn: User(nickname: "노네임", determination: "아자아자! 화이팅!", priceGoal: "200000", userType: .preferDineIn))
         
         self.input = Input(nickname: nickname, monthlyGoal: monthlyGoal, usertype: usertype, determination: determination)
         
         self.output = Output(userInformation: userInformation)
+    }
+    
+    func vaildInformation(_ text: String) -> Bool {
+        return text.count < 3
     }
     
     

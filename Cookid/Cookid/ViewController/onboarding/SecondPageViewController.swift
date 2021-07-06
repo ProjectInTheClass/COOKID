@@ -20,24 +20,30 @@ class SecondPageViewController: UIViewController, ViewModelBindable, StoryboardB
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        nextPageButton.isHidden = true
+        
     }
     
     func bindViewModel() {
         monthlyGoal.rx.text.orEmpty
-            .do(onNext: { [weak self] text in
-                if let text = self?.monthlyGoal.text,
-                   !text.isEmpty {
-                    self?.nextPageButton.isHidden = false
-                } else {
-                    self?.nextPageButton.isHidden = true
-                }
-            })
-            .map({ str in
-                return 1000
-            })
             .bind(to: viewModel.input.monthlyGoal)
             .disposed(by: rx.disposeBag)
+        
+        
+        viewModel.output.userInformation
+            .map { [unowned self] user -> Bool in
+                return self.viewModel.vaildInformation(user.priceGoal)
+            }
+            .drive(onNext: { [unowned self] validation in
+                if validation {
+                    self.nextPageButton.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
+                    self.nextPageButton.tintColor = .red
+                } else {
+                    self.nextPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
+                    self.nextPageButton.tintColor = .systemGreen
+                }
+            })
+            .disposed(by: rx.disposeBag)
+        
     }
 
 }

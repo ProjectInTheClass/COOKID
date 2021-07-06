@@ -10,7 +10,7 @@ import UIKit
 struct User {
     var nickname: String
     var determination: String
-    var priceGoal: Int
+    var priceGoal: String
     var userType: UserType
 }
 

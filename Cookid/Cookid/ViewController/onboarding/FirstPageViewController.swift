@@ -19,22 +19,31 @@ class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nextPageButton.isHidden = true
+        
     }
     
     func bindViewModel() {
         
         nickNameTextField.rx.text.orEmpty
-            .do(onNext: { [weak self] text in
-                if let text = self?.nickNameTextField.text,
-                   !text.isEmpty {
-                    self?.nextPageButton.isHidden = false
-                } else {
-                    self?.nextPageButton.isHidden = true
-                }
-            })
             .bind(to: viewModel.input.nickname)
             .disposed(by: rx.disposeBag)
+        
+        viewModel.output.userInformation
+            .map { [unowned self] user -> Bool in
+                return self.viewModel.vaildInformation(user.nickname)
+            }
+            .drive(onNext: { [unowned self] validation in
+                if validation {
+                    self.nextPageButton.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
+                    self.nextPageButton.tintColor = .red
+                } else {
+                    self.nextPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
+                    self.nextPageButton.tintColor = .systemGreen
+                }
+            })
+            .disposed(by: rx.disposeBag)
+        
+        
         
     }
     

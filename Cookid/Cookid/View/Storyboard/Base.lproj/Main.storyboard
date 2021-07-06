@@ -233,28 +233,17 @@
                                     </segmentedControl>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GzA-au-XVB">
-                                <rect key="frame" x="170.5" y="525" width="73" height="71"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="tintColor" systemColor="systemYellowColor"/>
-                                <state key="normal" image="arrow.right.circle.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50" scale="large"/>
-                                </state>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="k3P-9X-rIL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="GzA-au-XVB" firstAttribute="top" secondItem="yBf-Nf-rMA" secondAttribute="bottom" constant="30" id="E4u-rB-XF3"/>
                             <constraint firstItem="k3P-9X-rIL" firstAttribute="trailing" secondItem="yBf-Nf-rMA" secondAttribute="trailing" constant="50" id="aJe-3u-yxR"/>
-                            <constraint firstItem="GzA-au-XVB" firstAttribute="centerX" secondItem="yBf-Nf-rMA" secondAttribute="centerX" id="fbt-yj-uB2"/>
                             <constraint firstItem="yBf-Nf-rMA" firstAttribute="centerX" secondItem="oTo-JS-OxI" secondAttribute="centerX" id="mea-qt-0Th"/>
                             <constraint firstItem="yBf-Nf-rMA" firstAttribute="centerY" secondItem="oTo-JS-OxI" secondAttribute="centerY" id="rZQ-jW-5fJ"/>
                             <constraint firstItem="yBf-Nf-rMA" firstAttribute="leading" secondItem="k3P-9X-rIL" secondAttribute="leading" constant="50" id="y0p-Xr-zdl"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="nextPageButton" destination="GzA-au-XVB" id="m14-3a-jL2"/>
                         <outlet property="usertypeSegment" destination="J07-5B-HPH" id="mpK-bS-oj0"/>
                     </connections>
                 </viewController>
@@ -297,44 +286,11 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50" scale="large"/>
                                 </state>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Fy1-Ol-Jud">
-                                <rect key="frame" x="50" y="641" width="314" height="97"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmZ-aX-1Kl">
-                                        <rect key="frame" x="0.0" y="0.0" width="314" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8N2-Px-kIZ">
-                                        <rect key="frame" x="0.0" y="25.5" width="314" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKj-f5-e1D">
-                                        <rect key="frame" x="0.0" y="51" width="314" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LoA-mT-Ej0">
-                                        <rect key="frame" x="0.0" y="76.5" width="314" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rCf-rT-o8o"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Fy1-Ol-Jud" firstAttribute="top" secondItem="sOt-IG-kRd" secondAttribute="bottom" constant="50" id="07H-Fj-az9"/>
-                            <constraint firstItem="Fy1-Ol-Jud" firstAttribute="centerX" secondItem="rnq-qK-0Dk" secondAttribute="centerX" id="0Fj-cE-X6l"/>
-                            <constraint firstItem="Fy1-Ol-Jud" firstAttribute="leading" secondItem="rCf-rT-o8o" secondAttribute="leading" constant="50" id="5ts-Ul-g1b"/>
                             <constraint firstItem="rCf-rT-o8o" firstAttribute="trailing" secondItem="P3B-lb-M2f" secondAttribute="trailing" constant="50" id="7tC-Qi-Kbh"/>
-                            <constraint firstItem="rCf-rT-o8o" firstAttribute="trailing" secondItem="Fy1-Ol-Jud" secondAttribute="trailing" constant="50" id="8yl-MR-TEs"/>
                             <constraint firstItem="P3B-lb-M2f" firstAttribute="leading" secondItem="rCf-rT-o8o" secondAttribute="leading" constant="50" id="gxc-1c-CWG"/>
                             <constraint firstItem="P3B-lb-M2f" firstAttribute="centerX" secondItem="rnq-qK-0Dk" secondAttribute="centerX" id="i9G-iv-n42"/>
                             <constraint firstItem="sOt-IG-kRd" firstAttribute="centerX" secondItem="P3B-lb-M2f" secondAttribute="centerX" id="m3a-4E-sz1"/>
@@ -343,12 +299,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="determinationLabel" destination="8N2-Px-kIZ" id="Irf-Ts-RyM"/>
                         <outlet property="determinationTextField" destination="6FB-un-vAH" id="1FN-JI-mo4"/>
                         <outlet property="finishPageButton" destination="sOt-IG-kRd" id="Cik-Hn-icW"/>
-                        <outlet property="monthlyGoalLabel" destination="LoA-mT-Ej0" id="d4R-Jg-WQt"/>
-                        <outlet property="nicknameLabel" destination="GmZ-aX-1Kl" id="H4x-cW-aVO"/>
-                        <outlet property="usertypeLabel" destination="UKj-f5-e1D" id="J1R-4e-iEJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V1G-R7-9Ly" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

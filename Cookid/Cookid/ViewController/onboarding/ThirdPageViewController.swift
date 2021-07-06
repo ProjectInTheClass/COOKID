@@ -12,24 +12,15 @@ class ThirdPageViewController: UIViewController, ViewModelBindable, StoryboardBa
     var viewModel: OnboardingViewModel!
     
     @IBOutlet weak var usertypeSegment: UISegmentedControl!
-    @IBOutlet weak var nextPageButton: UIButton!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        nextPageButton.isHidden = true
+       
     }
     
     func bindViewModel() {
         
         usertypeSegment.rx.value
-            .do(onNext: { [weak self] num in
-                if num == 0 || num == 1 {
-                    self?.nextPageButton.isHidden = false
-                } else {
-                    self?.nextPageButton.isHidden = true
-                }
-            })
             .bind { [weak self] num in
                 switch num {
                 case 0:
