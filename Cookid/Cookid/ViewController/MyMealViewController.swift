@@ -25,7 +25,7 @@ class MyMealViewController: UIViewController, ViewModelBindable, StoryboardBased
         dineStaticView.makeShadow()
         mostExpensiveStaticView.makeShadow()
         latestMealStaticView.makeShadow()
-        view.backgroundColor = .red
+        view.backgroundColor = .blue
     }
     
 
