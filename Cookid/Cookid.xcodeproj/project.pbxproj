@@ -28,6 +28,7 @@
 		032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */; };
 		032233DE2693057C0092DD6D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233DD2693057C0092DD6D /* User.swift */; };
 		032233E926934F180092DD6D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233E826934F180092DD6D /* Protocol.swift */; };
+		0395B61526941121009289B7 /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
 		7CDB672F20DDD0D65D45B557 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892F362497B138331AC4FAC2 /* Pods_Cookid.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		032233DD2693057C0092DD6D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		032233E826934F180092DD6D /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		0395B61426941121009289B7 /* MyMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealViewModel.swift; sourceTree = "<group>"; };
 		0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
 		892F362497B138331AC4FAC2 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */,
+				0395B61426941121009289B7 /* MyMealViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				032233C726927F0C0092DD6D /* DummyData.swift in Sources */,
 				032233DE2693057C0092DD6D /* User.swift in Sources */,
 				032233BE26927A160092DD6D /* MyExpenseViewController.swift in Sources */,
+				0395B61526941121009289B7 /* MyMealViewModel.swift in Sources */,
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
 				032233D72692F0160092DD6D /* Extension.swift in Sources */,
 				032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */,

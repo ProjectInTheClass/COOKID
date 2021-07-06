@@ -7,23 +7,31 @@
 
 import UIKit
 
-class MyMealViewController: UIViewController {
-
+class MyMealViewController: UIViewController, ViewModelBindable, StoryboardBased {
+    
+    var viewModel: MyMealViewModel!
+    
+    @IBOutlet weak var dineStaticView: UIView!
+    @IBOutlet weak var mostExpensiveStaticView: UIView!
+    @IBOutlet weak var latestMealStaticView: UIView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configureUI()
+    }
+    
+    private func configureUI() {
+        dineStaticView.makeShadow()
+        mostExpensiveStaticView.makeShadow()
+        latestMealStaticView.makeShadow()
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func bindViewModel() {
+        
+        
+        
     }
-    */
 
 }

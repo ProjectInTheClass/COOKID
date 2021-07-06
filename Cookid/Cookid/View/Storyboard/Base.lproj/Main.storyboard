@@ -21,7 +21,7 @@
                         <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="DBM-09-Loe" kind="relationship" relationship="viewControllers" id="v1N-v1-PZd"/>
+                        <segue destination="ieU-X1-ZGy" kind="relationship" relationship="viewControllers" id="v1N-v1-PZd"/>
                         <segue destination="Nv7-yp-Gfu" kind="relationship" relationship="viewControllers" id="K8l-vJ-TfN"/>
                         <segue destination="D2S-2M-gmi" kind="relationship" relationship="viewControllers" id="NBy-Q8-tGA"/>
                     </connections>
@@ -30,17 +30,17 @@
             </objects>
             <point key="canvasLocation" x="-37" y="190"/>
         </scene>
-        <!--MyMealViewController-->
+        <!--MyMealTap-->
         <scene sceneID="7t1-ya-sAO">
             <objects>
-                <viewControllerPlaceholder storyboardName="MyMealTap" referencedIdentifier="MyMealViewController" id="Nv7-yp-Gfu" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="MyMealTap" id="Nv7-yp-Gfu" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="yPv-7g-4wL"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t7F-oj-2Vh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-37" y="616"/>
         </scene>
-        <!--메인-->
+        <!--식비 통계-->
         <scene sceneID="wFK-wx-lZm">
             <objects>
                 <viewController id="DBM-09-Loe" customClass="MainViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
@@ -48,16 +48,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="yDN-fY-BSl"/>
-                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="메인" id="wPh-NM-mp8">
-                        <imageReference key="image" image="house" catalog="system" symbolScale="large"/>
-                        <imageReference key="selectedImage" image="house.fill" catalog="system" symbolScale="large"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" title="식비 통계" id="3gK-bs-I44"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZf-G7-iRR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-667" y="936"/>
+            <point key="canvasLocation" x="-668" y="1633"/>
         </scene>
         <!--First Page View Controller-->
         <scene sceneID="dse-Rc-fLh">
@@ -315,7 +312,29 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E5p-mi-5aN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="588" y="616"/>
+            <point key="canvasLocation" x="535" y="616"/>
+        </scene>
+        <!--메인-->
+        <scene sceneID="SfR-Xh-C90">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ieU-X1-ZGy" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="메인" id="wPh-NM-mp8">
+                        <imageReference key="image" image="house" catalog="system" symbolScale="large"/>
+                        <imageReference key="selectedImage" image="house.fill" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="SMq-hS-Y3Q">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="DBM-09-Loe" kind="relationship" relationship="rootViewController" id="p40-O3-3Aq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CfJ-Qn-XMc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-668.11594202898561" y="935.49107142857133"/>
         </scene>
     </scenes>
     <resources>
@@ -324,9 +343,6 @@
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
