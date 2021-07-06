@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class Meal {
     
@@ -13,11 +14,22 @@ class Meal {
     var price: Int
     var date: Date
     var name: String
-    var image: UIImage
+    var image: UIImage?
     var mealType: MealType
     var mealTime: MealTime
+    var converToDic: [String:Any] {
+        let dic: [String:Any] = [
+            "id":id,
+            "price":price,
+            "date": date.dateToString(),
+            "name":name,
+            "mealType":mealType.rawValue,
+            "mealTime":mealTime.rawValue
+        ]
+        return dic
+    }
     
-    init(price: Int, date: Date, name: String, image: UIImage, mealType: MealType, mealTime: MealTime) {
+    init(price: Int, date: Date, name: String, image: UIImage?, mealType: MealType, mealTime: MealTime) {
         self.price = price
         self.date = date
         self.name = name
@@ -28,12 +40,12 @@ class Meal {
     
 }
 
-enum MealType {
+enum MealType: String {
     case dineOut
     case dineIn
 }
 
-enum MealTime {
+enum MealTime: String {
     case breakfast
     case brunch
     case lunch
@@ -56,5 +68,12 @@ struct GroceryShopping {
 struct Grocery {
     let name: String
     let price: Int
+    
+    var converToDic: [String:Any] {
+        let dic: [String:Any] = ["name":name, "price":price]
+        return dic
+    }
 }
+
+
 

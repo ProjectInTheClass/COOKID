@@ -21,6 +21,7 @@ class OnboardingPageViewViewController: UIPageViewController {
         setupPages()
         setupPageControl()
         
+        MealRepository.shared.uploadMeal()
     }
     
 
