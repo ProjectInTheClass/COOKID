@@ -55,11 +55,26 @@
                                                                     </label>
                                                                 </subviews>
                                                             </stackView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0sH-H2-mV5" customClass="PlainHorizontalProgressBar" customModule="Cookid" customModuleProvider="target">
+                                                                <rect key="frame" x="67" y="63.5" width="240" height="23"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="240" id="ll9-mi-g0L"/>
+                                                                    <constraint firstAttribute="height" constant="23" id="wLt-ew-eFU"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                                        <color key="value" red="0.9397398829460144" green="0.7585868239402771" blue="0.9004368782043457" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="150" id="1DW-29-5Ux"/>
                                                             <constraint firstItem="Hz0-jF-xY3" firstAttribute="leading" secondItem="G8g-Pl-Rga" secondAttribute="leading" constant="8" id="9cE-pF-0hQ"/>
+                                                            <constraint firstItem="0sH-H2-mV5" firstAttribute="centerX" secondItem="G8g-Pl-Rga" secondAttribute="centerX" id="C0c-V8-08z"/>
+                                                            <constraint firstItem="0sH-H2-mV5" firstAttribute="centerY" secondItem="G8g-Pl-Rga" secondAttribute="centerY" id="UCf-NW-Cv0"/>
                                                             <constraint firstItem="Hz0-jF-xY3" firstAttribute="top" secondItem="G8g-Pl-Rga" secondAttribute="top" constant="8" id="wLt-oP-z2F"/>
                                                         </constraints>
                                                     </view>
