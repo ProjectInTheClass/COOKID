@@ -70,12 +70,12 @@ class MealService {
     func loadMeal(completion: @escaping (Meal) -> Void) {
         MealRepository.shared.fetchMeals { mealEntity in
             var meals: Meal!
-            
+            // 모델수정 요망
             for mealEntity in mealEntity {
-                
+
                 let urlString = mealEntity.image!
                 let url = URL(string: urlString)!
-                
+
                 let meal = Meal(price: mealEntity.price,
                                 date: mealEntity.date.StringTodate()!,
                                 name: mealEntity.name,
