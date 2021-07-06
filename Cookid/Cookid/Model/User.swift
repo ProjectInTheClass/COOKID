@@ -8,10 +8,20 @@
 import UIKit
 
 struct User {
+    var userID: String?
     var nickname: String
     var determination: String
     var priceGoal: String
     var userType: UserType
+    var converToDic: [String:Any] {
+        let dic: [String:Any] = [
+            "nickname": nickname,
+            "determination" : determination,
+            "priceGoal" : priceGoal,
+            "userType" : userType.rawValue
+        ]
+        return dic
+    }
 }
 
 enum UserType: String {

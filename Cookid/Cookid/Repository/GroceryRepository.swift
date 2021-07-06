@@ -30,8 +30,6 @@ class GroceryRepository {
                 print("Cannot fetch grocery info.. \(error.localizedDescription)")
             }
         }
-        let key = db.childByAutoId()
-        print(key.key)
     }
     
     
