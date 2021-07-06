@@ -28,7 +28,7 @@ struct MealEntity: Codable {
 }
 
 
-struct GroceryEntity {
+struct GroceryEntity: Codable {
     var date: Int
     var groceries: [String]
     
@@ -39,7 +39,7 @@ struct GroceryEntity {
 }
 
 
-struct UserEntity {
+struct UserEntity: Codable {
     var nickname: String
     var determination: String
     var priceGoal: Int

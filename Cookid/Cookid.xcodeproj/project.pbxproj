@@ -31,6 +31,8 @@
 		C68734ED269416D0008C4843 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892F362497B138331AC4FAC2 /* Pods_Cookid.framework */; };
 		C68734EE269416D0008C4843 /* Pods_Cookid.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 892F362497B138331AC4FAC2 /* Pods_Cookid.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C68734F1269418BF008C4843 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C68734F0269418BF008C4843 /* FirebaseStorage */; };
+		C6BFF44F26944024006295F5 /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF44E26944024006295F5 /* MealService.swift */; };
+		C6BFF45126944F54006295F5 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45026944F54006295F5 /* UserService.swift */; };
 		C6F1B8F1269408590090E664 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F1B8F0269408590090E664 /* Entities.swift */; };
 		C6F1B8F3269408B10090E664 /* MealRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F1B8F2269408B10090E664 /* MealRepository.swift */; };
 		C6F1B8F526940F8E0090E664 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6F1B8F426940F8E0090E664 /* GoogleService-Info.plist */; };
@@ -81,6 +83,8 @@
 		0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
 		892F362497B138331AC4FAC2 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
+		C6BFF44E26944024006295F5 /* MealService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MealService.swift; path = Cookid/Resources/API/MealService.swift; sourceTree = SOURCE_ROOT; };
+		C6BFF45026944F54006295F5 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = Cookid/Resources/API/UserService.swift; sourceTree = SOURCE_ROOT; };
 		C6F1B8F0269408590090E664 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Entities.swift; path = Cookid/Entities.swift; sourceTree = SOURCE_ROOT; };
 		C6F1B8F2269408B10090E664 /* MealRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MealRepository.swift; path = Cookid/MealRepository.swift; sourceTree = SOURCE_ROOT; };
 		C6F1B8F426940F8E0090E664 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 		032233B52692768A0092DD6D /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				C6BFF44E26944024006295F5 /* MealService.swift */,
+				C6BFF45026944F54006295F5 /* UserService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -409,7 +415,9 @@
 				032233B8269276DB0092DD6D /* MainViewController.swift in Sources */,
 				C6F1B8FC269411810090E664 /* UserRepositrory.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
+				C6BFF45126944F54006295F5 /* UserService.swift in Sources */,
 				032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */,
+				C6BFF44F26944024006295F5 /* MealService.swift in Sources */,
 				032233CB2692A8630092DD6D /* OnboardingPageViewViewController.swift in Sources */,
 				C6F1B8FE269411950090E664 /* GroceryRepository.swift in Sources */,
 				032233C726927F0C0092DD6D /* DummyData.swift in Sources */,

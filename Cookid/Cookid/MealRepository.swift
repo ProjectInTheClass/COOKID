@@ -21,7 +21,7 @@ class MealRepository {
         db.child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
             let snapshot = snapshot.value as! [String:Any]
             var meals = [MealEntity]()
-
+            
             do {
                 let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
                 let decoder = JSONDecoder()
@@ -35,25 +35,25 @@ class MealRepository {
     }
     
     
-    func converToMeal(completion: @escaping (Meal) -> Void) {
-        MealRepository.shared.fetchMeals { mealEntity in
-            var meals: Meal!
-            for mealEntity in mealEntity {
-                let meal = Meal(price: mealEntity.price,
-                                date: mealEntity.date.StringTodate()!,
-                                name: mealEntity.name,
-                                image: nil,
-                                mealType: MealType(rawValue: mealEntity.mealType) ?? .dineIn,
-                                mealTime: MealTime(rawValue: mealEntity.mealTime) ?? .breakfast)
-                meals = meal
+    func fetchImage(mealID: String, completion: @escaping (URL) -> Void) {
+        let storageRef = storage.child(mealID + ".jpg")
+        
+        storageRef.downloadURL { url, error in
+            if let error = error {
+                print("Error while downloading file : \(error.localizedDescription)")
+                return
             }
-            completion(meals)
+            if let url = url {
+                completion(url)
+                print(url)
+            }
         }
     }
     
     
     func uploadMeal() {
         let mySingleMeal = DummyData.shared.mySingleMeal
+        
         
         db.child(FBChild.meal).setValue(mySingleMeal.converToDic)
         

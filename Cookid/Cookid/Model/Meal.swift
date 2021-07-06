@@ -57,6 +57,13 @@ enum MealTime: String {
 struct GroceryShopping {
     let date: Date
     var groceries: [Grocery]
+    var converToDic: [String:Any] {
+        let dic: [String:Any] = [
+            "date" : date.dateToString(),
+            "groceries" : groceries.map{ $0.converToDic }
+        ]
+        return dic
+    }
     
     func totalPrice(groceries: [Grocery]) -> Int {
         return self.groceries.reduce(0) { result, grocery in
@@ -70,7 +77,10 @@ struct Grocery {
     let price: Int
     
     var converToDic: [String:Any] {
-        let dic: [String:Any] = ["name":name, "price":price]
+        let dic: [String:Any] = [
+            "name":name,
+            "price":price
+        ]
         return dic
     }
 }

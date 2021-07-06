@@ -17,7 +17,7 @@ class DummyData {
                                                        Grocery(name: "호박", price: 1500),
                                                        Grocery(name: "만가닥버섯", price: 800)
                                            ])
-    var user = User(nickname: "면무새", determination: "", priceGoal: 1000000, userType: .preferDineIn)
+    var user = User(userId: "id", nickname: "면무새", determination: "", priceGoal: 1000000, userType: .preferDineIn)
     
     
     var myMeals = [Meal]()
