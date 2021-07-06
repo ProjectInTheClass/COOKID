@@ -37,7 +37,6 @@ class UserRepository {
         }
     }
     
-    
     func uploadUserInfo() {
         let dummyUser = DummyData.shared.singleUser
         db.child(FBChild.user).childByAutoId().setValue(dummyUser.converToDic)

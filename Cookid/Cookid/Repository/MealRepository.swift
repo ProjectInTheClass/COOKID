@@ -50,7 +50,6 @@ class MealRepository {
         }
     }
     
-    
 //    func uploadMeal() {
 //        let mySingleMeal = DummyData.shared.mySingleMeal
 //

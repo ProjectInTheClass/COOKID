@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class MyMealViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
@@ -15,24 +17,31 @@ class MyMealViewController: UIViewController, ViewModelBindable, StoryboardBased
     @IBOutlet weak var mostExpensiveStaticView: UIView!
     @IBOutlet weak var latestMealStaticView: UIView!
     
+    @IBOutlet weak var dineInProgressBar: PlainHorizontalProgressBar!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        progresstimer()
     }
     
     private func configureUI() {
         dineStaticView.makeShadow()
         mostExpensiveStaticView.makeShadow()
         latestMealStaticView.makeShadow()
-        view.backgroundColor = .blue
     }
     
 
     func bindViewModel() {
-        
-        
-        
+       
     }
-
+    
+    private func progresstimer() {
+        DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+            self.dineInProgressBar.progress = DummyData.shared.dineInProgressCalc(meals: DummyData.shared.myMeals)
+        }
+    }
+    
 }
