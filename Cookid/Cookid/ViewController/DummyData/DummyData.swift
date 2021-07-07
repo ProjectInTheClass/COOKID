@@ -10,7 +10,7 @@ import UIKit
 class DummyData {
     static let shared = DummyData()
     
-    var mySingleMeal = Meal(price: 8000, date: Date(), name: "순대국밥", image: UIImage(systemName: "photo.on.rectangle.angled")!, mealType: .dineOut, mealTime: .lunch)
+    var mySingleMeal = Meal(price: 8000, date: Date(), name: "순대국밥", image: "photo.on.rectangle.angled", mealType: .dineOut, mealTime: .lunch)
     
     var mySingleShopping = GroceryShopping(date: Date(),
                                            groceries: [Grocery(name: "가지", price: 1000),
@@ -19,11 +19,11 @@ class DummyData {
                                            ])
     
     var myMeals = [
-        Meal(price: 8000, date: Date(), name: "순대국밥", image: UIImage(systemName: "photo.on.rectangle.angled")!, mealType: .dineOut, mealTime: .lunch),
-        Meal(price: 8000, date: Date(), name: "순대국밥", image: UIImage(systemName: "photo.on.rectangle.angled")!, mealType: .dineOut, mealTime: .dinner),
-        Meal(price: 8000, date: Date(), name: "순대국밥", image: UIImage(systemName: "photo.on.rectangle.angled")!, mealType: .dineOut, mealTime: .breakfast),
-        Meal(price: 8000, date: Date(), name: "순대국밥", image: UIImage(systemName: "photo.on.rectangle.angled")!, mealType: .dineIn, mealTime: .brunch),
-        Meal(price: 8000, date: Date(), name: "순대국밥", image: UIImage(systemName: "photo.on.rectangle.angled")!, mealType: .dineIn, mealTime: .snack)]
+        Meal(price: 8000, date: Date(), name: "순대국밥", image: "photo.on.rectangle.angled", mealType: .dineOut, mealTime: .lunch),
+        Meal(price: 8000, date: Date(), name: "순대국밥", image: "photo.on.rectangle.angled", mealType: .dineOut, mealTime: .dinner),
+        Meal(price: 8000, date: Date(), name: "순대국밥", image: "photo.on.rectangle.angled", mealType: .dineOut, mealTime: .breakfast),
+        Meal(price: 8000, date: Date(), name: "순대국밥", image: "photo.on.rectangle.angled", mealType: .dineIn, mealTime: .brunch),
+        Meal(price: 8000, date: Date(), name: "순대국밥", image: "photo.on.rectangle.angled", mealType: .dineIn, mealTime: .snack)]
     
     var singleUser = User(userID: nil, nickname: "천가닥버섯", determination: "아자아자", priceGoal: "100000", userType: .preferDineIn)
     
