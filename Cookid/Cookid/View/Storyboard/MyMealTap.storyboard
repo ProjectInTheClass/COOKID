@@ -238,7 +238,7 @@
                                                                     </label>
                                                                 </subviews>
                                                             </stackView>
-                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aMx-FJ-AxQ">
+                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aMx-FJ-AxQ">
                                                                 <rect key="frame" x="20" y="50" width="334" height="135"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <prototypes>
@@ -351,20 +351,39 @@
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lKR-3E-cgq">
                                                                 <rect key="frame" x="20" y="50" width="334" height="185"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Nve-fG-NfI">
-                                                                    <size key="itemSize" width="128" height="128"/>
+                                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Nve-fG-NfI">
+                                                                    <size key="itemSize" width="50" height="150"/>
                                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                 </collectionViewFlowLayout>
                                                                 <cells>
-                                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="timeCell" id="gNf-Dx-Yc3">
-                                                                        <rect key="frame" x="0.0" y="28.5" width="128" height="128"/>
+                                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="timeCell" id="gNf-Dx-Yc3" customClass="MealTimeCollectionViewCell" customModule="Cookid" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="17.5" width="50" height="150"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YCo-Ps-09T">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="150"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="dFy-Fy-FZc">
+                                                                                    <rect key="frame" x="0.0" y="128" width="50" height="22"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="22" id="ZQv-FG-ma5"/>
+                                                                                    </constraints>
+                                                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="12"/>
+                                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="trailing" secondItem="dFy-Fy-FZc" secondAttribute="trailing" id="lGK-tf-h0k"/>
+                                                                                <constraint firstItem="dFy-Fy-FZc" firstAttribute="leading" secondItem="YCo-Ps-09T" secondAttribute="leading" id="vAb-8f-C8Z"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="dFy-Fy-FZc" secondAttribute="bottom" id="wE7-TH-FT6"/>
+                                                                            </constraints>
                                                                         </collectionViewCellContentView>
+                                                                        <connections>
+                                                                            <outlet property="mealTimeTitle" destination="dFy-Fy-FZc" id="V9A-Tn-6ne"/>
+                                                                        </connections>
                                                                     </collectionViewCell>
                                                                 </cells>
                                                             </collectionView>
