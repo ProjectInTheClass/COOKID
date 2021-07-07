@@ -7,13 +7,18 @@
 
 import UIKit
 
+// 날짜 앞뒤로 넘어가면서 가져오는 함수
+// 리포 패치
+// 서비스 나누기
+
 class Service {
     
     private let mealRepository = MealRepository()
     private let userRepository = UserRepository()
     private let groceryRepository = GroceryRepository()
     
-    private var meals: [Meal] = []
+    private(set) var meals: [Meal] = []
+    private var groceries: [Grocery] = []
     private var totalBudget: Int = 0
     
     func addMeal(meal: Meal){
@@ -87,13 +92,24 @@ class Service {
         }
     }
     
-    func fetchGroceries(completion: @escaping ((User) -> Void)) {
-        
-//        groceryRepository.fetchGroceryInfo { model in
+//    func fetchGroceries(completion: @escaping ((User) -> Void)) {
 //
+//        groceryRepository.fetchGroceryInfo { modelArr in
+//
+//            let groceryModels = modelArr.map { model in
+//
+//                let date = self.stringToDate(date: model.date)
+//                let grocery = model.groceries
+//
+//                grocery[0]
+//            }
 //        }
+//    }
+    
+    func fetchUsers(){
         
     }
+    
     
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
         let newMeals = meals.filter { $0.mealType == .dineIn }
@@ -124,4 +140,13 @@ class Service {
         return [breakfastNum, brunchNum, lunchNum, lundinnerNum, dinnerNum, snackNum]
     }
     
+    var currentDay = Date()
+    
+    func fetchMealByDay(day: Int) -> [Meal] {
+        
+        guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return [] }
+        self.currentDay = aDay
+        let meal = self.meals.filter {$0.date == self.currentDay }
+        return meal
+    }
 }
