@@ -88,10 +88,10 @@ class Service {
     }
     
     func fetchGroceries(completion: @escaping ((Grocery) -> Void)) {
-        
-        groceryRepository.fetchGroceryInfo { model in
-            
-        }
+      
+//        groceryRepository.fetchGroceryInfo { model in
+//
+//        }
         
     }
     
@@ -112,14 +112,14 @@ class Service {
         return sortedMeals
     }
     
-    func mealTimesCalc(meals: [Meal]) -> [Int] {
+    func mealTimesCalc(meals: [Meal]) -> [[Meal]] {
         
-        let breakfastNum = meals.filter { $0.mealTime == .breakfast}.count
-        let brunchNum = meals.filter { $0.mealTime == .brunch}.count
-        let lunchNum = meals.filter { $0.mealTime == .lunch}.count
-        let lundinnerNum = meals.filter { $0.mealTime == .lundinner}.count
-        let dinnerNum = meals.filter { $0.mealTime == .dinner}.count
-        let snackNum = meals.filter { $0.mealTime == .snack}.count
+        let breakfastNum = meals.filter { $0.mealTime == .breakfast}
+        let brunchNum = meals.filter { $0.mealTime == .brunch}
+        let lunchNum = meals.filter { $0.mealTime == .lunch}
+        let lundinnerNum = meals.filter { $0.mealTime == .lundinner}
+        let dinnerNum = meals.filter { $0.mealTime == .dinner}
+        let snackNum = meals.filter { $0.mealTime == .snack}
         
         return [breakfastNum, brunchNum, lunchNum, lundinnerNum, dinnerNum, snackNum]
     }

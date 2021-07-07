@@ -11,6 +11,8 @@ import RxCocoa
 
 class MyMealViewModel: ViewModelType {
     
+    let service: Service
+    
     struct Input {
         
     }
@@ -26,36 +28,37 @@ class MyMealViewModel: ViewModelType {
         
         let recentMeals: Driver<[Meal]>
         
-        let mealtimes: Driver<[Int]>
+        let mealtimes: Driver<[[Meal]]>
     }
     
     var input: Input
     var output: Output
     
-    init(){
-     
+    init(service: Service){
+
+        self.service = service
         // input initializer
         
         
         // output initializer
         
         let expensiveMeal = Observable<Meal>.create { observer in
-            guard let newMeal = DummyData.shared.mostExpensiveMeal(meals: DummyData.shared.myMeals) else { return Disposables.create() }
+            guard let newMeal = service.mostExpensiveMeal(meals: DummyData.shared.myMeals) else { return Disposables.create() }
             observer.onNext(newMeal)
             return Disposables.create()
         }
-        .asDriver(onErrorJustReturn: Meal(price: 2000, date: Date(), name: "제육볶음", image: UIImage(systemName: "square.and.arrow.down.fill")!, mealType: .dineIn, mealTime: .lunch))
+        .asDriver(onErrorJustReturn: Meal(price: 2000, date: Date(), name: "제육볶음", image: "square.and.arrow.down.fill", mealType: .dineIn, mealTime: .lunch))
         
         let aWeekAgoMeals = Observable<[Meal]>.create { observer in
-            let newMeal = DummyData.shared.recentMeals(meals: DummyData.shared.myMeals)
+            let newMeal = service.recentMeals(meals: DummyData.shared.myMeals)
             observer.onNext(newMeal)
             return Disposables.create()
         }
         .asDriver(onErrorJustReturn: [])
    
-        let mealTimeNum = Observable<[Int]>.create { observer in
+        let mealTimeNum = Observable<[[Meal]]>.create { observer in
             
-            let mealsNums = DummyData.shared.mealTimesCalc(meals: DummyData.shared.myMeals)
+            let mealsNums = service.mealTimesCalc(meals: DummyData.shared.myMeals)
             observer.onNext(mealsNums)
             
             return Disposables.create()

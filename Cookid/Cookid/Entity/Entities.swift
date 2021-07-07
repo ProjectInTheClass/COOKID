@@ -33,7 +33,7 @@ struct GroceryEntity: Codable {
     var groceries: [String]
     
     init(groceriesDic: [String:Any]) {
-        self.date = groceriesDic["date"] as? Int ?? 0
+        self.date = groceriesDic["date"] as? String ?? ""
         self.groceries = groceriesDic["groceries"] as? [String] ?? []
     }
 }

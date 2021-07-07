@@ -34,12 +34,12 @@ enum MealType: String {
 }
 
 enum MealTime: String {
-    case breakfast
-    case brunch
-    case lunch
-    case lundinner
-    case dinner
-    case snack
+    case breakfast = "아침"
+    case brunch = "아점"
+    case lunch = "점심"
+    case lundinner = "점저"
+    case dinner = "저녁"
+    case snack = "간식"
 }
 
 struct GroceryShopping {
