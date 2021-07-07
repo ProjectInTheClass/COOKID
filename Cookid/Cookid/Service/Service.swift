@@ -7,44 +7,56 @@
 
 import Foundation
 
+//총비용 전달 필요할 때 총 비용 전달
+//함수 하나는 하나의 기능
+
+//    하루평균 지출 금액구하기
+//
+//    날짜를 누르면 쇼핑한 리스트와 외식한 리스트가 나올 수 있는 함수
+//
+//    mealTime 사용 아침을 거른다
+//    한번씩 더하는 것이 아니라 , 한꺼번에
+
 class Service {
-    
-//service testing
-    
-//    var delegate: PassingSpend?
-    var currentSpend: Int = 0
+  
+    // 필요한 것 - 현재까지 총 소비한 것을 줌
+    // - 쇼핑한 것의 총 비용
+    // - 외식한 것의 총 비용
+    // - 버짓을 줌
     var meals: [Meal] = []
     var totalBudget: Int = 0
-    var shoppingSpend: Int = 0
-    var eatOutSpend: Int = 0
     
-    func addShoppingSpend(price: Int){
-        self.shoppingSpend += price
-        self.currentSpend += price
+    
+    func fetchCurrentSpend() -> Int {
+        let totalSpend = self.meals.map{$0.price}.reduce(0){$0+$1}
+        return totalSpend
     }
     
-    func addEatOutSpend(price: Int){
-        self.eatOutSpend += price
-        self.currentSpend += price
+    func fetchShoppingSpend() -> Int {
+        let shoppingSpends = meals.filter {$0.mealType == .dineIn}.map{$0.price}
+        let totalSpend = shoppingSpends.reduce(0){$0+$1}
+        return totalSpend
+    }
+    
+    func fetchEatOutSpend() -> Int {
+        let eatOutSpends = meals.filter {$0.mealType == .dineOut}.map{$0.price}
+        let totalSpend = eatOutSpends.reduce(0){$0+$1}
+        return totalSpend
+    }
+    
+    func getSpendPercentage() -> Int {
+        return self.fetchCurrentSpend() / totalBudget * 100
     }
     
     func addMeal(meal: Meal){
         self.meals.append(meal)
-        self.calculate(meal: meal) { spend in
-         
-        }
     }
     
-    func calculate(meal: Meal , completion: @escaping (Spend) -> Void){
-        if meal.mealType == .dineIn {
-            self.addShoppingSpend(price: meal.price)
-        } else {
-            self.addEatOutSpend(price: meal.price)
+    func dineInProgressCalc(meals: [Meal]) -> CGFloat {
+            let newMeals = meals.filter { $0.mealType == .dineIn }
+            return CGFloat(newMeals.count/meals.count)
         }
-        
-        let spend = Spend(total: currentSpend, shopping: shoppingSpend, eatOut: eatOutSpend, percentage: Int(currentSpend) / Int(totalBudget) * 100)
-        completion(spend)
-    }
+    
     //MARK: - MainDashViewModel
     
     func fetchMeals(completion: @escaping ((Meal) -> Void)){
