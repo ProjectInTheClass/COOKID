@@ -28,8 +28,9 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
     @IBOutlet weak var mealTableView: UITableView!
     @IBOutlet weak var mealTimeCollectionView: UICollectionView!
     
+    let viewModel = MyMealViewModel(service: Service())
+    var maxValue: Int?
     
-    let viewModel = MyMealViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,8 +76,17 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
             .disposed(by: rx.disposeBag)
         
         viewModel.output.mealtimes
-            .drive(mealTimeCollectionView.rx.items(cellIdentifier: "timeCell")) { item, num, cell in
-                cell.backgroundColor = .blue
+            .do(onNext: { [weak self] mealses in
+                let numArr = mealses.map { $0.count }
+                self?.maxValue = numArr.max()
+            })
+            .drive(mealTimeCollectionView.rx.items(cellIdentifier: "timeCell", cellType: MealTimeCollectionViewCell.self)) { item, meals, cell in
+                if let maxValue = self.maxValue {
+                    let ratio = CGFloat(meals.count) / CGFloat(maxValue)
+                    let arrString = meals.first?.mealTime.rawValue ?? ""
+                    cell.updateUI(ratio: ratio, name: arrString)
+                }
+                cell.backgroundColor = .white
             }
             .disposed(by: rx.disposeBag)
         
@@ -91,7 +101,7 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width/6, height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width/6 - 5, height: collectionView.frame.height)
     }
     
 }
