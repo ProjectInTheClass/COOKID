@@ -28,6 +28,9 @@ class Service {
     var meals: [Meal] = []
     var totalBudget: Int = 0
     
+    func addMeal(meal: Meal){
+        self.meals.append(meal)
+    }
     
     func fetchCurrentSpend() -> Int {
         let totalSpend = self.meals.map{$0.price}.reduce(0){$0+$1}
@@ -50,8 +53,29 @@ class Service {
         return self.fetchCurrentSpend() / totalBudget * 100
     }
     
-    func addMeal(meal: Meal){
-        self.meals.append(meal)
+    func fetchCurrentMonth() -> String{
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "M"
+        let monthString = dateFormatter.string(from: date)
+        return monthString
+    }
+    
+    func fetchAverageSpendPerDay() -> Int {
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: date)
+        guard let dayOfMonth = components.day else {return}
+        let average = self.fetchCurrentSpend() / dayOfMonth
+        return average
+    }
+    
+    private func stringToDate(date: String) -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
+        let date = dateFormatter.date(from: date)
+        
+        return date!
     }
     
     func fetchMeals(completion: @escaping ((Meal) -> Void)){
@@ -69,18 +93,6 @@ class Service {
             }
             self.meals = mealModels
         }
-    }
-    
-    func fetchAverageSpendPerDay() -> Int {
-        return 1
-    }
-    
-    func stringToDate(date: String) -> Date{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
-        let date = dateFormatter.date(from: date)
-        
-        return date!
     }
 }
 
