@@ -9,15 +9,19 @@ import UIKit
 
 class Service {
     
-    let mealRepository = MealRepository()
-    let userRepository = UserRepository()
-    let groceryRepository = GroceryRepository()
+    private let mealRepository = MealRepository()
+    private let userRepository = UserRepository()
+    private let groceryRepository = GroceryRepository()
     
-    var meals: [Meal] = []
-    var totalBudget: Int = 0
+    private var meals: [Meal] = []
+    private var totalBudget: Int = 0
     
     func addMeal(meal: Meal){
         self.meals.append(meal)
+    }
+    
+    func setTotalBudget(budget: Int) {
+        self.totalBudget = budget
     }
     
     func fetchCurrentSpend() -> Int {
@@ -41,7 +45,7 @@ class Service {
         return self.fetchCurrentSpend() / totalBudget * 100
     }
     
-    func fetchCurrentMonth() -> String{
+    func fetchCurrentMonth() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "M"
@@ -58,7 +62,7 @@ class Service {
         return average
     }
     
-    private func stringToDate(date: String) -> Date{
+    private func stringToDate(date: String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
         let date = dateFormatter.date(from: date)
@@ -66,7 +70,7 @@ class Service {
         return date!
     }
     
-    func fetchMeals(completion: @escaping ((Meal) -> Void)){
+    func fetchMeals(completion: @escaping ((Meal) -> Void)) {
         mealRepository.fetchMeals { mealArr in
 
             let mealModels = mealArr.map { model -> Meal in
@@ -83,6 +87,13 @@ class Service {
         }
     }
     
+    func fetchGroceries(completion: @escaping ((User) -> Void)) {
+        
+        groceryRepository.fetchGroceryInfo { model in
+            <#code#>
+        }
+        
+    }
     
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
         let newMeals = meals.filter { $0.mealType == .dineIn }
