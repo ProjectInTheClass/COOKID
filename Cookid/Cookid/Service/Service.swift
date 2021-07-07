@@ -16,13 +16,15 @@ import Foundation
 //
 //    mealTime 사용 아침을 거른다
 //    한번씩 더하는 것이 아니라 , 한꺼번에
+//   현재 달을 리턴해주는 함수
+
 
 class Service {
-  
-    // 필요한 것 - 현재까지 총 소비한 것을 줌
-    // - 쇼핑한 것의 총 비용
-    // - 외식한 것의 총 비용
-    // - 버짓을 줌
+    
+    let mealRepository = MealRepository()
+    let userRepository = UserRepository()
+    let groceryRepository = GroceryRepository()
+    
     var meals: [Meal] = []
     var totalBudget: Int = 0
     
@@ -52,17 +54,34 @@ class Service {
         self.meals.append(meal)
     }
     
-    func dineInProgressCalc(meals: [Meal]) -> CGFloat {
-            let newMeals = meals.filter { $0.mealType == .dineIn }
-            return CGFloat(newMeals.count/meals.count)
-        }
-    
-    //MARK: - MainDashViewModel
-    
     func fetchMeals(completion: @escaping ((Meal) -> Void)){
-        //레파지토리 통신
+        mealRepository.fetchMeals { mealArr in
+
+            let mealModels = mealArr.map { model -> Meal in
+                let price = model.price
+                let date = self.stringToDate(date: model.date)
+                let name = model.name
+                let image = model.image ?? "https://plainbackground.com/download.php?imagename=ffffff.png"
+                let mealType = MealType(rawValue: model.mealType)!
+                let mealTime = MealTime(rawValue: model.mealTime)!
+                let mealModel = Meal(price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
+                return mealModel
+            }
+            self.meals = mealModels
+        }
     }
-  
+    
+    func fetchAverageSpendPerDay() -> Int {
+        return 1
+    }
+    
+    func stringToDate(date: String) -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
+        let date = dateFormatter.date(from: date)
+        
+        return date!
+    }
 }
 
 struct Spend {
