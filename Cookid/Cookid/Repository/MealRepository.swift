@@ -21,7 +21,6 @@ class MealRepository {
         db.child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
             let snapshot = snapshot.value as! [String:Any]
             var meals = [MealEntity]()
-            
             do {
                 let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
                 let decoder = JSONDecoder()

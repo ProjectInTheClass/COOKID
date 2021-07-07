@@ -9,15 +9,15 @@ import UIKit
 
 class Meal {
     
-    let id: String = UUID().uuidString // UUID?
+    let id: String = UUID().uuidString
     var price: Int
     var date: Date
     var name: String
-    var image: UIImage
+    var image: String
     var mealType: MealType
     var mealTime: MealTime
     
-    init(price: Int, date: Date, name: String, image: UIImage, mealType: MealType, mealTime: MealTime) {
+    init(price: Int, date: Date, name: String, image: String, mealType: MealType, mealTime: MealTime) {
         self.price = price
         self.date = date
         self.name = name
