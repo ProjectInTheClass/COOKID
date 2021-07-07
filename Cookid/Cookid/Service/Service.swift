@@ -5,19 +5,7 @@
 //  Created by 김동환 on 2021/07/06.
 //
 
-import Foundation
-
-//총비용 전달 필요할 때 총 비용 전달
-//함수 하나는 하나의 기능
-
-//    하루평균 지출 금액구하기
-//
-//    날짜를 누르면 쇼핑한 리스트와 외식한 리스트가 나올 수 있는 함수
-//
-//    mealTime 사용 아침을 거른다
-//    한번씩 더하는 것이 아니라 , 한꺼번에
-//   현재 달을 리턴해주는 함수
-
+import UIKit
 
 class Service {
     
@@ -65,7 +53,7 @@ class Service {
         let date = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.day], from: date)
-        guard let dayOfMonth = components.day else {return}
+        guard let dayOfMonth = components.day else {return 1}
         let average = self.fetchCurrentSpend() / dayOfMonth
         return average
     }
@@ -94,11 +82,35 @@ class Service {
             self.meals = mealModels
         }
     }
-}
-
-struct Spend {
-    let total: Int
-    let shopping: Int
-    let eatOut: Int
-    let percentage: Int
+    
+    
+    func dineInProgressCalc(meals: [Meal]) -> CGFloat {
+        let newMeals = meals.filter { $0.mealType == .dineIn }
+        return CGFloat(newMeals.count) / CGFloat(meals.count)
+    }
+    
+    func mostExpensiveMeal(meals: [Meal]) -> Meal? {
+        let newMeals = meals.sorted { $0.price > $1.price }
+        return newMeals.first
+    }
+    
+    func recentMeals(meals: [Meal]) -> [Meal] {
+        guard let aWeekAgo = Calendar.current.date(byAdding: .weekOfMonth, value: -1, to: Date()) else { return [] }
+        let recentMeals = meals.filter { $0.date > aWeekAgo }
+        let sortedMeals = recentMeals.sorted { $0.date > $1.date }
+        return sortedMeals
+    }
+    
+    func mealTimesCalc(meals: [Meal]) -> [Int] {
+        
+        let breakfastNum = meals.filter { $0.mealTime == .breakfast}.count
+        let brunchNum = meals.filter { $0.mealTime == .brunch}.count
+        let lunchNum = meals.filter { $0.mealTime == .lunch}.count
+        let lundinnerNum = meals.filter { $0.mealTime == .lundinner}.count
+        let dinnerNum = meals.filter { $0.mealTime == .dinner}.count
+        let snackNum = meals.filter { $0.mealTime == .snack}.count
+        
+        return [breakfastNum, brunchNum, lunchNum, lundinnerNum, dinnerNum, snackNum]
+    }
+    
 }
