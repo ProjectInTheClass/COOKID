@@ -16,7 +16,17 @@ class MyMealViewModel: ViewModelType {
     }
     
     struct Output {
-        let dineInProgress: Driver<CGFloat>
+        
+        func dineInProgressCalc(meals: [Meal]) -> CGFloat {
+            let newMeals = meals.filter { $0.mealType == .dineIn }
+            return CGFloat(newMeals.count) / CGFloat(meals.count)
+        }
+        
+        let mostExpensiveMeal: Driver<Meal>
+        
+        let recentMeals: Driver<[Meal]>
+        
+        let mealtimes: Driver<[Int]>
     }
     
     var input: Input
@@ -28,17 +38,32 @@ class MyMealViewModel: ViewModelType {
         
         
         // output initializer
-        let dineInProgressData = Observable<CGFloat>.create { observer in
-            
-            // service function
-            let meals = DummyData.shared.myMeals
-            observer.onNext(DummyData.shared.dineInProgressCalc(meals: meals))
+        
+        let expensiveMeal = Observable<Meal>.create { observer in
+            guard let newMeal = DummyData.shared.mostExpensiveMeal(meals: DummyData.shared.myMeals) else { return Disposables.create() }
+            observer.onNext(newMeal)
             return Disposables.create()
         }
-        .asDriver(onErrorJustReturn: 0)
+        .asDriver(onErrorJustReturn: Meal(price: 2000, date: Date(), name: "제육볶음", image: UIImage(systemName: "square.and.arrow.down.fill")!, mealType: .dineIn, mealTime: .lunch))
+        
+        let aWeekAgoMeals = Observable<[Meal]>.create { observer in
+            let newMeal = DummyData.shared.recentMeals(meals: DummyData.shared.myMeals)
+            observer.onNext(newMeal)
+            return Disposables.create()
+        }
+        .asDriver(onErrorJustReturn: [])
+   
+        let mealTimeNum = Observable<[Int]>.create { observer in
+            
+            let mealsNums = DummyData.shared.mealTimesCalc(meals: DummyData.shared.myMeals)
+            observer.onNext(mealsNums)
+            
+            return Disposables.create()
+        }
+        .asDriver(onErrorJustReturn: [])
         
         self.input = Input()
-        self.output = Output(dineInProgress: dineInProgressData)
+        self.output = Output(mostExpensiveMeal: expensiveMeal, recentMeals: aWeekAgoMeals, mealtimes: mealTimeNum)
     }
     
 }

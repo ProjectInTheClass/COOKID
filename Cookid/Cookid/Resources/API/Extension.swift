@@ -45,4 +45,8 @@ extension UIView {
         self.layer.shadowOpacity = 0.4
     }
     
+    func makeCircleView() {
+        self.layer.cornerRadius = self.frame.height / 2
+    }
+    
 }
