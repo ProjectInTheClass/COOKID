@@ -29,8 +29,8 @@ class Meal {
 }
 
 enum MealType: String {
-    case dineOut
-    case dineIn
+    case dineOut = "외식"
+    case dineIn = "집밥"
 }
 
 enum MealTime: String {
