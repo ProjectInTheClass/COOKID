@@ -87,10 +87,10 @@ class Service {
         }
     }
     
-    func fetchGroceries(completion: @escaping ((User) -> Void)) {
+    func fetchGroceries(completion: @escaping ((Grocery) -> Void)) {
         
         groceryRepository.fetchGroceryInfo { model in
-            <#code#>
+            
         }
         
     }
