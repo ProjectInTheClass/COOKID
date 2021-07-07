@@ -29,7 +29,7 @@ struct MealEntity: Codable {
 
 
 struct GroceryEntity: Codable {
-    var date: Int
+    var date: String
     var groceries: [String]
     
     init(groceriesDic: [String:Any]) {
