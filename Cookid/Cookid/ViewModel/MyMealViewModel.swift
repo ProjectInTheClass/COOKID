@@ -44,7 +44,7 @@ class MyMealViewModel: ViewModelType {
             observer.onNext(newMeal)
             return Disposables.create()
         }
-        .asDriver(onErrorJustReturn: Meal(price: 2000, date: Date(), name: "제육볶음", image: UIImage(systemName: "square.and.arrow.down.fill")!, mealType: .dineIn, mealTime: .lunch))
+        .asDriver(onErrorJustReturn: Meal(price: 2000, date: Date(), name: "제육볶음", image: "square.and.arrow.down.fill", mealType: .dineIn, mealTime: .lunch))
         
         let aWeekAgoMeals = Observable<[Meal]>.create { observer in
             let newMeal = DummyData.shared.recentMeals(meals: DummyData.shared.myMeals)

@@ -79,7 +79,7 @@ class MealService {
                 let meal = Meal(price: mealEntity.price,
                                 date: mealEntity.date.StringTodate()!,
                                 name: mealEntity.name,
-                                image: UIImage(systemName: "box")!,
+                                image: "box",
                                 mealType: MealType(rawValue: mealEntity.mealType)!,
                                 mealTime: MealTime(rawValue: mealEntity.mealTime)!)
                 meals = meal
