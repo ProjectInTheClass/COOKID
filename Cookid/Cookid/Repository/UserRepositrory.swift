@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 
 class UserRepository {
@@ -15,77 +16,59 @@ class UserRepository {
     
     let db = Database.database().reference()
     
+    let authRepo = AuthRepository()
     
-    func fetchUserInfo(userID: String?, completion: @escaping ([UserEntity]) -> Void) {
-        
-        let key = db.child(FBChild.user).childByAutoId().key
-        
-        db.child(FBChild.user).child(key!).observeSingleEvent(of: .value) { snapshot in
-            let snapshot = snapshot.value as! [String:Any]
-            var users = [UserEntity]()
+    
+    func fetchUserInfo(completion: @escaping ([UserEntity]) -> Void) {
+        authRepo.signInAnonymously { [weak self] uid in
+            guard let self = self else { return }
             
-            do {
-                let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
-                let decoder = JSONDecoder()
-                let user = try decoder.decode(UserEntity.self, from: data)
-                users.append(user)
-                print(users)
-                completion(users)
-            } catch {
-                print("Cannot fetch UserInfo: \(error.localizedDescription)")
+            let ref = self.db.child(uid).child(FBChild.user)
+            
+            ref.observeSingleEvent(of: .value) { snapshot in
+                
+                let snapshot = snapshot.value as! [String:Any]
+                var users = [UserEntity]()
+                
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
+                    let decoder = JSONDecoder()
+                    let user = try decoder.decode(UserEntity.self, from: data)
+                    users.append(user)
+                    print(users)
+                    completion(users)
+                } catch {
+                    print("Cannot fetch UserInfo: \(error.localizedDescription)")
+                }
             }
         }
     }
     
-    func uploadUserInfo() {
-        let dummyUser = DummyData.shared.singleUser
-        db.child(FBChild.user).childByAutoId().setValue(dummyUser.converToDic)
-    }
-}
-
-
-
-
-class UserService {
     
-    func loadUserInfo(userID: String, completion: @escaping (User) -> Void) {
-        UserRepository.shared.fetchUserInfo(userID: userID) { userEntity in
-            var users: User!
-            
-            for userEntity in userEntity {
-                let userinfo = User(
-                    nickname: userEntity.nickname,
-                    determination: userEntity.determination,
-                    priceGoal: userEntity.priceGoal,
-                    userType: UserType(rawValue: userEntity.userType)!)
-                users = userinfo
-            }
-            completion(users)
-        }
-    }
-}
-
-
-class MealService {
     
-    static let shared = MealService()
-    
-    func loadMeal(completion: @escaping (Meal) -> Void) {
-        MealRepository.shared.fetchMeals { mealEntity in
-            var meals: Meal!
-            
-            for mealEntity in mealEntity {
-
-                let meal = Meal(price: mealEntity.price,
-                                date: mealEntity.date.StringTodate()!,
-                                name: mealEntity.name,
-                                image: "box",
-                                mealType: MealType(rawValue: mealEntity.mealType)!,
-                                mealTime: MealTime(rawValue: mealEntity.mealTime)!)
-                meals = meal
-            }
-            completion(meals)
-        }
+    func uploadUserInfo(userInfo: User) {
+        let uid = authRepo.uid
+        let userDic: [String:Any] = [
+            "userId" : uid,
+            "nickname": userInfo.nickname,
+            "determination" : userInfo.determination,
+            "priceGoal" : userInfo.priceGoal,
+            "userType" : userInfo.userType.rawValue
+        ]
+        let reference = db.child(uid).child(FBChild.user)
+        reference.setValue(userDic)
     }
+    
+    
+    
+    
+    
+//    func pushToFirebase() {
+//        let uid = authRepo.uid
+//        GroceryRepository.shared.pushGroceryInfo(uid: uid, grocery: DummyData.shared.mySingleShopping)
+//        DummyData.shared.myMeals.forEach { meal in MealRepository.shared.pushMealToFirebase(uid: uid, isAnonymous: isAnonymous, meal: meal) }
+//        uploadUserInfo(userInfo: DummyData.shared.singleUser)
+//
+//    }
 }
 

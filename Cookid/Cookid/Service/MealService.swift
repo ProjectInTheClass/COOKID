@@ -7,13 +7,18 @@
 
 import UIKit
 
-class Service {
+// 날짜 앞뒤로 넘어가면서 가져오는 함수
+// 리포 패치
+// 서비스 나누기
+
+class MealService {
     
     private let mealRepository = MealRepository()
     private let userRepository = UserRepository()
     private let groceryRepository = GroceryRepository()
     
-    private var meals: [Meal] = []
+    private(set) var meals: [Meal] = []
+    private var groceries: [Grocery] = []
     private var totalBudget: Int = 0
     
     func addMeal(meal: Meal){
@@ -70,30 +75,41 @@ class Service {
         return date!
     }
     
-    func fetchMeals(completion: @escaping ((Meal) -> Void)) {
+    func fetchMeals(completion: @escaping (([Meal]) -> Void)) {
         mealRepository.fetchMeals { mealArr in
-
+            var meals: [Meal]!
+            
             let mealModels = mealArr.map { model -> Meal in
                 let price = model.price
-                let date = self.stringToDate(date: model.date)
+                let date = model.date.stringToDate()!
                 let name = model.name
                 let image = model.image ?? "https://plainbackground.com/download.php?imagename=ffffff.png"
-                let mealType = MealType(rawValue: model.mealType)!
-                let mealTime = MealTime(rawValue: model.mealTime)!
-                let mealModel = Meal(price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-                return mealModel
+                let mealType = MealType(rawValue: model.mealType) ?? .dineIn
+                let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
+                
+                return Meal(price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
             }
             self.meals = mealModels
+            completion(mealModels)
         }
     }
     
-    func fetchGroceries(completion: @escaping ((User) -> Void)) {
-        
-//        groceryRepository.fetchGroceryInfo { model in
+//    func fetchGroceries(completion: @escaping (() -> Void)) {
 //
+//        groceryRepository.fetchGroceryInfo(uid:  ) { modelArr in
+//
+//            let groceryModels = modelArr.map { model in
+//
+//                let date = self.stringToDate(date: model.date)
+//                let grocery = model.groceries
+//
+//                print(grocery)
+//                print(grocery[0])
+//
+//
+//            }
 //        }
-        
-    }
+//    }
     
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
         let newMeals = meals.filter { $0.mealType == .dineIn }
@@ -124,4 +140,28 @@ class Service {
         return [breakfastNum, brunchNum, lunchNum, lundinnerNum, dinnerNum, snackNum]
     }
     
+    var currentDay = Date()
+    
+    func fetchMealByDay(day: Int) -> [Meal] {
+        
+        guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return [] }
+        self.currentDay = aDay
+        let meal = self.meals.filter {$0.date == self.currentDay }
+        return meal
+    }
+    
+    
+    //현재 지출 현황을 보고 페이스를 넘었으면 경고하는 String을 뱉어준다
+    func checkPace() -> String{
+        
+        //전체 지출을 현재 달의 날짜 숫자로 나누면 하루당 써야하는 퍼센트가 나온다.
+        //그 퍼센트가 일정 기준을 넘었을 때 , 워닝을 띄운다
+        
+        
+        return ""
+    }
+    
+    
 }
+
+

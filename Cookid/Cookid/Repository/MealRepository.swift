@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseAuth
 
 class MealRepository {
     
@@ -15,26 +16,30 @@ class MealRepository {
     
     let db = Database.database().reference()
     let storage = Storage.storage().reference()
+    let authRepo = AuthRepository()
     
     
-    func fetchMeals(comletion: @escaping ([MealEntity]) -> Void) {
-        db.child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
-            let snapshot = snapshot.value as! [String:Any]
-            var meals = [MealEntity]()
-            do {
-                let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
-                let decoder = JSONDecoder()
-                let mealEntity = try decoder.decode(MealEntity.self, from: data)
-                meals.append(mealEntity)
-                comletion(meals)
-            } catch {
-                print("Error -> \(error.localizedDescription)")
+    func fetchMeals(completion: @escaping ([MealEntity]) -> Void) {
+        authRepo.signInAnonymously { [weak self] uid in
+            guard let self = self else { return }
+            
+            self.db.child(uid).child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
+                
+                let snapshotValue = snapshot.value as! [String:Any]
+                var mealEntity = [MealEntity]()
+                
+                for value in snapshotValue.values {
+                    let dic = value as! [String:Any]
+                    let meal = MealEntity(mealDic: dic)
+                    mealEntity.append(meal)
+                }
+                completion(mealEntity)
             }
         }
     }
     
-    
     func fetchImage(mealID: String, completion: @escaping (URL) -> Void) {
+        
         let storageRef = storage.child(mealID + ".jpg")
         
         storageRef.downloadURL { url, error in
@@ -49,15 +54,21 @@ class MealRepository {
         }
     }
     
-//    func uploadMeal() {
-//        let mySingleMeal = DummyData.shared.mySingleMeal
-//
-//
-//        db.child(FBChild.meal).setValue(mySingleMeal.converToDic)
-//
-//        guard let image = mySingleMeal.image else { return }
-//        self.uploadMealImage(mealID: mySingleMeal.id, image: image)
-//    }
+    
+    func pushMealToFirebase(uid: String, isAnonymous: Bool, meal: Meal) {
+        
+        let mealDic : [String:Any] = [
+            "id" : uid,
+            "price" : meal.price,
+            "date" : meal.date.dateToString(),
+            "name" : meal.name,
+            "image" : meal.image,
+            "mealType" : meal.mealType.rawValue,
+            "mealTime" : meal.mealTime.rawValue
+        ]
+        
+        db.child(uid).child(FBChild.meal).childByAutoId().setValue(mealDic)
+    }
     
     
     func uploadMealImage(mealID: String, image: UIImage) {

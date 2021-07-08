@@ -11,7 +11,7 @@ import RxCocoa
 import NSObject_Rx
 
 class MainViewController: UIViewController {
-    
+
     // outlet
     
     @IBOutlet weak var addView: UIView!
@@ -27,11 +27,45 @@ class MainViewController: UIViewController {
     // property
     
     let viewModel = MainViewModel(service: Service())
-    
+
+    let mealService = MealService()
+    let userService = UserService()
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         bindViewModel()
+      
+//        MealRepository.shared.fetchMeals { meals in
+//            print(meals)
+//        }
+        
+//        mealService.fetchGroceries {
+//
+//        }
+//
+//        userService.fetchUserInfo(userID: nil) { entity in
+//            print(entity)
+//        }
+
+//        mealService.fetchMeals { meals in
+//            print(meals.first?.name)
+//        }
+        
+//        UserService.shared.loadUserInfo(userID: UserRepository.shared.uid) { user in
+//            print(user)
+//        }
+//        
+//        UserRepository.shared.fetchUserInfo{ userEntity in
+//            print(userEntity)
+//        }
+        
+//        UserRepository.shared.uploadUserInfo(userInfo: DummyData.shared.singleUser)
+//
+//        MealRepository.shared.signInAnonymously()
+//
+//        MealRepository.shared.pushToFirebase(meal: DummyData.shared.mySingleMeal)
+
     }
     
     private func setupView() {
