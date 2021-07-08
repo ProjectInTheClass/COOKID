@@ -11,10 +11,11 @@ class UserService {
     
     static let shared = UserService()
     
+    
     private let userRepository = UserRepository()
     
     func loadUserInfo(completion: @escaping (User) -> Void) {
-        
+
         userRepository.fetchUserInfo { userentity in
             var user: User!
             for value in userentity {
