@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
 //        userService.fetchUserInfo(userID: nil) { entity in
 //            print(entity)
 //        }
-//
+
 //        mealService.fetchMeals { meals in
 //            print(meals.first?.name)
 //        }
@@ -33,6 +33,21 @@ class MainViewController: UIViewController {
             }
         }
         
+
+
+        UserService.shared.loadUserInfo(userID: UserRepository.shared.uid) { user in
+            print(user)
+        }
+//        
+//        UserRepository.shared.fetchUserInfo{ userEntity in
+//            print(userEntity)
+//        }
+        
+//        UserRepository.shared.uploadUserInfo(userInfo: DummyData.shared.singleUser)
+//
+//        MealRepository.shared.signInAnonymously()
+//
+//        MealRepository.shared.pushToFirebase(meal: DummyData.shared.mySingleMeal)
         
     }
     
