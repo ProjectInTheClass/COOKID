@@ -11,7 +11,7 @@ import UIKit
 // 리포 패치
 // 서비스 나누기
 
-class Service {
+class MealService {
     
     private let mealRepository = MealRepository()
     private let userRepository = UserRepository()
@@ -92,19 +92,21 @@ class Service {
         }
     }
     
-//    func fetchGroceries(completion: @escaping ((User) -> Void)) {
-//
-//        groceryRepository.fetchGroceryInfo { modelArr in
-//
-//            let groceryModels = modelArr.map { model in
-//
-//                let date = self.stringToDate(date: model.date)
-//                let grocery = model.groceries
-//
-//                grocery[0]
-//            }
-//        }
-//    }
+    func fetchGroceries(completion: @escaping (() -> Void)) {
+
+        groceryRepository.fetchGroceryInfo { modelArr in
+
+            let groceryModels = modelArr.map { model in
+
+                let date = self.stringToDate(date: model.date)
+                let grocery = model.groceries
+
+                print(grocery)
+                print(grocery[0])
+                
+            }
+        }
+    }
     
     func fetchUsers(){
         
@@ -150,3 +152,5 @@ class Service {
         return meal
     }
 }
+
+

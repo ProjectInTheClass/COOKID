@@ -9,9 +9,21 @@ import UIKit
 
 class MainViewController: UIViewController {
 
+    let mealService = MealService()
+    let userService = UserRepository()
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        mealService.fetchGroceries {
+            
+        }
+        
+        userService.fetchUserInfo(userID: nil) { entity in
+            print(entity)
+        }
+        
     }
     
 
