@@ -16,6 +16,10 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+//        MealRepository.shared.fetchMeals { meals in
+//            print(meals)
+//        }
+        
 //        mealService.fetchGroceries {
 //
 //        }
@@ -28,9 +32,9 @@ class MainViewController: UIViewController {
 //            print(meals.first?.name)
 //        }
         
-        UserService.shared.loadUserInfo(userID: UserRepository.shared.uid) { user in
-            print(user)
-        }
+//        UserService.shared.loadUserInfo(userID: UserRepository.shared.uid) { user in
+//            print(user)
+//        }
 //        
 //        UserRepository.shared.fetchUserInfo{ userEntity in
 //            print(userEntity)

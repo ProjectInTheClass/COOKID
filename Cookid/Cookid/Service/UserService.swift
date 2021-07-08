@@ -11,7 +11,10 @@ class UserService {
     
     static let shared = UserService()
     
+    
     private let userRepository = UserRepository()
+    
+    
     
     func loadUserInfo(userID: String, completion: @escaping (User) -> Void) {
         userRepository.fetchUserInfo { userentity in

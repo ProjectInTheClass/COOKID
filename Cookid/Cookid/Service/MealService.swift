@@ -110,11 +110,6 @@ class MealService {
         }
     }
     
-    func fetchUsers(){
-        
-    }
-    
-    
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
         let newMeals = meals.filter { $0.mealType == .dineIn }
         return CGFloat(newMeals.count) / CGFloat(meals.count)
@@ -153,6 +148,19 @@ class MealService {
         let meal = self.meals.filter {$0.date == self.currentDay }
         return meal
     }
+    
+    
+    //현재 지출 현황을 보고 페이스를 넘었으면 경고하는 String을 뱉어준다
+    func checkPace() -> String{
+        
+        //전체 지출을 현재 달의 날짜 숫자로 나누면 하루당 써야하는 퍼센트가 나온다.
+        //그 퍼센트가 일정 기준을 넘었을 때 , 워닝을 띄운다
+        
+        
+        return ""
+    }
+    
+    
 }
 
 
