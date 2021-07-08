@@ -28,6 +28,7 @@ struct MealEntity: Codable {
 }
 
 
+
 struct GroceryEntity: Codable {
     var date: String
     var groceries: [GroceryListEntity]
@@ -37,6 +38,8 @@ struct GroceryEntity: Codable {
         self.groceries = groceriesDic["groceries"] as? [GroceryListEntity] ?? []
     }
 }
+
+
 
 struct GroceryListEntity: Codable {
     var name: String

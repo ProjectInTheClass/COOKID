@@ -8,7 +8,7 @@
 import UIKit
 
 struct User {
-    var userID: String
+    var userID: String?
     var nickname: String
     var determination: String
     var priceGoal: String

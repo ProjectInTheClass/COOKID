@@ -77,7 +77,7 @@ class MealService {
     
     func fetchMeals(completion: @escaping (([Meal]) -> Void)) {
         mealRepository.fetchMeals { mealArr in
-            var meals: Meal?
+            var meals: [Meal]!
             
             let mealModels = mealArr.map { model -> Meal in
                 let price = model.price
@@ -86,17 +86,17 @@ class MealService {
                 let image = model.image ?? "https://plainbackground.com/download.php?imagename=ffffff.png"
                 let mealType = MealType(rawValue: model.mealType) ?? .dineIn
                 let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
-                let mealModel = Meal(price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-                return mealModel
+                
+                return Meal(price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
             }
-            completion(mealModels)
             self.meals = mealModels
+            completion(mealModels)
         }
     }
     
 //    func fetchGroceries(completion: @escaping (() -> Void)) {
 //
-//        groceryRepository.fetchGroceryInfo(uid: <#String#>) { modelArr in
+//        groceryRepository.fetchGroceryInfo(uid:  ) { modelArr in
 //
 //            let groceryModels = modelArr.map { model in
 //
@@ -105,6 +105,7 @@ class MealService {
 //
 //                print(grocery)
 //                print(grocery[0])
+//
 //
 //            }
 //        }

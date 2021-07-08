@@ -16,38 +16,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-//        mealService.fetchGroceries {
-//
-//        }
-//
-//        userService.fetchUserInfo(userID: nil) { entity in
-//            print(entity)
-//        }
-
-//        mealService.fetchMeals { meals in
-//            print(meals.first?.name)
-//        }
-        UserRepository.shared.signInAnonymously { uid in
-            GroceryRepository.shared.fetchGroceryInfo(uid: uid) { entity in
-                print(entity)
-            }
-        }
-        
-
-
-        UserService.shared.loadUserInfo(userID: UserRepository.shared.uid) { user in
-            print(user)
-        }
-//        
-//        UserRepository.shared.fetchUserInfo{ userEntity in
-//            print(userEntity)
-//        }
-        
-//        UserRepository.shared.uploadUserInfo(userInfo: DummyData.shared.singleUser)
-//
-//        MealRepository.shared.signInAnonymously()
-//
-//        MealRepository.shared.pushToFirebase(meal: DummyData.shared.mySingleMeal)
         
     }
     
