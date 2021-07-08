@@ -37,7 +37,9 @@ class PlainHorizontalProgressBar: UIView {
         let progressRect = CGRect(origin: .zero, size: CGSize(width: rect.width * progress, height: rect.height))
        
         progressLayer.frame = progressRect
+        progressLayer.cornerRadius = 8
         progressLayer.backgroundColor = color?.cgColor
+        
     }
     
 }

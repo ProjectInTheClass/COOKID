@@ -11,6 +11,8 @@ import RxCocoa
 
 class OnboardingViewModel: ViewModelType {
     
+    let disposeBag = DisposeBag()
+    
     struct Input {
         let nickname: BehaviorSubject<String>
         let monthlyGoal: BehaviorSubject<String>
@@ -46,6 +48,14 @@ class OnboardingViewModel: ViewModelType {
     
     func vaildInformation(_ text: String) -> Bool {
         return text.count < 3
+    }
+    
+    func registrationUser() {
+        self.output.userInformation
+            .drive(onNext: { user in
+                print("등록완료")
+            })
+            .disposed(by: disposeBag)
     }
     
     

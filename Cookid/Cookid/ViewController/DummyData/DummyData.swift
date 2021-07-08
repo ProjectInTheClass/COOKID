@@ -29,6 +29,8 @@ class DummyData {
     
     var myShoppings = [GroceryShopping]()
     
- 
+    func dateToMeal(date: Date) -> [Meal] {
+        return DummyData.shared.myMeals
+    }
     
 }
