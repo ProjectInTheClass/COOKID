@@ -42,6 +42,12 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
                 }
             })
             .disposed(by: rx.disposeBag)
+        
+        finishPageButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.registrationUser()
+            })
+            .disposed(by: rx.disposeBag)
        
     }
     

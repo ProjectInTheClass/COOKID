@@ -25,9 +25,7 @@ class MyMealViewModel: ViewModelType {
         }
         
         let mostExpensiveMeal: Driver<Meal>
-        
         let recentMeals: Driver<[Meal]>
-        
         let mealtimes: Driver<[[Meal]]>
     }
     

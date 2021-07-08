@@ -23,6 +23,8 @@ class MealTimeCollectionViewCell: UICollectionViewCell {
     var heightConstraints: NSLayoutConstraint?
     
     override func awakeFromNib() {
+        super.awakeFromNib()
+        
         addSubview(barView)
         heightConstraints = barView.heightAnchor.constraint(equalToConstant: 100)
         heightConstraints?.isActive = true
