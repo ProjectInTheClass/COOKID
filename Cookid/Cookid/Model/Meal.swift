@@ -9,7 +9,7 @@ import UIKit
 
 class Meal {
     
-    let id: String = ""
+    let id: String = UUID().uuidString
     var price: Int
     var date: Date
     var name: String
