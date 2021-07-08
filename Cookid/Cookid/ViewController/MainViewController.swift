@@ -14,8 +14,7 @@ class MainViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
+
 //        MealRepository.shared.fetchMeals { meals in
 //            print(meals)
 //        }

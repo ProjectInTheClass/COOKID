@@ -16,28 +16,30 @@ class UserRepository {
     
     let db = Database.database().reference()
     
-    var uid: String = ""
-    var isAnonymous: Bool = false
+    let authRepo = AuthRepository()
     
-
+    
     func fetchUserInfo(completion: @escaping ([UserEntity]) -> Void) {
-        
-        let ref = db.child(FBChild.user)
-        
-        ref.queryOrdered(byChild: "userId").observeSingleEvent(of: .value) { snapshot in
+        authRepo.signInAnonymously { [weak self] uid in
+            guard let self = self else { return }
             
-            let snapshot = snapshot.value as! [String:Any]
-            var users = [UserEntity]()
-
-            do {
-                let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
-                let decoder = JSONDecoder()
-                let user = try decoder.decode(UserEntity.self, from: data)
-                users.append(user)
-                print(users)
-                completion(users)
-            } catch {
-                print("Cannot fetch UserInfo: \(error.localizedDescription)")
+            let ref = self.db.child(uid).child(FBChild.user)
+            
+            ref.observeSingleEvent(of: .value) { snapshot in
+                
+                let snapshot = snapshot.value as! [String:Any]
+                var users = [UserEntity]()
+                
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
+                    let decoder = JSONDecoder()
+                    let user = try decoder.decode(UserEntity.self, from: data)
+                    users.append(user)
+                    print(users)
+                    completion(users)
+                } catch {
+                    print("Cannot fetch UserInfo: \(error.localizedDescription)")
+                }
             }
         }
     }
@@ -45,7 +47,7 @@ class UserRepository {
     
     
     func uploadUserInfo(userInfo: User) {
-        let uid = self.uid
+        let uid = authRepo.uid
         let userDic: [String:Any] = [
             "userId" : uid,
             "nickname": userInfo.nickname,
@@ -53,24 +55,20 @@ class UserRepository {
             "priceGoal" : userInfo.priceGoal,
             "userType" : userInfo.userType.rawValue
         ]
-        let reference = db.child(FBChild.user)
+        let reference = db.child(uid).child(FBChild.user)
         reference.setValue(userDic)
     }
     
     
-    func signInAnonymously() {
-        Auth.auth().signInAnonymously { [weak self] authdata, error in
-            guard let self = self else { return }
-            if error != nil {
-                print(error?.localizedDescription)
-                return
-            } else {
-                guard let user = authdata?.user else { return }
-                self.uid = user.uid
-                self.isAnonymous = user.isAnonymous
-            }
-            print(self.uid)
-        }
-    }
+    
+    
+    
+//    func pushToFirebase() {
+//        let uid = authRepo.uid
+//        GroceryRepository.shared.pushGroceryInfo(uid: uid, grocery: DummyData.shared.mySingleShopping)
+//        DummyData.shared.myMeals.forEach { meal in MealRepository.shared.pushMealToFirebase(uid: uid, isAnonymous: isAnonymous, meal: meal) }
+//        uploadUserInfo(userInfo: DummyData.shared.singleUser)
+//
+//    }
 }
 

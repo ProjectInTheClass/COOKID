@@ -14,13 +14,12 @@ class UserService {
     
     private let userRepository = UserRepository()
     
-    
-    
-    func loadUserInfo(userID: String, completion: @escaping (User) -> Void) {
+    func loadUserInfo(completion: @escaping (User) -> Void) {
+
         userRepository.fetchUserInfo { userentity in
             var user: User!
             for value in userentity {
-                let userValue = User(userID: userID,
+                let userValue = User(
                                 nickname: value.nickname,
                                 determination: value.determination,
                                 priceGoal: value.priceGoal,

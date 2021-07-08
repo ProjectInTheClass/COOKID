@@ -33,8 +33,9 @@
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		7CDB672F20DDD0D65D45B557 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892F362497B138331AC4FAC2 /* Pods_Cookid.framework */; };
 		C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
-		C6150A072696BB4E00578EAB /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
 		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
+		C67441D62696FA530086CBAD /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
+		C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67441D726970E7C0086CBAD /* AuthRepository.swift */; };
 		C6BFF4532694996B006295F5 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF4522694996A006295F5 /* Entities.swift */; };
 		C6BFF45726949986006295F5 /* UserRepositrory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45426949986006295F5 /* UserRepositrory.swift */; };
 		C6BFF45826949986006295F5 /* GroceryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45526949986006295F5 /* GroceryRepository.swift */; };
@@ -77,6 +78,7 @@
 		0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
 		892F362497B138331AC4FAC2 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
+		C67441D726970E7C0086CBAD /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		C6BFF4522694996A006295F5 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		C6BFF45426949986006295F5 /* UserRepositrory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepositrory.swift; sourceTree = "<group>"; };
 		C6BFF45526949986006295F5 /* GroceryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryRepository.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				C6BFF45526949986006295F5 /* GroceryRepository.swift */,
 				C6BFF45626949986006295F5 /* MealRepository.swift */,
 				C6BFF45426949986006295F5 /* UserRepositrory.swift */,
+				C67441D726970E7C0086CBAD /* AuthRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -438,8 +441,9 @@
 				032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */,
 				C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */,
 				0322339E269212860092DD6D /* SceneDelegate.swift in Sources */,
-				C6150A072696BB4E00578EAB /* MealService.swift in Sources */,
+				C67441D62696FA530086CBAD /* MealService.swift in Sources */,
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
+				C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
 			);

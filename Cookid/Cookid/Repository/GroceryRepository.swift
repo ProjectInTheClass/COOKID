@@ -11,30 +11,35 @@ import FirebaseDatabase
 
 
 class GroceryRepository {
-    static let shared = GroceryRepository()
-    let db = Database.database().reference()
     
+    static let shared = GroceryRepository()
+    
+    let db = Database.database().reference()
+    let authRepo = AuthRepository()
     
     func fetchGroceryInfo(completion: @escaping ([GroceryEntity]) -> Void) {
-        db.child(FBChild.groceries).observeSingleEvent(of: .value) { snapshot in
-            let snapshot = snapshot.value as! [String:Any]
-            var groceries = [GroceryEntity]()
+        authRepo.signInAnonymously { [weak self] uid in
+            guard let self = self else { return }
+            self.db.child(uid).child(FBChild.groceries).observeSingleEvent(of: .value) { snapshot in
             
-            do {
-                let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
-                let decoder = JSONDecoder()
-                let grocery = try decoder.decode(GroceryEntity.self, from: data)
-                groceries.append(grocery)
-                completion(groceries)
-            } catch {
-                print("Cannot fetch grocery info.. \(error.localizedDescription)")
+                let snapshot = snapshot.value as! [String:Any]
+                var grocery = [GroceryEntity]()
+
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
+                    let decoder = JSONDecoder()
+                    let decodedGrocery = try decoder.decode(GroceryEntity.self, from: data)
+                    grocery.append(decodedGrocery)
+                    completion(grocery)
+                } catch {
+                    print("Cannot fetch grocery info.. \(error.localizedDescription)")
+                }
             }
         }
     }
     
     
-//    func uploadGroceryInfo() {
-//        let dummyGroceries = DummyData.shared.mySingleShopping
-//        db.child(FBChild.groceries).setValue(dummyGroceries.converToDic)
-//    }
+    func pushGroceryInfo(uid: String, grocery: GroceryShopping) {
+        db.child(uid).child(FBChild.groceries).setValue(grocery.converToDic)
+    }
 }
