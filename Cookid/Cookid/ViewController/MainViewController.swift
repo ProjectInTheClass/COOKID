@@ -10,19 +10,36 @@ import UIKit
 class MainViewController: UIViewController {
 
     let mealService = MealService()
-    let userService = UserRepository()
+    let userService = UserService()
    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        mealService.fetchGroceries {
-            
-        }
+//        mealService.fetchGroceries {
+//
+//        }
+//
+//        userService.fetchUserInfo(userID: nil) { entity in
+//            print(entity)
+//        }
+//
+//        mealService.fetchMeals { meals in
+//            print(meals.first?.name)
+//        }
         
-        userService.fetchUserInfo(userID: nil) { entity in
-            print(entity)
-        }
+//        UserService.shared.loadUserInfo(userID: MealRepository.shared.uid) { user in
+//            print(user)
+//        }
+//        UserRepository.shared.fetchUserInfo{ userEntity in
+//            print(userEntity)
+//        }
+        
+//        UserRepository.shared.uploadUserInfo(userInfo: DummyData.shared.singleUser)
+//
+//        MealRepository.shared.signInAnonymously()
+//
+//        MealRepository.shared.pushToFirebase(meal: DummyData.shared.mySingleMeal)
         
     }
     

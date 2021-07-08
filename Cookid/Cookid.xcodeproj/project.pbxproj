@@ -30,9 +30,11 @@
 		032233E926934F180092DD6D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233E826934F180092DD6D /* Protocol.swift */; };
 		035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E491C26956F92002CC084 /* MealTableViewCell.swift */; };
 		035E4921269597D4002CC084 /* MealTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */; };
-		0395B61526941121009289B7 /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		7CDB672F20DDD0D65D45B557 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892F362497B138331AC4FAC2 /* Pods_Cookid.framework */; };
+		C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
+		C6150A072696BB4E00578EAB /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
+		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
 		C6BFF4532694996B006295F5 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF4522694996A006295F5 /* Entities.swift */; };
 		C6BFF45726949986006295F5 /* UserRepositrory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45426949986006295F5 /* UserRepositrory.swift */; };
 		C6BFF45826949986006295F5 /* GroceryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45526949986006295F5 /* GroceryRepository.swift */; };
@@ -41,7 +43,6 @@
 		C6BFF45E26949A1E006295F5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C6BFF45D26949A1E006295F5 /* FirebaseStorage */; };
 		C6BFF46026949A71006295F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6BFF45F26949A71006295F5 /* GoogleService-Info.plist */; };
 		C6BFF46226949AA7006295F5 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF46126949AA7006295F5 /* Constant.swift */; };
-		DB0D7D7426949818009B2D51 /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
 		DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDA046726969A6500B5C1D6 /* UserService.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,7 @@
 				C6BFF45C26949A1E006295F5 /* FirebaseDatabase in Frameworks */,
 				7CDB672F20DDD0D65D45B557 /* Pods_Cookid.framework in Frameworks */,
 				C6BFF45E26949A1E006295F5 /* FirebaseStorage in Frameworks */,
+				C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +311,7 @@
 			packageProductDependencies = (
 				C6BFF45B26949A1E006295F5 /* FirebaseDatabase */,
 				C6BFF45D26949A1E006295F5 /* FirebaseStorage */,
+				C6150A082696C20800578EAB /* FirebaseAuth */,
 			);
 			productName = Cookid;
 			productReference = 03223398269212860092DD6D /* Cookid.app */;
@@ -429,13 +432,13 @@
 				C6BFF46226949AA7006295F5 /* Constant.swift in Sources */,
 				032233DE2693057C0092DD6D /* User.swift in Sources */,
 				C6BFF4532694996B006295F5 /* Entities.swift in Sources */,
-				DB0D7D7426949818009B2D51 /* MealService.swift in Sources */,
 				032233BE26927A160092DD6D /* MyExpenseViewController.swift in Sources */,
-				0395B61526941121009289B7 /* MyMealViewModel.swift in Sources */,
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
 				032233D72692F0160092DD6D /* Extension.swift in Sources */,
 				032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */,
+				C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */,
 				0322339E269212860092DD6D /* SceneDelegate.swift in Sources */,
+				C6150A072696BB4E00578EAB /* MealService.swift in Sources */,
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
@@ -655,6 +658,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C6150A082696C20800578EAB /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C6BFF45A26949A1E006295F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
 		C6BFF45B26949A1E006295F5 /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C6BFF45A26949A1E006295F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

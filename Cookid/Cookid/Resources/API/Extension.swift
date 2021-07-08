@@ -27,7 +27,7 @@ extension Date {
 
 
 extension String {
-    func StringTodate() -> Date? {
+    func stringToDate() -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy년 MM월 dd일"
         return dateFormatter.date(from: self)

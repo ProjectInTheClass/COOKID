@@ -9,20 +9,22 @@ import Foundation
 
 class UserService {
     
+    static let shared = UserService()
+    
+    private let userRepository = UserRepository()
+    
     func loadUserInfo(userID: String, completion: @escaping (User) -> Void) {
-        UserRepository.shared.fetchUserInfo(userID: userID) { userEntity in
-            var users: User!
-            
-            for userEntity in userEntity {
-                let userinfo = User(
-                    nickname: userEntity.nickname,
-                    determination: userEntity.determination,
-                    priceGoal: userEntity.priceGoal,
-                    userType: UserType(rawValue: userEntity.userType)!)
-                users = userinfo
+        userRepository.fetchUserInfo { userentity in
+            var user: User!
+            for value in userentity {
+                let userValue = User(userID: userID,
+                                nickname: value.nickname,
+                                determination: value.determination,
+                                priceGoal: value.priceGoal,
+                                userType: UserType(rawValue: value.userType)!)
+                user = userValue
             }
-            completion(users)
+            completion(user)
         }
     }
-    
 }

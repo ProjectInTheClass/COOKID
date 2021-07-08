@@ -13,15 +13,6 @@ struct User {
     var determination: String
     var priceGoal: String
     var userType: UserType
-    var converToDic: [String:Any] {
-        let dic: [String:Any] = [
-            "nickname": nickname,
-            "determination" : determination,
-            "priceGoal" : priceGoal,
-            "userType" : userType.rawValue
-        ]
-        return dic
-    }
 }
 
 enum UserType: String {

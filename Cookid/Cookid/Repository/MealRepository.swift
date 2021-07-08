@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseAuth
 
 class MealRepository {
     
@@ -15,7 +16,6 @@ class MealRepository {
     
     let db = Database.database().reference()
     let storage = Storage.storage().reference()
-    
     
     func fetchMeals(comletion: @escaping ([MealEntity]) -> Void) {
         db.child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
@@ -35,6 +35,7 @@ class MealRepository {
     
     
     func fetchImage(mealID: String, completion: @escaping (URL) -> Void) {
+        
         let storageRef = storage.child(mealID + ".jpg")
         
         storageRef.downloadURL { url, error in
@@ -49,15 +50,24 @@ class MealRepository {
         }
     }
     
-//    func uploadMeal() {
-//        let mySingleMeal = DummyData.shared.mySingleMeal
-//
-//
-//        db.child(FBChild.meal).setValue(mySingleMeal.converToDic)
-//
-//        guard let image = mySingleMeal.image else { return }
-//        self.uploadMealImage(mealID: mySingleMeal.id, image: image)
-//    }
+    
+    func pushToFirebase(meal: Meal) {
+        let uid = UserRepository.shared.uid
+        let isAnonymous = UserRepository.shared.isAnonymous
+        
+        let mealDic : [String:Any] = [
+            "id" : uid,
+            "date" : meal.date.dateToString(),
+            "name" : meal.name,
+            "image" : meal.image,
+            "mealType" : meal.mealType.rawValue,
+            "mealTime" : meal.mealTime.rawValue
+        ]
+        
+        if isAnonymous {
+            db.child(FBChild.meal).childByAutoId().setValue(mealDic)
+        }
+    }
     
     
     func uploadMealImage(mealID: String, image: UIImage) {
