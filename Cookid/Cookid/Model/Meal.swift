@@ -9,7 +9,7 @@ import UIKit
 
 class Meal {
     
-    let id: String = UUID().uuidString
+    let id: String = ""
     var price: Int
     var date: Date
     var name: String
@@ -45,6 +45,13 @@ enum MealTime: String {
 struct GroceryShopping {
     let date: Date
     var groceries: [Grocery]
+    var converToDic: [String:Any] {
+        let dic: [String:Any] = [
+            "date" : date.dateToString(),
+            "groceries" : groceries.map { $0.convoerToDic }
+        ]
+        return dic
+    }
     
     func totalPrice(groceries: [Grocery]) -> Int {
         return self.groceries.reduce(0) { result, grocery in
@@ -53,8 +60,15 @@ struct GroceryShopping {
     }
 }
 
-struct Grocery {
+struct Grocery: Codable {
     let name: String
     let price: Int
+    var convoerToDic: [String:Any] {
+        let dic: [String:Any] = [
+            "name" : name,
+            "price" : price
+        ]
+        return dic
+    }
 }
 

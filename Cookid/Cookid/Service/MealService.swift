@@ -94,21 +94,21 @@ class MealService {
         }
     }
     
-    func fetchGroceries(completion: @escaping (() -> Void)) {
-
-        groceryRepository.fetchGroceryInfo { modelArr in
-
-            let groceryModels = modelArr.map { model in
-
-                let date = self.stringToDate(date: model.date)
-                let grocery = model.groceries
-
-                print(grocery)
-                print(grocery[0])
-                
-            }
-        }
-    }
+//    func fetchGroceries(completion: @escaping (() -> Void)) {
+//
+//        groceryRepository.fetchGroceryInfo(uid: <#String#>) { modelArr in
+//
+//            let groceryModels = modelArr.map { model in
+//
+//                let date = self.stringToDate(date: model.date)
+//                let grocery = model.groceries
+//
+//                print(grocery)
+//                print(grocery[0])
+//
+//            }
+//        }
+//    }
     
     func fetchUsers(){
         

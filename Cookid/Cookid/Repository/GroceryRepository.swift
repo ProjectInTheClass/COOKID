@@ -11,21 +11,23 @@ import FirebaseDatabase
 
 
 class GroceryRepository {
+    
     static let shared = GroceryRepository()
+    
     let db = Database.database().reference()
+    let uid = UserRepository.shared.uid
     
-    
-    func fetchGroceryInfo(completion: @escaping ([GroceryEntity]) -> Void) {
-        db.child(FBChild.groceries).observeSingleEvent(of: .value) { snapshot in
+    func fetchGroceryInfo(uid: String, completion: @escaping ([GroceryEntity]) -> Void) {
+        db.child(uid).child(FBChild.groceries).observeSingleEvent(of: .value) { snapshot in
             let snapshot = snapshot.value as! [String:Any]
-            var groceries = [GroceryEntity]()
-            
+            var grocery = [GroceryEntity]()
+
             do {
                 let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
                 let decoder = JSONDecoder()
-                let grocery = try decoder.decode(GroceryEntity.self, from: data)
-                groceries.append(grocery)
-                completion(groceries)
+                let decodedGrocery = try decoder.decode(GroceryEntity.self, from: data)
+                grocery.append(decodedGrocery)
+                completion(grocery)
             } catch {
                 print("Cannot fetch grocery info.. \(error.localizedDescription)")
             }
@@ -33,8 +35,7 @@ class GroceryRepository {
     }
     
     
-//    func uploadGroceryInfo() {
-//        let dummyGroceries = DummyData.shared.mySingleShopping
-//        db.child(FBChild.groceries).setValue(dummyGroceries.converToDic)
-//    }
+    func pushGroceryInfo(uid: String, grocery: GroceryShopping) {
+        db.child(uid).child(FBChild.groceries).setValue(grocery.converToDic)
+    }
 }

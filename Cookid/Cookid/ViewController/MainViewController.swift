@@ -27,7 +27,14 @@ class MainViewController: UIViewController {
 //        mealService.fetchMeals { meals in
 //            print(meals.first?.name)
 //        }
+        UserRepository.shared.signInAnonymously { uid in
+            GroceryRepository.shared.fetchGroceryInfo(uid: uid) { entity in
+                print(entity)
+            }
+        }
         
+
+
         UserService.shared.loadUserInfo(userID: UserRepository.shared.uid) { user in
             print(user)
         }

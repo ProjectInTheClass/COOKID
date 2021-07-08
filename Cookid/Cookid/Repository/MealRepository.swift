@@ -16,9 +16,11 @@ class MealRepository {
     
     let db = Database.database().reference()
     let storage = Storage.storage().reference()
+    let uid = UserRepository.shared.uid
     
-    func fetchMeals(comletion: @escaping ([MealEntity]) -> Void) {
-        db.child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
+    
+    func fetchMeals(completion: @escaping ([MealEntity]) -> Void) {
+        db.child(uid).child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
             let snapshot = snapshot.value as! [String:Any]
             var meals = [MealEntity]()
             do {
@@ -26,7 +28,7 @@ class MealRepository {
                 let decoder = JSONDecoder()
                 let mealEntity = try decoder.decode(MealEntity.self, from: data)
                 meals.append(mealEntity)
-                comletion(meals)
+                completion(meals)
             } catch {
                 print("Error -> \(error.localizedDescription)")
             }
@@ -51,12 +53,11 @@ class MealRepository {
     }
     
     
-    func pushToFirebase(meal: Meal) {
-        let uid = UserRepository.shared.uid
-        let isAnonymous = UserRepository.shared.isAnonymous
+    func pushMealToFirebase(uid: String, isAnonymous: Bool, meal: Meal) {
         
         let mealDic : [String:Any] = [
             "id" : uid,
+            "price" : meal.price,
             "date" : meal.date.dateToString(),
             "name" : meal.name,
             "image" : meal.image,
@@ -64,9 +65,8 @@ class MealRepository {
             "mealTime" : meal.mealTime.rawValue
         ]
         
-        if isAnonymous {
-            db.child(FBChild.meal).childByAutoId().setValue(mealDic)
-        }
+        db.child(uid).child(FBChild.meal).childByAutoId().setValue(mealDic)
+        
     }
     
     

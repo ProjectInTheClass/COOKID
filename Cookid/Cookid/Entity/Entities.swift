@@ -30,13 +30,24 @@ struct MealEntity: Codable {
 
 struct GroceryEntity: Codable {
     var date: String
-    var groceries: [String]
+    var groceries: [GroceryListEntity]
     
     init(groceriesDic: [String:Any]) {
         self.date = groceriesDic["date"] as? String ?? ""
-        self.groceries = groceriesDic["groceries"] as? [String] ?? []
+        self.groceries = groceriesDic["groceries"] as? [GroceryListEntity] ?? []
     }
 }
+
+struct GroceryListEntity: Codable {
+    var name: String
+    var price: Int
+    
+    init(groceriesDic: [String:Any]) {
+        self.name = groceriesDic["name"] as? String ?? ""
+        self.price = groceriesDic["price"] as? Int ?? 0
+    }
+}
+
 
 
 struct UserEntity: Codable {
