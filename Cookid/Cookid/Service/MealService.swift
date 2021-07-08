@@ -75,19 +75,21 @@ class MealService {
         return date!
     }
     
-    func fetchMeals(completion: @escaping ((Meal) -> Void)) {
+    func fetchMeals(completion: @escaping (([Meal]) -> Void)) {
         mealRepository.fetchMeals { mealArr in
-
+            var meals: Meal?
+            
             let mealModels = mealArr.map { model -> Meal in
                 let price = model.price
-                let date = self.stringToDate(date: model.date)
+                let date = model.date.stringToDate()!
                 let name = model.name
                 let image = model.image ?? "https://plainbackground.com/download.php?imagename=ffffff.png"
-                let mealType = MealType(rawValue: model.mealType)!
-                let mealTime = MealTime(rawValue: model.mealTime)!
+                let mealType = MealType(rawValue: model.mealType) ?? .dineIn
+                let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
                 let mealModel = Meal(price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
                 return mealModel
             }
+            completion(mealModels)
             self.meals = mealModels
         }
     }

@@ -28,7 +28,7 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
     @IBOutlet weak var mealTableView: UITableView!
     @IBOutlet weak var mealTimeCollectionView: UICollectionView!
     
-    let viewModel = MyMealViewModel(service: Service())
+    let viewModel = MyMealViewModel(service: MealService())
     var maxValue: Int?
     
     

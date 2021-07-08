@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 
 class UserRepository {
@@ -15,15 +16,19 @@ class UserRepository {
     
     let db = Database.database().reference()
     
+    var uid: String = ""
+    var isAnonymous: Bool = false
     
-    func fetchUserInfo(userID: String?, completion: @escaping ([UserEntity]) -> Void) {
+
+    func fetchUserInfo(completion: @escaping ([UserEntity]) -> Void) {
         
-        let key = db.child(FBChild.user).childByAutoId().key
+        let ref = db.child(FBChild.user)
         
-        db.child(FBChild.user).child(key!).observeSingleEvent(of: .value) { snapshot in
+        ref.queryOrdered(byChild: "userId").observeSingleEvent(of: .value) { snapshot in
+            
             let snapshot = snapshot.value as! [String:Any]
             var users = [UserEntity]()
-            
+
             do {
                 let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
                 let decoder = JSONDecoder()
@@ -37,9 +42,35 @@ class UserRepository {
         }
     }
     
-    func uploadUserInfo() {
-        let dummyUser = DummyData.shared.singleUser
-        db.child(FBChild.user).childByAutoId().setValue(dummyUser.converToDic)
+    
+    
+    func uploadUserInfo(userInfo: User) {
+        let uid = self.uid
+        let userDic: [String:Any] = [
+            "userId" : uid,
+            "nickname": userInfo.nickname,
+            "determination" : userInfo.determination,
+            "priceGoal" : userInfo.priceGoal,
+            "userType" : userInfo.userType.rawValue
+        ]
+        let reference = db.child(FBChild.user)
+        reference.setValue(userDic)
+    }
+    
+    
+    func signInAnonymously() {
+        Auth.auth().signInAnonymously { [weak self] authdata, error in
+            guard let self = self else { return }
+            if error != nil {
+                print(error?.localizedDescription)
+                return
+            } else {
+                guard let user = authdata?.user else { return }
+                self.uid = user.uid
+                self.isAnonymous = user.isAnonymous
+            }
+            print(self.uid)
+        }
     }
 }
 

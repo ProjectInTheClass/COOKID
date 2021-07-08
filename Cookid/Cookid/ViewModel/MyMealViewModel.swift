@@ -11,7 +11,7 @@ import RxCocoa
 
 class MyMealViewModel: ViewModelType {
 
-    let service: Service
+    let service: MealService
 
     struct Input {
 
@@ -34,7 +34,7 @@ class MyMealViewModel: ViewModelType {
     var input: Input
     var output: Output
 
-    init(service: Service){
+    init(service: MealService){
 
         self.service = service
         // input initializer
