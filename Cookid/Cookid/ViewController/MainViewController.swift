@@ -14,7 +14,6 @@ class MainViewController: UIViewController {
 
     // outlet
     
-    @IBOutlet weak var addView: UIView!
     @IBOutlet weak var chartView: UIView!
     @IBOutlet weak var consumeView: UIView!
     @IBOutlet weak var mealCalendarView: UIView!
@@ -35,7 +34,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         bindViewModel()
-      
+
 //        MealRepository.shared.fetchMeals { meals in
 //            print(meals)
 //        }
@@ -75,7 +74,6 @@ class MainViewController: UIViewController {
     }
     
     private func setupView() {
-        addView.makeShadow()
         chartView.makeShadow()
         mealCalendarView.makeShadow()
         consumeView.makeShadow()
