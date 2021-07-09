@@ -33,13 +33,14 @@
 		035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E4922269681A0002CC084 /* CustomProgressCircleView.swift */; };
 		035E492726975815002CC084 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492626975815002CC084 /* MainViewModel.swift */; };
 		035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */; };
-		0395B61526941121009289B7 /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		7CDB672F20DDD0D65D45B557 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892F362497B138331AC4FAC2 /* Pods_Cookid.framework */; };
 		C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
 		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
 		C67441D62696FA530086CBAD /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
 		C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67441D726970E7C0086CBAD /* AuthRepository.swift */; };
+		C67441DA269840BD0086CBAD /* CheckmarkLottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67441D9269840BD0086CBAD /* CheckmarkLottieView.swift */; };
+		C67441DC269842E20086CBAD /* checkmark-icon.json in Resources */ = {isa = PBXBuildFile; fileRef = C67441DB269842E10086CBAD /* checkmark-icon.json */; };
 		C6BFF4532694996B006295F5 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF4522694996A006295F5 /* Entities.swift */; };
 		C6BFF45726949986006295F5 /* UserRepositrory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45426949986006295F5 /* UserRepositrory.swift */; };
 		C6BFF45826949986006295F5 /* GroceryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45526949986006295F5 /* GroceryRepository.swift */; };
@@ -86,6 +87,8 @@
 		892F362497B138331AC4FAC2 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
 		C67441D726970E7C0086CBAD /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		C67441D9269840BD0086CBAD /* CheckmarkLottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkLottieView.swift; sourceTree = "<group>"; };
+		C67441DB269842E10086CBAD /* checkmark-icon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "checkmark-icon.json"; sourceTree = "<group>"; };
 		C6BFF4522694996A006295F5 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		C6BFF45426949986006295F5 /* UserRepositrory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepositrory.swift; sourceTree = "<group>"; };
 		C6BFF45526949986006295F5 /* GroceryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryRepository.swift; sourceTree = "<group>"; };
@@ -273,6 +276,8 @@
 				035E491C26956F92002CC084 /* MealTableViewCell.swift */,
 				035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */,
 				035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */,
+				C67441D9269840BD0086CBAD /* CheckmarkLottieView.swift */,
+				C67441DB269842E10086CBAD /* checkmark-icon.json */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -376,6 +381,7 @@
 				032233C426927A910092DD6D /* MyExpenseTap.storyboard in Resources */,
 				032233A3269212860092DD6D /* Main.storyboard in Resources */,
 				C6BFF46026949A71006295F5 /* GoogleService-Info.plist in Resources */,
+				C67441DC269842E20086CBAD /* checkmark-icon.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +443,7 @@
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
+				C67441DA269840BD0086CBAD /* CheckmarkLottieView.swift in Sources */,
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
 				032233B8269276DB0092DD6D /* MainViewController.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,

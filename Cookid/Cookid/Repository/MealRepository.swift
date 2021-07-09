@@ -71,8 +71,10 @@ class MealRepository {
     }
     
     
-    func uploadMealImage(mealID: String, image: UIImage) {
-        let storageRef = storage.child(mealID + ".jpg")
+    
+    
+    func uploadMealImage(mealName: String, image: UIImage) {
+        let storageRef = storage.child(mealName + ".jpg")
         let data = image.jpegData(compressionQuality: 0.8)
         
         let metadata = StorageMetadata()
