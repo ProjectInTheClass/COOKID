@@ -120,6 +120,10 @@ class MealService {
         return newMeals.first
     }
     
+    func mostExpensiveMealAlert(meal: Meal) -> String {
+        return ""
+    }
+    
     func recentMeals(meals: [Meal]) -> [Meal] {
         guard let aWeekAgo = Calendar.current.date(byAdding: .weekOfMonth, value: -1, to: Date()) else { return [] }
         let recentMeals = meals.filter { $0.date > aWeekAgo }

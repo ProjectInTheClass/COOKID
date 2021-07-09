@@ -11,7 +11,7 @@ import RxCocoa
 
 class MainViewModel: ViewModelType {
     
-    let service: Service
+    let service: MealService
     
     struct Input {
         
@@ -24,7 +24,7 @@ class MainViewModel: ViewModelType {
     var input: Input
     var output: Output
     
-    init(service: Service) {
+    init(service: MealService) {
         self.service = service
         
         let mealDayLists = Observable<[Meal]>.create { observer in

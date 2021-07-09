@@ -26,7 +26,7 @@ class MainViewController: UIViewController {
     
     // property
     
-    let viewModel = MainViewModel(service: Service())
+    let viewModel = MainViewModel(service: MealService())
 
     let mealService = MealService()
     let userService = UserService()
