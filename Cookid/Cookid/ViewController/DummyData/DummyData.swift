@@ -33,4 +33,14 @@ class DummyData {
         return DummyData.shared.myMeals
     }
     
+    func findSelectedDateMealData (target : [Meal], selectedDate : Date) -> [Meal] {
+                
+        return target.filter{$0.date == selectedDate}
+    }
+    
+    func findSelectedDateShoppingData (target : [GroceryShopping], selectedDate : Date) -> [GroceryShopping] {
+        
+        return target.filter{$0.date == selectedDate}
+    }
+
 }

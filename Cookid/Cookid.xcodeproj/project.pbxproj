@@ -34,6 +34,9 @@
 		035E492726975815002CC084 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492626975815002CC084 /* MainViewModel.swift */; };
 		035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
+		355A36B726989461001A5CD8 /* MyExpenseVC+FSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355A36B626989461001A5CD8 /* MyExpenseVC+FSCalendar.swift */; };
+		355A36B9269894A5001A5CD8 /* MyExpenseVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355A36B8269894A5001A5CD8 /* MyExpenseVC+TableView.swift */; };
+		355A36BB2698956F001A5CD8 /* CustumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355A36BA2698956F001A5CD8 /* CustumTableViewCell.swift */; };
 		7CDB672F20DDD0D65D45B557 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892F362497B138331AC4FAC2 /* Pods_Cookid.framework */; };
 		C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
 		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
@@ -82,6 +85,9 @@
 		0395B61426941121009289B7 /* MyMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealViewModel.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
 		0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
+		355A36B626989461001A5CD8 /* MyExpenseVC+FSCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyExpenseVC+FSCalendar.swift"; sourceTree = "<group>"; };
+		355A36B8269894A5001A5CD8 /* MyExpenseVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyExpenseVC+TableView.swift"; sourceTree = "<group>"; };
+		355A36BA2698956F001A5CD8 /* CustumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustumTableViewCell.swift; sourceTree = "<group>"; };
 		892F362497B138331AC4FAC2 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
 		C67441D726970E7C0086CBAD /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
@@ -193,6 +199,8 @@
 				032233B7269276DB0092DD6D /* MainViewController.swift */,
 				032233BB269279DC0092DD6D /* MyMealViewController.swift */,
 				032233BD26927A160092DD6D /* MyExpenseViewController.swift */,
+				355A36B626989461001A5CD8 /* MyExpenseVC+FSCalendar.swift */,
+				355A36B8269894A5001A5CD8 /* MyExpenseVC+TableView.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -272,6 +280,7 @@
 				035E491C26956F92002CC084 /* MealTableViewCell.swift */,
 				035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */,
 				035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */,
+				355A36BA2698956F001A5CD8 /* CustumTableViewCell.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -439,7 +448,9 @@
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
 				032233B8269276DB0092DD6D /* MainViewController.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
+				355A36B726989461001A5CD8 /* MyExpenseVC+FSCalendar.swift in Sources */,
 				032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */,
+				355A36BB2698956F001A5CD8 /* CustumTableViewCell.swift in Sources */,
 				035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */,
 				032233CB2692A8630092DD6D /* OnboardingPageViewViewController.swift in Sources */,
 				032233C726927F0C0092DD6D /* DummyData.swift in Sources */,
@@ -451,6 +462,7 @@
 				032233D72692F0160092DD6D /* Extension.swift in Sources */,
 				032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */,
 				C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */,
+				355A36B9269894A5001A5CD8 /* MyExpenseVC+TableView.swift in Sources */,
 				0322339E269212860092DD6D /* SceneDelegate.swift in Sources */,
 				C67441D62696FA530086CBAD /* MealService.swift in Sources */,
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
