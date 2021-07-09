@@ -15,15 +15,9 @@ class UserService {
     
     func loadUserInfo(completion: @escaping (User) -> Void) {
         userRepository.fetchUserInfo { userentity in
-            var user: User!
-            for value in userentity {
-                let userValue = User(
-                                nickname: value.nickname,
-                                determination: value.determination,
-                                priceGoal: value.priceGoal,
-                                userType: UserType(rawValue: value.userType)!)
-                user = userValue
-            }
+            
+            let user = User(nickname: userentity.nickname, determination: userentity.determination, priceGoal: userentity.priceGoal, userType: UserType(rawValue: userentity.userType)!)
+            
             completion(user)
         }
     }
