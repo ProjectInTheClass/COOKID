@@ -14,7 +14,6 @@ class MainViewController: UIViewController {
 
     // outlet
     
-    @IBOutlet weak var addView: UIView!
     @IBOutlet weak var chartView: UIView!
     @IBOutlet weak var consumeView: UIView!
     @IBOutlet weak var mealCalendarView: UIView!
@@ -26,7 +25,7 @@ class MainViewController: UIViewController {
     
     // property
     
-    let viewModel = MainViewModel(service: Service())
+    let viewModel = MainViewModel(service: MealService())
 
     let mealService = MealService()
     let userService = UserService()
@@ -35,41 +34,10 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         bindViewModel()
-      
-//        MealRepository.shared.fetchMeals { meals in
-//            print(meals)
-//        }
-        
-//        mealService.fetchGroceries {
-//
-//        }
-//
-//        userService.fetchUserInfo(userID: nil) { entity in
-//            print(entity)
-//        }
-
-//        mealService.fetchMeals { meals in
-//            print(meals.first?.name)
-//        }
-        
-//        UserService.shared.loadUserInfo(userID: UserRepository.shared.uid) { user in
-//            print(user)
-//        }
-//        
-//        UserRepository.shared.fetchUserInfo{ userEntity in
-//            print(userEntity)
-//        }
-        
-//        UserRepository.shared.uploadUserInfo(userInfo: DummyData.shared.singleUser)
-//
-//        MealRepository.shared.signInAnonymously()
-//
-//        MealRepository.shared.pushToFirebase(meal: DummyData.shared.mySingleMeal)
 
     }
     
     private func setupView() {
-        addView.makeShadow()
         chartView.makeShadow()
         mealCalendarView.makeShadow()
         consumeView.makeShadow()
