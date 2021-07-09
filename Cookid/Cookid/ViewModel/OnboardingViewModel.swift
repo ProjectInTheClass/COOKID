@@ -53,6 +53,7 @@ class OnboardingViewModel: ViewModelType {
         self.output.userInformation
             .drive(onNext: { user in
                 print("등록완료")
+                UserRepository.shared.uploadUserInfo(userInfo: user)
             })
             .disposed(by: disposeBag)
     }

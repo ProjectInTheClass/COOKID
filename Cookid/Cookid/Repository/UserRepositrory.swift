@@ -19,7 +19,7 @@ class UserRepository {
     let authRepo = AuthRepository()
     
     
-    func fetchUserInfo(completion: @escaping ([UserEntity]) -> Void) {
+    func fetchUserInfo(completion: @escaping (UserEntity) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
             
@@ -28,15 +28,12 @@ class UserRepository {
             ref.observeSingleEvent(of: .value) { snapshot in
                 
                 let snapshot = snapshot.value as! [String:Any]
-                var users = [UserEntity]()
                 
                 do {
                     let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
                     let decoder = JSONDecoder()
                     let user = try decoder.decode(UserEntity.self, from: data)
-                    users.append(user)
-                    print(users)
-                    completion(users)
+                    completion(user)
                 } catch {
                     print("Cannot fetch UserInfo: \(error.localizedDescription)")
                 }
@@ -47,16 +44,18 @@ class UserRepository {
     
     
     func uploadUserInfo(userInfo: User) {
-        let uid = authRepo.uid
-        let userDic: [String:Any] = [
-            "userId" : uid,
-            "nickname": userInfo.nickname,
-            "determination" : userInfo.determination,
-            "priceGoal" : userInfo.priceGoal,
-            "userType" : userInfo.userType.rawValue
-        ]
-        let reference = db.child(uid).child(FBChild.user)
-        reference.setValue(userDic)
+        authRepo.signInAnonymously { [weak self] uid in
+            guard let self = self else { return }
+            let userDic: [String:Any] = [
+                "nickname": userInfo.nickname,
+                "determination" : userInfo.determination,
+                "priceGoal" : userInfo.priceGoal,
+                "userType" : userInfo.userType.rawValue
+            ]
+            let reference = self.db.child(uid).child(FBChild.user)
+            reference.setValue(userDic)
+        }
+        
     }
     
     

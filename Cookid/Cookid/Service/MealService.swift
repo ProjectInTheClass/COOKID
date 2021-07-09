@@ -20,57 +20,54 @@ class MealService {
     private var totalBudget: Int = 0
     
     func addMeal(meal: Meal){
+        
         self.meals.append(meal)
     }
     
     func setTotalBudget(budget: Int) {
+        
         self.totalBudget = budget
     }
     
     func fetchCurrentSpend() -> Int {
+        
         let totalSpend = self.meals.map{$0.price}.reduce(0){$0+$1}
         return totalSpend
     }
     
     func fetchShoppingSpend() -> Int {
+        
         let shoppingSpends = meals.filter {$0.mealType == .dineIn}.map{$0.price}
         let totalSpend = shoppingSpends.reduce(0){$0+$1}
         return totalSpend
     }
     
     func fetchEatOutSpend() -> Int {
+        
         let eatOutSpends = meals.filter {$0.mealType == .dineOut}.map{$0.price}
         let totalSpend = eatOutSpends.reduce(0){$0+$1}
         return totalSpend
     }
     
     func getSpendPercentage() -> Int {
+        
         return self.fetchCurrentSpend() / totalBudget * 100
     }
     
     func fetchCurrentMonth() -> String {
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "M"
-        let monthString = dateFormatter.string(from: date)
+        
+        let monthString = self.convertDateToString(format: "M", date: Date())
         return monthString
     }
     
     func fetchAverageSpendPerDay() -> Int {
+        
         let date = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.day], from: date)
         guard let dayOfMonth = components.day else {return 1}
         let average = self.fetchCurrentSpend() / dayOfMonth
         return average
-    }
-    
-    private func stringToDate(date: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
-        let date = dateFormatter.date(from: date)
-        
-        return date!
     }
     
     func fetchMeals(completion: @escaping (([Meal]) -> Void)) {
@@ -93,7 +90,6 @@ class MealService {
     
     func fetchGroceries(completion: @escaping (([GroceryShopping]) -> Void)) {
         groceryRepository.fetchGroceryInfo { models in
-            
             let groceryShoppings = models.map { shoppingModel -> GroceryShopping in
                 let date = self.stringToDate(date: shoppingModel.date)
                 let groceries = shoppingModel.groceries.map { entityModel in
@@ -107,24 +103,30 @@ class MealService {
     }
         
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
+        
         let newMeals = meals.filter { $0.mealType == .dineIn }
         return CGFloat(newMeals.count) / CGFloat(meals.count)
     }
     
     func mostExpensiveMeal(meals: [Meal]) -> Meal? {
+        
         let newMeals = meals.sorted { $0.price > $1.price }
         return newMeals.first
     }
     
     func mostExpensiveMealAlert(meal: Meal) -> String? {
+        
         guard let mostExpensiveYet = self.mostExpensiveMeal(meals: self.meals) else {return nil}
         if meal.price > mostExpensiveYet.price {
+
             return "FOOD FLEX 하셨습니다"
         }
+      
      return nil
     }
     
     func recentMeals(meals: [Meal]) -> [Meal] {
+        
         guard let aWeekAgo = Calendar.current.date(byAdding: .weekOfMonth, value: -1, to: Date()) else { return [] }
         let recentMeals = meals.filter { $0.date > aWeekAgo }
         let sortedMeals = recentMeals.sorted { $0.date > $1.date }
@@ -145,25 +147,33 @@ class MealService {
     
     var currentDay = Date()
     
-    func fetchMealByNavigate(day: Int) -> [Meal] {
-        guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return [] }
+
+    func fetchMealByNavigate(day: Int) -> (String, [Meal]) {
+        
+        guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return ("", []) }
         currentDay = aDay
+        let dateString = self.convertDateToString(format: "YYYY년 M월 d일", date: currentDay)
         let meal = self.meals.filter {$0.date == currentDay }
-        return meal
+
+        return (dateString, meal)
     }
     
-    func checkSpendPace() -> String {
+
+    func fetchMealByDay(day: Date) -> [Meal] {
+        let meal = self.meals.filter {$0.date == day}
+        return meal
+    } 
+    
+    func checkSpendPace() -> String{
 
         let date = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.day], from: date)
         guard let day = components.day else {return ""}
-
         let percentage = self.getSpendPercentage()
         
         switch day {
         case 1...7:
-            
             if percentage < 25 {
                 return "현명한 식비 관리 중입니다 👍"
             } else if percentage < 50 {
@@ -176,7 +186,6 @@ class MealService {
                 return "(절레절레) 🤷🏻‍♂️"
             }
         case 8...14:
-            
             if percentage < 50 {
                 return "현명한 식비 관리 중입니다 👍"
             } else if percentage < 75 {
@@ -189,7 +198,6 @@ class MealService {
                 return "(절레절레) 🤷🏻‍♂️"
             }
         case 15...21:
-            
             if percentage < 80 {
                 return "현명한 식비 관리 중입니다 👍"
             } else if percentage < 90{
@@ -200,7 +208,6 @@ class MealService {
                 return "(절레절레) 🤷🏻‍♂️"
             }
         case 22...28:
-            
             if percentage < 90 {
                 return "현명한 식비 관리 중입니다 👍"
             } else if percentage < 100{
@@ -220,6 +227,22 @@ class MealService {
     func fetchMealByDay(day: Date) -> [Meal] {
         let meal = self.meals.filter {$0.date == day}
         return meal
+
+    private func convertDateToString(format: String, date: Date) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+
     }
     
+    private func stringToDate(date: String) -> Date {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
+        let date = dateFormatter.date(from: date)
+        
+        return date!
+    }
 }
