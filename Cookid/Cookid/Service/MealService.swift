@@ -141,7 +141,7 @@ class MealService {
     
     var currentDay = Date()
     
-    func fetchMealByDay(day: Int) -> [Meal] {
+    func fetchMealByNavigate(day: Int) -> [Meal] {
         
         guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return [] }
         currentDay = aDay
@@ -149,16 +149,75 @@ class MealService {
         return meal
     }
     
-    
-    //현재 지출 현황을 보고 페이스를 넘었으면 경고하는 String을 뱉어준다
-    func checkPace() -> String{
+    func checkSpendPace() -> String{
+
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: date)
+        guard let day = components.day else {return ""}
+
+        let percentage = self.getSpendPercentage()
         
-        //전체 지출을 현재 달의 날짜 숫자로 나누면 하루당 써야하는 퍼센트가 나온다.
-        //그 퍼센트가 일정 기준을 넘었을 때 , 워닝을 띄운다
-        
-        
-        return ""
+        switch day {
+        case 1...7:
+            
+            if percentage < 25 {
+                return "현명한 식비 관리 중입니다 👍"
+            } else if percentage < 50 {
+                return "아직 (다음주에 덜 먹으면) 괜찮아요 👏"
+            } else if percentage < 80 {
+                return "첫 주에 절반 이상을 태워..? 👮🏻‍♂️"
+            } else if percentage < 100 {
+                return "예산을 곧 초과합니다 🚨"
+            } else {
+                return "(절레절레) 🤷🏻‍♂️"
+            }
+        case 8...14:
+            
+            if percentage < 50 {
+                return "현명한 식비 관리 중입니다 👍"
+            } else if percentage < 75 {
+                return "아직 (다음주에 덜 먹으면) 괜찮아요 👏"
+            } else if percentage < 90 {
+                return "다음주에 굶으시려나보다 🙋🏻‍♂️"
+            } else if percentage < 100{
+                return "예산을 곧 초과합니다 🚨"
+            } else {
+                return "(절레절레) 🤷🏻‍♂️"
+            }
+        case 15...21:
+            
+            if percentage < 80 {
+                return "현명한 식비 관리 중입니다 👍"
+            } else if percentage < 90{
+                return "조금만 조절하면 당신은 현명한 소비자 💵"
+            } else if percentage < 100 {
+                return "예산을 곧 초과합니다 🚨"
+            } else {
+                return "(절레절레) 🤷🏻‍♂️"
+            }
+        case 22...28:
+            
+            if percentage < 90 {
+                return "현명한 식비 관리 중입니다 👍"
+            } else if percentage < 100{
+                return "예산을 곧 초과합니다 🚨"
+            } else {
+                return "(절레절레) 🤷🏻‍♂️"
+            }
+        default:
+            if percentage < 100 {
+                return "어..? 예쁘다 💐"
+            } else {
+                return "예산을 초과했습니다 🚨"
+            }
+        }
     }
     
+    func fetchMealByDay(day: Date) -> [Meal] {
+        
+        let meal = self.meals.filter {$0.date == day}
+        return meal
+    }
     
 }
