@@ -70,7 +70,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="33P-dI-A1d">
-                                                                <rect key="frame" x="110" y="20" width="244" height="60"/>
+                                                                <rect key="frame" x="110" y="20.5" width="244" height="59.5"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yvA-ip-TAK">
                                                                         <rect key="frame" x="0.0" y="0.0" width="166" height="20.5"/>
@@ -90,7 +90,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이번에 식비 잘 지켜서 M1x일지 M2일지 모르지만 꼭 사버리자. 아자아자 화이티잉" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="OAO-bw-yzQ">
-                                                                        <rect key="frame" x="0.0" y="25.5" width="224" height="34.5"/>
+                                                                        <rect key="frame" x="0.0" y="25.5" width="224" height="34"/>
                                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -102,10 +102,9 @@
                                                         <constraints>
                                                             <constraint firstItem="33P-dI-A1d" firstAttribute="leading" secondItem="hCL-Vb-iPp" secondAttribute="trailing" constant="20" id="6Kl-dc-Dwd"/>
                                                             <constraint firstItem="hCL-Vb-iPp" firstAttribute="leading" secondItem="ks2-O6-ZVm" secondAttribute="leading" constant="20" id="6xr-K2-P4k"/>
+                                                            <constraint firstItem="33P-dI-A1d" firstAttribute="centerY" secondItem="ks2-O6-ZVm" secondAttribute="centerY" id="H6A-GU-TcP"/>
                                                             <constraint firstAttribute="height" constant="100" id="Lnv-bD-Wkt"/>
                                                             <constraint firstAttribute="bottom" secondItem="hCL-Vb-iPp" secondAttribute="bottom" constant="15" id="kPx-B1-QFh"/>
-                                                            <constraint firstItem="33P-dI-A1d" firstAttribute="bottom" secondItem="hCL-Vb-iPp" secondAttribute="bottom" constant="-5" id="kWX-0X-rPy"/>
-                                                            <constraint firstItem="33P-dI-A1d" firstAttribute="top" secondItem="hCL-Vb-iPp" secondAttribute="top" constant="5" id="tBQ-K2-BC7"/>
                                                             <constraint firstAttribute="trailing" secondItem="33P-dI-A1d" secondAttribute="trailing" constant="20" id="xYc-gp-KvY"/>
                                                             <constraint firstItem="hCL-Vb-iPp" firstAttribute="top" secondItem="ks2-O6-ZVm" secondAttribute="top" constant="15" id="xo9-Sh-5dG"/>
                                                         </constraints>
@@ -455,12 +454,28 @@
                     </view>
                     <navigationItem key="navigationItem" title="식비 목표 🏳️‍🌈" id="3gK-bs-I44"/>
                     <connections>
+                        <outlet property="addMealButton" destination="SvZ-tN-y7G" id="nHQ-bK-Qsd"/>
+                        <outlet property="addShoppingButton" destination="lAB-bw-MJq" id="wWE-MF-9Er"/>
+                        <outlet property="adviseLabel" destination="HHB-h6-DK9" id="2cS-ec-jdR"/>
                         <outlet property="adviseView" destination="UFb-eE-SSv" id="7DG-5c-5TP"/>
+                        <outlet property="balanceLabel" destination="6Af-Eb-gco" id="FU4-Y4-u84"/>
+                        <outlet property="chartPercentLabel" destination="mru-Mw-elR" id="lFF-PS-fLw"/>
                         <outlet property="chartView" destination="HFd-XN-Tzq" id="ZoR-Za-wmc"/>
                         <outlet property="consumeView" destination="RNQ-U9-MWd" id="FfD-sk-vJz"/>
+                        <outlet property="dineOutPrice" destination="3iq-e7-iQ6" id="J09-3f-ydI"/>
                         <outlet property="etcView" destination="ks2-O6-ZVm" id="eNU-rX-fNW"/>
+                        <outlet property="leftButton" destination="A0a-UA-Gd3" id="q9h-hH-ldp"/>
                         <outlet property="mealCalendarView" destination="I8J-CA-3vC" id="fpa-Ql-hxk"/>
                         <outlet property="mealDayCollectionView" destination="gjc-Vk-HBu" id="mmh-Oe-I0q"/>
+                        <outlet property="monthLabel" destination="T18-5V-9VH" id="vXQ-OV-8Qb"/>
+                        <outlet property="monthSelectButton" destination="sA6-F1-LpJ" id="CwK-xg-AW1"/>
+                        <outlet property="priceGoalLabel" destination="Ged-O5-Zqv" id="Ob3-jq-jcd"/>
+                        <outlet property="rightButton" destination="dc4-Gl-Maz" id="ruz-Jf-yAB"/>
+                        <outlet property="shoppingPrice" destination="oCv-uI-G9Y" id="xVf-3M-er0"/>
+                        <outlet property="userDetermination" destination="OAO-bw-yzQ" id="fkg-D5-j2a"/>
+                        <outlet property="userImage" destination="hCL-Vb-iPp" id="vFB-bq-eSk"/>
+                        <outlet property="userNickname" destination="U7H-7K-xmw" id="Z2a-Yg-6uQ"/>
+                        <outlet property="userType" destination="K5e-Hh-tmE" id="dgk-Ox-u79"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZf-G7-iRR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -740,7 +755,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="SMq-hS-Y3Q">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -751,6 +766,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CfJ-Qn-XMc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-668.11594202898561" y="935.49107142857133"/>
+        </scene>
+        <!--Select Calendar View Controller-->
+        <scene sceneID="YEe-eN-1L8">
+            <objects>
+                <viewController storyboardIdentifier="SelectCalendarViewController" id="NhZ-6S-07g" customClass="SelectCalendarViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ex9-FZ-ZPv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PQN-v2-g3u">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vId-73-LEb" customClass="FSCalendar">
+                                <rect key="frame" x="57" y="298" width="300" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="80Y-6C-OQY"/>
+                                    <constraint firstAttribute="width" constant="300" id="NdK-bp-Ih1"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="MiF-Jx-iSL"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="PQN-v2-g3u" firstAttribute="leading" secondItem="MiF-Jx-iSL" secondAttribute="leading" id="FFv-Ty-M3C"/>
+                            <constraint firstItem="MiF-Jx-iSL" firstAttribute="trailing" secondItem="PQN-v2-g3u" secondAttribute="trailing" id="GVw-J0-3uq"/>
+                            <constraint firstItem="PQN-v2-g3u" firstAttribute="top" secondItem="MiF-Jx-iSL" secondAttribute="top" id="Mwj-yu-qis"/>
+                            <constraint firstItem="vId-73-LEb" firstAttribute="centerX" secondItem="Ex9-FZ-ZPv" secondAttribute="centerX" id="Red-Sl-TjN"/>
+                            <constraint firstItem="MiF-Jx-iSL" firstAttribute="bottom" secondItem="PQN-v2-g3u" secondAttribute="bottom" id="VIM-yC-5u6"/>
+                            <constraint firstItem="vId-73-LEb" firstAttribute="centerY" secondItem="Ex9-FZ-ZPv" secondAttribute="centerY" id="b7C-tR-Khm"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dimmingButton" destination="PQN-v2-g3u" id="S1F-KO-L91"/>
+                        <outlet property="updateCalendar" destination="vId-73-LEb" id="Dpf-F0-r4w"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XPh-Qf-KP6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="190" y="1633"/>
         </scene>
     </scenes>
     <resources>

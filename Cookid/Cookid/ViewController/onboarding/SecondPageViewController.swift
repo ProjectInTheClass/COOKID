@@ -24,6 +24,8 @@ class SecondPageViewController: UIViewController, ViewModelBindable, StoryboardB
     }
     
     func bindViewModel() {
+        
+        
         monthlyGoal.rx.text.orEmpty
             .bind(to: viewModel.input.monthlyGoal)
             .disposed(by: rx.disposeBag)

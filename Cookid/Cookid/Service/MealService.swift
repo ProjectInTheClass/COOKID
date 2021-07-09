@@ -147,6 +147,7 @@ class MealService {
     
     var currentDay = Date()
     
+
     func fetchMealByNavigate(day: Int) -> (String, [Meal]) {
         
         guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return ("", []) }
@@ -157,9 +158,8 @@ class MealService {
         return (dateString, meal)
     }
     
-    
+
     func fetchMealByDay(day: Date) -> [Meal] {
-        
         let meal = self.meals.filter {$0.date == day}
         return meal
     } 
@@ -224,12 +224,17 @@ class MealService {
         }
     }
     
+    func fetchMealByDay(day: Date) -> [Meal] {
+        let meal = self.meals.filter {$0.date == day}
+        return meal
+
     private func convertDateToString(format: String, date: Date) -> String {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         let dateString = dateFormatter.string(from: date)
         return dateString
+
     }
     
     private func stringToDate(date: String) -> Date {

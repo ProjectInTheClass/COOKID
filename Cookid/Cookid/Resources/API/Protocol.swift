@@ -21,7 +21,6 @@ extension ViewModelBindable where Self: UIViewController {
         self.viewModel = viewModel
         loadViewIfNeeded()
         bindViewModel()
-        
     }
 }
 

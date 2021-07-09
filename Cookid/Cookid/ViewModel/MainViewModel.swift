@@ -7,37 +7,51 @@
 
 import RxSwift
 import RxCocoa
+import NSObject_Rx
 
-class MainViewModel: ViewModelType {
+class MainViewModel: ViewModelType, HasDisposeBag {
     
-    let service: MealService
+    let mealService: MealService
+    let userService: UserService
     
     struct Input {
         
     }
     
     struct Output {
-        let mealDayList: Driver<[Meal]>
+        let adviceString: Driver<String>
+        let userInfo: Driver<User>
+        let mealDayList: BehaviorSubject<[Meal]>
     }
     
     var input: Input
     var output: Output
     
-    init(service: MealService) {
-        self.service = service
+    init(mealService: MealService, userService: UserService) {
+        self.mealService = mealService
+        self.userService = userService
         
-        let mealDayLists = Observable<[Meal]>.create { observer in
-            
-            let date = DummyData.shared.dateToMeal(date: Date())
-            observer.onNext(date)
-            
+        let dateToMealsCollect = BehaviorSubject<[Meal]>(value: DummyData.shared.dateToMeal(date: Date()))
+        
+        
+        let adviceStr = Observable.create { observer in
+            observer.onNext(mealService.checkSpendPace())
             return Disposables.create()
         }
-        .asDriver(onErrorJustReturn: [])
+        .asDriver(onErrorJustReturn: "비어 있습니다.")
+        
+        let userInform = Observable<User>.create { observer in
+            userService.loadUserInfo { user in
+                observer.onNext(user)
+            }
+            return Disposables.create()
+        }
+        .asDriver(onErrorJustReturn: User(userID: "userID", nickname: "비회원", determination: "등록 후에 사용해 주세요!", priceGoal: "2000", userType: .preferDineIn))
+        
         
         self.input = Input()
-        self.output = Output(mealDayList: mealDayLists)
+        self.output = Output(adviceString: adviceStr, userInfo: userInform, mealDayList: dateToMealsCollect)
     }
-    
+   
     
 }
