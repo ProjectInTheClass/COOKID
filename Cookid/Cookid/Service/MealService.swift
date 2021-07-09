@@ -7,10 +7,6 @@
 
 import UIKit
 
-// 날짜 앞뒤로 넘어가면서 가져오는 함수
-// 리포 패치
-// 서비스 나누기
-
 class MealService {
     
     static let shared = MealService()
@@ -120,8 +116,12 @@ class MealService {
         return newMeals.first
     }
     
-    func mostExpensiveMealAlert(meal: Meal) -> String {
-        return ""
+    func mostExpensiveMealAlert(meal: Meal) -> String? {
+        let mostExpensiveYet = self.mostExpensiveMeal(meals: self.meals)
+        if meal.price > mostExpensiveYet {
+            return "FOOD FLEX 하셨습니다"
+        }
+        return nil
     }
     
     func recentMeals(meals: [Meal]) -> [Meal] {
