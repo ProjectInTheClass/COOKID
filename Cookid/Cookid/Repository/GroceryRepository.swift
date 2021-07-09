@@ -20,7 +20,7 @@ class GroceryRepository {
     func fetchGroceryInfo(completion: @escaping ([GroceryEntity]) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
-            self.db.child(uid).child(FBChild.groceries).observeSingleEvent(of: .value) { snapshot in
+            self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.groceries).observeSingleEvent(of: .value) { snapshot in
             
                 let snapshot = snapshot.value as! [String:Any]
                 var grocery = [GroceryEntity]()

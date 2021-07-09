@@ -22,10 +22,10 @@ class MealRepository {
     func fetchMeals(completion: @escaping ([MealEntity]) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
-            
-            self.db.child(uid).child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
+           
+            self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
                 
-                let snapshotValue = snapshot.value as! [String:Any]
+                let snapshotValue = snapshot.value as? [String:Any] ?? [:]
                 var mealEntity = [MealEntity]()
                 
                 for value in snapshotValue.values {

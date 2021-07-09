@@ -13,12 +13,14 @@ import UIKit
 
 class MealService {
     
+    static let shared = MealService()
+    
     private let mealRepository = MealRepository()
     private let userRepository = UserRepository()
     private let groceryRepository = GroceryRepository()
     
-    private(set) var meals: [Meal] = []
-    private var groceries: [Grocery] = []
+    private var meals: [Meal] = []
+    private var groceries: [GroceryShopping] = []
     private var totalBudget: Int = 0
     
     func addMeal(meal: Meal){
@@ -77,7 +79,6 @@ class MealService {
     
     func fetchMeals(completion: @escaping (([Meal]) -> Void)) {
         mealRepository.fetchMeals { mealArr in
-            var meals: [Meal]!
             
             let mealModels = mealArr.map { model -> Meal in
                 let price = model.price
@@ -94,23 +95,21 @@ class MealService {
         }
     }
     
-//    func fetchGroceries(completion: @escaping (() -> Void)) {
-//
-//        groceryRepository.fetchGroceryInfo(uid:  ) { modelArr in
-//
-//            let groceryModels = modelArr.map { model in
-//
-//                let date = self.stringToDate(date: model.date)
-//                let grocery = model.groceries
-//
-//                print(grocery)
-//                print(grocery[0])
-//
-//
-//            }
-//        }
-//    }
-    
+    func fetchGroceries(completion: @escaping (([GroceryShopping]) -> Void)) {
+        groceryRepository.fetchGroceryInfo { models in
+            
+            let groceryShoppings = models.map { shoppingModel -> GroceryShopping in
+                let date = self.stringToDate(date: shoppingModel.date)
+                let groceries = shoppingModel.groceries.map { entityModel in
+                    return Grocery(name: entityModel.name, price: entityModel.price)
+                }
+                return GroceryShopping(date: date, groceries: groceries)
+            }
+            self.groceries = groceryShoppings
+            completion(groceryShoppings)
+        }
+    }
+        
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
         let newMeals = meals.filter { $0.mealType == .dineIn }
         return CGFloat(newMeals.count) / CGFloat(meals.count)
@@ -145,8 +144,8 @@ class MealService {
     func fetchMealByDay(day: Int) -> [Meal] {
         
         guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return [] }
-        self.currentDay = aDay
-        let meal = self.meals.filter {$0.date == self.currentDay }
+        currentDay = aDay
+        let meal = self.meals.filter {$0.date == currentDay }
         return meal
     }
     
@@ -163,5 +162,3 @@ class MealService {
     
     
 }
-
-

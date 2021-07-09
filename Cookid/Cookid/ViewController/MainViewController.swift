@@ -35,6 +35,42 @@ class MainViewController: UIViewController {
         setupView()
         bindViewModel()
 
+//        MealRepository.shared.fetchMeals { meals in
+//            print(meals)
+//        }
+//
+//        mealService.fetchGroceries { gro in
+//            print(gro)
+//        }
+        
+        GroceryRepository.shared.fetchGroceryInfo { gro in
+            
+            gro[0].groceries[0].name
+            
+        }
+////
+//        userService.fetchUserInfo(userID: nil) { entity in
+//            print(entity)
+//        }
+
+//        mealService.fetchMeals { meals in
+//            print(meals.first?.name)
+//        }
+        
+//        UserService.shared.loadUserInfo(userID: UserRepository.shared.uid) { user in
+//            print(user)
+//        }
+//        
+//        UserRepository.shared.fetchUserInfo{ userEntity in
+//            print(userEntity)
+//        }
+        
+//        UserRepository.shared.uploadUserInfo(userInfo: DummyData.shared.singleUser)
+//
+//        MealRepository.shared.signInAnonymously()
+//
+//        MealRepository.shared.pushToFirebase(meal: DummyData.shared.mySingleMeal)
+
     }
     
     private func setupView() {
