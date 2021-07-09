@@ -117,11 +117,13 @@ class MealService {
     }
     
     func mostExpensiveMealAlert(meal: Meal) -> String? {
-        let mostExpensiveYet = self.mostExpensiveMeal(meals: self.meals)
-        if meal.price > mostExpensiveYet!.price {
+        guard let mostExpensiveYet = self.mostExpensiveMeal(meals: self.meals) else {return nil}
+        if meal.price > mostExpensiveYet.price {
+
             return "FOOD FLEX 하셨습니다"
         }
-        return nil
+      
+     return nil
     }
     
     func recentMeals(meals: [Meal]) -> [Meal] {
