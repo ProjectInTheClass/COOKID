@@ -718,7 +718,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V1G-R7-9Ly" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3565" y="190"/>
+            <point key="canvasLocation" x="3563.7681159420295" y="189.50892857142856"/>
         </scene>
         <!--MyExpenseTap-->
         <scene sceneID="bOV-aQ-2Ow">

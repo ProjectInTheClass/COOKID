@@ -23,8 +23,8 @@ class AuthRepository {
     func signInAnonymously(completion: @escaping (String) -> Void) {
         Auth.auth().signInAnonymously { [weak self] authdata, error in
             guard let self = self else { return }
-            if error != nil {
-                print(error?.localizedDescription)
+            if let error = error {
+                print(error.localizedDescription)
                 return
             } else {
                 guard let user = authdata?.user else { return }
