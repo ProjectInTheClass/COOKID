@@ -19,7 +19,7 @@ class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       bindViewModel()
+       
     }
     
     func bindViewModel() {
