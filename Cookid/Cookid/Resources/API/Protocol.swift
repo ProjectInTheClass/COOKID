@@ -19,9 +19,9 @@ protocol ViewModelBindable {
 extension ViewModelBindable where Self: UIViewController {
     mutating func bind(viewModel: ViewModelType) {
         self.viewModel = viewModel
-        bindViewModel()
         loadViewIfNeeded()
-      
+        bindViewModel()
+        
     }
 }
 
