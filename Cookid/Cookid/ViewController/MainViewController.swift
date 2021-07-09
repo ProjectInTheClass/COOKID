@@ -39,11 +39,17 @@ class MainViewController: UIViewController {
 //        MealRepository.shared.fetchMeals { meals in
 //            print(meals)
 //        }
-        
-//        mealService.fetchGroceries {
 //
+//        mealService.fetchGroceries { gro in
+//            print(gro)
 //        }
-//
+        
+        GroceryRepository.shared.fetchGroceryInfo { gro in
+            
+            gro[0].groceries[0].name
+            
+        }
+////
 //        userService.fetchUserInfo(userID: nil) { entity in
 //            print(entity)
 //        }
