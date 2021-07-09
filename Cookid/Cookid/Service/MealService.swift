@@ -108,6 +108,7 @@ class MealService {
             self.groceries = groceryShoppings
             completion(groceryShoppings)
         }
+    }
         
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
         let newMeals = meals.filter { $0.mealType == .dineIn }
@@ -160,7 +161,4 @@ class MealService {
     }
     
     
-}
-
-
 }
