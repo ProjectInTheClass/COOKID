@@ -12,15 +12,18 @@ import NSObject_Rx
 
 class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
+    
+    
     var viewModel: OnboardingViewModel!
+    var isTapped: Bool = false
     
     @IBOutlet weak var determinationTextField: UITextField!
     @IBOutlet weak var finishPageButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
     }
+    
     
     func bindViewModel() {
         
@@ -50,6 +53,8 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
             .disposed(by: rx.disposeBag)
        
     }
+    
+    
     
 
 }

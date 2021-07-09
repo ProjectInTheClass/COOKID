@@ -49,7 +49,6 @@ class UserRepository {
     func uploadUserInfo(userInfo: User) {
         let uid = authRepo.uid
         let userDic: [String:Any] = [
-            "userId" : uid,
             "nickname": userInfo.nickname,
             "determination" : userInfo.determination,
             "priceGoal" : userInfo.priceGoal,
