@@ -31,7 +31,6 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
     let viewModel = MyMealViewModel(service: MealService())
     var maxValue: Int?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()

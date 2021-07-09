@@ -146,14 +146,13 @@ class MealService {
     var currentDay = Date()
     
     func fetchMealByNavigate(day: Int) -> [Meal] {
-        
         guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return [] }
         currentDay = aDay
         let meal = self.meals.filter {$0.date == currentDay }
         return meal
     }
     
-    func checkSpendPace() -> String{
+    func checkSpendPace() -> String {
 
         let date = Date()
         let calendar = Calendar.current
@@ -219,7 +218,6 @@ class MealService {
     }
     
     func fetchMealByDay(day: Date) -> [Meal] {
-        
         let meal = self.meals.filter {$0.date == day}
         return meal
     }

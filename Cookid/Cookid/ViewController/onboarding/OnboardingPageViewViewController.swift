@@ -104,7 +104,9 @@ extension OnboardingPageViewViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         guard let viewControllers = pageViewController.viewControllers else { return }
+        print(viewControllers[0])
         guard let currentIndex = pages.firstIndex(of: viewControllers[0]) else { return }
+        print(currentIndex)
         pagesControl.currentPage = currentIndex
         
     }

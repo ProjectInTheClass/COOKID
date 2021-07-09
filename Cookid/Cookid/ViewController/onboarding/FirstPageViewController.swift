@@ -32,6 +32,7 @@ class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBa
             .map { [unowned self] user -> Bool in
                 return self.viewModel.vaildInformation(user.nickname)
             }
+            .debug()
             .drive(onNext: { [unowned self] validation in
                 if validation {
                     self.nextPageButton.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
