@@ -11,7 +11,7 @@ import RxCocoa
 import NSObject_Rx
 
 class MainViewController: UIViewController {
- 
+    
     // userview
     @IBOutlet weak var etcView: UIView!
     @IBOutlet weak var userImage: UIImageView!
@@ -37,6 +37,7 @@ class MainViewController: UIViewController {
     
     // chartView
     @IBOutlet weak var chartView: UIView!
+    @IBOutlet weak var consumeProgressBar: PlainCircleProgressBar!
     @IBOutlet weak var chartPercentLabel: UILabel!
     
     // mealCalendarView
@@ -54,7 +55,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         bindViewModel()
-
+        
     }
     
     private func configureUI() {
@@ -63,6 +64,7 @@ class MainViewController: UIViewController {
         consumeView.makeShadow()
         etcView.makeShadow()
         adviseView.makeShadow()
+        monthSelectButton.setTitle(Date().dateToString(), for: .normal)
     }
     
     private func bindViewModel() {
@@ -70,55 +72,62 @@ class MainViewController: UIViewController {
         //input
         
         leftButton.rx.tap
-            .map { [unowned self] _ -> [Meal] in
-                return self.viewModel.mealService.fetchMealByNavigate(day: -1)
-            }
-            .subscribe(onNext: { [weak self] meals in
-                self?.viewModel.output.mealDayList.onNext(meals)
+            .subscribe(onNext: { [unowned self] in
+                let data = self.viewModel.mealService.fetchMealByNavigate(-1)
+                self.monthSelectButton.setTitle(data.0, for: .normal)
+                self.viewModel.output.mealDayList.onNext(data.1)
             })
             .disposed(by: rx.disposeBag)
         
         rightButton.rx.tap
-            .map { [unowned self] _ -> [Meal] in
-                return self.viewModel.mealService.fetchMealByNavigate(day: 1)
-            }
-            .subscribe(onNext: { [weak self] meals in
-                self?.viewModel.output.mealDayList.onNext(meals)
+            .subscribe(onNext: { [unowned self] in
+                let data = self.viewModel.mealService.fetchMealByNavigate(1)
+                self.monthSelectButton.setTitle(data.0, for: .normal)
+                self.viewModel.output.mealDayList.onNext(data.1)
             })
             .disposed(by: rx.disposeBag)
         
         
         monthSelectButton.rx.tap
-            .subscribe(onNext: { [weak self] in
+            .subscribe(onNext: { [unowned self] in
                 let vc = SelectCalendarViewController.instantiate(storyboardID: "Main")
                 vc.completionHandler = { date in
-                    let newMeals = self?.viewModel.mealService.fetchMealByDay(day: date) ?? []
-                    self?.viewModel.output.mealDayList.onNext(newMeals)
+                    let data = self.viewModel.mealService.fetchMealByDay(date)
+                    self.monthSelectButton.setTitle(data.0, for: .normal)
+                    self.viewModel.output.mealDayList.onNext(data.1)
                 }
-                vc.modalPresentationStyle = .fullScreen
-                vc.modalTransitionStyle = .flipHorizontal
-                self?.present(vc, animated: true, completion: nil)
+                vc.modalPresentationStyle = .overCurrentContext
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true, completion: nil)
             })
             .disposed(by: rx.disposeBag)
         
         addMealButton.rx.tap
             .subscribe(onNext: {
-                
-                // 현지님 여기다가 띄워주세요
-                
-                
+                print("현지님 여기다가 VC 띄워주세요")
+            })
+            .disposed(by: rx.disposeBag)
+        
+        addShoppingButton.rx.tap
+            .subscribe(onNext: {
+                print("석현님 여기다가 VC 띄워주세요")
             })
             .disposed(by: rx.disposeBag)
         
         //output
-        
         
         viewModel.output.userInfo
             .drive(onNext: { user in
                 self.userImage.image = UIImage(systemName: "person.circle")!
                 self.userNickname.text = user.nickname
                 self.userDetermination.text = user.determination
-                self.userType.text = user.userType.rawValue
+                switch user.userType {
+                case .preferDineIn:
+                    self.userType.text = "🍚 " + user.userType.rawValue
+                case .preferDineOut:
+                    self.userType.text = "🍟 " + user.userType.rawValue
+                }
+                
             })
             .disposed(by: rx.disposeBag)
         
@@ -126,6 +135,27 @@ class MainViewController: UIViewController {
             .drive(adviseLabel.rx.text)
             .disposed(by: rx.disposeBag)
         
+        viewModel.output.monthlyDetailed
+            .drive(onNext: { [unowned self] detail in
+                self.monthLabel.text = detail.month
+                self.priceGoalLabel.text = String(detail.priceGoal)
+                self.shoppingPrice.text = String(detail.shoppingPrice)
+                self.dineOutPrice.text = String(detail.dineOutPrice)
+                self.balanceLabel.text = String(detail.balance)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.consumeProgressCalc
+            .do(onNext: { [unowned self] _ in
+                self.consumeProgressBar.progress = 0
+            })
+            .delay(.milliseconds(500))
+            .drive(onNext: {
+                [unowned self] value in
+                self.chartPercentLabel.text = String(value) + "%"
+                self.consumeProgressBar.progress = CGFloat(value) / CGFloat(100)
+            })
+            .disposed(by: rx.disposeBag)
         
         viewModel.output.mealDayList
             .bind(to: mealDayCollectionView.rx.items(cellIdentifier: "mainMealCell", cellType: MealDayCollectionViewCell.self)) { item, meal, cell in

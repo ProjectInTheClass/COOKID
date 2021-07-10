@@ -17,7 +17,7 @@ class MealService {
     
     private var meals: [Meal] = []
     private var groceries: [GroceryShopping] = []
-    private var totalBudget: Int = 0
+    private var totalBudget: Int = 1
     
     func addMeal(meal: Meal){
         
@@ -144,24 +144,25 @@ class MealService {
         
         return [breakfastNum, brunchNum, lunchNum, lundinnerNum, dinnerNum, snackNum]
     }
-    
+
     var currentDay = Date()
     
-
-    func fetchMealByNavigate(day: Int) -> (String, [Meal]) {
+    func fetchMealByNavigate(_ day: Int) -> (String, [Meal]) {
         
         guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return ("", []) }
         currentDay = aDay
-        let dateString = self.convertDateToString(format: "YYYY년 M월 d일", date: currentDay)
+        let dateString = self.convertDateToString(format: "YYYY년 M월 d일", date: aDay)
         let meal = self.meals.filter {$0.date == currentDay }
 
         return (dateString, meal)
     }
     
 
-    func fetchMealByDay(day: Date) -> [Meal] {
+    func fetchMealByDay(_ day: Date) -> (String, [Meal]) {
+        currentDay = day
+        let dateString = self.convertDateToString(format: "YYYY년 M월 d일", date: day)
         let meal = self.meals.filter {$0.date == day}
-        return meal
+        return (dateString, meal)
     } 
     
     func checkSpendPace() -> String{
@@ -223,10 +224,6 @@ class MealService {
             }
         }
     }
-    
-    func fetchMealByDay(day: Date) -> [Meal] {
-        let meal = self.meals.filter {$0.date == day}
-        return meal
 
     private func convertDateToString(format: String, date: Date) -> String {
         

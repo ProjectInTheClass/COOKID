@@ -18,11 +18,21 @@ extension UIPageViewController {
 }
 
 extension Date {
+    
     func dateToString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy년 MM월 dd일"
         return dateFormatter.string(from: self)
     }
+    
+    func convertDateToString(format: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        let dateString = dateFormatter.string(from: self)
+        return dateString
+
+    }
+    
 }
 
 
