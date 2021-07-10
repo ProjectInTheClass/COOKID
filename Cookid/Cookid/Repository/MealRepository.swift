@@ -38,9 +38,9 @@ class MealRepository {
         }
     }
     
-    func fetchImage(mealID: String, completion: @escaping (URL) -> Void) {
+    func fetchImage(mealName: String, completion: @escaping (URL) -> Void) {
         
-        let storageRef = storage.child(mealID + ".jpg")
+        let storageRef = storage.child(mealName + ".jpg")
         
         storageRef.downloadURL { url, error in
             if let error = error {
@@ -55,19 +55,20 @@ class MealRepository {
     }
     
     
-    func pushMealToFirebase(uid: String, isAnonymous: Bool, meal: Meal) {
+    func pushMealToFirebase(meal: Meal) {
+        authRepo.signInAnonymously { [weak self] uid in
+            let mealDic : [String:Any] = [
+                "id" : uid,
+                "price" : meal.price,
+                "date" : meal.date.dateToString(),
+                "name" : meal.name,
+                "mealType" : meal.mealType.rawValue,
+                "mealTime" : meal.mealTime.rawValue
+            ]
+            
+            self?.db.child(uid).child(FBChild.meal).childByAutoId().setValue(mealDic)
+        }
         
-        let mealDic : [String:Any] = [
-            "id" : uid,
-            "price" : meal.price,
-            "date" : meal.date.dateToString(),
-            "name" : meal.name,
-            "image" : meal.image,
-            "mealType" : meal.mealType.rawValue,
-            "mealTime" : meal.mealTime.rawValue
-        ]
-        
-        db.child(uid).child(FBChild.meal).childByAutoId().setValue(mealDic)
     }
     
     

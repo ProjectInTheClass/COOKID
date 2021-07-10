@@ -13,11 +13,11 @@ class Meal {
     var price: Int
     var date: Date
     var name: String
-    var image: String
+    var image: String?
     var mealType: MealType
     var mealTime: MealTime
     
-    init(price: Int, date: Date, name: String, image: String, mealType: MealType, mealTime: MealTime) {
+    init(price: Int, date: Date, name: String, image: String?, mealType: MealType, mealTime: MealTime) {
         self.price = price
         self.date = date
         self.name = name
@@ -33,7 +33,7 @@ enum MealType: String {
     case dineIn = "집밥"
 }
 
-enum MealTime: String {
+enum MealTime: String, CaseIterable {
     case breakfast = "아침"
     case brunch = "아점"
     case lunch = "점심"

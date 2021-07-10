@@ -18,7 +18,7 @@ class MealDayCollectionViewCell: UICollectionViewCell {
     }
     
     func updateUI(meal: Meal) {
-        mealImage.image = UIImage(systemName: meal.image)
+        //mealImage.image = UIImage(systemName: meal.image)
         mealImage.image?.withTintColor(.white, renderingMode: .automatic)
     }
     

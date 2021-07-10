@@ -104,6 +104,10 @@ class MainViewController: UIViewController {
         
         addMealButton.rx.tap
             .subscribe(onNext: {
+                let vc = InputMealViewController(rootView: InputMealView())
+                
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
                 print("현지님 여기다가 VC 띄워주세요")
             })
             .disposed(by: rx.disposeBag)
