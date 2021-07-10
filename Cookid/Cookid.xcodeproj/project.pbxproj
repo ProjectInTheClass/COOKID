@@ -43,6 +43,8 @@
 		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
 		C67441D62696FA530086CBAD /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
 		C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67441D726970E7C0086CBAD /* AuthRepository.swift */; };
+		C67442012698A2CB0086CBAD /* InputShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67442002698A2CB0086CBAD /* InputShoppingListViewController.swift */; };
+		C67442032698A2F90086CBAD /* InputShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67442022698A2F90086CBAD /* InputShoppingListView.swift */; };
 		C6BFF4532694996B006295F5 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF4522694996A006295F5 /* Entities.swift */; };
 		C6BFF45726949986006295F5 /* UserRepositrory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45426949986006295F5 /* UserRepositrory.swift */; };
 		C6BFF45826949986006295F5 /* GroceryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45526949986006295F5 /* GroceryRepository.swift */; };
@@ -93,6 +95,8 @@
 		892F362497B138331AC4FAC2 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
 		C67441D726970E7C0086CBAD /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		C67442002698A2CB0086CBAD /* InputShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputShoppingListViewController.swift; sourceTree = "<group>"; };
+		C67442022698A2F90086CBAD /* InputShoppingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputShoppingListView.swift; sourceTree = "<group>"; };
 		C6BFF4522694996A006295F5 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		C6BFF45426949986006295F5 /* UserRepositrory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepositrory.swift; sourceTree = "<group>"; };
 		C6BFF45526949986006295F5 /* GroceryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryRepository.swift; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 		032233B32692767E0092DD6D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C67441FF2698A1A10086CBAD /* InputViewController */,
 				032233C526927EF90092DD6D /* DummyData */,
 				032233C92692A8310092DD6D /* onboarding */,
 				032233B7269276DB0092DD6D /* MainViewController.swift */,
@@ -303,6 +308,15 @@
 				8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C67441FF2698A1A10086CBAD /* InputViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C67442002698A2CB0086CBAD /* InputShoppingListViewController.swift */,
+				C67442022698A2F90086CBAD /* InputShoppingListView.swift */,
+			);
+			path = InputViewController;
 			sourceTree = "<group>";
 		};
 		DB0D7D722694980B009B2D51 /* Service */ = {
@@ -448,6 +462,7 @@
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
+				C67442012698A2CB0086CBAD /* InputShoppingListViewController.swift in Sources */,
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
 				032233B8269276DB0092DD6D /* MainViewController.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
@@ -464,6 +479,7 @@
 				032233BE26927A160092DD6D /* MyExpenseViewController.swift in Sources */,
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
 				032233D72692F0160092DD6D /* Extension.swift in Sources */,
+				C67442032698A2F90086CBAD /* InputShoppingListView.swift in Sources */,
 				032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */,
 				C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */,
 				355A36B9269894A5001A5CD8 /* MyExpenseVC+TableView.swift in Sources */,
