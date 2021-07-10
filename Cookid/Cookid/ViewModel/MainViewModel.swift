@@ -15,13 +15,14 @@ class MainViewModel: ViewModelType, HasDisposeBag {
     let userService: UserService
     
     struct Input {
-        
     }
     
     struct Output {
         let adviceString: Driver<String>
         let userInfo: Driver<User>
         let mealDayList: BehaviorSubject<[Meal]>
+        let consumeProgressCalc: Driver<Int>
+        let monthlyDetailed: Driver<ConsumptionDetailed>
     }
     
     var input: Input
@@ -48,10 +49,37 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         }
         .asDriver(onErrorJustReturn: User(userID: "userID", nickname: "비회원", determination: "등록 후에 사용해 주세요!", priceGoal: "2000", userType: .preferDineIn))
         
+        let progressValue = Observable<Int>.create { observer in
+            let percent = mealService.getSpendPercentage()
+            observer.onNext(percent)
+            return Disposables.create()
+        }
+        .asDriver(onErrorJustReturn: 0)
+        
+        let detailed = Observable<ConsumptionDetailed>.create { observer in
+            
+            let goal = Int(userService.currentUser.priceGoal) ?? 0
+            let shop = mealService.fetchShoppingSpend()
+            let dineOutPrice = mealService.fetchEatOutSpend()
+            
+            let value = ConsumptionDetailed(month: Date().convertDateToString(format: "MM월"), priceGoal: goal, shoppingPrice: shop, dineOutPrice: dineOutPrice, balance: goal - shop - dineOutPrice)
+            
+            observer.onNext(value)
+            return Disposables.create()
+        }
+        .asDriver(onErrorJustReturn: ConsumptionDetailed(month: "1월", priceGoal: 0, shoppingPrice: 0, dineOutPrice: 0, balance: 0))
         
         self.input = Input()
-        self.output = Output(adviceString: adviceStr, userInfo: userInform, mealDayList: dateToMealsCollect)
+        self.output = Output(adviceString: adviceStr, userInfo: userInform, mealDayList: dateToMealsCollect, consumeProgressCalc: progressValue, monthlyDetailed: detailed)
     }
    
     
+}
+
+struct ConsumptionDetailed {
+    let month: String
+    let priceGoal: Int
+    let shoppingPrice: Int
+    let dineOutPrice: Int
+    let balance: Int
 }

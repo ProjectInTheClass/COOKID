@@ -13,6 +13,10 @@ class UserService {
     
     private let userRepository = UserRepository()
     
+    var currentUser: User {
+        return loadCurrentUser()
+    }
+    
     func loadUserInfo(completion: @escaping (User) -> Void) {
         userRepository.fetchUserInfo { userentity in
             
@@ -20,5 +24,17 @@ class UserService {
             
             completion(user)
         }
+    }
+    
+    func loadCurrentUser() -> User {
+        
+        var newUser: User?
+        
+        loadUserInfo { user in
+            newUser = user
+        }
+        
+        return newUser ?? User(userID: "", nickname: "", determination: "", priceGoal: "", userType: .preferDineIn)
+        
     }
 }

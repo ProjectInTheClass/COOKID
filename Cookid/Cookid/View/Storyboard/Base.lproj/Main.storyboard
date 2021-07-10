@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WDm-Ug-Ecm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CSE-tM-JIq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -344,7 +344,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8J-CA-3vC">
                                                         <rect key="frame" x="0.0" y="500" width="374" height="200"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9FI-C9-pyQ">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9FI-C9-pyQ">
                                                                 <rect key="frame" x="195" y="15" width="159" height="30"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0a-UA-Gd3">
@@ -461,6 +461,7 @@
                         <outlet property="balanceLabel" destination="6Af-Eb-gco" id="FU4-Y4-u84"/>
                         <outlet property="chartPercentLabel" destination="mru-Mw-elR" id="lFF-PS-fLw"/>
                         <outlet property="chartView" destination="HFd-XN-Tzq" id="ZoR-Za-wmc"/>
+                        <outlet property="consumeProgressBar" destination="U9p-q8-lIZ" id="f2B-vW-PcD"/>
                         <outlet property="consumeView" destination="RNQ-U9-MWd" id="FfD-sk-vJz"/>
                         <outlet property="dineOutPrice" destination="3iq-e7-iQ6" id="J09-3f-ydI"/>
                         <outlet property="etcView" destination="ks2-O6-ZVm" id="eNU-rX-fNW"/>
