@@ -809,6 +809,14 @@
             </objects>
             <point key="canvasLocation" x="190" y="1633"/>
         </scene>
+        <!--Input Meal View Controller-->
+        <scene sceneID="5ne-ol-ot8">
+            <objects>
+                <hostingController id="Yp8-ld-rtt" customClass="InputMealViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="52V-j3-Ksf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2506" y="1633"/>
+        </scene>
     </scenes>
     <resources>
         <image name="arrow.right.circle" catalog="system" width="128" height="121"/>
