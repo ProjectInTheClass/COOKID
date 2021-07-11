@@ -47,15 +47,6 @@ struct ImagePicker: UIViewControllerRepresentable {
 
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 parent.selectedImage = image
-                
-//                let data = image.jpegData(compressionQuality: 0.2)
-//                guard let data = data else { return }
-//                do {
-//                    let imageURL = try URL(dataRepresentation: data, relativeTo: nil)!
-//                    print(imageURL)
-//                } catch {
-//                    print(error.localizedDescription)
-//                }
             }
             parent.presentationMode.wrappedValue.dismiss()
         }

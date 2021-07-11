@@ -23,7 +23,7 @@ class MealRepository {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
            
-            self.db.child("vRtnFNGIlPSToqwa9eh4fz63GRG3").child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
+            self.db.child(uid).child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
                 
                 let snapshotValue = snapshot.value as? [String:Any] ?? [:]
                 var mealEntity = [MealEntity]()
@@ -35,13 +35,15 @@ class MealRepository {
                 }
                 completion(mealEntity)
             }
+            
+            
         }
     }
     
     
-    func fetchImage(mealName: String, completion: @escaping (URL) -> Void) {
+    func fetchImageURL(uid: String, mealName: String, completion: @escaping (URL) -> Void) {
         
-        let storageRef = storage.child(mealName + ".jpg")
+        let storageRef = storage.child(uid + mealName + ".jpg")
         
         storageRef.downloadURL { url, error in
             if let error = error {
@@ -59,7 +61,7 @@ class MealRepository {
     func pushMealToFirebase(meal: Meal) {
         authRepo.signInAnonymously { [weak self] uid in
             let mealDic : [String:Any] = [
-                "id" : uid,
+                "id" : meal.id,
                 "price" : meal.price,
                 "date" : meal.date.dateToString(),
                 "name" : meal.name,
@@ -74,8 +76,8 @@ class MealRepository {
     
     
     
-    func uploadMealImage(mealName: String, image: UIImage) {
-        let storageRef = storage.child(mealName + ".jpg")
+    func uploadMealImage(uid: String, mealID: String, image: UIImage) {
+        let storageRef = storage.child(uid + mealID + ".jpg")
         let data = image.jpegData(compressionQuality: 0.8)
         
         let metadata = StorageMetadata()
