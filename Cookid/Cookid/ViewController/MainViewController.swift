@@ -76,7 +76,7 @@ class MainViewController: UIViewController {
             .subscribe(onNext: { [unowned self] in
                 let data = self.viewModel.mealService.fetchMealByNavigate(-1)
                 self.monthSelectButton.setTitle(data.0, for: .normal)
-                self.viewModel.output.mealDayList.onNext(data.1)
+                self.viewModel.input.yesterdayMeals.onNext(data.1)
             })
             .disposed(by: rx.disposeBag)
         
@@ -84,7 +84,7 @@ class MainViewController: UIViewController {
             .subscribe(onNext: { [unowned self] in
                 let data = self.viewModel.mealService.fetchMealByNavigate(1)
                 self.monthSelectButton.setTitle(data.0, for: .normal)
-                self.viewModel.output.mealDayList.onNext(data.1)
+                self.viewModel.input.tommorowMeals.onNext(data.1)
             })
             .disposed(by: rx.disposeBag)
         
@@ -95,7 +95,7 @@ class MainViewController: UIViewController {
                 vc.completionHandler = { date in
                     let data = self.viewModel.mealService.fetchMealByDay(date)
                     self.monthSelectButton.setTitle(data.0, for: .normal)
-                    self.viewModel.output.mealDayList.onNext(data.1)
+                    self.viewModel.input.todayMeals.onNext(data.1)
                 }
                 vc.modalPresentationStyle = .overCurrentContext
                 vc.modalTransitionStyle = .crossDissolve
@@ -168,7 +168,7 @@ class MainViewController: UIViewController {
             .disposed(by: rx.disposeBag)
         
         viewModel.output.mealDayList
-            .bind(to: mealDayCollectionView.rx.items(cellIdentifier: "mainMealCell", cellType: MealDayCollectionViewCell.self)) { item, meal, cell in
+            .drive(mealDayCollectionView.rx.items(cellIdentifier: "mainMealCell", cellType: MealDayCollectionViewCell.self)) { item, meal, cell in
                 cell.updateUI(meal: meal)
             }
             .disposed(by: rx.disposeBag)

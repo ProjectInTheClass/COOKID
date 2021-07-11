@@ -6,35 +6,20 @@
 //
 
 import Foundation
+import RxSwift
 
 class UserService {
-    
     static let shared = UserService()
     
     private let userRepository = UserRepository()
     
-    var currentUser: User {
-        return loadCurrentUser()
-    }
-    
-    func loadUserInfo(completion: @escaping (User) -> Void) {
-        userRepository.fetchUserInfo { userentity in
-            
-            let user = User(nickname: userentity.nickname, determination: userentity.determination, priceGoal: userentity.priceGoal, userType: UserType(rawValue: userentity.userType)!)
-            
-            completion(user)
+    func loadUserInfo() -> Observable<User> {
+        return Observable.create { [unowned self] observer -> Disposable in
+            self.userRepository.fetchUserInfo { userentity in
+                let user = User(nickname: userentity.nickname, determination: userentity.determination, priceGoal: userentity.priceGoal, userType: UserType(rawValue: userentity.userType)!)
+                observer.onNext(user)
+            }
+            return Disposables.create()
         }
-    }
-    
-    func loadCurrentUser() -> User {
-        
-        var newUser: User?
-        
-        loadUserInfo { user in
-            newUser = user
-        }
-        
-        return newUser ?? User(userID: "", nickname: "", determination: "", priceGoal: "", userType: .preferDineIn)
-        
     }
 }
