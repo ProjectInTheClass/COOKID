@@ -11,6 +11,7 @@ import FirebaseAuth
 class AuthRepository {
     
     static let shared = AuthRepository()
+    
     var uid: String = ""
     var isAnonymous: Bool = false
 
@@ -21,6 +22,7 @@ class AuthRepository {
     }
     
     func signInAnonymously(completion: @escaping (String) -> Void) {
+        
         Auth.auth().signInAnonymously { [weak self] authdata, error in
             guard let self = self else { return }
             if let error = error {
@@ -30,10 +32,10 @@ class AuthRepository {
                 guard let user = authdata?.user else { return }
                 self.uid = user.uid
                 self.isAnonymous = user.isAnonymous
-                if self.isAnonymous {
-                    // 수정 삭제 어쩌구
+                if user.isAnonymous {
+                    self.uid = Auth.auth().currentUser!.uid
                 }
-                completion(user.uid)
+                completion(self.uid)
             }
         }
     }

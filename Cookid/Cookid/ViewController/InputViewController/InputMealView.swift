@@ -20,15 +20,18 @@ struct InputMealView: View {
     @State var selectionIndex = 0
     @State var isDineOut = false
     @State var mealType = MealType.dineIn.rawValue
-    @State var meal:  Meal?
+    
+    
     
     @State var isFocused: Bool = false
     @State var showImagePicker: Bool = false
     
+    var dismissView: (() -> Void)
+    @State var meal: Meal?
     
     var body: some View {
         NavigationView {
-            ZStack {
+           
                 if #available(iOS 14.0, *) {
                     ScrollView {
                         VStack(spacing: 30) {
@@ -64,11 +67,13 @@ struct InputMealView: View {
                                                 .font(.body)
                                                 .foregroundColor(.gray)
                                         }).onChange(of: isDineOut, perform: { value in
-                                            
-                                            if value {
-                                                self.mealType = MealType.dineOut.rawValue
-                                            } else {
-                                                self.mealType = MealType.dineIn.rawValue
+                                            withAnimation(.easeInOut) {
+                                                if value {
+                                                    self.mealType = MealType.dineOut.rawValue
+                                                    self.isDineOut = true
+                                                } else {
+                                                    self.mealType = MealType.dineIn.rawValue
+                                                }
                                             }
                                         })
                                     } else {
@@ -106,7 +111,7 @@ struct InputMealView: View {
                                         )
                                         .padding(.horizontal, 26)
                                     }
-                                }
+                                } .transition(.opacity)
                             }
                             
                             // Date Picker TextField
@@ -147,7 +152,7 @@ struct InputMealView: View {
                                         data: MealTime.allCases.map { String($0.rawValue) },
                                         placeholder: "아침",
                                         selectionIndex: $selectionIndex,
-                                        text: $mealTime)
+                                        text: ($mealTime))
                                 }
                                 .frame(height: 44)
                                 .frame(maxWidth: .infinity)
@@ -187,7 +192,6 @@ struct InputMealView: View {
                             
                             Spacer()
                         }
-                        .offset(y: isFocused ? -150 : 0)
                         .onTapGesture {
                             isFocused = false
                             hideKeyboard()
@@ -195,40 +199,41 @@ struct InputMealView: View {
                         .sheet(isPresented: $showImagePicker, content: {
                             ImagePicker(sourceType: .photoLibrary, selectedImage: $image)
                         })
+                        .animation(.easeIn)
                     }
-                    .navigationBarItems(trailing: Button(action: {
-                        let meal = Meal(price: price,
-                                    date: selectedDate ?? Date(),
-                                    name: mealName,
-                                    image: nil,
-                                    mealType: MealType(rawValue: mealType) ?? .dineIn,
-                                    mealTime: MealTime(rawValue: mealTime!) ?? .breakfast)
-                        
-                        if meal != nil {
-                            MealRepository.shared.pushMealToFirebase(meal: meal)
-                            MealRepository.shared.uploadMealImage(mealName: meal.name, image: image)
-                        } else {
-                            //disabled(true)
+                    //.offset(y: isFocused ? -140 : .zero)
+                    .toolbar(content: {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button(action: {
+                                dismissView()
+                                self.meal = Meal(price: price,
+                                                 date: selectedDate!,
+                                                 name: mealName,
+                                                 image: nil,
+                                                 mealType: MealType(rawValue: mealType)!,
+                                                 mealTime: MealTime(rawValue: mealTime!) ?? .breakfast)
+                                if let meal = meal {
+                                    saveMealData(meal: meal)
+                                }
+                            }, label: {
+                                Text("Save")
+                            })
                         }
-                        
-                        presentationMode.wrappedValue.dismiss()
-                        
-                    }, label: {
-                        Text("Save")
-                    }))
-                    .navigationBarTitleDisplayMode(.inline)
-                } else {
-                    // Fallback on earlier versions
-                }
+                    })
                 
             }
             
         }
     }
     
+    func saveMealData(meal: Meal) {
+        MealRepository.shared.pushMealToFirebase(meal: meal)
+        MealService.shared.addMeal(meal: meal)
+    }
     
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        
     }
 }
 

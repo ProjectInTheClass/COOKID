@@ -10,12 +10,15 @@ import SwiftUI
 
 class InputMealViewController: UIHostingController<InputMealView> {
 
+    
     override init(rootView: InputMealView) {
-        super.init(rootView: InputMealView())
+        super.init(rootView: rootView)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
+    
 }
