@@ -55,8 +55,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         bindViewModel()
-        
-       
     }
     
     private func configureUI() {

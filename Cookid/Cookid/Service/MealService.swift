@@ -42,10 +42,9 @@ class MealService {
         groceryRepository.fetchGroceryInfo { models in
             let groceryShoppings = models.map { shoppingModel -> GroceryShopping in
                 let date = self.stringToDate(date: shoppingModel.date)
-                let groceries = shoppingModel.groceries.map { entityModel in
-                    return Grocery(name: entityModel.name, price: entityModel.price)
-                }
-                return GroceryShopping(date: date, groceries: groceries)
+                
+                // 동환님 여기 수정 필요할 것 같습니다.
+                return GroceryShopping(date: date, totalPrice: 1000)
             }
             self.groceries = groceryShoppings
             completion(groceryShoppings)

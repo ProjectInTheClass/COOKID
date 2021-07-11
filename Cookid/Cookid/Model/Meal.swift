@@ -25,7 +25,6 @@ class Meal {
         self.mealType = mealType
         self.mealTime = mealTime
     }
-    
 }
 
 enum MealType: String {
@@ -44,31 +43,5 @@ enum MealTime: String, CaseIterable {
 
 struct GroceryShopping {
     let date: Date
-    var groceries: [Grocery]
-    var converToDic: [String:Any] {
-        let dic: [String:Any] = [
-            "date" : date.dateToString(),
-            "groceries" : groceries.map { $0.convoerToDic }
-        ]
-        return dic
-    }
-    
-    func totalPrice(groceries: [Grocery]) -> Int {
-        return self.groceries.reduce(0) { result, grocery in
-            result + grocery.price
-        }
-    }
+    var totalPrice: Int
 }
-
-struct Grocery: Codable {
-    let name: String
-    let price: Int
-    var convoerToDic: [String:Any] {
-        let dic: [String:Any] = [
-            "name" : name,
-            "price" : price
-        ]
-        return dic
-    }
-}
-

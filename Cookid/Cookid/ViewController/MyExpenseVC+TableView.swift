@@ -10,8 +10,6 @@ import UIKit
 
 extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate {
     
-
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
                 
         if section == 0 {
@@ -54,12 +52,12 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
         
         if !selectedShopping.isEmpty {
             if indexPath.section == 2 {
-                guard selectedShopping[indexPath.row]?.totalPrice(groceries: selectedShopping[indexPath.row]!.groceries) != nil
+                guard selectedShopping[indexPath.row]?.totalPrice != nil
                 else {
                     cell.label.text = "0"
                     return cell
                 }
-                cell.label.text = String(selectedShopping[indexPath.row]!.totalPrice(groceries: selectedShopping[indexPath.row]!.groceries)) + "원"
+                cell.label.text = String(selectedShopping[indexPath.row]!.totalPrice) + "원"
                 cell.dateLabel.text = dateFormatter.string(from: selectedShopping[indexPath.row]!.date)
 
             }
