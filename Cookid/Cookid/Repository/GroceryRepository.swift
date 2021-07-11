@@ -8,8 +8,6 @@
 import Foundation
 import FirebaseDatabase
 
-
-
 class GroceryRepository {
     
     static let shared = GroceryRepository()
@@ -39,7 +37,7 @@ class GroceryRepository {
     }
     
     
-    func pushGroceryInfo(uid: String, grocery: GroceryShopping) {
-        db.child(uid).child(FBChild.groceries).setValue(grocery.converToDic)
-    }
+//    func pushGroceryInfo(uid: String, grocery: GroceryShopping) {
+//        db.child(uid).child(FBChild.groceries).setValue(grocery.converToDic)
+//    }
 }

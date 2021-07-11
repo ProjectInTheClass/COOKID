@@ -12,11 +12,7 @@ class DummyData {
 
     var mySingleMeal = Meal(price: 8000, date: Date(), name: "순대국밥", image: "photo.on.rectangle.angled", mealType: .dineOut, mealTime: .lunch)
 
-    var mySingleShopping = GroceryShopping(date: Date(),
-                                           groceries: [Grocery(name: "가지", price: 1000),
-                                                       Grocery(name: "호박", price: 1500),
-                                                       Grocery(name: "만가닥버섯", price: 800)
-                                           ])
+    var mySingleShopping = GroceryShopping(date: Date(), totalPrice: 10000)
 
     var myMeals = [
         Meal(price: 9000, date: Date(), name: "상하이버거", image: "photo.on.rectangle.angled", mealType: .dineOut, mealTime: .brunch),
