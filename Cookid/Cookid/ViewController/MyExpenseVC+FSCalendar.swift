@@ -20,7 +20,6 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
 
         print("did select date \(self.dateFormatter.string(from: date))")
         let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
