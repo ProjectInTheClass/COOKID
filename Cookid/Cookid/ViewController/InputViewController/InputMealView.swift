@@ -201,17 +201,19 @@ struct InputMealView: View {
                         })
                         .animation(.easeIn)
                     }
-                    //.offset(y: isFocused ? -140 : .zero)
+                    .offset(y: -30)
+                    
                     .toolbar(content: {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button(action: {
                                 dismissView()
-                                self.meal = Meal(price: price,
-                                                 date: selectedDate!,
+                                self.meal = Meal(
+                                                price: price,
+                                                 date: selectedDate ?? Date() ,
                                                  name: mealName,
-                                                 image: nil,
-                                                 mealType: MealType(rawValue: mealType)!,
-                                                 mealTime: MealTime(rawValue: mealTime!) ?? .breakfast)
+                                                 image: meal?.id,
+                                    mealType: MealType(rawValue: mealType) ?? MealType.dineIn,
+                                                 mealTime: MealTime(rawValue: mealTime ?? "") ?? .breakfast)
                                 if let meal = meal {
                                     saveMealData(meal: meal)
                                 }
@@ -227,8 +229,13 @@ struct InputMealView: View {
     }
     
     func saveMealData(meal: Meal) {
-        MealRepository.shared.pushMealToFirebase(meal: meal)
-        MealService.shared.addMeal(meal: meal)
+        AuthRepository.shared.signInAnonymously { uid in
+            MealRepository.shared.pushMealToFirebase(meal: meal)
+            MealRepository.shared.uploadMealImage(uid: uid, mealID: meal.name, image: image)
+//            MealRepository.shared.fetchImageURL(uid: uid, mealName: meal.name) { url in
+//                print(url)
+//            }
+        }
     }
     
     func hideKeyboard() {

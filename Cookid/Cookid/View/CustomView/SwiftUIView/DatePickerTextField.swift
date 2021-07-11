@@ -50,12 +50,9 @@ struct DatePickerTextField: UIViewRepresentable {
         }
     }
     
-    
-    
     func makeCoordinator() -> DatePickerTextField.Coordinator {
         Coordinator(textField: self)
     }
-    
     
     
     final class Helper {
@@ -65,8 +62,8 @@ struct DatePickerTextField: UIViewRepresentable {
         @objc func dateValueChanged() {
             self.dateDidChanged?()
         }
-        
     }
+    
     
     final class Coordinator: NSObject,  UITextFieldDelegate {
         private let parent: DatePickerTextField
