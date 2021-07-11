@@ -12,7 +12,7 @@ class PlainCircleProgressBar: UIView {
     @IBInspectable var color: UIColor? = #colorLiteral(red: 0.9508261085, green: 0.8531606793, blue: 0.6693316102, alpha: 1)
     @IBInspectable var ringWidth: CGFloat = 50
     
-    var progress: CGFloat = 0.35 {
+    var progress: CGFloat = 0 {
         didSet { setNeedsDisplay() }
     }
     
@@ -42,12 +42,10 @@ class PlainCircleProgressBar: UIView {
         
         if progress > 0 && progress <= 0.25 {
             progressLayer.strokeColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
-        } else if progress > 0.25 {
-            progressLayer.strokeColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         } else if progress <= 0.5 {
-            progressLayer.strokeColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+            progressLayer.strokeColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         } else if progress <= 0.75 {
-            progressLayer.strokeColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+            progressLayer.strokeColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         } else {
             progressLayer.strokeColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
         }

@@ -46,7 +46,7 @@ class CustomTableViewCell: UITableViewCell {
         $0.font = .systemFont(ofSize: 15)
     }
     
-    lazy var image = UIImageView().then{
+    lazy var mealImage = UIImageView().then{
         $0.image = UIImage(named: "camera")
     }
     
@@ -54,19 +54,19 @@ class CustomTableViewCell: UITableViewCell {
     private func setUpConstraint() {
         contentView.addSubview(label)
         contentView.addSubview(dateLabel)
-        contentView.addSubview(image)
+        contentView.addSubview(mealImage)
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        image.translatesAutoresizingMaskIntoConstraints = false
+        mealImage.translatesAutoresizingMaskIntoConstraints = false
         
-        self.image.snp.makeConstraints{
+        self.mealImage.snp.makeConstraints{
             $0.height.width.equalTo(20)
             $0.leading.equalToSuperview().offset(10)
             $0.centerY.equalTo(contentView.snp.centerY)
         }
         
         self.label.snp.makeConstraints{
-            $0.leading.equalTo(image.snp.trailing).offset(10)
+            $0.leading.equalTo(mealImage.snp.trailing).offset(10)
             $0.centerY.equalTo(contentView.snp.centerY)
         }
         

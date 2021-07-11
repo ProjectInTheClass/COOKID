@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class MealService {
     
@@ -19,72 +20,21 @@ class MealService {
     private var groceries: [GroceryShopping] = []
     private var totalBudget: Int = 1
     
-    func addMeal(meal: Meal){
-        
-        self.meals.append(meal)
-    }
-    
-    func setTotalBudget(budget: Int) {
-        
-        self.totalBudget = budget
-    }
-    
-    func fetchCurrentSpend() -> Int {
-        
-        let totalSpend = self.meals.map{$0.price}.reduce(0){$0+$1}
-        return totalSpend
-    }
-    
-    func fetchShoppingSpend() -> Int {
-        
-        let shoppingSpends = meals.filter {$0.mealType == .dineIn}.map{$0.price}
-        let totalSpend = shoppingSpends.reduce(0){$0+$1}
-        return totalSpend
-    }
-    
-    func fetchEatOutSpend() -> Int {
-        
-        let eatOutSpends = meals.filter {$0.mealType == .dineOut}.map{$0.price}
-        let totalSpend = eatOutSpends.reduce(0){$0+$1}
-        return totalSpend
-    }
-    
-    func getSpendPercentage() -> Int {
-        
-        return self.fetchCurrentSpend() / totalBudget * 100
-    }
-    
-    func fetchCurrentMonth() -> String {
-        
-        let monthString = self.convertDateToString(format: "M", date: Date())
-        return monthString
-    }
-    
-    func fetchAverageSpendPerDay() -> Int {
-        
-        let date = Date()
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.day], from: date)
-        guard let dayOfMonth = components.day else {return 1}
-        let average = self.fetchCurrentSpend() / dayOfMonth
-        return average
-    }
-    
-    func fetchMeals(completion: @escaping (([Meal]) -> Void)) {
-        mealRepository.fetchMeals { mealArr in
-            
-            let mealModels = mealArr.map { model -> Meal in
-                let price = model.price
-                let date = model.date.stringToDate()!
-                let name = model.name
-                let image = model.image ?? "https://plainbackground.com/download.php?imagename=ffffff.png"
-                let mealType = MealType(rawValue: model.mealType) ?? .dineIn
-                let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
-                
-                return Meal(price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
+    func fetchMeals() -> Observable<[Meal]> {
+        return Observable.create { [unowned self] observer -> Disposable in
+            self.mealRepository.fetchMeals { mealArr in
+                let mealModels = mealArr.map { model -> Meal in
+                    let price = model.price
+                    let date = model.date.stringToDate()!
+                    let name = model.name
+                    let image = model.image ?? "exclamationmark.bubble.fill"
+                    let mealType = MealType(rawValue: model.mealType) ?? .dineIn
+                    let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
+                    return Meal(price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
+                }
+                observer.onNext(mealModels)
             }
-            self.meals = mealModels
-            completion(mealModels)
+            return Disposables.create()
         }
     }
     
@@ -101,7 +51,49 @@ class MealService {
             completion(groceryShoppings)
         }
     }
+    
+    func getSpendPercentage(meals: [Meal], user: User) -> Double {
+        let totalSpend = meals.map{ Double($0.price) }.reduce(0){ $0 + $1 }
+        return totalSpend / Double(user.priceGoal)! * 100
+    }
+    
+    func fetchAverageSpendPerDay(meals: [Meal]) -> Double {
         
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: date)
+        guard let dayOfMonth = components.day else {return 1}
+        let currentSpend = meals.map{ Double($0.price) }.reduce(0){ $0 + $1 }
+        let average = currentSpend / Double(dayOfMonth)
+        return average
+    }
+    
+    func addMeal(meal: Meal){
+        
+        self.meals.append(meal)
+    }
+    
+    func fetchShoppingSpend(meals: [Meal]) -> Int {
+        let shoppingSpends = meals.filter {$0.mealType == .dineIn}.map{$0.price}
+        let totalSpend = shoppingSpends.reduce(0){$0+$1}
+        return totalSpend
+    }
+    
+    func fetchEatOutSpend(meals: [Meal]) -> Int {
+        
+        let eatOutSpends = meals.filter {$0.mealType == .dineOut}.map{$0.price}
+        let totalSpend = eatOutSpends.reduce(0){$0+$1}
+        return totalSpend
+    }
+  
+    
+    func fetchCurrentMonth() -> String {
+        
+        let monthString = self.convertDateToString(format: "M", date: Date())
+        return monthString
+    }
+   
+    
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
         
         let newMeals = meals.filter { $0.mealType == .dineIn }
@@ -118,11 +110,11 @@ class MealService {
         
         guard let mostExpensiveYet = self.mostExpensiveMeal(meals: self.meals) else {return nil}
         if meal.price > mostExpensiveYet.price {
-
+            
             return "FOOD FLEX 하셨습니다"
         }
-      
-     return nil
+        
+        return nil
     }
     
     func recentMeals(meals: [Meal]) -> [Meal] {
@@ -144,7 +136,7 @@ class MealService {
         
         return [breakfastNum, brunchNum, lunchNum, lundinnerNum, dinnerNum, snackNum]
     }
-
+    
     var currentDay = Date()
     
     func fetchMealByNavigate(_ day: Int) -> (String, [Meal]) {
@@ -153,11 +145,11 @@ class MealService {
         currentDay = aDay
         let dateString = self.convertDateToString(format: "YYYY년 M월 d일", date: aDay)
         let meal = self.meals.filter {$0.date == currentDay }
-
+        
         return (dateString, meal)
     }
     
-
+    
     func fetchMealByDay(_ day: Date) -> (String, [Meal]) {
         currentDay = day
         let dateString = self.convertDateToString(format: "YYYY년 M월 d일", date: day)
@@ -165,13 +157,14 @@ class MealService {
         return (dateString, meal)
     } 
     
-    func checkSpendPace() -> String{
-
+    func checkSpendPace(meals: [Meal], user: User) -> String{
+        
         let date = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.day], from: date)
         guard let day = components.day else {return ""}
-        let percentage = self.getSpendPercentage()
+        
+        let percentage = self.getSpendPercentage(meals: meals, user: user)
         
         switch day {
         case 1...7:
@@ -224,14 +217,20 @@ class MealService {
             }
         }
     }
-
+    
+    
+    func todayMeals(meals: [Meal]) -> [Meal] {
+        return meals.filter { $0.date == Date() }
+    }
+    
+    
     private func convertDateToString(format: String, date: Date) -> String {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         let dateString = dateFormatter.string(from: date)
         return dateString
-
+        
     }
     
     private func stringToDate(date: String) -> Date {
