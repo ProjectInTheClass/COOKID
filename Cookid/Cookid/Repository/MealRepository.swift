@@ -35,27 +35,9 @@ class MealRepository {
                 }
                 completion(mealEntity)
             }
-            
-            
         }
     }
     
-    
-    func fetchImageURL(uid: String, mealName: String, completion: @escaping (URL) -> Void) {
-        
-        let storageRef = storage.child(uid + mealName + ".jpg")
-        
-        storageRef.downloadURL { url, error in
-            if let error = error {
-                print("Error while downloading file : \(error.localizedDescription)")
-                return
-            }
-            if let url = url {
-                completion(url)
-                print(url)
-            }
-        }
-    }
     
     
     func pushMealToFirebase(meal: Meal) {
@@ -76,23 +58,46 @@ class MealRepository {
     
     
     
-    func uploadMealImage(uid: String, mealID: String, image: UIImage) {
+    func fetchingImageURL(uid: String, mealID: String, image: UIImage, completed: @escaping (URL?) -> Void) {
         let storageRef = storage.child(uid + mealID + ".jpg")
         let data = image.jpegData(compressionQuality: 0.8)
+        
         
         let metadata = StorageMetadata()
         metadata.contentType = "image.jpg"
         
         if let data = data {
             storageRef.putData(data, metadata: metadata) { metadata, error in
-                
                 if let error = error {
                     print("Error while uploading file : \(error.localizedDescription)")
                 }
-                
-                if let metadata = metadata {
-                    print("Metadata : \(metadata)")
+                storageRef.downloadURL { url, error in
+                    if let error = error {
+                        print("Error while downloading file : \(error.localizedDescription)")
+                        return
+                    }
+                    if let url = url {
+                        completed(url)
+                    }
                 }
+            }
+        }
+    }
+    
+    
+    
+    func fetchImageURL(uid: String, mealName: String, completion: @escaping (URL) -> Void) {
+        
+        let storageRef = storage.child(uid + mealName + ".jpg")
+        
+        storageRef.downloadURL { url, error in
+            if let error = error {
+                print("Error while downloading file : \(error.localizedDescription)")
+                return
+            }
+            if let url = url {
+                completion(url)
+                print(url)
             }
         }
     }

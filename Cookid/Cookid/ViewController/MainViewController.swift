@@ -55,6 +55,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         bindViewModel()
+
     }
     
     private func configureUI() {
@@ -104,8 +105,8 @@ class MainViewController: UIViewController {
         addMealButton.rx.tap
             .subscribe(onNext: {
                 //completion 에서 meal 받아서 파베에 push
+                
                 let inputMealView = InputMealView(dismissView: {self.dismiss(animated: true, completion: nil)})
-
                 let vc = InputMealViewController(rootView: inputMealView)
               
                 vc.modalPresentationStyle = .fullScreen
