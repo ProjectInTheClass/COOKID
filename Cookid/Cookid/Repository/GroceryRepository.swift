@@ -37,7 +37,14 @@ class GroceryRepository {
     }
     
     
-//    func pushGroceryInfo(uid: String, grocery: GroceryShopping) {
-//        db.child(uid).child(FBChild.groceries).setValue(grocery.converToDic)
-//    }
+    func uploadGroceryInfo(grocery: GroceryShopping) {
+        authRepo.signInAnonymously { [weak self] uid in
+            guard let self = self else { return }
+            let dic: [String:Any] = [
+                "date" : grocery.date.dateToString(),
+                "totalPrice" : grocery.totalPrice
+            ]
+            self.db.child(uid).child(FBChild.groceries).setValue(dic)
+        }
+    }
 }

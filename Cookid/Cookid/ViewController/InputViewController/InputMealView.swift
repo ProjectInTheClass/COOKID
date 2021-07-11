@@ -226,7 +226,7 @@ struct InputMealView: View {
                             mealTime: MealTime(rawValue: mealTime ?? "") ?? .breakfast)
                         
                         if let meal = self.meal {
-                            MealRepository.shared.pushMealToFirebase(meal: meal)
+                            MealRepository.shared.uploadMealToFirebase(meal: meal)
                         }
                     }
                     dismissView()

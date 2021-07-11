@@ -40,7 +40,7 @@ class MealRepository {
     
     
     
-    func pushMealToFirebase(meal: Meal) {
+    func uploadMealToFirebase(meal: Meal) {
         authRepo.signInAnonymously { [weak self] uid in
             let mealDic : [String:Any] = [
                 "id" : meal.id,
