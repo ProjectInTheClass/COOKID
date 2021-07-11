@@ -23,7 +23,7 @@ class MealRepository {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
            
-            self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
+            self.db.child("vRtnFNGIlPSToqwa9eh4fz63GRG3").child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
                 
                 let snapshotValue = snapshot.value as? [String:Any] ?? [:]
                 var mealEntity = [MealEntity]()
@@ -37,6 +37,7 @@ class MealRepository {
             }
         }
     }
+    
     
     func fetchImage(mealName: String, completion: @escaping (URL) -> Void) {
         
@@ -68,7 +69,6 @@ class MealRepository {
             
             self?.db.child(uid).child(FBChild.meal).childByAutoId().setValue(mealDic)
         }
-        
     }
     
     
