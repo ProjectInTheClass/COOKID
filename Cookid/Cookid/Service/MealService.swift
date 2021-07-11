@@ -27,10 +27,10 @@ class MealService {
                     let price = model.price
                     let date = model.date.stringToDate()!
                     let name = model.name
-                    let image = model.image ?? "exclamationmark.bubble.fill"
+                    let image = model.image
                     let mealType = MealType(rawValue: model.mealType) ?? .dineIn
                     let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
-                    return Meal(price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
+                    return Meal(price: price, date: date, name: name, image: URL(string: image!) ?? nil, mealType: mealType, mealTime: mealTime)
                 }
                 observer.onNext(mealModels)
             }

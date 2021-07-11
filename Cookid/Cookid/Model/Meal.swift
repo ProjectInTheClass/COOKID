@@ -7,17 +7,20 @@
 
 import UIKit
 
-class Meal {
+class Meal: Equatable {
+    static func == (lhs: Meal, rhs: Meal) -> Bool {
+        return true
+    }
     
     let id: String = UUID().uuidString
     var price: Int
     var date: Date
     var name: String
-    var image: String?
+    var image: URL?
     var mealType: MealType
     var mealTime: MealTime
     
-    init(price: Int, date: Date, name: String, image: String?, mealType: MealType, mealTime: MealTime) {
+    init(price: Int, date: Date, name: String, image: URL?, mealType: MealType, mealTime: MealTime) {
         self.price = price
         self.date = date
         self.name = name
@@ -26,6 +29,7 @@ class Meal {
         self.mealTime = mealTime
     }
 }
+
 
 enum MealType: String {
     case dineOut = "외식"
