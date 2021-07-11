@@ -19,10 +19,6 @@ class MyExpenseViewController: UIViewController {
     var shopping : [GroceryShopping] = DummyData.shared.myShoppings
 
     var sections = ["집밥", "외식", "마트털이"]
-
-    
-    var mealDates : [Date?] = []
-    var shoppingDates : [Date?] = []
     
     var selectedDineInMeals : [Meal?] = []
     var selectedDineOutMeals : [Meal?] = []
@@ -67,19 +63,7 @@ class MyExpenseViewController: UIViewController {
         $0.estimatedRowHeight = UITableView.automaticDimension
         
         $0.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
-        
-        $0.panGestureRecognizer.require(toFail: self.scopeGesture)
     }
-    
-     lazy var scopeGesture: UIPanGestureRecognizer = {
-        [unowned self] in
-        let panGesture = UIPanGestureRecognizer(target: self.calendar, action: #selector(self.calendar.handleScopeGesture(_:)))
-        panGesture.delegate = self
-        panGesture.minimumNumberOfTouches = 1
-        panGesture.maximumNumberOfTouches = 2
-        return panGesture
-    }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,29 +81,26 @@ class MyExpenseViewController: UIViewController {
         self.view.addSubview(averageDailyExpenseLabel)
         self.view.addSubview(calendar)
         self.view.addSubview(tableView)
-                
-        //Gesture 추가
-        self.view.addGestureRecognizer(self.scopeGesture)
-        self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
-        
         
         //monthlyExpenseLabel constraint
         self.monthlyExpenseLabel.snp.makeConstraints{
             $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
             $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            $0.height.equalTo(30)
         }
         
         //averageDailyExpenseLabel constraint
         self.averageDailyExpenseLabel.snp.makeConstraints{
             $0.top.equalTo(monthlyExpenseLabel.snp.bottom)
             $0.leading.trailing.equalTo(monthlyExpenseLabel)
+            $0.height.equalTo(20)
         }
         
         //calnedar constraint
         self.calendar.snp.makeConstraints{
             $0.top.equalTo(averageDailyExpenseLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(UIDevice.current.model.hasPrefix("iPad") ? 400 : 300)
+            $0.height.equalTo(300)
         }
         
         //tableview constraint
