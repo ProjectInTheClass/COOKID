@@ -83,22 +83,4 @@ class MealRepository {
             }
         }
     }
-    
-    
-    
-    func fetchImageURL(uid: String, mealName: String, completion: @escaping (URL) -> Void) {
-        
-        let storageRef = storage.child(uid + mealName + ".jpg")
-        
-        storageRef.downloadURL { url, error in
-            if let error = error {
-                print("Error while downloading file : \(error.localizedDescription)")
-                return
-            }
-            if let url = url {
-                completion(url)
-                print(url)
-            }
-        }
-    }
 }
