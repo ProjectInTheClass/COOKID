@@ -21,6 +21,10 @@ class MealService {
     private var groceries: [GroceryShopping] = []
     private var totalBudget: Int = 1
     
+    func fetchMeals(completion: @escaping ([Meal])->Void) {
+        
+    }
+    
     @discardableResult
     func fetchMeals() -> Observable<[Meal]> {
         return Observable.create { [unowned self] observer -> Disposable in
@@ -111,20 +115,19 @@ class MealService {
    
     
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
-        
         let newMeals = meals.filter { $0.mealType == .dineIn }
         return CGFloat(newMeals.count) / CGFloat(meals.count)
     }
     
-    func mostExpensiveMeal(meals: [Meal]) -> Meal? {
-        
+    func mostExpensiveMeal(meals: [Meal]) -> Meal {
         let newMeals = meals.sorted { $0.price > $1.price }
-        return newMeals.first
+        guard let firstMeal = newMeals.first else { return DummyData.shared.mySingleMeal }
+        return firstMeal
     }
     
     func mostExpensiveMealAlert(meal: Meal) -> String {
         
-        guard let mostExpensiveYet = self.mostExpensiveMeal(meals: self.meals) else { return "" }
+        let mostExpensiveYet = self.mostExpensiveMeal(meals: self.meals)
         if meal.price > mostExpensiveYet.price {
             
             return "FOOD FLEX 하셨습니다"
@@ -169,7 +172,12 @@ class MealService {
         let dateString = self.convertDateToString(format: "YYYY년 M월 d일", date: day)
         let meal = self.meals.filter { $0.date.dateToString() == day.dateToString() }
         return (dateString, meal)
-    } 
+    }
+    
+    func dineInProgressCalc(_ meals: [Meal]) -> CGFloat {
+        let newMeals = meals.filter { $0.mealType == .dineIn }
+        return CGFloat(newMeals.count) / CGFloat(meals.count)
+    }
     
     func checkSpendPace(meals: [Meal], user: User) -> String{
         

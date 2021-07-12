@@ -28,18 +28,13 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
     @IBOutlet weak var mealTableView: UITableView!
     @IBOutlet weak var mealTimeCollectionView: UICollectionView!
     
-    let viewModel = MyMealViewModel(service: MealService())
+    let viewModel = MyMealViewModel(mealService: MealService())
     var maxValue: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         bindViewModel()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        progresstimer()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -56,6 +51,13 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
     
     func bindViewModel() {
+        
+        viewModel.output.dineInProgress
+            .delay(.microseconds(500))
+            .drive(onNext: { progress in
+                self.dineInProgressBar.progress = progress
+            })
+            .disposed(by: rx.disposeBag)
         
         viewModel.output.mostExpensiveMeal
             .drive(onNext: { [unowned self] meal in
@@ -91,12 +93,6 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
         
         mealTimeCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
 
-    }
-    
-    private func progresstimer() {
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-            self.dineInProgressBar.progress = self.viewModel.output.dineInProgressCalc(meals: DummyData.shared.myMeals)
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
