@@ -57,6 +57,7 @@ class MyExpenseViewController: UIViewController {
         $0.appearance.headerDateFormat = "yyyy년 MM월"
         $0.select(Date())
         $0.scope = .month
+        $0.isMultipleTouchEnabled = true
         $0.allowsMultipleSelection = false
         $0.appearance.headerMinimumDissolvedAlpha = 0.0
         $0.appearance.titleTodayColor = .black
@@ -98,14 +99,22 @@ extension MyExpenseViewController {
         })
     }
     
-    func findSelectedDateMealData (target : [Meal], selectedDate : Date) -> [Meal] {
+    func findSelectedDateMealData (meals : [Meal], selectedDate : [Date]) -> [Meal] {
+        var mealArr : [Meal] = []
         
-        return target.filter{$0.date == selectedDate}
+        for date in selectedDate {
+            mealArr = meals.filter{$0.date == date}
+        }
+        return mealArr
     }
     
-    func findSelectedDateShoppingData (target : [GroceryShopping], selectedDate : Date) -> [GroceryShopping] {
+    func findSelectedDateShoppingData (shoppings : [GroceryShopping], selectedDate : [Date]) -> [GroceryShopping] {
+        var shoppingArr : [GroceryShopping] = []
         
-        return target.filter{$0.date == selectedDate}
+        for date in selectedDate {
+            shoppingArr = shoppings.filter{$0.date == date}
+        }
+        return shoppingArr
     }
     
     //MARK: - constraints Setup
