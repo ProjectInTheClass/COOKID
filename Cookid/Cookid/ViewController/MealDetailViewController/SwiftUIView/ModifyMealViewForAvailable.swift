@@ -1,14 +1,13 @@
 //
-//  ModifyMealView.swift
+//  ModifyMealViewForAvailable.swift
 //  Cookid
 //
-//  Created by 임현지 on 2021/07/12.
+//  Created by 임현지 on 2021/07/13.
 //
 
 import SwiftUI
 
-@available(iOS 14.0, *)
-struct ModifyMealView: View {
+struct ModifyMealViewForAvailable: View {
         @State var image = UIImage()
         @State var currentDate = Date().dateToString()
         @State var selectedDate: Date?
@@ -25,7 +24,6 @@ struct ModifyMealView: View {
         
         @State var show: Bool = false
         
-        var namespace: Namespace.ID
         var meal: Meal
         
         
@@ -41,7 +39,6 @@ struct ModifyMealView: View {
                             .bold()
                             .foregroundColor(.blue)
                     }
-                    .matchedGeometryEffect(id: "navBarItem", in: namespace)
                     .padding(.top, 24)
                     .padding(.horizontal)
                     
@@ -52,7 +49,7 @@ struct ModifyMealView: View {
                             .frame(width: 150, height: 150)
                             .background(
                                 Color.black.opacity(0.3)
-                                    .matchedGeometryEffect(id: "cameraButton", in: namespace)
+                                    
                             )
                             .clipShape(Circle())
                             .shadow(color: .black.opacity(0.5), radius: 20, x: 0, y: 10)
@@ -67,14 +64,14 @@ struct ModifyMealView: View {
                                     .font(.body)
                                     .foregroundColor(.gray)
                             })
-                            .toggleStyle(SwitchToggleStyle(tint: Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1))))
-                            .onChange(of: isDineOut, perform: { value in
-                                if value {
-                                    self.mealType = MealType.dineOut.rawValue
-                                } else {
-                                    self.mealType = MealType.dineIn.rawValue
-                                }
-                            })
+                            
+//                            .onChange(of: isDineOut, perform: { value in
+//                                if value {
+//                                    self.mealType = MealType.dineOut.rawValue
+//                                } else {
+//                                    self.mealType = MealType.dineIn.rawValue
+//                                }
+//                            })
                         }
                         .padding(.horizontal, 30)
                         .padding(.top, 20)
@@ -172,7 +169,6 @@ struct ModifyMealView: View {
                         
                         VStack {
                             TextField("\(meal.name)", text: $mealName)
-                                .matchedGeometryEffect(id: "mealName", in: namespace)
                                 .frame(height: 44)
                                 .frame(maxWidth: .infinity)
                                 .padding(.horizontal)
@@ -188,7 +184,7 @@ struct ModifyMealView: View {
                     }
                     .padding(.bottom,30)
                 }
-                .background(Color.white.matchedGeometryEffect(id: "background", in: namespace))
+                .background(Color.white)
                 .cornerRadius(30)
                 .padding()
                 .shadow(radius: 20)
@@ -202,12 +198,3 @@ struct ModifyMealView: View {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
         }
-
-
-
-
-//struct ModifyMealView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ModifyMealView()
-//    }
-//}

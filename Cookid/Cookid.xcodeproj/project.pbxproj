@@ -35,9 +35,7 @@
 		035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */; };
 		035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
-
 		353BE569269C860E006A6A47 /* InputDataShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353BE568269C860E006A6A47 /* InputDataShoppingViewController.swift */; };
-
 		355A36B726989461001A5CD8 /* MyExpenseVC+FSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355A36B626989461001A5CD8 /* MyExpenseVC+FSCalendar.swift */; };
 		355A36B9269894A5001A5CD8 /* MyExpenseVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355A36B8269894A5001A5CD8 /* MyExpenseVC+TableView.swift */; };
 		355A36BB2698956F001A5CD8 /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355A36BA2698956F001A5CD8 /* ExpenseTableViewCell.swift */; };
@@ -45,6 +43,7 @@
 		C60B593D2699DAB700B24509 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60B593B2699DAB700B24509 /* ImagePicker.swift */; };
 		C60B593E2699DAB700B24509 /* DatePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60B593C2699DAB700B24509 /* DatePickerTextField.swift */; };
 		C60B59402699DAC000B24509 /* TextFieldWithPickerAsInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60B593F2699DAC000B24509 /* TextFieldWithPickerAsInputView.swift */; };
+		C60C3F4A269C948F0050EBC2 /* ModifyMealViewForAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60C3F49269C948F0050EBC2 /* ModifyMealViewForAvailable.swift */; };
 		C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
 		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
 		C67441D62696FA530086CBAD /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
@@ -110,6 +109,7 @@
 		C60B593B2699DAB700B24509 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		C60B593C2699DAB700B24509 /* DatePickerTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerTextField.swift; sourceTree = "<group>"; };
 		C60B593F2699DAC000B24509 /* TextFieldWithPickerAsInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldWithPickerAsInputView.swift; sourceTree = "<group>"; };
+		C60C3F49269C948F0050EBC2 /* ModifyMealViewForAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyMealViewForAvailable.swift; sourceTree = "<group>"; };
 		C67441D726970E7C0086CBAD /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		C67442002698A2CB0086CBAD /* InputMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMealViewController.swift; sourceTree = "<group>"; };
 		C67442022698A2F90086CBAD /* InputMealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMealView.swift; sourceTree = "<group>"; };
@@ -378,6 +378,7 @@
 			children = (
 				C681A0F2269C89860086E9E2 /* MealDetailView.swift */,
 				C681A0F4269C89970086E9E2 /* ModifyMealView.swift */,
+				C60C3F49269C948F0050EBC2 /* ModifyMealViewForAvailable.swift */,
 			);
 			path = SwiftUIView;
 			sourceTree = "<group>";
@@ -549,6 +550,7 @@
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
 				032233D72692F0160092DD6D /* Extension.swift in Sources */,
 				C67442032698A2F90086CBAD /* InputMealView.swift in Sources */,
+				C60C3F4A269C948F0050EBC2 /* ModifyMealViewForAvailable.swift in Sources */,
 				032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */,
 				C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */,
 				355A36B9269894A5001A5CD8 /* MyExpenseVC+TableView.swift in Sources */,
