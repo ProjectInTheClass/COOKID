@@ -28,7 +28,7 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         selectedDineOutMeals = findSelectedDateMealData(meals : dineOutMeals, selectedDate: selectedDates)
         selectedDineInMeals = findSelectedDateMealData(meals : dineInMeals, selectedDate: selectedDates)
         selectedShopping = findSelectedDateShoppingData(shoppings : shopping, selectedDate: selectedDates)
-        
+
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

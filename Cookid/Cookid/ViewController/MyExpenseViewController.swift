@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 class MyExpenseViewController: UIViewController {
-
+    
     var meal : [Meal] = []
     var shopping : [GroceryShopping] = []
     
@@ -57,6 +57,7 @@ class MyExpenseViewController: UIViewController {
         $0.appearance.headerDateFormat = "yyyy년 MM월"
         $0.select(Date())
         $0.scope = .month
+        $0.isMultipleTouchEnabled = true
         $0.allowsMultipleSelection = false
         $0.appearance.headerMinimumDissolvedAlpha = 0.0
         $0.appearance.titleTodayColor = .black
