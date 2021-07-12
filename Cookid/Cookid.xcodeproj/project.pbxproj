@@ -326,14 +326,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		353BE565269C7681006A6A47 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				3532E14B269C566100D391B3 /* InputShoppingDataViewController.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		4D7F201105C9BFA7F50A2933 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
