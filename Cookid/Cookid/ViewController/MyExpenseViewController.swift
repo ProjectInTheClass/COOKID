@@ -12,11 +12,18 @@ import Then
 
 class MyExpenseViewController: UIViewController {
 
-    var dummyData = DummyData.shared
-
-    var dineOutMeals : [Meal] = DummyData.shared.myMeals.filter{$0.mealType == .dineOut}
-    var dineInMeals : [Meal] = DummyData.shared.myMeals.filter{$0.mealType == .dineIn}
-    var shopping : [GroceryShopping] = DummyData.shared.myShoppings
+    var meal : [Meal] = []
+    var shopping : [GroceryShopping] = []
+    
+    lazy var dineOutMeals : [Meal] = {
+        let dineOutMeals = meal.filter{$0.mealType == .dineOut}
+        return dineOutMeals
+    }()
+    
+    lazy var dineInMeals : [Meal] = {
+        let dineInMeals = meal.filter{$0.mealType == .dineIn}
+        return dineInMeals
+    }()
 
     var sections = ["집밥", "외식", "마트털이"]
     
@@ -62,7 +69,7 @@ class MyExpenseViewController: UIViewController {
         $0.rowHeight = UITableView.automaticDimension
         $0.estimatedRowHeight = UITableView.automaticDimension
         
-        $0.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
+        $0.register(ExpenseTableViewCell.self, forCellReuseIdentifier: ExpenseTableViewCell.identifier)
     }
     
     override func viewDidLoad() {
@@ -73,7 +80,30 @@ class MyExpenseViewController: UIViewController {
     deinit {
         print("\(#function)")
     }
+}
+
+extension MyExpenseViewController {
+    func fetchShopping() {
+        MealService.shared.fetchGroceries(completion: { shoppings in
+            self.shopping = shoppings
+        })
+    }
     
+    func fetchMeals() {
+        MealService.shared.fetchMeals2(completion: { newMeals in
+            self.meal = newMeals
+        })
+    }
+    
+    func findSelectedDateMealData (target : [Meal], selectedDate : Date) -> [Meal] {
+        
+        return target.filter{$0.date == selectedDate}
+    }
+    
+    func findSelectedDateShoppingData (target : [GroceryShopping], selectedDate : Date) -> [GroceryShopping] {
+        
+        return target.filter{$0.date == selectedDate}
+    }
     
     //MARK: - constraints Setup
     func setUpConstraint() {

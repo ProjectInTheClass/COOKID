@@ -24,9 +24,9 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         print("did select date \(self.dateFormatter.string(from: date))")
         let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
 
-        selectedDineOutMeals = dummyData.findSelectedDateMealData(target: dineOutMeals, selectedDate: date)
-        selectedDineInMeals = dummyData.findSelectedDateMealData(target: dineInMeals, selectedDate: date)
-        selectedShopping = dummyData.findSelectedDateShoppingData(target: shopping, selectedDate: date)
+        selectedDineOutMeals = findSelectedDateMealData(target: dineOutMeals, selectedDate: date)
+        selectedDineInMeals = findSelectedDateMealData(target: dineInMeals, selectedDate: date)
+        selectedShopping = findSelectedDateShoppingData(target: shopping, selectedDate: date)
 
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -41,9 +41,9 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-        selectedDineOutMeals = dummyData.findSelectedDateMealData(target: dineOutMeals, selectedDate: date)
-        selectedDineInMeals = dummyData.findSelectedDateMealData(target: dineInMeals, selectedDate: date)
-        selectedShopping = dummyData.findSelectedDateShoppingData(target: shopping, selectedDate: date)
+        selectedDineOutMeals = findSelectedDateMealData(target: dineOutMeals, selectedDate: date)
+        selectedDineInMeals = findSelectedDateMealData(target: dineInMeals, selectedDate: date)
+        selectedShopping = findSelectedDateShoppingData(target: shopping, selectedDate: date)
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -57,13 +57,17 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         
         if dineOutMeals.map({$0.date}).contains(date) && shopping.map({$0.date}).contains(date) {
-            return UIColor.red
+            return .red
         }
         if dineOutMeals.map({$0.date}).contains(date) {
-            return UIColor.yellow
+            return .yellow
         }
         if shopping.map({$0.date}).contains(date) {
-            return UIColor.blue
+            return .blue
+        }
+        
+        if shopping.map({$0.date}).contains(date) {
+            return .green
         }
         
         return UIColor.clear
