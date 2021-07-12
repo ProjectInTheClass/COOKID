@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 class MyExpenseViewController: UIViewController {
-
+    
     var meal : [Meal] = []
     var shopping : [GroceryShopping] = []
     
@@ -75,6 +75,9 @@ class MyExpenseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraint()
+        
+        fetchMeals()
+        fetchShopping()
     }
     
     deinit {

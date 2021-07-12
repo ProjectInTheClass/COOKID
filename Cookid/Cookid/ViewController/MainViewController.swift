@@ -120,6 +120,10 @@ class MainViewController: UIViewController {
         
         addShoppingButton.rx.tap
             .subscribe(onNext: {
+                let inputShoppingDataView = InputDataShoppingViewController()
+                
+                self.presentPanModal(inputShoppingDataView)
+                
                 print("석현님 여기다가 VC 띄워주세요")
             })
             .disposed(by: rx.disposeBag)
