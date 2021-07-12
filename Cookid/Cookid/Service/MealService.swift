@@ -20,18 +20,20 @@ class MealService {
     private var groceries: [GroceryShopping] = []
     private var totalBudget: Int = 1
     
+    @discardableResult
     func fetchMeals() -> Observable<[Meal]> {
         return Observable.create { [unowned self] observer -> Disposable in
             self.mealRepository.fetchMeals { mealArr in
                 let mealModels = mealArr.map { model -> Meal in
                     let price = model.price
-                    let date = model.date.stringToDate()!
+                    let date = Date(timeIntervalSince1970: TimeInterval(model.date))
                     let name = model.name
                     let image = model.image
                     let mealType = MealType(rawValue: model.mealType) ?? .dineIn
                     let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
                     return Meal(price: price, date: date, name: name, image: URL(string: image!) ?? nil, mealType: mealType, mealTime: mealTime)
                 }
+                self.meals = mealModels
                 observer.onNext(mealModels)
             }
             return Disposables.create()
@@ -87,7 +89,6 @@ class MealService {
   
     
     func fetchCurrentMonth() -> String {
-        
         let monthString = self.convertDateToString(format: "M", date: Date())
         return monthString
     }
@@ -105,15 +106,14 @@ class MealService {
         return newMeals.first
     }
     
-    func mostExpensiveMealAlert(meal: Meal) -> String? {
+    func mostExpensiveMealAlert(meal: Meal) -> String {
         
-        guard let mostExpensiveYet = self.mostExpensiveMeal(meals: self.meals) else {return nil}
+        guard let mostExpensiveYet = self.mostExpensiveMeal(meals: self.meals) else { return "" }
         if meal.price > mostExpensiveYet.price {
             
             return "FOOD FLEX 하셨습니다"
         }
-        
-        return nil
+        return ""
     }
     
     func recentMeals(meals: [Meal]) -> [Meal] {
@@ -143,16 +143,15 @@ class MealService {
         guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return ("", []) }
         currentDay = aDay
         let dateString = self.convertDateToString(format: "YYYY년 M월 d일", date: aDay)
-        let meal = self.meals.filter {$0.date == currentDay }
+        let meal = self.meals.filter {$0.date.dateToString() == aDay.dateToString() }
         
         return (dateString, meal)
     }
     
-    
     func fetchMealByDay(_ day: Date) -> (String, [Meal]) {
         currentDay = day
         let dateString = self.convertDateToString(format: "YYYY년 M월 d일", date: day)
-        let meal = self.meals.filter {$0.date == day}
+        let meal = self.meals.filter { $0.date.dateToString() == day.dateToString() }
         return (dateString, meal)
     } 
     
@@ -216,7 +215,6 @@ class MealService {
             }
         }
     }
-    
     
     func todayMeals(meals: [Meal]) -> [Meal] {
         return meals.filter { $0.date == Date() }

@@ -62,13 +62,13 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
                 self.mealName.text = meal.name
                 self.mealPrice.text = "\(meal.price)"
                 self.mealType.text = meal.mealType.rawValue
-                self.mealImage.image = UIImage(data: meal.image!.dataRepresentation)
+                self.mealImage.kf.setImage(with: meal.image, placeholder: UIImage(systemName: "person.circle.fill"))
             })
             .disposed(by: rx.disposeBag)
         
         viewModel.output.recentMeals
             .drive(mealTableView.rx.items(cellIdentifier: "mealCell", cellType: MealTableViewCell.self)) { row, meal, cell in
-                cell.mealCellImage.image = UIImage(data: meal.image!.dataRepresentation)!
+                cell.mealCellImage.kf.setImage(with: meal.image, placeholder: UIImage(systemName: "person.circle.fill"))
                 cell.mealCellName.text = meal.name
                 cell.mealCellPrice.text = "\(meal.price)"
             }

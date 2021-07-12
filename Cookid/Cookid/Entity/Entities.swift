@@ -11,7 +11,7 @@ import Foundation
 struct MealEntity: Codable {
     var id: String?
     var price: Int
-    var date: String
+    var date: Int
     var name: String
     var image: String?
     var mealType: String
@@ -19,7 +19,7 @@ struct MealEntity: Codable {
     
     init(mealDic: [String:Any]) {
         self.price = mealDic["price"] as? Int ?? 0
-        self.date = mealDic["date"] as? String ?? ""
+        self.date = mealDic["date"] as? Int ?? 0
         self.name = mealDic["name"] as? String ?? ""
         self.image = mealDic["image"] as? String ?? ""
         self.mealType = mealDic["mealType"] as? String ?? ""
