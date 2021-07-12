@@ -100,7 +100,6 @@
 		0395B61426941121009289B7 /* MyMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealViewModel.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
 		0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
-		3532E14B269C566100D391B3 /* InputShoppingDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputShoppingDataViewController.swift; sourceTree = "<group>"; };
 		353BE568269C860E006A6A47 /* InputDataShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDataShoppingViewController.swift; sourceTree = "<group>"; };
 		355A36B626989461001A5CD8 /* MyExpenseVC+FSCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyExpenseVC+FSCalendar.swift"; sourceTree = "<group>"; };
 		355A36B8269894A5001A5CD8 /* MyExpenseVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyExpenseVC+TableView.swift"; sourceTree = "<group>"; };
