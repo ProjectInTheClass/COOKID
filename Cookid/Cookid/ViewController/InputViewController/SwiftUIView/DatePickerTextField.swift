@@ -29,6 +29,11 @@ struct DatePickerTextField: UIViewRepresentable {
             datePicker.preferredDatePickerStyle = .wheels
         } else {
         }
+        
+        datePicker.maximumDate = Date()
+        
+        
+        datePicker.locale = Locale(identifier: "ko-KR")
         datePicker.addTarget(self.helper, action: #selector(self.helper.dateValueChanged), for: .valueChanged)
         
         textField.placeholder = placeHolder
