@@ -1,24 +1,24 @@
+////
+////  InputShoppingListViewController.swift
+////  Cookid
+////
+////  Created by 임현지 on 2021/07/10.
+////
 //
-//  InputShoppingListViewController.swift
-//  Cookid
+//import UIKit
+//import SwiftUI
 //
-//  Created by 임현지 on 2021/07/10.
+//class InputMealViewController: UIHostingController<InputMealView> {
 //
-
-import UIKit
-import SwiftUI
-
-class InputMealViewController: UIHostingController<InputMealView> {
-
-    
-    override init(rootView: InputMealView) {
-        super.init(rootView: rootView)
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    
-}
+//    
+//    override init(rootView: InputMealView) {
+//        super.init(rootView: rootView)
+//        
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//    }
+//
+//    
+//}

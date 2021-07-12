@@ -106,12 +106,12 @@ class MainViewController: UIViewController {
         
         addMealButton.rx.tap
             .subscribe(onNext: {
-                
-                let inputMealView = InputMealView(dismissView: {self.dismiss(animated: true, completion: nil)})
-                let vc = InputMealViewController(rootView: inputMealView)
-              
-                vc.modalPresentationStyle = .formSheet
-                self.present(vc, animated: true, completion: nil)
+//
+//                let inputMealView = InputMealView(dismissView: {self.dismiss(animated: true, completion: nil)})
+//                let vc = InputMealViewController(rootView: inputMealView)
+//
+//                vc.modalPresentationStyle = .formSheet
+//                self.present(vc, animated: true, completion: nil)
             })
             .disposed(by: rx.disposeBag)
         
