@@ -22,10 +22,21 @@ class MealRepository {
     func fetchMeals(completion: @escaping ([MealEntity]) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
+            
+            var calendar = Calendar(identifier: .gregorian)
+            calendar.locale = Locale(identifier: "ko")
+            let datecompoenets = calendar.dateComponents([.year, .month], from: Date())
+            let startOfMonth = calendar.date(from: datecompoenets)!
+            let date = Int(startOfMonth.timeIntervalSince1970)
+            
+            var monthFilterQuery: DatabaseQuery?
+            
+            monthFilterQuery = self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).queryOrdered(byChild: "date").queryStarting(atValue: date)
            
-            self.db.child(uid).child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
+            monthFilterQuery?.observeSingleEvent(of: .value) { snapshot in
                 
                 let snapshotValue = snapshot.value as? [String:Any] ?? [:]
+                let uidKey = snapshotValue.keys
                 var mealEntity = [MealEntity]()
                 
                 for value in snapshotValue.values {
@@ -34,36 +45,20 @@ class MealRepository {
                     mealEntity.append(meal)
                 }
                 completion(mealEntity)
-            }
-            
-            
-        }
-    }
-    
-    
-    func fetchImageURL(uid: String, mealName: String, completion: @escaping (URL) -> Void) {
-        
-        let storageRef = storage.child(uid + mealName + ".jpg")
-        
-        storageRef.downloadURL { url, error in
-            if let error = error {
-                print("Error while downloading file : \(error.localizedDescription)")
-                return
-            }
-            if let url = url {
-                completion(url)
-                print(url)
+                print("uid key --> \(uidKey)")
             }
         }
     }
     
     
-    func pushMealToFirebase(meal: Meal) {
+    
+    func uploadMealToFirebase(meal: Meal) {
         authRepo.signInAnonymously { [weak self] uid in
             let mealDic : [String:Any] = [
                 "id" : meal.id,
                 "price" : meal.price,
                 "date" : meal.date.dateToString(),
+                "image" : meal.image?.absoluteString,
                 "name" : meal.name,
                 "mealType" : meal.mealType.rawValue,
                 "mealTime" : meal.mealTime.rawValue
@@ -76,22 +71,27 @@ class MealRepository {
     
     
     
-    func uploadMealImage(uid: String, mealID: String, image: UIImage) {
+    func fetchingImageURL(uid: String, mealID: String, image: UIImage, completed: @escaping (URL?) -> Void) {
         let storageRef = storage.child(uid + mealID + ".jpg")
         let data = image.jpegData(compressionQuality: 0.8)
+        
         
         let metadata = StorageMetadata()
         metadata.contentType = "image.jpg"
         
         if let data = data {
             storageRef.putData(data, metadata: metadata) { metadata, error in
-                
                 if let error = error {
                     print("Error while uploading file : \(error.localizedDescription)")
                 }
-                
-                if let metadata = metadata {
-                    print("Metadata : \(metadata)")
+                storageRef.downloadURL { url, error in
+                    if let error = error {
+                        print("Error while downloading file : \(error.localizedDescription)")
+                        return
+                    }
+                    if let url = url {
+                        completed(url)
+                    }
                 }
             }
         }

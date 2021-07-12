@@ -7,17 +7,20 @@
 
 import UIKit
 
-class Meal {
+class Meal: Equatable {
+    static func == (lhs: Meal, rhs: Meal) -> Bool {
+        return true
+    }
     
     let id: String = UUID().uuidString
     var price: Int
     var date: Date
     var name: String
-    var image: String?
+    var image: URL?
     var mealType: MealType
     var mealTime: MealTime
     
-    init(price: Int, date: Date, name: String, image: String?, mealType: MealType, mealTime: MealTime) {
+    init(price: Int, date: Date, name: String, image: URL?, mealType: MealType, mealTime: MealTime) {
         self.price = price
         self.date = date
         self.name = name
@@ -25,8 +28,8 @@ class Meal {
         self.mealType = mealType
         self.mealTime = mealTime
     }
-    
 }
+
 
 enum MealType: String {
     case dineOut = "외식"
@@ -44,31 +47,5 @@ enum MealTime: String, CaseIterable {
 
 struct GroceryShopping {
     let date: Date
-    var groceries: [Grocery]
-    var converToDic: [String:Any] {
-        let dic: [String:Any] = [
-            "date" : date.dateToString(),
-            "groceries" : groceries.map { $0.convoerToDic }
-        ]
-        return dic
-    }
-    
-    func totalPrice(groceries: [Grocery]) -> Int {
-        return self.groceries.reduce(0) { result, grocery in
-            result + grocery.price
-        }
-    }
+    var totalPrice: Int
 }
-
-struct Grocery: Codable {
-    let name: String
-    let price: Int
-    var convoerToDic: [String:Any] {
-        let dic: [String:Any] = [
-            "name" : name,
-            "price" : price
-        ]
-        return dic
-    }
-}
-

@@ -20,24 +20,37 @@ struct DatePickerTextField: UIViewRepresentable {
     }()
     
     var placeHolder: String
-    
     @Binding var date: Date?
+    
     
     func makeUIView(context: Context) -> UITextField {
         datePicker.datePickerMode = .date
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
         } else {
-            // Fallback on earlier versions
         }
         datePicker.addTarget(self.helper, action: #selector(self.helper.dateValueChanged), for: .valueChanged)
         
         textField.placeholder = placeHolder
         textField.inputView = datePicker
-        helper.dateDidChanged =
-            { date = datePicker.date
-            datePicker.resignFirstResponder()
+        
+        self.helper.dateDidChanged = { self.date = datePicker.date }
+        self.helper.doneButtonAction = {
+            if date == nil {
+                date = datePicker.date
+            }
+            textField.resignFirstResponder()
         }
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done",
+                                         style: .plain,
+                                         target: self.helper,
+                                         action: #selector(helper.donButtonTapped))
+        toolbar.setItems([space, doneButton], animated: true)
+        textField.inputAccessoryView = toolbar
         
         return self.textField
     }
@@ -58,9 +71,14 @@ struct DatePickerTextField: UIViewRepresentable {
     final class Helper {
         
         var dateDidChanged: (() -> Void)?
+        var doneButtonAction: (() -> Void)?
         
         @objc func dateValueChanged() {
             self.dateDidChanged?()
+        }
+        
+        @objc func donButtonTapped() {
+            self.doneButtonAction?()
         }
     }
     

@@ -55,8 +55,9 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         bindViewModel()
-        
-       
+        MealRepository.shared.fetchMeals { meal in
+            print(meal)
+        }
     }
     
     private func configureUI() {
@@ -105,12 +106,11 @@ class MainViewController: UIViewController {
         
         addMealButton.rx.tap
             .subscribe(onNext: {
-                //completion 에서 meal 받아서 파베에 push
+                
                 let inputMealView = InputMealView(dismissView: {self.dismiss(animated: true, completion: nil)})
-
                 let vc = InputMealViewController(rootView: inputMealView)
               
-                vc.modalPresentationStyle = .fullScreen
+                vc.modalPresentationStyle = .formSheet
                 
                 self.present(vc, animated: true, completion: nil)
                 

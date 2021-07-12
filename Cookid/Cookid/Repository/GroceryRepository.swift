@@ -8,8 +8,6 @@
 import Foundation
 import FirebaseDatabase
 
-
-
 class GroceryRepository {
     
     static let shared = GroceryRepository()
@@ -20,7 +18,7 @@ class GroceryRepository {
     func fetchGroceryInfo(completion: @escaping ([GroceryEntity]) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
-            self.db.child("vRtnFNGIlPSToqwa9eh4fz63GRG3").child(FBChild.groceries).observeSingleEvent(of: .value) { snapshot in
+            self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.groceries).observeSingleEvent(of: .value) { snapshot in
             
                 let snapshot = snapshot.value as! [String:Any]
                 var grocery = [GroceryEntity]()
@@ -39,7 +37,14 @@ class GroceryRepository {
     }
     
     
-    func pushGroceryInfo(uid: String, grocery: GroceryShopping) {
-        db.child(uid).child(FBChild.groceries).setValue(grocery.converToDic)
+    func uploadGroceryInfo(grocery: GroceryShopping) {
+        authRepo.signInAnonymously { [weak self] uid in
+            guard let self = self else { return }
+            let dic: [String:Any] = [
+                "date" : grocery.date.dateToString(),
+                "totalPrice" : grocery.totalPrice
+            ]
+            self.db.child(uid).child(FBChild.groceries).setValue(dic)
+        }
     }
 }

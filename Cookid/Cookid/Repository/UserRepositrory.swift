@@ -23,7 +23,7 @@ class UserRepository {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
             
-            let ref = self.db.child("vRtnFNGIlPSToqwa9eh4fz63GRG3").child(FBChild.user)
+            let ref = self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.user)
             
             ref.observeSingleEvent(of: .value) { snapshot in
                 
