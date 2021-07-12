@@ -55,7 +55,9 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         bindViewModel()
-
+        MealRepository.shared.fetchMeals { meal in
+            print(meal)
+        }
     }
     
     private func configureUI() {

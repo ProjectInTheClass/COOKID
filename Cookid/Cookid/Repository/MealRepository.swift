@@ -26,6 +26,7 @@ class MealRepository {
             self.db.child("vRtnFNGIlPSToqwa9eh4fz63GRG3").child(FBChild.meal).observeSingleEvent(of: .value) { snapshot in
                 
                 let snapshotValue = snapshot.value as? [String:Any] ?? [:]
+                let uidKey = snapshotValue.keys
                 var mealEntity = [MealEntity]()
                 
                 for value in snapshotValue.values {
@@ -34,6 +35,7 @@ class MealRepository {
                     mealEntity.append(meal)
                 }
                 completion(mealEntity)
+                print("uid key --> \(uidKey)")
             }
         }
     }
@@ -46,6 +48,7 @@ class MealRepository {
                 "id" : meal.id,
                 "price" : meal.price,
                 "date" : meal.date.dateToString(),
+                "image" : meal.image?.absoluteString,
                 "name" : meal.name,
                 "mealType" : meal.mealType.rawValue,
                 "mealTime" : meal.mealTime.rawValue
