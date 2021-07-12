@@ -17,7 +17,7 @@ struct InputMealView: View {
     @State var mealName = ""
     @State var mealTime: String?
     
-    @State var price = 0
+    @State var price = ""
     
     @State var selectionIndex = 0
     
@@ -30,7 +30,6 @@ struct InputMealView: View {
     @State var meal: Meal?
     
     var dismissView: (() -> Void)
-    
     
     
     var body: some View {
@@ -101,7 +100,7 @@ struct InputMealView: View {
                                 .padding(.leading, 40)
                                 
                                 VStack {
-                                    TextField("금액을 입력해 주세요.", value: $price, formatter: NumberFormatter())
+                                    TextField("금액을 입력해 주세요.", text: $price)
                                         .keyboardType(.numberPad)
                                 }
                                 .frame(height: 44)
@@ -129,6 +128,7 @@ struct InputMealView: View {
                         
                         VStack {
                             DatePickerTextField(placeHolder: currentDate, date: $selectedDate)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
                         }
                         .frame(height: 44)
                         .frame(maxWidth: .infinity)
@@ -170,7 +170,7 @@ struct InputMealView: View {
                     
                     
                     // Menu TextField
-                    VStack(spacing: 8) {
+                    VStack {
                         HStack {
                             Text("메뉴")
                                 .font(.body)
@@ -180,22 +180,25 @@ struct InputMealView: View {
                         .padding(.leading, 40)
                         
                         VStack {
-                            TextField("무엇을 드셨나요?", text: $mealName)
-                                .frame(height: 44)
-                                .frame(maxWidth: .infinity)
-                                .padding(.horizontal)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 30, style: .continuous)
-                                        .stroke(Color.black.opacity(0.2))
-                                )
-                                .padding(.horizontal, 26)
-                                .onTapGesture {
-                                    isFocused = true
-                            }
+                                TextField("무엇을 드셨나요?", text: $mealName)
+                                    
+                                    .frame(height: 44)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.horizontal)
+                                    
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 30, style: .continuous)
+                                            .stroke(Color.black.opacity(0.2))
+                                    )
+                                    .padding(.horizontal, 26)
+                                    .onTapGesture {
+                                        isFocused = true
+                                    }
                         }
                     }
                     Spacer()
                 }
+                .offset(y: -30)
                 .animation(isDineOut ? .easeIn : nil)
             }
             .onTapGesture {
@@ -205,7 +208,6 @@ struct InputMealView: View {
             .sheet(isPresented: $showImagePicker, content: {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: $image)
             })
-            .offset(y: -30)
             
             .navigationBarHidden(false)
             .navigationBarItems(
@@ -218,7 +220,7 @@ struct InputMealView: View {
                     MealRepository.shared.fetchingImageURL(uid: AuthRepository.shared.uid, mealID: mealName, image: image) {  url in
                         
                         self.meal = Meal(
-                            price: price,
+                            price: Int(price) ?? 0,
                             date: selectedDate ?? Date() ,
                             name: mealName,
                             image: url,
