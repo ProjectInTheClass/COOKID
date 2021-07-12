@@ -1,5 +1,5 @@
 //
-//  InputShoppingDataViewController.swift
+//  InputDataShoppingViewController.swift
 //  Cookid
 //
 //  Created by Sh Hong on 2021/07/12.
