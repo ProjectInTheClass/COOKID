@@ -10,19 +10,13 @@ import RxCocoa
 
 class MyMealViewModel: ViewModelType {
 
-    let service: MealService
+    let mealService: MealService
 
     struct Input {
-
     }
 
     struct Output {
-
-        func dineInProgressCalc(meals: [Meal]) -> CGFloat {
-            let newMeals = meals.filter { $0.mealType == .dineIn }
-            return CGFloat(newMeals.count) / CGFloat(meals.count)
-        }
-
+        let dineInProgress: Driver<CGFloat>
         let mostExpensiveMeal: Driver<Meal>
         let recentMeals: Driver<[Meal]>
         let mealtimes: Driver<[[Meal]]>
@@ -31,39 +25,28 @@ class MyMealViewModel: ViewModelType {
     var input: Input
     var output: Output
 
-    init(service: MealService){
+    init(mealService: MealService){
 
-        self.service = service
+        self.mealService = mealService
         // input initializer
-
+        let meals = mealService.fetchMeals()
 
         // output initializer
+        
+        let dineInProgress = meals.map(mealService.dineInProgressCalc(_:))
+            .asDriver(onErrorJustReturn: 0)
 
-        let expensiveMeal = Observable<Meal>.create { observer in
-            guard let newMeal = service.mostExpensiveMeal(meals: DummyData.shared.myMeals) else { return Disposables.create() }
-            observer.onNext(newMeal)
-            return Disposables.create()
-        }
-        .asDriver(onErrorJustReturn: Meal(price: 2000, date: Date(), name: "제육볶음", image: URL(string: "square.and.arrow.down.fill")!, mealType: .dineIn, mealTime: .lunch))
+        let mostExpensiveMeal = meals.map(mealService.mostExpensiveMeal)
+            .asDriver(onErrorJustReturn: DummyData.shared.mySingleMeal)
 
-        let aWeekAgoMeals = Observable<[Meal]>.create { observer in
-            let newMeal = service.recentMeals(meals: DummyData.shared.myMeals)
-            observer.onNext(newMeal)
-            return Disposables.create()
-        }
+        let recentMeals = meals.map(mealService.recentMeals)
         .asDriver(onErrorJustReturn: [])
 
-        let mealTimeNum = Observable<[[Meal]]>.create { observer in
-
-            let mealsNums = service.mealTimesCalc(meals: DummyData.shared.myMeals)
-            observer.onNext(mealsNums)
-
-            return Disposables.create()
-        }
+        let mealtimes = meals.map(mealService.mealTimesCalc(meals:))
         .asDriver(onErrorJustReturn: [])
 
         self.input = Input()
-        self.output = Output(mostExpensiveMeal: expensiveMeal, recentMeals: aWeekAgoMeals, mealtimes: mealTimeNum)
+        self.output = Output(dineInProgress: dineInProgress, mostExpensiveMeal: mostExpensiveMeal, recentMeals: recentMeals, mealtimes: mealtimes)
     }
 
 }

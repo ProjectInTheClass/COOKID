@@ -60,6 +60,11 @@ class MainViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        consumeProgressBar.progress = 0
+    }
+    
     private func configureUI() {
         chartView.makeShadow()
         mealCalendarView.makeShadow()
