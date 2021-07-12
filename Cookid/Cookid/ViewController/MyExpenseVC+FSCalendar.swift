@@ -20,20 +20,21 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-
+        
         print("did select date \(self.dateFormatter.string(from: date))")
-        let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
-
-        selectedDineOutMeals = findSelectedDateMealData(target: dineOutMeals, selectedDate: date)
-        selectedDineInMeals = findSelectedDateMealData(target: dineInMeals, selectedDate: date)
-        selectedShopping = findSelectedDateShoppingData(target: shopping, selectedDate: date)
-
+        
+        let selectedDates = calendar.selectedDates.map{$0}
+        
+        selectedDineOutMeals = findSelectedDateMealData(meals : dineOutMeals, selectedDate: selectedDates)
+        selectedDineInMeals = findSelectedDateMealData(meals : dineInMeals, selectedDate: selectedDates)
+        selectedShopping = findSelectedDateShoppingData(shoppings : shopping, selectedDate: selectedDates)
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
         
         print("selected dates is \(selectedDates)")
-
+        
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
@@ -41,9 +42,11 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-        selectedDineOutMeals = findSelectedDateMealData(target: dineOutMeals, selectedDate: date)
-        selectedDineInMeals = findSelectedDateMealData(target: dineInMeals, selectedDate: date)
-        selectedShopping = findSelectedDateShoppingData(target: shopping, selectedDate: date)
+        let deSelectedDate : [Date] = [date]
+        
+        selectedDineOutMeals = findSelectedDateMealData(meals: dineOutMeals, selectedDate: deSelectedDate)
+        selectedDineInMeals = findSelectedDateMealData(meals: dineInMeals, selectedDate: deSelectedDate)
+        selectedShopping = findSelectedDateShoppingData(shoppings: shopping, selectedDate: deSelectedDate)
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -72,5 +75,5 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         
         return UIColor.clear
     }
-
+    
 }

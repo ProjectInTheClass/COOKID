@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--식사 통계-->
+        <!--식사 통계 🥗-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="MyMealViewController" id="Y6W-OH-hqX" customClass="MyMealViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
@@ -431,7 +431,7 @@
                             <constraint firstItem="zIX-OV-1Ls" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="w8Q-Aq-6kb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="식사 통계" id="M6U-3F-ik0"/>
+                    <navigationItem key="navigationItem" title="식사 통계 🥗" id="M6U-3F-ik0"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="dineInCircleView" destination="ArE-9f-zmg" id="uu3-JX-EOt"/>

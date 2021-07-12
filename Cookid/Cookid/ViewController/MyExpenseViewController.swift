@@ -68,13 +68,15 @@ class MyExpenseViewController: UIViewController {
         
         $0.rowHeight = UITableView.automaticDimension
         $0.estimatedRowHeight = UITableView.automaticDimension
-        
+        $0.style
         $0.register(ExpenseTableViewCell.self, forCellReuseIdentifier: ExpenseTableViewCell.identifier)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraint()
+        fetchShopping()
+        fetchMeals()
     }
     
     deinit {
@@ -95,14 +97,22 @@ extension MyExpenseViewController {
         })
     }
     
-    func findSelectedDateMealData (target : [Meal], selectedDate : Date) -> [Meal] {
+    func findSelectedDateMealData (meals : [Meal], selectedDate : [Date]) -> [Meal] {
+        var mealArr : [Meal] = []
         
-        return target.filter{$0.date == selectedDate}
+        for date in selectedDate {
+            mealArr = meals.filter{ $0.date.dateToString() == date.dateToString() }
+        }
+        return mealArr
     }
     
-    func findSelectedDateShoppingData (target : [GroceryShopping], selectedDate : Date) -> [GroceryShopping] {
+    func findSelectedDateShoppingData (shoppings : [GroceryShopping], selectedDate : [Date]) -> [GroceryShopping] {
+        var shoppingArr : [GroceryShopping] = []
         
-        return target.filter{$0.date == selectedDate}
+        for date in selectedDate {
+            shoppingArr = shoppings.filter{$0.date == date}
+        }
+        return shoppingArr
     }
     
     //MARK: - constraints Setup
