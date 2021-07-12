@@ -49,7 +49,7 @@ class MealService {
         mealRepository.fetchMeals { models in
             let newMeal = models.map{ mealModel -> Meal in
                 let price = mealModel.price
-                let date = self.stringToDate(date: mealModel.date)
+                let date = Date(timeIntervalSince1970: TimeInterval(mealModel.date))
                 let name = mealModel.name
                 let mealType = MealType(rawValue: mealModel.mealType) ?? .dineIn
                 let mealTime = MealTime(rawValue: mealModel.mealTime) ?? .snack

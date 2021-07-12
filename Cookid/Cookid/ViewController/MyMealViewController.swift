@@ -37,11 +37,6 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
         bindViewModel()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        dineInProgressBar.progress = 0
-    }
-    
     private func configureUI() {
         dineStaticView.makeShadow()
         mostExpensiveStaticView.makeShadow()
