@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
     
     // userview
     @IBOutlet weak var etcView: UIView!
-    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var userImage: UILabel!
     @IBOutlet weak var userNickname: UILabel!
     @IBOutlet weak var userType: UILabel!
     @IBOutlet weak var userDetermination: UILabel!
@@ -132,14 +132,15 @@ class MainViewController: UIViewController {
         
         viewModel.output.userInfo
             .drive(onNext: { user in
-                self.userImage.image = UIImage(systemName: "person.circle")!
                 self.userNickname.text = user.nickname
                 self.userDetermination.text = user.determination
                 switch user.userType {
                 case .preferDineIn:
-                    self.userType.text = "🍚 " + user.userType.rawValue
+                    self.userImage.text = "🍚"
+                    self.userType.text = user.userType.rawValue
                 case .preferDineOut:
-                    self.userType.text = "🍟 " + user.userType.rawValue
+                    self.userImage.text = "🍟"
+                    self.userType.text = user.userType.rawValue
                 }
                 
             })

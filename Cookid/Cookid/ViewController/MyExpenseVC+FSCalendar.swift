@@ -20,10 +20,11 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-
+        
         print("did select date \(self.dateFormatter.string(from: date))")
+        
         let selectedDates = calendar.selectedDates.map{$0}
-
+        
         selectedDineOutMeals = findSelectedDateMealData(meals : dineOutMeals, selectedDate: selectedDates)
         selectedDineInMeals = findSelectedDateMealData(meals : dineInMeals, selectedDate: selectedDates)
         selectedShopping = findSelectedDateShoppingData(shoppings : shopping, selectedDate: selectedDates)
@@ -33,7 +34,7 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         }
         
         print("selected dates is \(selectedDates)")
-
+        
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
@@ -74,5 +75,5 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         
         return UIColor.clear
     }
-
+    
 }

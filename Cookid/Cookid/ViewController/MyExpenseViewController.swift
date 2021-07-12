@@ -69,16 +69,15 @@ class MyExpenseViewController: UIViewController {
         
         $0.rowHeight = UITableView.automaticDimension
         $0.estimatedRowHeight = UITableView.automaticDimension
-        
+        $0.style
         $0.register(ExpenseTableViewCell.self, forCellReuseIdentifier: ExpenseTableViewCell.identifier)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraint()
-        
-        fetchMeals()
         fetchShopping()
+        fetchMeals()
     }
     
     deinit {
@@ -103,7 +102,7 @@ extension MyExpenseViewController {
         var mealArr : [Meal] = []
         
         for date in selectedDate {
-            mealArr = meals.filter{$0.date == date}
+            mealArr = meals.filter{ $0.date.dateToString() == date.dateToString() }
         }
         return mealArr
     }

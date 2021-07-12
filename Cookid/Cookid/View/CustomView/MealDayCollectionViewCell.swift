@@ -11,7 +11,6 @@ import Kingfisher
 class MealDayCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var mealImage: UIImageView!
-    @IBOutlet weak var foodDate: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +19,6 @@ class MealDayCollectionViewCell: UICollectionViewCell {
     
     func updateUI(meal: Meal) {
         mealImage.kf.setImage(with: meal.image, placeholder: UIImage(systemName: "person.circle"))
-        foodDate.text = meal.date.dateToString()
     }
     
 }
