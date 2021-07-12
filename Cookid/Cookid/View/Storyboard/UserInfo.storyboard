@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--User Information View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="UserInformationViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vc-HQ-G0M">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <connections>
+                                    <action selector="BGTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="wjf-A1-rZ4"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOb-Is-Afd">
+                                <rect key="frame" x="57" y="223" width="300" height="450"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로집밥러님 🏳️‍🌈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MY4-zB-9jh">
+                                        <rect key="frame" x="30" y="40" width="132.5" height="24"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="현재 목표액은 100000원 입니다 💵" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KvR-I7-3CE">
+                                        <rect key="frame" x="30" y="147.5" width="218.5" height="18"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="새로운 목표를 입력하세요" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nrf-vb-cld">
+                                        <rect key="frame" x="30" y="200.5" width="141" height="18.5"/>
+                                        <color key="textColor" name="AccentColor"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Y6W-OH-hqX" id="1AY-Jz-zkB"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="새로운 다짐을 입력하세요" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZUi-et-xQX">
+                                        <rect key="frame" x="30" y="312" width="141" height="18.5"/>
+                                        <color key="textColor" name="AccentColor"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Y6W-OH-hqX" id="aL5-vb-HEC"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="새로운 목표엔 새로운 다짐으로💪" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9M6-G2-cBi">
+                                        <rect key="frame" x="30" y="259" width="201" height="18"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="새로운 닉네임을 입력하세요" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bip-fg-hMx">
+                                        <rect key="frame" x="30" y="89" width="153" height="18.5"/>
+                                        <color key="textColor" name="AccentColor"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Y6W-OH-hqX" id="q3H-bq-kx9"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WSg-2g-JiT">
+                                        <rect key="frame" x="229" y="380" width="41" height="40"/>
+                                        <color key="tintColor" name="AccentColor"/>
+                                        <state key="normal" image="checkmark.circle.fill" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="35"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="checkBtnTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="7TI-vm-G8I"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="bip-fg-hMx" firstAttribute="leading" secondItem="MY4-zB-9jh" secondAttribute="leading" id="0Zo-Y4-AjE"/>
+                                    <constraint firstItem="MY4-zB-9jh" firstAttribute="leading" secondItem="cOb-Is-Afd" secondAttribute="leading" constant="30" id="8MJ-bw-q7c"/>
+                                    <constraint firstItem="nrf-vb-cld" firstAttribute="top" secondItem="KvR-I7-3CE" secondAttribute="bottom" constant="35" id="HhY-f9-cso"/>
+                                    <constraint firstItem="ZUi-et-xQX" firstAttribute="leading" secondItem="9M6-G2-cBi" secondAttribute="leading" id="IMf-Dj-fom"/>
+                                    <constraint firstAttribute="width" secondItem="cOb-Is-Afd" secondAttribute="height" multiplier="1:1.5" id="JYS-fh-XGf"/>
+                                    <constraint firstAttribute="bottom" secondItem="WSg-2g-JiT" secondAttribute="bottom" constant="30" id="O7P-qZ-X4V"/>
+                                    <constraint firstAttribute="width" constant="300" id="Q4H-Gf-voe"/>
+                                    <constraint firstItem="ZUi-et-xQX" firstAttribute="top" secondItem="9M6-G2-cBi" secondAttribute="bottom" constant="35" id="R9e-eK-VMA"/>
+                                    <constraint firstItem="bip-fg-hMx" firstAttribute="top" secondItem="MY4-zB-9jh" secondAttribute="bottom" constant="25" id="c5t-T4-ytk"/>
+                                    <constraint firstItem="9M6-G2-cBi" firstAttribute="top" secondItem="nrf-vb-cld" secondAttribute="bottom" constant="40" id="fr4-GW-Mux"/>
+                                    <constraint firstItem="MY4-zB-9jh" firstAttribute="top" secondItem="cOb-Is-Afd" secondAttribute="top" constant="40" id="g4J-4B-06D"/>
+                                    <constraint firstAttribute="trailing" secondItem="WSg-2g-JiT" secondAttribute="trailing" constant="30" id="hh8-6u-qDS"/>
+                                    <constraint firstItem="KvR-I7-3CE" firstAttribute="top" secondItem="bip-fg-hMx" secondAttribute="bottom" constant="40" id="ldU-aW-zoo"/>
+                                    <constraint firstItem="nrf-vb-cld" firstAttribute="leading" secondItem="KvR-I7-3CE" secondAttribute="leading" id="ldy-66-LIJ"/>
+                                    <constraint firstItem="9M6-G2-cBi" firstAttribute="leading" secondItem="KvR-I7-3CE" secondAttribute="leading" id="ucZ-pg-MRh"/>
+                                    <constraint firstItem="KvR-I7-3CE" firstAttribute="leading" secondItem="MY4-zB-9jh" secondAttribute="leading" id="x2y-TV-yy6"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.63" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="cOb-Is-Afd" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Are-nV-tBc"/>
+                            <constraint firstItem="1vc-HQ-G0M" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="NF5-UD-kR8"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="1vc-HQ-G0M" secondAttribute="bottom" id="V4i-t8-0WB"/>
+                            <constraint firstItem="1vc-HQ-G0M" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="XJM-81-c13"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="1vc-HQ-G0M" secondAttribute="trailing" id="ZFa-Fx-u7G"/>
+                            <constraint firstItem="cOb-Is-Afd" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="mkd-7H-6LL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="budgetLimitLabel" destination="KvR-I7-3CE" id="E0w-sx-dco"/>
+                        <outlet property="budgetTextField" destination="nrf-vb-cld" id="qOu-Wb-Sn8"/>
+                        <outlet property="newDeterminationLabel" destination="9M6-G2-cBi" id="itm-sI-9zT"/>
+                        <outlet property="newDeterminationTextField" destination="ZUi-et-xQX" id="hkl-0t-iHo"/>
+                        <outlet property="nickNameLabel" destination="MY4-zB-9jh" id="hzb-cE-oYR"/>
+                        <outlet property="nickNameTextField" destination="bip-fg-hMx" id="DBr-hx-zel"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="89.855072463768124" y="87.723214285714278"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
+        <namedColor name="AccentColor">
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
