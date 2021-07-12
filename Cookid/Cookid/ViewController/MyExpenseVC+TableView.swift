@@ -9,9 +9,7 @@ import UIKit
 
 
 extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate {
-    
 
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
                 
         if section == 0 {
@@ -25,7 +23,7 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpenseTableViewCell.identifier, for: indexPath) as? ExpenseTableViewCell else { return UITableViewCell() }
         
         if !selectedDineInMeals.isEmpty {
             if indexPath.section == 0 {
@@ -90,3 +88,5 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
     }
     
 }
+
+

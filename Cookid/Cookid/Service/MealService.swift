@@ -17,6 +17,7 @@ class MealService {
     private let groceryRepository = GroceryRepository()
     
     private var meals: [Meal] = []
+    private var newMeals: [Meal] = []
     private var groceries: [GroceryShopping] = []
     private var totalBudget: Int = 1
     
@@ -35,6 +36,21 @@ class MealService {
                 observer.onNext(mealModels)
             }
             return Disposables.create()
+        }
+    }
+    
+    func fetchMeals2(completion: @escaping (([Meal]) -> Void)) {
+        mealRepository.fetchMeals { models in
+            let newMeal = models.map{ mealModel -> Meal in
+                let price = mealModel.price
+                let date = self.stringToDate(date: mealModel.date)
+                let name = mealModel.name
+                let mealType = MealType(rawValue: mealModel.mealType) ?? .dineIn
+                let mealTime = MealTime(rawValue: mealModel.mealTime) ?? .snack
+                return Meal(price: price, date: date, name: name, image: nil, mealType: mealType, mealTime: mealTime)
+            }
+            self.newMeals = newMeal
+            completion(newMeal)
         }
     }
     
