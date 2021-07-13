@@ -10,7 +10,7 @@ import PanModal
 import SnapKit
 import Then
 
-class InputDataShoppingViewController: UITableViewController, PanModalPresentable  {
+class InputDataShoppingViewController: UITableViewController, PanModalPresentable, UITextFieldDelegate  {
     
     var completionHandler : (() -> Void)?
     
@@ -25,10 +25,17 @@ class InputDataShoppingViewController: UITableViewController, PanModalPresentabl
     lazy var priceTextField = UITextField().then{
         $0.placeholder = "금액을 입력하세요."
     }
-        
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        priceTextField.resignFirstResponder()
+        return true
+    }
+    
     //MARK: - PanModalPresentable SetUp
     
     let contentInsets = UIEdgeInsets(top: 8.0, left: 16.0, bottom: 8.0, right: 16.0)
+    
+    var hasLoaded : Bool = false
     
     var anchorModalToLongForm: Bool {
         return false
@@ -47,7 +54,14 @@ class InputDataShoppingViewController: UITableViewController, PanModalPresentabl
     var isShortFormEnabled = true
     
     var shortFormHeight: PanModalHeight {
-        return isShortFormEnabled ? .contentHeight(200.0) : longFormHeight
+        if hasLoaded {
+            return .contentHeight(400.0)
+        }
+        return .contentHeight(200.0)
+    }
+    
+    var longFormHeight: PanModalHeight {
+        return .maxHeightWithTopInset(40)
     }
     
     func shouldPrioritize(panModalGestureRecognizer: UIPanGestureRecognizer) -> Bool {
@@ -59,37 +73,74 @@ class InputDataShoppingViewController: UITableViewController, PanModalPresentabl
         let bottomOffset = presentingViewController?.view.safeAreaInsets.bottom ?? 0
         return UIEdgeInsets(top: headerView.frame.size.height, left: 0, bottom: bottomOffset, right: 0)
     }
-
+    
     func willTransition(to state: PanModalPresentationController.PresentationState) {
         guard isShortFormEnabled, case .longForm = state
-            else { return }
-
+        else { return }
+        
         isShortFormEnabled = false
         panModalSetNeedsLayoutUpdate()
     }
+    
+    //MARK: - keyboardNotification
+    var willShowToken : NSObjectProtocol?
+    var willHideToken : NSObjectProtocol?
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.isScrollEnabled = false
-        
+        hasLoaded = false
         view.backgroundColor = .white
         setUpConstraints()
         setInputViewDatePicker(target: self, selector: #selector(doneTapped))
-
-        // Do any additional setup after loading the view.
+        
+        willShowToken = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main, using: {[weak self] (noti) in
+            guard let strongSelf = self else {return}
+            
+            if let frame = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let height = frame.cgRectValue.height
+                var inset = strongSelf.presentingViewController!.view.safeAreaInsets
+                
+                inset.bottom = height
+                strongSelf.tableView.contentInset = inset
+                                
+                inset = strongSelf.tableView.verticalScrollIndicatorInsets
+                inset.bottom = height
+                strongSelf.tableView.scrollIndicatorInsets = inset
+                
+                strongSelf.hasLoaded = true
+                strongSelf.panModalSetNeedsLayoutUpdate()
+            }
+        })
+        
+        willHideToken = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main, using: { [weak self] (noti) in
+            guard let strongSelf = self else { return }
+            
+            var inset = strongSelf.presentingViewController!.view.safeAreaInsets
+            inset.bottom = 0
+            strongSelf.tableView.contentInset = inset
+            
+            inset = strongSelf.tableView.verticalScrollIndicatorInsets
+            inset.bottom = 0
+            strongSelf.tableView.scrollIndicatorInsets = inset
+            
+            strongSelf.hasLoaded = false
+            strongSelf.panModalSetNeedsLayoutUpdate()
+        })
     }
-    
 }
-
 
 //MARK: - Constraints
 extension InputDataShoppingViewController {
     func setUpConstraints() {
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.isScrollEnabled = false
+        self.priceTextField.delegate = self
+        self.dateTextField.delegate = self
         
         tableView.separatorStyle = .none
         tableView.register(InputDataTableViewCell.self, forCellReuseIdentifier: InputDataTableViewCell.identifier)
@@ -139,6 +190,7 @@ extension InputDataShoppingViewController {
     
 }
 
+//MARK: - TableView
 extension InputDataShoppingViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -7,15 +7,15 @@
 import UIKit
 
 class PanModalHeaderView: UIView {
-        
-//    let completionHandler : (() -> Void)?
+    
+    //    let completionHandler : (() -> Void)?
     
     struct Constants {
         static let contentInsets = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0)
     }
-
+    
     // MARK: - Views
-
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
@@ -23,7 +23,7 @@ class PanModalHeaderView: UIView {
         label.text = "쇼핑 기록"
         return label
     }()
-
+    
     let subtitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
@@ -33,7 +33,7 @@ class PanModalHeaderView: UIView {
         return label
     }()
     
-    let rightBtn : UIButton = {
+    var rightBtn : UIButton = {
         let btn = UIButton()
         btn.setTitle("저장", for: .normal)
         btn.snp.makeConstraints{
@@ -46,7 +46,7 @@ class PanModalHeaderView: UIView {
     @objc func completion () {
         completion()
     }
-
+    
     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
         stackView.axis = .vertical
@@ -55,41 +55,41 @@ class PanModalHeaderView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
+    
     let seperatorView: UIView = {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.8196078431, green: 0.8235294118, blue: 0.8274509804, alpha: 1).withAlphaComponent(0.11)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     // MARK: - Initializers
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-
+        
+        backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        
         addSubview(stackView)
         addSubview(seperatorView)
         addSubview(rightBtn)
-
+        
         setupConstraints()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Layout
-
+    
     func setupConstraints() {
-
+        
         stackView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.contentInsets.top).isActive = true
         stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.contentInsets.left).isActive = true
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.contentInsets.right).isActive = true
         stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.contentInsets.bottom).isActive = true
-
+        
         seperatorView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         seperatorView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         seperatorView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -100,12 +100,12 @@ class PanModalHeaderView: UIView {
         }
         rightBtn.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
-
+    
     // MARK: - View Configuration
-
-//    func configure(with presentable: UserGroupHeaderPresentable) {
-//        titleLabel.text = "@\(presentable.handle)"
-//        subtitleLabel.text = "\(presentable.memberCount) members  |  \(presentable.description)"
-//    }
-
+    
+    //    func configure(with presentable: UserGroupHeaderPresentable) {
+    //        titleLabel.text = "@\(presentable.handle)"
+    //        subtitleLabel.text = "\(presentable.memberCount) members  |  \(presentable.description)"
+    //    }
+    
 }
