@@ -39,7 +39,7 @@ class MealService {
     @discardableResult
     func update(updateMeal: Meal) -> Observable<Meal> {
         
-        // mealRepository.updateMealToFirebase(meal: updateMeal)
+         mealRepository.updateMealToFirebase(meal: updateMeal)
         
         if let index = meals.firstIndex(where: { $0.id == updateMeal.id }) {
             meals.remove(at: index)
@@ -65,13 +65,14 @@ class MealService {
     func fetchMeals(completion: @escaping ([Meal])->Void) {
         self.mealRepository.fetchMeals { [unowned self] mealArr in
             let mealModels = mealArr.map {  model -> Meal in
+                let id = model.id
                 let price = model.price
                 let date = Date(timeIntervalSince1970: TimeInterval(model.date))
                 let name = model.name
                 let image = model.image
                 let mealType = MealType(rawValue: model.mealType) ?? .dineIn
                 let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
-                return Meal(price: price, date: date, name: name, image: URL(string: image!) ?? nil, mealType: mealType, mealTime: mealTime)
+                return Meal(id: nil, price: price, date: date, name: name, image: URL(string: image!) ?? nil, mealType: mealType, mealTime: mealTime)
             }
             completion(mealModels)
             self.meals = mealModels

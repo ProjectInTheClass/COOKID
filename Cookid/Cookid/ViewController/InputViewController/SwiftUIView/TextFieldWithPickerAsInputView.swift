@@ -14,7 +14,7 @@ struct TextFieldWithPickerAsInputView : UIViewRepresentable {
       var placeholder : String
 
       @Binding var selectionIndex : Int
-      @Binding var text : String?
+      @Binding var text : String
 
       private let textField = UITextField()
       private let picker = UIPickerView()
@@ -34,12 +34,12 @@ struct TextFieldWithPickerAsInputView : UIViewRepresentable {
       }
 
       func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<TextFieldWithPickerAsInputView>) {
-           uiView.text = text
+            uiView.text = text
       }
 
       class Coordinator: NSObject, UIPickerViewDataSource, UIPickerViewDelegate , UITextFieldDelegate {
 
-           private let parent : TextFieldWithPickerAsInputView
+        private var parent : TextFieldWithPickerAsInputView
 
            init(textfield : TextFieldWithPickerAsInputView) {
                 self.parent = textfield

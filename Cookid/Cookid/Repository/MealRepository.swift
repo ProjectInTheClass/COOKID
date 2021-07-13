@@ -36,7 +36,7 @@ class MealRepository {
             monthFilterQuery?.observeSingleEvent(of: .value) { snapshot in
                 
                 let snapshotValue = snapshot.value as? [String:Any] ?? [:]
-                let uidKey = snapshotValue.keys
+                //let uidKey = snapshotValue.keys
                 var mealEntity = [MealEntity]()
                 
                 for value in snapshotValue.values {
@@ -45,7 +45,6 @@ class MealRepository {
                     mealEntity.append(meal)
                 }
                 completion(mealEntity)
-                print("uid key --> \(uidKey)")
             }
         }
     }
@@ -54,21 +53,46 @@ class MealRepository {
     
     func uploadMealToFirebase(meal: Meal) {
         authRepo.signInAnonymously { [weak self] uid in
+            guard let key = self?.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).childByAutoId().key else { return }
             let mealDic : [String:Any] = [
-                "id" : meal.id,
+                "id" : key,
                 "price" : meal.price,
-                "date" : meal.date.dateToString(),
-                "image" : meal.image?.absoluteString,
+                "date" : dateToInt(date: meal.date),
+                "image" : meal.image?.absoluteString as Any,
+                "name" : meal.name,
+                "mealType" : meal.mealType.rawValue,
+                "mealTime" : meal.mealTime.rawValue
+            ]
+            self?.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).child(key).setValue(mealDic)
+        }
+    }
+    
+    
+    
+    func updateMealToFirebase(meal: Meal) {
+        authRepo.signInAnonymously { [weak self] uid in
+            
+            let mealDic : [String:Any] = [
+                "id" : meal.id as Any,
+                "price" : meal.price + 5000,
+                "date" : dateToInt(date: meal.date),
+                "image" : meal.image?.absoluteString as Any,
                 "name" : meal.name,
                 "mealType" : meal.mealType.rawValue,
                 "mealTime" : meal.mealTime.rawValue
             ]
             
-            self?.db.child(uid).child(FBChild.meal).childByAutoId().setValue(mealDic)
+            //let updateChild = ["\(key)" : mealDic]
+            
+            self?.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).child(meal.id!).updateChildValues(mealDic)
         }
     }
     
     
+    
+    func deleteMealToFirebase(meal: Meal) {
+        
+    }
     
     
     func fetchingImageURL(uid: String, mealID: String, image: UIImage, completed: @escaping (URL?) -> Void) {

@@ -55,9 +55,8 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         bindViewModel()
-        MealRepository.shared.fetchMeals { meal in
-            print(meal)
-        }
+ 
+        
     }
     
     private func configureUI() {
@@ -106,12 +105,9 @@ class MainViewController: UIViewController {
         
         addMealButton.rx.tap
             .subscribe(onNext: {
-//
-//                let inputMealView = InputMealView(dismissView: {self.dismiss(animated: true, completion: nil)})
-//                let vc = InputMealViewController(rootView: inputMealView)
-//
-//                vc.modalPresentationStyle = .formSheet
-//                self.present(vc, animated: true, completion: nil)
+                let vc = InputMealViewController()
+                vc.modalPresentationStyle = .formSheet
+                self.present(vc, animated: true, completion: nil)
             })
             .disposed(by: rx.disposeBag)
         
@@ -124,6 +120,8 @@ class MainViewController: UIViewController {
                 print("석현님 여기다가 VC 띄워주세요")
             })
             .disposed(by: rx.disposeBag)
+        
+        
         
         //output
         
@@ -174,10 +172,10 @@ class MainViewController: UIViewController {
                 cell.updateUI(meal: meal)
             }
             .disposed(by: rx.disposeBag)
-        
+            
         // rx delegate
         mealDayCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
-        
+            
     }
 }
 
