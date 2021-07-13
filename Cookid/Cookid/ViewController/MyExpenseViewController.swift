@@ -18,11 +18,11 @@ class MyExpenseViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var calendarHeightConstraint: NSLayoutConstraint!
     
-    var meal : [Meal] = []
-    var shopping : [GroceryShopping] = []
-    
     let shoppingService = ShoppingService()
     let mealService = MealService()
+    
+    var meal : [Meal] = []
+    var shopping : [GroceryShopping] = []
     
     lazy var dineOutMeals : [Meal] = {
         let dineOutMeals = meal.filter{$0.mealType == .dineOut}
@@ -33,12 +33,11 @@ class MyExpenseViewController: UIViewController {
         let dineInMeals = meal.filter{$0.mealType == .dineIn}
         return dineInMeals
     }()
-
-    var sections = ["집밥", "외식", "마트털이"]
     
     var selectedDineInMeals : [Meal] = []
     var selectedDineOutMeals : [Meal] = []
     var selectedShopping : [GroceryShopping] = []
+    var data : [element] = []
     
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -75,9 +74,9 @@ extension MyExpenseViewController {
     }
     
     func fetchMeals() {
-        mealService.fetchMeals { meals in
+        mealService.fetchMeals(completion: { meals in
             self.meal = meals
-        }
+        })
     }
     
     func findSelectedDateMealData (meals : [Meal], selectedDate : [Date]) -> [Meal] {
@@ -145,5 +144,18 @@ extension MyExpenseViewController {
             return shouldBegin
         }
 
+    }
+    
+    func updateData (dates: [Date]) {
+        selectedDineOutMeals = findSelectedDateMealData(meals : dineOutMeals, selectedDate: dates)
+        selectedDineInMeals = findSelectedDateMealData(meals : dineInMeals, selectedDate: dates)
+        selectedShopping = findSelectedDateShoppingData(shoppings : shopping, selectedDate: dates)
+        
+        data = [ element(name: "외식", selected: selectedDineOutMeals), element(name: "집밥", selected: selectedDineInMeals), element(name: "마트털이", selected: selectedShopping)]
+    }
+    
+    struct element {
+       var name : String
+       var selected : [Any]
     }
 }

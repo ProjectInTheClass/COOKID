@@ -8,38 +8,31 @@
 import UIKit
 
 extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                
-        if section == 0 {
-            return selectedDineInMeals.count
-        } else if section == 1 {
-            return selectedDineOutMeals.count
-        } else {
-            return selectedShopping.count
-        }
+        return data[section].selected.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpenseTableViewCell.identifier, for: indexPath) as? ExpenseTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpenseTableViewCell.identifier, for: indexPath) as? ExpenseTableViewCell else { return UITableViewCell()}
         
-        if indexPath.section == 0 {
+        switch data[indexPath.section].name {
+        case "집밥":
             cell.label.text = String(selectedDineInMeals[indexPath.row].price) + "원"
             cell.dateLabel.text = dateFormatter.string(from: selectedDineInMeals[indexPath.row].date)
-        }
-        
-        if indexPath.section == 1 {
+            return cell
+        case "외식":
             cell.label.text = String(selectedDineOutMeals[indexPath.row].price) + "원"
             cell.dateLabel.text = dateFormatter.string(from: selectedDineOutMeals[indexPath.row].date)
-        }
-        
-        if indexPath.section == 2 {
+            return cell
+        case "마트털이" :
             cell.label.text = String(selectedShopping[indexPath.row].totalPrice) + "원"
             cell.dateLabel.text = dateFormatter.string(from: selectedShopping[indexPath.row].date)
+            return cell
+        default:
+            return cell
         }
-        
-        return cell
         
     }
     
@@ -48,16 +41,20 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        
+        var count : Int = 0
+        for element in data {
+            if !element.selected.isEmpty {
+                count += 1
+            }
+        }
+        return count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return sections[0]
-        } else if section == 1 {
-            return sections[1]
-        } else if section == 2 {
-            return sections[2]
+        
+        if !data[section].selected.isEmpty {
+            return data[section].name
         } else {
             return nil
         }
