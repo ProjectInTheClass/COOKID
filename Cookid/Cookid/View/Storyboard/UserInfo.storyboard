@@ -82,14 +82,22 @@
                                             <action selector="checkBtnTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="7TI-vm-G8I"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공백인 경우 기존의 정보가 남습니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4g-PI-yPf">
+                                        <rect key="frame" x="30" y="392.5" width="169" height="15"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="bip-fg-hMx" firstAttribute="leading" secondItem="MY4-zB-9jh" secondAttribute="leading" id="0Zo-Y4-AjE"/>
                                     <constraint firstItem="MY4-zB-9jh" firstAttribute="leading" secondItem="cOb-Is-Afd" secondAttribute="leading" constant="30" id="8MJ-bw-q7c"/>
+                                    <constraint firstItem="e4g-PI-yPf" firstAttribute="centerY" secondItem="WSg-2g-JiT" secondAttribute="centerY" id="Ddu-vG-maZ"/>
                                     <constraint firstItem="nrf-vb-cld" firstAttribute="top" secondItem="KvR-I7-3CE" secondAttribute="bottom" constant="35" id="HhY-f9-cso"/>
                                     <constraint firstItem="ZUi-et-xQX" firstAttribute="leading" secondItem="9M6-G2-cBi" secondAttribute="leading" id="IMf-Dj-fom"/>
                                     <constraint firstAttribute="width" secondItem="cOb-Is-Afd" secondAttribute="height" multiplier="1:1.5" id="JYS-fh-XGf"/>
+                                    <constraint firstItem="e4g-PI-yPf" firstAttribute="leading" secondItem="9M6-G2-cBi" secondAttribute="leading" id="NEf-t9-6YQ"/>
                                     <constraint firstAttribute="bottom" secondItem="WSg-2g-JiT" secondAttribute="bottom" constant="30" id="O7P-qZ-X4V"/>
                                     <constraint firstAttribute="width" constant="300" id="Q4H-Gf-voe"/>
                                     <constraint firstItem="ZUi-et-xQX" firstAttribute="top" secondItem="9M6-G2-cBi" secondAttribute="bottom" constant="35" id="R9e-eK-VMA"/>
