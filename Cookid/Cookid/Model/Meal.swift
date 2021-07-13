@@ -46,6 +46,7 @@ enum MealTime: String, CaseIterable {
 }
 
 struct GroceryShopping {
-    let date: Date
+    let id: String
+    var date: Date
     var totalPrice: Int
 }

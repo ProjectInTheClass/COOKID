@@ -41,6 +41,7 @@ class GroceryRepository {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
             let dic: [String:Any] = [
+                "id" : grocery.id,
                 "date" : grocery.date.dateToString(),
                 "totalPrice" : grocery.totalPrice
             ]
