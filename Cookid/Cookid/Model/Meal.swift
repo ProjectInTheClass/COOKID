@@ -12,7 +12,7 @@ class Meal: Equatable {
         return true
     }
     
-    let id: String = UUID().uuidString
+    let id: String?
     var price: Int
     var date: Date
     var name: String
@@ -20,7 +20,8 @@ class Meal: Equatable {
     var mealType: MealType
     var mealTime: MealTime
     
-    init(price: Int, date: Date, name: String, image: URL?, mealType: MealType, mealTime: MealTime) {
+    init(id: String?, price: Int, date: Date, name: String, image: URL?, mealType: MealType, mealTime: MealTime) {
+        self.id = id
         self.price = price
         self.date = date
         self.name = name

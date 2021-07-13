@@ -18,6 +18,7 @@ struct MealEntity: Codable {
     var mealTime: String
     
     init(mealDic: [String:Any]) {
+        self.id = mealDic["id"] as? String ?? ""
         self.price = mealDic["price"] as? Int ?? 0
         self.date = mealDic["date"] as? Int ?? 0
         self.name = mealDic["name"] as? String ?? ""
