@@ -4,6 +4,7 @@
 //
 //  Created by Sh Hong on 2021/07/13.
 //
+import UIKit
 
 class PanModalHeaderView: UIView {
         
