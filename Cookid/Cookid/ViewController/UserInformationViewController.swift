@@ -47,15 +47,15 @@ class UserInformationViewController: UIViewController {
     func updateUser(nickName: String?, newGoal: String?, newDetermination: String?){
         
         if let nickName = nickName {
-            db.root.child(user.userID!).child("user").updateChildValues(["nickname" : nickName])
+            db.root.child(user.userID).child("user").updateChildValues(["nickname" : nickName])
         }
         
         if let newGoal = newGoal {
-            db.root.child(user.userID!).child("user").updateChildValues(["priceGoal" : newGoal])
+            db.root.child(user.userID).child("user").updateChildValues(["priceGoal" : newGoal])
         }
         
         if let newDetermination = newDetermination {
-            db.root.child(user.userID!).child("user").updateChildValues(["determination" : newDetermination])
+            db.root.child(user.userID).child("user").updateChildValues(["determination" : newDetermination])
         }
     }
     
