@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import RxSwift
 import RxCocoa
 import NSObject_Rx
@@ -46,6 +47,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var monthSelectButton: UIButton!
     @IBOutlet weak var mealDayCollectionView: UICollectionView!
+    
     
     // property
     
@@ -105,8 +107,15 @@ class MainViewController: UIViewController {
         
         addMealButton.rx.tap
             .subscribe(onNext: {
-                let vc = InputMealViewController()
-                vc.modalPresentationStyle = .formSheet
+//                let vc = InputMealViewController()
+//                vc.modalPresentationStyle = .formSheet
+//                self.present(vc, animated: true, completion: nil)
+                let mealDatailView = MealDetailView(
+                    deleteTapped: { self.dismiss(animated: true, completion: nil)},
+                    saveTapped: { self.dismiss(animated: true, completion: nil)})
+                let vc = UIHostingController(rootView: mealDatailView)
+                vc.modalPresentationStyle = .custom
+                vc.view.backgroundColor = .clear
                 self.present(vc, animated: true, completion: nil)
             })
             .disposed(by: rx.disposeBag)
@@ -120,7 +129,6 @@ class MainViewController: UIViewController {
                 print("석현님 여기다가 VC 띄워주세요")
             })
             .disposed(by: rx.disposeBag)
-        
         
         
         //output
@@ -175,7 +183,7 @@ class MainViewController: UIViewController {
             
         // rx delegate
         mealDayCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
-            
+        
     }
 }
 

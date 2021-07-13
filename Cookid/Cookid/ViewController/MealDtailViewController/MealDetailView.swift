@@ -11,9 +11,11 @@ struct MealDetailView: View {
     @State var edit: Bool = false
     @State var delete: Bool = false
     @Namespace var namespace
+    
+    var deleteTapped: (() -> Void)
+    var saveTapped: (() -> Void)
 
-    var meal = Meal(id: nil, price: 9000, date: Date(), name: "오삼불고기", image: nil, mealType: .dineOut, mealTime: .dinner)
-
+    var meal : Meal = Meal(id: nil, price: 25000, date: Date(), name: "간장게장", image: nil, mealType: .dineOut, mealTime: .dinner)
 
     var body: some View {
         if #available(iOS 14.0, *) {
@@ -26,6 +28,7 @@ struct MealDetailView: View {
                                 .foregroundColor(.red)
                                 .onTapGesture {
                                     delete.toggle()
+                                    deleteTapped()
                                 }
                             Spacer()
                             Text("수정")
@@ -110,12 +113,16 @@ struct MealDetailView: View {
                     .shadow(radius: 20)
                 } else {
                     if #available(iOS 14.0, *) {
-                        ModifyMealView(namespace: namespace, meal: meal)
+                        ModifyMealView(cancelTapped: saveTapped, namespace: namespace, meal: meal )
+                            
                     } else {
                         ModifyMealViewForAvailable(meal: meal)
                     }
                 }
             }
+            .frame(maxWidth: .infinity)
+            .background(Color.clear)
+            
         } else {
             ZStack {
                 if !edit {
@@ -126,6 +133,7 @@ struct MealDetailView: View {
                                 .foregroundColor(.red)
                                 .onTapGesture {
                                     delete.toggle()
+                                    deleteTapped()
                                 }
                             Spacer()
                             Text("수정")
@@ -200,24 +208,23 @@ struct MealDetailView: View {
                     .shadow(radius: 20)
                 } else {
                     if #available(iOS 14.0, *) {
-                        ModifyMealView(namespace: namespace, meal: meal)
+                        ModifyMealView(cancelTapped: saveTapped, namespace: namespace, meal: meal)
                     } else {
                         ModifyMealViewForAvailable(meal: meal)
                     }
                 }
             }
-
         }
     }
 }
 
-struct MealDetailView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        if #available(iOS 14.0, *) {
-            MealDetailView()
-        } else {
-            // Fallback on earlier versions
-        }
-    }
-}
+//struct MealDetailView_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//        if #available(iOS 14.0, *) {
+//            MealDetailView()
+//        } else {
+//            // Fallback on earlier versions
+//        }
+//    }
+//}

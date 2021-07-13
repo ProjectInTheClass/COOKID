@@ -25,9 +25,9 @@ struct ModifyMealView: View {
         
         @State var show: Bool = false
         
+        var cancelTapped: (() -> Void)
         var namespace: Namespace.ID
         var meal: Meal
-        
         
         var body: some View {
                 VStack(spacing: 20) {
@@ -35,6 +35,9 @@ struct ModifyMealView: View {
                         Text("취소")
                             .bold()
                             .foregroundColor(.red)
+                            .onTapGesture {
+                                cancelTapped()
+                            }
                         Spacer()
                         Text("저장")
                             .bold()
