@@ -49,7 +49,7 @@ class MainViewController: UIViewController {
     
     // property
     
-    let viewModel = MainViewModel(mealService: MealService(), userService: UserService())
+    let viewModel = MainViewModel(mealService: MealService(), userService: UserService(), shoppingService: ShoppingService())
     
     override func viewDidLoad() {
         super.viewDidLoad()

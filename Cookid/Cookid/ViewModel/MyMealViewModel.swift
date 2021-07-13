@@ -16,6 +16,7 @@ class MyMealViewModel: ViewModelType {
     }
 
     struct Output {
+        let basicMeals: BehaviorSubject<[Meal]>
         let dineInProgress: Driver<CGFloat>
         let mostExpensiveMeal: Driver<Meal>
         let recentMeals: Driver<[Meal]>
@@ -28,9 +29,12 @@ class MyMealViewModel: ViewModelType {
     init(mealService: MealService){
 
         self.mealService = mealService
+       
+        mealService.fetchMeals { meals in }
+        
         // input initializer
-        let meals = mealService.fetchMeals()
-
+        let meals = mealService.mealList()
+       
         // output initializer
         
         let dineInProgress = meals.map(mealService.dineInProgressCalc(_:))
@@ -40,13 +44,13 @@ class MyMealViewModel: ViewModelType {
             .asDriver(onErrorJustReturn: DummyData.shared.mySingleMeal)
 
         let recentMeals = meals.map(mealService.recentMeals)
-        .asDriver(onErrorJustReturn: [])
+            .asDriver(onErrorJustReturn: [])
 
         let mealtimes = meals.map(mealService.mealTimesCalc(meals:))
-        .asDriver(onErrorJustReturn: [])
+            .asDriver(onErrorJustReturn: [])
 
         self.input = Input()
-        self.output = Output(dineInProgress: dineInProgress, mostExpensiveMeal: mostExpensiveMeal, recentMeals: recentMeals, mealtimes: mealtimes)
+        self.output = Output(basicMeals: meals, dineInProgress: dineInProgress, mostExpensiveMeal: mostExpensiveMeal, recentMeals: recentMeals, mealtimes: mealtimes)
     }
 
 }
