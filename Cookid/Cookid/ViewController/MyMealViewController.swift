@@ -49,7 +49,7 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
         
         viewModel.output.dineInProgress
             .delay(.microseconds(500))
-            .drive(onNext: { progress in
+            .drive(onNext: { [unowned self] progress in
                 self.dineInProgressBar.progress = progress
             })
             .disposed(by: rx.disposeBag)
@@ -77,12 +77,17 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
                 self?.maxValue = numArr.max()
             })
             .drive(mealTimeCollectionView.rx.items(cellIdentifier: "timeCell", cellType: MealTimeCollectionViewCell.self)) { item, meals, cell in
-                if let maxValue = self.maxValue {
+                if let maxValue = self.maxValue,
+                   maxValue != 0 {
                     let ratio = CGFloat(meals.count) / CGFloat(maxValue)
                     let arrString = meals.first?.mealTime.rawValue ?? ""
                     cell.updateUI(ratio: ratio, name: arrString)
+                    cell.backgroundColor = .white
+                } else {
+                    let arrString = meals.first?.mealTime.rawValue ?? ""
+                    cell.updateUI(ratio: 0.5, name: arrString)
+                    cell.backgroundColor = .white
                 }
-                cell.backgroundColor = .white
             }
             .disposed(by: rx.disposeBag)
         

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 protocol ViewModelBindable {
     associatedtype ViewModelType
@@ -44,5 +45,3 @@ protocol ViewModelType {
     var input: Input { get }
     var output: Output { get }
 }
-
-
