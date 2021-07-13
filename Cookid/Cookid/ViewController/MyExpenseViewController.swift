@@ -15,6 +15,9 @@ class MyExpenseViewController: UIViewController {
     var meal : [Meal] = []
     var shopping : [GroceryShopping] = []
     
+    let shoppingService = ShoppingService()
+    let mealService = MealService()
+    
     lazy var dineOutMeals : [Meal] = {
         let dineOutMeals = meal.filter{$0.mealType == .dineOut}
         return dineOutMeals
@@ -86,15 +89,15 @@ class MyExpenseViewController: UIViewController {
 
 extension MyExpenseViewController {
     func fetchShopping() {
-        MealService.shared.fetchGroceries(completion: { shoppings in
+        shoppingService.fetchGroceries(completion: { shoppings in
             self.shopping = shoppings
         })
     }
     
     func fetchMeals() {
-        MealService.shared.fetchMeals2(completion: { newMeals in
-            self.meal = newMeals
-        })
+        mealService.fetchMeals { meals in
+            self.meal = meals
+        }
     }
     
     func findSelectedDateMealData (meals : [Meal], selectedDate : [Date]) -> [Meal] {

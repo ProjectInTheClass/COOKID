@@ -13,6 +13,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
     
     let mealService: MealService
     let userService: UserService
+    let shoppingService: ShoppingService
     
     struct Input {
         let yesterdayMeals: PublishSubject<[Meal]>
@@ -21,6 +22,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
     }
     
     struct Output {
+        let basicMeal: BehaviorSubject<[Meal]>
         let adviceString: Driver<String>
         let userInfo: Driver<User>
         let mealDayList: Driver<[Meal]>
@@ -31,13 +33,16 @@ class MainViewModel: ViewModelType, HasDisposeBag {
     var input: Input
     var output: Output
     
-    init(mealService: MealService, userService: UserService) {
+    init(mealService: MealService, userService: UserService, shoppingService: ShoppingService) {
         self.mealService = mealService
         self.userService = userService
+        self.shoppingService = shoppingService
+        
+        mealService.fetchMeals { meals in }
         
         // meal & user Storage
         
-        let meals = mealService.fetchMeals()
+        let meals = mealService.mealList()
         let userInfo = userService.loadUserInfo()
             .asDriver(onErrorJustReturn: User(userID: "none", nickname: "비회원", determination: "사용자 등록을 먼저 해주세요.", priceGoal: "0", userType: .preferDineOut))
         
@@ -56,7 +61,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         
         let monthlyDetailed = Observable.combineLatest(userInfo.asObservable(), meals) { user, meals -> ConsumptionDetailed in
             let goal = Int(user.priceGoal) ?? 0
-            let shop = mealService.fetchShoppingSpend(meals: meals)
+            let shop = shoppingService.fetchShoppingSpend(meals: meals)
             let dineOutPrice = mealService.fetchEatOutSpend(meals: meals)
             return ConsumptionDetailed(month: Date().convertDateToString(format: "MM월"), priceGoal: goal, shoppingPrice: shop, dineOutPrice: dineOutPrice, balance: goal - shop - dineOutPrice)
         }
@@ -75,7 +80,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         
         
         self.input = Input(yesterdayMeals: yesterdayMeals, tommorowMeals: tommorowMeals, todayMeals: todayMeals)
-        self.output = Output(adviceString: adviceString, userInfo: userInfo, mealDayList: mealDayList, consumeProgressCalc: consumeProgressCalc, monthlyDetailed: monthlyDetailed)
+        self.output = Output(basicMeal: meals, adviceString: adviceString, userInfo: userInfo, mealDayList: mealDayList, consumeProgressCalc: consumeProgressCalc, monthlyDetailed: monthlyDetailed)
     }
     
 }

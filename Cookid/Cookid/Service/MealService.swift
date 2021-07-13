@@ -16,61 +16,84 @@ class MealService {
     private let userRepository = UserRepository()
     private let groceryRepository = GroceryRepository()
     
-    private var meals: [Meal] = []
-    private var newMeals: [Meal] = []
-    private var groceries: [GroceryShopping] = []
     private var totalBudget: Int = 1
+    private var currentDay = Date()
     
-    func fetchMeals(completion: @escaping ([Meal])->Void) {
-        
+    private var meals: [Meal] = []
+    private let mealStore = BehaviorSubject<[Meal]>(value: [])
+    
+    
+    @discardableResult
+    func create(meal: Meal) -> Observable<Meal> {
+        meals.append(meal)
+        mealRepository.uploadMealToFirebase(meal: meal)
+        mealStore.onNext(meals)
+        return Observable.just(meal)
     }
     
     @discardableResult
-    func fetchMeals() -> Observable<[Meal]> {
-        return Observable.create { [unowned self] observer -> Disposable in
-            self.mealRepository.fetchMeals { mealArr in
-                let mealModels = mealArr.map { model -> Meal in
-                    let price = model.price
-                    let date = Date(timeIntervalSince1970: TimeInterval(model.date))
-                    let name = model.name
-                    let image = model.image
-                    let mealType = MealType(rawValue: model.mealType) ?? .dineIn
-                    let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
-                    return Meal(price: price, date: date, name: name, image: URL(string: image!) ?? nil, mealType: mealType, mealTime: mealTime)
-                }
-                self.meals = mealModels
-                observer.onNext(mealModels)
+    func mealList() -> BehaviorSubject<[Meal]> {
+        return mealStore
+    }
+    
+    @discardableResult
+    func update(updateMeal: Meal) -> Observable<Meal> {
+        
+        // mealRepository.updateMealToFirebase(meal: updateMeal)
+        
+        if let index = meals.firstIndex(where: { $0.id == updateMeal.id }) {
+            meals.remove(at: index)
+            meals.insert(updateMeal, at: index)
+        }
+        mealStore.onNext(meals)
+        return Observable.just(updateMeal)
+    }
+    
+    @discardableResult
+    func delete(meal: Meal) -> Observable<Meal> {
+        
+        // mealRepository.deleteMealToFirebase(meal: meal)
+        
+        if let index = meals.firstIndex(where: { $0.id == meal.id }) {
+            meals.remove(at: index)
+        }
+        
+        mealStore.onNext(meals)
+        return Observable.just(meal)
+    }
+    
+    func fetchMeals(completion: @escaping ([Meal])->Void) {
+        self.mealRepository.fetchMeals { [unowned self] mealArr in
+            let mealModels = mealArr.map {  model -> Meal in
+                let price = model.price
+                let date = Date(timeIntervalSince1970: TimeInterval(model.date))
+                let name = model.name
+                let image = model.image
+                let mealType = MealType(rawValue: model.mealType) ?? .dineIn
+                let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
+                return Meal(price: price, date: date, name: name, image: URL(string: image!) ?? nil, mealType: mealType, mealTime: mealTime)
             }
-            return Disposables.create()
+            completion(mealModels)
+            self.meals = mealModels
+            self.mealStore.onNext(mealModels)
         }
     }
     
-    func fetchMeals2(completion: @escaping (([Meal]) -> Void)) {
-        mealRepository.fetchMeals { models in
-            let newMeal = models.map{ mealModel -> Meal in
-                let price = mealModel.price
-                let date = Date(timeIntervalSince1970: TimeInterval(mealModel.date))
-                let name = mealModel.name
-                let mealType = MealType(rawValue: mealModel.mealType) ?? .dineIn
-                let mealTime = MealTime(rawValue: mealModel.mealTime) ?? .snack
-                return Meal(price: price, date: date, name: name, image: nil, mealType: mealType, mealTime: mealTime)
-            }
-            self.newMeals = newMeal
-            completion(newMeal)
-        }
+    func fetchMealByNavigate(_ day: Int) -> (String, [Meal]) {
+        
+        guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return ("", []) }
+        currentDay = aDay
+        let dateString = convertDateToString(format: "YYYY년 M월 d일", date: aDay)
+        let meal = self.meals.filter {$0.date.dateToString() == aDay.dateToString() }
+        
+        return (dateString, meal)
     }
     
-    func fetchGroceries(completion: @escaping (([GroceryShopping]) -> Void)) {
-        groceryRepository.fetchGroceryInfo { models in
-            let groceryShoppings = models.map { shoppingModel -> GroceryShopping in
-                let date = self.stringToDate(date: shoppingModel.date)
-                
-                // 동환님 여기 수정 필요할 것 같습니다.
-                return GroceryShopping(date: date, totalPrice: 1000)
-            }
-            self.groceries = groceryShoppings
-            completion(groceryShoppings)
-        }
+    func fetchMealByDay(_ day: Date) -> (String, [Meal]) {
+        currentDay = day
+        let dateString = convertDateToString(format: "YYYY년 M월 d일", date: day)
+        let meal = self.meals.filter { $0.date.dateToString() == day.dateToString() }
+        return (dateString, meal)
     }
     
     func getSpendPercentage(meals: [Meal], user: User) -> Double {
@@ -89,30 +112,13 @@ class MealService {
         return average
     }
     
-    func addMeal(meal: Meal){
-        
-        self.meals.append(meal)
-    }
-    
-    func fetchShoppingSpend(meals: [Meal]) -> Int {
-        let shoppingSpends = meals.filter {$0.mealType == .dineIn}.map{$0.price}
-        let totalSpend = shoppingSpends.reduce(0){$0+$1}
-        return totalSpend
-    }
-    
     func fetchEatOutSpend(meals: [Meal]) -> Int {
         
         let eatOutSpends = meals.filter {$0.mealType == .dineOut}.map{$0.price}
         let totalSpend = eatOutSpends.reduce(0){$0+$1}
         return totalSpend
     }
-  
     
-    func fetchCurrentMonth() -> String {
-        let monthString = self.convertDateToString(format: "M", date: Date())
-        return monthString
-    }
-   
     
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
         let newMeals = meals.filter { $0.mealType == .dineIn }
@@ -123,16 +129,6 @@ class MealService {
         let newMeals = meals.sorted { $0.price > $1.price }
         guard let firstMeal = newMeals.first else { return DummyData.shared.mySingleMeal }
         return firstMeal
-    }
-    
-    func mostExpensiveMealAlert(meal: Meal) -> String {
-        
-        let mostExpensiveYet = self.mostExpensiveMeal(meals: self.meals)
-        if meal.price > mostExpensiveYet.price {
-            
-            return "FOOD FLEX 하셨습니다"
-        }
-        return ""
     }
     
     func recentMeals(meals: [Meal]) -> [Meal] {
@@ -155,28 +151,13 @@ class MealService {
         return [breakfastNum, brunchNum, lunchNum, lundinnerNum, dinnerNum, snackNum]
     }
     
-    var currentDay = Date()
-    
-    func fetchMealByNavigate(_ day: Int) -> (String, [Meal]) {
-        
-        guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return ("", []) }
-        currentDay = aDay
-        let dateString = self.convertDateToString(format: "YYYY년 M월 d일", date: aDay)
-        let meal = self.meals.filter {$0.date.dateToString() == aDay.dateToString() }
-        
-        return (dateString, meal)
-    }
-    
-    func fetchMealByDay(_ day: Date) -> (String, [Meal]) {
-        currentDay = day
-        let dateString = self.convertDateToString(format: "YYYY년 M월 d일", date: day)
-        let meal = self.meals.filter { $0.date.dateToString() == day.dateToString() }
-        return (dateString, meal)
-    }
-    
     func dineInProgressCalc(_ meals: [Meal]) -> CGFloat {
         let newMeals = meals.filter { $0.mealType == .dineIn }
         return CGFloat(newMeals.count) / CGFloat(meals.count)
+    }
+    
+    func todayMeals(meals: [Meal]) -> [Meal] {
+        return meals.filter { $0.date == Date() }
     }
     
     func checkSpendPace(meals: [Meal], user: User) -> String{
@@ -239,27 +220,5 @@ class MealService {
             }
         }
     }
-    
-    func todayMeals(meals: [Meal]) -> [Meal] {
-        return meals.filter { $0.date == Date() }
-    }
-    
-    
-    private func convertDateToString(format: String, date: Date) -> String {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        let dateString = dateFormatter.string(from: date)
-        return dateString
-        
-    }
-    
-    private func stringToDate(date: String) -> Date {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
-        let date = dateFormatter.date(from: date)
-        
-        return date!
-    }
+   
 }
