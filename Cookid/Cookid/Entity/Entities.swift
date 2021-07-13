@@ -28,10 +28,12 @@ struct MealEntity: Codable {
 }
 
 struct GroceryEntity: Codable {
+    let id: String
     var date: String
     var totalPrice: Int
     
     init(groceriesDic: [String:Any]) {
+        self.id = groceriesDic["id"] as? String ?? ""
         self.date = groceriesDic["date"] as? String ?? ""
         self.totalPrice = groceriesDic["totalPrice"] as? Int ?? 0
     }
