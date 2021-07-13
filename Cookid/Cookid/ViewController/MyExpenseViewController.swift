@@ -12,6 +12,12 @@ import Then
 
 class MyExpenseViewController: UIViewController {
     
+    @IBOutlet weak var averageExpenseLabel: UILabel!
+    @IBOutlet weak var calendar: FSCalendar!
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var calendarHeightConstraint: NSLayoutConstraint!
+    
     var meal : [Meal] = []
     var shopping : [GroceryShopping] = []
     
@@ -27,50 +33,15 @@ class MyExpenseViewController: UIViewController {
 
     var sections = ["집밥", "외식", "마트털이"]
     
-    var selectedDineInMeals : [Meal]? = []
-    var selectedDineOutMeals : [Meal]? = []
-    var selectedShopping : [GroceryShopping]? = []
+    var selectedDineInMeals : [Meal] = []
+    var selectedDineOutMeals : [Meal] = []
+    var selectedShopping : [GroceryShopping] = []
     
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
         return formatter
     }()
-    
-    let monthlyExpenseLabel = UILabel().then{
-        $0.text = "\(DummyData.shared.singleUser.priceGoal)" + "원"
-        $0.textColor = .black
-        $0.font = .boldSystemFont(ofSize: 40)
-    }
-    
-    let averageDailyExpenseLabel = UILabel().then{
-        $0.text = "하루평균 지출 금액은 5000원입니다."
-        $0.textColor = .darkGray
-        $0.font = .systemFont(ofSize: 15)
-    }
-    
-    lazy var calendar = FSCalendar().then{
-        $0.delegate = self
-        $0.dataSource = self
-        $0.backgroundColor = .white
-        $0.locale = Locale(identifier: "ko_KR")
-        $0.appearance.headerDateFormat = "yyyy년 MM월"
-        $0.select(Date())
-        $0.scope = .month
-        $0.isMultipleTouchEnabled = true
-        $0.allowsMultipleSelection = false
-        $0.appearance.headerMinimumDissolvedAlpha = 0.0
-        $0.appearance.titleTodayColor = .black
-    }
-    
-    lazy var tableView = UITableView().then{
-        $0.delegate = self
-        $0.dataSource = self
-        
-        $0.rowHeight = UITableView.automaticDimension
-        $0.estimatedRowHeight = UITableView.automaticDimension
-        $0.register(ExpenseTableViewCell.self, forCellReuseIdentifier: ExpenseTableViewCell.identifier)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +53,15 @@ class MyExpenseViewController: UIViewController {
     deinit {
         print("\(#function)")
     }
+    
+    fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
+        [unowned self] in
+        let panGesture = UIPanGestureRecognizer(target: self.calendar, action: #selector(self.calendar.handleScopeGesture(_:)))
+        panGesture.delegate = self
+        panGesture.minimumNumberOfTouches = 1
+        panGesture.maximumNumberOfTouches = 2
+        return panGesture
+    }()
 }
 
 extension MyExpenseViewController {
@@ -117,37 +97,50 @@ extension MyExpenseViewController {
     
     //MARK: - constraints Setup
     func setUpConstraint() {
-        self.view.addSubview(monthlyExpenseLabel)
-        self.view.addSubview(averageDailyExpenseLabel)
-        self.view.addSubview(calendar)
-        self.view.addSubview(tableView)
+        self.calendar.delegate = self
+        self.calendar.dataSource = self
         
-        //monthlyExpenseLabel constraint
-        self.monthlyExpenseLabel.snp.makeConstraints{
-            $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
-            $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).offset(20)
-            $0.height.equalTo(40)
-        }
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
-        //averageDailyExpenseLabel constraint
-        self.averageDailyExpenseLabel.snp.makeConstraints{
-            $0.top.equalTo(monthlyExpenseLabel.snp.bottom)
-            $0.leading.trailing.equalTo(monthlyExpenseLabel)
-            $0.height.equalTo(20)
-        }
+        self.view.addGestureRecognizer(self.scopeGesture)
+        self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
         
-        //calnedar constraint
-        self.calendar.snp.makeConstraints{
-            $0.top.equalTo(averageDailyExpenseLabel.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(300)
-        }
+        self.averageExpenseLabel.text = "하루평균 지출 금액은 5000원입니다."
+        self.averageExpenseLabel.textColor = .darkGray
+        self.averageExpenseLabel.font = .systemFont(ofSize: 15)
         
-        //tableview constraint
-        self.tableView.snp.makeConstraints{
-            $0.top.equalTo(calendar.snp.bottom)
-            $0.leading.trailing.equalTo(calendar)
-            $0.bottom.equalToSuperview()
+        self.calendar.backgroundColor = .white
+        self.calendar.locale = Locale(identifier: "ko_KR")
+        self.calendar.appearance.headerDateFormat = "yyyy년 MM월"
+        self.calendar.select(Date())
+        self.calendar.scope = .month
+        self.calendar.isMultipleTouchEnabled = true
+        self.calendar.allowsMultipleSelection = false
+        self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0
+        self.calendar.appearance.titleTodayColor = .black
+        
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = UITableView.automaticDimension
+        self.tableView.register(ExpenseTableViewCell.self, forCellReuseIdentifier: ExpenseTableViewCell.identifier)
+        
+        // MARK:- UIGestureRecognizerDelegate
+        
+        func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+            let shouldBegin = self.tableView.contentOffset.y <= -self.tableView.contentInset.top
+            if shouldBegin {
+                let velocity = self.scopeGesture.velocity(in: self.view)
+                switch self.calendar.scope {
+                case .month:
+                    return velocity.y < 0
+                case .week:
+                    return velocity.y > 0
+                @unknown default:
+                    fatalError()
+                }
+            }
+            return shouldBegin
         }
+
     }
 }

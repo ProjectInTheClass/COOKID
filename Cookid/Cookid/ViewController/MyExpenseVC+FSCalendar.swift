@@ -13,9 +13,8 @@ import FSCalendar
 extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppearance, FSCalendarDataSource, UIGestureRecognizerDelegate{
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        self.calendar.snp.makeConstraints{
-            $0.height.equalTo(bounds.height)
-        }
+        self.calendarHeightConstraint.constant = bounds.height
+        self.view.layoutIfNeeded()
         self.view.layoutIfNeeded()
     }
     
