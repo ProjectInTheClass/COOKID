@@ -15,7 +15,7 @@ struct DatePickerTextField: UIViewRepresentable {
     private let helper = Helper()
     private let dateFormatter: DateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        dateFormatter.dateFormat = "yyyy년 M월 dd일"
         return dateFormatter
     }()
     

@@ -26,8 +26,7 @@ class InputMealViewController: UIViewController {
                 guard let newMeal = meal else { return }
                 MealService.shared.create(meal: newMeal)
                 print(newMeal)
-            })
-        }))
+            })}))
         
         inputMealView.view.translatesAutoresizingMaskIntoConstraints = false
         self.addChild(inputMealView)
