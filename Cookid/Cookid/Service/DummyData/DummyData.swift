@@ -12,7 +12,8 @@ class DummyData {
 
     var mySingleMeal = Meal(id: nil, price: 8000, date: Date(), name: "순대국밥", image: URL(string: "photo.on.rectangle.angled")!, mealType: .dineOut, mealTime: .lunch)
 
-    var mySingleShopping = GroceryShopping(date: Date(), totalPrice: 10000)
+    var mySingleShopping = GroceryShopping(id: UUID().uuidString, date: Date(), totalPrice: 10000)
+
 
     var myMeals = [
         Meal(id: nil, price: 9000, date: Date(), name: "상하이버거", image: URL(string: "photo.on.rectangle.angled")!, mealType: .dineOut, mealTime: .brunch),

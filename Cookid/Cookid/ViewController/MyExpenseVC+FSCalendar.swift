@@ -13,9 +13,7 @@ import FSCalendar
 extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppearance, FSCalendarDataSource, UIGestureRecognizerDelegate{
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        self.calendar.snp.makeConstraints{
-            $0.height.equalTo(bounds.height)
-        }
+        self.calendarHeightConstraint.constant = bounds.height
         self.view.layoutIfNeeded()
     }
     
@@ -25,9 +23,7 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         
         let selectedDates = [date]
         
-        selectedDineOutMeals = findSelectedDateMealData(meals : dineOutMeals, selectedDate: selectedDates)
-        selectedDineInMeals = findSelectedDateMealData(meals : dineInMeals, selectedDate: selectedDates)
-        selectedShopping = findSelectedDateShoppingData(shoppings : shopping, selectedDate: selectedDates)
+        updateData(dates: selectedDates)
 
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -44,9 +40,7 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         
         let deSelectedDate : [Date] = [date]
         
-        selectedDineOutMeals = findSelectedDateMealData(meals: dineOutMeals, selectedDate: deSelectedDate)
-        selectedDineInMeals = findSelectedDateMealData(meals: dineInMeals, selectedDate: deSelectedDate)
-        selectedShopping = findSelectedDateShoppingData(shoppings: shopping, selectedDate: deSelectedDate)
+        updateData(dates: deSelectedDate)
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
