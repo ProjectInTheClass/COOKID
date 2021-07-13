@@ -16,10 +16,12 @@ class UserService {
     func loadUserInfo() -> Observable<User> {
         return Observable.create { [unowned self] observer -> Disposable in
             self.userRepository.fetchUserInfo { userentity in
-                let user = User(nickname: userentity.nickname, determination: userentity.determination, priceGoal: userentity.priceGoal, userType: UserType(rawValue: userentity.userType)!)
+                let user = User(userID: userentity.userId, nickname: userentity.nickname, determination: userentity.determination, priceGoal: userentity.priceGoal, userType: UserType(rawValue: userentity.userType)!)
                 observer.onNext(user)
             }
             return Disposables.create()
         }
     }
+    
+    //삭제 업데이트 생성
 }

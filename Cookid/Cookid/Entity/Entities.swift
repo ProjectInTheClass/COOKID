@@ -40,6 +40,7 @@ struct GroceryEntity: Codable {
 }
 
 struct UserEntity: Codable {
+    var userId: String
     var nickname: String
     var determination: String
     var priceGoal: String
@@ -50,5 +51,6 @@ struct UserEntity: Codable {
         self.determination = userDic["determination"] as? String ?? ""
         self.priceGoal = userDic["priceGoal"] as? String ?? ""
         self.userType = userDic["userType"] as? String ?? ""
+        self.userId = userDic["userId"] as? String ?? ""
     }
 }
