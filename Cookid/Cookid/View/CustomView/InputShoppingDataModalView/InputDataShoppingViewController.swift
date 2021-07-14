@@ -10,8 +10,8 @@ import SnapKit
 import Then
 
 class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate  {
-    
-    var tableView: UITableView! = {
+            
+    let tableView: UITableView! = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.layer.cornerRadius = 10.0
@@ -21,11 +21,11 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         return tableView
     }()
     
-    let headerView = PanModalHeaderView()
-    
-    var completionHandler : (() -> Void)?
-    
+    var headerView = PanModalHeaderView()
+        
     let shoppingService = ShoppingService()
+    
+    var rightBtn = PanModalHeaderView().rightBtn
     
     lazy var dateTextField = UITextField().then{
         let dateformatter = DateFormatter()
@@ -184,5 +184,16 @@ extension InputDataShoppingViewController {
         default:
             return nil
         }
+    }
+}
+
+//MARK: - saveButtonTapped
+
+extension InputDataShoppingViewController {
+    func createNewShopping () -> Void {
+//        guard let dateStr = dateTextField.text, let priceStr = priceTextField.text, let price = Int(priceStr) else { return }
+//        let date = stringToDate(date: dateStr)
+//        let aShoppingItem = GroceryShopping(id: "", date: date, totalPrice: price)
+//        shoppingService.create(shopping: aShoppingItem)
     }
 }

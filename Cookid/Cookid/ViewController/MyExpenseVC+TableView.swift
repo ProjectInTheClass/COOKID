@@ -60,6 +60,20 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if data[indexPath.section].name == "마트털이" {
+            if let vc = UIViewController() as? InputDataShoppingViewController {
+                let price = selectedShopping[indexPath.row].totalPrice
+                let date = selectedShopping[indexPath.row].date.dateToString()
+                self.present(vc, animated: true) {
+                    vc.dateTextField.text = date
+                    vc.priceTextField.text = String(price)
+                    vc.rightBtn.setTitle("수정", for: .normal)
+                }
+                vc.modalPresentationStyle = .overFullScreen
+            }
+        }
+    }
 }
 
 
