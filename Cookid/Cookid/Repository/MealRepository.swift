@@ -18,6 +18,7 @@ class MealRepository {
     let storage = Storage.storage().reference()
     let authRepo = AuthRepository()
     
+    lazy var ref = db.child(authRepo.uid).child(FBChild.meal)
     
     func fetchMeals(completion: @escaping ([MealEntity]) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
@@ -93,11 +94,10 @@ class MealRepository {
     }
     
     
+    
     func fetchingImageURL(mealID: String, image: UIImage, completed: @escaping (URL?) -> Void) {
         let storageRef = storage.child(mealID + ".jpg")
         let data = image.jpegData(compressionQuality: 0.8)
-        
-        
         let metadata = StorageMetadata()
         metadata.contentType = "image.jpg"
         
