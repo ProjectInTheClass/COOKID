@@ -6,6 +6,8 @@
 ////
 //
 import SwiftUI
+import Combine
+import Kingfisher
 
 @available(iOS 14.0, *)
 struct ModifyMealView: View {
@@ -18,14 +20,19 @@ struct ModifyMealView: View {
         
         @State var selectionIndex = 0
         @State var isDineOut = false
-        @State var mealType = MealType.dineIn.rawValue
+        @State var mealType: MealType?
         
         @State var isFocused: Bool = false
         @State var showImagePicker: Bool = false
-        
-        @State var show: Bool = false
+        @State var isImageSelected: Bool = false
+        @State var isMealNameModified: Bool = false
+        @State var isDateModified: Bool = false
+        @State var isPriceModified: Bool = false
+        @State var isMealTypeModified: Bool = false
+        @State var isMealTimeModified: Bool = false
         
         var cancelTapped: (() -> Void)
+        var saveTapped: (() -> Void)
         var namespace: Namespace.ID
         var meal: Meal
         
@@ -42,23 +49,51 @@ struct ModifyMealView: View {
                         Text("저장")
                             .bold()
                             .foregroundColor(.blue)
+                            .onTapGesture {
+                                saveTapped()
+                            }
                     }
                     .matchedGeometryEffect(id: "navBarItem", in: namespace)
                     .padding(.top, 24)
                     .padding(.horizontal)
                     
                     VStack {
-                        Image(systemName: "camera.circle")
-                            .font(.system(size: 40))
-                            .foregroundColor(.black.opacity(0.6))
-                            .frame(width: 150, height: 150)
-                            .background(
-                                Color.black.opacity(0.3)
-                                    .matchedGeometryEffect(id: "cameraButton", in: namespace)
-                            )
-                            .clipShape(Circle())
-                            .shadow(color: .black.opacity(0.5), radius: 20, x: 0, y: 10)
-                            .padding(.top, 30)
+                        
+                        VStack {
+                            Button(action: {
+                                showImagePicker = true
+                            }, label: {
+                                ZStack {
+                                    Image(systemName: "camera.circle")
+                                        .font(.system(size: 40))
+                                        .foregroundColor(.black.opacity(0.6))
+                                    if isImageSelected {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .onReceive(Just(image), perform: { newImage in
+                                                if isImageSelected {
+                                                    MealRepository.shared.fetchingImageURL(mealID: meal.id!, image: newImage) { url in
+                                                        meal.image = url
+                                                    }
+                                                } else {
+                                                    meal.image = meal.image
+                                                }
+                                            })
+                                    } else {
+                                        KFImage.url(meal.image)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                    }
+                                }
+                            })
+                        }
+                        .frame(width: 150, height: 150)
+                        .background(Color.clear.matchedGeometryEffect(id: "cameraButton", in: namespace))
+                        .clipShape(Circle())
+                        .shadow(color: .black.opacity(0.5), radius: 20, x: 0, y: 10)
+                        .padding(.top, 30)
+                        
                     }
                     
                     // Switch
@@ -70,11 +105,11 @@ struct ModifyMealView: View {
                                     .foregroundColor(.gray)
                             })
                             .toggleStyle(SwitchToggleStyle(tint: Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1))))
-                            .onChange(of: isDineOut, perform: { value in
-                                if value {
-                                    self.mealType = MealType.dineOut.rawValue
+                            .onReceive([self.isDineOut].publisher.first(), perform: { isDineOut in
+                                if isDineOut {
+                                    meal.mealType = .dineOut
                                 } else {
-                                    self.mealType = MealType.dineIn.rawValue
+                                    meal.mealType = .dineIn
                                 }
                             })
                         }
@@ -99,6 +134,13 @@ struct ModifyMealView: View {
                                 VStack {
                                     TextField("\(meal.price)", text: $price)
                                         .keyboardType(.numberPad)
+                                        .onReceive(Just(price), perform: { newPrice in
+                                            if newPrice == "" {
+                                                meal.price = meal.price
+                                            } else {
+                                                meal.price = Int(newPrice)!
+                                            }
+                                        })
                                 }
                                 .frame(height: 44)
                                 .frame(maxWidth: .infinity)
@@ -123,7 +165,10 @@ struct ModifyMealView: View {
                         .padding(.leading, 40)
                         
                         VStack {
-                            DatePickerTextField(placeHolder: meal.date.dateToString() ?? Date().dateToString(), date: $selectedDate)
+                            DatePickerTextField(placeHolder: meal.date.dateToString(), date: $selectedDate)
+                                .onReceive(Just(selectedDate), perform: { newDate in
+                                    meal.date = newDate ?? meal.date
+                                })
                         }
                         .frame(height: 44)
                         .frame(maxWidth: .infinity)
@@ -151,6 +196,9 @@ struct ModifyMealView: View {
                                 placeholder: "\(meal.mealTime.rawValue)",
                                 selectionIndex: $selectionIndex,
                                 text: $mealTime)
+                                .onReceive(Just(mealTime), perform: { newMealTime in
+                                    meal.mealTime = MealTime(rawValue: newMealTime) ?? meal.mealTime
+                                })
                         }
                         .frame(height: 44)
                         .frame(maxWidth: .infinity)
@@ -186,6 +234,13 @@ struct ModifyMealView: View {
                                 .onTapGesture {
                                     isFocused = true
                                 }
+                                .onReceive(Just(mealName), perform: { newMealName in
+                                    if newMealName == "" {
+                                        meal.name = meal.name
+                                    } else {
+                                        meal.name = newMealName
+                                    }
+                                })
                         }
                     }
                     .padding(.bottom,30)
@@ -199,6 +254,9 @@ struct ModifyMealView: View {
                         isDineOut = true
                     }
                 }
+                .sheet(isPresented: $showImagePicker, content: {
+                    ImagePicker(selectedImage: $image, isImageSelected: $isImageSelected)
+                })
             }
         func hideKeyboard() {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)

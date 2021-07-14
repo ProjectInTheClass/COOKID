@@ -5,18 +5,19 @@
 //  Created by 임현지 on 2021/07/12.
 //
 import SwiftUI
+import Kingfisher
 
 
 struct MealDetailView: View {
     @State var edit: Bool = false
-    @State var delete: Bool = false
     @Namespace var namespace
     
     var deleteTapped: (() -> Void)
     var saveTapped: (() -> Void)
+    var cancelTapped: (() -> Void)
 
-    var meal : Meal = Meal(id: nil, price: 25000, date: Date(), name: "간장게장", image: nil, mealType: .dineOut, mealTime: .dinner)
-
+    var meal : Meal
+    
     var body: some View {
         if #available(iOS 14.0, *) {
             ZStack {
@@ -27,7 +28,6 @@ struct MealDetailView: View {
                                 .bold()
                                 .foregroundColor(.red)
                                 .onTapGesture {
-                                    delete.toggle()
                                     deleteTapped()
                                 }
                             Spacer()
@@ -48,12 +48,13 @@ struct MealDetailView: View {
                             .padding(.vertical)
 
                         HStack {
-                            Image(systemName: "camera.circle")
-                                .font(.system(size: 40))
-                                .foregroundColor(.black.opacity(0.6))
+                            //Image(systemName: "camera.circle")
+                            KFImage.url(meal.image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
                                 .frame(width: 100, height: 100)
                                 .background(
-                                    Color.black.opacity(0.3)
+                                    Color.clear
                                         .matchedGeometryEffect(id: "cameraButton",
                                                                in: namespace,
                                                                isSource: !edit)
@@ -65,11 +66,11 @@ struct MealDetailView: View {
 
                             VStack(alignment: .center, spacing: 8) {
                                 HStack(alignment: .center, spacing: 18) {
-                                    Text(meal.name ?? "오삼불고기")
+                                    Text(meal.name)
                                         .matchedGeometryEffect(id: "mealName", in: namespace, isSource: !edit)
                                         .font(.system(size: 22, weight: .bold, design: .rounded))
                                         .lineLimit(1)
-                                    Text(meal.mealType.rawValue ?? "🍚집밥")
+                                    Text(meal.mealType.rawValue)
                                         .font(.system(size: 18, weight: .regular, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
                                 }
@@ -78,10 +79,10 @@ struct MealDetailView: View {
                                 Divider()
 
                                 HStack(alignment: .center, spacing: 16) {
-                                    Text(meal.date.dateToString() ?? "2021년 7월 11일")
+                                    Text(meal.date.dateToString())
                                         .font(.system(size: 14, weight: .medium, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
-                                    Text(meal.mealTime.rawValue ?? "점저")
+                                    Text(meal.mealTime.rawValue)
                                         .font(.system(size: 16, weight: .medium, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
                                         .padding(2)
@@ -92,8 +93,8 @@ struct MealDetailView: View {
                                     Divider()
 
                                     HStack(alignment: .center, spacing: 16) {
-                                        Text("8,900원")
-                                            .font(.system(size: 21, weight: .light, design: .rounded))
+                                        Text(String(meal.price))
+                                            .font(.system(size: 21, weight: .thin, design: .rounded))
                                             .foregroundColor(Color.black.opacity(0.7))
                                     }
                                 }
@@ -111,9 +112,12 @@ struct MealDetailView: View {
                     .cornerRadius(30)
                     .padding()
                     .shadow(radius: 20)
+                    .onTapGesture {
+                        cancelTapped()
+                    }
                 } else {
                     if #available(iOS 14.0, *) {
-                        ModifyMealView(cancelTapped: saveTapped, namespace: namespace, meal: meal )
+                        ModifyMealView(cancelTapped: cancelTapped, saveTapped: saveTapped, namespace: namespace, meal: meal)
                             
                     } else {
                         ModifyMealViewForAvailable(meal: meal)
@@ -122,7 +126,6 @@ struct MealDetailView: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color.clear)
-            
         } else {
             ZStack {
                 if !edit {
@@ -132,7 +135,6 @@ struct MealDetailView: View {
                                 .bold()
                                 .foregroundColor(.red)
                                 .onTapGesture {
-                                    delete.toggle()
                                     deleteTapped()
                                 }
                             Spacer()
@@ -164,10 +166,10 @@ struct MealDetailView: View {
 
                             VStack(alignment: .center, spacing: 8) {
                                 HStack(alignment: .center, spacing: 18) {
-                                    Text(meal.name ?? "오삼불고기")
+                                    Text(meal.name)
                                         .font(.system(size: 22, weight: .bold, design: .rounded))
                                         .lineLimit(1)
-                                    Text(meal.mealType.rawValue ?? "🍚집밥")
+                                    Text(meal.mealType.rawValue)
                                         .font(.system(size: 18, weight: .regular, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
                                 }
@@ -176,10 +178,10 @@ struct MealDetailView: View {
                                 Divider()
 
                                 HStack(alignment: .center, spacing: 16) {
-                                    Text(meal.date.dateToString() ?? "2021년 7월 11일")
+                                    Text(meal.date.dateToString())
                                         .font(.system(size: 14, weight: .medium, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
-                                    Text(meal.mealTime.rawValue ?? "점저")
+                                    Text(meal.mealTime.rawValue)
                                         .font(.system(size: 16, weight: .medium, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
                                         .padding(2)
@@ -190,8 +192,8 @@ struct MealDetailView: View {
                                     Divider()
 
                                     HStack(alignment: .center, spacing: 16) {
-                                        Text("8,900원")
-                                            .font(.system(size: 21, weight: .light, design: .rounded))
+                                        Text(String(meal.price))
+                                            .font(.system(size: 21, weight: .thin, design: .rounded))
                                             .foregroundColor(Color.black.opacity(0.7))
                                     }
                                 }
@@ -206,14 +208,19 @@ struct MealDetailView: View {
                     .cornerRadius(30)
                     .padding()
                     .shadow(radius: 20)
+                    .onTapGesture {
+                        cancelTapped()
+                    }
                 } else {
                     if #available(iOS 14.0, *) {
-                        ModifyMealView(cancelTapped: saveTapped, namespace: namespace, meal: meal)
+                        ModifyMealView(cancelTapped: saveTapped, saveTapped: saveTapped, namespace: namespace, meal: meal)
                     } else {
                         ModifyMealViewForAvailable(meal: meal)
                     }
                 }
             }
+            .frame(maxWidth: .infinity)
+            .background(Color.clear)
         }
     }
 }

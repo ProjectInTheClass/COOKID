@@ -47,6 +47,7 @@ class UserRepository {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
             let userDic: [String:Any] = [
+                "userID": uid,
                 "nickname": userInfo.nickname,
                 "determination" : userInfo.determination,
                 "priceGoal" : userInfo.priceGoal,
@@ -56,11 +57,15 @@ class UserRepository {
             let reference = self.db.child(uid).child(FBChild.user)
             reference.setValue(userDic)
         }
-        
     }
     
+    
     func updateUserInfo(user: User) {
+        authRepo.signInAnonymously { [weak self] uid in
+            guard let self = self else { return }
+            
         let userDic: [String:Any] = [
+            "userID" : uid,
             "nickname": user.nickname,
             "determination" : user.determination,
             "priceGoal" : user.priceGoal,
@@ -68,8 +73,9 @@ class UserRepository {
             "userId" : user.userID
         ]
         
-        let reference = self.db.child(user.userID).child(FBChild.user)
-        reference.setValue(userDic)
+            let reference = self.db.child(user.userID).child(user.userID)
+        reference.updateChildValues(userDic)
+        }
     }
     
     
