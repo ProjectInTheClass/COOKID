@@ -27,7 +27,7 @@ class PanModalHeaderView: UIView {
     let subtitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        label.textColor = #colorLiteral(red: 0.7019607843, green: 0.7058823529, blue: 0.7137254902, alpha: 1)
+        label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         label.font = .systemFont(ofSize: 13)
         label.text = "오늘은 얼마를 사용하셨나요?"
         return label
@@ -53,6 +53,7 @@ class PanModalHeaderView: UIView {
         stackView.alignment = .leading
         stackView.spacing = 4.0
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.layer.cornerRadius = 10
         return stackView
     }()
     
@@ -68,7 +69,8 @@ class PanModalHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        
         
         addSubview(stackView)
         addSubview(seperatorView)

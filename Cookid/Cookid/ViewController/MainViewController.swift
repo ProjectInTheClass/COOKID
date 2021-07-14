@@ -116,9 +116,10 @@ class MainViewController: UIViewController {
         
         addShoppingButton.rx.tap
             .subscribe(onNext: {
-                let inputShoppingDataView = InputDataShoppingViewController()
+                let vc = InputDataShoppingViewController()
                 
-                self.presentPanModal(inputShoppingDataView)
+                vc.modalPresentationStyle = .overFullScreen
+                self.present(vc, animated: true, completion: nil)
                 
                 print("석현님 여기다가 VC 띄워주세요")
             })
