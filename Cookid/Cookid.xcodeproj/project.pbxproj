@@ -68,6 +68,7 @@
 		DB1982ED269BF3660055742B /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1982EC269BF3660055742B /* UserInformationViewController.swift */; };
 		DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1982EE269BF7D30055742B /* UserInfo.storyboard */; };
 		DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDA046726969A6500B5C1D6 /* UserService.swift */; };
+		DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +134,7 @@
 		DB1982EC269BF3660055742B /* UserInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserInformationViewController.swift; path = COOKID/ViewController/UserInformationViewController.swift; sourceTree = SOURCE_ROOT; };
 		DB1982EE269BF7D30055742B /* UserInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UserInfo.storyboard; path = COOKID/View/Storyboard/UserInfo.storyboard; sourceTree = SOURCE_ROOT; };
 		DBDA046726969A6500B5C1D6 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = COOKID/Service/UserService.swift; sourceTree = SOURCE_ROOT; };
+		DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +223,7 @@
 				032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */,
 				035E492626975815002CC084 /* MainViewModel.swift */,
 				0395B61426941121009289B7 /* MyMealViewModel.swift */,
+				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				DB1982ED269BF3660055742B /* UserInformationViewController.swift in Sources */,
 				C64560C1269D4C0E009B249F /* DatePickerTextField.swift in Sources */,
 				C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */,
+				DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
 				035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */,
