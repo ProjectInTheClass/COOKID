@@ -22,7 +22,6 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
     }()
     
     var headerView = PanModalHeaderView()
-        
     let shoppingService = ShoppingService()
     
     var rightBtn = PanModalHeaderView().rightBtn
@@ -143,8 +142,6 @@ extension InputDataShoppingViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: InputDataTableViewCell.identifier, for: indexPath) as? InputDataTableViewCell else { return UITableViewCell() }
         
-
-        
         switch indexPath.section {
         case 1:
             cell.contentView.addSubview(dateTextField)
@@ -165,6 +162,7 @@ extension InputDataShoppingViewController {
         }
         return cell
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
@@ -173,6 +171,7 @@ extension InputDataShoppingViewController {
             return 1
         }
     }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
@@ -188,12 +187,11 @@ extension InputDataShoppingViewController {
 }
 
 //MARK: - saveButtonTapped
-
 extension InputDataShoppingViewController {
     func createNewShopping () -> Void {
-//        guard let dateStr = dateTextField.text, let priceStr = priceTextField.text, let price = Int(priceStr) else { return }
-//        let date = stringToDate(date: dateStr)
-//        let aShoppingItem = GroceryShopping(id: "", date: date, totalPrice: price)
-//        shoppingService.create(shopping: aShoppingItem)
+        guard let dateStr = dateTextField.text, let priceStr = priceTextField.text, let price = Int(priceStr) else { return }
+        let date = stringToDate(date: dateStr)
+        let aShoppingItem = GroceryShopping(id: "", date: date, totalPrice: price)
+        shoppingService.create(shopping: aShoppingItem)
     }
 }

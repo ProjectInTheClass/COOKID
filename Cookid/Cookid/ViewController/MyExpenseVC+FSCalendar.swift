@@ -52,7 +52,6 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-        
         if dineOutMeals.map({$0.date}).contains(date) {
             return .red
         }
@@ -66,7 +65,6 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
 //        if !(selectedShopping?.isEmpty ?? true) {
 //            return .green
 //        }
-        
         return UIColor.clear
     }
     
