@@ -52,7 +52,7 @@ class MealService {
     @discardableResult
     func delete(meal: Meal) -> Observable<Meal> {
         
-        // mealRepository.deleteMealToFirebase(meal: meal)
+         mealRepository.deleteMealToFirebase(meal: meal)
         
         if let index = meals.firstIndex(where: { $0.id == meal.id }) {
             meals.remove(at: index)

@@ -107,16 +107,10 @@ class MainViewController: UIViewController {
         
         addMealButton.rx.tap
             .subscribe(onNext: {
-//                let vc = InputMealViewController()
-//                vc.modalPresentationStyle = .formSheet
-//                self.present(vc, animated: true, completion: nil)
-                let mealDatailView = MealDetailView(
-                    deleteTapped: { self.dismiss(animated: true, completion: nil)},
-                    saveTapped: { self.dismiss(animated: true, completion: nil)})
-                let vc = UIHostingController(rootView: mealDatailView)
-                vc.modalPresentationStyle = .custom
-                vc.view.backgroundColor = .clear
+                let vc = InputMealViewController()
+                vc.modalPresentationStyle = .formSheet
                 self.present(vc, animated: true, completion: nil)
+                
             })
             .disposed(by: rx.disposeBag)
         
@@ -191,7 +185,21 @@ class MainViewController: UIViewController {
                 self.mealDayCollectionView.deselectItem(at: indexPath, animated: false)
             })
             .subscribe(onNext: { meal, _ in
-                
+                let mealDatailView = MealDetailView(
+                    deleteTapped: {
+                        MealService.shared.delete(meal: meal)
+                        self.dismiss(animated: true, completion: nil)
+                    },
+                    saveTapped: {
+                        MealService.shared.update(updateMeal: meal)
+                        self.dismiss(animated: true, completion: nil)
+                    },
+                    cancelTapped: {self.dismiss(animated: true, completion: nil)},
+                    meal: meal)
+                let vc = UIHostingController(rootView: mealDatailView)
+                vc.modalPresentationStyle = .custom
+                vc.view.backgroundColor = .clear
+                self.present(vc, animated: true, completion: nil)
             })
             .disposed(by: rx.disposeBag)
             

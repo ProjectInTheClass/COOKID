@@ -227,7 +227,7 @@ struct InputMealView: View {
                     Text("Cancle")
                 }), trailing: Button(action: {
                     if isImageSelected {
-                        MealRepository.shared.fetchingImageURL(uid: AuthRepository.shared.uid, mealID: mealName, image: image) { url in
+                        MealRepository.shared.fetchingImageURL(mealID: mealName, image: image) { url in
                             self.meal = Meal(
                                 id: nil,
                                 price: Int(price) ?? 0,

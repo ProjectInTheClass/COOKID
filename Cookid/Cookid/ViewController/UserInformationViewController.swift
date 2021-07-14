@@ -39,7 +39,7 @@ class UserInformationViewController: UIViewController {
             if let text = self.nickNameTextField.text{
                 return text.isEmpty ? self.user.nickname : text
             }
-        }
+        
         
         var newGoal: String {
             if let text = self.budgetTextField.text{

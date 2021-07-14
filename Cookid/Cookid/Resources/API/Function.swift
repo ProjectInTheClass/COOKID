@@ -25,10 +25,9 @@ func stringToDate(date: String) -> Date {
     return date!
 }
 
-func dateToInt(date: Date) -> Int {
-    var calendar = Calendar(identifier: .gregorian)
-    calendar.locale = Locale(identifier: "ko")
-    let datecomponents = calendar.dateComponents([.year, .month], from: date)
-    let startOfMonth = calendar.date(from: datecomponents)!
-    return Int(startOfMonth.timeIntervalSince1970)
+
+extension Date {
+    func dateToInt() -> Int {
+        return Int(self.timeIntervalSince1970)
+    }
 }
