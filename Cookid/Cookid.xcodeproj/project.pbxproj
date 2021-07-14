@@ -515,12 +515,9 @@
 				355A36B726989461001A5CD8 /* MyExpenseVC+FSCalendar.swift in Sources */,
 				032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */,
 				355A36BB2698956F001A5CD8 /* ExpenseTableViewCell.swift in Sources */,
-
 				C64560B6269D4BEF009B249F /* ModifyMealViewForAvailable.swift in Sources */,
 				C64560B5269D4BEF009B249F /* ModifyMealView.swift in Sources */,
-
 				353BE570269D72B7006A6A47 /* InputDataTableViewCell.swift in Sources */,
-
 				035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */,
 				241523B4269D24860077941A /* Function.swift in Sources */,
 				C64560B1269D4BDF009B249F /* MealDetailViewController.swift in Sources */,
@@ -705,6 +702,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -725,6 +723,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
