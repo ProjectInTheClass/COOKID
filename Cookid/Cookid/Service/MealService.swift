@@ -72,7 +72,7 @@ class MealService {
                 let image = model.image
                 let mealType = MealType(rawValue: model.mealType) ?? .dineIn
                 let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
-                return Meal(id: nil, price: price, date: date, name: name, image: URL(string: image!) ?? nil, mealType: mealType, mealTime: mealTime)
+                return Meal(id: id, price: price, date: date, name: name, image: URL(string: image!) ?? nil, mealType: mealType, mealTime: mealTime)
             }
             completion(mealModels)
             self.meals = mealModels

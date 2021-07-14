@@ -184,6 +184,17 @@ class MainViewController: UIViewController {
         // rx delegate
         mealDayCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
         
+        Observable.zip(mealDayCollectionView.rx.modelSelected(Meal.self), mealDayCollectionView.rx.itemSelected)
+            .observe(on: MainScheduler.instance)
+            .do(onNext: { _, indexPath in
+                self.mealDayCollectionView.deselectItem(at: indexPath, animated: false)
+            })
+            .subscribe(onNext: { meal, _ in
+                
+            })
+            .disposed(by: rx.disposeBag)
+            
+        
     }
 }
 
