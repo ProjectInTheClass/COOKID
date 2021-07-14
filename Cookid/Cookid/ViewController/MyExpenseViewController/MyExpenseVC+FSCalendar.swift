@@ -22,7 +22,6 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         print("did select date \(self.dateFormatter.string(from: date))")
         
         let selectedDates = [date]
-        
         updateData(dates: selectedDates)
 
         DispatchQueue.main.async {

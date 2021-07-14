@@ -83,7 +83,8 @@ extension MyExpenseViewController {
         var mealArr : [Meal] = []
         
         for date in selectedDate {
-            mealArr = meals.filter{ $0.date.dateToString() == date.dateToString() }
+            let meal = meals.filter{ $0.date.dateToString() == date.dateToString()}
+            mealArr += meal
         }
         return mealArr
     }
@@ -92,7 +93,8 @@ extension MyExpenseViewController {
         var shoppingArr : [GroceryShopping] = []
         
         for date in selectedDate {
-            shoppingArr = shoppings.filter{$0.date.dateToString() == date.dateToString()}
+            let shopping = shoppings.filter{$0.date.dateToString() == date.dateToString()}
+            shoppingArr += shopping
         }
         return shoppingArr
     }
@@ -143,7 +145,6 @@ extension MyExpenseViewController {
             }
             return shouldBegin
         }
-
     }
     
     func updateData (dates: [Date]) {

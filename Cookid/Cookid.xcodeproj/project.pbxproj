@@ -233,12 +233,10 @@
 				C64560C4269DC982009B249F /* InputMealViewController */,
 				C64560C3269DC96A009B249F /* MealDtailViewController */,
 				032233C92692A8310092DD6D /* onboarding */,
+				35160674269F2047008B7264 /* MyExpenseViewController */,
 				032233B7269276DB0092DD6D /* MainViewController.swift */,
 				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
 				032233BB269279DC0092DD6D /* MyMealViewController.swift */,
-				032233BD26927A160092DD6D /* MyExpenseViewController.swift */,
-				355A36B626989461001A5CD8 /* MyExpenseVC+FSCalendar.swift */,
-				355A36B8269894A5001A5CD8 /* MyExpenseVC+TableView.swift */,
 				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
 			);
 			path = ViewController;
@@ -336,6 +334,16 @@
 				892F362497B138331AC4FAC2 /* Pods_Cookid.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		35160674269F2047008B7264 /* MyExpenseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				032233BD26927A160092DD6D /* MyExpenseViewController.swift */,
+				355A36B626989461001A5CD8 /* MyExpenseVC+FSCalendar.swift */,
+				355A36B8269894A5001A5CD8 /* MyExpenseVC+TableView.swift */,
+			);
+			path = MyExpenseViewController;
 			sourceTree = "<group>";
 		};
 		353BE56C269D6A85006A6A47 /* InputShoppingDataModalView */ = {
