@@ -6,11 +6,22 @@
 //
 
 import UIKit
-import PanModal
 import SnapKit
 import Then
 
-class InputDataShoppingViewController: UITableViewController, PanModalPresentable, UITextFieldDelegate  {
+class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate  {
+    
+    var tableView: UITableView! = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.layer.cornerRadius = 10.0
+        tableView.layer.borderColor = UIColor.black.cgColor
+        tableView.allowsSelection = false
+        
+        return tableView
+    }()
+    
+    let headerView = PanModalHeaderView()
     
     var completionHandler : (() -> Void)?
     
@@ -23,6 +34,7 @@ class InputDataShoppingViewController: UITableViewController, PanModalPresentabl
         $0.placeholder = dateformatter.string(from: Date())
     }
     lazy var priceTextField = UITextField().then{
+        $0.keyboardType = .numberPad
         $0.placeholder = "금액을 입력하세요."
     }
     
@@ -31,110 +43,23 @@ class InputDataShoppingViewController: UITableViewController, PanModalPresentabl
         return true
     }
     
-    //MARK: - PanModalPresentable SetUp
-    
-    let contentInsets = UIEdgeInsets(top: 8.0, left: 16.0, bottom: 8.0, right: 16.0)
-    
-    var hasLoaded : Bool = false
-    
-    var anchorModalToLongForm: Bool {
-        return false
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    var panScrollable: UIScrollView? {
-        return nil
-    }
-    
-    let headerView = PanModalHeaderView()
-    
-    var isShortFormEnabled = true
-    
-    var shortFormHeight: PanModalHeight {
-        if hasLoaded {
-            return .contentHeight(400.0)
-        }
-        return .contentHeight(200.0)
-    }
-    
-    var longFormHeight: PanModalHeight {
-        return .maxHeightWithTopInset(40)
-    }
-    
-    func shouldPrioritize(panModalGestureRecognizer: UIPanGestureRecognizer) -> Bool {
-        let location = panModalGestureRecognizer.location(in: view)
-        return headerView.frame.contains(location)
-    }
-    
-    var scrollIndicatorInsets: UIEdgeInsets {
-        let bottomOffset = presentingViewController?.view.safeAreaInsets.bottom ?? 0
-        return UIEdgeInsets(top: headerView.frame.size.height, left: 0, bottom: bottomOffset, right: 0)
-    }
-    
-    func willTransition(to state: PanModalPresentationController.PresentationState) {
-        guard isShortFormEnabled, case .longForm = state
-        else { return }
-        
-        isShortFormEnabled = false
-        panModalSetNeedsLayoutUpdate()
-    }
-    
-    //MARK: - keyboardNotification
-    var willShowToken : NSObjectProtocol?
-    var willHideToken : NSObjectProtocol?
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        hasLoaded = false
-        view.backgroundColor = .white
         setUpConstraints()
         setInputViewDatePicker(target: self, selector: #selector(doneTapped))
-        
-        willShowToken = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main, using: {[weak self] (noti) in
-            guard let strongSelf = self else {return}
-            
-            if let frame = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-                let height = frame.cgRectValue.height
-                var inset = strongSelf.presentingViewController!.view.safeAreaInsets
-                
-                inset.bottom = height
-                strongSelf.tableView.contentInset = inset
-                                
-                inset = strongSelf.tableView.verticalScrollIndicatorInsets
-                inset.bottom = height
-                strongSelf.tableView.scrollIndicatorInsets = inset
-                
-                strongSelf.hasLoaded = true
-                strongSelf.panModalSetNeedsLayoutUpdate()
-            }
-        })
-        
-        willHideToken = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: OperationQueue.main, using: { [weak self] (noti) in
-            guard let strongSelf = self else { return }
-            
-            var inset = strongSelf.presentingViewController!.view.safeAreaInsets
-            inset.bottom = 0
-            strongSelf.tableView.contentInset = inset
-            
-            inset = strongSelf.tableView.verticalScrollIndicatorInsets
-            inset.bottom = 0
-            strongSelf.tableView.scrollIndicatorInsets = inset
-            
-            strongSelf.hasLoaded = false
-            strongSelf.panModalSetNeedsLayoutUpdate()
-        })
     }
+    
 }
 
 //MARK: - Constraints
 extension InputDataShoppingViewController {
     func setUpConstraints() {
+        self.view.addSubview(tableView)
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -145,7 +70,12 @@ extension InputDataShoppingViewController {
         tableView.separatorStyle = .none
         tableView.register(InputDataTableViewCell.self, forCellReuseIdentifier: InputDataTableViewCell.identifier)
         
-        
+        tableView.snp.makeConstraints{
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(-20)
+            $0.width.equalTo(300)
+            $0.height.equalTo(215)
+        }
     }
     
     //MARK: - DatePicker
@@ -162,7 +92,6 @@ extension InputDataShoppingViewController {
             datePicker.preferredDatePickerStyle = .wheels
             datePicker.sizeToFit()
         }
-        
         
         self.dateTextField.inputView = datePicker
         
@@ -193,43 +122,67 @@ extension InputDataShoppingViewController {
 //MARK: - TableView
 extension InputDataShoppingViewController {
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return headerView
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if section == 0 {
+            return headerView
+        } else {
+            return nil
+        }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: InputDataTableViewCell.identifier, for: indexPath) as? InputDataTableViewCell else { return UITableViewCell() }
-        switch indexPath.row {
-        case 0:
+        
+
+        
+        switch indexPath.section {
+        case 1:
             cell.contentView.addSubview(dateTextField)
             dateTextField.snp.makeConstraints{
-                $0.top.equalTo(cell.contentView.snp.top).offset(8)
-                $0.bottom.equalTo(cell.contentView.snp.bottom).offset(8)
+                $0.centerY.equalToSuperview()
                 $0.leading.equalTo(cell.contentView.snp.leading).offset(16)
-                $0.trailing.equalTo(cell.contentView.snp.trailing).offset(16)
+                $0.trailing.equalTo(cell.contentView.snp.trailing)
             }
-        case 1:
+        case 2:
             cell.contentView.addSubview(priceTextField)
             priceTextField.snp.makeConstraints{
-                $0.top.equalTo(cell.contentView.snp.top).offset(8)
-                $0.bottom.equalTo(cell.contentView.snp.bottom).offset(8)
+                $0.centerY.equalToSuperview()
                 $0.leading.equalTo(cell.contentView.snp.leading).offset(16)
-                $0.trailing.equalTo(cell.contentView.snp.trailing).offset(16)
+                $0.trailing.equalTo(cell.contentView.snp.trailing)
             }
         default:
             return cell
         }
         return cell
     }
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if section == 0 {
+            return 0
+        } else {
+            return 1
+        }
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return nil
+        case 1:
+            return "날짜"
+        case 2:
+            return "가격"
+        default:
+            return nil
+        }
     }
 }
