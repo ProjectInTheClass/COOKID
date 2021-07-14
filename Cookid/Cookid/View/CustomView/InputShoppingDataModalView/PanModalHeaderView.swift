@@ -8,11 +8,8 @@ import UIKit
 
 class PanModalHeaderView: UIView {
     
-    var shoppingVC = InputDataShoppingViewController()
     
-    struct Constants {
-        static let contentInsets = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0)
-    }
+    let contentInsets = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0)
     
     // MARK: - Views
     
@@ -61,6 +58,7 @@ class PanModalHeaderView: UIView {
     }()
     
     @objc func completion() {
+        let shoppingVC = InputDataShoppingViewController()
         shoppingVC.createNewShopping()
     }
     
@@ -70,7 +68,6 @@ class PanModalHeaderView: UIView {
         super.init(frame: frame)
         
         backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-        
         
         addSubview(stackView)
         addSubview(seperatorView)
@@ -87,10 +84,10 @@ class PanModalHeaderView: UIView {
     
     func setupConstraints() {
         
-        stackView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.contentInsets.top).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.contentInsets.left).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.contentInsets.right).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.contentInsets.bottom).isActive = true
+        stackView.topAnchor.constraint(equalTo: topAnchor, constant: contentInsets.top).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: contentInsets.left).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -contentInsets.right).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -contentInsets.bottom).isActive = true
         
         seperatorView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         seperatorView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
