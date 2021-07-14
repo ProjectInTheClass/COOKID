@@ -55,17 +55,19 @@ struct ModifyMealView: View {
                                 meal.date = selectedDate ?? meal.date
                                 meal.image = url
                                 meal.mealTime = MealTime(rawValue: mealTime) ?? meal.mealTime
-                                meal.mealType = mealType ?? meal.mealType
+                                meal.mealType = isDineOut ? .dineOut : .dineIn
                                 meal.name = mealName == "" ? meal.name : mealName
                                 meal.price = (price == "" ? meal.price : Int(price))!
+                                print("다른 이미지 --> \(meal.image)")
                             }
                         } else {
                             meal.date = selectedDate ?? meal.date
                             meal.image = meal.image
-                            meal.mealType = mealType ?? meal.mealType
+                            meal.mealType = isDineOut ? .dineOut : .dineIn
                             meal.mealTime = MealTime(rawValue: mealTime) ?? meal.mealTime
                             meal.name = mealName == "" ? meal.name : mealName
                             meal.price = (price == "" ? meal.price : Int(price))!
+                            print("원래 이미지 --> \(meal.image)")
                         }
                         saveTapped()
                     }
@@ -76,6 +78,7 @@ struct ModifyMealView: View {
             .padding(.horizontal)
             
             
+            // Image view
             VStack {
                 Button(action: {
                     showImagePicker = true
@@ -85,15 +88,6 @@ struct ModifyMealView: View {
                             Image(uiImage: image)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .onReceive(Just(image), perform: { newImage in
-                                    if isImageSelected {
-                                        MealRepository.shared.fetchingImageURL(mealID: meal.id!, image: newImage) { url in
-                                            meal.image = url
-                                        }
-                                    } else {
-                                        meal.image = meal.image
-                                    }
-                                })
                         } else {
                             KFImage.url(meal.image)
                                 .resizable()
@@ -116,12 +110,6 @@ struct ModifyMealView: View {
                             .font(.body)
                             .foregroundColor(.gray)
                     })
-                    .onReceive(Just(isDineOut), perform: { isDineOut in
-                                if isDineOut {
-                                    mealType = .dineOut
-                                } else {
-                                    mealType = .dineIn
-                                }                    })
                     .toggleStyle(SwitchToggleStyle(tint: Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1))))
                     
                 }
@@ -247,7 +235,11 @@ struct ModifyMealView: View {
         .sheet(isPresented: $showImagePicker, content: {
             ImagePicker(selectedImage: $image, isImageSelected: $isImageSelected)
         })
-        
+        .onAppear {
+            if meal.mealType == .dineOut {
+                isDineOut = true
+            }
+        }
     }
     
     func hideKeyboard() {

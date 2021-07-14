@@ -187,15 +187,14 @@ class MainViewController: UIViewController {
             .subscribe(onNext: { meal, _ in
                 let mealDatailView = MealDetailView(
                     deleteTapped: {
-                        MealService.shared.delete(meal: meal)
+                        self.viewModel.mealService.delete(meal: meal)
                         self.dismiss(animated: true, completion: nil)
                     },
                     saveTapped: {
-                        MealService.shared.update(updateMeal: meal)
+                        self.viewModel.mealService.update(updateMeal: meal)
                         self.dismiss(animated: true, completion: nil)
                     },
                     cancelTapped: {
-                        MealService.shared.update(updateMeal: meal)
                         self.dismiss(animated: true, completion: nil)
                     },
                     meal: meal)
