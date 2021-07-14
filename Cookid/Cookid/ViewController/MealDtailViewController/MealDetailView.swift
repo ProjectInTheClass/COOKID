@@ -10,12 +10,13 @@ import Kingfisher
 
 struct MealDetailView: View {
     @State var edit: Bool = false
+    @State var isDineOut: Bool = false
     @Namespace var namespace
     
     var deleteTapped: (() -> Void)
     var saveTapped: (() -> Void)
     var cancelTapped: (() -> Void)
-
+    
     var meal : Meal
     
     var body: some View {
@@ -38,15 +39,21 @@ struct MealDetailView: View {
                                     withAnimation(.spring()) {
                                         edit.toggle()
                                     }
+                                    if meal.mealType == .dineOut {
+                                        isDineOut = true
+                                    } else if meal.mealType == .dineIn {
+                                            isDineOut = false
+                                    }
+                                    print(isDineOut)
                                 }
                         }
                         .matchedGeometryEffect(id: "navBarItem", in: namespace, isSource: !edit)
                         .padding(.top, 20)
                         .padding(.horizontal, 20)
-
+                        
                         Divider()
                             .padding(.vertical)
-
+                        
                         HStack {
                             //Image(systemName: "camera.circle")
                             KFImage.url(meal.image)
@@ -62,8 +69,8 @@ struct MealDetailView: View {
                                 .clipShape(Circle())
                                 .shadow(color: Color.black.opacity(0.5), radius: 20, x: 0, y: 10)
                                 .padding()
-
-
+                            
+                            
                             VStack(alignment: .center, spacing: 8) {
                                 HStack(alignment: .center, spacing: 18) {
                                     Text(meal.name)
@@ -74,10 +81,10 @@ struct MealDetailView: View {
                                         .font(.system(size: 18, weight: .regular, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
                                 }
-
-
+                                
+                                
                                 Divider()
-
+                                
                                 HStack(alignment: .center, spacing: 16) {
                                     Text(meal.date.dateToString())
                                         .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -88,10 +95,10 @@ struct MealDetailView: View {
                                         .padding(2)
                                         .background(RoundedRectangle(cornerRadius: 16).stroke(lineWidth: 0.4))
                                 }
-
+                                
                                 if meal.mealType == .dineOut {
                                     Divider()
-
+                                    
                                     HStack(alignment: .center, spacing: 16) {
                                         Text(String(meal.price))
                                             .font(.system(size: 21, weight: .thin, design: .rounded))
@@ -117,8 +124,11 @@ struct MealDetailView: View {
                     }
                 } else {
                     if #available(iOS 14.0, *) {
-                        ModifyMealView(cancelTapped: cancelTapped, saveTapped: saveTapped, namespace: namespace, meal: meal)
-                            
+                        ModifyMealView(isDineOut: $isDineOut,
+                                       cancelTapped: cancelTapped,
+                                       saveTapped: saveTapped,
+                                       namespace: namespace,
+                                       meal: meal)
                     } else {
                         ModifyMealViewForAvailable(meal: meal)
                     }
@@ -149,10 +159,10 @@ struct MealDetailView: View {
                         }
                         .padding(.top, 20)
                         .padding(.horizontal, 20)
-
+                        
                         Divider()
                             .padding(.vertical)
-
+                        
                         HStack {
                             Image(systemName: "camera.circle")
                                 .font(.system(size: 40))
@@ -162,8 +172,8 @@ struct MealDetailView: View {
                                 .clipShape(Circle())
                                 .shadow(color: Color.black.opacity(0.5), radius: 20, x: 0, y: 10)
                                 .padding()
-
-
+                            
+                            
                             VStack(alignment: .center, spacing: 8) {
                                 HStack(alignment: .center, spacing: 18) {
                                     Text(meal.name)
@@ -173,10 +183,10 @@ struct MealDetailView: View {
                                         .font(.system(size: 18, weight: .regular, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
                                 }
-
-
+                                
+                                
                                 Divider()
-
+                                
                                 HStack(alignment: .center, spacing: 16) {
                                     Text(meal.date.dateToString())
                                         .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -187,10 +197,10 @@ struct MealDetailView: View {
                                         .padding(2)
                                         .background(RoundedRectangle(cornerRadius: 16).stroke(lineWidth: 0.4))
                                 }
-
+                                
                                 if meal.mealType == .dineOut {
                                     Divider()
-
+                                    
                                     HStack(alignment: .center, spacing: 16) {
                                         Text(String(meal.price))
                                             .font(.system(size: 21, weight: .thin, design: .rounded))
@@ -213,7 +223,11 @@ struct MealDetailView: View {
                     }
                 } else {
                     if #available(iOS 14.0, *) {
-                        ModifyMealView(cancelTapped: saveTapped, saveTapped: saveTapped, namespace: namespace, meal: meal)
+                        ModifyMealView(isDineOut: $isDineOut,
+                                       cancelTapped: saveTapped,
+                                       saveTapped: saveTapped,
+                                       namespace: namespace,
+                                       meal: meal)
                     } else {
                         ModifyMealViewForAvailable(meal: meal)
                     }
@@ -225,13 +239,4 @@ struct MealDetailView: View {
     }
 }
 
-//struct MealDetailView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//        if #available(iOS 14.0, *) {
-//            MealDetailView()
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//    }
-//}
+

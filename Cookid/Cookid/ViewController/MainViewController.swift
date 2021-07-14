@@ -193,8 +193,12 @@ class MainViewController: UIViewController {
                     saveTapped: {
                         MealService.shared.update(updateMeal: meal)
                         self.dismiss(animated: true, completion: nil)
+                        self.mealDayCollectionView.reloadData()
                     },
-                    cancelTapped: {self.dismiss(animated: true, completion: nil)},
+                    cancelTapped: {
+                        MealService.shared.update(updateMeal: meal)
+                        self.dismiss(animated: true, completion: nil)
+                    },
                     meal: meal)
                 let vc = UIHostingController(rootView: mealDatailView)
                 vc.modalPresentationStyle = .custom
