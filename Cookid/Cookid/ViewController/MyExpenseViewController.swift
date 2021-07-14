@@ -10,7 +10,13 @@ import FSCalendar
 import SnapKit
 import Then
 
-class MyExpenseViewController: UIViewController {
+class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBased {
+    
+    var viewModel: MainViewModel!
+    
+    func bindViewModel() {
+        
+    }
     
     @IBOutlet weak var averageExpenseLabel: UILabel!
     @IBOutlet weak var calendar: FSCalendar!
@@ -50,6 +56,15 @@ class MyExpenseViewController: UIViewController {
         setUpConstraint()
         fetchShopping()
         fetchMeals()
+        configureNavTab()
+    }
+    
+    private func configureNavTab() {
+        self.navigationItem.title = "식비 관리 🛒"
+        self.navigationItem.largeTitleDisplayMode = .automatic
+        self.tabBarItem.image = UIImage(systemName: "cart")
+        self.tabBarItem.selectedImage = UIImage(systemName: "cart.fill")
+        self.tabBarItem.title = "식비 관리"
     }
     
     deinit {
