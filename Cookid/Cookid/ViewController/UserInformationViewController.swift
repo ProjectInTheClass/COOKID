@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import FirebaseDatabase
+
 
 class UserInformationViewController: UIViewController {
     
@@ -20,7 +20,8 @@ class UserInformationViewController: UIViewController {
     @IBOutlet weak var newDeterminationTextField: UITextField!
     
     var user: User!
-    let db = Database.database().reference()
+    
+    let viewModel = UserInfoUpdateViewModel(userService: UserService())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,29 +35,32 @@ class UserInformationViewController: UIViewController {
     
     @IBAction func checkBtnTapped(_ sender: UIButton) {
        
+        var newNickname: String {
+            if let text = self.nickNameTextField.text{
+                return text.isEmpty ? self.user.nickname : text
+            }
+        }
         
-        let newNickname = nickNameTextField.text
+        var newGoal: String {
+            if let text = self.budgetTextField.text{
+                return text.isEmpty ? self.user.priceGoal : text
+            }
+        }
         
-        let newGoal = budgetTextField.text
+        var newDetermination: String {
+            if let text = self.newDeterminationTextField.text{
+                return text.isEmpty ? self.user.determination : text
+            }
+        }
         
-        let newDetermination = newDeterminationTextField.text
-       
-        updateUser(nickName: newNickname, newGoal: newGoal, newDetermination: newDetermination)
+        let user = User(userID: self.user.userID, nickname: newNickname, determination: newDetermination, priceGoal: newGoal, userType: self.user.userType)
+        
+        updateUser(user: user)
     }
     
-    func updateUser(nickName: String?, newGoal: String?, newDetermination: String?){
+    func updateUser(user: User){
         
-        if let nickName = nickName {
-            db.root.child(user.userID).child("user").updateChildValues(["nickname" : nickName])
-        }
-        
-        if let newGoal = newGoal {
-            db.root.child(user.userID).child("user").updateChildValues(["priceGoal" : newGoal])
-        }
-        
-        if let newDetermination = newDetermination {
-            db.root.child(user.userID).child("user").updateChildValues(["determination" : newDetermination])
-        }
+        self.viewModel.updateUser(user: user)
     }
     
     @IBAction func BGTapped(_ sender: Any) {

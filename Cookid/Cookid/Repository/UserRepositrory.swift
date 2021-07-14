@@ -50,7 +50,8 @@ class UserRepository {
                 "nickname": userInfo.nickname,
                 "determination" : userInfo.determination,
                 "priceGoal" : userInfo.priceGoal,
-                "userType" : userInfo.userType.rawValue
+                "userType" : userInfo.userType.rawValue,
+                "userId" : userInfo.userID
             ]
             let reference = self.db.child(uid).child(FBChild.user)
             reference.setValue(userDic)
@@ -58,7 +59,18 @@ class UserRepository {
         
     }
     
-    
+    func updateUserInfo(user: User) {
+        let userDic: [String:Any] = [
+            "nickname": user.nickname,
+            "determination" : user.determination,
+            "priceGoal" : user.priceGoal,
+            "userType" : user.userType.rawValue,
+            "userId" : user.userID
+        ]
+        
+        let reference = self.db.child(user.userID).child(FBChild.user)
+        reference.setValue(userDic)
+    }
     
     
     
