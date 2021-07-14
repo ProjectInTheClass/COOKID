@@ -8,7 +8,7 @@ import UIKit
 
 class PanModalHeaderView: UIView {
     
-    //    let completionHandler : (() -> Void)?
+    var shoppingVC = InputDataShoppingViewController()
     
     struct Constants {
         static let contentInsets = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0)
@@ -43,10 +43,6 @@ class PanModalHeaderView: UIView {
         return btn
     }()
     
-    @objc func completion () {
-        completion()
-    }
-    
     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
         stackView.axis = .vertical
@@ -63,6 +59,10 @@ class PanModalHeaderView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    @objc func completion() {
+        shoppingVC.createNewShopping()
+    }
     
     // MARK: - Initializers
     
