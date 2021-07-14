@@ -27,9 +27,6 @@ class InputMealViewController: UIViewController {
             self.cancellable = self.delegate.$meal.sink(receiveValue: { meal in
                 guard let newMeal = meal else { return }
                 self.viewModel.performCreate(meal: newMeal)
-                print(newMeal.name)
-            })}))
-        
         inputMealView.view.translatesAutoresizingMaskIntoConstraints = false
         self.addChild(inputMealView)
         self.view.addSubview(inputMealView.view)

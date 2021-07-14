@@ -207,7 +207,10 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                         self.viewModel.mealService.update(updateMeal: meal)
                         self.dismiss(animated: true, completion: nil)
                     },
-                    cancelTapped: {self.dismiss(animated: true, completion: nil)},
+                    cancelTapped: {
+                        MealService.shared.update(updateMeal: meal)
+                        self.dismiss(animated: true, completion: nil)
+                    },
                     meal: meal)
                 let vc = UIHostingController(rootView: mealDatailView)
                 vc.modalPresentationStyle = .custom
