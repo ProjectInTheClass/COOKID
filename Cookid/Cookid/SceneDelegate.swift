@@ -18,11 +18,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-//        let pageVC = OnboardingPageViewViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-//
-//        window = UIWindow(windowScene: windowScene)
-//        window?.rootViewController = pageVC
-//        window?.makeKeyAndVisible()
+        let mealService = MealService()
+        let userService = UserService()
+        let shoppingService = ShoppingService()
+
+        var mainVC = MainViewController.instantiate(storyboardID: "Main")
+        mainVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
+        let mainNVC = UINavigationController(rootViewController: mainVC)
+        mainVC.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        var myMealVC = MyMealViewController.instantiate(storyboardID: "MyMealTap")
+        myMealVC.bind(viewModel: MyMealViewModel(mealService: mealService))
+        let myMealNVC = UINavigationController(rootViewController: myMealVC)
+        myMealVC.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        var myExpenseVC = MyExpenseViewController.instantiate(storyboardID: "MyExpenseTap")
+        myExpenseVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
+        let myExpenseNVC = UINavigationController(rootViewController: myExpenseVC)
+        myExpenseVC.navigationController?.navigationBar.prefersLargeTitles = true
+    
+
+        let tabBarController = UITabBarController()
+        tabBarController.setViewControllers([mainNVC, myMealNVC, myExpenseNVC], animated: false)
+        tabBarController.tabBar.tintColor = .black
+        
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

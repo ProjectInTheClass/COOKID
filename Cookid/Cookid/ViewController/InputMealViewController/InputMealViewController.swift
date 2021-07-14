@@ -10,6 +10,8 @@ import SwiftUI
 import Combine
 
 class InputMealViewController: UIViewController {
+    
+    let viewModel = MainViewModel(mealService: MealService(), userService: UserService(), shoppingService: ShoppingService())
 
     private let delegate = InputMealViewDelegate()
     private var cancellable: AnyCancellable?
@@ -24,8 +26,8 @@ class InputMealViewController: UIViewController {
              saveButtonTapped: {
             self.cancellable = self.delegate.$meal.sink(receiveValue: { meal in
                 guard let newMeal = meal else { return }
-                MealService.shared.create(meal: newMeal)
-                print(newMeal)
+                self.viewModel.performCreate(meal: newMeal)
+                print(newMeal.name)
             })}))
         
         inputMealView.view.translatesAutoresizingMaskIntoConstraints = false
