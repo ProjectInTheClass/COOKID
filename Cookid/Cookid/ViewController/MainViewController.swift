@@ -193,7 +193,6 @@ class MainViewController: UIViewController {
                     saveTapped: {
                         MealService.shared.update(updateMeal: meal)
                         self.dismiss(animated: true, completion: nil)
-                        self.mealDayCollectionView.reloadData()
                     },
                     cancelTapped: {
                         MealService.shared.update(updateMeal: meal)
