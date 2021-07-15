@@ -22,7 +22,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     @IBOutlet weak var userDetermination: UILabel!
     @IBOutlet weak var userInfoUpdateButton: UIButton!
     
-    
     // buttonView
     @IBOutlet weak var addMealButton: UIButton!
     @IBOutlet weak var addShoppingButton: UIButton!
@@ -106,7 +105,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
-        
         monthSelectButton.rx.tap
             .subscribe(onNext: { [unowned self] in
                 let vc = SelectCalendarViewController.instantiate(storyboardID: "Main")
@@ -140,16 +138,11 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .disposed(by: rx.disposeBag)
         
         userInfoUpdateButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [unowned self] _ in
                 
+                var vc = UserInformationViewController.instantiate(storyboardID: "UserInfo")
+                vc.bind(viewModel: viewModel)
                 
-                
-                print("동환님 여기에서 VC를 띄워주시면 됩니다.")
-                let sb = UIStoryboard(name: "UserInfo", bundle: nil)
-                let vc = sb.instantiateViewController(identifier: "UserInformationViewController") as! UserInformationViewController
-                vc.completion = { user in
-                    
-                }
                 vc.modalPresentationStyle = .overCurrentContext
                 vc.modalTransitionStyle = .crossDissolve
                 self.present(vc, animated: true, completion: nil)

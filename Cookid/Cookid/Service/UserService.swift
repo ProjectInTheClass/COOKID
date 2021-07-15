@@ -33,6 +33,8 @@ class UserService {
     
     func updateUserInfo(user: User) {
         userRepository.updateUserInfo(user: user)
+        self.defaultUserInfo = user
+        self.userInfo.onNext(user)
     }
     
     func deleteUser(){

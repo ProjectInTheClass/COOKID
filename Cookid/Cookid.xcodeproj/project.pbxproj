@@ -12,7 +12,6 @@
 		032233A3269212860092DD6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032233A1269212860092DD6D /* Main.storyboard */; };
 		032233A5269212870092DD6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 032233A4269212870092DD6D /* Assets.xcassets */; };
 		032233A8269212870092DD6D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032233A6269212870092DD6D /* LaunchScreen.storyboard */; };
-		032233B8269276DB0092DD6D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
 		032233BA269277520092DD6D /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B9269277520092DD6D /* Meal.swift */; };
 		032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233BB269279DC0092DD6D /* MyMealViewController.swift */; };
 		032233BE26927A160092DD6D /* MyExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233BD26927A160092DD6D /* MyExpenseViewController.swift */; };
@@ -36,6 +35,7 @@
 		035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */; };
 		038875AD269FD1EF00D5D202 /* MyExpenseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038875AC269FD1EF00D5D202 /* MyExpenseViewModel.swift */; };
 		038875AE269FD7DA00D5D202 /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1982EC269BF3660055742B /* UserInformationViewController.swift */; };
+		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		241523B0269D093E0077941A /* ShoppingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523AF269D093E0077941A /* ShoppingService.swift */; };
 		241523B4269D24860077941A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523B3269D24860077941A /* Function.swift */; };
@@ -135,7 +135,7 @@
 		C6BFF46126949AA7006295F5 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		DB0D7D7326949818009B2D51 /* MealService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MealService.swift; path = COOKID/Service/MealService.swift; sourceTree = SOURCE_ROOT; };
 		DB1982EC269BF3660055742B /* UserInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserInformationViewController.swift; path = ../../COOKID/ViewController/UserInformationViewController.swift; sourceTree = "<group>"; };
-		DB1982EE269BF7D30055742B /* UserInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UserInfo.storyboard; path = COOKID/View/Storyboard/UserInfo.storyboard; sourceTree = SOURCE_ROOT; };
+		DB1982EE269BF7D30055742B /* UserInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UserInfo.storyboard; path = ../../../COOKID/View/Storyboard/UserInfo.storyboard; sourceTree = "<group>"; };
 		DBDA046726969A6500B5C1D6 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = COOKID/Service/UserService.swift; sourceTree = SOURCE_ROOT; };
 		DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -539,7 +539,6 @@
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
 				241523B0269D093E0077941A /* ShoppingService.swift in Sources */,
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
-				032233B8269276DB0092DD6D /* MainViewController.swift in Sources */,
 				C64560C2269D5D97009B249F /* MealDetailView.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
 				C64560BF269D4C0E009B249F /* ImagePicker.swift in Sources */,
@@ -574,6 +573,7 @@
 				C64560C1269D4C0E009B249F /* DatePickerTextField.swift in Sources */,
 				C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */,
 				DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */,
+				038875B126A030F300D5D202 /* MainViewController.swift in Sources */,
 				038875AE269FD7DA00D5D202 /* UserInformationViewController.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
