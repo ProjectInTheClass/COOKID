@@ -19,7 +19,7 @@ class ShoppingService {
     @discardableResult
     func create(shopping: GroceryShopping) -> Observable<GroceryShopping> {
         
-        // groceryRepository.uploadShoppingToFirebase(shopping: shopping)
+        groceryRepository.uploadGroceryInfo(grocery: shopping)
         
         groceryShoppings.append(shopping)
         shoppingStore.onNext(groceryShoppings)
