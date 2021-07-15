@@ -121,10 +121,10 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         addMealButton.rx.tap
             .subscribe(onNext: {
-                let vc = InputMealViewController()
-                vc.modalPresentationStyle = .formSheet
-                self.present(vc, animated: true, completion: nil)
-                
+//                let vc = InputMealViewController()
+//                vc.modalPresentationStyle = .formSheet
+//                self.present(vc, animated: true, completion: nil)
+//                
             })
             .disposed(by: rx.disposeBag)
         
