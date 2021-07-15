@@ -11,8 +11,7 @@ class Meal: Equatable {
     static func == (lhs: Meal, rhs: Meal) -> Bool {
         return true
     }
-    
-    let id: String?
+    var id: String?
     var price: Int
     var date: Date
     var name: String

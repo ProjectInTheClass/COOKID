@@ -52,7 +52,7 @@ class MealRepository {
     
     
     
-    func uploadMealToFirebase(meal: Meal) {
+    func uploadMealToFirebase(meal: Meal, completed: @escaping (String) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
             guard let key = self?.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).childByAutoId().key else { return }
             let mealDic : [String:Any] = [
@@ -65,6 +65,7 @@ class MealRepository {
                 "mealTime" : meal.mealTime.rawValue
             ]
             self?.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).child(key).setValue(mealDic)
+            completed(key)
         }
     }
     
