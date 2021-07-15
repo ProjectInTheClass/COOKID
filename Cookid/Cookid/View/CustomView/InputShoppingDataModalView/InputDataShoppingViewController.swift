@@ -41,6 +41,7 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         let dateformatter = DateFormatter()
         dateformatter.dateStyle = .long
         dateformatter.timeStyle = .none
+        dateformatter.locale = Locale(identifier: "ko_KR")
         dateformatter.dateFormat = "yyyy년 MM월 dd일"
         $0.placeholder = dateformatter.string(from: Date())
     }
@@ -48,6 +49,7 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         $0.keyboardType = .numberPad
         $0.placeholder = "금액을 입력하세요."
     }
+    var datePicker = UIDatePicker()
     
     
     let tapGesture = UITapGestureRecognizer()
@@ -71,13 +73,13 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
     
     @objc func createFunc() {
         print("btn tapped")
-        guard let price = self.priceTextField.text, price.count > 0 else {
+        guard let price = self.priceTextField.text, price.count > 0, let dateStr = self.dateTextField.text, dateStr.count > 0 else {
             self.alert(message: "입력란을 다 채워주세요!")
             return
         }
-        
-        let date = Date()
-        
+
+        let date = datePicker.date
+            
         let aShoppingItem = GroceryShopping(id: "wkwkfe", date: date, totalPrice: Int(price)!)
         
         service.create(shopping: aShoppingItem)
@@ -114,19 +116,20 @@ extension InputDataShoppingViewController {
     //MARK: - DatePicker
     func setInputViewDatePicker(target : Any, selector : Selector) {
         let screenWidth = UIScreen.main.bounds.width
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
-        datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: "ko-KR")
-        datePicker.timeZone = .autoupdatingCurrent
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.setDate(Date(), animated: true)
+        self.datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
+        self.datePicker.datePickerMode = .date
+        self.datePicker.locale = Locale(identifier: "ko-KR")
+        self.datePicker.timeZone = .autoupdatingCurrent
+        self.datePicker.translatesAutoresizingMaskIntoConstraints = false
+        self.datePicker.setDate(Date(), animated: true)
+        self.datePicker.maximumDate = Date()
         
         if #available(iOS 13.4, *) {
-            datePicker.preferredDatePickerStyle = .wheels
-            datePicker.sizeToFit()
+            self.datePicker.preferredDatePickerStyle = .wheels
+            self.datePicker.sizeToFit()
         }
         
-        self.dateTextField.inputView = datePicker
+        self.dateTextField.inputView = self.datePicker
         
         let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 44.0))
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -145,6 +148,7 @@ extension InputDataShoppingViewController {
             let dateformatter = DateFormatter()
             dateformatter.dateStyle = .long
             dateformatter.timeStyle = .none
+            dateformatter.dateFormat = "yyyy년 MM월 dd일"
             self.dateTextField.text = dateformatter.string(from: datePicker.date)
         }
         self.dateTextField.resignFirstResponder()
