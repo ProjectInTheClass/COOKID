@@ -34,23 +34,19 @@ class UserInformationViewController: UIViewController {
     }
     
     @IBAction func checkBtnTapped(_ sender: UIButton) {
-       
+        
         var newNickname: String {
+
             if let text = self.nickNameTextField.text{
                 return text.isEmpty ? self.user.nickname : text
             }
-        
-        
+
         var newGoal: String {
-            if let text = self.budgetTextField.text{
-                return text.isEmpty ? self.user.priceGoal : text
-            }
+            return self.budgetTextField.text!.isEmpty ? self.user.nickname : self.budgetTextField.text!
         }
         
         var newDetermination: String {
-            if let text = self.newDeterminationTextField.text{
-                return text.isEmpty ? self.user.determination : text
-            }
+            return self.newDeterminationTextField.text!.isEmpty ? self.user.nickname : self.newDeterminationTextField.text!
         }
         
         let user = User(userID: self.user.userID, nickname: newNickname, determination: newDetermination, priceGoal: newGoal, userType: self.user.userType)
