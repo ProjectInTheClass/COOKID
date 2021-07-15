@@ -30,15 +30,12 @@ class PanModalHeaderView: UIView {
         return label
     }()
     
-    var saveStyleBtn : UIButton?
-    
     var rightBtn : UIButton = {
         let btn = UIButton()
         btn.setTitle("저장", for: .normal)
         btn.snp.makeConstraints{
             $0.width.height.equalTo(40)
         }
-        btn.addTarget(self, action: #selector(createNewShoppingData), for: .touchUpInside)
         return btn
     }()
     
@@ -62,14 +59,7 @@ class PanModalHeaderView: UIView {
     }()
     
     @objc func createNewShoppingData() {
-        let shoppingVC = InputDataShoppingViewController()
-        
-        guard let price = shoppingVC.priceTextField.text, price != shoppingVC.priceTextField.placeholder,
-              let date = shoppingVC.dateTextField.text, date != shoppingVC.dateTextField.placeholder else {
-            shoppingVC.alert(message: "입력란을 다 채워주세요!")
-            return
-        }
-        shoppingVC.createNewShopping()
+       
     }
     
     // MARK: - Initializers

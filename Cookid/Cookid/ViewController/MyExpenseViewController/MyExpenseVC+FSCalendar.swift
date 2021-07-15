@@ -51,13 +51,13 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-        if dineOutMeals.map({$0.date}).contains(date) {
+        if dineOutMeals.map({$0.date.dateToString()}).contains(date.dateToString()) {
             return .red
         }
-        if dineInMeals.map({$0.date}).contains(date) {
+        if dineInMeals.map({$0.date.dateToString()}).contains(date.dateToString()) {
             return .yellow
         }
-        if shopping.map({$0.date}).contains(date) {
+        if shopping.map({$0.date.dateToString()}).contains(date.dateToString()) {
             return .blue
         }
         

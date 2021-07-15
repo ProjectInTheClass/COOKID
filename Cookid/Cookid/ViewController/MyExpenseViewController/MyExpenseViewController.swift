@@ -10,7 +10,13 @@ import FSCalendar
 import SnapKit
 import Then
 
-class MyExpenseViewController: UIViewController {
+class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBased {
+    
+    var viewModel: MainViewModel!
+    
+    func bindViewModel() {
+        
+    }
     
     @IBOutlet weak var averageExpenseLabel: UILabel!
     @IBOutlet weak var calendar: FSCalendar!
@@ -22,17 +28,10 @@ class MyExpenseViewController: UIViewController {
     let mealService = MealService()
     
     var meal : [Meal] = []
+    
     var shopping : [GroceryShopping] = []
-    
-    lazy var dineOutMeals : [Meal] = {
-        let dineOutMeals = meal.filter{$0.mealType == .dineOut}
-        return dineOutMeals
-    }()
-    
-    lazy var dineInMeals : [Meal] = {
-        let dineInMeals = meal.filter{$0.mealType == .dineIn}
-        return dineInMeals
-    }()
+    var dineOutMeals : [Meal] = []
+    var dineInMeals : [Meal] = []
     
     var selectedDineInMeals : [Meal] = []
     var selectedDineOutMeals : [Meal] = []
@@ -50,6 +49,15 @@ class MyExpenseViewController: UIViewController {
         setUpConstraint()
         fetchShopping()
         fetchMeals()
+        configureNavTab()
+    }
+    
+    private func configureNavTab() {
+        self.navigationItem.title = "식비 관리 🛒"
+        self.navigationItem.largeTitleDisplayMode = .automatic
+        self.tabBarItem.image = UIImage(systemName: "cart")
+        self.tabBarItem.selectedImage = UIImage(systemName: "cart.fill")
+        self.tabBarItem.title = "식비 관리"
     }
     
     deinit {
@@ -67,37 +75,7 @@ class MyExpenseViewController: UIViewController {
 }
 
 extension MyExpenseViewController {
-    func fetchShopping() {
-        shoppingService.fetchGroceries(completion: { shoppings in
-            self.shopping = shoppings
-        })
-    }
     
-    func fetchMeals() {
-        mealService.fetchMeals(completion: { meals in
-            self.meal = meals
-        })
-    }
-    
-    func findSelectedDateMealData (meals : [Meal], selectedDate : [Date]) -> [Meal] {
-        var mealArr : [Meal] = []
-        
-        for date in selectedDate {
-            let meal = meals.filter{ $0.date.dateToString() == date.dateToString()}
-            mealArr += meal
-        }
-        return mealArr
-    }
-    
-    func findSelectedDateShoppingData (shoppings : [GroceryShopping], selectedDate : [Date]) -> [GroceryShopping] {
-        var shoppingArr : [GroceryShopping] = []
-        
-        for date in selectedDate {
-            let shopping = shoppings.filter{$0.date.dateToString() == date.dateToString()}
-            shoppingArr += shopping
-        }
-        return shoppingArr
-    }
     
     //MARK: - constraints Setup
     func setUpConstraint() {
@@ -145,6 +123,39 @@ extension MyExpenseViewController {
             }
             return shouldBegin
         }
+    }
+}
+
+extension MyExpenseViewController {
+    func fetchShopping() {
+        shoppingService.fetchGroceries(completion: { shoppings in
+            self.shopping = shoppings
+        })
+    }
+    
+    func fetchMeals() {
+        mealService.fetchMeals(completion: { meals in
+            self.dineOutMeals = meals.filter{$0.mealType == .dineOut}
+            self.dineInMeals = meals.filter{$0.mealType == .dineIn}
+        })
+    }
+    
+    func findSelectedDateMealData (meals : [Meal], selectedDate : [Date]) -> [Meal] {
+        var mealArr : [Meal] = []
+        
+        for date in selectedDate {
+            mealArr = meals.filter{ $0.date.dateToString() == date.dateToString()}
+        }
+        return mealArr
+    }
+    
+    func findSelectedDateShoppingData (shoppings : [GroceryShopping], selectedDate : [Date]) -> [GroceryShopping] {
+        var shoppingArr : [GroceryShopping] = []
+        
+        for date in selectedDate {
+            shoppingArr = shoppings.filter{$0.date.dateToString() == date.dateToString()}
+        }
+        return shoppingArr
     }
     
     func updateData (dates: [Date]) {

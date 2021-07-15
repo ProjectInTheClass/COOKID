@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     // userview
     @IBOutlet weak var etcView: UIView!
@@ -51,12 +51,16 @@ class MainViewController: UIViewController {
     
     // property
     
-    let viewModel = MainViewModel(mealService: MealService(), userService: UserService(), shoppingService: ShoppingService())
+    var viewModel: MainViewModel!
+    
+    @IBAction func create(_ sender: Any) {
+        print("view")
+        viewModel.mealService.create(meal: DummyData.shared.mySingleMeal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        bindViewModel()
         setNotification()
         
     }
@@ -67,10 +71,19 @@ class MainViewController: UIViewController {
         consumeView.makeShadow()
         etcView.makeShadow()
         adviseView.makeShadow()
+        configureNavTab()
         monthSelectButton.setTitle(Date().dateToString(), for: .normal)
     }
     
-    private func bindViewModel() {
+    private func configureNavTab() {
+        self.navigationItem.title = "\(Date().convertDateToString(format: "M월")) 목표 🏳️‍🌈"
+        self.navigationItem.largeTitleDisplayMode = .automatic
+        self.tabBarItem.image = UIImage(systemName: "house")
+        self.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
+        self.tabBarItem.title = "나의 목표"
+    }
+    
+    func bindViewModel() {
         
         //input
         
@@ -165,7 +178,7 @@ class MainViewController: UIViewController {
             .delay(.milliseconds(500))
             .drive(onNext: {
                 [unowned self] value in
-                self.chartPercentLabel.text = String(value) + "%"
+                self.chartPercentLabel.text = String(Int(value)) + "%"
                 self.consumeProgressBar.progress = CGFloat(value) / CGFloat(100)
             })
             .disposed(by: rx.disposeBag)
@@ -184,16 +197,15 @@ class MainViewController: UIViewController {
             .do(onNext: { _, indexPath in
                 self.mealDayCollectionView.deselectItem(at: indexPath, animated: false)
             })
-            .subscribe(onNext: { meal, _ in
+            .subscribe(onNext: { [unowned self] meal, _ in
                 let mealDatailView = MealDetailView(
                     deleteTapped: {
-                        MealService.shared.delete(meal: meal)
+                        self.viewModel.mealService.delete(meal: meal)
                         self.dismiss(animated: true, completion: nil)
                     },
                     saveTapped: {
-                        MealService.shared.update(updateMeal: meal)
+                        self.viewModel.mealService.update(updateMeal: meal)
                         self.dismiss(animated: true, completion: nil)
-                        self.mealDayCollectionView.reloadData()
                     },
                     cancelTapped: {
                         MealService.shared.update(updateMeal: meal)

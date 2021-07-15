@@ -22,7 +22,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
     }
     
     struct Output {
-        let basicMeal: BehaviorSubject<[Meal]>
+        let basicMeal: Observable<[Meal]>
         let adviceString: Driver<String>
         let userInfo: Driver<User>
         let mealDayList: Driver<[Meal]>
@@ -43,6 +43,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         // meal & user Storage
         
         let meals = mealService.mealList()
+
         let userInfo = userService.loadUserInfo()
             .asDriver(onErrorJustReturn: User(userID: "none", nickname: "비회원", determination: "사용자 등록을 먼저 해주세요.", priceGoal: "0", userType: .preferDineOut))
         
@@ -57,6 +58,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         
         let mealDayList = Observable.of(initialMeal, yesterdayMeals, tommorowMeals, todayMeals)
             .merge()
+            .debug()
             .asDriver(onErrorJustReturn: [])
         
         let monthlyDetailed = Observable.combineLatest(userInfo.asObservable(), meals) { user, meals -> ConsumptionDetailed in
@@ -81,6 +83,10 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         
         self.input = Input(yesterdayMeals: yesterdayMeals, tommorowMeals: tommorowMeals, todayMeals: todayMeals)
         self.output = Output(basicMeal: meals, adviceString: adviceString, userInfo: userInfo, mealDayList: mealDayList, consumeProgressCalc: consumeProgressCalc, monthlyDetailed: monthlyDetailed)
+    }
+    
+    func performCreate(meal: Meal) {
+        mealService.create(meal: meal)
     }
     
 }

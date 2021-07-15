@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate  {
-            
+    
     let tableView: UITableView! = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,6 +38,8 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         $0.placeholder = "금액을 입력하세요."
     }
     
+    let tapGesture = UITapGestureRecognizer()
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         priceTextField.resignFirstResponder()
         return true
@@ -51,8 +53,22 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         super.viewDidLoad()
         setUpConstraints()
         setInputViewDatePicker(target: self, selector: #selector(doneTapped))
+        headerView.rightBtn.addTarget(self, action: #selector(createFunc) , for: .touchUpInside)
     }
     
+    
+    @objc func createFunc() {
+        print("btn tapped")
+        guard let price = self.priceTextField.text, price.count > 0,
+              let date = self.dateTextField.text, date.count > 0 else {
+            self.alert(message: "입력란을 다 채워주세요!")
+            return
+        }
+        self.dismiss(animated: true, completion: {
+            print("createNewShopping - tapped")
+            self.createNewShopping()
+        })
+    }
 }
 
 //MARK: - Constraints
@@ -60,12 +76,14 @@ extension InputDataShoppingViewController {
     func setUpConstraints() {
         self.view.addSubview(tableView)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        self.view.addGestureRecognizer(tapGesture)
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.isScrollEnabled = false
         self.priceTextField.delegate = self
         self.dateTextField.delegate = self
+        self.tapGesture.delegate = self
         
         tableView.separatorStyle = .none
         tableView.register(InputDataTableViewCell.self, forCellReuseIdentifier: InputDataTableViewCell.identifier)
@@ -205,5 +223,15 @@ extension InputDataShoppingViewController {
         alert.addAction(okAction)
                 
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension InputDataShoppingViewController : UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {        
+        if touch.view?.isDescendant(of: self.tableView) == true {
+            return false
+        }
+        self.dismiss(animated: true, completion: nil)
+        return true
     }
 }
