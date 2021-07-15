@@ -102,7 +102,7 @@ struct InputMealView: View {
                                 
                                 VStack {
                                     TextField("금액을 입력해 주세요.", text: $price)
-                                        .keyboardType(.numberPad)
+                                        .keyboardType(.decimalPad)
                                 }
                                 .frame(height: 44)
                                 .frame(maxWidth: .infinity)

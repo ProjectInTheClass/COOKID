@@ -86,6 +86,7 @@ struct ModifyMealView: View {
                     ZStack(alignment: .top) {
                         Image(uiImage: image)
                             .resizable()
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 150, height: 150)
                             .clipShape(Circle())
                             .onAppear {
