@@ -5,7 +5,8 @@
 //  Created by 박형석 on 2021/07/13.
 //
 
-import Foundation
+import UIKit
+
 
 func convertDateToString(format: String, date: Date) -> String {
     
@@ -30,4 +31,16 @@ extension Date {
     func dateToInt() -> Int {
         return Int(self.timeIntervalSince1970)
     }
+}
+
+func hideKeyboard() {
+   UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+}
+
+
+func intToString(value: Int) -> String {
+    let numberFormatter = NumberFormatter()
+    numberFormatter.numberStyle = .decimal
+    let string = numberFormatter.string(from: NSNumber(value: value))! + "원"
+    return string
 }

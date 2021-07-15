@@ -11,13 +11,15 @@ import Kingfisher
 struct MealDetailView: View {
     @State var edit: Bool = false
     @State var isDineOut: Bool = false
+    @State var image = UIImage()
     @Namespace var namespace
     
     var deleteTapped: (() -> Void)
-    var saveTapped: (() -> Void)
+    var saveTapped: ((Meal) -> Void)
     var cancelTapped: (() -> Void)
     
     var meal : Meal
+    
     
     var body: some View {
         if #available(iOS 14.0, *) {
@@ -39,12 +41,6 @@ struct MealDetailView: View {
                                     withAnimation(.spring()) {
                                         edit.toggle()
                                     }
-                                    if meal.mealType == .dineOut {
-                                        isDineOut = true
-                                    } else if meal.mealType == .dineIn {
-                                            isDineOut = false
-                                    }
-                                    print(isDineOut)
                                 }
                         }
                         .matchedGeometryEffect(id: "navBarItem", in: namespace, isSource: !edit)
@@ -56,7 +52,7 @@ struct MealDetailView: View {
                         
                         HStack {
                             //Image(systemName: "camera.circle")
-                            KFImage.url(meal.image)
+                            Image(uiImage: image)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 100, height: 100)
@@ -69,6 +65,10 @@ struct MealDetailView: View {
                                 .clipShape(Circle())
                                 .shadow(color: Color.black.opacity(0.5), radius: 20, x: 0, y: 10)
                                 .padding()
+                                .onAppear {
+                                    fetchImage()
+                                }
+                            
                             
                             
                             VStack(alignment: .center, spacing: 8) {
@@ -77,7 +77,7 @@ struct MealDetailView: View {
                                         .matchedGeometryEffect(id: "mealName", in: namespace, isSource: !edit)
                                         .font(.system(size: 22, weight: .bold, design: .rounded))
                                         .lineLimit(1)
-                                    Text(meal.mealType.rawValue)
+                                    Text(isDineOut ? "💸" + meal.mealType.rawValue : "🍚" + meal.mealType.rawValue)
                                         .font(.system(size: 18, weight: .regular, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
                                 }
@@ -100,7 +100,7 @@ struct MealDetailView: View {
                                     Divider()
                                     
                                     HStack(alignment: .center, spacing: 16) {
-                                        Text(String(meal.price))
+                                        Text(intToString(value: meal.price))
                                             .font(.system(size: 21, weight: .thin, design: .rounded))
                                             .foregroundColor(Color.black.opacity(0.7))
                                     }
@@ -136,6 +136,13 @@ struct MealDetailView: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color.clear)
+            .onAppear {
+                if meal.mealType == .dineOut {
+                    isDineOut = true
+                } else if meal.mealType == .dineIn {
+                        isDineOut = false
+                }
+            }
         } else {
             ZStack {
                 if !edit {
@@ -179,7 +186,7 @@ struct MealDetailView: View {
                                     Text(meal.name)
                                         .font(.system(size: 22, weight: .bold, design: .rounded))
                                         .lineLimit(1)
-                                    Text(meal.mealType.rawValue)
+                                    Text(isDineOut ? "💸" + meal.mealType.rawValue : "🍚" + meal.mealType.rawValue)
                                         .font(.system(size: 18, weight: .regular, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
                                 }
@@ -202,7 +209,7 @@ struct MealDetailView: View {
                                     Divider()
                                     
                                     HStack(alignment: .center, spacing: 16) {
-                                        Text(String(meal.price))
+                                        Text(intToString(value: meal.price))
                                             .font(.system(size: 21, weight: .thin, design: .rounded))
                                             .foregroundColor(Color.black.opacity(0.7))
                                     }
@@ -224,7 +231,7 @@ struct MealDetailView: View {
                 } else {
                     if #available(iOS 14.0, *) {
                         ModifyMealView(isDineOut: $isDineOut,
-                                       cancelTapped: saveTapped,
+                                       cancelTapped: cancelTapped,
                                        saveTapped: saveTapped,
                                        namespace: namespace,
                                        meal: meal)
@@ -235,6 +242,18 @@ struct MealDetailView: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color.clear)
+        }
+    }
+    
+    
+     func fetchImage() {
+        if let imageUrl = meal.image {
+            KingfisherManager.shared.retrieveImage(with: imageUrl) { result in
+                let image = try? result.get().image
+                if let image = image {
+                    self.image = image
+                }
+            }
         }
     }
 }
