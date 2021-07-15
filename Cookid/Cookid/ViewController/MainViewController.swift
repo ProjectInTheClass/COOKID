@@ -263,10 +263,10 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     private func setFirstView(){
         
-        if Auth.auth().currentUser == nil {
-            let vc = OnboardingPageViewViewController()
-            present(vc, animated: false, completion: nil)
-        }
+//        if Auth.auth().currentUser == nil {
+//            let vc = OnboardingPageViewViewController()
+//            present(vc, animated: false, completion: nil)
+//        }
     }
 }
 

@@ -152,11 +152,22 @@ extension MyExpenseViewController {
     }
     
     func updateData (dates: [Date]) {
-        selectedDineOutMeals = findSelectedDateMeal(meals : dineOutMeals, selectedDate: dates)
-        selectedDineInMeals = findSelectedDateMeal(meals : dineInMeals, selectedDate: dates)
-        selectedShopping = findSelectedDateShopping(shoppings : shopping, selectedDate: dates)
+        data.removeAll()
+        selectedDineOutMeals = findSelectedDateMeal(meals : self.dineOutMeals, selectedDate: dates)
+        selectedDineInMeals = findSelectedDateMeal(meals : self.dineInMeals, selectedDate: dates)
+        selectedShopping = findSelectedDateShopping(shoppings : self.shopping, selectedDate: dates)
         
-        data = [ element(name: "외식", selected: selectedDineOutMeals), element(name: "집밥", selected: selectedDineInMeals), element(name: "마트털이", selected: selectedShopping)]
+        let dineOutElement = element(name: "외식", selected: selectedDineOutMeals)
+        let dineInElement = element(name: "집밥", selected: selectedDineInMeals)
+        let shoppingElement = element(name: "마트털이", selected: selectedShopping)
+        
+        let dataArr = [dineOutElement, dineInElement, shoppingElement]
+        
+        for i in 0...2 {
+            if !dataArr[i].selected.isEmpty {
+                data.append(dataArr[i])
+            }
+        }
     }
     
     struct element {
