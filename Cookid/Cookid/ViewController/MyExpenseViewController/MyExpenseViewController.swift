@@ -28,17 +28,10 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     let mealService = MealService()
     
     var meal : [Meal] = []
+    
     var shopping : [GroceryShopping] = []
-    
-    lazy var dineOutMeals : [Meal] = {
-        let dineOutMeals = meal.filter{$0.mealType == .dineOut}
-        return dineOutMeals
-    }()
-    
-    lazy var dineInMeals : [Meal] = {
-        let dineInMeals = meal.filter{$0.mealType == .dineIn}
-        return dineInMeals
-    }()
+    var dineOutMeals : [Meal] = []
+    var dineInMeals : [Meal] = []
     
     var selectedDineInMeals : [Meal] = []
     var selectedDineOutMeals : [Meal] = []
@@ -82,35 +75,7 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
 }
 
 extension MyExpenseViewController {
-    func fetchShopping() {
-        shoppingService.fetchGroceries(completion: { shoppings in
-            self.shopping = shoppings
-        })
-    }
     
-    func fetchMeals() {
-        mealService.fetchMeals(completion: { meals in
-            self.meal = meals
-        })
-    }
-    
-    func findSelectedDateMealData (meals : [Meal], selectedDate : [Date]) -> [Meal] {
-        var mealArr : [Meal] = []
-        
-        for date in selectedDate {
-            mealArr = meals.filter{ $0.date.dateToString() == date.dateToString() }
-        }
-        return mealArr
-    }
-    
-    func findSelectedDateShoppingData (shoppings : [GroceryShopping], selectedDate : [Date]) -> [GroceryShopping] {
-        var shoppingArr : [GroceryShopping] = []
-        
-        for date in selectedDate {
-            shoppingArr = shoppings.filter{$0.date.dateToString() == date.dateToString()}
-        }
-        return shoppingArr
-    }
     
     //MARK: - constraints Setup
     func setUpConstraint() {
@@ -158,7 +123,39 @@ extension MyExpenseViewController {
             }
             return shouldBegin
         }
+    }
+}
 
+extension MyExpenseViewController {
+    func fetchShopping() {
+        shoppingService.fetchGroceries(completion: { shoppings in
+            self.shopping = shoppings
+        })
+    }
+    
+    func fetchMeals() {
+        mealService.fetchMeals(completion: { meals in
+            self.dineOutMeals = meals.filter{$0.mealType == .dineOut}
+            self.dineInMeals = meals.filter{$0.mealType == .dineIn}
+        })
+    }
+    
+    func findSelectedDateMealData (meals : [Meal], selectedDate : [Date]) -> [Meal] {
+        var mealArr : [Meal] = []
+        
+        for date in selectedDate {
+            mealArr = meals.filter{ $0.date.dateToString() == date.dateToString()}
+        }
+        return mealArr
+    }
+    
+    func findSelectedDateShoppingData (shoppings : [GroceryShopping], selectedDate : [Date]) -> [GroceryShopping] {
+        var shoppingArr : [GroceryShopping] = []
+        
+        for date in selectedDate {
+            shoppingArr = shoppings.filter{$0.date.dateToString() == date.dateToString()}
+        }
+        return shoppingArr
     }
     
     func updateData (dates: [Date]) {

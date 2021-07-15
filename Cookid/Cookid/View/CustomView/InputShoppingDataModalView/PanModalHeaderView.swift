@@ -36,9 +36,10 @@ class PanModalHeaderView: UIView {
         btn.snp.makeConstraints{
             $0.width.height.equalTo(40)
         }
-        btn.addTarget(self, action: #selector(completion), for: .touchUpInside)
         return btn
     }()
+    
+    
     
     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
@@ -57,9 +58,8 @@ class PanModalHeaderView: UIView {
         return view
     }()
     
-    @objc func completion() {
-        let shoppingVC = InputDataShoppingViewController()
-        shoppingVC.createNewShopping()
+    @objc func createNewShoppingData() {
+       
     }
     
     // MARK: - Initializers

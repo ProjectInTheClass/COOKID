@@ -33,7 +33,6 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
         default:
             return cell
         }
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -65,12 +64,12 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
             if let vc = UIViewController() as? InputDataShoppingViewController {
                 let price = selectedShopping[indexPath.row].totalPrice
                 let date = selectedShopping[indexPath.row].date.dateToString()
-                self.present(vc, animated: true) {
-                    vc.dateTextField.text = date
-                    vc.priceTextField.text = String(price)
-                    vc.rightBtn.setTitle("수정", for: .normal)
-                }
+                vc.dateTextField.text = date
+                vc.priceTextField.text = String(price)
+                vc.rightBtn.setTitle("수정", for: .normal)
+                self.present(vc, animated: true, completion: nil)
                 vc.modalPresentationStyle = .overFullScreen
+                vc.present(vc, animated: true, completion: nil)
             }
         }
     }
