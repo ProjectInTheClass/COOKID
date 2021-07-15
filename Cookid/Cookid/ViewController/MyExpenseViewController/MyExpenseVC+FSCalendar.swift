@@ -18,12 +18,11 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
-        print("did select date \(self.dateFormatter.string(from: date))")
-        
+
+        print("did select date \(String(describing: calendar.selectedDate))")
+        self.updateData(dates: calendar.selectedDates)
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            self.updateData(dates: calendar.selectedDates)
         }
         
         print("selected dates is \(calendar.selectedDates)")
@@ -37,7 +36,6 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         updateData(dates: calendar.selectedDates)
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            self.updateData(dates: calendar.selectedDates)
         }
     }
     
