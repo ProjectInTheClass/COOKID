@@ -12,7 +12,11 @@ import Then
 
 class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
-    var viewModel: MyExpenseViewModel!
+    var viewModel: MyMealViewModel!
+    
+    func bindViewModel() {
+        
+    }
     
     @IBOutlet weak var averageExpenseLabel: UILabel!
     @IBOutlet weak var calendar: FSCalendar!
@@ -62,16 +66,7 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
         self.tabBarItem.selectedImage = UIImage(systemName: "cart.fill")
         self.tabBarItem.title = "식비 관리"
     }
-    
-    func bindViewModel() {
-        viewModel.output.averagePrice
-            .drive(onNext: { str in
-                self.averageExpenseLabel.text = str
-                self.averageExpenseLabel.textColor = .darkGray
-                self.averageExpenseLabel.font = .systemFont(ofSize: 15)
-            })
-            .disposed(by: rx.disposeBag)
-    }
+  
     
     
     deinit {
@@ -130,7 +125,9 @@ extension MyExpenseViewController {
         self.view.addGestureRecognizer(self.scopeGesture)
         self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
         
- 
+        self.averageExpenseLabel.text = "upate"
+        self.averageExpenseLabel.textColor = .darkGray
+        self.averageExpenseLabel.font = .systemFont(ofSize: 15)
         
         self.calendar.backgroundColor = .white
         self.calendar.locale = Locale(identifier: "ko_KR")
