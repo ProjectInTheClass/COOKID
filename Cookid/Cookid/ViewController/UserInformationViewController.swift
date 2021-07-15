@@ -10,6 +10,7 @@ import UIKit
 
 class UserInformationViewController: UIViewController {
     
+    
     @IBOutlet weak var nickNameLabel: UILabel!
     @IBOutlet weak var nickNameTextField: UITextField!
     
@@ -19,7 +20,9 @@ class UserInformationViewController: UIViewController {
     @IBOutlet weak var newDeterminationLabel: UILabel!
     @IBOutlet weak var newDeterminationTextField: UITextField!
     
-    var user: User!
+    var completion: ((User) -> Void)?
+    
+    var user = User(userID: "gYY2n6qJjNWvafCk7lFBlkExwYH2", nickname: "천가닥버섯", determination: "아자아자", priceGoal: "100001", userType: .preferDineIn)
     
     let viewModel = UserInfoUpdateViewModel(userService: UserService())
     
@@ -30,7 +33,7 @@ class UserInformationViewController: UIViewController {
     
     func setupUI(){
         self.nickNameLabel.text = "\(user.nickname)님 🏳️‍🌈"
-        self.budgetTextField.text = "현재 목표액은 \(user.priceGoal)원 입니다 💵"
+        self.budgetLimitLabel.text = "현재 목표액은 \(user.priceGoal)원 입니다 💵"
     }
     
     @IBAction func checkBtnTapped(_ sender: UIButton) {
@@ -41,17 +44,22 @@ class UserInformationViewController: UIViewController {
         }
         
         var newGoal: String {
-            return self.budgetTextField.text!.isEmpty ? self.user.nickname : self.budgetTextField.text!
+            return self.budgetTextField.text!.isEmpty ? self.user.priceGoal : self.budgetTextField.text!
         }
         
         var newDetermination: String {
-            return self.newDeterminationTextField.text!.isEmpty ? self.user.nickname : self.newDeterminationTextField.text!
+            return self.newDeterminationTextField.text!.isEmpty ? self.user.determination : self.newDeterminationTextField.text!
         }
         
         let user = User(userID: self.user.userID, nickname: newNickname, determination: newDetermination, priceGoal: newGoal, userType: self.user.userType)
         
         updateUser(user: user)
         
+        self.dismiss(animated: true) {
+            if let completion = self.completion {
+                completion(user)
+            }
+        }
     }
     
     

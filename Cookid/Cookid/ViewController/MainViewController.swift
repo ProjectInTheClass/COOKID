@@ -133,7 +133,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         addShoppingButton.rx.tap
             .subscribe(onNext: {
                 let vc = InputDataShoppingViewController()
-                
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true, completion: nil)
                 
@@ -143,6 +142,14 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         userInfoUpdateButton.rx.tap
             .subscribe(onNext: {
                 print("동환님 여기에서 VC를 띄워주시면 됩니다.")
+                let sb = UIStoryboard(name: "UserInfo", bundle: nil)
+                let vc = sb.instantiateViewController(identifier: "UserInformationViewController") as! UserInformationViewController
+                vc.completion = { user in
+                    
+                }
+                vc.modalPresentationStyle = .overCurrentContext
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true, completion: nil)
             })
             .disposed(by: rx.disposeBag)
         
