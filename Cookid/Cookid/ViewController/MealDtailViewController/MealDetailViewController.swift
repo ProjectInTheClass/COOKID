@@ -19,16 +19,4 @@ class MealDetailViewController : UIHostingController<MealDetailView> {
         fatalError("init(coder:) has not been implemented")
     }
     
-        
-//        let mealDetailVC = UIHostingController(rootView: MealDetailView())
-//
-//        self.addChild(mealDetailVC)
-//        self.view.addSubview(mealDetailVC.view)
-//        mealDetailVC.view.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            mealDetailVC.view.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-//            mealDetailVC.view.heightAnchor.constraint(equalTo: self.view.heightAnchor)
-//        ])
-    
 }
