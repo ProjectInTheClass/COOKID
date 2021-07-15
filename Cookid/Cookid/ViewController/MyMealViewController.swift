@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout {
+class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout, ViewModelBindable, StoryboardBased {
     
     @IBOutlet weak var dineStaticView: UIView!
     @IBOutlet weak var mostExpensiveStaticView: UIView!
@@ -28,13 +28,13 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
     @IBOutlet weak var mealTableView: UITableView!
     @IBOutlet weak var mealTimeCollectionView: UICollectionView!
     
-    let viewModel = MyMealViewModel(mealService: MealService())
+    var viewModel : MyMealViewModel!
+
     var maxValue: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        bindViewModel()
     }
     
     private func configureUI() {
@@ -43,10 +43,20 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
         latestMealStaticView.makeShadow()
         dineInCircleView.makeCircleView()
         dineOutCircleView.makeCircleView()
+        mealImage.makeCircleView()
+        configureNavTab()
+    }
+    
+    private func configureNavTab() {
+        self.navigationItem.title = "식사 통계 🥗"
+        self.navigationItem.largeTitleDisplayMode = .automatic
+        self.tabBarItem.image = UIImage(systemName: "chart.pie")
+        self.tabBarItem.selectedImage = UIImage(systemName: "chart.pie.fill")
+        self.tabBarItem.title = "식사 관리"
     }
     
     func bindViewModel() {
-        
+
         viewModel.output.dineInProgress
             .delay(.microseconds(500))
             .drive(onNext: { [unowned self] progress in

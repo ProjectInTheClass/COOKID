@@ -1,10 +1,4 @@
-////
-////  InputShoppingListViewController.swift
-////  Cookid
-////
-////  Created by 임현지 on 2021/07/10.
-////
-//
+
 import UIKit
 import SwiftUI
 import Combine

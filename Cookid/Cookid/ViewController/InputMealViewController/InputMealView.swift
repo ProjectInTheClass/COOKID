@@ -35,7 +35,7 @@ struct InputMealView: View {
     @State var meal: Meal?
     
     var dismissView: (() -> Void)
-    var saveButtonTapped: ((Meal) -> Void)
+    var saveButtonTapped: (() -> Void)
     
     
     var body: some View {
@@ -229,27 +229,26 @@ struct InputMealView: View {
                     if isImageSelected {
                         MealRepository.shared.fetchingImageURL(mealID: mealName, image: image) { url in
                             self.meal = Meal(
-                                id: meal?.id,
+                                id: nil,
                                 price: Int(price) ?? 0,
                                 date: selectedDate ?? Date(),
                                 name: mealName,
                                 image: url ?? nil,
                                 mealType: mealType,
                                 mealTime: MealTime(rawValue: mealTime) ?? .breakfast)
-                            saveButtonTapped(self.meal!)
                             mealDelegate.meal = self.meal
                         }
                     } else {
-                        self.meal = Meal(id: meal?.id,
+                        self.meal = Meal(id: nil,
                                          price: Int(price) ?? 0,
                                          date: selectedDate ?? Date(),
                                          name: mealName,
                                          image: nil,
                                          mealType: mealType,
                                          mealTime: MealTime(rawValue: mealTime) ?? .breakfast)
-                        saveButtonTapped(self.meal!)
                         mealDelegate.meal = self.meal
                     }
+                    saveButtonTapped()
                     dismissView()
                 }, label: {
                     Text("Save")
@@ -267,4 +266,5 @@ struct InputMealView: View {
     }
     
 }
+
 

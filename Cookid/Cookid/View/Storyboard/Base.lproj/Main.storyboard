@@ -45,7 +45,7 @@
         <!--식비 목표 🏳️‍🌈-->
         <scene sceneID="wFK-wx-lZm">
             <objects>
-                <viewController id="DBM-09-Loe" customClass="MainViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="DBM-09-Loe" customClass="MainViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mrc-sd-wgV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -96,6 +96,10 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djX-7s-bFw">
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="100"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
@@ -103,8 +107,12 @@
                                                             <constraint firstAttribute="bottom" secondItem="zCN-Pv-NCC" secondAttribute="bottom" constant="15" id="EZa-Qs-NrZ"/>
                                                             <constraint firstItem="33P-dI-A1d" firstAttribute="centerY" secondItem="ks2-O6-ZVm" secondAttribute="centerY" id="H6A-GU-TcP"/>
                                                             <constraint firstAttribute="height" constant="100" id="Lnv-bD-Wkt"/>
+                                                            <constraint firstAttribute="trailing" secondItem="djX-7s-bFw" secondAttribute="trailing" id="M4E-VT-zzS"/>
                                                             <constraint firstItem="zCN-Pv-NCC" firstAttribute="leading" secondItem="ks2-O6-ZVm" secondAttribute="leading" constant="20" id="PvC-xY-vH4"/>
+                                                            <constraint firstItem="djX-7s-bFw" firstAttribute="top" secondItem="ks2-O6-ZVm" secondAttribute="top" id="U0i-7u-PvL"/>
+                                                            <constraint firstItem="djX-7s-bFw" firstAttribute="leading" secondItem="ks2-O6-ZVm" secondAttribute="leading" id="czG-nS-Owo"/>
                                                             <constraint firstItem="zCN-Pv-NCC" firstAttribute="top" secondItem="ks2-O6-ZVm" secondAttribute="top" constant="15" id="jAX-Jm-wRP"/>
+                                                            <constraint firstAttribute="bottom" secondItem="djX-7s-bFw" secondAttribute="bottom" id="oQN-v1-hL2"/>
                                                             <constraint firstAttribute="trailing" secondItem="33P-dI-A1d" secondAttribute="trailing" constant="20" id="xYc-gp-KvY"/>
                                                         </constraints>
                                                     </view>
@@ -450,7 +458,13 @@
                             <constraint firstItem="i2c-fa-0Jz" firstAttribute="leading" secondItem="yDN-fY-BSl" secondAttribute="leading" id="ykj-Sb-SrY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="식비 목표 🏳️‍🌈" id="3gK-bs-I44"/>
+                    <navigationItem key="navigationItem" title="식비 목표 🏳️‍🌈" id="3gK-bs-I44">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="HjJ-Kb-e7a">
+                            <connections>
+                                <action selector="create:" destination="DBM-09-Loe" id="hGU-o2-JLY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addMealButton" destination="SvZ-tN-y7G" id="nHQ-bK-Qsd"/>
                         <outlet property="addShoppingButton" destination="lAB-bw-MJq" id="wWE-MF-9Er"/>
@@ -473,6 +487,7 @@
                         <outlet property="shoppingPrice" destination="oCv-uI-G9Y" id="xVf-3M-er0"/>
                         <outlet property="userDetermination" destination="OAO-bw-yzQ" id="fkg-D5-j2a"/>
                         <outlet property="userImage" destination="zCN-Pv-NCC" id="jim-BZ-XP7"/>
+                        <outlet property="userInfoUpdateButton" destination="djX-7s-bFw" id="ZYL-aT-4BW"/>
                         <outlet property="userNickname" destination="U7H-7K-xmw" id="Z2a-Yg-6uQ"/>
                         <outlet property="userType" destination="K5e-Hh-tmE" id="dgk-Ox-u79"/>
                     </connections>
@@ -754,7 +769,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="SMq-hS-Y3Q">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

@@ -28,6 +28,7 @@ class UserService {
         userRepository.updateUserInfo(user: user)
     }
     
-    
-    //삭제 생성
+    func deleteUser(){
+        userRepository.deleteUser()
+    }
 }

@@ -34,29 +34,26 @@ class UserInformationViewController: UIViewController {
     }
     
     @IBAction func checkBtnTapped(_ sender: UIButton) {
-       
-        var newNickname: String {
-            if let text = self.nickNameTextField.text{
-                return text.isEmpty ? self.user.nickname : text
-            }
         
+        
+        var newNickname: String {
+            return self.nickNameTextField.text!.isEmpty ? self.user.nickname : self.nickNameTextField.text!
+        }
         
         var newGoal: String {
-            if let text = self.budgetTextField.text{
-                return text.isEmpty ? self.user.priceGoal : text
-            }
+            return self.budgetTextField.text!.isEmpty ? self.user.nickname : self.budgetTextField.text!
         }
         
         var newDetermination: String {
-            if let text = self.newDeterminationTextField.text{
-                return text.isEmpty ? self.user.determination : text
-            }
+            return self.newDeterminationTextField.text!.isEmpty ? self.user.nickname : self.newDeterminationTextField.text!
         }
         
         let user = User(userID: self.user.userID, nickname: newNickname, determination: newDetermination, priceGoal: newGoal, userType: self.user.userType)
         
         updateUser(user: user)
+        
     }
+    
     
     func updateUser(user: User){
         
@@ -66,9 +63,4 @@ class UserInformationViewController: UIViewController {
     @IBAction func BGTapped(_ sender: Any) {
         self.dismiss(animated: false, completion: nil)
     }
-}
-
-extension UserInformationViewController: UITextFieldDelegate {
-    // 셋중 하나라도 텍스트가 있으면 버튼 뜨게 하기
-    
 }

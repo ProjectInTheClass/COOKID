@@ -10,8 +10,9 @@ import SwiftUI
 import RxSwift
 import RxCocoa
 import NSObject_Rx
+import Firebase
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     // userview
     @IBOutlet weak var etcView: UIView!
@@ -19,6 +20,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var userNickname: UILabel!
     @IBOutlet weak var userType: UILabel!
     @IBOutlet weak var userDetermination: UILabel!
+    @IBOutlet weak var userInfoUpdateButton: UIButton!
+    
     
     // buttonView
     @IBOutlet weak var addMealButton: UIButton!
@@ -51,14 +54,18 @@ class MainViewController: UIViewController {
     
     // property
     
-    let viewModel = MainViewModel(mealService: MealService(), userService: UserService(), shoppingService: ShoppingService())
+    var viewModel: MainViewModel!
+    
+    @IBAction func create(_ sender: Any) {
+        print("view")
+        viewModel.mealService.create(meal: DummyData.shared.mySingleMeal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        bindViewModel()
         setNotification()
-        
+        setFirstView()
     }
     
     private func configureUI() {
@@ -67,10 +74,19 @@ class MainViewController: UIViewController {
         consumeView.makeShadow()
         etcView.makeShadow()
         adviseView.makeShadow()
+        configureNavTab()
         monthSelectButton.setTitle(Date().dateToString(), for: .normal)
     }
     
-    private func bindViewModel() {
+    private func configureNavTab() {
+        self.navigationItem.title = "\(Date().convertDateToString(format: "M월")) 목표 🏳️‍🌈"
+        self.navigationItem.largeTitleDisplayMode = .automatic
+        self.tabBarItem.image = UIImage(systemName: "house")
+        self.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
+        self.tabBarItem.title = "나의 목표"
+    }
+    
+    func bindViewModel() {
         
         //input
         
@@ -107,10 +123,10 @@ class MainViewController: UIViewController {
         
         addMealButton.rx.tap
             .subscribe(onNext: {
-                let vc = InputMealViewController()
-                vc.modalPresentationStyle = .formSheet
-                self.present(vc, animated: true, completion: nil)
-                
+//                let vc = InputMealViewController()
+//                vc.modalPresentationStyle = .formSheet
+//                self.present(vc, animated: true, completion: nil)
+//                
             })
             .disposed(by: rx.disposeBag)
         
@@ -121,10 +137,14 @@ class MainViewController: UIViewController {
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true, completion: nil)
                 
-                print("석현님 여기다가 VC 띄워주세요")
             })
             .disposed(by: rx.disposeBag)
         
+        userInfoUpdateButton.rx.tap
+            .subscribe(onNext: {
+                print("동환님 여기에서 VC를 띄워주시면 됩니다.")
+            })
+            .disposed(by: rx.disposeBag)
         
         //output
         
@@ -165,7 +185,7 @@ class MainViewController: UIViewController {
             .delay(.milliseconds(500))
             .drive(onNext: {
                 [unowned self] value in
-                self.chartPercentLabel.text = String(value) + "%"
+                self.chartPercentLabel.text = String(Int(value)) + "%"
                 self.consumeProgressBar.progress = CGFloat(value) / CGFloat(100)
             })
             .disposed(by: rx.disposeBag)
@@ -184,7 +204,7 @@ class MainViewController: UIViewController {
             .do(onNext: { _, indexPath in
                 self.mealDayCollectionView.deselectItem(at: indexPath, animated: false)
             })
-            .subscribe(onNext: { meal, _ in
+            .subscribe(onNext: { [unowned self] meal, _ in
                 let mealDatailView = MealDetailView(
                     deleteTapped: {
                         self.viewModel.mealService.delete(meal: meal)
@@ -218,7 +238,6 @@ class MainViewController: UIViewController {
             print("사용자 동의 --> \(granted)")
         }
         
-        
         let content = UNMutableNotificationContent()
         content.title = "새로운 달입니다!"
         content.body = "새로운 가계부 진행시켜 🏃‍♀️"
@@ -235,6 +254,14 @@ class MainViewController: UIViewController {
             if let error = error {
                 print(error.localizedDescription)
             }
+        }
+    }
+    
+    private func setFirstView(){
+        
+        if Auth.auth().currentUser == nil {
+            let vc = OnboardingPageViewViewController()
+            present(vc, animated: false, completion: nil)
         }
     }
 }
