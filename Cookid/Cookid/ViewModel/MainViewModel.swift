@@ -39,12 +39,13 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         self.shoppingService = shoppingService
         
         mealService.fetchMeals { meals in }
+        shoppingService.fetchGroceries { _ in }
         
         // meal & user Storage
         
         let meals = mealService.mealList()
-
-        let userInfo = userService.loadUserInfo()
+        let shoppings = shoppingService.shoppingList()
+        let userInfo = userService.user()
             .asDriver(onErrorJustReturn: User(userID: "none", nickname: "비회원", determination: "사용자 등록을 먼저 해주세요.", priceGoal: "0", userType: .preferDineOut))
         
         // input
@@ -60,22 +61,22 @@ class MainViewModel: ViewModelType, HasDisposeBag {
             .merge()
             .asDriver(onErrorJustReturn: [])
         
-        let monthlyDetailed = Observable.combineLatest(userInfo.asObservable(), meals) { user, meals -> ConsumptionDetailed in
+        let monthlyDetailed = Observable.combineLatest(userInfo.asObservable(), meals, shoppings) { user, meals, shoppings -> ConsumptionDetailed in
             let goal = Int(user.priceGoal) ?? 0
-            let shop = shoppingService.fetchShoppingSpend(meals: meals)
+            let shop = shoppingService.fetchShoppingTotalSpend(shoppings: shoppings)
             let dineOutPrice = mealService.fetchEatOutSpend(meals: meals)
             return ConsumptionDetailed(month: Date().convertDateToString(format: "MM월"), priceGoal: goal, shoppingPrice: shop, dineOutPrice: dineOutPrice, balance: goal - shop - dineOutPrice)
         }
         .asDriver(onErrorJustReturn: ConsumptionDetailed(month: "1월", priceGoal: 0, shoppingPrice: 0, dineOutPrice: 0, balance: 0))
         
         let consumeProgressCalc = Observable
-            .combineLatest(userInfo.asObservable(), meals) { user, meals -> Double in
-                return mealService.getSpendPercentage(meals: meals, user: user)
+            .combineLatest(userInfo.asObservable(), meals, shoppings) { user, meals, shoppings -> Double in
+                return mealService.getSpendPercentage(meals: meals, user: user, shoppings: shoppings)
             }
             .asDriver(onErrorJustReturn: 0)
         
-        let adviceString = Observable.combineLatest(meals, userInfo.asObservable()) { meals, user -> String in
-            mealService.checkSpendPace(meals: meals, user: user)
+        let adviceString = Observable.combineLatest(meals, userInfo.asObservable(), shoppings) { meals, user, shoppings -> String in
+            mealService.checkSpendPace(meals: meals, user: user, shoppings: shoppings)
         }
         .asDriver(onErrorJustReturn: "에러!")
         

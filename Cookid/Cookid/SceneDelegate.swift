@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         myMealVC.navigationController?.navigationBar.prefersLargeTitles = true
         
         var myExpenseVC = MyExpenseViewController.instantiate(storyboardID: "MyExpenseTap")
-        myExpenseVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
+        myExpenseVC.bind(viewModel: MyExpenseViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
         let myExpenseNVC = UINavigationController(rootViewController: myExpenseVC)
         myExpenseVC.navigationController?.navigationBar.prefersLargeTitles = true
     

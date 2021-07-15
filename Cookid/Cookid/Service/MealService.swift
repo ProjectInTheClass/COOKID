@@ -96,9 +96,17 @@ class MealService {
         return (dateString, meal)
     }
     
-    func getSpendPercentage(meals: [Meal], user: User) -> Double {
-        let totalSpend = meals.map{ Double($0.price) }.reduce(0){ $0 + $1 }
-        return totalSpend / Double(user.priceGoal)! * 100
+    func getSpendPercentage(meals: [Meal], user: User, shoppings: [GroceryShopping]) -> Double {
+        
+        let shoppingSpends = shoppings.map { Double($0.totalPrice) }.reduce(0, +)
+        let mealSpend = meals.map{ Double($0.price) }.reduce(0, +)
+        let spend = (shoppingSpends + mealSpend) / Double(user.priceGoal)! * 100
+        
+        if spend.isNaN {
+            return 0
+        } else {
+            return spend
+        }
     }
     
     func fetchAverageSpendPerDay(meals: [Meal]) -> Double {
@@ -115,7 +123,7 @@ class MealService {
     func fetchEatOutSpend(meals: [Meal]) -> Int {
         
         let eatOutSpends = meals.filter {$0.mealType == .dineOut}.map{$0.price}
-        let totalSpend = eatOutSpends.reduce(0){$0+$1}
+        let totalSpend = eatOutSpends.reduce(0, +)
         return totalSpend
     }
     
@@ -160,14 +168,14 @@ class MealService {
         return meals.filter { $0.date.dateToString() == Date().dateToString() }
     }
     
-    func checkSpendPace(meals: [Meal], user: User) -> String{
+    func checkSpendPace(meals: [Meal], user: User, shoppings: [GroceryShopping]) -> String{
         
         let date = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.day], from: date)
         guard let day = components.day else {return ""}
         
-        let percentage = self.getSpendPercentage(meals: meals, user: user)
+        let percentage = self.getSpendPercentage(meals: meals, user: user, shoppings: shoppings)
         
         switch day {
         case 1...7:
