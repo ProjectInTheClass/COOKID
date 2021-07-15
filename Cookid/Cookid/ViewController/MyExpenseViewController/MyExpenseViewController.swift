@@ -16,23 +16,17 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     
     @IBOutlet weak var averageExpenseLabel: UILabel!
     @IBOutlet weak var calendar: FSCalendar!
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var calendarHeightConstraint: NSLayoutConstraint!
-    
-    let shoppingService = ShoppingService()
-    let mealService = MealService()
-    
-    var meal : [Meal] = []
     
     var shopping : [GroceryShopping] = []
     var dineOutMeals : [Meal] = []
     var dineInMeals : [Meal] = []
     
+    var data : [element] = []
     var selectedDineInMeals : [Meal] = []
     var selectedDineOutMeals : [Meal] = []
     var selectedShopping : [GroceryShopping] = []
-    var data : [element] = []
     
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -65,11 +59,11 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
         
     }
     
-    
     deinit {
         print("\(#function)")
     }
     
+    // MARK:- UIGestureRecognizerDelegate
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
         let panGesture = UIPanGestureRecognizer(target: self.calendar, action: #selector(self.calendar.handleScopeGesture(_:)))
@@ -78,11 +72,25 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
         panGesture.maximumNumberOfTouches = 2
         return panGesture
     }()
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let shouldBegin = self.tableView.contentOffset.y <= -self.tableView.contentInset.top
+        if shouldBegin {
+            let velocity = self.scopeGesture.velocity(in: self.view)
+            switch self.calendar.scope {
+            case .month:
+                return velocity.y < 0
+            case .week:
+                return velocity.y > 0
+            @unknown default:
+                fatalError()
+            }
+        }
+        return shouldBegin
+    }
 }
 
 extension MyExpenseViewController {
-    
-    
     //MARK: - constraints Setup
     func setUpConstraint() {
         self.calendar.delegate = self
@@ -96,54 +104,36 @@ extension MyExpenseViewController {
         self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
         
         self.calendar.backgroundColor = .white
-        self.calendar.locale = Locale(identifier: "ko_KR")
         self.calendar.appearance.headerDateFormat = "yyyy년 MM월"
         self.calendar.select(Date())
         self.calendar.scope = .month
         self.calendar.isMultipleTouchEnabled = true
-        self.calendar.allowsMultipleSelection = true
+        self.calendar.allowsMultipleSelection = false
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         self.calendar.appearance.titleTodayColor = .black
         
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = UITableView.automaticDimension
         self.tableView.register(ExpenseTableViewCell.self, forCellReuseIdentifier: ExpenseTableViewCell.identifier)
-        
-        // MARK:- UIGestureRecognizerDelegate
-        
-        func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-            let shouldBegin = self.tableView.contentOffset.y <= -self.tableView.contentInset.top
-            if shouldBegin {
-                let velocity = self.scopeGesture.velocity(in: self.view)
-                switch self.calendar.scope {
-                case .month:
-                    return velocity.y < 0
-                case .week:
-                    return velocity.y > 0
-                @unknown default:
-                    fatalError()
-                }
-            }
-            return shouldBegin
-        }
     }
 }
 
 extension MyExpenseViewController {
     func fetchShopping() {
-        shoppingService.fetchGroceries(completion: { shoppings in
+        
+        viewModel.shoppingService.fetchGroceries(completion: { shoppings in
             self.shopping = shoppings
         })
     }
     
     func fetchMeals() {
-        mealService.fetchMeals(completion: { meals in
+        viewModel.mealService.fetchMeals(completion: { meals in
             self.dineOutMeals = meals.filter{$0.mealType == .dineOut}
             self.dineInMeals = meals.filter{$0.mealType == .dineIn}
         })
     }
     
-    func findSelectedDateMealData (meals : [Meal], selectedDate : [Date]) -> [Meal] {
+    func findSelectedDateMeal (meals : [Meal], selectedDate : [Date]) -> [Meal] {
         var mealArr : [Meal] = []
         
         for date in selectedDate {
@@ -152,7 +142,7 @@ extension MyExpenseViewController {
         return mealArr
     }
     
-    func findSelectedDateShoppingData (shoppings : [GroceryShopping], selectedDate : [Date]) -> [GroceryShopping] {
+    func findSelectedDateShopping (shoppings : [GroceryShopping], selectedDate : [Date]) -> [GroceryShopping] {
         var shoppingArr : [GroceryShopping] = []
         
         for date in selectedDate {
@@ -162,9 +152,9 @@ extension MyExpenseViewController {
     }
     
     func updateData (dates: [Date]) {
-        selectedDineOutMeals = findSelectedDateMealData(meals : dineOutMeals, selectedDate: dates)
-        selectedDineInMeals = findSelectedDateMealData(meals : dineInMeals, selectedDate: dates)
-        selectedShopping = findSelectedDateShoppingData(shoppings : shopping, selectedDate: dates)
+        selectedDineOutMeals = findSelectedDateMeal(meals : dineOutMeals, selectedDate: dates)
+        selectedDineInMeals = findSelectedDateMeal(meals : dineInMeals, selectedDate: dates)
+        selectedShopping = findSelectedDateShopping(shoppings : shopping, selectedDate: dates)
         
         data = [ element(name: "외식", selected: selectedDineOutMeals), element(name: "집밥", selected: selectedDineInMeals), element(name: "마트털이", selected: selectedShopping)]
     }

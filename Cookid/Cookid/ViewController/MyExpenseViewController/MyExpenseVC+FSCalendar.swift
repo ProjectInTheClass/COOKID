@@ -21,14 +21,12 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         
         print("did select date \(self.dateFormatter.string(from: date))")
         
-        let selectedDates = [date]
-        updateData(dates: selectedDates)
-
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.updateData(dates: calendar.selectedDates)
         }
         
-        print("selected dates is \(selectedDates)")
+        print("selected dates is \(calendar.selectedDates)")
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
@@ -36,20 +34,15 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     }
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
-        let deSelectedDate : [Date] = [date]
-        
-        updateData(dates: deSelectedDate)
-                DispatchQueue.main.async {
+        updateData(dates: calendar.selectedDates)
+        DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.updateData(dates: calendar.selectedDates)
         }
     }
-
-//    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-//        print("\(self.dateFormatter.string(from: calendar.currentPage))")
-//    }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+       
         
         let isOut = dineOutMeals.map({$0.date.dateToString()}).contains(date.dateToString())
         let isIn = dineInMeals.map({$0.date.dateToString()}).contains(date.dateToString())
@@ -64,7 +57,7 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         } else if isShop && isIn || isShop && isOut {
             return #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         }
-
+                
         return UIColor.clear
     }
     
