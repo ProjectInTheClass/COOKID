@@ -28,9 +28,8 @@ struct ModifyMealView: View {
     @State var saveButtonTapped: Bool = false
     @State var cancel: Bool = false
     
-    var disposeBag = Set<AnyCancellable>()
     var cancelTapped: (() -> Void)
-    var saveTapped: (() -> Void)
+    var saveTapped: ((Meal) -> Void)?
     var namespace: Namespace.ID
     var meal: Meal
     
@@ -38,7 +37,6 @@ struct ModifyMealView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                
                 Text("취소")
                     .bold()
                     .foregroundColor(.red)
@@ -52,24 +50,26 @@ struct ModifyMealView: View {
                     .onTapGesture {
                         if isImageSelected {
                             MealRepository.shared.fetchingImageURL(mealID: meal.id!, image: image) { url in
+                                meal.id = meal.id
                                 meal.date = selectedDate ?? meal.date
                                 meal.image = url
                                 meal.mealTime = MealTime(rawValue: mealTime) ?? meal.mealTime
                                 meal.mealType = isDineOut ? .dineOut : .dineIn
                                 meal.name = mealName == "" ? meal.name : mealName
                                 meal.price = (price == "" ? meal.price : Int(price))!
-                                print("다른 이미지 --> \(meal.image)")
+                                saveTapped!(self.meal)
                             }
                         } else {
+                            meal.id = meal.id
                             meal.date = selectedDate ?? meal.date
                             meal.image = meal.image
                             meal.mealType = isDineOut ? .dineOut : .dineIn
                             meal.mealTime = MealTime(rawValue: mealTime) ?? meal.mealTime
                             meal.name = mealName == "" ? meal.name : mealName
                             meal.price = (price == "" ? meal.price : Int(price))!
-                            print("원래 이미지 --> \(meal.image)")
+                            saveTapped!(self.meal)
                         }
-                        saveTapped()
+                        
                     }
                 
             }
@@ -84,15 +84,13 @@ struct ModifyMealView: View {
                     showImagePicker = true
                 }, label: {
                     ZStack(alignment: .top) {
-                        if isImageSelected {
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                        } else {
-                            KFImage.url(meal.image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                        }
+                        Image(uiImage: image)
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .clipShape(Circle())
+                            .onAppear {
+                                fetchImage()
+                            }
                     }
                 })
             }
@@ -111,7 +109,7 @@ struct ModifyMealView: View {
                             .foregroundColor(.gray)
                     })
                     .toggleStyle(SwitchToggleStyle(tint: Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1))))
-                    
+                    .disabled(true)
                 }
                 .padding(.horizontal, 30)
                 .padding(.top, 20)
@@ -239,11 +237,22 @@ struct ModifyMealView: View {
             if meal.mealType == .dineOut {
                 isDineOut = true
             }
+            
+            print(meal.image)
         }
     }
     
-    func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    func fetchImage() {
+        if let imageUrl = meal.image {
+            KingfisherManager.shared.retrieveImage(with: imageUrl) { result in
+                let image = try? result.get().image
+                if let image = image {
+                    self.image = image
+                }
+            }
+        }
     }
+     
 }
+
 

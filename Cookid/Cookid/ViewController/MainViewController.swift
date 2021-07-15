@@ -123,17 +123,17 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         addMealButton.rx.tap
             .subscribe(onNext: {
-//                let vc = InputMealViewController()
-//                vc.modalPresentationStyle = .formSheet
-//                self.present(vc, animated: true, completion: nil)
-//                
+                let vc = InputMealViewController()
+                vc.saveMeal = { meal in self.viewModel.mealService.create(meal: meal) }
+                vc.modalPresentationStyle = .formSheet
+                self.present(vc, animated: true, completion: nil)
+                
             })
             .disposed(by: rx.disposeBag)
         
         addShoppingButton.rx.tap
             .subscribe(onNext: {
                 let vc = InputDataShoppingViewController()
-                
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true, completion: nil)
                 
@@ -210,7 +210,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                         self.viewModel.mealService.delete(meal: meal)
                         self.dismiss(animated: true, completion: nil)
                     },
-                    saveTapped: {
+                    saveTapped: { meal in 
                         self.viewModel.mealService.update(updateMeal: meal)
                         self.dismiss(animated: true, completion: nil)
                     },

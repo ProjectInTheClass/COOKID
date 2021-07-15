@@ -14,7 +14,7 @@ struct MealDetailView: View {
     @Namespace var namespace
     
     var deleteTapped: (() -> Void)
-    var saveTapped: (() -> Void)
+    var saveTapped: ((Meal) -> Void)
     var cancelTapped: (() -> Void)
     
     var meal : Meal
@@ -43,9 +43,7 @@ struct MealDetailView: View {
                                         isDineOut = true
                                     } else if meal.mealType == .dineIn {
                                             isDineOut = false
-                                    }
-                                    print(isDineOut)
-                                }
+                                    }                                }
                         }
                         .matchedGeometryEffect(id: "navBarItem", in: namespace, isSource: !edit)
                         .padding(.top, 20)
@@ -224,7 +222,7 @@ struct MealDetailView: View {
                 } else {
                     if #available(iOS 14.0, *) {
                         ModifyMealView(isDineOut: $isDineOut,
-                                       cancelTapped: saveTapped,
+                                       cancelTapped: cancelTapped,
                                        saveTapped: saveTapped,
                                        namespace: namespace,
                                        meal: meal)

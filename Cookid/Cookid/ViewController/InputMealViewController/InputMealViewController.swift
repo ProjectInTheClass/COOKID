@@ -7,7 +7,7 @@ class InputMealViewController: UIViewController {
 
     private let delegate = InputMealViewDelegate()
     private var cancellable: AnyCancellable?
-    let viewModel = MainViewModel(mealService: MealService(), userService: UserService(), shoppingService: ShoppingService())
+    var saveMeal: ((Meal) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,15 +15,11 @@ class InputMealViewController: UIViewController {
         
         let inputMealView = UIHostingController(rootView: InputMealView(mealDelegate: delegate,
              dismissView: {self.dismiss(animated: true, completion: nil)},
-             saveButtonTapped: { _ in 
+             saveButtonTapped: {  
             self.cancellable = self.delegate.$meal.sink(receiveValue: { [weak self] meal in
                 guard let newMeal = meal else { return }
-                //MealService.shared.create(meal: newMeal)
-                self?.viewModel.mealService.create(meal: meal!)
-                print(newMeal)
-            })
+                self?.saveMeal!(newMeal)})
              }
-             
         ))
         
         inputMealView.view.translatesAutoresizingMaskIntoConstraints = false

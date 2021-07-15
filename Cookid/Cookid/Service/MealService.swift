@@ -24,8 +24,8 @@ class MealService {
     
     @discardableResult
     func create(meal: Meal) -> Observable<Meal> {
+        mealRepository.uploadMealToFirebase(meal: meal) { key in meal.id = key }
         meals.append(meal)
-//        mealRepository.uploadMealToFirebase(meal: meal)
         mealStore.onNext(meals)
         return Observable.just(meal)
     }

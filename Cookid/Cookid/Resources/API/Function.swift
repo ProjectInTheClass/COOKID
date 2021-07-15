@@ -5,7 +5,8 @@
 //  Created by 박형석 on 2021/07/13.
 //
 
-import Foundation
+import UIKit
+
 
 func convertDateToString(format: String, date: Date) -> String {
     
@@ -31,3 +32,9 @@ extension Date {
         return Int(self.timeIntervalSince1970)
     }
 }
+
+func hideKeyboard() {
+   UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+}
+
+
