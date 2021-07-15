@@ -52,20 +52,15 @@ class UserInformationViewController: UIViewController {
         
         updateUser(user: user)
         
-        
-        func updateUser(user: User){
-            
-            self.viewModel.updateUser(user: user)
-        }
-        
-        @IBAction func BGTapped(_ sender: Any) {
-            self.dismiss(animated: false, completion: nil)
-        }
     }
-}
-
-
-extension UserInformationViewController: UITextFieldDelegate {
-    // 셋중 하나라도 텍스트가 있으면 버튼 뜨게 하기
     
+    
+    func updateUser(user: User){
+        
+        self.viewModel.updateUser(user: user)
+    }
+    
+    @IBAction func BGTapped(_ sender: Any) {
+        self.dismiss(animated: false, completion: nil)
+    }
 }
