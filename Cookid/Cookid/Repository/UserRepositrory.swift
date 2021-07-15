@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
-
+import Firebase
 
 class UserRepository {
     
@@ -72,7 +72,16 @@ class UserRepository {
         reference.setValue(userDic)
     }
     
-    
+    func deleteUser(){
+        
+        let user = Auth.auth().currentUser
+        
+        user?.delete(completion: { error in
+            if let error = error {
+                print("유저 삭제 오류\(error)")
+            }
+        })
+    }
     
 //    func pushToFirebase() {
 //        let uid = authRepo.uid

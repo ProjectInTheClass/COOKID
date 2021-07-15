@@ -10,6 +10,7 @@ import SwiftUI
 import RxSwift
 import RxCocoa
 import NSObject_Rx
+import Firebase
 
 class MainViewController: UIViewController {
     
@@ -58,7 +59,7 @@ class MainViewController: UIViewController {
         configureUI()
         bindViewModel()
         setNotification()
-        
+        setFirstView()
     }
     
     private func configureUI() {
@@ -207,7 +208,6 @@ class MainViewController: UIViewController {
             print("사용자 동의 --> \(granted)")
         }
         
-        
         let content = UNMutableNotificationContent()
         content.title = "새로운 달입니다!"
         content.body = "새로운 가계부 진행시켜 🏃‍♀️"
@@ -224,6 +224,14 @@ class MainViewController: UIViewController {
             if let error = error {
                 print(error.localizedDescription)
             }
+        }
+    }
+    
+    private func setFirstView(){
+        
+        if Auth.auth().currentUser == nil {
+            let vc = OnboardingPageViewViewController()
+            present(vc, animated: false, completion: nil)
         }
     }
 }
