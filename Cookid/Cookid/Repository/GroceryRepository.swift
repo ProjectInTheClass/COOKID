@@ -15,6 +15,8 @@ class GroceryRepository {
     let db = Database.database().reference()
     let authRepo = AuthRepository()
     
+    lazy var ref = db.child(authRepo.uid).child(FBChild.groceries)
+    
     func fetchGroceryInfo(completion: @escaping ([GroceryEntity]) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
@@ -40,12 +42,32 @@ class GroceryRepository {
     func uploadGroceryInfo(grocery: GroceryShopping) {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
+            guard let key = self.db.child(uid).child(FBChild.groceries).childByAutoId().key else { return }
             let dic: [String:Any] = [
-                "id" : grocery.id,
+                "id" : key,
                 "date" : grocery.date.dateToString(),
                 "totalPrice" : grocery.totalPrice
             ]
             self.db.child(uid).child(FBChild.groceries).setValue(dic)
         }
+    }
+    
+    
+    func updateGroceryInfo(grocery: GroceryShopping) {
+        authRepo.signInAnonymously { [weak self] uid in
+            guard let self = self else { return }
+            guard let key = self.db.child(uid).child(FBChild.groceries).childByAutoId().key else { return }
+            let dic: [String:Any] = [
+                "id" : key,
+                "date" : grocery.date.dateToString(),
+                "totalPrice" : grocery.totalPrice
+            ]
+            self.db.child(uid).child(FBChild.groceries).child(key).updateChildValues(dic)
+        }
+    }
+    
+    
+    func deleteGroceryInfo() {
+        
     }
 }

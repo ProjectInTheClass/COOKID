@@ -8,11 +8,8 @@ import UIKit
 
 class PanModalHeaderView: UIView {
     
-    //    let completionHandler : (() -> Void)?
     
-    struct Constants {
-        static let contentInsets = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0)
-    }
+    let contentInsets = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0)
     
     // MARK: - Views
     
@@ -27,7 +24,7 @@ class PanModalHeaderView: UIView {
     let subtitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        label.textColor = #colorLiteral(red: 0.7019607843, green: 0.7058823529, blue: 0.7137254902, alpha: 1)
+        label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         label.font = .systemFont(ofSize: 13)
         label.text = "오늘은 얼마를 사용하셨나요?"
         return label
@@ -43,16 +40,13 @@ class PanModalHeaderView: UIView {
         return btn
     }()
     
-    @objc func completion () {
-        completion()
-    }
-    
     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.spacing = 4.0
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.layer.cornerRadius = 10
         return stackView
     }()
     
@@ -63,12 +57,17 @@ class PanModalHeaderView: UIView {
         return view
     }()
     
+    @objc func completion() {
+        let shoppingVC = InputDataShoppingViewController()
+        shoppingVC.createNewShopping()
+    }
+    
     // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         
         addSubview(stackView)
         addSubview(seperatorView)
@@ -85,10 +84,10 @@ class PanModalHeaderView: UIView {
     
     func setupConstraints() {
         
-        stackView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.contentInsets.top).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.contentInsets.left).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.contentInsets.right).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.contentInsets.bottom).isActive = true
+        stackView.topAnchor.constraint(equalTo: topAnchor, constant: contentInsets.top).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: contentInsets.left).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -contentInsets.right).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -contentInsets.bottom).isActive = true
         
         seperatorView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         seperatorView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true

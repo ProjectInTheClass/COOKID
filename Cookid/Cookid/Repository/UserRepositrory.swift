@@ -18,6 +18,7 @@ class UserRepository {
     
     let authRepo = AuthRepository()
     
+    lazy var ref = db.child(authRepo.uid).child(FBChild.user)
     
     func fetchUserInfo(completion: @escaping (UserEntity) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
@@ -51,25 +52,27 @@ class UserRepository {
                 "determination" : userInfo.determination,
                 "priceGoal" : userInfo.priceGoal,
                 "userType" : userInfo.userType.rawValue,
-                "userId" : userInfo.userID
+                "userId" : uid
             ]
             let reference = self.db.child(uid).child(FBChild.user)
             reference.setValue(userDic)
         }
-        
     }
     
+    
     func updateUserInfo(user: User) {
+        authRepo.signInAnonymously { [weak self] uid in
+            guard let self = self else { return }
         let userDic: [String:Any] = [
             "nickname": user.nickname,
             "determination" : user.determination,
             "priceGoal" : user.priceGoal,
             "userType" : user.userType.rawValue,
-            "userId" : user.userID
+            "userId" : uid
         ]
-        
-        let reference = self.db.child(user.userID).child(FBChild.user)
-        reference.setValue(userDic)
+            let reference = self.db.child(user.userID).child(FBChild.user)
+        reference.updateChildValues(userDic)
+        }
     }
     
     func deleteUser(){
@@ -83,12 +86,6 @@ class UserRepository {
         })
     }
     
-//    func pushToFirebase() {
-//        let uid = authRepo.uid
-//        GroceryRepository.shared.pushGroceryInfo(uid: uid, grocery: DummyData.shared.mySingleShopping)
-//        DummyData.shared.myMeals.forEach { meal in MealRepository.shared.pushMealToFirebase(uid: uid, isAnonymous: isAnonymous, meal: meal) }
-//        uploadUserInfo(userInfo: DummyData.shared.singleUser)
-//
-//    }
+
 }
 

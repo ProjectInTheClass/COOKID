@@ -20,19 +20,18 @@ class MealService {
     private var currentDay = Date()
     
     private var meals: [Meal] = []
-    private let mealStore = BehaviorSubject<[Meal]>(value: [])
-    
+    private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
     
     @discardableResult
     func create(meal: Meal) -> Observable<Meal> {
         meals.append(meal)
-        mealRepository.uploadMealToFirebase(meal: meal)
+//        mealRepository.uploadMealToFirebase(meal: meal)
         mealStore.onNext(meals)
         return Observable.just(meal)
     }
     
     @discardableResult
-    func mealList() -> BehaviorSubject<[Meal]> {
+    func mealList() -> Observable<[Meal]> {
         return mealStore
     }
     
@@ -52,7 +51,7 @@ class MealService {
     @discardableResult
     func delete(meal: Meal) -> Observable<Meal> {
         
-        // mealRepository.deleteMealToFirebase(meal: meal)
+         mealRepository.deleteMealToFirebase(meal: meal)
         
         if let index = meals.firstIndex(where: { $0.id == meal.id }) {
             meals.remove(at: index)
@@ -158,7 +157,7 @@ class MealService {
     }
     
     func todayMeals(meals: [Meal]) -> [Meal] {
-        return meals.filter { $0.date == Date() }
+        return meals.filter { $0.date.dateToString() == Date().dateToString() }
     }
     
     func checkSpendPace(meals: [Meal], user: User) -> String{

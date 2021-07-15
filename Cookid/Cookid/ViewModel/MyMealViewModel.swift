@@ -16,7 +16,7 @@ class MyMealViewModel: ViewModelType {
     }
 
     struct Output {
-        let basicMeals: BehaviorSubject<[Meal]>
+        let basicMeals: Observable<[Meal]>
         let dineInProgress: Driver<CGFloat>
         let mostExpensiveMeal: Driver<Meal>
         let recentMeals: Driver<[Meal]>

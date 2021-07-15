@@ -18,6 +18,7 @@ class MealRepository {
     let storage = Storage.storage().reference()
     let authRepo = AuthRepository()
     
+    lazy var ref = db.child(authRepo.uid).child(FBChild.meal)
     
     func fetchMeals(completion: @escaping ([MealEntity]) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
@@ -57,7 +58,7 @@ class MealRepository {
             let mealDic : [String:Any] = [
                 "id" : key,
                 "price" : meal.price,
-                "date" : dateToInt(date: meal.date),
+                "date" : meal.date.dateToInt(),
                 "image" : meal.image?.absoluteString as Any,
                 "name" : meal.name,
                 "mealType" : meal.mealType.rawValue,
@@ -71,19 +72,15 @@ class MealRepository {
     
     func updateMealToFirebase(meal: Meal) {
         authRepo.signInAnonymously { [weak self] uid in
-            
             let mealDic : [String:Any] = [
                 "id" : meal.id as Any,
-                "price" : meal.price + 5000,
-                "date" : dateToInt(date: meal.date),
+                "price" : meal.price,
+                "date" : meal.date.dateToInt(),
                 "image" : meal.image?.absoluteString as Any,
                 "name" : meal.name,
                 "mealType" : meal.mealType.rawValue,
                 "mealTime" : meal.mealTime.rawValue
             ]
-            
-            //let updateChild = ["\(key)" : mealDic]
-            
             self?.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).child(meal.id!).updateChildValues(mealDic)
         }
     }
@@ -91,15 +88,16 @@ class MealRepository {
     
     
     func deleteMealToFirebase(meal: Meal) {
-        
+        authRepo.signInAnonymously { [weak self] uid in
+            self?.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).child(meal.id!).removeValue()
+        }
     }
     
     
-    func fetchingImageURL(uid: String, mealID: String, image: UIImage, completed: @escaping (URL?) -> Void) {
-        let storageRef = storage.child(uid + mealID + ".jpg")
+    
+    func fetchingImageURL(mealID: String, image: UIImage, completed: @escaping (URL?) -> Void) {
+        let storageRef = storage.child(mealID + ".jpg")
         let data = image.jpegData(compressionQuality: 0.8)
-        
-        
         let metadata = StorageMetadata()
         metadata.contentType = "image.jpg"
         

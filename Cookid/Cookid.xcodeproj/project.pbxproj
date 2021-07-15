@@ -65,7 +65,6 @@
 		C6BFF45E26949A1E006295F5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C6BFF45D26949A1E006295F5 /* FirebaseStorage */; };
 		C6BFF46026949A71006295F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6BFF45F26949A71006295F5 /* GoogleService-Info.plist */; };
 		C6BFF46226949AA7006295F5 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF46126949AA7006295F5 /* Constant.swift */; };
-		DB1982ED269BF3660055742B /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1982EC269BF3660055742B /* UserInformationViewController.swift */; };
 		DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1982EE269BF7D30055742B /* UserInfo.storyboard */; };
 		DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDA046726969A6500B5C1D6 /* UserService.swift */; };
 		DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */; };
@@ -557,7 +556,6 @@
 				C67441D62696FA530086CBAD /* MealService.swift in Sources */,
 				C64560BB269D4C04009B249F /* InputMealView.swift in Sources */,
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
-				DB1982ED269BF3660055742B /* UserInformationViewController.swift in Sources */,
 				C64560C1269D4C0E009B249F /* DatePickerTextField.swift in Sources */,
 				C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */,
 				DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */,
@@ -743,6 +741,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

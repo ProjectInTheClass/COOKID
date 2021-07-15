@@ -45,7 +45,7 @@
         <!--식비 목표 🏳️‍🌈-->
         <scene sceneID="wFK-wx-lZm">
             <objects>
-                <viewController id="DBM-09-Loe" customClass="MainViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="DBM-09-Loe" customClass="MainViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mrc-sd-wgV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -450,7 +450,13 @@
                             <constraint firstItem="i2c-fa-0Jz" firstAttribute="leading" secondItem="yDN-fY-BSl" secondAttribute="leading" id="ykj-Sb-SrY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="식비 목표 🏳️‍🌈" id="3gK-bs-I44"/>
+                    <navigationItem key="navigationItem" title="식비 목표 🏳️‍🌈" id="3gK-bs-I44">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="HjJ-Kb-e7a">
+                            <connections>
+                                <action selector="create:" destination="DBM-09-Loe" id="hGU-o2-JLY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addMealButton" destination="SvZ-tN-y7G" id="nHQ-bK-Qsd"/>
                         <outlet property="addShoppingButton" destination="lAB-bw-MJq" id="wWE-MF-9Er"/>
