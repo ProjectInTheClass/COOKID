@@ -58,7 +58,6 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         
         let mealDayList = Observable.of(initialMeal, yesterdayMeals, tommorowMeals, todayMeals)
             .merge()
-            .debug()
             .asDriver(onErrorJustReturn: [])
         
         let monthlyDetailed = Observable.combineLatest(userInfo.asObservable(), meals) { user, meals -> ConsumptionDetailed in
