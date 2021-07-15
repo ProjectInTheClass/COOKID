@@ -71,7 +71,6 @@ extension SelectCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
         if let completionHandler = completionHandler {
             completionHandler(date)
         }
-        
         self.dismiss(animated: true, completion: nil)
     }
 }

@@ -20,6 +20,8 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     @IBOutlet weak var userNickname: UILabel!
     @IBOutlet weak var userType: UILabel!
     @IBOutlet weak var userDetermination: UILabel!
+    @IBOutlet weak var userInfoUpdateButton: UIButton!
+    
     
     // buttonView
     @IBOutlet weak var addMealButton: UIButton!
@@ -121,10 +123,10 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         addMealButton.rx.tap
             .subscribe(onNext: {
-                let vc = InputMealViewController()
-                vc.modalPresentationStyle = .formSheet
-                self.present(vc, animated: true, completion: nil)
-                
+//                let vc = InputMealViewController()
+//                vc.modalPresentationStyle = .formSheet
+//                self.present(vc, animated: true, completion: nil)
+//                
             })
             .disposed(by: rx.disposeBag)
         
@@ -135,10 +137,14 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true, completion: nil)
                 
-                print("석현님 여기다가 VC 띄워주세요")
             })
             .disposed(by: rx.disposeBag)
         
+        userInfoUpdateButton.rx.tap
+            .subscribe(onNext: {
+                print("동환님 여기에서 VC를 띄워주시면 됩니다.")
+            })
+            .disposed(by: rx.disposeBag)
         
         //output
         
