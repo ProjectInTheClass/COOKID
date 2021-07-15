@@ -11,8 +11,10 @@ import RxSwift
 class ShoppingService {
     
     private let groceryRepository = GroceryRepository()
+    
     private var groceryShoppings: [GroceryShopping] = []
-    private lazy var shoppingStore = BehaviorSubject<[GroceryShopping]>(value: DummyData.shared.myShoppings)
+    
+    private lazy var shoppingStore = BehaviorSubject<[GroceryShopping]>(value: groceryShoppings)
     
     @discardableResult
     func create(shopping: GroceryShopping) -> Observable<GroceryShopping> {
@@ -63,7 +65,7 @@ class ShoppingService {
             let groceryShoppings = models.map { shoppingModel -> GroceryShopping in
                 
                 let id = shoppingModel.id
-                let date = stringToDate(date: shoppingModel.date)
+                let date = Date(timeIntervalSince1970: TimeInterval(shoppingModel.date))
                 let totalPrice = shoppingModel.totalPrice
                 
                 return GroceryShopping(id: id, date: date, totalPrice: totalPrice)
@@ -74,10 +76,9 @@ class ShoppingService {
         }
     }
     
-    func fetchShoppingSpend(meals: [Meal]) -> Int {
-        let shoppingSpends = meals.filter {$0.mealType == .dineIn}.map{$0.price}
-        let totalSpend = shoppingSpends.reduce(0){$0+$1}
-        return totalSpend
+    func fetchShoppingTotalSpend(shoppings: [GroceryShopping]) -> Int {
+        let shoppingSpends = shoppings.map { $0.totalPrice }.reduce(0, +)
+        return shoppingSpends
     }
 
 }

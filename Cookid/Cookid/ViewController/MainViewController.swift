@@ -142,6 +142,9 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         userInfoUpdateButton.rx.tap
             .subscribe(onNext: {
+                
+                
+                
                 print("동환님 여기에서 VC를 띄워주시면 됩니다.")
             })
             .disposed(by: rx.disposeBag)
@@ -185,7 +188,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .delay(.milliseconds(500))
             .drive(onNext: {
                 [unowned self] value in
-                self.chartPercentLabel.text = String(Int(value)) + "%"
+                self.chartPercentLabel.text = String(format: "%.0f", value) + "%"
                 self.consumeProgressBar.progress = CGFloat(value) / CGFloat(100)
             })
             .disposed(by: rx.disposeBag)

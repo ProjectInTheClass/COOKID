@@ -20,20 +20,29 @@ class GroceryRepository {
     func fetchGroceryInfo(completion: @escaping ([GroceryEntity]) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
-            self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.groceries).observeSingleEvent(of: .value) { snapshot in
+            
+            var calendar = Calendar(identifier: .gregorian)
+            calendar.locale = Locale(identifier: "ko")
+            let datecompoenets = calendar.dateComponents([.year, .month], from: Date())
+            let startOfMonth = calendar.date(from: datecompoenets)!
+            let date = Int(startOfMonth.timeIntervalSince1970)
+            
+            var monthFilterQuery: DatabaseQuery?
+            
+            monthFilterQuery = self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.groceries).queryOrdered(byChild: "date").queryStarting(atValue: date)
+           
+            monthFilterQuery?.observeSingleEvent(of: .value) { snapshot in
             
                 let snapshot = snapshot.value as! [String:Any]
+                
                 var grocery = [GroceryEntity]()
 
-                do {
-                    let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
-                    let decoder = JSONDecoder()
-                    let decodedGrocery = try decoder.decode(GroceryEntity.self, from: data)
-                    grocery.append(decodedGrocery)
-                    completion(grocery)
-                } catch {
-                    print("Cannot fetch grocery info.. \(error.localizedDescription)")
+                for value in snapshot.values {
+                    let dic = value as! [String:Any]
+                    let shopping = GroceryEntity(groceriesDic: dic)
+                    grocery.append(shopping)
                 }
+                completion(grocery)
             }
         }
     }
