@@ -40,30 +40,31 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         let deSelectedDate : [Date] = [date]
         
         updateData(dates: deSelectedDate)
-        
-        DispatchQueue.main.async {
+                DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
-    
-    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        print("\(self.dateFormatter.string(from: calendar.currentPage))")
-    }
+
+//    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+//        print("\(self.dateFormatter.string(from: calendar.currentPage))")
+//    }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-        if dineOutMeals.map({$0.date.dateToString()}).contains(date.dateToString()) {
-            return .red
-        }
-        if dineInMeals.map({$0.date.dateToString()}).contains(date.dateToString()) {
-            return .yellow
-        }
-        if shopping.map({$0.date.dateToString()}).contains(date.dateToString()) {
-            return .blue
-        }
         
-//        if !(selectedShopping?.isEmpty ?? true) {
-//            return .green
-//        }
+        let isOut = dineOutMeals.map({$0.date.dateToString()}).contains(date.dateToString())
+        let isIn = dineInMeals.map({$0.date.dateToString()}).contains(date.dateToString())
+        let isShop = shopping.map({$0.date.dateToString()}).contains(date.dateToString())
+        
+        if isOut && isIn && isShop {
+            return #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+        } else if (isOut || isIn) && !isShop {
+            return #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        } else if isShop && !(isIn && isOut) {
+            return #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+        } else if isShop && isIn || isShop && isOut {
+            return #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+        }
+
         return UIColor.clear
     }
     

@@ -11,6 +11,18 @@ import Then
 
 class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate  {
     
+    let service: ShoppingService
+    
+    init(service: ShoppingService) {
+        self.service = service
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     let tableView: UITableView! = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +34,6 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
     }()
     
     var headerView = PanModalHeaderView()
-    let shoppingService = ShoppingService()
     
     var rightBtn = PanModalHeaderView().rightBtn
     
@@ -37,6 +48,7 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         $0.keyboardType = .numberPad
         $0.placeholder = "금액을 입력하세요."
     }
+    
     
     let tapGesture = UITapGestureRecognizer()
     
@@ -59,15 +71,18 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
     
     @objc func createFunc() {
         print("btn tapped")
-        guard let price = self.priceTextField.text, price.count > 0,
-              let date = self.dateTextField.text, date.count > 0 else {
+        guard let price = self.priceTextField.text, price.count > 0 else {
             self.alert(message: "입력란을 다 채워주세요!")
             return
         }
-        self.dismiss(animated: true, completion: {
-            print("createNewShopping - tapped")
-            self.createNewShopping()
-        })
+        
+        let date = Date()
+        
+        let aShoppingItem = GroceryShopping(id: "wkwkfe", date: date, totalPrice: Int(price)!)
+        
+        service.create(shopping: aShoppingItem)
+        
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -206,14 +221,6 @@ extension InputDataShoppingViewController {
 }
 
 //MARK: - saveButtonTapped
-extension InputDataShoppingViewController {
-    func createNewShopping () -> Void {
-        guard let dateStr = dateTextField.text, let priceStr = priceTextField.text, let price = Int(priceStr) else { return }
-        let date = stringToDate(date: dateStr)
-        let aShoppingItem = GroceryShopping(id: "", date: date, totalPrice: price)
-        shoppingService.create(shopping: aShoppingItem)
-    }
-}
 
 extension InputDataShoppingViewController {
     func alert(title: String = "알림", message: String) {

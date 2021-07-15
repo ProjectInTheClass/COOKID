@@ -60,10 +60,9 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
         viewModel.output.averagePrice
             .drive(onNext: { str in
                 self.averageExpenseLabel.text = str
-                self.averageExpenseLabel.textColor = .darkGray
-                self.averageExpenseLabel.font = .systemFont(ofSize: 15)
             })
             .disposed(by: rx.disposeBag)
+        
     }
     
     
@@ -91,11 +90,10 @@ extension MyExpenseViewController {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        calendar.makeShadow()
         
         self.view.addGestureRecognizer(self.scopeGesture)
         self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
-        
- 
         
         self.calendar.backgroundColor = .white
         self.calendar.locale = Locale(identifier: "ko_KR")
@@ -103,7 +101,7 @@ extension MyExpenseViewController {
         self.calendar.select(Date())
         self.calendar.scope = .month
         self.calendar.isMultipleTouchEnabled = true
-        self.calendar.allowsMultipleSelection = false
+        self.calendar.allowsMultipleSelection = true
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         self.calendar.appearance.titleTodayColor = .black
         

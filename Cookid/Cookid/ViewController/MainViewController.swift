@@ -131,8 +131,8 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .disposed(by: rx.disposeBag)
         
         addShoppingButton.rx.tap
-            .subscribe(onNext: {
-                let vc = InputDataShoppingViewController()
+            .subscribe(onNext: { [unowned self] _ in
+                let vc = InputDataShoppingViewController(service: self.viewModel.shoppingService)
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true, completion: nil)
                 

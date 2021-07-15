@@ -51,13 +51,13 @@ class GroceryRepository {
     func uploadGroceryInfo(grocery: GroceryShopping) {
         authRepo.signInAnonymously { [weak self] uid in
             guard let self = self else { return }
-            guard let key = self.db.child(uid).child(FBChild.groceries).childByAutoId().key else { return }
+            guard let key = self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.groceries).childByAutoId().key else { return }
             let dic: [String:Any] = [
                 "id" : key,
-                "date" : grocery.date.dateToString(),
+                "date" : grocery.date.dateToInt(),
                 "totalPrice" : grocery.totalPrice
             ]
-            self.db.child(uid).child(FBChild.groceries).setValue(dic)
+            self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.groceries).child(key).setValue(dic)
         }
     }
     
