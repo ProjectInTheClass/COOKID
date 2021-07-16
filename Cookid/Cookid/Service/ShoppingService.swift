@@ -35,7 +35,7 @@ class ShoppingService {
     @discardableResult
     func update(updateShopping: GroceryShopping) -> Observable<GroceryShopping> {
         
-        // groceryRepository.updateShoppingToFirebase(shopping: shopping)
+         groceryRepository.uploadGroceryInfo(grocery: updateShopping)
         
         if let index = groceryShoppings.firstIndex(where: { $0.id == updateShopping.id }) {
             groceryShoppings.remove(at: index)

@@ -14,38 +14,42 @@ class SecondPageViewController: UIViewController, ViewModelBindable, StoryboardB
     
     var viewModel: OnboardingViewModel!
     
+    @IBOutlet weak var monthlyGoalStackView: UIStackView!
     @IBOutlet weak var monthlyGoal: UITextField!
     @IBOutlet weak var nextPageButton: UIButton!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.monthlyGoalStackView.alpha = 0
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            self.monthlyGoalStackView.alpha = 1
+        })
     }
     
     func bindViewModel() {
         
-        
         monthlyGoal.rx.text.orEmpty
-            .bind(to: viewModel.input.monthlyGoal)
-            .disposed(by: rx.disposeBag)
-        
-        
-        viewModel.output.userInformation
-            .map { [unowned self] user -> Bool in
-                return true
-            }
-            .drive(onNext: { [unowned self] validation in
-                if validation {
-                    self.nextPageButton.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
-                    self.nextPageButton.tintColor = .red
+            .do(onNext: { [unowned self] text in
+                if viewModel.validationText(text: text) {
+                    UIView.animate(withDuration: 0.5) {
+                        self.nextPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
+                        self.nextPageButton.tintColor = .systemGreen
+                    }
+                    
                 } else {
-                    self.nextPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
-                    self.nextPageButton.tintColor = .systemGreen
+                    UIView.animate(withDuration: 0.5) {
+                        self.nextPageButton.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
+                        self.nextPageButton.tintColor = .red
+                    }
                 }
             })
+            .bind(to: viewModel.input.monthlyGoal)
             .disposed(by: rx.disposeBag)
-        
     }
 
 }
