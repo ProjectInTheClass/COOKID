@@ -25,14 +25,19 @@ struct MealDetailView: View {
         if #available(iOS 14.0, *) {
             ZStack {
                 if !edit {
+                    GeometryReader { proxy in
+                        Color.clear.contentShape(Path(CGRect(origin: .zero, size: proxy.size)))
+                    }
+                    .onTapGesture { cancelTapped() }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
+                    
                     VStack(spacing: 0) {
                         HStack {
                             Text("삭제")
                                 .bold()
                                 .foregroundColor(.red)
-                                .onTapGesture {
-                                    deleteTapped()
-                                }
+                                .onTapGesture { deleteTapped() }
                             Spacer()
                             Text("수정")
                                 .bold()
