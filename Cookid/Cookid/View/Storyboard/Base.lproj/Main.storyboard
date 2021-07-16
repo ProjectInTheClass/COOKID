@@ -520,16 +520,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jxX-ho-ra6">
-                                <rect key="frame" x="50" y="406" width="314" height="84"/>
+                                <rect key="frame" x="50" y="405.5" width="314" height="85"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1. 사용자님의" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVk-xb-scK">
-                                        <rect key="frame" x="0.0" y="0.0" width="314" height="24"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LxZ-Qk-qg1">
+                                        <rect key="frame" x="0.0" y="0.0" width="314" height="25"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1. 사용자님의" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVk-xb-scK">
+                                                <rect key="frame" x="0.0" y="0.0" width="279" height="25"/>
+                                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rq4-S9-wDB">
+                                                <rect key="frame" x="289" y="0.0" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="DZ3-XP-Pnx"/>
+                                                    <constraint firstAttribute="height" constant="25" id="PRu-id-Ghe"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="tintColor" systemColor="systemRedColor"/>
+                                                <state key="normal" image="minus.circle" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" scale="large"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="닉네임을 적어주세요!" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6jM-Ee-kMh">
-                                        <rect key="frame" x="0.0" y="34" width="314" height="50"/>
+                                        <rect key="frame" x="0.0" y="35" width="314" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Ac2-cz-Qcy"/>
                                         </constraints>
@@ -539,32 +556,18 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3kX-Tc-gHs">
-                                <rect key="frame" x="50" y="191" width="241.5" height="89"/>
+                                <rect key="frame" x="50" y="243.5" width="143" height="36"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="우주최강 식비관리앱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPl-Ls-VSH">
-                                        <rect key="frame" x="0.0" y="0.0" width="241.5" height="36"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="30"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COOKid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sva-Fn-gfF">
-                                        <rect key="frame" x="0.0" y="41" width="139.5" height="48"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="40"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="안녕하세요?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPl-Ls-VSH">
+                                        <rect key="frame" x="0.0" y="0.0" width="143" height="36"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rq4-S9-wDB">
-                                <rect key="frame" x="170.5" y="520" width="73" height="71"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="tintColor" systemColor="systemYellowColor"/>
-                                <state key="normal" image="arrow.right.circle.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50" scale="large"/>
-                                </state>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3CS-28-L9Z">
-                                <rect key="frame" x="50" y="320" width="227" height="46"/>
+                                <rect key="frame" x="50" y="319.5" width="227" height="46"/>
                                 <string key="text">원활한 사용을 위해서,
 몇 가지 정보를 입력해 주세요:)</string>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="19"/>
@@ -581,14 +584,13 @@
                             <constraint firstItem="3CS-28-L9Z" firstAttribute="top" secondItem="3kX-Tc-gHs" secondAttribute="bottom" constant="40" id="Si0-go-kxL"/>
                             <constraint firstItem="jxX-ho-ra6" firstAttribute="centerX" secondItem="ofg-Y6-VIt" secondAttribute="centerX" id="Wn5-hL-43r"/>
                             <constraint firstItem="3kX-Tc-gHs" firstAttribute="leading" secondItem="jxX-ho-ra6" secondAttribute="leading" id="Wyr-vs-bev"/>
-                            <constraint firstItem="rq4-S9-wDB" firstAttribute="centerX" secondItem="jxX-ho-ra6" secondAttribute="centerX" id="dZ4-oX-1Lk"/>
                             <constraint firstItem="jxX-ho-ra6" firstAttribute="centerX" secondItem="ofg-Y6-VIt" secondAttribute="centerX" id="nbF-Ht-ukL"/>
-                            <constraint firstItem="rq4-S9-wDB" firstAttribute="top" secondItem="jxX-ho-ra6" secondAttribute="bottom" constant="30" id="qQl-co-yoR"/>
                             <constraint firstItem="jxX-ho-ra6" firstAttribute="leading" secondItem="KPh-8V-jSQ" secondAttribute="leading" constant="50" id="qj3-9Q-bja"/>
                             <constraint firstItem="KPh-8V-jSQ" firstAttribute="trailing" secondItem="jxX-ho-ra6" secondAttribute="trailing" constant="50" id="vPx-Xu-XAd"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="annotationLabel" destination="fVk-xb-scK" id="s9E-ZJ-huE"/>
                         <outlet property="nextPageButton" destination="rq4-S9-wDB" id="GxW-bt-P2E"/>
                         <outlet property="nickNameTextField" destination="6jM-Ee-kMh" id="gzi-U1-kAM"/>
                     </connections>
@@ -864,6 +866,7 @@
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="mealButton" width="183" height="69"/>
+        <image name="minus.circle" catalog="system" width="128" height="121"/>
         <image name="shoppingButton" width="183" height="69"/>
         <namedColor name="AccentColor">
             <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

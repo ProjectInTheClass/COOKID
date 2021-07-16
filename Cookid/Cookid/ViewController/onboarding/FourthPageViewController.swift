@@ -33,7 +33,7 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         
         viewModel.output.userInformation
             .map { [unowned self] user -> Bool in
-                return self.viewModel.vaildInformation(user.determination)
+                return true
             }
             .drive(onNext: { [unowned self] validation in
                 if validation {
