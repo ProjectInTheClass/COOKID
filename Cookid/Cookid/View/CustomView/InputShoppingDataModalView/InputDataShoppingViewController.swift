@@ -22,7 +22,6 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     let tableView: UITableView! = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false

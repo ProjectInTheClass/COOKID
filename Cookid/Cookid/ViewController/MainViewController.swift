@@ -132,6 +132,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         addShoppingButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
                 let vc = InputDataShoppingViewController(service: self.viewModel.shoppingService)
+                vc.modalTransitionStyle = .crossDissolve
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true, completion: nil)
                 
