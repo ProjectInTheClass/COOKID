@@ -36,7 +36,7 @@ class ExpenseTableViewCell: UITableViewCell {
     lazy var label = UILabel().then{
         $0.text = "여기에는 내 식사? 내 외식? 리스트?"
         $0.textColor = .black
-        $0.font = .systemFont(ofSize: 20)
+        $0.font = .systemFont(ofSize: 17)
     }
     
     lazy var dateLabel = UILabel().then{
