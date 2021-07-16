@@ -56,8 +56,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     var viewModel: MainViewModel!
     
     @IBAction func create(_ sender: Any) {
-        print("view")
-        viewModel.mealService.create(meal: DummyData.shared.mySingleMeal)
+        AuthRepository.shared.logout()
     }
     
     override func viewDidLoad() {

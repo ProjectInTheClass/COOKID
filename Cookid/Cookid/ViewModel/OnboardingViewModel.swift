@@ -45,10 +45,6 @@ class OnboardingViewModel: ViewModelType {
         self.output = Output(userInformation: userInformation)
     }
     
-    func vaildInformation(_ text: String) -> Bool {
-        return text.count < 3
-    }
-    
     func registrationUser() {
         self.output.userInformation
             .drive(onNext: { user in
