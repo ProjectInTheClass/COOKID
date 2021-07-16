@@ -54,7 +54,7 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
         tableView.deselectRow(at: indexPath, animated: false)
         
         if data[indexPath.section].name == "마트털이" {
-            let vc = InputDataShoppingViewController(service: viewModel.shoppingService)
+            let vc = InputDataShoppingViewController(service: self.viewModel.shoppingService)
                 let price = self.selectedShopping[indexPath.row].totalPrice
                 let date = self.selectedShopping[indexPath.row].date.dateToString()
                 vc.dateTextField.text = date

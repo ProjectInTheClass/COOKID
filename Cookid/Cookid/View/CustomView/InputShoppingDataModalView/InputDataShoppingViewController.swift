@@ -83,8 +83,6 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         let aShoppingItem = GroceryShopping(id: "wkwkfe", date: date, totalPrice: Int(price)!)
         
         service.create(shopping: aShoppingItem)
-        let vc = MyExpenseViewController()
-        vc.fetchShopping()
         
         self.dismiss(animated: true, completion: nil)
     }

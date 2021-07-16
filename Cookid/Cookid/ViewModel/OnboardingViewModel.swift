@@ -54,5 +54,9 @@ class OnboardingViewModel: ViewModelType {
             .disposed(by: disposeBag)
     }
     
+    func validationText(text: String) -> Bool {
+        return text.count > 3
+    }
+    
     
 }

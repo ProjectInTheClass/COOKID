@@ -18,36 +18,51 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
     
     @IBOutlet weak var determinationTextField: UITextField!
     @IBOutlet weak var finishPageButton: UIButton!
+    @IBOutlet weak var determineStackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.determineStackView.alpha = 0
+        self.finishPageButton.alpha = 0
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            self.determineStackView.alpha = 1
+        })
+        
+        UIView.animate(withDuration: 1, delay: 2, options: .curveEaseInOut, animations: {
+            self.finishPageButton.alpha = 1
+        })
+    }
     
     func bindViewModel() {
         
         determinationTextField.rx.text.orEmpty
-            .bind(to: viewModel.input.determination)
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.userInformation
-            .map { [unowned self] user -> Bool in
-                return true
-            }
-            .drive(onNext: { [unowned self] validation in
-                if validation {
-                    self.finishPageButton.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
-                    self.finishPageButton.tintColor = .red
+            .do(onNext: { [unowned self] text in
+                if viewModel.validationText(text: text) {
+                    UIView.animate(withDuration: 0.5) {
+                        self.finishPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
+                        self.finishPageButton.tintColor = .systemGreen
+                        self.finishPageButton.isEnabled = true
+                    }
+                    
                 } else {
-                    self.finishPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
-                    self.finishPageButton.tintColor = .systemGreen
+                    UIView.animate(withDuration: 0.5) {
+                        self.finishPageButton.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
+                        self.finishPageButton.tintColor = .red
+                        self.finishPageButton.isEnabled = false
+                    }
                 }
             })
+            .bind(to: viewModel.input.determination)
             .disposed(by: rx.disposeBag)
         
         finishPageButton.rx.tap
             .subscribe(onNext: { [weak self] in
+                
+                // 여기 살펴보자.
                 self?.viewModel.registrationUser()
                 self?.dismiss(animated: true, completion: nil)
             })
