@@ -50,6 +50,9 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+        
         if data[indexPath.section].name == "마트털이" {
             let vc = InputDataShoppingViewController(service: self.viewModel.shoppingService)
                 let price = selectedShopping[indexPath.row].totalPrice
