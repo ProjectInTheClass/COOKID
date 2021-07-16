@@ -64,6 +64,11 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         super.viewDidLoad()
         configureUI()
         setNotification()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setFirstView()
     }
     
@@ -264,10 +269,12 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     private func setFirstView(){
         
+
 //        if Auth.auth().currentUser == nil {
 //            let vc = OnboardingPageViewViewController()
 //            present(vc, animated: false, completion: nil)
 //        }
+
     }
 }
 
