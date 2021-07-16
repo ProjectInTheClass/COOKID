@@ -55,8 +55,20 @@ class OnboardingViewModel: ViewModelType {
     }
     
     func validationText(text: String) -> Bool {
-        return text.count > 3
+        return text.count > 1
     }
     
+    let charSet: CharacterSet = {
+        var cs = CharacterSet.init(charactersIn: "0123456789")
+        return cs.inverted
+    }()
     
+    func validationNum(text: String) -> Bool {
+        if text.isEmpty {
+            return false
+        } else {
+            guard text.rangeOfCharacter(from: charSet) == nil else { return false }
+            return true
+        }
+    }
 }
