@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBased {
-    
+        
     var viewModel: MyExpenseViewModel!
     
     @IBOutlet weak var averageExpenseLabel: UILabel!

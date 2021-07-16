@@ -12,6 +12,8 @@ import Then
 class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate  {
     
     let service: ShoppingService
+    var currentPrice : String?
+    var currentDate : String?
     
     init(service: ShoppingService) {
         self.service = service
@@ -78,7 +80,6 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         }
         
         let date = datePicker.date
-        
         let aShoppingItem = GroceryShopping(id: "wkwkfe", date: date, totalPrice: Int(price)!)
         
         service.create(shopping: aShoppingItem)
@@ -86,6 +87,21 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         vc.fetchShopping()
         
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func updateFunc() {
+        print("update btn tapped")
+        
+        if self.currentPrice == self.priceTextField.text && self.currentDate == self.dateTextField.text {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            guard let editedPrice = self.priceTextField.text, editedPrice.count > 0, let editedDateStr = self.dateTextField.text, editedDateStr.count > 0 else {
+                self.alert(message: "입력란을 다 채워주세요!")
+                return
+            }
+            alert2(message: "편집 내용을 저장하시겠습니까?")
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -234,6 +250,33 @@ extension InputDataShoppingViewController {
         let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
         alert.addAction(okAction)
                 
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func alert2(title: String = "알림", message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "확인", style: .default) {_ in
+            let date = self.datePicker.date
+            let price = self.priceTextField.text
+            let aShoppingItem = GroceryShopping(id: "wkwkfe", date: date, totalPrice: (Int(price ?? "0")!))
+            
+            self.service.update(updateShopping: aShoppingItem)
+            let vc = MyExpenseViewController()
+            vc.fetchShopping()
+            
+            self.rightBtn.removeTarget(self, action: #selector(self.updateFunc), for: .touchUpInside)
+            self.rightBtn.addTarget(self, action: #selector(self.createFunc), for: .touchUpInside)
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(okAction)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .default) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(cancelAction)
+        
         present(alert, animated: true, completion: nil)
     }
 }

@@ -54,17 +54,21 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
         tableView.deselectRow(at: indexPath, animated: false)
         
         if data[indexPath.section].name == "마트털이" {
-            let vc = InputDataShoppingViewController(service: self.viewModel.shoppingService)
-                let price = selectedShopping[indexPath.row].totalPrice
-                let date = selectedShopping[indexPath.row].date.dateToString()
+            let vc = InputDataShoppingViewController(service: viewModel.shoppingService)
+                let price = self.selectedShopping[indexPath.row].totalPrice
+                let date = self.selectedShopping[indexPath.row].date.dateToString()
                 vc.dateTextField.text = date
                 vc.priceTextField.text = String(price)
-                vc.rightBtn.setTitle("수정", for: .normal)
-                self.present(vc, animated: true, completion: nil)
+            vc.rightBtn.removeTarget(self, action: nil, for: .allEvents)
+                vc.rightBtn.addTarget(self, action: #selector(vc.updateFunc), for: .touchUpInside)
+                vc.currentPrice = String(price)
+                vc.currentDate = date
+                vc.modalTransitionStyle = .crossDissolve
                 vc.modalPresentationStyle = .overFullScreen
-                vc.present(vc, animated: true, completion: nil)
+                self.present(vc, animated: true, completion: nil)
             
         }
+        
     }
 }
 
