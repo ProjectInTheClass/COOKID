@@ -56,14 +56,16 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     var viewModel: MainViewModel!
     
     @IBAction func create(_ sender: Any) {
-        print("view")
-        viewModel.mealService.create(meal: DummyData.shared.mySingleMeal)
+        AuthRepository.shared.logout()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        setNotification()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setFirstView()
     }
     
@@ -123,7 +125,8 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .subscribe(onNext: {
                 let vc = InputMealViewController()
                 vc.saveMeal = { meal in self.viewModel.mealService.create(meal: meal) }
-                vc.modalPresentationStyle = .formSheet
+                vc.modalPresentationStyle = .custom
+                vc.view.backgroundColor = .clear
                 self.present(vc, animated: true, completion: nil)
                 
             })
@@ -233,42 +236,15 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             
         
     }
-    
-    private func setNotification(){
         
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.badge, .badge]) { granted, error in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-            print("사용자 동의 --> \(granted)")
-        }
-        
-        let content = UNMutableNotificationContent()
-        content.title = "새로운 달입니다!"
-        content.body = "새로운 가계부 진행시켜 🏃‍♀️"
-        
-        var datComp = DateComponents()
-        datComp.day = 1
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: datComp, repeats: true)
-        
-        let uuidString = UUID().uuidString
-        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-        
-        center.add(request) { (error) in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
     private func setFirstView(){
         
-//        if Auth.auth().currentUser == nil {
-//            let vc = OnboardingPageViewViewController()
-//            present(vc, animated: false, completion: nil)
-//        }
+        if Auth.auth().currentUser == nil {
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let vc = sb.instantiateViewController(identifier: "OnboardingPageViewViewController") as! OnboardingPageViewViewController
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: false, completion: nil)
+        }
     }
 }
 

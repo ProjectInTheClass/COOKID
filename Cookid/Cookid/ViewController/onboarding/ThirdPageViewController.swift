@@ -11,11 +11,19 @@ class ThirdPageViewController: UIViewController, ViewModelBindable, StoryboardBa
     
     var viewModel: OnboardingViewModel!
     
+    @IBOutlet weak var mealTypeStackView: UIStackView!
     @IBOutlet weak var usertypeSegment: UISegmentedControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        self.mealTypeStackView.alpha = 0
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            self.mealTypeStackView.alpha = 1
+        })
     }
     
     func bindViewModel() {

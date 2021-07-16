@@ -20,15 +20,36 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
     @IBOutlet weak var newDeterminationLabel: UILabel!
     @IBOutlet weak var newDeterminationTextField: UITextField!
     
+    @IBOutlet weak var userInputView: UIView!
+    
     
     var viewModel: MainViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addNotiObserver()
     }
     
     var user: User?
+    
+    func addNotiObserver(){
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handle(keyboardShowNotification:)),
+                                               name: UIResponder.keyboardDidShowNotification,
+                                               object: nil)
+    }
+    
+    @objc
+    private func handle(keyboardShowNotification notification: Notification) {
+        
+        if let userInfo = notification.userInfo,
+           let keyboardRectangle = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            if self.userInputView.frame.midY == self.view.frame.midY {
+                self.userInputView.frame.origin.y -= (keyboardRectangle.height / 2)
+            }
+        }
+    }
     
     func bindViewModel() {
         

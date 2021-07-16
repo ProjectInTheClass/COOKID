@@ -43,7 +43,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.tabBar.tintColor = .black
         
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = tabBarController
+        
+        if AuthRepository.shared.isLogined {
+            window?.rootViewController = tabBarController
+        } else {
+            let pageVC = OnboardingPageViewViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+            window?.rootViewController = pageVC
+        }
+        let pageVC = OnboardingPageViewViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        window?.rootViewController = pageVC
         window?.makeKeyAndVisible()
     }
 

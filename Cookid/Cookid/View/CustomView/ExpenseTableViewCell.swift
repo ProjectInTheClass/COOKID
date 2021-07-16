@@ -57,7 +57,6 @@ class ExpenseTableViewCell: UITableViewCell {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        
 //        self.mealImage.snp.makeConstraints{
 //            $0.height.width.equalTo(20)
 //            $0.leading.equalToSuperview().offset(10)

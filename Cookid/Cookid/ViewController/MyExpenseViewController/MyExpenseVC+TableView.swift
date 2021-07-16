@@ -76,7 +76,6 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
             vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, animated: true, completion: nil)
-            
         } else {
             tableView.cellForRow(at: indexPath)?.selectionStyle = .default
         }
