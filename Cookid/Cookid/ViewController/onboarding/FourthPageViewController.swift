@@ -64,11 +64,42 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
                 
                 // 여기 살펴보자.
                 self?.viewModel.registrationUser()
-                self?.dismiss(animated: true, completion: nil)
+                self?.dismiss(animated: true, completion: {
+                    self?.setNotification()
+                })
             })
             .disposed(by: rx.disposeBag)
        
     }
 
+    
+    private func setNotification(){
+        
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.badge, .badge]) { granted, error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            print("사용자 동의 --> \(granted)")
+        }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "새로운 달입니다!"
+        content.body = "새로운 가계부 진행시켜 🏃‍♀️"
+        
+        var datComp = DateComponents()
+        datComp.day = 1
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: datComp, repeats: true)
+        
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+        
+        center.add(request) { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
 
 }
