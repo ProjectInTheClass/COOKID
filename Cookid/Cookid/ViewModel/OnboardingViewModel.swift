@@ -10,6 +10,8 @@ import RxCocoa
 
 class OnboardingViewModel: ViewModelType {
     
+    let userService: UserService
+    
     let disposeBag = DisposeBag()
     
     struct Input {
@@ -27,7 +29,8 @@ class OnboardingViewModel: ViewModelType {
     
     var output: Output
     
-    init() {
+    init(userService: UserService) {
+        self.userService = userService
         
         let nickname = BehaviorSubject(value: "노네임")
         let monthlyGoal = BehaviorSubject(value: "00")
@@ -47,9 +50,8 @@ class OnboardingViewModel: ViewModelType {
     
     func registrationUser() {
         self.output.userInformation
-            .drive(onNext: { user in
-                print("등록완료")
-                UserRepository.shared.uploadUserInfo(userInfo: user)
+            .drive(onNext: { [unowned self] user in
+                self.userService.uploadUserInfo(user: user)
             })
             .disposed(by: disposeBag)
     }

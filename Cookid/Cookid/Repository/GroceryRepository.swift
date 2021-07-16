@@ -10,17 +10,11 @@ import FirebaseDatabase
 
 class GroceryRepository {
     
-    static let shared = GroceryRepository()
-    
     let db = Database.database().reference()
     let authRepo = AuthRepository()
     
-    lazy var ref = db.child(authRepo.uid).child(FBChild.groceries)
-    
-    func fetchGroceryInfo(completion: @escaping ([GroceryEntity]) -> Void) {
-        authRepo.signInAnonymously { [weak self] uid in
-            guard let self = self else { return }
-            
+
+    func fetchGroceryInfo(user: User, completion: @escaping ([GroceryEntity]) -> Void) {
             var calendar = Calendar(identifier: .gregorian)
             calendar.locale = Locale(identifier: "ko")
             let datecompoenets = calendar.dateComponents([.year, .month], from: Date())
@@ -29,7 +23,7 @@ class GroceryRepository {
             
             var monthFilterQuery: DatabaseQuery?
             
-            monthFilterQuery = self.db.child(uid).child(FBChild.groceries).queryOrdered(byChild: "date").queryStarting(atValue: date)
+        monthFilterQuery = self.db.child(user.userID).child(FBChild.groceries).queryOrdered(byChild: "date").queryStarting(atValue: date)
            
             monthFilterQuery?.observeSingleEvent(of: .value) { snapshot in
             
@@ -44,7 +38,6 @@ class GroceryRepository {
                 }
                 completion(grocery)
             }
-        }
     }
     
     

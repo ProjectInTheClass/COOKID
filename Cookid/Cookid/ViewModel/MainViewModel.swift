@@ -38,8 +38,11 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         self.userService = userService
         self.shoppingService = shoppingService
         
-        mealService.fetchMeals { meals in }
-        shoppingService.fetchGroceries { _ in }
+        // user
+        userService.loadUserInfo { user in
+            mealService.fetchMeals(user: user) { meals in }
+            shoppingService.fetchGroceries(user: user) { _ in }
+        }
         
         // meal & user Storage
         

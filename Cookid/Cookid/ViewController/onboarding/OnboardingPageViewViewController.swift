@@ -23,13 +23,24 @@ class OnboardingPageViewViewController: UIPageViewController {
         
     }
     
+    let userService: UserService
+    
+    init(userService: UserService) {
+        self.userService = userService
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 
     private func setupPages() {
         
         self.dataSource = self
         self.delegate = self
         
-        let viewModel = OnboardingViewModel()
+        let viewModel = OnboardingViewModel(userService: userService)
         
         var firstPage = FirstPageViewController.instantiate(storyboardID: "Main")
         firstPage.bind(viewModel: viewModel)

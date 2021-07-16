@@ -138,17 +138,20 @@ extension MyExpenseViewController {
 
 extension MyExpenseViewController {
     func fetchShopping() {
-        
-        viewModel.shoppingService.fetchGroceries(completion: { shoppings in
-            self.shopping = shoppings
-        })
+        viewModel.userService.loadUserInfo { [unowned self] user in
+            self.viewModel.shoppingService.fetchGroceries(user: user, completion: { shoppings in
+                self.shopping = shoppings
+            })
+        }
     }
     
     func fetchMeals() {
-        viewModel.mealService.fetchMeals(completion: { meals in
-            self.dineOutMeals = meals.filter{$0.mealType == .dineOut}
-            self.dineInMeals = meals.filter{$0.mealType == .dineIn}
-        })
+        viewModel.userService.loadUserInfo { [unowned self] user in
+            self.viewModel.mealService.fetchMeals(user: user, completion: { meals in
+                self.dineOutMeals = meals.filter{$0.mealType == .dineOut}
+                self.dineInMeals = meals.filter{$0.mealType == .dineIn}
+            })
+        }
     }
     
     func findSelectedDateMeal (meals : [Meal], selectedDate : [Date]) -> [Meal] {

@@ -199,10 +199,10 @@
 		032233AF2692764F0092DD6D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				C6BFF45526949986006295F5 /* GroceryRepository.swift */,
-				C6BFF45626949986006295F5 /* MealRepository.swift */,
-				C6BFF45426949986006295F5 /* UserRepositrory.swift */,
 				C67441D726970E7C0086CBAD /* AuthRepository.swift */,
+				C6BFF45426949986006295F5 /* UserRepositrory.swift */,
+				C6BFF45626949986006295F5 /* MealRepository.swift */,
+				C6BFF45526949986006295F5 /* GroceryRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";

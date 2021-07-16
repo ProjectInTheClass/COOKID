@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -16,40 +17,46 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let mealService = MealService()
-        let userService = UserService()
-        let shoppingService = ShoppingService()
+        let mealRepo = MealRepository()
+        let userRepo = UserRepository()
+        let groceryRepo = GroceryRepository()
+
+        let mealService = MealService(mealRepository: mealRepo, userRepository: userRepo, groceryRepository: groceryRepo)
+        let userService = UserService(userRepository: userRepo)
+        let shoppingService = ShoppingService(groceryRepository: groceryRepo)
 
         var mainVC = MainViewController.instantiate(storyboardID: "Main")
         mainVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
         let mainNVC = UINavigationController(rootViewController: mainVC)
         mainVC.navigationController?.navigationBar.prefersLargeTitles = true
-        
+
         var myMealVC = MyMealViewController.instantiate(storyboardID: "MyMealTap")
-        myMealVC.bind(viewModel: MyMealViewModel(mealService: mealService))
+        myMealVC.bind(viewModel: MyMealViewModel(mealService: mealService, userService: userService))
         let myMealNVC = UINavigationController(rootViewController: myMealVC)
         myMealVC.navigationController?.navigationBar.prefersLargeTitles = true
-        
+
         var myExpenseVC = MyExpenseViewController.instantiate(storyboardID: "MyExpenseTap")
         myExpenseVC.bind(viewModel: MyExpenseViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
         let myExpenseNVC = UINavigationController(rootViewController: myExpenseVC)
         myExpenseVC.navigationController?.navigationBar.prefersLargeTitles = true
-    
 
         let tabBarController = UITabBarController()
         tabBarController.setViewControllers([mainNVC, myMealNVC, myExpenseNVC], animated: false)
         tabBarController.tabBar.tintColor = .black
         
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
         window = UIWindow(windowScene: windowScene)
         
-        if AuthRepository.shared.isLogined {
+        if Auth.auth().currentUser != nil {
             window?.rootViewController = tabBarController
         } else {
-            let pageVC = OnboardingPageViewViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+            let pageVC = OnboardingPageViewViewController(userService: userService)
+            window = UIWindow(windowScene: windowScene)
             window?.rootViewController = pageVC
         }
+     
         window?.makeKeyAndVisible()
     }
 

@@ -10,17 +10,21 @@ import RxSwift
 
 class MealService {
     
-    static let shared = MealService()
-    
-    private let mealRepository = MealRepository()
-    private let userRepository = UserRepository()
-    private let groceryRepository = GroceryRepository()
+    let mealRepository: MealRepository
+    let userRepository: UserRepository
+    let groceryRepository: GroceryRepository
     
     private var totalBudget: Int = 1
     private var currentDay = Date()
     
     private var meals: [Meal] = []
     private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
+    
+    init(mealRepository: MealRepository, userRepository: UserRepository, groceryRepository: GroceryRepository) {
+        self.mealRepository = mealRepository
+        self.userRepository = userRepository
+        self.groceryRepository = groceryRepository
+    }
     
     @discardableResult
     func create(meal: Meal) -> Observable<Meal> {
@@ -61,8 +65,8 @@ class MealService {
         return Observable.just(meal)
     }
     
-    func fetchMeals(completion: @escaping ([Meal])->Void) {
-        self.mealRepository.fetchMeals { [unowned self] mealArr in
+    func fetchMeals(user: User, completion: @escaping ([Meal])->Void) {
+        self.mealRepository.fetchMeals(user: user) { [unowned self] mealArr in
             let mealModels = mealArr.map {  model -> Meal in
                 let id = model.id
                 let price = model.price

@@ -11,32 +11,20 @@ import FirebaseAuth
 import Firebase
 
 class UserRepository {
-    
     static let shared = UserRepository()
     
     let db = Database.database().reference()
     
-    let authRepo = AuthRepository()
-    
-    lazy var ref = db.child(authRepo.uid).child(FBChild.user)
+    let authRepo = AuthRepository.shared
     
     func fetchUserInfo(completion: @escaping (UserEntity) -> Void) {
-        authRepo.signInAnonymously { [weak self] uid in
-            guard let self = self else { return }
-            
-            let ref = self.db.child(uid).child(FBChild.user)
-            
+        
+        if let currentUserUID = Auth.auth().currentUser?.uid {
+            print("currentUID" + currentUserUID)
+            let ref = self.db.child(currentUserUID).child(FBChild.user)
             ref.observeSingleEvent(of: .value) { snapshot in
                 
-                let dummyUserDic: [String:Any] = [
-                    "nickname": "비회원",
-                    "determination" : "유저 정보 등록 후에 사용해 주세요.",
-                    "priceGoal" : "0",
-                    "userType" : "외식러",
-                    "userId" : "thisisdefalutuidfornil"
-                ]
-                
-                let snapshot = snapshot.value as? [String:Any] ?? dummyUserDic
+                let snapshot = snapshot.value as? [String:Any] ?? [:]
                 
                 do {
                     let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
@@ -47,14 +35,21 @@ class UserRepository {
                     print("Cannot fetch UserInfo: \(error.localizedDescription)")
                 }
             }
+        } else {
+            let userDic: [String:Any] = [
+                "nickname": "비회원님",
+                "determination" : "정보 기입 후에 이용해주세요.",
+                "priceGoal" : "0",
+                "userType" : "외식러",
+                "userId" : "emrgnionergm"
+            ]
+            completion(UserEntity(userDic: userDic))
         }
     }
     
     
-    
     func uploadUserInfo(userInfo: User) {
-        authRepo.signInAnonymously { [weak self] uid in
-            guard let self = self else { return }
+        AuthRepository.shared.signInAnonymously { uid in
             let userDic: [String:Any] = [
                 "nickname": userInfo.nickname,
                 "determination" : userInfo.determination,
@@ -62,38 +57,27 @@ class UserRepository {
                 "userType" : userInfo.userType.rawValue,
                 "userId" : uid
             ]
-            let reference = self.db.child(uid).child(FBChild.user)
-            reference.setValue(userDic)
+            
+            self.db.child(uid).child(FBChild.user).setValue(userDic)
+            print("signInAnonymously" + uid)
         }
+
     }
     
     
     func updateUserInfo(user: User) {
-        authRepo.signInAnonymously { [weak self] uid in
-            guard let self = self else { return }
-            let userDic: [String:Any] = [
-                "nickname": user.nickname,
-                "determination" : user.determination,
-                "priceGoal" : user.priceGoal,
-                "userType" : user.userType.rawValue,
-                "userId" : uid
-            ]
-            let reference = self.db.child(user.userID).child(FBChild.user)
-            reference.updateChildValues(userDic)
-        }
-    }
-    
-    func deleteUser(){
         
-        let user = Auth.auth().currentUser
+        let userDic: [String:Any] = [
+            "nickname": user.nickname,
+            "determination" : user.determination,
+            "priceGoal" : user.priceGoal,
+            "userType" : user.userType.rawValue,
+            "userId" : user.userID
+        ]
         
-        user?.delete(completion: { error in
-            if let error = error {
-                print("유저 삭제 오류\(error)")
-            }
-        })
+        self.db.child(user.userID).child(FBChild.user).updateChildValues(userDic)
+        
     }
-    
     
 }
 
