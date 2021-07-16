@@ -14,7 +14,8 @@ class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBa
     
     var viewModel: OnboardingViewModel!
     
-    
+    @IBOutlet weak var cooLabel: UILabel!
+    @IBOutlet weak var kidLabel: UILabel!
     @IBOutlet weak var greetingLabel: UILabel!
     @IBOutlet weak var announceLabel: UILabel!
     @IBOutlet weak var nicknameStackView: UIStackView!
@@ -24,28 +25,31 @@ class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.greetingLabel.alpha = 0
-        
-        self.announceLabel.alpha = 0
-        self.nicknameStackView.alpha = 0
+        greetingLabel.alpha = 0
+        cooLabel.alpha = 0
+        kidLabel.transform = CGAffineTransform(rotationAngle: 0.6)
+        kidLabel.alpha = 0
+        announceLabel.alpha = 0
+        nicknameStackView.alpha = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animate(withDuration: 2, delay: 1, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
             self.greetingLabel.alpha = 1
+            self.kidLabel.alpha = 1
+            self.cooLabel.alpha = 1
+            self.kidLabel.transform = CGAffineTransform(rotationAngle: 0)
         }, completion: nil)
         
-        UIView.animate(withDuration: 2, delay: 2, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 1, delay: 1, options: .curveEaseInOut, animations: {
             self.announceLabel.alpha = 1
         }, completion: nil)
         
-        UIView.animate(withDuration: 2, delay: 3, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 1, delay: 2, options: .curveEaseInOut, animations: {
             self.nicknameStackView.alpha = 1
         }, completion: nil)
-        
-        
     }
     
     func bindViewModel() {

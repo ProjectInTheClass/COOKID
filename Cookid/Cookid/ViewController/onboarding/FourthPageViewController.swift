@@ -30,9 +30,6 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         super.viewDidAppear(animated)
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.determineStackView.alpha = 1
-        })
-        
-        UIView.animate(withDuration: 1, delay: 2, options: .curveEaseInOut, animations: {
             self.finishPageButton.alpha = 1
         })
     }
@@ -46,13 +43,13 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
                         self.finishPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
                         self.finishPageButton.tintColor = .systemGreen
                         self.finishPageButton.isEnabled = true
+
                     }
                     
                 } else {
                     UIView.animate(withDuration: 0.5) {
-                        self.finishPageButton.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
-                        self.finishPageButton.tintColor = .red
                         self.finishPageButton.isEnabled = false
+                        self.finishPageButton.tintColor = .opaqueSeparator
                     }
                 }
             })
