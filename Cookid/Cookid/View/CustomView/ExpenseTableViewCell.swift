@@ -36,7 +36,7 @@ class ExpenseTableViewCell: UITableViewCell {
     lazy var label = UILabel().then{
         $0.text = "여기에는 내 식사? 내 외식? 리스트?"
         $0.textColor = .black
-        $0.font = .systemFont(ofSize: 25)
+        $0.font = .systemFont(ofSize: 17)
     }
     
     lazy var dateLabel = UILabel().then{
@@ -45,27 +45,27 @@ class ExpenseTableViewCell: UITableViewCell {
         $0.font = .systemFont(ofSize: 15)
     }
     
-    lazy var mealImage = UIImageView().then{
-        $0.image = UIImage(named: "camera")
-    }
+//    lazy var mealImage = UIImageView().then{
+//        $0.image = UIImage(named: "camera")
+//    }
     
     
     private func setUpConstraint() {
         contentView.addSubview(label)
         contentView.addSubview(dateLabel)
-        contentView.addSubview(mealImage)
+//        contentView.addSubview(mealImage)
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        mealImage.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.mealImage.snp.makeConstraints{
-            $0.height.width.equalTo(20)
-            $0.leading.equalToSuperview().offset(10)
-            $0.centerY.equalTo(contentView.snp.centerY)
-        }
+//        self.mealImage.snp.makeConstraints{
+//            $0.height.width.equalTo(20)
+//            $0.leading.equalToSuperview().offset(10)
+//            $0.centerY.equalTo(contentView.snp.centerY)
+//        }
         
         self.label.snp.makeConstraints{
-            $0.leading.equalTo(mealImage.snp.trailing).offset(10)
+            $0.leading.equalTo(contentView.snp.leading).offset(20)
             $0.centerY.equalTo(contentView.snp.centerY)
         }
         

@@ -22,6 +22,7 @@ class MyExpenseViewModel: ViewModelType {
     
     struct Output {
         let averagePrice: Driver<String>
+        let updateShoppingList: Driver<([Meal], [GroceryShopping])>
     }
     
     var input: Input
@@ -48,8 +49,13 @@ class MyExpenseViewModel: ViewModelType {
         })
         .asDriver(onErrorJustReturn: "지출이 없습니다.")
         
+        let updateShoppingList = Observable.combineLatest(meals, shoppings, resultSelector: { meals, shoppings -> ([Meal], [GroceryShopping]) in
+            return (meals, shoppings)
+        })
+        .asDriver(onErrorJustReturn: ([], []))
+        
         
         self.input = Input()
-        self.output = Output(averagePrice: averagePrice)
+        self.output = Output(averagePrice: averagePrice, updateShoppingList: updateShoppingList)
     }
 }

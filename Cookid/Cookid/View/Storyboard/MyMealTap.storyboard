@@ -239,7 +239,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aMx-FJ-AxQ">
-                                                                <rect key="frame" x="20" y="50" width="334" height="135"/>
+                                                                <rect key="frame" x="20" y="50" width="334" height="150"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <prototypes>
                                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealCell" id="3eN-d8-hXb" customClass="MealTableViewCell" customModule="Cookid" customModuleProvider="target">
@@ -316,7 +316,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="bottom" secondItem="aMx-FJ-AxQ" secondAttribute="bottom" constant="15" id="2IZ-7q-hrO"/>
+                                                            <constraint firstAttribute="bottom" secondItem="aMx-FJ-AxQ" secondAttribute="bottom" id="2IZ-7q-hrO"/>
                                                             <constraint firstAttribute="trailing" secondItem="aMx-FJ-AxQ" secondAttribute="trailing" constant="20" id="Dbl-GS-JBK"/>
                                                             <constraint firstItem="aMx-FJ-AxQ" firstAttribute="top" secondItem="Wql-Lz-wJO" secondAttribute="bottom" constant="15" id="GUp-Br-ZnS"/>
                                                             <constraint firstItem="Wql-Lz-wJO" firstAttribute="top" secondItem="HUr-Hx-e7B" secondAttribute="top" constant="10" id="Xlc-KZ-n0Z"/>

@@ -179,23 +179,27 @@ class MealService {
         
         switch day {
         case 1...7:
-            if percentage < 25 {
+            if percentage < 6 {
                 return "현명한 식비 관리 중입니다 👍"
-            } else if percentage < 50 {
+            } else if percentage < 12 {
                 return "아직 (다음주에 덜 먹으면) 괜찮아요 👏"
+            } else if percentage < 25 {
+                return "첫 주 예산의 끝이 다가오고 있습니다! 👮🏻‍♂️"
+            } else if percentage < 50 {
+                return "첫 주에 절반을 태워..? 👮🏻‍♂️"
             } else if percentage < 80 {
-                return "첫 주에 절반 이상을 태워..? 👮🏻‍♂️"
+                return "한 달 예산을 한 주에 너무 많이... 👮🏻‍♂️"
             } else if percentage < 100 {
                 return "예산을 곧 초과합니다 🚨"
             } else {
                 return "(절레절레) 🤷🏻‍♂️"
             }
         case 8...14:
-            if percentage < 50 {
+            if percentage < 25 {
                 return "현명한 식비 관리 중입니다 👍"
-            } else if percentage < 75 {
+            } else if percentage < 50 {
                 return "아직 (다음주에 덜 먹으면) 괜찮아요 👏"
-            } else if percentage < 90 {
+            } else if percentage < 75 {
                 return "다음주에 굶으시려나보다 🙋🏻‍♂️"
             } else if percentage < 100{
                 return "예산을 곧 초과합니다 🚨"
@@ -203,18 +207,22 @@ class MealService {
                 return "(절레절레) 🤷🏻‍♂️"
             }
         case 15...21:
-            if percentage < 80 {
+            if percentage < 50 {
                 return "현명한 식비 관리 중입니다 👍"
-            } else if percentage < 90{
+            } else if percentage < 75 {
                 return "조금만 조절하면 당신은 현명한 소비자 💵"
+            } else if percentage < 90 {
+                return "다음주에 굶으시려나보다 🙋🏻‍♂️"
             } else if percentage < 100 {
                 return "예산을 곧 초과합니다 🚨"
             } else {
                 return "(절레절레) 🤷🏻‍♂️"
             }
         case 22...28:
-            if percentage < 90 {
+            if percentage < 75 {
                 return "현명한 식비 관리 중입니다 👍"
+            } else if percentage < 90 {
+                return "다음주에 굶으시려나보다 🙋🏻‍♂️"
             } else if percentage < 100{
                 return "예산을 곧 초과합니다 🚨"
             } else {

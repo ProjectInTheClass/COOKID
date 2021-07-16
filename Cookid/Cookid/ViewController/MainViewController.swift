@@ -137,6 +137,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         addShoppingButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
                 let vc = InputDataShoppingViewController(service: self.viewModel.shoppingService)
+                vc.modalTransitionStyle = .crossDissolve
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true, completion: nil)
                 
@@ -268,12 +269,12 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     private func setFirstView(){
         
-        if Auth.auth().currentUser == nil {
-            let sb = UIStoryboard(name: "Main", bundle: nil)
-            let vc = sb.instantiateViewController(identifier: "OnboardingPageViewViewController") as! OnboardingPageViewViewController
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: false, completion: nil)
-        }
+
+//        if Auth.auth().currentUser == nil {
+//            let vc = OnboardingPageViewViewController()
+//            present(vc, animated: false, completion: nil)
+//        }
+
     }
 }
 

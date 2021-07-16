@@ -30,7 +30,7 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
+        formatter.dateFormat = "MM월 dd일"
         return formatter
     }()
     
@@ -40,6 +40,11 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
         fetchShopping()
         fetchMeals()
         configureNavTab()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateData(dates: [Date()])
     }
     
     private func configureNavTab() {
@@ -56,7 +61,20 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
                 self.averageExpenseLabel.text = str
             })
             .disposed(by: rx.disposeBag)
-        
+        viewModel.output.updateShoppingList
+            .drive(onNext: { [unowned self] (meals, shoppings) in
+                
+                self.dineOutMeals = meals.filter{$0.mealType == .dineOut}
+                self.dineInMeals = meals.filter{$0.mealType == .dineIn}
+                self.shopping = shoppings
+                
+                guard let selectedDate = calendar.selectedDate else { return }
+
+                updateData(dates: [selectedDate])
+                
+                self.tableView.reloadData()
+            })
+            .disposed(by: rx.disposeBag)
     }
     
     deinit {
@@ -152,15 +170,26 @@ extension MyExpenseViewController {
     }
     
     func updateData (dates: [Date]) {
-        selectedDineOutMeals = findSelectedDateMeal(meals : dineOutMeals, selectedDate: dates)
-        selectedDineInMeals = findSelectedDateMeal(meals : dineInMeals, selectedDate: dates)
-        selectedShopping = findSelectedDateShopping(shoppings : shopping, selectedDate: dates)
+        data.removeAll()
+        selectedDineOutMeals = findSelectedDateMeal(meals : self.dineOutMeals, selectedDate: dates)
+        selectedDineInMeals = findSelectedDateMeal(meals : self.dineInMeals, selectedDate: dates)
+        selectedShopping = findSelectedDateShopping(shoppings : self.shopping, selectedDate: dates)
         
-        data = [ element(name: "외식", selected: selectedDineOutMeals), element(name: "집밥", selected: selectedDineInMeals), element(name: "마트털이", selected: selectedShopping)]
+        let dineOutElement = element(name: "외식", selected: selectedDineOutMeals)
+        let dineInElement = element(name: "집밥", selected: selectedDineInMeals)
+        let shoppingElement = element(name: "마트털이", selected: selectedShopping)
+        
+        let dataArr = [dineOutElement, dineInElement, shoppingElement]
+        
+        for i in 0...2 {
+            if !dataArr[i].selected.isEmpty {
+                data.append(dataArr[i])
+            }
+        }
     }
-    
-    struct element {
-       var name : String
-       var selected : [Any]
-    }
+}
+
+struct element {
+   var name : String
+   var selected : [Any]
 }
