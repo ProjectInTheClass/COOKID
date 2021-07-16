@@ -50,8 +50,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let pageVC = OnboardingPageViewViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
             window?.rootViewController = pageVC
         }
-        let pageVC = OnboardingPageViewViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        window?.rootViewController = pageVC
         window?.makeKeyAndVisible()
     }
 

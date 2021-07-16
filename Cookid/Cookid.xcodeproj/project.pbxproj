@@ -27,6 +27,7 @@
 		032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */; };
 		032233DE2693057C0092DD6D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233DD2693057C0092DD6D /* User.swift */; };
 		032233E926934F180092DD6D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233E826934F180092DD6D /* Protocol.swift */; };
+		033DA0AD26A1E3C100517A8A /* boarding.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 033DA0AC26A1E3C100517A8A /* boarding.jpg */; };
 		035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E491C26956F92002CC084 /* MealTableViewCell.swift */; };
 		035E4921269597D4002CC084 /* MealTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */; };
 		035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E4922269681A0002CC084 /* CustomProgressCircleView.swift */; };
@@ -98,6 +99,7 @@
 		032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		032233DD2693057C0092DD6D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		032233E826934F180092DD6D /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		033DA0AC26A1E3C100517A8A /* boarding.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = boarding.jpg; sourceTree = "<group>"; };
 		035E491C26956F92002CC084 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		035E4922269681A0002CC084 /* CustomProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressCircleView.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				032233D52692F00B0092DD6D /* API */,
 				032233D42692D52A0092DD6D /* Font */,
 				032233A4269212870092DD6D /* Assets.xcassets */,
+				033DA0AC26A1E3C100517A8A /* boarding.jpg */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				032233A5269212870092DD6D /* Assets.xcassets in Resources */,
 				DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */,
 				032233C426927A910092DD6D /* MyExpenseTap.storyboard in Resources */,
+				033DA0AD26A1E3C100517A8A /* boarding.jpg in Resources */,
 				354F331C26A14CDC0013EDBB /* InputDataShopping.storyboard in Resources */,
 				032233A3269212860092DD6D /* Main.storyboard in Resources */,
 				C6BFF46026949A71006295F5 /* GoogleService-Info.plist in Resources */,

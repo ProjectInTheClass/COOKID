@@ -67,7 +67,7 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
         viewModel.output.mostExpensiveMeal
             .drive(onNext: { [unowned self] meal in
                 self.mealName.text = meal.name
-                self.mealPrice.text = "\(meal.price)"
+                self.mealPrice.text = intToString(meal.price)
                 self.mealType.text = meal.mealType.rawValue
                 self.mealImage.kf.setImage(with: meal.image, placeholder: UIImage(systemName: "person.circle.fill"))
             })
@@ -77,7 +77,7 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
             .drive(mealTableView.rx.items(cellIdentifier: "mealCell", cellType: MealTableViewCell.self)) { row, meal, cell in
                 cell.mealCellImage.kf.setImage(with: meal.image, placeholder: UIImage(systemName: "person.circle.fill"))
                 cell.mealCellName.text = meal.name
-                cell.mealCellPrice.text = "\(meal.price)"
+                cell.mealCellPrice.text = intToString(meal.price)
             }
             .disposed(by: rx.disposeBag)
         

@@ -105,7 +105,7 @@ struct MealDetailView: View {
                                     Divider()
                                     
                                     HStack(alignment: .center, spacing: 16) {
-                                        Text(intToString(value: meal.price))
+                                        Text(intToString(meal.price))
                                             .font(.system(size: 21, weight: .thin, design: .rounded))
                                             .foregroundColor(Color.black.opacity(0.7))
                                     }
@@ -214,7 +214,7 @@ struct MealDetailView: View {
                                     Divider()
                                     
                                     HStack(alignment: .center, spacing: 16) {
-                                        Text(intToString(value: meal.price))
+                                        Text(intToString(meal.price))
                                             .font(.system(size: 21, weight: .thin, design: .rounded))
                                             .foregroundColor(Color.black.opacity(0.7))
                                     }

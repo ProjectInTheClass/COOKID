@@ -28,7 +28,15 @@ class UserRepository {
             
             ref.observeSingleEvent(of: .value) { snapshot in
                 
-                let snapshot = snapshot.value as! [String:Any]
+                let dummyUserDic: [String:Any] = [
+                    "nickname": "비회원",
+                    "determination" : "유저 정보 등록 후에 사용해 주세요.",
+                    "priceGoal" : "0",
+                    "userType" : "외식러",
+                    "userId" : "thisisdefalutuidfornil"
+                ]
+                
+                let snapshot = snapshot.value as? [String:Any] ?? dummyUserDic
                 
                 do {
                     let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])

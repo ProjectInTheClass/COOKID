@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.55000000000000004" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onBoardingBG" translatesAutoresizingMaskIntoConstraints="NO" id="34A-lb-XyO">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.55000000000000004" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boarding.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="34A-lb-XyO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkP-PZ-DRZ">
@@ -63,6 +63,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="onBoardingBG" width="1333.3333740234375" height="2000"/>
+        <image name="boarding.jpg" width="4000" height="6000"/>
     </resources>
 </document>

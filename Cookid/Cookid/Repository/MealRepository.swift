@@ -32,7 +32,7 @@ class MealRepository {
             
             var monthFilterQuery: DatabaseQuery?
             
-            monthFilterQuery = self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).queryOrdered(byChild: "date").queryStarting(atValue: date)
+            monthFilterQuery = self.db.child(uid).child(FBChild.meal).queryOrdered(byChild: "date").queryStarting(atValue: date)
            
             monthFilterQuery?.observeSingleEvent(of: .value) { snapshot in
                 
@@ -54,7 +54,7 @@ class MealRepository {
     
     func uploadMealToFirebase(meal: Meal, completed: @escaping (String) -> Void) {
         authRepo.signInAnonymously { [weak self] uid in
-            guard let key = self?.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).childByAutoId().key else { return }
+            guard let key = self?.db.child(uid).child(FBChild.meal).childByAutoId().key else { return }
             let mealDic : [String:Any] = [
                 "id" : key,
                 "price" : meal.price,
@@ -64,7 +64,7 @@ class MealRepository {
                 "mealType" : meal.mealType.rawValue,
                 "mealTime" : meal.mealTime.rawValue
             ]
-            self?.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).child(key).setValue(mealDic)
+            self?.db.child(uid).child(FBChild.meal).child(key).setValue(mealDic)
             completed(key)
         }
     }
@@ -82,7 +82,7 @@ class MealRepository {
                 "mealType" : meal.mealType.rawValue,
                 "mealTime" : meal.mealTime.rawValue
             ]
-            self?.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).child(meal.id!).updateChildValues(mealDic)
+            self?.db.child(uid).child(FBChild.meal).child(meal.id!).updateChildValues(mealDic)
         }
     }
     
@@ -90,7 +90,7 @@ class MealRepository {
     
     func deleteMealToFirebase(meal: Meal) {
         authRepo.signInAnonymously { [weak self] uid in
-            self?.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.meal).child(meal.id!).removeValue()
+            self?.db.child(uid).child(FBChild.meal).child(meal.id!).removeValue()
         }
     }
     

@@ -179,10 +179,10 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         viewModel.output.monthlyDetailed
             .drive(onNext: { [unowned self] detail in
                 self.monthLabel.text = detail.month
-                self.priceGoalLabel.text = String(detail.priceGoal)
-                self.shoppingPrice.text = String(detail.shoppingPrice)
-                self.dineOutPrice.text = String(detail.dineOutPrice)
-                self.balanceLabel.text = String(detail.balance)
+                self.priceGoalLabel.text = intToString(detail.priceGoal)
+                self.shoppingPrice.text = intToString(detail.shoppingPrice)
+                self.dineOutPrice.text = intToString(detail.dineOutPrice)
+                self.balanceLabel.text = intToString(detail.balance)
             })
             .disposed(by: rx.disposeBag)
         
