@@ -134,6 +134,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 let vc = InputDataShoppingViewController(service: self.viewModel.shoppingService)
                 vc.modalTransitionStyle = .crossDissolve
                 vc.modalPresentationStyle = .overFullScreen
+                vc.selectBtn(btnState: .saveBtnOn)
                 self.present(vc, animated: true, completion: nil)
                 
             })

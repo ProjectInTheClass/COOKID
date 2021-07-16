@@ -27,31 +27,53 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
     let tableView: UITableView! = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.layer.cornerRadius = 10.0
-        tableView.layer.borderColor = UIColor.black.cgColor
+        tableView.layer.cornerRadius = 8.0
         tableView.allowsSelection = false
-        
+        tableView.sizeToFit()
         return tableView
     }()
     
     var headerView = PanModalHeaderView()
     
-    var rightBtn = PanModalHeaderView().rightBtn
+    var saveBtn : UIButton = {
+        let btn = UIButton()
+        btn.setTitle("저장", for: .normal)
+        btn.setTitleColor(.systemBlue, for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .light)
+        return btn
+    }()
     
-    lazy var dateTextField = UITextField().then{
+    var updateBtn : UIButton = {
+        let btn = UIButton()
+        btn.setTitle("수정", for: .normal)
+        btn.setTitleColor(.systemBlue, for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .light)
+        return btn
+    }()
+    
+    let dateTextField : UITextField = {
+        let dateTF = UITextField()
         let dateformatter = DateFormatter()
         dateformatter.dateStyle = .long
         dateformatter.timeStyle = .none
         dateformatter.locale = Locale(identifier: "ko_KR")
         dateformatter.dateFormat = "yyyy년 MM월 dd일"
-        $0.placeholder = dateformatter.string(from: Date())
-    }
-    lazy var priceTextField = UITextField().then{
-        $0.keyboardType = .numberPad
-        $0.placeholder = "금액을 입력하세요."
-    }
-    var datePicker = UIDatePicker()
+        dateTF.placeholder = dateformatter.string(from: Date())
+        dateTF.font = .systemFont(ofSize: 18, weight: .ultraLight)
+        dateTF.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        return dateTF
+    }()
     
+    let priceTextField : UITextField = {
+        let priceTF = UITextField()
+        priceTF.keyboardType = .numberPad
+        priceTF.font = .systemFont(ofSize: 18, weight: .ultraLight)
+        priceTF.placeholder = "금액을 입력하세요."
+        priceTF.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        return priceTF
+    }()
+    
+    var datePicker = UIDatePicker()
     
     let tapGesture = UITapGestureRecognizer()
     
@@ -68,40 +90,8 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         super.viewDidLoad()
         setUpConstraints()
         setInputViewDatePicker(target: self, selector: #selector(doneTapped))
-        headerView.rightBtn.addTarget(self, action: #selector(createFunc) , for: .touchUpInside)
-    }
-    
-    
-    @objc func createFunc() {
-        print("btn tapped")
-        guard let price = self.priceTextField.text, price.count > 0, let dateStr = self.dateTextField.text, dateStr.count > 0 else {
-            self.alert(message: "입력란을 다 채워주세요!")
-            return
-        }
-        
-        let date = datePicker.date
-        let aShoppingItem = GroceryShopping(id: "wkwkfe", date: date, totalPrice: Int(price)!)
-        
-        service.create(shopping: aShoppingItem)
-        let vc = MyExpenseViewController()
-        vc.fetchShopping()
-        
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func updateFunc() {
-        print("update btn tapped")
-        
-        if self.currentPrice == self.priceTextField.text && self.currentDate == self.dateTextField.text {
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            guard let editedPrice = self.priceTextField.text, editedPrice.count > 0, let editedDateStr = self.dateTextField.text, editedDateStr.count > 0 else {
-                self.alert(message: "입력란을 다 채워주세요!")
-                return
-            }
-            alert2(message: "편집 내용을 저장하시겠습니까?")
-            self.dismiss(animated: true, completion: nil)
-        }
+        saveBtn.addTarget(self, action: #selector(createFunc) , for: .touchUpInside)
+        updateBtn.addTarget(self, action: #selector(self.updateFunc) , for: .touchUpInside)
     }
 }
 
@@ -126,7 +116,7 @@ extension InputDataShoppingViewController {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview().offset(-20)
             $0.width.equalTo(300)
-            $0.height.equalTo(215)
+            $0.height.equalTo(235)
         }
     }
     
@@ -186,17 +176,46 @@ extension InputDataShoppingViewController {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        if section == 0 {
+        let view = UIView()
+        view.backgroundColor = .clear
+        let headerLabel = UILabel().then{
+            $0.font = .systemFont(ofSize: 16, weight: .thin)
+            $0.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        }
+        view.addSubview(headerLabel)
+        headerLabel.snp.makeConstraints{
+            $0.centerY.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().offset(16)
+            $0.top.equalToSuperview().offset(12)
+        }
+        switch section {
+        case 0:
+            headerView.addSubview(saveBtn)
+            headerView.addSubview(updateBtn)
+            saveBtn.snp.makeConstraints{
+                $0.centerY.equalToSuperview()
+                $0.trailing.equalToSuperview().offset(-20)
+                $0.height.width.equalTo(40)
+            }
+            updateBtn.snp.makeConstraints{
+                $0.centerY.equalToSuperview()
+                $0.trailing.equalToSuperview().offset(-20)
+                $0.height.width.equalTo(40)
+            }
             return headerView
-        } else {
+        case 1:
+            headerLabel.text = "날짜"
+            return view
+        case 2:
+            headerLabel.text = "금액"
+            return view
+        default:
             return nil
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: InputDataTableViewCell.identifier, for: indexPath) as? InputDataTableViewCell else { return UITableViewCell() }
-        
         switch indexPath.section {
         case 1:
             cell.contentView.addSubview(dateTextField)
@@ -204,6 +223,7 @@ extension InputDataShoppingViewController {
                 $0.centerY.equalToSuperview()
                 $0.leading.equalTo(cell.contentView.snp.leading).offset(16)
                 $0.trailing.equalTo(cell.contentView.snp.trailing)
+                $0.height.equalToSuperview()
             }
         case 2:
             cell.contentView.addSubview(priceTextField)
@@ -211,6 +231,7 @@ extension InputDataShoppingViewController {
                 $0.centerY.equalToSuperview()
                 $0.leading.equalTo(cell.contentView.snp.leading).offset(16)
                 $0.trailing.equalTo(cell.contentView.snp.trailing)
+                $0.height.equalToSuperview()
             }
         default:
             return cell
@@ -226,24 +247,56 @@ extension InputDataShoppingViewController {
             return 1
         }
     }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return nil
-        case 1:
-            return "날짜"
-        case 2:
-            return "가격"
-        default:
-            return nil
-        }
-    }
 }
 
-//MARK: - saveButtonTapped
+//MARK: - save or updateButton
 
 extension InputDataShoppingViewController {
+    
+    func selectBtn (btnState : btnState) {
+        switch btnState {
+        case .saveBtnOn :
+            updateBtn.isHidden = true
+            saveBtn.isHidden = false
+        case .updateBtnOn :
+            updateBtn.isHidden = false
+            saveBtn.isHidden = true
+        }
+    }
+
+    enum btnState {
+        case saveBtnOn
+        case updateBtnOn
+    }
+    
+    @objc func createFunc() {
+        print("btn tapped")
+        guard let price = self.priceTextField.text, price.count > 0, let dateStr = self.dateTextField.text, dateStr.count > 0 else {
+            self.alert(message: "입력란을 다 채워주세요!")
+            return
+        }
+        let date = datePicker.date
+        let aShoppingItem = GroceryShopping(id: "wkwkfe", date: date, totalPrice: Int(price)!)
+        
+        service.create(shopping: aShoppingItem)
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func updateFunc() {
+        print("update btn tapped")
+        if self.currentPrice == self.priceTextField.text && self.currentDate == self.dateTextField.text {
+            print("just dismiss")
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            guard let editedPrice = self.priceTextField.text, editedPrice.count > 0, let editedDateStr = self.dateTextField.text, editedDateStr.count > 0 else {
+                self.alert(message: "입력란을 다 채워주세요!")
+                return
+            }
+            alert2(message: "편집 내용을 저장하시겠습니까?")
+        }
+    }
+    
     func alert(title: String = "알림", message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -258,16 +311,10 @@ extension InputDataShoppingViewController {
         
         let okAction = UIAlertAction(title: "확인", style: .default) {_ in
             let date = self.datePicker.date
-            let price = self.priceTextField.text
-            let aShoppingItem = GroceryShopping(id: "wkwkfe", date: date, totalPrice: (Int(price ?? "0")!))
-            
+            let price = self.priceTextField.text!
+            let aShoppingItem = GroceryShopping(id: "wkwkfe", date: date, totalPrice: Int(price)!)
             self.service.update(updateShopping: aShoppingItem)
-            let vc = MyExpenseViewController()
-            vc.fetchShopping()
-            
-            self.rightBtn.removeTarget(self, action: #selector(self.updateFunc), for: .touchUpInside)
-            self.rightBtn.addTarget(self, action: #selector(self.createFunc), for: .touchUpInside)
-            
+            print("update 함수 호출")
             self.dismiss(animated: true, completion: nil)
         }
         alert.addAction(okAction)
@@ -289,4 +336,6 @@ extension InputDataShoppingViewController : UIGestureRecognizerDelegate {
         self.dismiss(animated: true, completion: nil)
         return true
     }
+    
+    
 }

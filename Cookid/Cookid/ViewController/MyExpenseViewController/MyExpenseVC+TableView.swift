@@ -10,7 +10,16 @@ import UIKit
 extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data[section].selected.count
+        switch data[section].name {
+        case "외식":
+            return selectedDineOutMeals.count
+        case "집밥":
+            return selectedDineInMeals.count
+        case "마트털이" :
+            return selectedShopping.count
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,27 +58,54 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
         return data[section].name
     }
     
+    //MARK: - Show UpdateShoppingData didSelectRow
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: false)
-        
+        print("didselected  indexPath \(indexPath)")
+        print("selected Shopping count : \(selectedShopping.count)")
         if data[indexPath.section].name == "마트털이" {
             let vc = InputDataShoppingViewController(service: viewModel.shoppingService)
-                let price = self.selectedShopping[indexPath.row].totalPrice
-                let date = self.selectedShopping[indexPath.row].date.dateToString()
-                vc.dateTextField.text = date
-                vc.priceTextField.text = String(price)
-            vc.rightBtn.removeTarget(self, action: nil, for: .allEvents)
-                vc.rightBtn.addTarget(self, action: #selector(vc.updateFunc), for: .touchUpInside)
-                vc.currentPrice = String(price)
-                vc.currentDate = date
-                vc.modalTransitionStyle = .crossDissolve
-                vc.modalPresentationStyle = .overFullScreen
-                self.present(vc, animated: true, completion: nil)
+            let price = self.selectedShopping[indexPath.row].totalPrice
+            let date = self.selectedShopping[indexPath.row].date.dateToString()
+            vc.dateTextField.text = date
+            vc.priceTextField.text = String(price)
+            vc.currentPrice = String(price)
+            vc.currentDate = date
+            vc.selectBtn(btnState: .updateBtnOn)
+            vc.modalTransitionStyle = .crossDissolve
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, animated: true, completion: nil)
             
+        } else {
+            tableView.cellForRow(at: indexPath)?.selectionStyle = .default
         }
         
     }
+    
+    //MARK: - Delete ShoppingData in TableView
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if data[indexPath.section].name == "마트털이" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.viewModel.shoppingService.delete(shopping: selectedShopping[indexPath.row])
+            selectedShopping.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            print("selectedShopping.count\(selectedShopping.count)")
+            print("indexPath: \(indexPath) indexPathsection: \(indexPath.section) indexPathrow: \(indexPath.row)")
+        }
+    }
+    
 }
 
 
