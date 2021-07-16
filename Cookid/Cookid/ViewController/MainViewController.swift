@@ -127,7 +127,8 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .subscribe(onNext: {
                 let vc = InputMealViewController()
                 vc.saveMeal = { meal in self.viewModel.mealService.create(meal: meal) }
-                vc.modalPresentationStyle = .formSheet
+                vc.modalPresentationStyle = .custom
+                vc.view.backgroundColor = .clear
                 self.present(vc, animated: true, completion: nil)
                 
             })
