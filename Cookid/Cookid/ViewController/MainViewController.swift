@@ -64,6 +64,11 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         super.viewDidLoad()
         configureUI()
         setNotification()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setFirstView()
     }
     
@@ -264,8 +269,10 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     private func setFirstView(){
         
         if Auth.auth().currentUser == nil {
-            let vc = OnboardingPageViewViewController()
-            present(vc, animated: false, completion: nil)
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let vc = sb.instantiateViewController(identifier: "OnboardingPageViewViewController") as! OnboardingPageViewViewController
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: false, completion: nil)
         }
     }
 }
