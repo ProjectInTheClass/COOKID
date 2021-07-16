@@ -51,7 +51,7 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if data[indexPath.section].name == "마트털이" {
-            if let vc = UIStoryboard(name: "InputDataShoppingViewController", bundle: nil).instantiateViewController(identifier: "InputDataShoppingViewController") as? InputDataShoppingViewController {
+            let vc = InputDataShoppingViewController(service: self.viewModel.shoppingService)
                 let price = selectedShopping[indexPath.row].totalPrice
                 let date = selectedShopping[indexPath.row].date.dateToString()
                 vc.dateTextField.text = date
@@ -60,7 +60,7 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
                 self.present(vc, animated: true, completion: nil)
                 vc.modalPresentationStyle = .overFullScreen
                 vc.present(vc, animated: true, completion: nil)
-            }
+            
         }
     }
 }
