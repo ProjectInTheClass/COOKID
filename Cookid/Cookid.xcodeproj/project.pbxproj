@@ -11,7 +11,7 @@
 		0322339E269212860092DD6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339D269212860092DD6D /* SceneDelegate.swift */; };
 		032233A3269212860092DD6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032233A1269212860092DD6D /* Main.storyboard */; };
 		032233A5269212870092DD6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 032233A4269212870092DD6D /* Assets.xcassets */; };
-		032233A8269212870092DD6D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032233A6269212870092DD6D /* LaunchScreen.storyboard */; };
+		032233A8269212870092DD6D /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032233A6269212870092DD6D /* Launch.storyboard */; };
 		032233BA269277520092DD6D /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B9269277520092DD6D /* Meal.swift */; };
 		032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233BB269279DC0092DD6D /* MyMealViewController.swift */; };
 		032233BE26927A160092DD6D /* MyExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233BD26927A160092DD6D /* MyExpenseViewController.swift */; };
@@ -27,7 +27,7 @@
 		032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */; };
 		032233DE2693057C0092DD6D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233DD2693057C0092DD6D /* User.swift */; };
 		032233E926934F180092DD6D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233E826934F180092DD6D /* Protocol.swift */; };
-		033DA0AD26A1E3C100517A8A /* boarding.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 033DA0AC26A1E3C100517A8A /* boarding.jpg */; };
+		0339575126A2C96100594515 /* boardingImage in Resources */ = {isa = PBXBuildFile; fileRef = 0339575026A2C96100594515 /* boardingImage */; };
 		035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E491C26956F92002CC084 /* MealTableViewCell.swift */; };
 		035E4921269597D4002CC084 /* MealTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */; };
 		035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E4922269681A0002CC084 /* CustomProgressCircleView.swift */; };
@@ -81,7 +81,7 @@
 		0322339D269212860092DD6D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		032233A2269212860092DD6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		032233A4269212870092DD6D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		032233A7269212870092DD6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		032233A7269212870092DD6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Launch.storyboard; sourceTree = "<group>"; };
 		032233A9269212870092DD6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		032233B7269276DB0092DD6D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		032233B9269277520092DD6D /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
@@ -99,7 +99,7 @@
 		032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		032233DD2693057C0092DD6D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		032233E826934F180092DD6D /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
-		033DA0AC26A1E3C100517A8A /* boarding.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = boarding.jpg; sourceTree = "<group>"; };
+		0339575026A2C96100594515 /* boardingImage */ = {isa = PBXFileReference; lastKnownFileType = file; path = boardingImage; sourceTree = "<group>"; };
 		035E491C26956F92002CC084 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		035E4922269681A0002CC084 /* CustomProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressCircleView.swift; sourceTree = "<group>"; };
@@ -266,7 +266,7 @@
 				032233D52692F00B0092DD6D /* API */,
 				032233D42692D52A0092DD6D /* Font */,
 				032233A4269212870092DD6D /* Assets.xcassets */,
-				033DA0AC26A1E3C100517A8A /* boarding.jpg */,
+				0339575026A2C96100594515 /* boardingImage */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -282,7 +282,7 @@
 		032233C8269280640092DD6D /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				032233A6269212870092DD6D /* LaunchScreen.storyboard */,
+				032233A6269212870092DD6D /* Launch.storyboard */,
 				032233A1269212860092DD6D /* Main.storyboard */,
 				032233BF26927A4F0092DD6D /* MyMealTap.storyboard */,
 				032233C326927A910092DD6D /* MyExpenseTap.storyboard */,
@@ -474,12 +474,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				032233A8269212870092DD6D /* LaunchScreen.storyboard in Resources */,
+				032233A8269212870092DD6D /* Launch.storyboard in Resources */,
 				032233C026927A4F0092DD6D /* MyMealTap.storyboard in Resources */,
 				032233A5269212870092DD6D /* Assets.xcassets in Resources */,
+				0339575126A2C96100594515 /* boardingImage in Resources */,
 				DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */,
 				032233C426927A910092DD6D /* MyExpenseTap.storyboard in Resources */,
-				033DA0AD26A1E3C100517A8A /* boarding.jpg in Resources */,
 				354F331C26A14CDC0013EDBB /* InputDataShopping.storyboard in Resources */,
 				032233A3269212860092DD6D /* Main.storyboard in Resources */,
 				C6BFF46026949A71006295F5 /* GoogleService-Info.plist in Resources */,
@@ -602,12 +602,12 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		032233A6269212870092DD6D /* LaunchScreen.storyboard */ = {
+		032233A6269212870092DD6D /* Launch.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				032233A7269212870092DD6D /* Base */,
 			);
-			name = LaunchScreen.storyboard;
+			name = Launch.storyboard;
 			sourceTree = "<group>";
 		};
 		354F331E26A14CDC0013EDBB /* InputDataShopping.storyboard */ = {
