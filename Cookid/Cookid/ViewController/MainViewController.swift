@@ -65,6 +65,8 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     }
     
     private func configureUI() {
+        addMealButton.layer.cornerRadius = 8
+        addShoppingButton.layer.cornerRadius = 8
         chartView.makeShadow()
         mealCalendarView.makeShadow()
         consumeView.makeShadow()
