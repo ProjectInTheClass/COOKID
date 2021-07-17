@@ -22,26 +22,43 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
     
     @IBOutlet weak var userInputView: UIView!
     
-    
     var viewModel: MainViewModel!
+    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.userInputView.layer.cornerRadius = 8
+        setUI()
         addNotiObserver()
+        setTapGesture()
     }
     
-    var user: User?
+    override func viewWillDisappear(_ animated: Bool) {
+        dismiss(animated: false, completion: nil)
+    }
+    
+    func setUI(){
+        self.userInputView.layer.cornerRadius = 8
+    }
+    
+    func setTapGesture(){
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismisskeyboard))
+        tap.delegate = self
+        self.userInputView.addGestureRecognizer(tap)
+    }
     
     func addNotiObserver(){
+        
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handle(keyboardShowNotification:)),
-                                               name: UIResponder.keyboardDidShowNotification,
+                                               selector: #selector(handleShow(keyboardShowNotification:)),
+                                               name: UIResponder.keyboardWillShowNotification,
                                                object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleHide(keyboardShowNotification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc
-    private func handle(keyboardShowNotification notification: Notification) {
+    private func handleShow(keyboardShowNotification notification: Notification) {
         
         if let userInfo = notification.userInfo,
            let keyboardRectangle = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
@@ -49,6 +66,23 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
                 self.userInputView.frame.origin.y -= (keyboardRectangle.height / 2)
             }
         }
+    }
+    
+    @objc
+    private func handleHide(keyboardShowNotification notification: Notification) {
+        
+        if let userInfo = notification.userInfo,
+           let keyboardRectangle = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            if self.userInputView.frame.midY != self.view.frame.midY {
+                self.userInputView.frame.origin.y += (keyboardRectangle.height / 2)
+            }
+        }
+    }
+    
+    @objc func dismisskeyboard(){
+        budgetTextField.resignFirstResponder()
+        nickNameTextField.resignFirstResponder()
+        newDeterminationTextField.resignFirstResponder()
     }
     
     func bindViewModel() {
@@ -59,7 +93,6 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
                 setupUI(user: user)
             })
             .disposed(by: rx.disposeBag)
-        
     }
     
     func setupUI(user: User){
@@ -91,5 +124,20 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
     
     @IBAction func BGTapped(_ sender: Any) {
         self.dismiss(animated: false, completion: nil)
+    }
+}
+
+extension UserInformationViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if(touch.view?.isDescendant(of: nickNameTextField) == true) {
+            return false
+        } else if(touch.view?.isDescendant(of: budgetTextField) == true) {
+            return false
+        } else if (touch.view?.isDescendant(of: newDeterminationTextField) == true) {
+            return false
+        } else {
+            userInputView.endEditing(true)
+            return true
+        }
     }
 }
