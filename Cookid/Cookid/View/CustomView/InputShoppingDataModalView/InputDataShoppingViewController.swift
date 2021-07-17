@@ -27,30 +27,41 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
     let tableView: UITableView! = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.layer.cornerRadius = 8.0
+        tableView.layer.cornerRadius = 10.0
         tableView.allowsSelection = false
         tableView.sizeToFit()
         return tableView
     }()
     
+    let backView : UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        view.layer.cornerRadius = 10.0
+        return view
+    }()
+    
     var headerView = PanModalHeaderView()
+    var storedDistance : CGFloat?
+
     
     var saveBtn : UIButton = {
         let btn = UIButton()
-        btn.setTitle("저장", for: .normal)
-        btn.setTitleColor(.systemBlue, for: .normal)
-        btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .light)
+        let config = UIImage.SymbolConfiguration(pointSize: 25, weight: .thin, scale: .default)
+        let image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: config)
+        btn.setImage(image, for: .normal)
+        btn.tintColor = .systemYellow
         return btn
     }()
     
     var updateBtn : UIButton = {
         let btn = UIButton()
-        btn.setTitle("수정", for: .normal)
-        btn.setTitleColor(.systemBlue, for: .normal)
-        btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .light)
+        let config = UIImage.SymbolConfiguration(pointSize: 25, weight: .thin, scale: .default)
+        let image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: config)
+        btn.setImage(image, for: .normal)
+        btn.tintColor = .systemYellow
         return btn
     }()
-    
+        
     let dateTextField : UITextField = {
         let dateTF = UITextField()
         let dateformatter = DateFormatter()
@@ -59,28 +70,27 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         dateformatter.locale = Locale(identifier: "ko_KR")
         dateformatter.dateFormat = "yyyy년 MM월 dd일"
         dateTF.placeholder = dateformatter.string(from: Date())
-        dateTF.font = .systemFont(ofSize: 18, weight: .ultraLight)
+        dateTF.font = .systemFont(ofSize: 15, weight: .ultraLight)
         dateTF.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        dateTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: dateTF.frame.height))
+        dateTF.leftViewMode = .always
         return dateTF
     }()
     
     let priceTextField : UITextField = {
         let priceTF = UITextField()
         priceTF.keyboardType = .numberPad
-        priceTF.font = .systemFont(ofSize: 18, weight: .ultraLight)
+        priceTF.font = .systemFont(ofSize: 15, weight: .ultraLight)
         priceTF.placeholder = "금액을 입력하세요."
         priceTF.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        priceTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: priceTF.frame.height))
+        priceTF.leftViewMode = .always
         return priceTF
     }()
     
     var datePicker = UIDatePicker()
     
     let tapGesture = UITapGestureRecognizer()
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        priceTextField.resignFirstResponder()
-        return true
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
@@ -93,14 +103,24 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         saveBtn.addTarget(self, action: #selector(createFunc) , for: .touchUpInside)
         updateBtn.addTarget(self, action: #selector(self.updateFunc) , for: .touchUpInside)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.addKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.removeKeyboardNotifications()
+    }
 }
 
 //MARK: - Constraints
 extension InputDataShoppingViewController {
     func setUpConstraints() {
-        self.view.addSubview(tableView)
+        self.view.addSubview(backView)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         self.view.addGestureRecognizer(tapGesture)
+        tapGesture.cancelsTouchesInView = true
+        self.backView.addSubview(tableView)
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -114,9 +134,30 @@ extension InputDataShoppingViewController {
         
         tableView.snp.makeConstraints{
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(-20)
+            $0.centerY.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-30)
+        }
+        
+        backView.snp.makeConstraints{
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
             $0.width.equalTo(300)
-            $0.height.equalTo(235)
+            $0.height.equalTo(310)
+        }
+        
+        self.backView.addSubview(saveBtn)
+        self.backView.addSubview(updateBtn)
+        saveBtn.snp.makeConstraints{
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.bottom.equalToSuperview().offset(-20)
+            $0.height.width.equalTo(40)
+        }
+        updateBtn.snp.makeConstraints{
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.bottom.equalToSuperview().offset(-20)
+            $0.height.width.equalTo(40)
         }
     }
     
@@ -147,7 +188,7 @@ extension InputDataShoppingViewController {
     }
     
     @objc func cancelTapped() {
-        self.resignFirstResponder()
+        self.dateTextField.resignFirstResponder()
     }
     
     @objc func doneTapped() {
@@ -161,13 +202,34 @@ extension InputDataShoppingViewController {
         self.dateTextField.resignFirstResponder()
     }
     
+    //MARK: - TextField
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if priceTextField.isFirstResponder {
+            dateTextField.resignFirstResponder()
+        } else if dateTextField.isFirstResponder {
+            priceTextField.resignFirstResponder()
+        }
+    }
 }
 
 //MARK: - TableView
 extension InputDataShoppingViewController {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return 30
     }
     
     
@@ -179,29 +241,18 @@ extension InputDataShoppingViewController {
         let view = UIView()
         view.backgroundColor = .clear
         let headerLabel = UILabel().then{
-            $0.font = .systemFont(ofSize: 16, weight: .thin)
+            $0.font = .systemFont(ofSize: 15, weight: .thin)
             $0.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
         view.addSubview(headerLabel)
         headerLabel.snp.makeConstraints{
             $0.centerY.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().offset(16)
+            $0.leading.trailing.equalToSuperview().offset(30)
             $0.top.equalToSuperview().offset(12)
+            $0.height.equalTo(25)
         }
         switch section {
         case 0:
-            headerView.addSubview(saveBtn)
-            headerView.addSubview(updateBtn)
-            saveBtn.snp.makeConstraints{
-                $0.centerY.equalToSuperview()
-                $0.trailing.equalToSuperview().offset(-20)
-                $0.height.width.equalTo(40)
-            }
-            updateBtn.snp.makeConstraints{
-                $0.centerY.equalToSuperview()
-                $0.trailing.equalToSuperview().offset(-20)
-                $0.height.width.equalTo(40)
-            }
             return headerView
         case 1:
             headerLabel.text = "날짜"
@@ -330,7 +381,7 @@ extension InputDataShoppingViewController {
 
 extension InputDataShoppingViewController : UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {        
-        if touch.view?.isDescendant(of: self.tableView) == true {
+        if touch.view?.isDescendant(of: backView) == true  {
             return false
         }
         self.dismiss(animated: true, completion: nil)
@@ -338,4 +389,35 @@ extension InputDataShoppingViewController : UIGestureRecognizerDelegate {
     }
     
     
+}
+
+//MARK: - keyboardnotification
+extension InputDataShoppingViewController {
+    func addKeyboardNotifications(){
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil) }
+    func removeKeyboardNotifications(){
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil) }
+    
+    @objc
+    private func keyboardWillShow(_ noti: Notification) {
+        if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardOriginY = keyboardRectangle.origin.y
+            let backViewOriginY = self.backView.frame.origin.y + self.backView.frame.height
+            let distanceWithTwoPoint = keyboardOriginY - backViewOriginY
+            if distanceWithTwoPoint < 0 {
+                self.backView.frame.origin.y += (distanceWithTwoPoint * 1.3)
+                self.storedDistance = distanceWithTwoPoint * 1.3
+            }
+        }
+    }
+    
+    @objc
+    private func keyboardWillHide(_ noti: Notification) {
+        if let distance = storedDistance {
+            self.backView.frame.origin.y -= distance
+        }
+    }
 }

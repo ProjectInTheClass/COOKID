@@ -104,10 +104,9 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
             }
             
             self.viewModel.shoppingService.delete(shopping: selectedShopping[indexPath.row])
-            
             guard let selectedDate = calendar.selectedDate else { return }
-
             updateData(dates: [selectedDate])
+
         }
     }
     
