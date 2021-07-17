@@ -28,7 +28,7 @@ class GroceryRepository {
            
             monthFilterQuery?.observeSingleEvent(of: .value) { snapshot in
             
-                let snapshot = snapshot.value as! [String:Any]
+                let snapshot = snapshot.value as? [String:Any] ?? [:]
                 
                 var grocery = [GroceryEntity]()
 
