@@ -36,12 +36,12 @@ struct InputMealView: View {
     
     var dismissView: (() -> Void)
     var saveButtonTapped: (() -> Void)
-    
+
     let mealRepo = MealRepository()
     
     var body: some View {
         ZStack(alignment: .top) {
-                    VStack(spacing: 30) {
+                    VStack(spacing: 20) {
                         HStack {
                             Button(action: {dismissView()}, label: {
                                 Text("취소")
@@ -52,6 +52,9 @@ struct InputMealView: View {
                             Button(action: {
                                 withAnimation(.spring()) {
                                     if isImageSelected {
+
+                                        mealRepo.deleteImage(meal: self.meal!)
+
                                         mealRepo.fetchingImageURL(mealID: mealName, image: image) { url in
                                             self.meal = Meal(
                                                 id: "nil",
@@ -81,8 +84,10 @@ struct InputMealView: View {
                             .disabled(isEmpty ? true : false)
                         }
                         .padding(.top)
-                        .padding(.horizontal)
+                        .padding(.horizontal, 26)
+                        
                         // Image Button
+                        
                         VStack {
                             Button(action: {
                                 showImagePicker = true
@@ -95,34 +100,50 @@ struct InputMealView: View {
                                 }
                                 .font(.system(size: 40, weight: .bold, design: .rounded))
                                 .foregroundColor(.black.opacity(0.7))
-                                .frame(width: 300, height: 160, alignment: .center)
+                                .padding(.all, 30)
+                                .frame(width: 280, height: 160, alignment: .center)
+                                
                                 .background(Color.gray.opacity(0.7))
                                 .clipShape(RoundedRectangle(cornerRadius: 22.0, style: .continuous))
-                                .shadow(color: .black.opacity(0.4), radius: 20, x: 5, y: 10)
-                                .padding(.top)
+                                .shadow(color: .black.opacity(0.2), radius: 20, x: 1, y: 5)
                             })
                         }
                         
                         // Toggle View
                         VStack {
                             HStack {
-                                Toggle(isOn: $isDineOut, label: {
-                                    Text(mealType.rawValue)
-                                        .font(.body)
-                                        .foregroundColor(.gray)
-                                }
-                                )
-                                .onReceive([self.isDineOut].publisher.first()) { isDineOut in
-                                    if isDineOut {
-                                        self.mealType = .dineOut
-                                    } else {
-                                        self.mealType = .dineIn
+                                if #available(iOS 14.0, *) {
+                                    Toggle(isOn: $isDineOut, label: {
+                                        Text(mealType.rawValue)
+                                            .font(.body)
+                                            .foregroundColor(.black)
+                                    })
+                                    .toggleStyle(SwitchToggleStyle(tint: Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1))))
+                                    .onReceive([self.isDineOut].publisher.first()) { isDineOut in
+                                        if isDineOut {
+                                            self.mealType = .dineOut
+                                        } else {
+                                            self.mealType = .dineIn
+                                        }
+                                    }
+                                } else {
+                                    Toggle(isOn: $isDineOut, label: {
+                                        Text(mealType.rawValue)
+                                            .font(.body)
+                                            .foregroundColor(.black)
+                                    })
+                                    .onReceive([self.isDineOut].publisher.first()) { isDineOut in
+                                        if isDineOut {
+                                            self.mealType = .dineOut
+                                        } else {
+                                            self.mealType = .dineIn
+                                        }
                                     }
                                 }
                             }
                         }
                         .padding(.horizontal, 30)
-                        .padding(.top, 20)
+                        .padding(.top, 10)
                         
                         
                         Divider()
@@ -135,7 +156,7 @@ struct InputMealView: View {
                                     HStack {
                                         Text("가격")
                                             .font(.body)
-                                            .foregroundColor(Color.gray)
+                                            .foregroundColor(.black)
                                         Spacer()
                                     }
                                     .padding(.leading, 40)
@@ -162,7 +183,7 @@ struct InputMealView: View {
                             HStack {
                                 Text("날짜")
                                     .font(.body)
-                                    .foregroundColor(Color.gray)
+                                    .foregroundColor(.black)
                                 Spacer()
                             }
                             .padding(.leading, 40)
@@ -187,7 +208,7 @@ struct InputMealView: View {
                             HStack {
                                 Text("식사시간")
                                     .font(.body)
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.black)
                                 Spacer()
                             }
                             .padding(.leading, 40)
@@ -211,11 +232,11 @@ struct InputMealView: View {
                         
                         
                         // Menu TextField
-                        VStack {
+                        VStack(spacing: 8) {
                             HStack {
                                 Text("메뉴")
                                     .font(.body)
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.black)
                                 Spacer()
                             }
                             .padding(.leading, 40)
@@ -251,7 +272,7 @@ struct InputMealView: View {
                     .animation(isDineOut ? .easeIn : nil)
               
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 30)
         .onAppear {
             
         }
