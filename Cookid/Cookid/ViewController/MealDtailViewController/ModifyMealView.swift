@@ -21,7 +21,7 @@ struct ModifyMealView: View {
     @State var selectionIndex = 0
     @State var mealType: MealType?
     
-    @Binding var isDineOut: Bool 
+    @Binding var isDineOut: Bool
     @State var isFocused: Bool = false
     @State var showImagePicker: Bool = false
     @State var isImageSelected: Bool = false
@@ -32,6 +32,8 @@ struct ModifyMealView: View {
     var saveTapped: ((Meal) -> Void)?
     var namespace: Namespace.ID
     var meal: Meal
+    
+    let mealRepo = MealRepository()
     
     
     var body: some View {
@@ -49,7 +51,7 @@ struct ModifyMealView: View {
                     .foregroundColor(.blue)
                     .onTapGesture {
                         if isImageSelected {
-                            MealRepository.shared.fetchingImageURL(mealID: meal.id!, image: image) { url in
+                            mealRepo.fetchingImageURL(mealID: meal.id, image: image) { url in
                                 meal.id = meal.id
                                 meal.date = selectedDate ?? meal.date
                                 meal.image = url

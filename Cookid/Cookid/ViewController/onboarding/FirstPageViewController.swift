@@ -27,7 +27,7 @@ class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBa
         super.viewDidLoad()
         greetingLabel.alpha = 0
         cooLabel.alpha = 0
-        kidLabel.transform = CGAffineTransform(rotationAngle: 0.6)
+        kidLabel.transform = CGAffineTransform(rotationAngle: 1)
         kidLabel.alpha = 0
         announceLabel.alpha = 0
         nicknameStackView.alpha = 0
@@ -36,18 +36,18 @@ class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBa
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 1.5, delay: 0.5, options: .curveEaseInOut, animations: {
             self.greetingLabel.alpha = 1
             self.kidLabel.alpha = 1
             self.cooLabel.alpha = 1
             self.kidLabel.transform = CGAffineTransform(rotationAngle: 0)
         }, completion: nil)
         
-        UIView.animate(withDuration: 1, delay: 1, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 1, delay: 1.5, options: .curveEaseInOut, animations: {
             self.announceLabel.alpha = 1
         }, completion: nil)
         
-        UIView.animate(withDuration: 1, delay: 2, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 1, delay: 2.5, options: .curveEaseInOut, animations: {
             self.nicknameStackView.alpha = 1
         }, completion: nil)
     }

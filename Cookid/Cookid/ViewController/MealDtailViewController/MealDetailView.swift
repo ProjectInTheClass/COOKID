@@ -13,14 +13,14 @@ struct MealDetailView: View {
     @State var isDineOut: Bool = false
     @State var image = UIImage()
     @Namespace var namespace
-    
+
     var deleteTapped: (() -> Void)
     var saveTapped: ((Meal) -> Void)
     var cancelTapped: (() -> Void)
-    
+
     var meal : Meal
-    
-    
+
+
     var body: some View {
         if #available(iOS 14.0, *) {
             ZStack {
@@ -30,8 +30,8 @@ struct MealDetailView: View {
                     }
                     .onTapGesture { cancelTapped() }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    
-                    
+
+
                     VStack(spacing: 0) {
                         HStack {
                             Text("삭제")
@@ -51,10 +51,10 @@ struct MealDetailView: View {
                         .matchedGeometryEffect(id: "navBarItem", in: namespace, isSource: !edit)
                         .padding(.top, 20)
                         .padding(.horizontal, 20)
-                        
+
                         Divider()
                             .padding(.vertical)
-                        
+
                         HStack {
                             //Image(systemName: "camera.circle")
                             Image(uiImage: image)
@@ -73,9 +73,9 @@ struct MealDetailView: View {
                                 .onAppear {
                                     fetchImage()
                                 }
-                            
-                            
-                            
+
+
+
                             VStack(alignment: .center, spacing: 8) {
                                 HStack(alignment: .center, spacing: 18) {
                                     Text(meal.name)
@@ -86,10 +86,10 @@ struct MealDetailView: View {
                                         .font(.system(size: 18, weight: .regular, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
                                 }
-                                
-                                
+
+
                                 Divider()
-                                
+
                                 HStack(alignment: .center, spacing: 16) {
                                     Text(meal.date.dateToString())
                                         .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -100,12 +100,12 @@ struct MealDetailView: View {
                                         .padding(2)
                                         .background(RoundedRectangle(cornerRadius: 16).stroke(lineWidth: 0.4))
                                 }
-                                
+
                                 if meal.mealType == .dineOut {
                                     Divider()
-                                    
+
                                     HStack(alignment: .center, spacing: 16) {
-                                        Text(intToString(value: meal.price))
+                                        Text(intToString(meal.price))
                                             .font(.system(size: 21, weight: .thin, design: .rounded))
                                             .foregroundColor(Color.black.opacity(0.7))
                                     }
@@ -171,10 +171,10 @@ struct MealDetailView: View {
                         }
                         .padding(.top, 20)
                         .padding(.horizontal, 20)
-                        
+
                         Divider()
                             .padding(.vertical)
-                        
+
                         HStack {
                             Image(systemName: "camera.circle")
                                 .font(.system(size: 40))
@@ -184,8 +184,8 @@ struct MealDetailView: View {
                                 .clipShape(Circle())
                                 .shadow(color: Color.black.opacity(0.5), radius: 20, x: 0, y: 10)
                                 .padding()
-                            
-                            
+
+
                             VStack(alignment: .center, spacing: 8) {
                                 HStack(alignment: .center, spacing: 18) {
                                     Text(meal.name)
@@ -195,10 +195,10 @@ struct MealDetailView: View {
                                         .font(.system(size: 18, weight: .regular, design: .rounded))
                                         .foregroundColor(Color.black.opacity(0.7))
                                 }
-                                
-                                
+
+
                                 Divider()
-                                
+
                                 HStack(alignment: .center, spacing: 16) {
                                     Text(meal.date.dateToString())
                                         .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -209,12 +209,12 @@ struct MealDetailView: View {
                                         .padding(2)
                                         .background(RoundedRectangle(cornerRadius: 16).stroke(lineWidth: 0.4))
                                 }
-                                
+
                                 if meal.mealType == .dineOut {
                                     Divider()
-                                    
+
                                     HStack(alignment: .center, spacing: 16) {
-                                        Text(intToString(value: meal.price))
+                                        Text(intToString(meal.price))
                                             .font(.system(size: 21, weight: .thin, design: .rounded))
                                             .foregroundColor(Color.black.opacity(0.7))
                                     }
@@ -249,8 +249,8 @@ struct MealDetailView: View {
             .background(Color.clear)
         }
     }
-    
-    
+
+
      func fetchImage() {
         if let imageUrl = meal.image {
             KingfisherManager.shared.retrieveImage(with: imageUrl) { result in

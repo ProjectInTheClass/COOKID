@@ -10,11 +10,15 @@ import RxSwift
 
 class ShoppingService {
     
-    private let groceryRepository = GroceryRepository()
+    let groceryRepository: GroceryRepository
     
     private var groceryShoppings: [GroceryShopping] = []
     
     private lazy var shoppingStore = BehaviorSubject<[GroceryShopping]>(value: groceryShoppings)
+    
+    init(groceryRepository: GroceryRepository) {
+        self.groceryRepository = groceryRepository
+    }
     
     @discardableResult
     func create(shopping: GroceryShopping) -> Observable<GroceryShopping> {
@@ -60,8 +64,8 @@ class ShoppingService {
         return Observable.just(shopping)
     }
     
-    func fetchGroceries(completion: @escaping (([GroceryShopping]) -> Void)) {
-        groceryRepository.fetchGroceryInfo { [unowned self] models in
+    func fetchGroceries(user: User, completion: @escaping (([GroceryShopping]) -> Void)) {
+        groceryRepository.fetchGroceryInfo(user: user) { [unowned self] models in
             let groceryShoppings = models.map { shoppingModel -> GroceryShopping in
                 
                 let id = shoppingModel.id
