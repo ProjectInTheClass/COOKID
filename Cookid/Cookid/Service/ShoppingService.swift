@@ -54,7 +54,7 @@ class ShoppingService {
     @discardableResult
     func delete(shopping: GroceryShopping) -> Observable<GroceryShopping> {
         
-        // groceryRepository.deleteShoppingToFirebase(shopping: shopping)
+         groceryRepository.deleteGroceryInfo(grocery: shopping)
         
         if let index = groceryShoppings.firstIndex(where: { $0.id == shopping.id }) {
             groceryShoppings.remove(at: index)
