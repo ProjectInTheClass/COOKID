@@ -11,7 +11,7 @@ class MealTimeCollectionViewCell: UICollectionViewCell {
     
     let barView: UIView = {
        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.9555922308, green: 0.7496932534, blue: 0.8889662875, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.2562616467, green: 0.7466452718, blue: 0.5671476722, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 8
         return view
