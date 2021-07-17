@@ -42,7 +42,7 @@ class MealService {
     @discardableResult
     func update(updateMeal: Meal) -> Observable<Meal> {
         
-         mealRepository.updateMealToFirebase(meal: updateMeal)
+        mealRepository.updateMealToFirebase(meal: updateMeal)
         
         if let index = meals.firstIndex(where: { $0.id == updateMeal.id }) {
             meals.remove(at: index)
@@ -55,7 +55,7 @@ class MealService {
     @discardableResult
     func delete(meal: Meal) -> Observable<Meal> {
         
-         mealRepository.deleteMealToFirebase(meal: meal)
+        mealRepository.deleteMealToFirebase(meal: meal)
         
         if let index = meals.firstIndex(where: { $0.id == meal.id }) {
             meals.remove(at: index)
@@ -133,8 +133,20 @@ class MealService {
     
     
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
-        let newMeals = meals.filter { $0.mealType == .dineIn }
-        return CGFloat(newMeals.count) / CGFloat(meals.count)
+        
+        let newDineInMeals = meals.filter { $0.mealType == .dineIn }
+        let newDineOutMeals = meals.filter { $0.mealType == .dineOut }
+        
+        if meals.isEmpty {
+            return 0.5
+        } else if newDineInMeals.isEmpty {
+            return 0
+        } else if newDineOutMeals.isEmpty {
+            return 1
+        } else {
+            return CGFloat(newDineInMeals.count) / CGFloat(meals.count)
+        }
+        
     }
     
     func mostExpensiveMeal(meals: [Meal]) -> Meal {
@@ -163,11 +175,6 @@ class MealService {
         return [breakfastNum, brunchNum, lunchNum, lundinnerNum, dinnerNum, snackNum]
     }
     
-    func dineInProgressCalc(_ meals: [Meal]) -> CGFloat {
-        let newMeals = meals.filter { $0.mealType == .dineIn }
-        return CGFloat(newMeals.count) / CGFloat(meals.count)
-    }
-    
     func todayMeals(meals: [Meal]) -> [Meal] {
         return meals.filter { $0.date.dateToString() == Date().dateToString() }
     }
@@ -183,7 +190,9 @@ class MealService {
         
         switch day {
         case 1...7:
-            if percentage < 6 {
+            if percentage == 0 {
+                return "이번 달도 화이팅! 👍"
+            } else if percentage < 6 {
                 return "현명한 식비 관리 중입니다 👍"
             } else if percentage < 12 {
                 return "아직 (다음주에 덜 먹으면) 괜찮아요 👏"
@@ -199,7 +208,9 @@ class MealService {
                 return "(절레절레) 🤷🏻‍♂️"
             }
         case 8...14:
-            if percentage < 25 {
+            if percentage == 0 {
+                return "한 주가 지났어요ㅠ 어서 시작해보세요!"
+            } else if percentage < 25 {
                 return "현명한 식비 관리 중입니다 👍"
             } else if percentage < 50 {
                 return "아직 (다음주에 덜 먹으면) 괜찮아요 👏"
@@ -211,7 +222,9 @@ class MealService {
                 return "(절레절레) 🤷🏻‍♂️"
             }
         case 15...21:
-            if percentage < 50 {
+            if percentage == 0 {
+                return "이번 달 식비관리 시작하세요!"
+            } else if percentage < 50 {
                 return "현명한 식비 관리 중입니다 👍"
             } else if percentage < 75 {
                 return "조금만 조절하면 당신은 현명한 소비자 💵"
@@ -223,7 +236,9 @@ class MealService {
                 return "(절레절레) 🤷🏻‍♂️"
             }
         case 22...28:
-            if percentage < 75 {
+            if percentage == 0 {
+                return "달의 막바지어도 시도해 보세요!"
+            } else if percentage < 75 {
                 return "현명한 식비 관리 중입니다 👍"
             } else if percentage < 90 {
                 return "다음주에 굶으시려나보다 🙋🏻‍♂️"
@@ -240,5 +255,5 @@ class MealService {
             }
         }
     }
-   
+    
 }

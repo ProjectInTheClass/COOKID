@@ -23,12 +23,10 @@ class UserService {
     
     func loadUserInfo(completion: @escaping (User)->Void) {
         self.userRepository.fetchUserInfo { [unowned self] userentity in
-            
-            print(userentity)
-            
             let user = User(userID: userentity.userId, nickname: userentity.nickname, determination: userentity.determination, priceGoal: userentity.priceGoal, userType: UserType(rawValue: userentity.userType) ?? .preferDineIn)
             defaultUserInfo = user
             self.userInfo.onNext(user)
+            completion(user)
         }
     }
     

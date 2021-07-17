@@ -58,13 +58,54 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         
         finishPageButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.viewModel.registrationUser()
-                self?.dismiss(animated: true, completion: nil)
+                self?.viewModel.registrationUser(completion: { (success, user) in
+                    if success {
+                        self?.view.window?.rootViewController?.dismiss(animated: false, completion: {
+                            self?.setRootViewController(user: user)
+                        })
+                    }
+                })
             })
             .disposed(by: rx.disposeBag)
-       
+        
     }
+    
+    func setRootViewController(user: User) {
+        let mealRepo = MealRepository()
+        let userRepo = UserRepository()
+        let groceryRepo = GroceryRepository()
 
+        let mealService = MealService(mealRepository: mealRepo, userRepository: userRepo, groceryRepository: groceryRepo)
+        let userService = UserService(userRepository: userRepo)
+        let shoppingService = ShoppingService(groceryRepository: groceryRepo)
+
+        var mainVC = MainViewController.instantiate(storyboardID: "Main")
+        mainVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
+        let mainNVC = UINavigationController(rootViewController: mainVC)
+        mainVC.navigationController?.navigationBar.prefersLargeTitles = true
+
+        var myMealVC = MyMealViewController.instantiate(storyboardID: "MyMealTap")
+        myMealVC.bind(viewModel: MyMealViewModel(mealService: mealService, userService: userService))
+        let myMealNVC = UINavigationController(rootViewController: myMealVC)
+        myMealVC.navigationController?.navigationBar.prefersLargeTitles = true
+
+        var myExpenseVC = MyExpenseViewController.instantiate(storyboardID: "MyExpenseTap")
+        myExpenseVC.bind(viewModel: MyExpenseViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
+        let myExpenseNVC = UINavigationController(rootViewController: myExpenseVC)
+        myExpenseVC.navigationController?.navigationBar.prefersLargeTitles = true
+
+        let tabBarController = UITabBarController()
+        tabBarController.setViewControllers([mainNVC, myMealNVC, myExpenseNVC], animated: false)
+        tabBarController.tabBar.tintColor = .black
+        tabBarController.modalPresentationStyle = .fullScreen
+        tabBarController.modalTransitionStyle = .crossDissolve
+        
+        let rootVC = UIApplication.shared.windows.first!.rootViewController
+        rootVC?.present(tabBarController, animated: true, completion: {
+            userService.uploadUserInfo(user: user)
+        })
+    }
+    
     
     private func setNotification(){
         

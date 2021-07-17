@@ -18,6 +18,7 @@ class MealRepository {
     
     
     func fetchMeals(user: User, completion: @escaping ([MealEntity]) -> Void) {
+        
         var calendar = Calendar(identifier: .gregorian)
         calendar.locale = Locale(identifier: "ko")
         let datecompoenets = calendar.dateComponents([.year, .month], from: Date())
@@ -45,45 +46,44 @@ class MealRepository {
     }
     
     func uploadMealToFirebase(meal: Meal, completed: @escaping (String) -> Void) {
-        authRepo.signInAnonymously { [weak self] uid in
-            guard let key = self?.db.child(uid).child(FBChild.meal).childByAutoId().key else { return }
-            let mealDic : [String:Any] = [
-                "id" : key,
-                "price" : meal.price,
-                "date" : meal.date.dateToInt(),
-                "image" : meal.image?.absoluteString as Any,
-                "name" : meal.name,
-                "mealType" : meal.mealType.rawValue,
-                "mealTime" : meal.mealTime.rawValue
-            ]
-            self?.db.child(uid).child(FBChild.meal).child(key).setValue(mealDic)
-            completed(key)
-        }
+        guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
+        guard let key = self.db.child(currentUserUID).child(FBChild.meal).childByAutoId().key else { return }
+        let mealDic : [String:Any] = [
+            "id" : key,
+            "price" : meal.price,
+            "date" : meal.date.dateToInt(),
+            "image" : meal.image?.absoluteString as Any,
+            "name" : meal.name,
+            "mealType" : meal.mealType.rawValue,
+            "mealTime" : meal.mealTime.rawValue
+        ]
+        self.db.child(currentUserUID).child(FBChild.meal).child(key).setValue(mealDic)
+        completed(key)
     }
     
     
     
     func updateMealToFirebase(meal: Meal) {
-        authRepo.signInAnonymously { [weak self] uid in
-            let mealDic : [String:Any] = [
-                "id" : meal.id as Any,
-                "price" : meal.price,
-                "date" : meal.date.dateToInt(),
-                "image" : meal.image?.absoluteString as Any,
-                "name" : meal.name,
-                "mealType" : meal.mealType.rawValue,
-                "mealTime" : meal.mealTime.rawValue
-            ]
-            self?.db.child(uid).child(FBChild.meal).child(meal.id!).updateChildValues(mealDic)
-        }
+        
+        guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
+        
+        let mealDic : [String:Any] = [
+            "id" : meal.id as Any,
+            "price" : meal.price,
+            "date" : meal.date.dateToInt(),
+            "image" : meal.image?.absoluteString as Any,
+            "name" : meal.name,
+            "mealType" : meal.mealType.rawValue,
+            "mealTime" : meal.mealTime.rawValue
+        ]
+        
+        self.db.child(currentUserUID).child(FBChild.meal).child(meal.id).updateChildValues(mealDic)
     }
     
     
-    
     func deleteMealToFirebase(meal: Meal) {
-        authRepo.signInAnonymously { [weak self] uid in
-            self?.db.child(uid).child(FBChild.meal).child(meal.id!).removeValue()
-        }
+        guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
+        self.db.child(currentUserUID).child(FBChild.meal).child(meal.id).removeValue()
     }
     
     

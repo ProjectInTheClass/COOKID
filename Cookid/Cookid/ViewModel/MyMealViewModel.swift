@@ -41,7 +41,7 @@ class MyMealViewModel: ViewModelType {
        
         // output initializer
         
-        let dineInProgress = meals.map(mealService.dineInProgressCalc(_:))
+        let dineInProgress = meals.map(mealService.dineInProgressCalc)
             .asDriver(onErrorJustReturn: 0)
 
         let mostExpensiveMeal = meals.map(mealService.mostExpensiveMeal)

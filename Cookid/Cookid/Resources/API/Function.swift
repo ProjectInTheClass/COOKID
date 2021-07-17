@@ -41,6 +41,13 @@ func hideKeyboard() {
 func intToString(_ value: Int) -> String {
     let numberFormatter = NumberFormatter()
     numberFormatter.numberStyle = .decimal
-    let string = numberFormatter.string(from: NSNumber(value: value))! + " 원"
+    let string = numberFormatter.string(from: NSNumber(value: value))! + "원"
+    return string
+}
+
+func intToStringRemoveVer(_ value: Int) -> String {
+    let numberFormatter = NumberFormatter()
+    numberFormatter.numberStyle = .decimal
+    let string = numberFormatter.string(from: NSNumber(value: value))!
     return string
 }

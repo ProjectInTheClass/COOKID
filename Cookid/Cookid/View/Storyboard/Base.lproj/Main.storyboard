@@ -206,8 +206,8 @@
                                                                                         <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flame.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="RQP-bU-cdA">
-                                                                                        <rect key="frame" x="0.0" y="-0.5" width="25" height="25"/>
+                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flag.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="RQP-bU-cdA">
+                                                                                        <rect key="frame" x="0.0" y="0.5" width="25" height="23.5"/>
                                                                                         <color key="tintColor" systemColor="systemRedColor"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="height" constant="25" id="w2U-gf-TUv"/>
@@ -367,6 +367,7 @@
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yb3-gk-Gv5">
                                                                                     <rect key="frame" x="10" y="10" width="108" height="108"/>
+                                                                                    <color key="tintColor" systemColor="systemGray6Color"/>
                                                                                 </imageView>
                                                                             </subviews>
                                                                             <constraints>
@@ -786,7 +787,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="SMq-hS-Y3Q">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -862,7 +863,7 @@
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.left.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.right.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="flame.fill" catalog="system" width="108" height="128"/>
+        <image name="flag.fill" catalog="system" width="128" height="121"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="mealButton" width="183" height="69"/>

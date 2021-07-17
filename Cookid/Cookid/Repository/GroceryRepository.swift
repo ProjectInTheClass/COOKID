@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseDatabase
+import FirebaseAuth
 
 class GroceryRepository {
     
@@ -42,34 +43,41 @@ class GroceryRepository {
     
     
     func uploadGroceryInfo(grocery: GroceryShopping) {
-        authRepo.signInAnonymously { [weak self] uid in
-            guard let self = self else { return }
-            guard let key = self.db.child(uid).child(FBChild.groceries).childByAutoId().key else { return }
-            let dic: [String:Any] = [
-                "id" : key,
-                "date" : grocery.date.dateToInt(),
-                "totalPrice" : grocery.totalPrice
-            ]
-            self.db.child(uid).child(FBChild.groceries).child(key).setValue(dic)
-        }
+        
+        guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
+        
+        guard let key = self.db.child(currentUserUID).child(FBChild.groceries).childByAutoId().key else { return }
+        
+        let dic: [String:Any] = [
+            "id" : key,
+            "date" : grocery.date.dateToInt(),
+            "totalPrice" : grocery.totalPrice
+        ]
+        
+        self.db.child(currentUserUID).child(FBChild.groceries).child(key).setValue(dic)
+        
     }
     
     
     func updateGroceryInfo(grocery: GroceryShopping) {
-        authRepo.signInAnonymously { [weak self] uid in
-            guard let self = self else { return }
-            guard let key = self.db.child(uid).child(FBChild.groceries).childByAutoId().key else { return }
-            let dic: [String:Any] = [
-                "id" : key,
-                "date" : grocery.date.dateToString(),
-                "totalPrice" : grocery.totalPrice
-            ]
-            self.db.child(uid).child(FBChild.groceries).child(key).updateChildValues(dic)
-        }
+        
+        guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
+        
+        guard let key = self.db.child(currentUserUID).child(FBChild.groceries).childByAutoId().key else { return }
+        
+        let dic: [String:Any] = [
+            "id" : key,
+            "date" : grocery.date.dateToString(),
+            "totalPrice" : grocery.totalPrice
+        ]
+        
+        self.db.child(currentUserUID).child(FBChild.groceries).child(key).updateChildValues(dic)
     }
     
-    
-    func deleteGroceryInfo() {
-        
+
+    func deleteGroceryInfo(grocery: GroceryShopping) {
+        guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
+        self.db.child(currentUserUID).child(FBChild.groceries).child(grocery.id).removeValue()
     }
 }
+

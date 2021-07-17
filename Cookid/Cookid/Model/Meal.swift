@@ -11,7 +11,7 @@ class Meal: Equatable {
     static func == (lhs: Meal, rhs: Meal) -> Bool {
         return true
     }
-    var id: String?
+    var id: String
     var price: Int
     var date: Date
     var name: String
@@ -19,7 +19,7 @@ class Meal: Equatable {
     var mealType: MealType
     var mealTime: MealTime
     
-    init(id: String?, price: Int, date: Date, name: String, image: URL?, mealType: MealType, mealTime: MealTime) {
+    init(id: String, price: Int, date: Date, name: String, image: URL?, mealType: MealType, mealTime: MealTime) {
         self.id = id
         self.price = price
         self.date = date

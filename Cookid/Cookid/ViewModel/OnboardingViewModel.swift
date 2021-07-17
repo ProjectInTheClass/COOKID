@@ -22,7 +22,7 @@ class OnboardingViewModel: ViewModelType {
     }
     
     struct Output {
-        let userInformation: Driver<User>
+        let userInformation: Observable<User>
     }
     
     var input: Input
@@ -40,7 +40,6 @@ class OnboardingViewModel: ViewModelType {
         let userInformation = Observable.combineLatest(nickname, determination, usertype, monthlyGoal, resultSelector: { name, deter, usertype, monthlyGoal -> User in
             return User(userID: "", nickname: name, determination: deter, priceGoal: monthlyGoal, userType: usertype)
         })
-        .asDriver(onErrorJustReturn: User(userID: "", nickname: "노네임", determination: "아자아자! 화이팅!", priceGoal: "200000", userType: .preferDineIn))
         
         
         self.input = Input(nickname: nickname, monthlyGoal: monthlyGoal, usertype: usertype, determination: determination)
@@ -48,10 +47,10 @@ class OnboardingViewModel: ViewModelType {
         self.output = Output(userInformation: userInformation)
     }
     
-    func registrationUser() {
+    func registrationUser(completion: @escaping (Bool, User)->Void) {
         self.output.userInformation
-            .drive(onNext: { [unowned self] user in
-                self.userService.uploadUserInfo(user: user)
+            .subscribe(onNext: { user in
+                completion(true, user)
             })
             .disposed(by: disposeBag)
     }
