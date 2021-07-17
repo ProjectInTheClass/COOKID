@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Kingfisher
 
 struct InputMealView: View {
     @ObservedObject var mealDelegate: InputMealViewDelegate
@@ -27,24 +28,26 @@ struct InputMealView: View {
     @State var isDineOut = false
     @State var mealType = MealType.dineIn
     
+    @State var showActionSheet: Bool = false
     @State var isFocused: Bool = false
     @State var priceTFIsFocused: Bool = false
     @State var showImagePicker: Bool = false
     @State var isEmpty: Bool = true
     @State var isImageSelected: Bool = false
+    @State var imageSourceStyle: UIImagePickerController.SourceType?
     
     @State var meal: Meal?
     
     var dismissView: (() -> Void)
     var saveButtonTapped: ((Meal) -> Void)
-
+    
     let mealRepo = MealRepository()
     
     var body: some View {
         ZStack {
             ZStack {
                 GeometryReader { proxy in
-                    Color.black.opacity(0.8)
+                    Color.black.opacity(0.7)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .edgesIgnoringSafeArea(.all)
@@ -55,22 +58,37 @@ struct InputMealView: View {
                     // Image Button
                     VStack {
                         Button(action: {
-                            showImagePicker = true
+                            showActionSheet = true
                         }, label: {
                             ZStack {
-                                Image(systemName: "camera.circle")
+                                Image(systemName: "camera")
                                 Image(uiImage: image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .clipShape(Circle())
                             }
-                            .font(.system(size: 40, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-                            .frame(width: 150, height: 150)
+                            .font(.system(size: 30, weight: .regular, design: .rounded))
+                            .foregroundColor(Color.gray)
+                            .frame(width: 130, height: 130)
                             .background(Color.gray.opacity(isImageSelected ? 0 : 0.2))
                             .clipShape(Circle())
                             .padding(.top, 20)
                             .shadow(color: .black.opacity(0.2), radius: 20, x: 1, y: 5)
+                        })
+                        .actionSheet(isPresented: $showActionSheet, content: {
+                            ActionSheet(title: Text("사진을 선택해 주세요"),
+                                        message: Text("맛있게 드신 음식 사진을 골라주세요"),
+                                        buttons: [
+                                            .default(Text("앨범에서 선택하기"), action: {
+                                                showImagePicker = true
+                                                self.imageSourceStyle = .photoLibrary
+                                            }),
+                                            .default(Text("사진 찍기"), action: {
+                                                showImagePicker = true
+                                                self.imageSourceStyle = .camera
+                                            }),
+                                            .cancel(Text("취소"))
+                                        ])
                         })
                     }
                     
@@ -79,7 +97,7 @@ struct InputMealView: View {
                     // Date Picker TextField
                     VStack(spacing: 2) {
                         HStack {
-                            Text("날짜")
+                            Text("📅 날짜")
                                 .font(.body)
                                 .foregroundColor(.black)
                             Spacer()
@@ -98,7 +116,7 @@ struct InputMealView: View {
                     // MealType Picker TextField
                     VStack(spacing: 2) {
                         HStack {
-                            Text("식사시간")
+                            Text("⏳ 식사시간")
                                 .font(.body)
                                 .foregroundColor(.black)
                             Spacer()
@@ -120,7 +138,7 @@ struct InputMealView: View {
                     // Menu TextField
                     VStack(spacing: 2) {
                         HStack {
-                            Text("메뉴")
+                            Text("🧆 메뉴")
                                 .font(.body)
                                 .foregroundColor(.black)
                             Spacer()
@@ -138,7 +156,10 @@ struct InputMealView: View {
                                 .frame(height: 44)
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(Color(.systemIndigo))
-                                .onTapGesture { isFocused = true }
+                                .onTapGesture {
+                                    isFocused = true
+                                    priceTFIsFocused = false
+                                }
                         }
                     }
                     .padding(.horizontal, 30)
@@ -184,7 +205,7 @@ struct InputMealView: View {
                         VStack(spacing: 2) {
                             VStack {
                                 HStack {
-                                    Text("가격")
+                                    Text("💸 가격")
                                         .font(.body)
                                         .foregroundColor(.black)
                                     Spacer()
@@ -195,6 +216,7 @@ struct InputMealView: View {
                                         .foregroundColor(Color(.systemIndigo))
                                         .onTapGesture {
                                             priceTFIsFocused = true
+                                            isFocused = false
                                         }
                                 }
                                 .frame(height: 44)
@@ -238,10 +260,12 @@ struct InputMealView: View {
                             }
                         }, label: {
                             Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(isImageSelected ? .yellow : .gray)
                                 .foregroundColor(isEmpty ? .gray : .yellow)
-                                .font(.system(size: 40))
+                                .font(.system(size: 30))
                         })
                         .disabled(isEmpty ? true : false)
+                        .disabled(!isImageSelected ? true : false)
                     }
                     .padding(.bottom, 24)
                     .padding(.trailing, 24)
@@ -251,10 +275,8 @@ struct InputMealView: View {
                 .shadow(radius: 20)
                 .padding(40)
                 .animation(isDineOut ? .easeIn : nil)
-                .offset(y: withAnimation {
-                    isFocused ? -230 : 0
-                })
-                .offset(y: priceTFIsFocused ? -230 : 0)
+                .offset(y: isFocused ? -200 : 0)
+                .offset(y: priceTFIsFocused ? -200 : 0)
             }
             .background(Color.clear)
             .edgesIgnoringSafeArea(.all)
@@ -265,17 +287,10 @@ struct InputMealView: View {
                 hideKeyboard()
             }
             .sheet(isPresented: $showImagePicker, content: {
-                ImagePicker(sourceType: .photoLibrary, selectedImage: $image, isImageSelected: $isImageSelected)
-        })
+                ImagePicker(sourceType: self.imageSourceStyle!, selectedImage: $image, isImageSelected: $isImageSelected)
+            })
         }
     }
-    
-    
-    
-    func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-    
 }
 
 

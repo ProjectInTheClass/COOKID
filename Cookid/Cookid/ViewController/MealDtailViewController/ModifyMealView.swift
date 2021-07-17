@@ -25,8 +25,6 @@ struct ModifyMealView: View {
     @State var isFocused: Bool = false
     @State var showImagePicker: Bool = false
     @State var isImageSelected: Bool = false
-    @State var saveButtonTapped: Bool = false
-    @State var cancel: Bool = false
     
     var cancelTapped: (() -> Void)
     var saveTapped: ((Meal) -> Void)?
@@ -231,7 +229,7 @@ struct ModifyMealView: View {
             .padding(.bottom,30)
         }
         .background(Color.white.matchedGeometryEffect(id: "background", in: namespace))
-        .cornerRadius(30)
+        .cornerRadius(20)
         .padding()
         .shadow(radius: 20)
         .sheet(isPresented: $showImagePicker, content: {
@@ -241,9 +239,8 @@ struct ModifyMealView: View {
             if meal.mealType == .dineOut {
                 isDineOut = true
             }
-            
-            print(meal.image)
         }
+        
     }
     
     func fetchImage() {
@@ -255,8 +252,12 @@ struct ModifyMealView: View {
                 }
             }
         }
+        if meal.image == nil {
+            self.image = UIImage(imageLiteralResourceName: "placeholder")
+                .resizableImage(withCapInsets: .init(), resizingMode: .tile)
+        }
     }
-     
+    
 }
 
 

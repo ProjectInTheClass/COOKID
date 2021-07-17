@@ -121,7 +121,7 @@ struct MealDetailView: View {
                                                                   in: namespace,
                                                                   isSource: !edit)
                     )
-                    .cornerRadius(30)
+                    .cornerRadius(20)
                     .padding()
                     .shadow(radius: 20)
                     .onTapGesture {
@@ -135,7 +135,7 @@ struct MealDetailView: View {
                                        namespace: namespace,
                                        meal: meal)
                     } else {
-                        ModifyMealViewForAvailable(meal: meal)
+                        ModifyMealViewForAvailable(cancelTapped: cancelTapped, saveTapped: saveTapped, meal: meal)
                     }
                 }
             }
@@ -151,6 +151,12 @@ struct MealDetailView: View {
         } else {
             ZStack {
                 if !edit {
+                    GeometryReader { proxy in
+                        Color.clear.contentShape(Path(CGRect(origin: .zero, size: proxy.size)))
+                    }
+                    .onTapGesture { cancelTapped() }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
                     VStack(spacing: 0) {
                         HStack {
                             Text("삭제")
@@ -227,7 +233,7 @@ struct MealDetailView: View {
                         .frame(maxWidth: .infinity)
                     }
                     .background(Color.white)
-                    .cornerRadius(30)
+                    .cornerRadius(20)
                     .padding()
                     .shadow(radius: 20)
                     .onTapGesture {
@@ -241,7 +247,7 @@ struct MealDetailView: View {
                                        namespace: namespace,
                                        meal: meal)
                     } else {
-                        ModifyMealViewForAvailable(meal: meal)
+                        ModifyMealViewForAvailable(cancelTapped: cancelTapped, saveTapped: saveTapped, meal: meal)
                     }
                 }
             }
@@ -259,6 +265,10 @@ struct MealDetailView: View {
                     self.image = image
                 }
             }
+        }
+        if meal.image == nil {
+            self.image = UIImage(imageLiteralResourceName: "placeholder")
+                .resizableImage(withCapInsets: .init(), resizingMode: .tile)
         }
     }
 }
