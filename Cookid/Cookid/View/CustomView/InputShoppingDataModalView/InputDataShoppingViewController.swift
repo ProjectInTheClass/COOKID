@@ -118,6 +118,7 @@ extension InputDataShoppingViewController {
         self.view.addSubview(backView)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         self.view.addGestureRecognizer(tapGesture)
+        tapGesture.cancelsTouchesInView = true
         self.backView.addSubview(tableView)
         
         self.tableView.delegate = self

@@ -87,10 +87,20 @@ class MealRepository {
     }
     
     
+    func deleteImage(meal: Meal) {
+        let storageRef = storage.child(meal.id + ".jpg")
+        
+        storageRef.delete { error in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }
+        }
+    }
+    
     
     func fetchingImageURL(mealID: String, image: UIImage, completed: @escaping (URL?) -> Void) {
         let storageRef = storage.child(mealID + ".jpg")
-        let data = image.jpegData(compressionQuality: 0.8)
+        let data = image.jpegData(compressionQuality: 0.1)
         let metadata = StorageMetadata()
         metadata.contentType = "image.jpg"
         

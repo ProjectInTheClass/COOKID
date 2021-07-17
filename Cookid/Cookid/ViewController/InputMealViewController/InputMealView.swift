@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Kingfisher
 
 struct InputMealView: View {
     @ObservedObject var mealDelegate: InputMealViewDelegate
@@ -27,91 +28,165 @@ struct InputMealView: View {
     @State var isDineOut = false
     @State var mealType = MealType.dineIn
     
+    @State var showActionSheet: Bool = false
     @State var isFocused: Bool = false
+    @State var priceTFIsFocused: Bool = false
     @State var showImagePicker: Bool = false
     @State var isEmpty: Bool = true
     @State var isImageSelected: Bool = false
+    @State var imageSourceStyle: UIImagePickerController.SourceType?
     
     @State var meal: Meal?
     
     var dismissView: (() -> Void)
-    var saveButtonTapped: (() -> Void)
+    var saveButtonTapped: ((Meal) -> Void)
     
     let mealRepo = MealRepository()
     
     var body: some View {
-        ZStack(alignment: .top) {
-                    VStack(spacing: 30) {
+        ZStack {
+            ZStack {
+                GeometryReader { proxy in
+                    Color.black.opacity(0.7)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .edgesIgnoringSafeArea(.all)
+                .onTapGesture { dismissView() }
+                
+                VStack(spacing: 20) {
+                    
+                    // Image Button
+                    VStack {
+                        Button(action: {
+                            showActionSheet = true
+                        }, label: {
+                            ZStack {
+                                Image(systemName: "camera")
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .clipShape(Circle())
+                            }
+                            .font(.system(size: 30, weight: .regular, design: .rounded))
+                            .foregroundColor(Color.gray)
+                            .frame(width: 130, height: 130)
+                            .background(Color.gray.opacity(isImageSelected ? 0 : 0.2))
+                            .clipShape(Circle())
+                            .padding(.top, 20)
+                            .shadow(color: .black.opacity(0.2), radius: 20, x: 1, y: 5)
+                        })
+                        .actionSheet(isPresented: $showActionSheet, content: {
+                            ActionSheet(title: Text("사진을 선택해 주세요"),
+                                        message: Text("맛있게 드신 음식 사진을 골라주세요"),
+                                        buttons: [
+                                            .default(Text("앨범에서 선택하기"), action: {
+                                                showImagePicker = true
+                                                self.imageSourceStyle = .photoLibrary
+                                            }),
+                                            .default(Text("사진 찍기"), action: {
+                                                showImagePicker = true
+                                                self.imageSourceStyle = .camera
+                                            }),
+                                            .cancel(Text("취소"))
+                                        ])
+                        })
+                    }
+                    
+                    Divider()
+                    
+                    // Date Picker TextField
+                    VStack(spacing: 2) {
                         HStack {
-                            Button(action: {dismissView()}, label: {
-                                Text("취소")
-                                    .bold()
-                                    .foregroundColor(.red)
-                            })
+                            Text("📅 날짜")
+                                .font(.body)
+                                .foregroundColor(.black)
                             Spacer()
-                            Button(action: {
-                                withAnimation(.spring()) {
-                                    if isImageSelected {
-                                        mealRepo.fetchingImageURL(mealID: mealName, image: image) { url in
-                                            self.meal = Meal(
-                                                id: "nil",
-                                                price: Int(price) ?? 0,
-                                                date: selectedDate ?? Date(),
-                                                name: mealName,
-                                                image: url ?? nil,
-                                                mealType: mealType,
-                                                mealTime: MealTime(rawValue: mealTime) ?? .breakfast)
-                                            mealDelegate.meal = self.meal }
-                                    } else { self.meal = Meal(id: "nil",
-                                                         price: Int(price) ?? 0,
-                                                         date: selectedDate ?? Date(),
-                                                         name: mealName,
-                                                         image: nil,
-                                                         mealType: mealType,
-                                                         mealTime: MealTime(rawValue: mealTime) ?? .breakfast)
-                                        mealDelegate.meal = self.meal }
-                                    saveButtonTapped()
-                                    dismissView()
-                                }
-                            }, label: {
-                                Text("저장")
-                                    .bold()
-                                    .foregroundColor(.blue)
-                            })
-                            .disabled(isEmpty ? true : false)
-                        }
-                        .padding(.top)
-                        .padding(.horizontal)
-                        // Image Button
-                        VStack {
-                            Button(action: {
-                                showImagePicker = true
-                            }, label: {
-                                ZStack {
-                                    Image(systemName: "camera.circle")
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                }
-                                .font(.system(size: 40, weight: .bold, design: .rounded))
-                                .foregroundColor(.black.opacity(0.7))
-                                .frame(width: 300, height: 160, alignment: .center)
-                                .background(Color.gray.opacity(0.7))
-                                .clipShape(RoundedRectangle(cornerRadius: 22.0, style: .continuous))
-                                .shadow(color: .black.opacity(0.4), radius: 20, x: 5, y: 10)
-                                .padding(.top)
-                            })
                         }
                         
-                        // Toggle View
                         VStack {
-                            HStack {
+                            DatePickerTextField(placeHolder: currentDate, date: $selectedDate)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                        }
+                        .frame(height: 44)
+                        .frame(maxWidth: .infinity)
+                    }
+                    .padding(.horizontal, 30)
+                    
+                    
+                    // MealType Picker TextField
+                    VStack(spacing: 2) {
+                        HStack {
+                            Text("⏳ 식사시간")
+                                .font(.body)
+                                .foregroundColor(.black)
+                            Spacer()
+                        }
+                        
+                        VStack {
+                            TextFieldWithPickerAsInputView(
+                                data: MealTime.allCases.map { String($0.rawValue) },
+                                placeholder: "아침",
+                                selectionIndex: $selectionIndex,
+                                text: $mealTime)
+                        }
+                        .frame(height: 44)
+                        .frame(maxWidth: .infinity)
+                    }
+                    .padding(.horizontal, 30)
+                    
+                    
+                    // Menu TextField
+                    VStack(spacing: 2) {
+                        HStack {
+                            Text("🧆 메뉴")
+                                .font(.body)
+                                .foregroundColor(.black)
+                            Spacer()
+                        }
+                        
+                        VStack {
+                            TextField("무엇을 드셨나요?", text: $mealName)
+                                .onReceive([self.mealName].publisher.first(), perform: { mealName in
+                                    if mealName == "" {
+                                        self.isEmpty = true
+                                    } else {
+                                        self.isEmpty = false
+                                    }
+                                })
+                                .frame(height: 44)
+                                .frame(maxWidth: .infinity)
+                                .foregroundColor(Color(.systemIndigo))
+                                .onTapGesture {
+                                    isFocused = true
+                                    priceTFIsFocused = false
+                                }
+                        }
+                    }
+                    .padding(.horizontal, 30)
+                    
+                    // Toggle View
+                    VStack {
+                        HStack {
+                            if #available(iOS 14.0, *) {
                                 Toggle(isOn: $isDineOut, label: {
                                     Text(mealType.rawValue)
                                         .font(.body)
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(.black)
+                                })
+                                .toggleStyle(SwitchToggleStyle(tint: Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1))))
+                                .onReceive([self.isDineOut].publisher.first()) { isDineOut in
+                                    if isDineOut {
+                                        self.mealType = .dineOut
+                                    } else {
+                                        self.mealType = .dineIn
+                                    }
                                 }
-                                )
+                            } else {
+                                Toggle(isOn: $isDineOut, label: {
+                                    Text(mealType.rawValue)
+                                        .font(.body)
+                                        .foregroundColor(.black)
+                                })
                                 .onReceive([self.isDineOut].publisher.first()) { isDineOut in
                                     if isDineOut {
                                         self.mealType = .dineOut
@@ -121,161 +196,106 @@ struct InputMealView: View {
                                 }
                             }
                         }
-                        .padding(.horizontal, 30)
-                        .padding(.top, 20)
-                        
-                        
-                        Divider()
-                        
-                        
-                        // Price TextField
-                        if isDineOut {
-                            VStack(spacing: 8) {
-                                VStack {
-                                    HStack {
-                                        Text("가격")
-                                            .font(.body)
-                                            .foregroundColor(Color.gray)
-                                        Spacer()
-                                    }
-                                    .padding(.leading, 40)
-                                    
-                                    VStack {
-                                        TextField("금액을 입력해 주세요.", text: $price)
-                                            .keyboardType(.decimalPad)
-                                    }
-                                    .frame(height: 44)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.horizontal)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 30, style: .continuous)
-                                            .stroke(Color.black.opacity(0.2))
-                                    )
-                                    .padding(.horizontal, 26)
-                                }
-                            } .transition(.opacity)
-                        }
-                        
-                        
-                        // Date Picker TextField
-                        VStack(spacing: 8) {
-                            HStack {
-                                Text("날짜")
-                                    .font(.body)
-                                    .foregroundColor(Color.gray)
-                                Spacer()
-                            }
-                            .padding(.leading, 40)
-                            
-                            VStack {
-                                DatePickerTextField(placeHolder: currentDate, date: $selectedDate)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                            }
-                            .frame(height: 44)
-                            .frame(maxWidth: .infinity)
-                            .padding(.horizontal)
-                            .background(
-                                RoundedRectangle(cornerRadius: 30, style: .continuous)
-                                    .stroke(Color.black.opacity(0.2))
-                            )
-                            .padding(.horizontal, 26)
-                        }
-                        
-                        
-                        // MealType Picker TextField
-                        VStack(spacing: 8) {
-                            HStack {
-                                Text("식사시간")
-                                    .font(.body)
-                                    .foregroundColor(.gray)
-                                Spacer()
-                            }
-                            .padding(.leading, 40)
-                            
-                            VStack {
-                                TextFieldWithPickerAsInputView(
-                                    data: MealTime.allCases.map { String($0.rawValue) },
-                                    placeholder: "아침",
-                                    selectionIndex: $selectionIndex,
-                                    text: $mealTime)
-                            }
-                            .frame(height: 44)
-                            .frame(maxWidth: .infinity)
-                            .padding(.horizontal)
-                            .background(
-                                RoundedRectangle(cornerRadius: 30, style: .continuous)
-                                    .stroke(Color.black.opacity(0.2))
-                            )
-                            .padding(.horizontal, 26)
-                        }
-                        
-                        
-                        // Menu TextField
-                        VStack {
-                            HStack {
-                                Text("메뉴")
-                                    .font(.body)
-                                    .foregroundColor(.gray)
-                                Spacer()
-                            }
-                            .padding(.leading, 40)
-                            
-                            VStack {
-                                TextField("무엇을 드셨나요?", text: $mealName)
-                                    .onReceive([self.mealName].publisher.first(), perform: { mealName in
-                                        if mealName == "" {
-                                            self.isEmpty = true
-                                        } else {
-                                            self.isEmpty = false
-                                        }
-                                    })
-                                    .frame(height: 44)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.horizontal)
-                                    
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 30, style: .continuous)
-                                            .stroke(Color.black.opacity(0.2))
-                                    )
-                                    .padding(.horizontal, 26)
-                                    .onTapGesture {
-                                        isFocused = true
-                                    }
-                            }
-                            .padding(.bottom, 30)
-                        }
                     }
-                    .background(Color.white)
-                    .cornerRadius(30)
-                    .shadow(radius: 20)
-                    .animation(isDineOut ? .easeIn : nil)
-              
+                    .padding(.horizontal, 30)
+                    .padding(.bottom)
+                    
+                    // Price TextField
+                    if isDineOut {
+                        VStack(spacing: 2) {
+                            VStack {
+                                HStack {
+                                    Text("💸 가격")
+                                        .font(.body)
+                                        .foregroundColor(.black)
+                                    Spacer()
+                                }
+                                VStack {
+                                    TextField("금액을 입력해 주세요.", text: $price)
+                                        .keyboardType(.decimalPad)
+                                        .foregroundColor(Color(.systemIndigo))
+                                        .onTapGesture {
+                                            priceTFIsFocused = true
+                                            isFocused = false
+                                        }
+                                }
+                                .frame(height: 44)
+                                .frame(maxWidth: .infinity)
+                            }
+                        }
+                        .padding(.horizontal, 30)
+                        .transition(.opacity)
+                        
+                    }
+                    
+                    
+                    // 체크 버튼
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            withAnimation(.spring()) {
+                                if isImageSelected {
+                                    mealRepo.fetchingImageURL(mealID: mealName, image: image) { url in
+                                        self.meal = Meal(
+                                            id: "nil",
+                                            price: Int(price) ?? 0,
+                                            date: selectedDate ?? Date(),
+                                            name: mealName,
+                                            image: url ?? nil,
+                                            mealType: mealType,
+                                            mealTime: MealTime(rawValue: mealTime) ?? .breakfast)
+                                        mealDelegate.meal = self.meal
+                                        saveButtonTapped(self.meal!)}
+                                } else { self.meal = Meal(id: "nil",
+                                                          price: Int(price) ?? 0,
+                                                          date: selectedDate ?? Date(),
+                                                          name: mealName,
+                                                          image: nil,
+                                                          mealType: mealType,
+                                                          mealTime: MealTime(rawValue: mealTime) ?? .breakfast)
+                                    mealDelegate.meal = self.meal
+                                    saveButtonTapped(self.meal!)}
+                                
+                                dismissView()
+                            }
+                        }, label: {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(isImageSelected ? .yellow : .gray)
+                                .foregroundColor(isEmpty ? .gray : .yellow)
+                                .font(.system(size: 30))
+                        })
+                        .disabled(isEmpty ? true : false)
+                        .disabled(!isImageSelected ? true : false)
+                    }
+                    .padding(.bottom, 24)
+                    .padding(.trailing, 24)
+                }
+                .background(Color.white)
+                .cornerRadius(10)
+                .shadow(radius: 20)
+                .padding(40)
+                .animation(isDineOut ? .easeIn : nil)
+                .offset(y: isFocused ? -200 : 0)
+                .offset(y: priceTFIsFocused ? -200 : 0)
+            }
+            .background(Color.clear)
+            .edgesIgnoringSafeArea(.all)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onTapGesture {
+                isFocused = false
+                priceTFIsFocused = false
+                hideKeyboard()
+            }
+            .sheet(isPresented: $showImagePicker, content: {
+                ImagePicker(sourceType: self.imageSourceStyle!, selectedImage: $image, isImageSelected: $isImageSelected)
+            })
         }
-        .padding(.horizontal)
-        .onAppear {
-            
-        }
-        .onTapGesture {
-            isFocused = false
-            hideKeyboard()
-        }
-        .sheet(isPresented: $showImagePicker, content: {
-            ImagePicker(sourceType: .photoLibrary, selectedImage: $image, isImageSelected: $isImageSelected)
-        })
-        
     }
-    
-    
-    
-    func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-    
 }
 
 
 struct preview : PreviewProvider{
     static var previews: some View {
-        InputMealView(mealDelegate: InputMealViewDelegate(), dismissView: {}, saveButtonTapped: {})
+        InputMealView(mealDelegate: InputMealViewDelegate(), dismissView: {}, saveButtonTapped: {_ in})
     }
 }

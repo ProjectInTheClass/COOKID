@@ -42,7 +42,7 @@
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crown" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uM5-7m-KC8">
                                                                         <rect key="frame" x="0.0" y="0.0" width="25" height="23.5"/>
-                                                                        <color key="tintColor" red="1" green="0.85126666839999998" blue="0.5112892175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="tintColor" systemColor="systemYellowColor"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="25" id="4Ck-WB-3Ne"/>
                                                                             <constraint firstAttribute="width" constant="25" id="emR-fA-X3V"/>
@@ -58,13 +58,13 @@
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0sH-H2-mV5" customClass="PlainHorizontalProgressBar" customModule="Cookid" customModuleProvider="target">
                                                                 <rect key="frame" x="20" y="50" width="334" height="50"/>
-                                                                <color key="backgroundColor" red="1" green="0.8249691099293599" blue="0.55035052010228935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="1" green="0.81958854199999998" blue="0.39819815749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="22B-85-oXg"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                                        <color key="value" red="0.95559223082961231" green="0.74969325337608606" blue="0.88896628747317685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="value" red="0.25626164670000001" green="0.74664527179999995" blue="0.56714767219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
@@ -73,7 +73,7 @@
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ArE-9f-zmg">
                                                                         <rect key="frame" x="0.0" y="3" width="15" height="15"/>
-                                                                        <color key="backgroundColor" red="0.9555922308" green="0.74969325340000004" blue="0.88896628749999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="backgroundColor" red="0.25626164670000001" green="0.74664527179999995" blue="0.56714767219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="15" id="Ii5-KY-vEY"/>
                                                                             <constraint firstAttribute="height" constant="15" id="OLM-CK-apF"/>
@@ -92,7 +92,7 @@
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XGF-pJ-h5E">
                                                                         <rect key="frame" x="0.0" y="3" width="15" height="15"/>
-                                                                        <color key="backgroundColor" red="1" green="0.82496910990000005" blue="0.55035052009999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="backgroundColor" red="1" green="0.81958854199999998" blue="0.39819815749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="15" id="0EE-Dc-Un8"/>
                                                                             <constraint firstAttribute="width" constant="15" id="Y4P-mq-stt"/>
@@ -129,7 +129,7 @@
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollarsign.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JUi-r9-0mh">
                                                                         <rect key="frame" x="0.0" y="2" width="25" height="20.5"/>
-                                                                        <color key="tintColor" red="1" green="0.85126666839999998" blue="0.5112892175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="tintColor" systemColor="systemYellowColor"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="25" id="LV6-eh-F6P"/>
                                                                             <constraint firstAttribute="height" constant="25" id="tkZ-le-cBG"/>
@@ -224,7 +224,7 @@
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock.arrow.circlepath" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6yf-Kx-vEt">
                                                                         <rect key="frame" x="0.0" y="2" width="25" height="20.5"/>
-                                                                        <color key="tintColor" red="1" green="0.85126666839999998" blue="0.5112892175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="tintColor" systemColor="systemYellowColor"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="25" id="RVP-LW-6Fz"/>
                                                                             <constraint firstAttribute="width" constant="25" id="slZ-sD-XUi"/>
@@ -335,7 +335,7 @@
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deskclock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JFa-QM-xxQ">
                                                                         <rect key="frame" x="0.0" y="2.5" width="25" height="20.5"/>
-                                                                        <color key="tintColor" red="1" green="0.85126666839999998" blue="0.5112892175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="tintColor" systemColor="systemYellowColor"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="25" id="eCK-f2-0dE"/>
                                                                             <constraint firstAttribute="width" constant="25" id="qa0-8n-5kE"/>
@@ -490,6 +490,9 @@
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -97,12 +97,16 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
+            let deleteShopping = selectedShopping[indexPath.row]
+            if let index = shopping.firstIndex(where: { $0.id == deleteShopping.id }) {
+                shopping.remove(at: index)
+            }
+            
             self.viewModel.shoppingService.delete(shopping: selectedShopping[indexPath.row])
-//            selectedShopping.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            print("selectedShoppingList : \(selectedShopping)")
-            print("selectedShopping.count\(selectedShopping.count)")
-            print("indexPath: \(indexPath) indexPathsection: \(indexPath.section) indexPathrow: \(indexPath.row)")
+            guard let selectedDate = calendar.selectedDate else { return }
+            updateData(dates: [selectedDate])
+
         }
     }
     

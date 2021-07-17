@@ -65,6 +65,7 @@ struct DatePickerTextField: UIViewRepresentable {
     func updateUIView(_ uiView: UITextField, context: Context) {
         if let selectedDate = self.date {
             uiView.text = self.dateFormatter.string(from: selectedDate)
+            uiView.textColor = .systemIndigo
         }
     }
     
