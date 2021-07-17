@@ -51,6 +51,7 @@ struct ModifyMealView: View {
                     .foregroundColor(.blue)
                     .onTapGesture {
                         if isImageSelected {
+                            mealRepo.deleteImage(meal: self.meal)
                             mealRepo.fetchingImageURL(mealID: meal.id, image: image) { url in
                                 meal.id = meal.id
                                 meal.date = selectedDate ?? meal.date

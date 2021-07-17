@@ -88,14 +88,13 @@ class MealRepository {
     
     
     func deleteImage(meal: Meal) {
-        let storageRef = storage.child(meal.id! + ".jpg")
+        let storageRef = storage.child(meal.id + ".jpg")
         
         storageRef.delete { error in
             if error != nil {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
             }
         }
-        
     }
     
     

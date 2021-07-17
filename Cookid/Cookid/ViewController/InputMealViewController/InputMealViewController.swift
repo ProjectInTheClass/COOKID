@@ -3,38 +3,17 @@ import UIKit
 import SwiftUI
 import Combine
 
-class InputMealViewController: UIViewController {
+class InputMealViewController: UIHostingController<InputMealView> {
 
-    private let delegate = InputMealViewDelegate()
-    private var cancellable: AnyCancellable?
-    var saveMeal: ((Meal) -> Void)?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-
-        let inputMealView = UIHostingController(rootView: InputMealView(mealDelegate: delegate,
-             dismissView: {self.dismiss(animated: true, completion: nil)},
-             saveButtonTapped: {
-            self.cancellable = self.delegate.$meal.sink(receiveValue: { [weak self] meal in
-                guard let newMeal = meal else { return }
-                self?.saveMeal!(newMeal)})
-             }
-        ))
-
-        inputMealView.view.translatesAutoresizingMaskIntoConstraints = false
-        self.addChild(inputMealView)
-        self.view.addSubview(inputMealView.view)
-
-        NSLayoutConstraint.activate([
-            inputMealView.view.widthAnchor.constraint(equalTo: view.widthAnchor),
-            inputMealView.view.heightAnchor.constraint(equalTo: view.heightAnchor)
-        ])
-        
+    override init(rootView: InputMealView) {
+        super.init(rootView: rootView)
+    }
+    
+    @objc required dynamic init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
-
-
+    
 class InputMealViewDelegate: ObservableObject {
     @Published var meal: Meal?
 }
