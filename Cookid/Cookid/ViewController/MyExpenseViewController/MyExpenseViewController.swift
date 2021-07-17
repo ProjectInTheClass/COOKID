@@ -174,9 +174,9 @@ extension MyExpenseViewController {
     
     func updateData (dates: [Date]) {
         data.removeAll()
-        selectedDineOutMeals = findSelectedDateMeal(meals : self.dineOutMeals, selectedDate: dates)
-        selectedDineInMeals = findSelectedDateMeal(meals : self.dineInMeals, selectedDate: dates)
-        selectedShopping = findSelectedDateShopping(shoppings : self.shopping, selectedDate: dates)
+        selectedDineOutMeals = findSelectedDateMeal(meals : self.dineOutMeals, selectedDate: dates).sorted{$0.date > $1.date}
+        selectedDineInMeals = findSelectedDateMeal(meals : self.dineInMeals, selectedDate: dates).sorted{$0.date > $1.date}
+        selectedShopping = findSelectedDateShopping(shoppings : self.shopping, selectedDate: dates).sorted{$0.date > $1.date}
         
         let dineOutElement = element(name: "외식", selected: selectedDineOutMeals)
         let dineInElement = element(name: "집밥", selected: selectedDineInMeals)
