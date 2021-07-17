@@ -8,36 +8,32 @@ import UIKit
 
 class PanModalHeaderView: UIView {
     
-    let contentInsets = UIEdgeInsets(top: 12.0, left: 16.0, bottom: 12.0, right: 16.0)
+    let contentInsets = UIEdgeInsets(top: 30, left: 30, bottom: 10, right: 20)
     
     // MARK: - Views
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 25, weight: .regular)
-        label.textColor = #colorLiteral(red: 0.3098039329, green: 0.2039215714, blue: 0.03921568766, alpha: 1)
-        label.text = "쇼핑 기록 ✍️"
+        label.font = .systemFont(ofSize: 17, weight: .thin)
+        label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        label.text = "쇼핑 기록 🛒"
         return label
     }()
     
     let subtitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        label.textColor = #colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)
+        label.textColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
         label.font = .systemFont(ofSize: 13, weight: .thin)
         label.text = "오늘은 얼마를 사용하셨나요?"
         return label
     }()
     
-    
-    
-    
-    
     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.spacing = 4.0
+        stackView.spacing = 10.0
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.layer.cornerRadius = 10
         return stackView
@@ -55,7 +51,7 @@ class PanModalHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .systemYellow
+        backgroundColor = .white
         
         addSubview(stackView)
         addSubview(seperatorView)

@@ -98,7 +98,7 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             self.viewModel.shoppingService.delete(shopping: selectedShopping[indexPath.row])
-            selectedShopping.remove(at: indexPath.row)
+//            selectedShopping.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             print("selectedShoppingList : \(selectedShopping)")
             print("selectedShopping.count\(selectedShopping.count)")
