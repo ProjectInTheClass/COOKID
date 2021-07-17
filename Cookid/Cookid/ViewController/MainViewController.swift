@@ -118,12 +118,16 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         addMealButton.rx.tap
             .subscribe(onNext: {
-                let vc = InputMealViewController()
-                vc.saveMeal = { meal in self.viewModel.mealService.create(meal: meal) }
+                let inputMealView = InputMealView(mealDelegate: InputMealViewDelegate(), dismissView: {
+                    self.dismiss(animated: true, completion: nil)
+                }, saveButtonTapped: { meal in
+                    self.viewModel.mealService.create(meal: meal)
+                })
+                let vc = UIHostingController(rootView: inputMealView)
                 vc.modalPresentationStyle = .custom
+                vc.modalTransitionStyle = .crossDissolve
                 vc.view.backgroundColor = .clear
                 self.present(vc, animated: true, completion: nil)
-                
             })
             .disposed(by: rx.disposeBag)
         
@@ -212,6 +216,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 let mealDatailView = MealDetailView(
                     deleteTapped: {
                         self.viewModel.mealService.delete(meal: meal)
+                        self.viewModel.mealService.mealRepository.deleteImage(meal: meal)
                         self.dismiss(animated: true, completion: nil)
                     },
                     saveTapped: { meal in
@@ -225,6 +230,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 let vc = UIHostingController(rootView: mealDatailView)
                 vc.modalPresentationStyle = .custom
                 vc.view.backgroundColor = .clear
+                
                 self.present(vc, animated: true, completion: nil)
             })
             .disposed(by: rx.disposeBag)
