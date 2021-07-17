@@ -7,20 +7,15 @@
 
 import Foundation
 import FirebaseDatabase
+import FirebaseAuth
 
 class GroceryRepository {
-    
-    static let shared = GroceryRepository()
     
     let db = Database.database().reference()
     let authRepo = AuthRepository()
     
-    lazy var ref = db.child(authRepo.uid).child(FBChild.groceries)
-    
-    func fetchGroceryInfo(completion: @escaping ([GroceryEntity]) -> Void) {
-        authRepo.signInAnonymously { [weak self] uid in
-            guard let self = self else { return }
-            
+
+    func fetchGroceryInfo(user: User, completion: @escaping ([GroceryEntity]) -> Void) {
             var calendar = Calendar(identifier: .gregorian)
             calendar.locale = Locale(identifier: "ko")
             let datecompoenets = calendar.dateComponents([.year, .month], from: Date())
@@ -29,7 +24,7 @@ class GroceryRepository {
             
             var monthFilterQuery: DatabaseQuery?
             
-            monthFilterQuery = self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.groceries).queryOrdered(byChild: "date").queryStarting(atValue: date)
+        monthFilterQuery = self.db.child(user.userID).child(FBChild.groceries).queryOrdered(byChild: "date").queryStarting(atValue: date)
            
             monthFilterQuery?.observeSingleEvent(of: .value) { snapshot in
             
@@ -44,39 +39,45 @@ class GroceryRepository {
                 }
                 completion(grocery)
             }
-        }
     }
     
     
     func uploadGroceryInfo(grocery: GroceryShopping) {
-        authRepo.signInAnonymously { [weak self] uid in
-            guard let self = self else { return }
-            guard let key = self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.groceries).childByAutoId().key else { return }
-            let dic: [String:Any] = [
-                "id" : key,
-                "date" : grocery.date.dateToInt(),
-                "totalPrice" : grocery.totalPrice
-            ]
-            self.db.child("gYY2n6qJjNWvafCk7lFBlkExwYH2").child(FBChild.groceries).child(key).setValue(dic)
-        }
+        
+        guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
+        
+        guard let key = self.db.child(currentUserUID).child(FBChild.groceries).childByAutoId().key else { return }
+        
+        let dic: [String:Any] = [
+            "id" : key,
+            "date" : grocery.date.dateToInt(),
+            "totalPrice" : grocery.totalPrice
+        ]
+        
+        self.db.child(currentUserUID).child(FBChild.groceries).child(key).setValue(dic)
+        
     }
     
     
     func updateGroceryInfo(grocery: GroceryShopping) {
-        authRepo.signInAnonymously { [weak self] uid in
-            guard let self = self else { return }
-            guard let key = self.db.child(uid).child(FBChild.groceries).childByAutoId().key else { return }
-            let dic: [String:Any] = [
-                "id" : key,
-                "date" : grocery.date.dateToString(),
-                "totalPrice" : grocery.totalPrice
-            ]
-            self.db.child(uid).child(FBChild.groceries).child(key).updateChildValues(dic)
-        }
+        
+        guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
+        
+        guard let key = self.db.child(currentUserUID).child(FBChild.groceries).childByAutoId().key else { return }
+        
+        let dic: [String:Any] = [
+            "id" : key,
+            "date" : grocery.date.dateToString(),
+            "totalPrice" : grocery.totalPrice
+        ]
+        
+        self.db.child(currentUserUID).child(FBChild.groceries).child(key).updateChildValues(dic)
     }
     
-    
-    func deleteGroceryInfo() {
-        
+
+    func deleteGroceryInfo(grocery: GroceryShopping) {
+        guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
+        self.db.child(currentUserUID).child(FBChild.groceries).child(grocery.id).removeValue()
     }
 }
+

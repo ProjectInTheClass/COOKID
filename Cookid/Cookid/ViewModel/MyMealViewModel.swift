@@ -11,6 +11,7 @@ import RxCocoa
 class MyMealViewModel: ViewModelType {
 
     let mealService: MealService
+    let userService: UserService
 
     struct Input {
     }
@@ -26,18 +27,21 @@ class MyMealViewModel: ViewModelType {
     var input: Input
     var output: Output
 
-    init(mealService: MealService){
-
+    init(mealService: MealService, userService: UserService){
+        self.userService = userService
         self.mealService = mealService
-       
-        mealService.fetchMeals { meals in }
+        
+        userService.loadUserInfo { user in
+            mealService.fetchMeals(user: user) { meals in }
+        }
+        
         
         // input initializer
         let meals = mealService.mealList()
        
         // output initializer
         
-        let dineInProgress = meals.map(mealService.dineInProgressCalc(_:))
+        let dineInProgress = meals.map(mealService.dineInProgressCalc)
             .asDriver(onErrorJustReturn: 0)
 
         let mostExpensiveMeal = meals.map(mealService.mostExpensiveMeal)

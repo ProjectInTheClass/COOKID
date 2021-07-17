@@ -28,15 +28,15 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
         
         switch data[indexPath.section].name {
         case "외식":
-            cell.label.text = String(selectedDineOutMeals[indexPath.row].price) + "원"
+            cell.label.text = intToString(selectedDineOutMeals[indexPath.row].price)
             cell.dateLabel.text = dateFormatter.string(from: selectedDineOutMeals[indexPath.row].date)
             return cell
         case "집밥":
-            cell.label.text = String(selectedDineInMeals[indexPath.row].price) + "원"
+            cell.label.text = intToString(selectedDineInMeals[indexPath.row].price)
             cell.dateLabel.text = dateFormatter.string(from: selectedDineInMeals[indexPath.row].date)
             return cell
         case "마트털이" :
-            cell.label.text = String(selectedShopping[indexPath.row].totalPrice) + "원"
+            cell.label.text = intToString(selectedShopping[indexPath.row].totalPrice)
             cell.dateLabel.text = dateFormatter.string(from: selectedShopping[indexPath.row].date)
             return cell
         default:

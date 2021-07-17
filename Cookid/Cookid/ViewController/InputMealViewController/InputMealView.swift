@@ -37,6 +37,7 @@ struct InputMealView: View {
     var dismissView: (() -> Void)
     var saveButtonTapped: (() -> Void)
     
+    let mealRepo = MealRepository()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -51,9 +52,9 @@ struct InputMealView: View {
                             Button(action: {
                                 withAnimation(.spring()) {
                                     if isImageSelected {
-                                        MealRepository.shared.fetchingImageURL(mealID: mealName, image: image) { url in
+                                        mealRepo.fetchingImageURL(mealID: mealName, image: image) { url in
                                             self.meal = Meal(
-                                                id: nil,
+                                                id: "nil",
                                                 price: Int(price) ?? 0,
                                                 date: selectedDate ?? Date(),
                                                 name: mealName,
@@ -61,7 +62,7 @@ struct InputMealView: View {
                                                 mealType: mealType,
                                                 mealTime: MealTime(rawValue: mealTime) ?? .breakfast)
                                             mealDelegate.meal = self.meal }
-                                    } else { self.meal = Meal(id: nil,
+                                    } else { self.meal = Meal(id: "nil",
                                                          price: Int(price) ?? 0,
                                                          date: selectedDate ?? Date(),
                                                          name: mealName,

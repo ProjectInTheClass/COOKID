@@ -64,11 +64,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         configureUI()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setFirstView()
-    }
-    
     private func configureUI() {
         chartView.makeShadow()
         mealCalendarView.makeShadow()
@@ -180,10 +175,10 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         viewModel.output.monthlyDetailed
             .drive(onNext: { [unowned self] detail in
                 self.monthLabel.text = detail.month
-                self.priceGoalLabel.text = String(detail.priceGoal)
-                self.shoppingPrice.text = String(detail.shoppingPrice)
-                self.dineOutPrice.text = String(detail.dineOutPrice)
-                self.balanceLabel.text = String(detail.balance)
+                self.priceGoalLabel.text = intToStringRemoveVer(detail.priceGoal)
+                self.shoppingPrice.text = intToString(detail.shoppingPrice)
+                self.dineOutPrice.text = intToString(detail.dineOutPrice)
+                self.balanceLabel.text = intToString(detail.balance)
             })
             .disposed(by: rx.disposeBag)
         
@@ -219,7 +214,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                         self.viewModel.mealService.delete(meal: meal)
                         self.dismiss(animated: true, completion: nil)
                     },
-                    saveTapped: { meal in 
+                    saveTapped: { meal in
                         self.viewModel.mealService.update(updateMeal: meal)
                         self.dismiss(animated: true, completion: nil)
                     },
@@ -233,18 +228,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 self.present(vc, animated: true, completion: nil)
             })
             .disposed(by: rx.disposeBag)
-            
-        
-    }
-        
-    private func setFirstView(){
-        
-        if Auth.auth().currentUser == nil {
-            let sb = UIStoryboard(name: "Main", bundle: nil)
-            let vc = sb.instantiateViewController(identifier: "OnboardingPageViewViewController") as! OnboardingPageViewViewController
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: false, completion: nil)
-        }
     }
 }
 
