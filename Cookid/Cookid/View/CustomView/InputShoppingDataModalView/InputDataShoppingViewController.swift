@@ -42,6 +42,7 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
     
     var headerView = PanModalHeaderView()
     var storedDistance : CGFloat?
+
     
     var saveBtn : UIButton = {
         let btn = UIButton()
@@ -141,7 +142,7 @@ extension InputDataShoppingViewController {
         
         backView.snp.makeConstraints{
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(-20)
+            $0.centerY.equalToSuperview()
             $0.width.equalTo(300)
             $0.height.equalTo(310)
         }
@@ -203,12 +204,24 @@ extension InputDataShoppingViewController {
     
     //MARK: - TextField
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        priceTextField.resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if priceTextField.isFirstResponder {
+            dateTextField.resignFirstResponder()
+        } else if dateTextField.isFirstResponder {
+            priceTextField.resignFirstResponder()
+        }
     }
 }
 
