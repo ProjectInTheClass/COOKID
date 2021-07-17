@@ -27,7 +27,7 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.userInputView.layer.cornerRadius = 8
         addNotiObserver()
     }
     
