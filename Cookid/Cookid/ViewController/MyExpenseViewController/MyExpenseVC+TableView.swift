@@ -100,6 +100,7 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
             self.viewModel.shoppingService.delete(shopping: selectedShopping[indexPath.row])
             selectedShopping.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            print("selectedShoppingList : \(selectedShopping)")
             print("selectedShopping.count\(selectedShopping.count)")
             print("indexPath: \(indexPath) indexPathsection: \(indexPath.section) indexPathrow: \(indexPath.row)")
         }
