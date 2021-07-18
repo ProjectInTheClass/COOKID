@@ -242,6 +242,7 @@ struct ModifyMealView: View {
         }
         .onTapGesture {
             hideKeyboard()
+        }
     }
     
     func fetchImage() {

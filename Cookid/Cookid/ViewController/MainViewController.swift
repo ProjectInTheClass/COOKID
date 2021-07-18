@@ -119,7 +119,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .disposed(by: rx.disposeBag)
         
         addMealButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [unowned self] _ in
                 let inputMealView = InputMealView(mealDelegate: InputMealViewDelegate(), dismissView: {
                     self.dismiss(animated: true, completion: nil)
                 }, saveButtonTapped: { meal in
