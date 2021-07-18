@@ -395,7 +395,8 @@ extension InputDataShoppingViewController : UIGestureRecognizerDelegate {
 extension InputDataShoppingViewController {
     func addKeyboardNotifications(){
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil) }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     func removeKeyboardNotifications(){
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification , object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil) }
@@ -403,6 +404,7 @@ extension InputDataShoppingViewController {
     @objc
     private func keyboardWillShow(_ noti: Notification) {
         if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            print(keyboardFrame.cgRectValue.height)
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardOriginY = keyboardRectangle.origin.y
             let backViewOriginY = self.backView.frame.origin.y + self.backView.frame.height
