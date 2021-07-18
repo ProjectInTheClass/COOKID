@@ -150,7 +150,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 var vc = UserInformationViewController.instantiate(storyboardID: "UserInfo")
                 vc.bind(viewModel: viewModel)
                 
-                vc.modalPresentationStyle = .overCurrentContext
+                vc.modalPresentationStyle = .overFullScreen
                 vc.modalTransitionStyle = .crossDissolve
                 self.present(vc, animated: true, completion: nil)
             })

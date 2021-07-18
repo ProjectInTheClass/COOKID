@@ -21,25 +21,25 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkP-PZ-DRZ">
-                                <rect key="frame" x="50" y="336.5" width="188.5" height="62.5"/>
+                                <rect key="frame" x="63" y="339.5" width="222.5" height="79.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLa-lf-Age">
-                                        <rect key="frame" x="0.0" y="0.0" width="105" height="62.5"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="52"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="132.5" height="79.5"/>
+                                        <fontDescription key="fontDescription" name="AlNile-Bold" family="Al Nile" pointSize="58"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yqs-Kb-fhX">
-                                        <rect key="frame" x="105" y="0.0" width="83.5" height="62.5"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="52"/>
+                                        <rect key="frame" x="132.5" y="0.0" width="90" height="79.5"/>
+                                        <fontDescription key="fontDescription" name="AlNile-Bold" family="Al Nile" pointSize="52"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나만의 식비관리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Epx-LQ-533">
-                                <rect key="frame" x="50" y="294" width="221.5" height="42.5"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="35"/>
+                                <rect key="frame" x="50" y="294" width="202.5" height="38.5"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="32"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -49,9 +49,9 @@
                             <constraint firstItem="gXv-zQ-wS0" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="BhN-Y2-t2Q"/>
                             <constraint firstItem="gXv-zQ-wS0" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="GSO-x7-GID"/>
                             <constraint firstItem="Epx-LQ-533" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="HRq-Kf-wA8"/>
-                            <constraint firstItem="NkP-PZ-DRZ" firstAttribute="top" secondItem="Epx-LQ-533" secondAttribute="bottom" id="Omk-OC-0Pg"/>
+                            <constraint firstItem="NkP-PZ-DRZ" firstAttribute="top" secondItem="Epx-LQ-533" secondAttribute="bottom" constant="7" id="Omk-OC-0Pg"/>
                             <constraint firstAttribute="bottom" secondItem="gXv-zQ-wS0" secondAttribute="bottom" id="Tr1-O3-Xz5"/>
-                            <constraint firstItem="NkP-PZ-DRZ" firstAttribute="leading" secondItem="Epx-LQ-533" secondAttribute="leading" id="ekc-U6-dgY"/>
+                            <constraint firstItem="NkP-PZ-DRZ" firstAttribute="leading" secondItem="Epx-LQ-533" secondAttribute="leading" constant="13" id="ekc-U6-dgY"/>
                             <constraint firstItem="Epx-LQ-533" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="250" id="ke6-5q-fgm"/>
                             <constraint firstItem="gXv-zQ-wS0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pRI-HC-Sgi"/>
                         </constraints>

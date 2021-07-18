@@ -53,7 +53,7 @@ struct InputMealView: View {
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture { dismissView() }
                 
-                VStack(spacing: 20) {
+                VStack(spacing: 17) {
                     
                     // Image Button
                     VStack {
@@ -61,19 +61,19 @@ struct InputMealView: View {
                             showActionSheet = true
                         }, label: {
                             ZStack {
-                                Image(systemName: "camera")
+                                Image(systemName: "camera.fill")
                                 Image(uiImage: image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .clipShape(Circle())
                             }
                             .font(.system(size: 30, weight: .regular, design: .rounded))
-                            .foregroundColor(Color.gray)
-                            .frame(width: 130, height: 130)
+                            .foregroundColor(Color.white)
+                            .frame(width: 130, height: 170)
                             .background(Color.gray.opacity(isImageSelected ? 0 : 0.2))
                             .clipShape(Circle())
-                            .padding(.top, 20)
-                            .shadow(color: .black.opacity(0.2), radius: 20, x: 1, y: 5)
+                            .padding(.top, 15)
+                            .shadow(color: .gray.opacity(0.2), radius: 20, x: 1, y: 5)
                         })
                         .actionSheet(isPresented: $showActionSheet, content: {
                             ActionSheet(title: Text("사진을 선택해 주세요"),
@@ -92,13 +92,13 @@ struct InputMealView: View {
                         })
                     }
                     
-                    Divider()
                     
+                                        
                     // Date Picker TextField
-                    VStack(spacing: 2) {
+                    VStack(spacing: 5) {
                         HStack {
-                            Text("📅 날짜")
-                                .font(.body)
+                            Text("📅  날짜")
+                                .font(.system(size: 16, weight: .light, design: .default))
                                 .foregroundColor(.black)
                             Spacer()
                         }
@@ -114,10 +114,10 @@ struct InputMealView: View {
                     
                     
                     // MealType Picker TextField
-                    VStack(spacing: 2) {
+                    VStack(spacing: 5) {
                         HStack {
                             Text("⏳ 식사시간")
-                                .font(.body)
+                                .font(.system(size: 16, weight: .light, design: .default))
                                 .foregroundColor(.black)
                             Spacer()
                         }
@@ -136,10 +136,10 @@ struct InputMealView: View {
                     
                     
                     // Menu TextField
-                    VStack(spacing: 2) {
+                    VStack(spacing: 5) {
                         HStack {
                             Text("🧆 메뉴")
-                                .font(.body)
+                                .font(.system(size: 16, weight: .light, design: .default))
                                 .foregroundColor(.black)
                             Spacer()
                         }
@@ -153,9 +153,9 @@ struct InputMealView: View {
                                         self.isEmpty = false
                                     }
                                 })
-                                .frame(height: 44)
+                                .frame(height: 40)
                                 .frame(maxWidth: .infinity)
-                                .foregroundColor(Color(.systemIndigo))
+                                .foregroundColor(Color(.darkGray))
                                 .onTapGesture {
                                     isFocused = true
                                     priceTFIsFocused = false
@@ -170,7 +170,7 @@ struct InputMealView: View {
                             if #available(iOS 14.0, *) {
                                 Toggle(isOn: $isDineOut, label: {
                                     Text(mealType.rawValue)
-                                        .font(.body)
+                                        .font(.system(size: 16, weight: .light, design: .default))
                                         .foregroundColor(.black)
                                 })
                                 .toggleStyle(SwitchToggleStyle(tint: Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1))))
@@ -184,7 +184,7 @@ struct InputMealView: View {
                             } else {
                                 Toggle(isOn: $isDineOut, label: {
                                     Text(mealType.rawValue)
-                                        .font(.body)
+                                        .font(.system(size: 16, weight: .light, design: .default))
                                         .foregroundColor(.black)
                                 })
                                 .onReceive([self.isDineOut].publisher.first()) { isDineOut in
@@ -206,20 +206,20 @@ struct InputMealView: View {
                             VStack {
                                 HStack {
                                     Text("💸 가격")
-                                        .font(.body)
+                                        .font(.system(size: 16, weight: .light, design: .default))
                                         .foregroundColor(.black)
                                     Spacer()
                                 }
                                 VStack {
                                     TextField("금액을 입력해 주세요.", text: $price)
                                         .keyboardType(.decimalPad)
-                                        .foregroundColor(Color(.systemIndigo))
+                                        .foregroundColor(Color(.darkGray))
                                         .onTapGesture {
                                             priceTFIsFocused = true
                                             isFocused = false
                                         }
                                 }
-                                .frame(height: 44)
+                                .frame(height: 30)
                                 .frame(maxWidth: .infinity)
                             }
                         }
@@ -262,7 +262,7 @@ struct InputMealView: View {
                             Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(isImageSelected ? .yellow : .gray)
                                 .foregroundColor(isEmpty ? .gray : .yellow)
-                                .font(.system(size: 30))
+                                .font(.system(size: 33))
                         })
                         .disabled(isEmpty ? true : false)
                         .disabled(!isImageSelected ? true : false)

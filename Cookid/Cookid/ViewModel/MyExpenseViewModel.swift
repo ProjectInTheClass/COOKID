@@ -49,7 +49,7 @@ class MyExpenseViewModel: ViewModelType {
             return Double(shoppingPrice + meealPrice) / Double(day)
         }
         .map({ price -> String in
-            return "현재까지 평균 지출은 '\(String(format: "%.0f", price))원' 입니다."
+            return "현재까지 하루 평균 지출은 '\(String(format: "%.0f", price))원' 입니다."
         })
         .asDriver(onErrorJustReturn: "지출이 없습니다.")
         
