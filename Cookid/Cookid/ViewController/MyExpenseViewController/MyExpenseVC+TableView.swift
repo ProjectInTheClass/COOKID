@@ -85,6 +85,7 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
     //MARK: - Delete ShoppingData in TableView
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if data[indexPath.section].name == "마트털이" {
+            print(indexPath.section)
             return true
         } else {
             return false

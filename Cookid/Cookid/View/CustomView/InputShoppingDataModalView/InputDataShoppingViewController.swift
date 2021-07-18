@@ -46,7 +46,7 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
     
     var saveBtn : UIButton = {
         let btn = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 25, weight: .thin, scale: .default)
+        let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
         let image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: config)
         btn.setImage(image, for: .normal)
         btn.tintColor = .systemYellow
@@ -55,7 +55,7 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
     
     var updateBtn : UIButton = {
         let btn = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 25, weight: .thin, scale: .default)
+        let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
         let image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: config)
         btn.setImage(image, for: .normal)
         btn.tintColor = .systemYellow
@@ -70,7 +70,7 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
         dateformatter.locale = Locale(identifier: "ko_KR")
         dateformatter.dateFormat = "yyyy년 MM월 dd일"
         dateTF.placeholder = dateformatter.string(from: Date())
-        dateTF.font = .systemFont(ofSize: 15, weight: .ultraLight)
+        dateTF.font = .systemFont(ofSize: 15, weight: .light)
         dateTF.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         dateTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: dateTF.frame.height))
         dateTF.leftViewMode = .always
@@ -80,7 +80,7 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
     let priceTextField : UITextField = {
         let priceTF = UITextField()
         priceTF.keyboardType = .numberPad
-        priceTF.font = .systemFont(ofSize: 15, weight: .ultraLight)
+        priceTF.font = .systemFont(ofSize: 15, weight: .light)
         priceTF.placeholder = "금액을 입력하세요."
         priceTF.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         priceTF.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: priceTF.frame.height))
@@ -248,17 +248,17 @@ extension InputDataShoppingViewController {
         headerLabel.snp.makeConstraints{
             $0.centerY.equalToSuperview()
             $0.leading.trailing.equalToSuperview().offset(30)
-            $0.top.equalToSuperview().offset(12)
-            $0.height.equalTo(25)
+            $0.top.equalToSuperview().offset(20)
+            $0.height.equalTo(20)
         }
         switch section {
         case 0:
             return headerView
         case 1:
-            headerLabel.text = "날짜"
+            headerLabel.text = "📆 날짜"
             return view
         case 2:
-            headerLabel.text = "금액"
+            headerLabel.text = "💸 금액"
             return view
         default:
             return nil
@@ -271,18 +271,18 @@ extension InputDataShoppingViewController {
         case 1:
             cell.contentView.addSubview(dateTextField)
             dateTextField.snp.makeConstraints{
-                $0.centerY.equalToSuperview()
+                $0.top.equalToSuperview().offset(-10)
                 $0.leading.equalTo(cell.contentView.snp.leading).offset(16)
                 $0.trailing.equalTo(cell.contentView.snp.trailing)
-                $0.height.equalToSuperview()
+                $0.bottom.equalToSuperview()
             }
         case 2:
             cell.contentView.addSubview(priceTextField)
             priceTextField.snp.makeConstraints{
-                $0.centerY.equalToSuperview()
+                $0.top.equalToSuperview().offset(-10)
                 $0.leading.equalTo(cell.contentView.snp.leading).offset(16)
                 $0.trailing.equalTo(cell.contentView.snp.trailing)
-                $0.height.equalToSuperview()
+                $0.bottom.equalToSuperview()
             }
         default:
             return cell
