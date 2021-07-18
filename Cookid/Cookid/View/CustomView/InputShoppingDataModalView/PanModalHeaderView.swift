@@ -14,9 +14,9 @@ class PanModalHeaderView: UIView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 17, weight: .thin)
+        label.font = .systemFont(ofSize: 16, weight: .thin)
         label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        label.text = "쇼핑 기록 🛒"
+        label.text = "쇼핑 기록  🛒"
         return label
     }()
     

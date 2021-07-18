@@ -35,7 +35,7 @@ struct TextFieldWithPickerAsInputView : UIViewRepresentable {
 
       func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<TextFieldWithPickerAsInputView>) {
             uiView.text = text
-            uiView.textColor = .systemIndigo
+            uiView.textColor = .darkGray
       }
 
       class Coordinator: NSObject, UIPickerViewDataSource, UIPickerViewDelegate , UITextFieldDelegate {
