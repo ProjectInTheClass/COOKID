@@ -73,6 +73,7 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
                 updateData(dates: [selectedDate])
                 
                 self.tableView.reloadData()
+                self.calendar.reloadData()
             })
             .disposed(by: rx.disposeBag)
     }

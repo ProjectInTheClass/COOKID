@@ -23,8 +23,7 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-        
-        
+
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
