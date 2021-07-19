@@ -240,7 +240,9 @@ struct ModifyMealView: View {
                 isDineOut = true
             }
         }
-        
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
     
     func fetchImage() {
