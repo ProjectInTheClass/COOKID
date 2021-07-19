@@ -58,7 +58,6 @@ class UserRepository {
             ]
             
             self.db.child(uid).child(FBChild.user).setValue(userDic)
-            print("signInAnonymously" + uid)
         }
 
     }

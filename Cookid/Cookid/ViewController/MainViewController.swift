@@ -55,10 +55,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     var viewModel: MainViewModel!
     
-    @IBAction func create(_ sender: Any) {
-        AuthRepository.shared.logout()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()

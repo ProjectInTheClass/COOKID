@@ -23,17 +23,6 @@ class AuthRepository {
         }
     }
     
-    func logout() {
-        
-        do {
-            try Auth.auth().signOut()
-        }
-        catch {
-            print(error)
-        }
-        
-    }
-    
     var isLogined: Bool {
         return Auth.auth().currentUser != nil
     }
