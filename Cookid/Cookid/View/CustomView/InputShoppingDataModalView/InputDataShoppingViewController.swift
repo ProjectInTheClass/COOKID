@@ -321,7 +321,6 @@ extension InputDataShoppingViewController {
     }
     
     @objc func createFunc() {
-        print("btn tapped")
         guard let price = self.priceTextField.text, price.count > 0, let dateStr = self.dateTextField.text, dateStr.count > 0 else {
             self.alert(message: "입력란을 다 채워주세요!")
             return
@@ -335,9 +334,7 @@ extension InputDataShoppingViewController {
     }
     
     @objc func updateFunc() {
-        print("update btn tapped")
         if self.currentPrice == self.priceTextField.text && self.currentDate == self.dateTextField.text {
-            print("just dismiss")
             self.dismiss(animated: true, completion: nil)
         } else {
             guard let editedPrice = self.priceTextField.text, editedPrice.count > 0, let editedDateStr = self.dateTextField.text, editedDateStr.count > 0 else {
@@ -365,7 +362,6 @@ extension InputDataShoppingViewController {
             let price = self.priceTextField.text!
             let aShoppingItem = GroceryShopping(id: "wkwkfe", date: date, totalPrice: Int(price)!)
             self.service.update(updateShopping: aShoppingItem)
-            print("update 함수 호출")
             self.dismiss(animated: true, completion: nil)
         }
         alert.addAction(okAction)
@@ -395,7 +391,8 @@ extension InputDataShoppingViewController : UIGestureRecognizerDelegate {
 extension InputDataShoppingViewController {
     func addKeyboardNotifications(){
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil) }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     func removeKeyboardNotifications(){
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification , object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil) }
