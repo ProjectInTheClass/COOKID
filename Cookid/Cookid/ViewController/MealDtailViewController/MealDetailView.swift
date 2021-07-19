@@ -9,15 +9,14 @@ import Kingfisher
 
 
 struct MealDetailView: View {
-    @State var edit: Bool = false
-    @State var isDineOut: Bool = false
-    @State var image = UIImage()
-    @Namespace var namespace
+    @State private var edit: Bool = false
+    @State private var isDineOut: Bool = false
+    @State private var image = UIImage()
+    @Namespace private var namespace
 
     var deleteTapped: (() -> Void)
     var saveTapped: ((Meal) -> Void)
     var cancelTapped: (() -> Void)
-
     var meal : Meal
 
 

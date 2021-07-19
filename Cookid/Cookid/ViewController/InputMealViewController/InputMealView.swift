@@ -12,36 +12,36 @@ import Kingfisher
 struct InputMealView: View {
     @ObservedObject var mealDelegate: InputMealViewDelegate
     
-    @State var image = UIImage()
-    @State var imageURL: URL?
+    @State private var image = UIImage()
+    @State private var imageURL: URL?
     
-    @State var currentDate = Date().dateToString()
-    @State var selectedDate: Date?
+    @State private var currentDate = Date().dateToString()
+    @State private var selectedDate: Date?
     
-    @State var mealName = ""
-    @State var mealTime = ""
+    @State private var mealName = ""
+    @State private var mealTime = ""
     
-    @State var price = ""
+    @State private var price = ""
     
-    @State var selectionIndex = 0
+    @State private var selectionIndex = 0
     
-    @State var isDineOut = false
-    @State var mealType = MealType.dineIn
+    @State private var isDineOut = false
+    @State private var mealType = MealType.dineIn
     
-    @State var showActionSheet: Bool = false
-    @State var isFocused: Bool = false
-    @State var priceTFIsFocused: Bool = false
-    @State var showImagePicker: Bool = false
-    @State var isEmpty: Bool = true
-    @State var isImageSelected: Bool = false
-    @State var imageSourceStyle: UIImagePickerController.SourceType?
+    @State private var showActionSheet: Bool = false
+    @State private var isFocused: Bool = false
+    @State private var priceTFIsFocused: Bool = false
+    @State private var showImagePicker: Bool = false
+    @State private var isEmpty: Bool = true
+    @State private var isImageSelected: Bool = false
+    @State private var imageSourceStyle: UIImagePickerController.SourceType?
     
     @State var meal: Meal?
     
     var dismissView: (() -> Void)
     var saveButtonTapped: ((Meal) -> Void)
     
-    let mealRepo = MealRepository()
+    private let mealRepo = MealRepository()
     
     var body: some View {
         ZStack {
