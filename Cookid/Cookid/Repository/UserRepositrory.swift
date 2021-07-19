@@ -20,7 +20,6 @@ class UserRepository {
     func fetchUserInfo(completion: @escaping (UserEntity) -> Void) {
         
         if let currentUserUID = Auth.auth().currentUser?.uid {
-            print("currentUID" + currentUserUID)
             let ref = self.db.child(currentUserUID).child(FBChild.user)
             ref.observeSingleEvent(of: .value) { snapshot in
                 

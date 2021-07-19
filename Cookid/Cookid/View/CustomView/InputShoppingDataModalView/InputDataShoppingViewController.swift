@@ -321,7 +321,6 @@ extension InputDataShoppingViewController {
     }
     
     @objc func createFunc() {
-        print("btn tapped")
         guard let price = self.priceTextField.text, price.count > 0, let dateStr = self.dateTextField.text, dateStr.count > 0 else {
             self.alert(message: "입력란을 다 채워주세요!")
             return
@@ -335,9 +334,7 @@ extension InputDataShoppingViewController {
     }
     
     @objc func updateFunc() {
-        print("update btn tapped")
         if self.currentPrice == self.priceTextField.text && self.currentDate == self.dateTextField.text {
-            print("just dismiss")
             self.dismiss(animated: true, completion: nil)
         } else {
             guard let editedPrice = self.priceTextField.text, editedPrice.count > 0, let editedDateStr = self.dateTextField.text, editedDateStr.count > 0 else {
@@ -365,7 +362,6 @@ extension InputDataShoppingViewController {
             let price = self.priceTextField.text!
             let aShoppingItem = GroceryShopping(id: "wkwkfe", date: date, totalPrice: Int(price)!)
             self.service.update(updateShopping: aShoppingItem)
-            print("update 함수 호출")
             self.dismiss(animated: true, completion: nil)
         }
         alert.addAction(okAction)
@@ -404,7 +400,6 @@ extension InputDataShoppingViewController {
     @objc
     private func keyboardWillShow(_ noti: Notification) {
         if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            print(keyboardFrame.cgRectValue.height)
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardOriginY = keyboardRectangle.origin.y
             let backViewOriginY = self.backView.frame.origin.y + self.backView.frame.height
