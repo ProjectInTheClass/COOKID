@@ -114,7 +114,6 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
             if let error = error {
                 print(error.localizedDescription)
             }
-            print("사용자 동의 --> \(granted)")
         }
         
         let content = UNMutableNotificationContent()

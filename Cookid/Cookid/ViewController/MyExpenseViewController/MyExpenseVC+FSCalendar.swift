@@ -19,13 +19,11 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
 
-        print("did select date \(String(describing: calendar.selectedDate))")
         self.updateData(dates: calendar.selectedDates)
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
         
-        print("selected dates is \(calendar.selectedDates)")
         
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)

@@ -62,8 +62,6 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: false)
-        print("didselected  indexPath \(indexPath)")
-        print("selected Shopping count : \(selectedShopping.count)")
         if data[indexPath.section].name == "마트털이" {
             let vc = InputDataShoppingViewController(service: viewModel.shoppingService)
             let price = self.selectedShopping[indexPath.row].totalPrice
@@ -85,7 +83,6 @@ extension MyExpenseViewController :  UITableViewDataSource, UITableViewDelegate 
     //MARK: - Delete ShoppingData in TableView
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if data[indexPath.section].name == "마트털이" {
-            print(indexPath.section)
             return true
         } else {
             return false
