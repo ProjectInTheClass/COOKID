@@ -28,12 +28,10 @@
 * 홈 화면에서 소비현황과 나의 식사를 한 눈에 확인할 수 있습니다. 
   * 목표 식비, 쇼핑, 외식, 잔액, 그래프, 식사에 대한 정보를 제공합니다. 
 
-<img src="/Users/shhong/Library/Application Support/typora-user-images/image-20210721150027068.png" alt="image-20210721150027068" style="zoom:33%;" align="left" />
-
 * 나의 식생활을 확인할 수 있습니다. 
   * 식사 데이터를 분석하여 식사 통계를 제공합니다. 
 
-<img src="/Users/shhong/Library/Application Support/typora-user-images/image-20210721150100268.png" alt="image-20210721150100268" style="zoom:33%;" align="left" />
+<img src="https://user-images.githubusercontent.com/78390837/126447314-c2d6481e-6647-480b-a82f-604924a897cd.png" alt="image-20210721150100268" style="zoom:33%;" align="left" />
 
 * 나의 소비패턴을 확인할 수 있습니다.
   * 달력에서 소비 빈도를 확인할 수 있습니다. 
