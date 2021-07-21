@@ -138,7 +138,7 @@
     * MealService 
       -뷰모델에서 필요한 data를 위해 비즈니스로직 구현 
           -  repository에서 받아온 data 가공을 통해 Meals를 모아둠, 특정 날짜에 해당하는 meals 제공, 하루 평균 소비금액 제공, date string을 Date 타입으로 변환하는 등의 비즈니스 로직 구현
-          -  main 뷰의 사용자의 현재 사용 금액별 현황 메시지 구현을 위한 로직 구현
+          -  main 뷰의 사용자의 현재 사용 금액별 현황 메시지 제공을 위한 로직 구현
           
     * UserService
           -  업데이트 된 유저의 정보를 repository로 전달
