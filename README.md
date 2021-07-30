@@ -120,18 +120,18 @@
     + InputDataShopping view 
       쇼핑한 데이터를 입력하는 뷰
       + UITapGestureRecognizer
-        사용자가 데이터를 입력하는 서브뷰 외의 공간을 터치하면 입력 취소로 받아드려 view dismiss 기능 구현
+        사용자가 데이터를 입력하는 서브뷰 외의 공간을 터치하면 입력 취소로 받아드려 view dismiss 기능 구현  
       + keyboardNotification 
         키보드 노티피케이션, 옵저버를 등록하고 디바이스에 따라 키보드가 뷰를 가리는 여부에 따라 뷰가 움직이는 로직 
-      + UIAlertController
-        모든 데이터를 입력 여부에 따른 alert, 확인 버튼을 탭하면 데이터 save
-        데이터 수정의 경우 alert하여 확인 버튼을 탭하면 데이터 update
-      + UIDatePicker
+      + UIAlertController  
+        모든 데이터를 입력 여부에 따른 alert, 확인 버튼을 탭하면 데이터 save  
+        데이터 수정의 경우 alert하여 확인 버튼을 탭하면 데이터 update  
+      + UIDatePicker  
     + MyExpenseView
       나의 식사와 쇼핑 기록을 캘린더에 나타나게 하고, 해당 날짜를 탭하면 테이블 뷰에 상세 데이터 표시
-      + FSCalendar
+      + FSCalendar  
         FSCalendar 오픈소스를 활용하여 scopeGesture, 캘린더 이벤트 날짜 표시하기 기능 구현
-      + UITableView
+      + UITableView  
         캘린더에서 받아온 데이터를 통해 테이블뷰에 전달하여 데이터를 표시하는 로직
   
   * 어려웠던 점
