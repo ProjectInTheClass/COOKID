@@ -21,7 +21,7 @@
 
 # 3. 핵심 기능 📱
 
-<img src="https://user-images.githubusercontent.com/78390837/127603583-f1168709-6051-4769-b78c-2f55378ae962.png" align="left" height="400"/>  
+<img src="https://user-images.githubusercontent.com/78390837/127603583-f1168709-6051-4769-b78c-2f55378ae962.png" height="400"/>  
 
 
 
@@ -51,14 +51,14 @@
 * 홈 화면에서 소비현황과 나의 식사를 한 눈에 확인할 수 있습니다. 
   * 목표 식비, 쇼핑, 외식, 잔액, 그래프, 식사에 대한 정보를 제공합니다. 
 
-<img src="https://user-images.githubusercontent.com/78390837/127603586-ae3750b1-008c-4910-a37a-b5fc8c3effa8.png" alt="image-20210721150100268" align="left" height="400"/>  
+<img src="https://user-images.githubusercontent.com/78390837/127603586-ae3750b1-008c-4910-a37a-b5fc8c3effa8.png" alt="image-20210721150100268" height="400"/>  
 
 
 
 * 나의 식생활을 확인할 수 있습니다. 
   * 식사 데이터를 분석하여 식사 통계를 제공합니다. 
 
-<img src="https://user-images.githubusercontent.com/78390837/127603613-8f6acc8e-c9db-4c14-b315-8bad72bd08ee.png" align="left" height="400"/>  
+<img src="https://user-images.githubusercontent.com/78390837/127603613-8f6acc8e-c9db-4c14-b315-8bad72bd08ee.png" height="400"/>  
 
 
 
