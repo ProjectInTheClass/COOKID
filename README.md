@@ -117,7 +117,7 @@
 
   * View
   
-    + InputDataShopping view 
+    + InputDataShopping view  
       쇼핑한 데이터를 입력하는 뷰  
       + UITapGestureRecognizer  
         사용자가 데이터를 입력하는 서브뷰 외의 공간을 터치하면 입력 취소로 받아드려 view dismiss 기능 구현  
