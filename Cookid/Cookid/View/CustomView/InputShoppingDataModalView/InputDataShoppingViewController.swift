@@ -413,8 +413,6 @@ extension InputDataShoppingViewController {
     
     @objc
     private func keyboardWillHide(_ noti: Notification) {
-        if let distance = storedDistance {
-            self.backView.frame.origin.y -= distance
-        }
+        self.backView.frame.origin.y = self.view.frame.midY - self.backView.frame.height/2
     }
 }
