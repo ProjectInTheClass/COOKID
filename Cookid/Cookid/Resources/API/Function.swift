@@ -51,3 +51,12 @@ func intToStringRemoveVer(_ value: Int) -> String {
     let string = numberFormatter.string(from: NSNumber(value: value))!
     return string
 }
+
+func mealTypeToBool(_ mealType: MealType) -> Bool {
+    switch mealType {
+    case .dineIn:
+        return true
+    case .dineOut:
+        return false
+    }
+}
