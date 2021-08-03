@@ -329,9 +329,6 @@
 		0395B61626943B1F009289B7 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				C64560BE269D4C0E009B249F /* DatePickerTextField.swift */,
-				C64560BC269D4C0E009B249F /* ImagePicker.swift */,
-				C64560BD269D4C0E009B249F /* TextFieldWithPickerAsInputView.swift */,
 				0395B61726943B30009289B7 /* CustomProgressBar.swift */,
 				035E4922269681A0002CC084 /* CustomProgressCircleView.swift */,
 				035E491C26956F92002CC084 /* MealTableViewCell.swift */,
@@ -348,6 +345,9 @@
 			children = (
 				C64560C4269DC982009B249F /* InputMealViewController */,
 				C64560C3269DC96A009B249F /* MealDtailViewController */,
+				C64560BE269D4C0E009B249F /* DatePickerTextField.swift */,
+				C64560BC269D4C0E009B249F /* ImagePicker.swift */,
+				C64560BD269D4C0E009B249F /* TextFieldWithPickerAsInputView.swift */,
 			);
 			path = Depreacated;
 			sourceTree = "<group>";

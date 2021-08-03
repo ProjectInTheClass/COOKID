@@ -6,19 +6,15 @@ target 'Cookid' do
   use_frameworks!
 
   # Pods for Cookid
+pod 'SnapKit'
 pod 'RxSwift'
 pod 'RxCocoa'
 pod 'NSObject+Rx'
 pod 'Action'
 pod 'RxKeyboard'
 pod 'RxDataSources'
-pod 'MBCircularProgressBar'
-pod 'PanModal'
 pod 'Kingfisher', '~> 6.0'
 pod 'lottie-ios'
 pod 'FSCalendar'
 pod 'Then'
-pod 'SnapKit', '~> 5.0.0'
-pod 'PanModal'
-
 end
