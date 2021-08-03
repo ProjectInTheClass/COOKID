@@ -11,6 +11,7 @@ import RxCocoa
 class OnboardingViewModel: ViewModelType {
     
     let userService: UserService
+    let mealService: MealService
     
     let disposeBag = DisposeBag()
     
@@ -29,8 +30,9 @@ class OnboardingViewModel: ViewModelType {
     
     var output: Output
     
-    init(userService: UserService) {
+    init(userService: UserService, mealService: MealService) {
         self.userService = userService
+        self.mealService = mealService
         
         let nickname = BehaviorSubject(value: "노네임")
         let monthlyGoal = BehaviorSubject(value: "00")
@@ -55,21 +57,4 @@ class OnboardingViewModel: ViewModelType {
             .disposed(by: disposeBag)
     }
     
-    func validationText(text: String) -> Bool {
-        return text.count > 1
-    }
-    
-    let charSet: CharacterSet = {
-        var cs = CharacterSet.init(charactersIn: "0123456789")
-        return cs.inverted
-    }()
-    
-    func validationNum(text: String) -> Bool {
-        if text.isEmpty {
-            return false
-        } else {
-            guard text.rangeOfCharacter(from: charSet) == nil else { return false }
-            return true
-        }
-    }
 }

@@ -22,15 +22,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
+        let mealRepo = MealRepository()
+        let userRepo = UserRepository()
+        let groceryRepo = GroceryRepository()
+        let mealService = MealService(mealRepository: mealRepo, userRepository: userRepo, groceryRepository: groceryRepo)
+        let userService = UserService(userRepository: userRepo)
+        let shoppingService = ShoppingService(groceryRepository: groceryRepo)
+        
         if Auth.auth().currentUser != nil {
-            let mealRepo = MealRepository()
-            let userRepo = UserRepository()
-            let groceryRepo = GroceryRepository()
-
-            let mealService = MealService(mealRepository: mealRepo, userRepository: userRepo, groceryRepository: groceryRepo)
-            let userService = UserService(userRepository: userRepo)
-            let shoppingService = ShoppingService(groceryRepository: groceryRepo)
-
             var mainVC = MainViewController.instantiate(storyboardID: "Main")
             mainVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
             let mainNVC = UINavigationController(rootViewController: mainVC)
@@ -53,7 +52,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             let userRepo = UserRepository()
             let userService = UserService(userRepository: userRepo)
-            let pageVC = OnboardingPageViewViewController(userService: userService)
+            let pageVC = OnboardingPageViewViewController(userService: userService, mealService: mealService)
             window?.rootViewController = pageVC
         }
      

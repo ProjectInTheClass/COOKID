@@ -24,9 +24,11 @@ class OnboardingPageViewViewController: UIPageViewController {
     }
     
     let userService: UserService
+    let mealService: MealService
     
-    init(userService: UserService) {
+    init(userService: UserService, mealService: MealService) {
         self.userService = userService
+        self.mealService = mealService
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
     
@@ -40,7 +42,7 @@ class OnboardingPageViewViewController: UIPageViewController {
         self.dataSource = self
         self.delegate = self
         
-        let viewModel = OnboardingViewModel(userService: userService)
+        let viewModel = OnboardingViewModel(userService: userService, mealService: mealService)
         
         var firstPage = FirstPageViewController.instantiate(storyboardID: "Main")
         firstPage.bind(viewModel: viewModel)

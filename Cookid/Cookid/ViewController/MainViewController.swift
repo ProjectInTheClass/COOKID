@@ -118,7 +118,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .subscribe(onNext: { [unowned self] _ in
                 
                 // 식사 추가 뷰
-                let addMealViewModel = AddMealViewModel()
+                let addMealViewModel = AddMealViewModel(mealService: self.viewModel.mealService, userService: self.viewModel.userService)
                 var vc = AddMealViewController.instantiate(storyboardID: "Main")
                 vc.bind(viewModel: addMealViewModel)
                 vc.modalPresentationStyle = .custom
@@ -212,7 +212,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .subscribe(onNext: { [unowned self] meal, _ in
                 
                 // 식사 수정 뷰
-                let addMealViewModel = AddMealViewModel()
+                let addMealViewModel = AddMealViewModel(mealService: self.viewModel.mealService, userService: self.viewModel.userService)
                 var vc = AddMealViewController.instantiate(storyboardID: "Main")
                 vc.meal = meal
                 vc.bind(viewModel: addMealViewModel)

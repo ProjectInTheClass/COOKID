@@ -10,10 +10,7 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 
-
 class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBased {
-    
-    var meal: Meal?
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -28,15 +25,14 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     @IBOutlet weak var mealtimeTF: UITextField!
     @IBOutlet weak var mealnameTF: UITextField!
     @IBOutlet weak var mealpriceTF: UITextField!
-  
+    @IBOutlet weak var validationView: UIButton!
+    
     // pickers
     lazy var datePicker: UIDatePicker = {
         let dp = UIDatePicker(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 200))
-        dp.addTarget(self, action: #selector(self.dateChanged), for: .allEvents)
         dp.locale = Locale(identifier: "ko-KR")
         dp.datePickerMode = .date
         dp.maximumDate = Date()
-        dp.backgroundColor = .white
         if #available(iOS 13.4, *) {
             dp.preferredDatePickerStyle = .wheels
         } else {
@@ -48,12 +44,12 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     lazy var mealTimePicker: UIPickerView = {
         let picker = UIPickerView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 200))
         picker.backgroundColor = .white
-        picker.subviews.first?.subviews.last?.backgroundColor = #colorLiteral(red: 1, green: 0.870105389, blue: 0.5648625297, alpha: 0.5029385385)
         return picker
     }()
     
     // properties
     
+    var meal: Meal?
     var viewModel: AddMealViewModel!
     var selectedPhoto: Bool = false
     var selectedPictrue: Bool = false
@@ -80,6 +76,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         mealtimeTF.inputView = mealTimePicker
         settingPickerInTextField(dateTF)
         settingPickerInTextField(mealtimeTF)
+        self.mealtimeTF.text = MealTime.breakfast.rawValue
     }
     
     private func initialSetting() {
@@ -124,24 +121,12 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         dateTF.resignFirstResponder()
         mealtimeTF.resignFirstResponder()
     }
-    
-    @objc func dateChanged() {
-        dateTF.text = "\(datePicker.date)"
-    }
+
     
     // MARK: - Binding
     
     func bindViewModel() {
-        
-        Observable.of(MealTime.allCases.map { $0.rawValue })
-            .bind(to: mealTimePicker.rx.itemTitles) { [unowned self] row, element in
-                self.mealtimeTF.text = element
-                return element
-            }
-            .disposed(by: rx.disposeBag)
-            
-        
-        
+     
         dimmingButton.rx.tap
             .subscribe(onNext: {
                 self.dismiss(animated: true, completion: nil)
@@ -191,30 +176,96 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             })
             .disposed(by: rx.disposeBag)
         
-        completionButton.rx.tap
-            .subscribe(onNext: {
-                print("completionButton tapped")
+        Observable.of(MealTime.allCases.map { $0.rawValue })
+            .bind(to: mealTimePicker.rx.itemTitles) { row, element in
+                return element
+            }
+            .disposed(by: rx.disposeBag)
+        
+        datePicker.rx.date
+            .subscribe(onNext: { [unowned self] date in
+                self.dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
+                self.viewModel.input.mealDate.onNext(date)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        mealTimePicker.rx.itemSelected
+            .subscribe(onNext: { [unowned self] row, item in
+                self.mealtimeTF.text = MealTime.allCases[row].rawValue
+                self.viewModel.input.mealTime.onNext(MealTime.allCases[row])
             })
             .disposed(by: rx.disposeBag)
         
         isDineInSwitch.rx.isOn
-            .subscribe(onNext: { [unowned self] isOn in
-                
+            .do(onNext: { [unowned self] isOn in
                 if isOn {
                     UIView.animate(withDuration: 0.3) {
                         priceStackView.alpha = 0
                         priceStackView.isHidden = true
+                        self.validationView.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
+                        self.validationView.tintColor = .red
                     }
+                    self.viewModel.input.mealType.onNext(.dineIn)
+                    self.viewModel.input.mealPrice.onNext("")
+                    self.mealpriceTF.text = ""
                 } else {
                     UIView.animate(withDuration: 0.3) {
                         priceStackView.alpha = 1
                         priceStackView.isHidden = false
                     }
+                    self.viewModel.input.mealType.onNext(.dineOut)
                     scrollView.scrollToBottom()
                 }
             })
+            .subscribe(onNext: { [unowned self] isOn in
+                self.viewModel.input.isDineIn.onNext(isOn)
+            })
             .disposed(by: rx.disposeBag)
         
+        mealpriceTF.rx.text.orEmpty
+            .do(onNext: { [unowned self] text in
+                if viewModel.mealService.validationNum(text: text) {
+                    UIView.animate(withDuration: 0.3) {
+                        self.validationView.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
+                        self.validationView.tintColor = .systemGreen
+                    }
+                } else {
+                    UIView.animate(withDuration: 0.3) {
+                        self.validationView.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
+                        self.validationView.tintColor = .red
+                    }
+                }
+            })
+            .subscribe(onNext: { [unowned self] text in
+                self.viewModel.input.mealPrice.onNext(text)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        mealnameTF.rx.text.orEmpty
+            .subscribe(onNext: { [unowned self] text in
+                self.viewModel.input.mealName.onNext(text)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.validation
+            .drive(completionButton.rx.isEnabled)
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.newMeal
+            .drive(onNext: { meal in
+                print(meal.name)
+                print(meal.mealTime)
+                print(meal.mealType)
+                print(meal.price)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        completionButton.rx.tap
+            .subscribe(onNext: {
+                
+                self.dismiss(animated: true, completion: nil)
+            })
+            .disposed(by: rx.disposeBag)
     }
     
 }

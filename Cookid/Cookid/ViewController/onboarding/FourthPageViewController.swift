@@ -38,7 +38,7 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         
         determinationTextField.rx.text.orEmpty
             .do(onNext: { [unowned self] text in
-                if viewModel.validationText(text: text) {
+                if viewModel.mealService.validationText(text: text) {
                     UIView.animate(withDuration: 0.5) {
                         self.finishPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
                         self.finishPageButton.tintColor = .systemGreen

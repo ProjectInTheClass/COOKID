@@ -35,7 +35,7 @@ class SecondPageViewController: UIViewController, ViewModelBindable, StoryboardB
         
         monthlyGoal.rx.text.orEmpty
             .do(onNext: { [unowned self] text in
-                if viewModel.validationNum(text: text) {
+                if viewModel.mealService.validationNum(text: text) {
                     UIView.animate(withDuration: 0.5) {
                         self.nextPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
                         self.nextPageButton.tintColor = .systemGreen

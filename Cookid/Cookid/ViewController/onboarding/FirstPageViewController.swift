@@ -56,7 +56,7 @@ class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBa
         
         nickNameTextField.rx.text.orEmpty
             .do(onNext: { [unowned self] text in
-                if viewModel.validationText(text: text) {
+                if viewModel.mealService.validationText(text: text) {
                     UIView.animate(withDuration: 0.5) {
                         self.nextPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
                         self.nextPageButton.tintColor = .systemGreen
