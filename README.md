@@ -78,7 +78,7 @@
      * swiftUI
      * Combine : 데이터에 변화가 생길때마다 변화를 감지
      * UIHostingViewController : 컴플리션 핸들러로 뷰에 정보를 전달할 수 있도록 했음
-     * GeometryEffect : 뷰에서 뷰로 넘어갈때 서로의 Geometry를 알고 있다가 뷰에서 뷰로의 전환이 자유롭게 해줌 (사용하려면 버전 관리를 해야함 14버전 이후)
+     * GeometryEffect 
      * Firebase : 익명로그인 시도
 
   2. 어려웠던 점
