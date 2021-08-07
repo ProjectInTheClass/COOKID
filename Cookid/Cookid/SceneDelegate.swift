@@ -50,8 +50,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             tabBarController.tabBar.tintColor = .black
             window?.rootViewController = tabBarController
         } else {
-            let userRepo = UserRepository()
-            let userService = UserService(userRepository: userRepo)
             let pageVC = OnboardingPageViewViewController(userService: userService, mealService: mealService)
             window?.rootViewController = pageVC
         }

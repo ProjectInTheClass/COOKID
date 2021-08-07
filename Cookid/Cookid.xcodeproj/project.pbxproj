@@ -34,6 +34,7 @@
 		035E492726975815002CC084 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492626975815002CC084 /* MainViewModel.swift */; };
 		035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */; };
 		035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */; };
+		037AC1A826B98B48009509CF /* PictureSelectCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AC1A726B98B48009509CF /* PictureSelectCollectionViewController.swift */; };
 		038875AD269FD1EF00D5D202 /* MyExpenseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038875AC269FD1EF00D5D202 /* MyExpenseViewModel.swift */; };
 		038875AE269FD7DA00D5D202 /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1982EC269BF3660055742B /* UserInformationViewController.swift */; };
 		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
@@ -108,6 +109,7 @@
 		035E492626975815002CC084 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarViewController.swift; sourceTree = "<group>"; };
+		037AC1A726B98B48009509CF /* PictureSelectCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureSelectCollectionViewController.swift; sourceTree = "<group>"; };
 		038875AC269FD1EF00D5D202 /* MyExpenseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExpenseViewModel.swift; sourceTree = "<group>"; };
 		0395B61426941121009289B7 /* MyMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealViewModel.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
 				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
 				0395F6EC26B805360091BB29 /* AddMealViewController.swift */,
+				037AC1A726B98B48009509CF /* PictureSelectCollectionViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
 				241523B0269D093E0077941A /* ShoppingService.swift in Sources */,
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
+				037AC1A826B98B48009509CF /* PictureSelectCollectionViewController.swift in Sources */,
 				C64560C2269D5D97009B249F /* MealDetailView.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
 				C64560BF269D4C0E009B249F /* ImagePicker.swift in Sources */,

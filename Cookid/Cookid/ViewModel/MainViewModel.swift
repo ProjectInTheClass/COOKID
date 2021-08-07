@@ -89,7 +89,17 @@ class MainViewModel: ViewModelType, HasDisposeBag {
     }
     
     func performCreate(meal: Meal) {
-        mealService.create(meal: meal)
+        mealService.create(meal: meal) { _ in }
+    }
+    
+    func logoutUser() {
+        userService.userRepository.authRepo.userLogout { success in
+            if success {
+                print("success")
+            } else {
+                print("fail")
+            }
+        }
     }
     
 }

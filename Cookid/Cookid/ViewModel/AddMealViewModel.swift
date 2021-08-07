@@ -5,16 +5,23 @@
 //  Created by 박형석 on 2021/08/02.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 import RxCocoa
+import Action
+import NSObject_Rx
 
-class AddMealViewModel: ViewModelType {
+class AddMealViewModel: ViewModelType, HasDisposeBag {
     
     let mealService: MealService
-    let userService: UserService
     
     struct Input {
+        var mealID: String {
+            didSet {
+                print(mealID)
+            }
+        }
+        let mealURL: BehaviorSubject<URL?>
         let isDineIn: BehaviorSubject<Bool>
         let mealName: BehaviorSubject<String>
         let mealDate: BehaviorSubject<Date>
@@ -24,21 +31,19 @@ class AddMealViewModel: ViewModelType {
     }
     
     struct Output {
-        let newMeal: Driver<Meal>
+        let newMeal: Observable<Meal>
         let validation: Driver<Bool>
     }
     
     var input: Input
     var output: Output
     
-    init(mealService: MealService, userService: UserService) {
+    init(mealService: MealService, userService: UserService, mealID: String) {
         self.mealService = mealService
-        self.userService = userService
         
-        userService.loadUserInfo { user in
-            mealService.fetchMeals(user: user) { _ in  }
-        }
-        
+        print(mealID)
+       
+        let mealURL = BehaviorSubject<URL?>(value: nil)
         let isDineIn = BehaviorSubject<Bool>(value: false)
         let mealName = BehaviorSubject<String>(value: "")
         let mealDate = BehaviorSubject<Date>(value: Date())
@@ -47,7 +52,7 @@ class AddMealViewModel: ViewModelType {
         let mealPrice = BehaviorSubject<String>(value: "")
         
         let validation = Observable.combineLatest(mealName, mealPrice, mealType) { name, price, type -> Bool in
-            
+       
             if type == .dineOut {
                 guard name != "",
                       mealService.validationNum(text: price) else { return false }
@@ -58,18 +63,16 @@ class AddMealViewModel: ViewModelType {
         }
         .asDriver(onErrorJustReturn: false)
         
-        let newMeal = Observable.combineLatest(isDineIn, mealName, mealDate, mealTime, mealType, mealPrice) { isDineIn, mealName, mealDate, mealTime, mealType, mealPrice in
+      
+        let newMeal = Observable.combineLatest(mealService.fetchMealImageURL(mealID: mealID), isDineIn, mealName, mealDate, mealTime, mealType, mealPrice) { url, isDineIn, name, date, mealTime, mealType, price -> Meal in
             
-            let validMealPrice = Int(mealPrice) ?? 0
+            let validMealPrice = Int(price) ?? 0
             
-            return Meal(id: UUID().uuidString, price: validMealPrice, date: mealDate, name: mealName, image: nil, mealType: mealType, mealTime: mealTime)
+            return Meal(id: mealID, price: validMealPrice, date: date, name: name, image: url, mealType: mealType, mealTime: mealTime)
         }
-        .asDriver(onErrorJustReturn: DummyData.shared.mySingleMeal)
         
-        self.input = Input(isDineIn: isDineIn, mealName: mealName, mealDate: mealDate, mealTime: mealTime, mealType: mealType, mealPrice: mealPrice)
+        self.input = Input(mealID: mealID, mealURL: mealURL, isDineIn: isDineIn, mealName: mealName, mealDate: mealDate, mealTime: mealTime, mealType: mealType, mealPrice: mealPrice)
         
         self.output = Output(newMeal: newMeal, validation: validation)
     }
-
-    
 }

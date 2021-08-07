@@ -60,6 +60,11 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         configureUI()
     }
     
+    @IBAction func logout(_ sender: Any) {
+        viewModel.logoutUser()
+    }
+    
+    
     private func configureUI() {
         addMealButton.layer.cornerRadius = 8
         addShoppingButton.layer.cornerRadius = 8
@@ -118,7 +123,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .subscribe(onNext: { [unowned self] _ in
                 
                 // 식사 추가 뷰
-                let addMealViewModel = AddMealViewModel(mealService: self.viewModel.mealService, userService: self.viewModel.userService)
+                let addMealViewModel = AddMealViewModel(mealService: self.viewModel.mealService, userService: self.viewModel.userService, mealID: UUID().uuidString)
                 var vc = AddMealViewController.instantiate(storyboardID: "Main")
                 vc.bind(viewModel: addMealViewModel)
                 vc.modalPresentationStyle = .custom
@@ -212,7 +217,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .subscribe(onNext: { [unowned self] meal, _ in
                 
                 // 식사 수정 뷰
-                let addMealViewModel = AddMealViewModel(mealService: self.viewModel.mealService, userService: self.viewModel.userService)
+                let addMealViewModel = AddMealViewModel(mealService: self.viewModel.mealService, userService: self.viewModel.userService, mealID: meal.id)
                 var vc = AddMealViewController.instantiate(storyboardID: "Main")
                 vc.meal = meal
                 vc.bind(viewModel: addMealViewModel)

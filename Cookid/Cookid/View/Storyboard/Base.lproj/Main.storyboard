@@ -441,7 +441,13 @@
                             <constraint firstItem="i2c-fa-0Jz" firstAttribute="leading" secondItem="yDN-fY-BSl" secondAttribute="leading" id="ykj-Sb-SrY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="식비 목표 🏳️‍🌈" id="3gK-bs-I44"/>
+                    <navigationItem key="navigationItem" title="식비 목표 🏳️‍🌈" id="3gK-bs-I44">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="mgW-ky-uOW">
+                            <connections>
+                                <action selector="logout:" destination="DBM-09-Loe" id="HyG-2V-mGT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addMealButton" destination="SvZ-tN-y7G" id="nHQ-bK-Qsd"/>
                         <outlet property="addShoppingButton" destination="lAB-bw-MJq" id="wWE-MF-9Er"/>
@@ -485,7 +491,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKh-ar-gs6">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKh-ar-gs6">
                                 <rect key="frame" x="52" y="215" width="310.5" height="466"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCE-IP-9S5">
@@ -647,6 +653,9 @@
                                                                 <state key="normal" image="checkmark.circle.fill" catalog="system">
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="35"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="completedButtonTapped:" destination="SzF-me-BmD" eventType="touchUpInside" id="9Sh-OT-oBt"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -665,6 +674,7 @@
                                 <constraints>
                                     <constraint firstItem="ZCE-IP-9S5" firstAttribute="leading" secondItem="Idy-vG-cCQ" secondAttribute="leading" id="H3z-Fz-jPM"/>
                                     <constraint firstItem="ZCE-IP-9S5" firstAttribute="bottom" secondItem="Idy-vG-cCQ" secondAttribute="bottom" id="OO9-6c-Ko2"/>
+                                    <constraint firstItem="ZCE-IP-9S5" firstAttribute="width" secondItem="O6M-oo-VPg" secondAttribute="width" id="WqW-mP-92u"/>
                                     <constraint firstItem="ZCE-IP-9S5" firstAttribute="trailing" secondItem="Idy-vG-cCQ" secondAttribute="trailing" id="bDv-Cg-Sh1"/>
                                     <constraint firstAttribute="width" secondItem="eKh-ar-gs6" secondAttribute="height" multiplier="1:1.5" id="fFW-7Z-m2H"/>
                                     <constraint firstItem="ZCE-IP-9S5" firstAttribute="top" secondItem="Idy-vG-cCQ" secondAttribute="top" id="geR-fS-zUM"/>
@@ -678,7 +688,6 @@
                         <constraints>
                             <constraint firstItem="zeJ-35-je9" firstAttribute="trailing" secondItem="F6M-XL-jSt" secondAttribute="trailing" id="1cJ-8W-lAD"/>
                             <constraint firstItem="eKh-ar-gs6" firstAttribute="centerY" secondItem="ICD-PW-BAD" secondAttribute="centerY" id="9fl-F3-1IK"/>
-                            <constraint firstItem="ZCE-IP-9S5" firstAttribute="width" secondItem="ICD-PW-BAD" secondAttribute="width" multiplier="0.75" id="HeI-UR-sLD"/>
                             <constraint firstItem="zeJ-35-je9" firstAttribute="leading" secondItem="F6M-XL-jSt" secondAttribute="leading" id="LXs-xd-WGR"/>
                             <constraint firstItem="zeJ-35-je9" firstAttribute="top" secondItem="ICD-PW-BAD" secondAttribute="top" id="NpH-M8-8f9"/>
                             <constraint firstItem="eKh-ar-gs6" firstAttribute="width" secondItem="ICD-PW-BAD" secondAttribute="width" multiplier="0.75" id="YMk-GE-X9P"/>
@@ -700,12 +709,47 @@
                         <outlet property="mealtimeTF" destination="wt9-c5-VbE" id="JvY-PG-IZr"/>
                         <outlet property="priceStackView" destination="t6d-V0-h1u" id="veg-us-QqF"/>
                         <outlet property="scrollView" destination="eKh-ar-gs6" id="6hG-Vr-IJ9"/>
+                        <outlet property="updateAnnouce" destination="aNn-kT-K2t" id="7wa-JR-Edg"/>
                         <outlet property="validationView" destination="fkM-gB-8Hl" id="LVC-zl-KbN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xVs-ri-QyR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1057.9710144927537" y="1632.5892857142856"/>
+        </scene>
+        <!--Picture Select Collection View Controller-->
+        <scene sceneID="DcL-pj-T1l">
+            <objects>
+                <collectionViewController storyboardIdentifier="PictureSelectCollectionViewController" id="gZk-A0-zJL" customClass="PictureSelectCollectionViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="kHY-NY-xnn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bZr-lh-Fif">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="hlO-W4-ifg">
+                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YHQ-N3-wDG">
+                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionViewCellContentView>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="gZk-A0-zJL" id="2x9-bO-vIS"/>
+                            <outlet property="delegate" destination="gZk-A0-zJL" id="lPO-VG-Ber"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SER-bs-CGC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1967" y="1633"/>
         </scene>
         <!--Onboarding Page View View Controller-->
         <scene sceneID="zfu-dq-dBU">
@@ -1020,7 +1064,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="SMq-hS-Y3Q">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

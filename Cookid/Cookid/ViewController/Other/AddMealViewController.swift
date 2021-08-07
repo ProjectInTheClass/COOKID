@@ -9,8 +9,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 import NSObject_Rx
+import Kingfisher
 
-class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBased {
+class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBased, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -26,6 +27,8 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     @IBOutlet weak var mealnameTF: UITextField!
     @IBOutlet weak var mealpriceTF: UITextField!
     @IBOutlet weak var validationView: UIButton!
+    @IBOutlet weak var updateAnnouce: UILabel!
+    
     
     // pickers
     lazy var datePicker: UIDatePicker = {
@@ -49,11 +52,16 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     
     // properties
     
-    var meal: Meal?
+    var meal: Meal? {
+        didSet {
+            print("meal is existence")
+        }
+    }
     var viewModel: AddMealViewModel!
     var selectedPhoto: Bool = false
     var selectedPictrue: Bool = false
-    
+    let mealID = UUID().uuidString
+    let imagePicker = UIImagePickerController()
     
     // MARK: - View Life Cycle
     
@@ -63,6 +71,9 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         initialSetting()
     }
     
+    deinit {
+        print("deinit")
+    }
     
     // MARK: - UI
     
@@ -70,7 +81,9 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         scrollView.layer.cornerRadius = 8
         contentView.layer.cornerRadius = 8
         addPhotoButton.layer.cornerRadius = 8
+        addPhotoButton.layer.masksToBounds = true
         addPictureButton.layer.cornerRadius = 8
+        addPictureButton.layer.masksToBounds = true
         dateTF.inputView = datePicker
         dateTF.inputView?.backgroundColor = .white
         mealtimeTF.inputView = mealTimePicker
@@ -80,12 +93,24 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     }
     
     private func initialSetting() {
-        guard let meal = meal else { return }
-        dateTF.text = convertDateToString(format: "MM월 dd일", date: meal.date)
-        mealtimeTF.text = meal.mealTime.rawValue
-        mealnameTF.text = meal.name
-        mealpriceTF.text = intToString(meal.price)
-        isDineInSwitch.isOn = mealTypeToBool(meal.mealType)
+        if let meal = self.meal {
+            updateAnnouce.text = "수정이 완료되셨나요?"
+            let imageView = UIImageView()
+            imageView.kf.setImage(with: meal.image)
+            selectedPhoto = true
+            addPictureButton.isHidden = true
+            addPhotoButton.setImage(imageView.image, for: .normal)
+            completionButton.setImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
+            completionButton.tintColor = .systemGreen
+
+            mealtimeTF.text = meal.mealTime.rawValue
+            mealnameTF.text = meal.name
+            mealpriceTF.text = String(describing: meal.price)
+            isDineInSwitch.isOn = mealTypeToBool(meal.mealType)
+        } else {
+            
+        }
+        
     }
     
     private func settingPickerInTextField(_ textfield: UITextField) {
@@ -110,7 +135,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         doneButton.rightAnchor.constraint(equalTo: doneView.rightAnchor, constant: -11).isActive = true
         doneButton.widthAnchor.constraint(equalToConstant: 36).isActive = true
         doneButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
-
+        
         textfield.inputAccessoryView = doneView
         
     }
@@ -121,20 +146,33 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         dateTF.resignFirstResponder()
         mealtimeTF.resignFirstResponder()
     }
-
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[.originalImage] as? UIImage else { return }
+        addPhotoButton.setImage(selectedImage, for: .normal)
+        self.viewModel.mealService.mealRepository.uploadImage(mealID: self.viewModel.input.mealID, image: selectedImage) { _ in }
+        self.viewModel.input.mealURL.onNext(URL(string: "forValidationURL"))
+        dismiss(animated: true, completion: nil)
+    }
     
     // MARK: - Binding
     
     func bindViewModel() {
-     
+        
         dimmingButton.rx.tap
-            .subscribe(onNext: {
-                self.dismiss(animated: true, completion: nil)
+            .subscribe(onNext: { [unowned self] in
+                if meal != nil {
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    self.viewModel.mealService.deleteImage(mealID: self.viewModel.input.mealID)
+                    self.dismiss(animated: true, completion: nil)
+                }
             })
             .disposed(by: rx.disposeBag)
         
         addPhotoButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
+            .do(onNext: {
+                [unowned self] in
                 
                 selectedPhoto.toggle()
                 
@@ -151,12 +189,43 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
                         self.announceLabel.text = "사진이 없으시다면 이미지로 넣어보세요:)"
                     }
                 }
+            })
+            .subscribe(onNext: { [unowned self] in
+                if self.selectedPhoto {
+                    
+                    let alertController = UIAlertController(title: "메뉴 사진 업로드", message: "어디에서 메뉴의 사진을 업로드 할까요?", preferredStyle: .actionSheet)
+                    
+                    let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+                    alertController.addAction(cancelAction)
+                   
+                    imagePicker.delegate = self
+                    
+                    if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                        let photoAction = UIAlertAction(title: "사진 라이브러리", style: .default) {
+                            action in
+                            imagePicker.sourceType = .photoLibrary
+                            self.present(imagePicker, animated: true, completion: nil)
+                        }
+                        alertController.addAction(photoAction)
+                    }
+                    
+                    if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                        let cameralAction = UIAlertAction(title: "카메라", style: .default) {
+                            action in
+                            imagePicker.sourceType = .camera
+                            self.present(imagePicker, animated: true, completion: nil)
+                        }
+                        alertController.addAction(cameralAction)
+                    }
+                    
+                    present(alertController, animated: true, completion: nil)
+                }
                 
             })
             .disposed(by: rx.disposeBag)
         
         addPictureButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
+            .do(onNext: { [unowned self] in
                 
                 selectedPictrue.toggle()
                 
@@ -174,6 +243,16 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
                     }
                 }
             })
+            .subscribe(onNext: { [unowned self] in
+                if self.selectedPictrue {
+                    let cvc = PictureSelectCollectionViewController.instantiate(storyboardID: "Main")
+                    cvc.modalTransitionStyle = .crossDissolve
+                    cvc.modalPresentationStyle = .automatic
+                    self.present(cvc, animated: true, completion: nil)
+                }
+                
+                
+            })
             .disposed(by: rx.disposeBag)
         
         Observable.of(MealTime.allCases.map { $0.rawValue })
@@ -184,8 +263,15 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         
         datePicker.rx.date
             .subscribe(onNext: { [unowned self] date in
-                self.dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
-                self.viewModel.input.mealDate.onNext(date)
+                
+                if let existingMeal = self.meal {
+                    self.dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: existingMeal.date)
+                } else {
+                    self.dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
+                    self.viewModel.input.mealDate.onNext(date)
+                }
+                
+                
             })
             .disposed(by: rx.disposeBag)
         
@@ -248,22 +334,35 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             .disposed(by: rx.disposeBag)
         
         viewModel.output.validation
+            .debug()
             .drive(completionButton.rx.isEnabled)
             .disposed(by: rx.disposeBag)
+       
+    }
+    
+    @IBAction func completedButtonTapped(_ sender: UIButton) {
         
         viewModel.output.newMeal
-            .drive(onNext: { meal in
-                print(meal.name)
-                print(meal.mealTime)
-                print(meal.mealType)
-                print(meal.price)
-            })
-            .disposed(by: rx.disposeBag)
-        
-        completionButton.rx.tap
-            .subscribe(onNext: {
-                
-                self.dismiss(animated: true, completion: nil)
+            .take(1)
+            .subscribe(on:ConcurrentDispatchQueueScheduler.init(queue: DispatchQueue.global()))
+            .subscribe(onNext: { [unowned self] meal in
+                if self.meal != nil {
+                    self.viewModel.mealService.update(updateMeal: meal) { success in
+                        if success {
+                            DispatchQueue.main.async {
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                    }
+                } else {
+                    self.viewModel.mealService.create(meal: meal) { success in
+                        if success {
+                            DispatchQueue.main.async {
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                    }
+                }
             })
             .disposed(by: rx.disposeBag)
     }
