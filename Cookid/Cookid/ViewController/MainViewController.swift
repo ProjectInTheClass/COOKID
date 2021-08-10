@@ -221,7 +221,8 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 var vc = AddMealViewController.instantiate(storyboardID: "Main")
                 vc.meal = meal
                 vc.bind(viewModel: addMealViewModel)
-                vc.modalPresentationStyle = .custom
+                vc.modalTransitionStyle = .crossDissolve
+                vc.modalPresentationStyle = .overFullScreen
                 vc.view.backgroundColor = .clear
                 
                 self.present(vc, animated: true, completion: nil)

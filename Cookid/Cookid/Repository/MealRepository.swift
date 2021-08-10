@@ -82,9 +82,9 @@ class MealRepository {
     }
     
     
-    func deleteMealToFirebase(meal: Meal) {
+    func deleteMealToFirebase(mealID: String) {
         guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
-        self.db.child(currentUserUID).child(FBChild.meal).child(meal.id).removeValue()
+        self.db.child(currentUserUID).child(FBChild.meal).child(mealID).removeValue()
     }
     
     

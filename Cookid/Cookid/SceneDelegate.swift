@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             let tabBarController = UITabBarController()
             tabBarController.setViewControllers([mainNVC, myMealNVC, myExpenseNVC], animated: false)
-            tabBarController.tabBar.tintColor = .black
+            tabBarController.tabBar.tintColor = DefaultStyle.Color.tint
             window?.rootViewController = tabBarController
         } else {
             let pageVC = OnboardingPageViewViewController(userService: userService, mealService: mealService)

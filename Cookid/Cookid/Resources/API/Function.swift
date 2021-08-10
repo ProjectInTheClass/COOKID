@@ -60,3 +60,22 @@ func mealTypeToBool(_ mealType: MealType) -> Bool {
         return false
     }
 }
+
+public enum DefaultStyle {
+   
+    public enum Color {
+        public static let tint: UIColor = {
+            if #available(iOS 13.0, *) {
+                return UIColor { traitCollection in
+                    if traitCollection.userInterfaceStyle == .dark {
+                        return .gray
+                    } else {
+                        return .black
+                    }
+                }
+            } else {
+                return .black
+            }
+        }()
+    }
+}

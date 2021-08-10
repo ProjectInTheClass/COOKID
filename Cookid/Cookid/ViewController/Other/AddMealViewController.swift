@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 import Kingfisher
+import RxKeyboard
 
 class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBased, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -20,6 +21,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     @IBOutlet weak var addPictureButton: UIButton!
     @IBOutlet weak var isDineInSwitch: UISwitch!
     @IBOutlet weak var completionButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var priceStackView: UIStackView!
     @IBOutlet weak var announceLabel: UILabel!
     @IBOutlet weak var dateTF: UITextField!
@@ -90,6 +92,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         settingPickerInTextField(dateTF)
         settingPickerInTextField(mealtimeTF)
         self.mealtimeTF.text = MealTime.breakfast.rawValue
+        dimmingButton.backgroundColor = DefaultStyle.Color.tint
     }
     
     private func initialSetting() {
@@ -107,8 +110,9 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             mealnameTF.text = meal.name
             mealpriceTF.text = String(describing: meal.price)
             isDineInSwitch.isOn = mealTypeToBool(meal.mealType)
+            deleteButton.isHidden = false
         } else {
-            
+            deleteButton.isHidden = true
         }
         
     }
@@ -158,6 +162,12 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     // MARK: - Binding
     
     func bindViewModel() {
+        
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [unowned self] keyboardVisibleHeight in
+                self.scrollView.contentInset.bottom = keyboardVisibleHeight
+            })
+            .disposed(by: rx.disposeBag)
         
         dimmingButton.rx.tap
             .subscribe(onNext: { [unowned self] in
@@ -255,6 +265,24 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             })
             .disposed(by: rx.disposeBag)
         
+        deleteButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [unowned self] in
+                let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "넹!", style: .default) { action in
+                    guard let mealID = self.meal?.id else { return }
+                    DispatchQueue.global().async {
+                        self.viewModel.mealService.delete(mealID: mealID)
+                    }
+                    self.dismiss(animated: true, completion: nil)
+                }
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+                alert.addAction(okAction)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true)
+            })
+            .disposed(by: rx.disposeBag)
+        
         Observable.of(MealTime.allCases.map { $0.rawValue })
             .bind(to: mealTimePicker.rx.itemTitles) { row, element in
                 return element
@@ -270,8 +298,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
                     self.dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
                     self.viewModel.input.mealDate.onNext(date)
                 }
-                
-                
             })
             .disposed(by: rx.disposeBag)
         
@@ -366,5 +392,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             })
             .disposed(by: rx.disposeBag)
     }
+    
+    
     
 }

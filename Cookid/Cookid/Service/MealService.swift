@@ -59,17 +59,13 @@ class MealService {
         return Observable.just(updateMeal)
     }
     
-    @discardableResult
-    func delete(meal: Meal) -> Observable<Meal> {
-        
-        mealRepository.deleteMealToFirebase(meal: meal)
-        
-        if let index = meals.firstIndex(where: { $0.id == meal.id }) {
+    func delete(mealID: String) {
+        mealRepository.deleteMealToFirebase(mealID: mealID)
+        mealRepository.deleteImage(mealID: mealID)
+        if let index = meals.firstIndex(where: { $0.id == mealID }) {
             meals.remove(at: index)
         }
-        
         mealStore.onNext(meals)
-        return Observable.just(meal)
     }
     
     func fetchMeals(user: User, completion: @escaping ([Meal])->Void) {
