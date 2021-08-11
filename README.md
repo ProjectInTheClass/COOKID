@@ -21,6 +21,7 @@
 
 # 3. 핵심 기능 📱
 
+![cookidImage](https://user-images.githubusercontent.com/77890228/128953113-641338e6-e86c-47e1-b27a-7360b7bca4c8.png)
 
 <img src="https://user-images.githubusercontent.com/78390837/127603583-f1168709-6051-4769-b78c-2f55378ae962.png" height="400"/>  
 
