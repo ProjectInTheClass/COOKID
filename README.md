@@ -21,12 +21,6 @@
 
 # 3. 핵심 기능 📱
 
-![Simulator Screen Shot - iPhone 12 Pro Max - 2021-08-11 at 09 42 10](https://user-images.githubusercontent.com/77890228/128952688-2223fd18-c61b-4756-ac5f-aecad75c3b0a.png)
-![Simulator Screen Shot - iPhone 12 Pro Max - 2021-08-11 at 09 42 57](https://user-images.githubusercontent.com/77890228/128952696-568ce9b6-bcc9-4e6d-a1f7-02633839203d.png)
-![Simulator Screen Shot - iPhone 12 Pro Max - 2021-08-11 at 09 42 46](https://user-images.githubusercontent.com/77890228/128952698-8589b037-fc0e-4223-8080-2e08532d7fd0.png)
-![Simulator Screen Shot - iPhone 12 Pro Max - 2021-08-11 at 09 42 24](https://user-images.githubusercontent.com/77890228/128952701-02787c52-0009-45e5-8eb0-7f0a4217da42.png)
-![Simulator Screen Shot - iPhone 12 Pro Max - 2021-08-11 at 09 42 19](https://user-images.githubusercontent.com/77890228/128952702-0e26f18f-37f6-4b89-a65d-15acee77d297.png)
-
 
 <img src="https://user-images.githubusercontent.com/78390837/127603583-f1168709-6051-4769-b78c-2f55378ae962.png" height="400"/>  
 
