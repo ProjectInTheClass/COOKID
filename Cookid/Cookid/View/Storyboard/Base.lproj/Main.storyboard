@@ -491,7 +491,7 @@
                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKh-ar-gs6">
-                                <rect key="frame" x="52" y="215" width="310.5" height="466"/>
+                                <rect key="frame" x="52" y="137.5" width="310.5" height="621"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCE-IP-9S5">
                                         <rect key="frame" x="0.0" y="0.0" width="310.5" height="661.5"/>
@@ -648,7 +648,7 @@
                                                                     <constraint firstAttribute="width" constant="45" id="Vfr-tj-9jp"/>
                                                                     <constraint firstAttribute="height" constant="45" id="cvB-9h-dPA"/>
                                                                 </constraints>
-                                                                <color key="tintColor" systemColor="systemRedColor"/>
+                                                                <color key="tintColor" systemColor="systemPinkColor"/>
                                                                 <state key="normal" image="trash.circle.fill" catalog="system">
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="35"/>
                                                                 </state>
@@ -686,7 +686,7 @@
                                     <constraint firstItem="ZCE-IP-9S5" firstAttribute="bottom" secondItem="Idy-vG-cCQ" secondAttribute="bottom" id="OO9-6c-Ko2"/>
                                     <constraint firstItem="ZCE-IP-9S5" firstAttribute="width" secondItem="O6M-oo-VPg" secondAttribute="width" id="WqW-mP-92u"/>
                                     <constraint firstItem="ZCE-IP-9S5" firstAttribute="trailing" secondItem="Idy-vG-cCQ" secondAttribute="trailing" id="bDv-Cg-Sh1"/>
-                                    <constraint firstAttribute="width" secondItem="eKh-ar-gs6" secondAttribute="height" multiplier="1:1.5" id="fFW-7Z-m2H"/>
+                                    <constraint firstAttribute="width" secondItem="eKh-ar-gs6" secondAttribute="height" multiplier="1:2" id="fFW-7Z-m2H"/>
                                     <constraint firstItem="ZCE-IP-9S5" firstAttribute="top" secondItem="Idy-vG-cCQ" secondAttribute="top" id="geR-fS-zUM"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Idy-vG-cCQ"/>
@@ -1075,7 +1075,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="SMq-hS-Y3Q">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1175,6 +1175,9 @@
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

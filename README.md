@@ -56,7 +56,7 @@
 
 ### 테스트
 * Rx : RxTest, RxBlocking
-* Unit : nimble
+* Unit : Nimble
 * UI : UITest (swift)
 * Application : Firebase Crashlytics, Analytics
 
@@ -73,7 +73,7 @@
 
 # 5. 업데이트 내역
 
-* 0.0.1
+* 1.0.1
 * Not yet (진행 중 : 버그 개선, 다크 모드 지원, 식사 CRUD관련 사용자 편의 개선, 위젯 추가, 랭킹 페이지 제작, 리팩토링, 로컬 노티피케이션 추가)
     
 
