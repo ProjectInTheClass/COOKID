@@ -12,7 +12,7 @@ class OnboardingViewModel: ViewModelType {
     
     let userService: UserService
     let mealService: MealService
-    
+    let shoppingService: ShoppingService
     let disposeBag = DisposeBag()
     
     struct Input {
@@ -30,9 +30,10 @@ class OnboardingViewModel: ViewModelType {
     
     var output: Output
     
-    init(userService: UserService, mealService: MealService) {
+    init(userService: UserService, mealService: MealService, shoppingService: ShoppingService) {
         self.userService = userService
         self.mealService = mealService
+        self.shoppingService = shoppingService
         
         let nickname = BehaviorSubject(value: "노네임")
         let monthlyGoal = BehaviorSubject(value: "00")

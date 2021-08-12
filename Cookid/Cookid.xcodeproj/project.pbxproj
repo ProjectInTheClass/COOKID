@@ -43,6 +43,11 @@
 		0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */; };
 		03E42EB826C412A8005D7B5E /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EB726C412A8005D7B5E /* CookidTests.swift */; };
 		03E42EC626C412C2005D7B5E /* CookidUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EC526C412C2005D7B5E /* CookidUITests.swift */; };
+		03E42ED126C41766005D7B5E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED026C41766005D7B5E /* MainCoordinator.swift */; };
+		03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */; };
+		03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */; };
+		03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */; };
+		03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */; };
 		241523B0269D093E0077941A /* ShoppingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523AF269D093E0077941A /* ShoppingService.swift */; };
 		241523B4269D24860077941A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523B3269D24860077941A /* Function.swift */; };
 		353BE569269C860E006A6A47 /* InputDataShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353BE568269C860E006A6A47 /* InputDataShoppingViewController.swift */; };
@@ -140,6 +145,11 @@
 		03E42EC326C412C2005D7B5E /* CookidUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E42EC526C412C2005D7B5E /* CookidUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidUITests.swift; sourceTree = "<group>"; };
 		03E42EC726C412C2005D7B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03E42ED026C41766005D7B5E /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingMainViewController.swift; sourceTree = "<group>"; };
+		03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewModel.swift; sourceTree = "<group>"; };
+		03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
 		241523AF269D093E0077941A /* ShoppingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingService.swift; sourceTree = "<group>"; };
 		241523B3269D24860077941A /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
@@ -231,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				032233B6269276920092DD6D /* Resources */,
+				03E42ECD26C4172E005D7B5E /* Coordinator */,
 				032233B02692765C0092DD6D /* Entity */,
 				032233B1269276680092DD6D /* Model */,
 				032233AF2692764F0092DD6D /* Repository */,
@@ -292,9 +303,9 @@
 			children = (
 				032233C92692A8310092DD6D /* onboarding */,
 				0395F6EB26B804780091BB29 /* Other */,
-				032233B7269276DB0092DD6D /* MainViewController.swift */,
-				032233BB269279DC0092DD6D /* MyMealViewController.swift */,
+				03E42EDB26C4F6A7005D7B5E /* Main */,
 				35160674269F2047008B7264 /* MyExpenseViewController */,
+				03E42ED426C4DBB0005D7B5E /* Ranking */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -424,6 +435,34 @@
 				03E42EC726C412C2005D7B5E /* Info.plist */,
 			);
 			path = CookidUITests;
+			sourceTree = "<group>";
+		};
+		03E42ECD26C4172E005D7B5E /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				03E42ED026C41766005D7B5E /* MainCoordinator.swift */,
+				03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */,
+				03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		03E42ED426C4DBB0005D7B5E /* Ranking */ = {
+			isa = PBXGroup;
+			children = (
+				03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */,
+				03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */,
+			);
+			path = Ranking;
+			sourceTree = "<group>";
+		};
+		03E42EDB26C4F6A7005D7B5E /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				032233B7269276DB0092DD6D /* MainViewController.swift */,
+				032233BB269279DC0092DD6D /* MyMealViewController.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		10D0AB71C5B71C6AD217376D /* Frameworks */ = {
@@ -714,11 +753,14 @@
 				032233C726927F0C0092DD6D /* DummyData.swift in Sources */,
 				C6BFF46226949AA7006295F5 /* Constant.swift in Sources */,
 				032233DE2693057C0092DD6D /* User.swift in Sources */,
+				03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */,
 				C6BFF4532694996B006295F5 /* Entities.swift in Sources */,
+				03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */,
 				032233BE26927A160092DD6D /* MyExpenseViewController.swift in Sources */,
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
 				032233D72692F0160092DD6D /* Extension.swift in Sources */,
 				032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */,
+				03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */,
 				353BE56B269D6A7C006A6A47 /* PanModalHeaderView.swift in Sources */,
 				C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */,
 				355A36B9269894A5001A5CD8 /* MyExpenseVC+TableView.swift in Sources */,
@@ -728,11 +770,13 @@
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
 				C64560C1269D4C0E009B249F /* DatePickerTextField.swift in Sources */,
 				C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */,
+				03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */,
 				DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */,
 				038875B126A030F300D5D202 /* MainViewController.swift in Sources */,
 				038875AE269FD7DA00D5D202 /* UserInformationViewController.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
+				03E42ED126C41766005D7B5E /* MainCoordinator.swift in Sources */,
 				035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */,
 				C64560BA269D4C04009B249F /* InputMealViewController.swift in Sources */,
 				353BE569269C860E006A6A47 /* InputDataShoppingViewController.swift in Sources */,

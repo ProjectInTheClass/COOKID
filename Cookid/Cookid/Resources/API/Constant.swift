@@ -5,7 +5,7 @@
 //  Created by 임현지 on 2021/07/06.
 //
 
-import Foundation
+import UIKit
 
 enum FBChild {
     static let groceries = "groceries"
@@ -30,4 +30,8 @@ public enum DefaultStyle {
             }
         }()
     }
+}
+
+enum CELL_IDENTIFIER {
+    static let rankingCell = "rankingCell"
 }

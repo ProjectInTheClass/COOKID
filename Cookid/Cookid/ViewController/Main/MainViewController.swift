@@ -14,6 +14,8 @@ import Firebase
 
 class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
+    // MARK: - IBOutlet
+    
     // userview
     @IBOutlet weak var etcView: UIView!
     @IBOutlet weak var userImage: UILabel!
@@ -25,6 +27,8 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     // buttonView
     @IBOutlet weak var addMealButton: UIButton!
     @IBOutlet weak var addShoppingButton: UIButton!
+    @IBOutlet weak var rankingButton: UIBarButtonItem!
+    
     
     // consumeView
     @IBOutlet weak var consumeView: UIView!
@@ -49,21 +53,20 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var monthSelectButton: UIButton!
     @IBOutlet weak var mealDayCollectionView: UICollectionView!
-    
-    
+
     // property
     
     var viewModel: MainViewModel!
+    var coordinator: HomeCoordinator?
+    
+    // MARK: - View LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
     
-    @IBAction func logout(_ sender: Any) {
-        viewModel.logoutUser()
-    }
-    
+    // MARK: - Functions
     
     private func configureUI() {
         addMealButton.layer.cornerRadius = 8
@@ -87,7 +90,13 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     func bindViewModel() {
         
-        //input
+        // MARK: - bindViewModel input
+        
+        rankingButton.rx.tap
+            .subscribe(onNext: { [unowned self] in
+                self.coordinator?.navigateRankingVC()
+            })
+            .disposed(by: rx.disposeBag)
         
         leftButton.rx.tap
             .subscribe(onNext: { [unowned self] in
@@ -107,56 +116,29 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         monthSelectButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                let vc = SelectCalendarViewController.instantiate(storyboardID: "Main")
-                vc.completionHandler = { date in
-                    let data = self.viewModel.mealService.fetchMealByDay(date)
-                    self.monthSelectButton.setTitle(data.0, for: .normal)
-                    self.viewModel.input.todayMeals.onNext(data.1)
-                }
-                vc.modalPresentationStyle = .overCurrentContext
-                vc.modalTransitionStyle = .crossDissolve
-                self.present(vc, animated: true, completion: nil)
+                coordinator?.navigateSelectCalendarVC(viewModel: self.viewModel, button: self.monthSelectButton)
             })
             .disposed(by: rx.disposeBag)
         
         addMealButton.rx.tap
-            .subscribe(onNext: { [unowned self] _ in
-                
-                // 식사 추가 뷰
-                let addMealViewModel = AddMealViewModel(mealService: self.viewModel.mealService, userService: self.viewModel.userService, mealID: UUID().uuidString)
-                var vc = AddMealViewController.instantiate(storyboardID: "Main")
-                vc.bind(viewModel: addMealViewModel)
-                vc.modalPresentationStyle = .custom
-                vc.modalTransitionStyle = .crossDissolve
-                vc.view.backgroundColor = .clear
-                self.present(vc, animated: true, completion: nil)
+            .subscribe(onNext: { [unowned self] in
+                coordinator?.navigateAddMealVC(viewModel: self.viewModel, meal: nil)
             })
             .disposed(by: rx.disposeBag)
         
         addShoppingButton.rx.tap
-            .subscribe(onNext: { [unowned self] _ in
-                let vc = InputDataShoppingViewController(service: self.viewModel.shoppingService)
-                vc.modalTransitionStyle = .crossDissolve
-                vc.modalPresentationStyle = .overFullScreen
-                vc.selectBtn(btnState: .saveBtnOn)
-                self.present(vc, animated: true, completion: nil)
-                
+            .subscribe(onNext: { [unowned self] in
+                coordinator?.navigateAddShoppingVC(viewModel: self.viewModel)
             })
             .disposed(by: rx.disposeBag)
         
         userInfoUpdateButton.rx.tap
-            .subscribe(onNext: { [unowned self] _ in
-                
-                var vc = UserInformationViewController.instantiate(storyboardID: "UserInfo")
-                vc.bind(viewModel: viewModel)
-                
-                vc.modalPresentationStyle = .overFullScreen
-                vc.modalTransitionStyle = .crossDissolve
-                self.present(vc, animated: true, completion: nil)
+            .subscribe(onNext: { [unowned self] in
+                coordinator?.navigateUserInfoVC(viewModel: self.viewModel)
             })
             .disposed(by: rx.disposeBag)
         
-        //output
+        // MARK: - bindViewModel output
         
         viewModel.output.userInfo
             .drive(onNext: { user in
@@ -170,7 +152,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                     self.userImage.text = "🍟"
                     self.userType.text = user.userType.rawValue
                 }
-                
             })
             .disposed(by: rx.disposeBag)
         
@@ -215,17 +196,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 self.mealDayCollectionView.deselectItem(at: indexPath, animated: false)
             })
             .subscribe(onNext: { [unowned self] meal, _ in
-                
-                // 식사 수정 뷰
-                let addMealViewModel = AddMealViewModel(mealService: self.viewModel.mealService, userService: self.viewModel.userService, mealID: meal.id)
-                var vc = AddMealViewController.instantiate(storyboardID: "Main")
-                vc.meal = meal
-                vc.bind(viewModel: addMealViewModel)
-                vc.modalTransitionStyle = .crossDissolve
-                vc.modalPresentationStyle = .overFullScreen
-                vc.view.backgroundColor = .clear
-                
-                self.present(vc, animated: true, completion: nil)
+                coordinator?.navigateAddMealVC(viewModel: self.viewModel, meal: meal)
             })
             .disposed(by: rx.disposeBag)
     }

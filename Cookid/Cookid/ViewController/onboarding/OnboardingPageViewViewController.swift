@@ -9,6 +9,8 @@ import UIKit
 
 class OnboardingPageViewViewController: UIPageViewController {
     
+    var coordinator: OnboardingCoordinator
+    
     var pages = [UIViewController]()
     
     let pagesControl = UIPageControl()
@@ -25,10 +27,14 @@ class OnboardingPageViewViewController: UIPageViewController {
     
     let userService: UserService
     let mealService: MealService
+    let shoppingService: ShoppingService
     
-    init(userService: UserService, mealService: MealService) {
+    init(coordinator: OnboardingCoordinator, userService: UserService, mealService: MealService, shoppingService: ShoppingService) {
+        self.coordinator = coordinator
         self.userService = userService
         self.mealService = mealService
+        self.shoppingService = shoppingService
+        
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
     
@@ -42,7 +48,7 @@ class OnboardingPageViewViewController: UIPageViewController {
         self.dataSource = self
         self.delegate = self
         
-        let viewModel = OnboardingViewModel(userService: userService, mealService: mealService)
+        let viewModel = OnboardingViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService)
         
         var firstPage = FirstPageViewController.instantiate(storyboardID: "Main")
         firstPage.bind(viewModel: viewModel)
@@ -55,6 +61,7 @@ class OnboardingPageViewViewController: UIPageViewController {
         
         var fourthPage = FourthPageViewController.instantiate(storyboardID: "Main")
         fourthPage.bind(viewModel: viewModel)
+        fourthPage.coordinator = coordinator
         
         pages.append(firstPage)
         pages.append(secondPage)

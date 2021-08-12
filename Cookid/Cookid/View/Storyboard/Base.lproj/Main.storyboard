@@ -441,10 +441,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="식비 목표 🏳️‍🌈" id="3gK-bs-I44">
-                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="mgW-ky-uOW">
-                            <connections>
-                                <action selector="logout:" destination="DBM-09-Loe" id="HyG-2V-mGT"/>
-                            </connections>
+                        <barButtonItem key="rightBarButtonItem" id="mgW-ky-uOW">
+                            <imageReference key="image" image="crown.fill" catalog="system" symbolScale="default"/>
+                            <color key="tintColor" systemColor="systemOrangeColor"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -465,6 +464,7 @@
                         <outlet property="monthLabel" destination="T18-5V-9VH" id="vXQ-OV-8Qb"/>
                         <outlet property="monthSelectButton" destination="sA6-F1-LpJ" id="CwK-xg-AW1"/>
                         <outlet property="priceGoalLabel" destination="Ged-O5-Zqv" id="Ob3-jq-jcd"/>
+                        <outlet property="rankingButton" destination="mgW-ky-uOW" id="dan-9g-ros"/>
                         <outlet property="rightButton" destination="dc4-Gl-Maz" id="ruz-Jf-yAB"/>
                         <outlet property="shoppingPrice" destination="oCv-uI-G9Y" id="xVf-3M-er0"/>
                         <outlet property="userDetermination" destination="OAO-bw-yzQ" id="fkg-D5-j2a"/>
@@ -1152,6 +1152,7 @@
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.left.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.right.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="crown.fill" catalog="system" width="128" height="92"/>
         <image name="flag.fill" catalog="system" width="128" height="121"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
@@ -1175,6 +1176,9 @@
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
