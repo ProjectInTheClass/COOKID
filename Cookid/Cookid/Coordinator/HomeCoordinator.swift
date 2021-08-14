@@ -34,6 +34,7 @@ class HomeCoordinator: CoordinatorType {
         mainNVC = UINavigationController(rootViewController: mainVC)
         
         mainVC.navigationController?.navigationBar.prefersLargeTitles = true
+        mainVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         
         var myMealVC = MyMealViewController.instantiate(storyboardID: "MyMealTap")
         myMealVC.bind(viewModel: MyMealViewModel(mealService: mealService, userService: userService))
@@ -44,6 +45,7 @@ class HomeCoordinator: CoordinatorType {
         myExpenseVC.bind(viewModel: MyExpenseViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
         let myExpenseNVC = UINavigationController(rootViewController: myExpenseVC)
         myExpenseVC.navigationController?.navigationBar.prefersLargeTitles = true
+        myExpenseVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         
         let tabBarController = UITabBarController()
         tabBarController.setViewControllers([mainNVC!, myMealNVC, myExpenseNVC], animated: false)
@@ -92,8 +94,8 @@ class HomeCoordinator: CoordinatorType {
         mainNVC?.present(vc, animated: true, completion: nil)
     }
     
-    func navigateRankingVC() {
-        let rankingViewModel = RankingViewModel()
+    func navigateRankingVC(viewModel: MainViewModel) {
+        let rankingViewModel = RankingViewModel(userService: viewModel.userService)
         var vc = RankingMainViewController()
         vc.bind(viewModel: rankingViewModel)
         vc.modalPresentationStyle = .automatic

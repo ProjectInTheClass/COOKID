@@ -9,16 +9,18 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import RxDataSources
 
-class RankingMainViewController: UIViewController, ViewModelBindable {
+class RankingMainViewController: UIViewController, ViewModelBindable, UITableViewDelegate, UIScrollViewDelegate {
     
     var viewModel: RankingViewModel!
     
     // MARK: - Properties
     
-    private let tableView: UITableView = {
-       let tv = UITableView()
-        tv.register(UITableViewCell.self, forCellReuseIdentifier: CELL_IDENTIFIER.rankingCell)
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.register(RankingTableViewCell.self, forCellReuseIdentifier: CELL_IDENTIFIER.rankingCell)
+        tv.separatorStyle = .none
         return tv
     }()
     
@@ -27,12 +29,13 @@ class RankingMainViewController: UIViewController, ViewModelBindable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureConstraints()
         configureUI()
     }
     
     // MARK: - Functions
     
-    private func configureUI() {
+    private func configureConstraints() {
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -43,11 +46,32 @@ class RankingMainViewController: UIViewController, ViewModelBindable {
         }
     }
     
+    private func configureUI() {
+        title = "Cookid Rank"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = RankingHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height),viewModel: self.viewModel)
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 200
+    }
+    
     func bindViewModel() {
+        
+        tableView.rx.setDelegate(self)
+            .disposed(by: rx.disposeBag)
         
         print("binding")
         // MARK: - BindViewModel Input
         
+        viewModel.output.topRanker
+            .bind(to: tableView.rx.items(dataSource: viewModel.dataSource))
+            .disposed(by: rx.disposeBag)
         
         
         // MARK: - BindViewModel Output
