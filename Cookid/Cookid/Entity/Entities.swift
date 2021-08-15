@@ -57,8 +57,9 @@ struct UserEntity: Codable {
 }
 
 struct UserAllEntity: Codable {
-    let groceries: [GroceryEntity]
-    let meal: [MealEntity]
+//    let groceries: [GroceryEntity]?
+//    let meal: [MealEntity]?
     let user: UserEntity
+    var totalCount: Int
     
 }

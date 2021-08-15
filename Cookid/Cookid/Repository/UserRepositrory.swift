@@ -87,34 +87,37 @@ class UserRepository {
             let values = snapshot.value as? [String:Any] ?? [:]
             for data in values {
                 let values = data.value as? [String:Any] ?? [:]
-                var groceries = [GroceryEntity]()
-                var meals = [MealEntity]()
+                var groceryCount = 0
+                var mealCount = 0
+                //var groceries = [GroceryEntity]()
+                //var meals = [MealEntity]()
                 var person: UserEntity?
                 for data in values {
                     if data.key == "meal" {
                         let snapshotValue = data.value as? [String:Any] ?? [:]
-                        for value in snapshotValue.values {
-                            let dic = value as! [String:Any]
-                            let meal = MealEntity(mealDic: dic)
-                            meals.append(meal)
+                        for _ in snapshotValue.values {
+                            mealCount += 1
+                            //let dic = value as! [String:Any]
+                            //let meal = MealEntity(mealDic: dic)
+                            //meals.append(meal)
                         }
                     }else if data.key == "groceries" {
                         let snapshotValue = data.value as? [String:Any] ?? [:]
-                        for value in snapshotValue.values {
-                            let dic = value as! [String:Any]
-                            let meal = GroceryEntity(groceriesDic: dic)
-                            groceries.append(meal)
+                        for _ in snapshotValue.values {
+                            groceryCount += 1
+                            //let dic = value as! [String:Any]
+                            //let meal = GroceryEntity(groceriesDic: dic)
+                            //groceries.append(meal)
                         }
-                    }else {
+                    }else{
                         let snapshotValue = data.value as? [String:Any] ?? [:]
                         person = UserEntity(userDic: snapshotValue)
                     }
                 }
-                allUsers.append(UserAllEntity(groceries: groceries, meal: meals, user: person!))
+                allUsers.append(UserAllEntity(user: person!, totalCount: groceryCount + mealCount))
             }
-            
             completion(allUsers)
-            
         }
     }
 }
+
