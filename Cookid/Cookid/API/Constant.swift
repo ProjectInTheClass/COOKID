@@ -34,4 +34,9 @@ public enum DefaultStyle {
 
 enum CELL_IDENTIFIER {
     static let rankingCell = "rankingCell"
+    static let rankingHeaderView = "rankingHeaderView"
+}
+
+enum NetWorkingError : String, Error {
+    case fetchError = "서버에서 유저 정보를 가져오는데 실패했습니다."
 }

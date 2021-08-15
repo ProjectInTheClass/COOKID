@@ -76,7 +76,8 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         mainVC.bind(viewModel: MainViewModel(mealService: viewModel.mealService, userService: viewModel.userService, shoppingService: viewModel.shoppingService))
         let mainNVC = UINavigationController(rootViewController: mainVC)
         mainVC.navigationController?.navigationBar.prefersLargeTitles = true
-
+        mainVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
+        
         var myMealVC = MyMealViewController.instantiate(storyboardID: "MyMealTap")
         myMealVC.bind(viewModel: MyMealViewModel(mealService: viewModel.mealService, userService: viewModel.userService))
         let myMealNVC = UINavigationController(rootViewController: myMealVC)
@@ -86,6 +87,7 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         myExpenseVC.bind(viewModel: MyExpenseViewModel(mealService: viewModel.mealService, userService: viewModel.userService, shoppingService: viewModel.shoppingService))
         let myExpenseNVC = UINavigationController(rootViewController: myExpenseVC)
         myExpenseVC.navigationController?.navigationBar.prefersLargeTitles = true
+        myExpenseVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
 
         let tabBarController = UITabBarController()
         tabBarController.setViewControllers([mainNVC, myMealNVC, myExpenseNVC], animated: false)
@@ -109,7 +111,6 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
                 print(error.localizedDescription)
             }
         }
-        
         let content = UNMutableNotificationContent()
         content.title = "새로운 달입니다!"
         content.body = "새로운 가계부 진행시켜 🏃‍♀️"
