@@ -109,7 +109,6 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
                 print(error.localizedDescription)
             }
         }
-        
         let content = UNMutableNotificationContent()
         content.title = "새로운 달입니다!"
         content.body = "새로운 가계부 진행시켜 🏃‍♀️"

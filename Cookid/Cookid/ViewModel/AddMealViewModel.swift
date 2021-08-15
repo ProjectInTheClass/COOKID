@@ -42,7 +42,8 @@ class AddMealViewModel: ViewModelType, HasDisposeBag {
         self.mealService = mealService
         
         print(mealID)
-       
+       //왜항상 비헤이비어일까?
+    //모델은 왜 클래스여야할까?
         let mealURL = BehaviorSubject<URL?>(value: nil)
         let isDineIn = BehaviorSubject<Bool>(value: false)
         let mealName = BehaviorSubject<String>(value: "")

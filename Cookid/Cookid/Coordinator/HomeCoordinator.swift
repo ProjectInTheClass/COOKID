@@ -84,14 +84,6 @@ class HomeCoordinator: CoordinatorType {
         mainNVC?.present(vc, animated: true, completion: nil)
     }
     
-    func navigateUserInfoVC(viewModel: MainViewModel) {
-        var vc = UserInformationViewController.instantiate(storyboardID: "UserInfo")
-        vc.bind(viewModel: viewModel)
-        vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        mainNVC?.present(vc, animated: true, completion: nil)
-    }
-    
     func navigateRankingVC() {
         let rankingViewModel = RankingViewModel()
         var vc = RankingMainViewController()
@@ -100,5 +92,14 @@ class HomeCoordinator: CoordinatorType {
         mainNVC?.pushViewController(vc, animated: true)
     }
     
+    func navigateUserInfoVC(viewModel: MainViewModel) {
+        let userUpdateViewModel = UserInfoUpdateViewModel(userService: viewModel.userService)
+        var userInfoVC = UserInformationViewController.instantiate(storyboardID: "UserInfo")
+        userInfoVC.bind(viewModel: userUpdateViewModel)
+        userInfoVC.modalPresentationStyle = .custom
+        userInfoVC.modalTransitionStyle = .crossDissolve
+       
+        mainNVC?.present(userInfoVC, animated: true, completion: nil)
+    }
     
 }

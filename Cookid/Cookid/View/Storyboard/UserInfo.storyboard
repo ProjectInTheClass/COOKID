@@ -25,7 +25,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOb-Is-Afd">
-                                <rect key="frame" x="57" y="223" width="300" height="450"/>
+                                <rect key="frame" x="57" y="222" width="300" height="450"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로집밥러님 🏳️‍🌈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MY4-zB-9jh">
                                         <rect key="frame" x="30" y="40" width="132.5" height="24"/>
@@ -113,19 +113,21 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.63" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.6101331900287148" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cOb-Is-Afd" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Are-nV-tBc"/>
                             <constraint firstItem="1vc-HQ-G0M" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="NF5-UD-kR8"/>
                             <constraint firstAttribute="bottom" secondItem="1vc-HQ-G0M" secondAttribute="bottom" id="V4i-t8-0WB"/>
                             <constraint firstItem="1vc-HQ-G0M" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="XJM-81-c13"/>
                             <constraint firstAttribute="trailing" secondItem="1vc-HQ-G0M" secondAttribute="trailing" id="ZFa-Fx-u7G"/>
-                            <constraint firstItem="cOb-Is-Afd" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="mkd-7H-6LL"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="cOb-Is-Afd" secondAttribute="trailing" constant="57" id="d2d-2q-EHv"/>
+                            <constraint firstItem="cOb-Is-Afd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="57" id="pxI-vr-1Yy"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="cOb-Is-Afd" secondAttribute="bottom" constant="190" id="rn5-cH-ZCn"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="budgetLimitLabel" destination="KvR-I7-3CE" id="E0w-sx-dco"/>
                         <outlet property="budgetTextField" destination="nrf-vb-cld" id="qOu-Wb-Sn8"/>
+                        <outlet property="inputViewBottom" destination="rn5-cH-ZCn" id="jjO-vz-oMd"/>
                         <outlet property="newDeterminationLabel" destination="9M6-G2-cBi" id="itm-sI-9zT"/>
                         <outlet property="newDeterminationTextField" destination="ZUi-et-xQX" id="hkl-0t-iHo"/>
                         <outlet property="nickNameLabel" destination="MY4-zB-9jh" id="hzb-cE-oYR"/>

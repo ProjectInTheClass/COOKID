@@ -40,8 +40,9 @@ class UserService {
         userInfo.onNext(defaultUserInfo)
     }
     
-    func updateUserInfo(user: User) {
+    func updateUserInfo(user: User, completion: @escaping ((Bool) -> Void)) {
         userRepository.updateUserInfo(user: user)
+        completion(true)
         self.defaultUserInfo = user
         self.userInfo.onNext(user)
     }
