@@ -9,24 +9,21 @@ import UIKit
 import FSCalendar
 import SnapKit
 import Then
+import RxSwift
 
-class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBased {
-        
+class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBased, UIScrollViewDelegate {
+  
     var viewModel: MyExpenseViewModel!
+    
+    var dineOutMeals = [Meal]()
+    var dineInMeals = [Meal]()
+    var shoppings = [GroceryShopping]()
+    
     
     @IBOutlet weak var averageExpenseLabel: UILabel!
     @IBOutlet weak var calendar: FSCalendar!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var listTableView: UITableView!
     @IBOutlet var calendarHeightConstraint: NSLayoutConstraint!
-    
-    var shopping : [GroceryShopping] = []
-    var dineOutMeals : [Meal] = []
-    var dineInMeals : [Meal] = []
-    
-    var data : [element] = []
-    var selectedDineInMeals : [Meal] = []
-    var selectedDineOutMeals : [Meal] = []
-    var selectedShopping : [GroceryShopping] = []
     
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -37,14 +34,12 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraint()
-        fetchShopping()
-        fetchMeals()
         configureNavTab()
+        bindViewModel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateData(dates: [Date()])
     }
     
     private func configureNavTab() {
@@ -56,26 +51,51 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     }
     
     func bindViewModel() {
+        
+        Observable.of(calendar.selectedDates)
+         .bind(to: viewModel.input.selectedDates)
+         .disposed(by: rx.disposeBag)
+        
         viewModel.output.averagePrice
             .drive(onNext: { str in
                 self.averageExpenseLabel.text = str
             })
             .disposed(by: rx.disposeBag)
-        viewModel.output.updateShoppingList
-            .drive(onNext: { [unowned self] (meals, shoppings) in
-                
-                self.dineOutMeals = meals.filter{$0.mealType == .dineOut}
-                self.dineInMeals = meals.filter{$0.mealType == .dineIn}
-                self.shopping = shoppings
-                
-                guard let selectedDate = calendar.selectedDate else { return }
+        
+        viewModel.output.updateData
+            .drive(onNext: { [unowned self] (dineOutMeals, dineInMeals, shoppings) in
 
-                updateData(dates: [selectedDate])
+                self.dineOutMeals = dineOutMeals
+                self.dineInMeals = dineInMeals
+                self.shoppings = shoppings
                 
-                self.tableView.reloadData()
-                self.calendar.reloadData()
+                calendar.reloadData()
             })
             .disposed(by: rx.disposeBag)
+        
+        viewModel.output.updateDataBySelectedDates
+            .drive( onNext: { dineOutMeals, dineInMeals, shoppings in
+                Observable.of(dineOutMeals)
+                    .bind(to: self.listTableView.rx.items(cellIdentifier: "ExpenseTableViewCell", cellType: ExpenseTableViewCell.self)) { row, element, cell in
+                        cell.updateUI(title: "\(element.price)원", date: element.date.dateToString())
+                    }
+                    .disposed(by: self.rx.disposeBag)
+                Observable.of(dineInMeals)
+                    .bind(to: self.listTableView.rx.items(cellIdentifier: "ExpenseTableViewCell", cellType: ExpenseTableViewCell.self)) { row, element, cell in
+                        cell.updateUI(title: "\(element.price)원", date: element.date.dateToString())
+                    }
+                    .disposed(by: self.rx.disposeBag)
+                Observable.of(shoppings)
+                    .bind(to: self.listTableView.rx.items(cellIdentifier: "ExpenseTableViewCell", cellType: ExpenseTableViewCell.self)) { row, element, cell in
+                        cell.updateUI(title: "\(element.totalPrice)원", date: element.date.dateToString())
+                    }
+                    .disposed(by: self.rx.disposeBag)
+            })
+            .disposed(by: rx.disposeBag)
+        
+//        listTableView.rx.setDelegate(self)
+//            .disposed(by: rx.disposeBag)
+
     }
     
     deinit {
@@ -93,7 +113,7 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     }()
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let shouldBegin = self.tableView.contentOffset.y <= -self.tableView.contentInset.top
+        let shouldBegin = self.listTableView.contentOffset.y <= -self.listTableView.contentInset.top
         if shouldBegin {
             let velocity = self.scopeGesture.velocity(in: self.view)
             switch self.calendar.scope {
@@ -115,12 +135,12 @@ extension MyExpenseViewController {
         self.calendar.delegate = self
         self.calendar.dataSource = self
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+//        self.tableView.delegate = self
+//        self.tableView.dataSource = self
         calendar.makeShadow()
         
         self.view.addGestureRecognizer(self.scopeGesture)
-        self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
+        self.listTableView.panGestureRecognizer.require(toFail: self.scopeGesture)
         
         self.calendar.backgroundColor = .white
         self.calendar.appearance.headerDateFormat = "yyyy년 MM월"
@@ -131,69 +151,7 @@ extension MyExpenseViewController {
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         self.calendar.appearance.titleTodayColor = .black
         
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.estimatedRowHeight = UITableView.automaticDimension
-        self.tableView.register(ExpenseTableViewCell.self, forCellReuseIdentifier: ExpenseTableViewCell.identifier)
+        self.listTableView.rowHeight = UITableView.automaticDimension
+        self.listTableView.estimatedRowHeight = UITableView.automaticDimension
     }
-}
-
-extension MyExpenseViewController {
-    func fetchShopping() {
-        viewModel.userService.loadUserInfo { [unowned self] user in
-            self.viewModel.shoppingService.fetchGroceries(user: user, completion: { shoppings in
-                self.shopping = shoppings
-            })
-        }
-    }
-    
-    func fetchMeals() {
-        viewModel.userService.loadUserInfo { [unowned self] user in
-            self.viewModel.mealService.fetchMeals(user: user, completion: { meals in
-                self.dineOutMeals = meals.filter{$0.mealType == .dineOut}
-                self.dineInMeals = meals.filter{$0.mealType == .dineIn}
-            })
-        }
-    }
-    
-    func findSelectedDateMeal (meals : [Meal], selectedDate : [Date]) -> [Meal] {
-        var mealArr : [Meal] = []
-        
-        for date in selectedDate {
-            mealArr = meals.filter{ $0.date.dateToString() == date.dateToString()}
-        }
-        return mealArr
-    }
-    
-    func findSelectedDateShopping (shoppings : [GroceryShopping], selectedDate : [Date]) -> [GroceryShopping] {
-        var shoppingArr : [GroceryShopping] = []
-        
-        for date in selectedDate {
-            shoppingArr = shoppings.filter{$0.date.dateToString() == date.dateToString()}
-        }
-        return shoppingArr
-    }
-    
-    func updateData (dates: [Date]) {
-        data.removeAll()
-        selectedDineOutMeals = findSelectedDateMeal(meals : self.dineOutMeals, selectedDate: dates).sorted{$0.date > $1.date}
-        selectedDineInMeals = findSelectedDateMeal(meals : self.dineInMeals, selectedDate: dates).sorted{$0.date > $1.date}
-        selectedShopping = findSelectedDateShopping(shoppings : self.shopping, selectedDate: dates).sorted{$0.date > $1.date}
-        
-        let dineOutElement = element(name: "외식", selected: selectedDineOutMeals)
-        let dineInElement = element(name: "집밥", selected: selectedDineInMeals)
-        let shoppingElement = element(name: "마트털이", selected: selectedShopping)
-        
-        let dataArr = [dineOutElement, dineInElement, shoppingElement]
-        
-        for i in 0...2 {
-            if !dataArr[i].selected.isEmpty {
-                data.append(dataArr[i])
-            }
-        }
-    }
-}
-
-struct element {
-   var name : String
-   var selected : [Any]
 }

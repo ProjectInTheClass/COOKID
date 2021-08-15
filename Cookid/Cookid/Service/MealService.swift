@@ -219,7 +219,6 @@ class MealService {
         
         return [breakfastNum, brunchNum, lunchNum, lundinnerNum, dinnerNum, snackNum]
     }
-  
     
     func checkSpendPace(meals: [Meal], user: User, shoppings: [GroceryShopping]) -> String{
         

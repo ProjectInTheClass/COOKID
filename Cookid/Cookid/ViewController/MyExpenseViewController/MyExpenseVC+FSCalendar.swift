@@ -11,7 +11,7 @@ import FSCalendar
 
 //MARK: - FSCalendar Setup
 extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppearance, FSCalendarDataSource, UIGestureRecognizerDelegate{
-    
+        
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         self.calendarHeightConstraint.constant = bounds.height
         self.view.layoutIfNeeded()
@@ -19,29 +19,19 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
 
-        self.updateData(dates: calendar.selectedDates)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
     }
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        updateData(dates: calendar.selectedDates)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-       
         
         let isOut = dineOutMeals.map({$0.date.dateToString()}).contains(date.dateToString())
         let isIn = dineInMeals.map({$0.date.dateToString()}).contains(date.dateToString())
-        let isShop = shopping.map({$0.date.dateToString()}).contains(date.dateToString())
+        let isShop = shoppings.map({$0.date.dateToString()}).contains(date.dateToString())
         
         if isOut && isIn && isShop {
             return #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
