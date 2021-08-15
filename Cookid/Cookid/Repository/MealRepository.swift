@@ -32,7 +32,6 @@ class MealRepository {
         monthFilterQuery?.observeSingleEvent(of: .value) { snapshot in
             
             let snapshotValue = snapshot.value as? [String:Any] ?? [:]
-            //let uidKey = snapshotValue.keys
             var mealEntity = [MealEntity]()
             
             for value in snapshotValue.values {

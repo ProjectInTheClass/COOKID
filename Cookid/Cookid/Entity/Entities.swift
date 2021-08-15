@@ -55,3 +55,10 @@ struct UserEntity: Codable {
         self.userId = userDic["userId"] as? String ?? ""
     }
 }
+
+struct UserAllEntity: Codable {
+    let groceries: [GroceryEntity]
+    let meal: [MealEntity]
+    let user: UserEntity
+    
+}

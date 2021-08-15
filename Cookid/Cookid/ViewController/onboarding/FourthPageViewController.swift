@@ -61,6 +61,7 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
                 self?.viewModel.registrationUser(completion: { (success, user) in
                     if success {
                         self?.view.window?.rootViewController?.dismiss(animated: false, completion: {
+                            LocalNotificationManager.setNotification()
                             self?.setRootViewController(user: user)
                         })
                     }
@@ -100,34 +101,6 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         rootVC?.present(tabBarController, animated: true, completion: { [weak self] in
             self?.viewModel.userService.uploadUserInfo(user: user)
         })
-    }
-    
-    
-    private func setNotification(){
-        
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.badge, .badge]) { granted, error in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-        let content = UNMutableNotificationContent()
-        content.title = "새로운 달입니다!"
-        content.body = "새로운 가계부 진행시켜 🏃‍♀️"
-        
-        var datComp = DateComponents()
-        datComp.day = 1
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: datComp, repeats: true)
-        
-        let uuidString = UUID().uuidString
-        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-        
-        center.add(request) { (error) in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        }
     }
 
 }
