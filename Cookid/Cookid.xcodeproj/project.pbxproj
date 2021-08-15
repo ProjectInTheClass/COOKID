@@ -48,6 +48,8 @@
 		03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */; };
 		03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */; };
 		03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */; };
+		03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */; };
+		03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */; };
 		241523B0269D093E0077941A /* ShoppingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523AF269D093E0077941A /* ShoppingService.swift */; };
 		241523B4269D24860077941A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523B3269D24860077941A /* Function.swift */; };
 		353BE569269C860E006A6A47 /* InputDataShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353BE568269C860E006A6A47 /* InputDataShoppingViewController.swift */; };
@@ -150,6 +152,8 @@
 		03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingMainViewController.swift; sourceTree = "<group>"; };
 		03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewModel.swift; sourceTree = "<group>"; };
 		03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
+		03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHeaderView.swift; sourceTree = "<group>"; };
+		03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingTableViewCell.swift; sourceTree = "<group>"; };
 		0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
 		241523AF269D093E0077941A /* ShoppingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingService.swift; sourceTree = "<group>"; };
 		241523B3269D24860077941A /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
@@ -241,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				032233B6269276920092DD6D /* Resources */,
+				032233D52692F00B0092DD6D /* API */,
 				03E42ECD26C4172E005D7B5E /* Coordinator */,
 				032233B02692765C0092DD6D /* Entity */,
 				032233B1269276680092DD6D /* Model */,
@@ -278,7 +283,6 @@
 		032233B1269276680092DD6D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				032233C526927EF90092DD6D /* DummyData */,
 				032233B9269277520092DD6D /* Meal.swift */,
 				032233DD2693057C0092DD6D /* User.swift */,
 			);
@@ -323,7 +327,6 @@
 			isa = PBXGroup;
 			children = (
 				0395F6EA26B8041E0091BB29 /* Depreacated */,
-				032233D52692F00B0092DD6D /* API */,
 				032233D42692D52A0092DD6D /* Font */,
 				032233A4269212870092DD6D /* Assets.xcassets */,
 				0339575026A2C96100594515 /* boardingImage */,
@@ -378,6 +381,7 @@
 				032233E826934F180092DD6D /* Protocol.swift */,
 				C6BFF46126949AA7006295F5 /* Constant.swift */,
 				241523B3269D24860077941A /* Function.swift */,
+				032233C526927EF90092DD6D /* DummyData */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -452,6 +456,8 @@
 			children = (
 				03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */,
 				03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */,
+				03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */,
+				03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */,
 			);
 			path = Ranking;
 			sourceTree = "<group>";
@@ -731,6 +737,7 @@
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
+				03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */,
 				241523B0269D093E0077941A /* ShoppingService.swift in Sources */,
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
 				037AC1A826B98B48009509CF /* PictureSelectCollectionViewController.swift in Sources */,
@@ -776,6 +783,7 @@
 				038875AE269FD7DA00D5D202 /* UserInformationViewController.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
+				03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */,
 				03E42ED126C41766005D7B5E /* MainCoordinator.swift in Sources */,
 				035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */,
 				C64560BA269D4C04009B249F /* InputMealViewController.swift in Sources */,

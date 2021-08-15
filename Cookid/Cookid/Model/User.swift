@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxDataSources
 
 struct User {
     var userID: String
@@ -18,4 +19,21 @@ struct User {
 enum UserType: String {
     case preferDineOut = "외식러"
     case preferDineIn = "집밥러"
+}
+
+struct UserSection {
+    var header: UIView
+    var items: [User]
+    
+    init(header: UIView, items: [User]) {
+        self.header = header
+        self.items = items
+    }
+}
+
+extension UserSection : SectionModelType {
+    init(original: UserSection, items: [User]) {
+        self = original
+        self.items = items
+    }
 }

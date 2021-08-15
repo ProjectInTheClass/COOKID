@@ -442,8 +442,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="식비 목표 🏳️‍🌈" id="3gK-bs-I44">
                         <barButtonItem key="rightBarButtonItem" id="mgW-ky-uOW">
-                            <imageReference key="image" image="crown.fill" catalog="system" symbolScale="default"/>
-                            <color key="tintColor" systemColor="systemOrangeColor"/>
+                            <imageReference key="image" image="crown.fill" catalog="system" symbolScale="large"/>
+                            <color key="tintColor" red="1" green="0.81958854199999998" blue="0.39819815749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -1176,9 +1176,6 @@
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

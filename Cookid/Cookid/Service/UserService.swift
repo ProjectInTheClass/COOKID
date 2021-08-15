@@ -46,5 +46,9 @@ class UserService {
         self.defaultUserInfo = user
         self.userInfo.onNext(user)
     }
+    
+    func fetchTopRanker(completion: @escaping ([User]?, Error?)->Void) {
+        completion(DummyData.shared.rankers, nil)
+    }
 
 }
