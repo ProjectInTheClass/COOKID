@@ -67,9 +67,9 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         LocalNotificationManager.setNotification()
         
-        UserRepository.shared.fetchUsers { userall in
-            print(userall)
-        }
+//        UserRepository.shared.fetchUsers { userall in
+//            print(userall)
+//        }
     }
     
     // MARK: - Functions

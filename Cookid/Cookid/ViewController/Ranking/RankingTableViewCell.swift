@@ -87,13 +87,13 @@ class RankingTableViewCell: UITableViewCell {
         }
     }
     
-    public func updateUI(user: User) {
+    public func updateUI(user: UserForRanking) {
         
         userName.text = user.nickname
         userType.text = "#" + user.userType.rawValue
         userDetermine.text = user.determination
         // 추후에 업데이트
-        dineInCount.text = "10"
+        dineInCount.text = "\(user.groceryMealSum)"
         
         switch user.userType {
         case .preferDineIn:

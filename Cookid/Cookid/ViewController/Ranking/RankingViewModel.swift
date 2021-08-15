@@ -19,6 +19,7 @@ class RankingViewModel: ViewModelType {
     
     struct Output {
         let topRanker: BehaviorSubject<[UserSection]>
+        let allSortedUsers: Observable<[UserForRanking]>
     }
     
     var input: Input
@@ -28,8 +29,9 @@ class RankingViewModel: ViewModelType {
         self.userService = userService
         
         let topRanker = BehaviorSubject<[UserSection]>(value: [])
+        let allSortedUsers = userService.sortedUsers()
         
-        userService.fetchTopRanker { users, error in
+        userService.makeRanking { users, error in
             if let error = error {
                 print(error)
             } else {
@@ -39,9 +41,8 @@ class RankingViewModel: ViewModelType {
             }
         }
         
-        
         self.input = Input()
-        self.output = Output(topRanker: topRanker)
+        self.output = Output(topRanker: topRanker, allSortedUsers: allSortedUsers)
     }
     
     let dataSource: RxTableViewSectionedReloadDataSource<UserSection> = {
