@@ -15,7 +15,11 @@ class UserService {
     
     private var defaultUserInfo =  User(userID: "", nickname: "비회원", determination: "유저 정보를 입력한 후에 사용해 주세요.", priceGoal: "0", userType: .preferDineIn)
     
+    private var userSortedArr = [UserForRanking]()
+    
     private lazy var userInfo = BehaviorSubject<User>(value: defaultUserInfo)
+    private lazy var userSorted = BehaviorSubject<[UserForRanking]>(value: userSortedArr)
+    
     
     init(userRepository: UserRepository) {
         self.userRepository = userRepository
@@ -28,6 +32,10 @@ class UserService {
             self.userInfo.onNext(user)
             completion(user)
         }
+    }
+    
+    func sortedUsers() -> Observable<[UserForRanking]> {
+        return userSorted
     }
     
     func user() -> Observable<User> {
@@ -47,8 +55,28 @@ class UserService {
         self.userInfo.onNext(user)
     }
     
-    func fetchTopRanker(completion: @escaping ([User]?, Error?)->Void) {
-        completion(DummyData.shared.rankers, nil)
+//    func fetchTopRanker(completion: @escaping ([UserForRanking]?, Error?)->Void) {
+//        completion(, nil)
+//    }
+    
+    func makeRanking(completion: @escaping ([UserForRanking]?, Error?)->Void){
+        
+        userRepository.fetchUsers { allEntities in
+            
+            let allUserSotred = allEntities.map { userAllEntity -> UserForRanking in
+                
+                let nickName = userAllEntity.user.nickname
+                let determination = userAllEntity.user.determination
+                let userType = UserType(rawValue: userAllEntity.user.userType)!
+                let sum = userAllEntity.groceries.count + userAllEntity.meal.count
+                
+                return UserForRanking(nickname: nickName, userType: userType, determination: determination, groceryMealSum: sum)
+            }.sorted { user1, user2 in
+                user1.groceryMealSum > user2.groceryMealSum
+            }
+            self.userSortedArr = allUserSotred
+            self.userSorted.onNext(allUserSotred)
+            completion(allUserSotred, nil)
+        }
     }
-
 }

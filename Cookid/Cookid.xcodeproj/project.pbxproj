@@ -82,6 +82,7 @@
 		C6BFF46026949A71006295F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6BFF45F26949A71006295F5 /* GoogleService-Info.plist */; };
 		C6BFF46226949AA7006295F5 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF46126949AA7006295F5 /* Constant.swift */; };
 		DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1982EE269BF7D30055742B /* UserInfo.storyboard */; };
+		DB61715226C9577B008F497C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61715126C9577B008F497C /* NotificationManager.swift */; };
 		DB972BC4269FD81E00143CCC /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1982EC269BF3660055742B /* UserInformationViewController.swift */; };
 		DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDA046726969A6500B5C1D6 /* UserService.swift */; };
 		DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */; };
@@ -185,6 +186,7 @@
 		DB0D7D7326949818009B2D51 /* MealService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MealService.swift; path = COOKID/Service/MealService.swift; sourceTree = SOURCE_ROOT; };
 		DB1982EC269BF3660055742B /* UserInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationViewController.swift; sourceTree = "<group>"; };
 		DB1982EE269BF7D30055742B /* UserInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UserInfo.storyboard; path = ../../../COOKID/View/Storyboard/UserInfo.storyboard; sourceTree = "<group>"; };
+		DB61715126C9577B008F497C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		DBDA046726969A6500B5C1D6 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = COOKID/Service/UserService.swift; sourceTree = SOURCE_ROOT; };
 		DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -382,6 +384,7 @@
 				C6BFF46126949AA7006295F5 /* Constant.swift */,
 				241523B3269D24860077941A /* Function.swift */,
 				032233C526927EF90092DD6D /* DummyData */,
+				DB61715126C9577B008F497C /* NotificationManager.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				355A36B726989461001A5CD8 /* MyExpenseVC+FSCalendar.swift in Sources */,
 				032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */,
 				355A36BB2698956F001A5CD8 /* ExpenseTableViewCell.swift in Sources */,
+				DB61715226C9577B008F497C /* NotificationManager.swift in Sources */,
 				C64560B6269D4BEF009B249F /* ModifyMealViewForAvailable.swift in Sources */,
 				C64560B5269D4BEF009B249F /* ModifyMealView.swift in Sources */,
 				353BE570269D72B7006A6A47 /* InputDataTableViewCell.swift in Sources */,
