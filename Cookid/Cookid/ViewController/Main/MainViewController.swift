@@ -152,13 +152,12 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .drive(onNext: { user in
                 self.userNickname.text = user.nickname
                 self.userDetermination.text = user.determination
+                self.userType.text = user.userType.rawValue
                 switch user.userType {
                 case .preferDineIn:
                     self.userImage.text = "🍚"
-                    self.userType.text = user.userType.rawValue
                 case .preferDineOut:
                     self.userImage.text = "🍟"
-                    self.userType.text = user.userType.rawValue
                 }
             })
             .disposed(by: rx.disposeBag)

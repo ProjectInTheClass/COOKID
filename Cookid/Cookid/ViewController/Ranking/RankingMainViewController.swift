@@ -11,7 +11,7 @@ import RxCocoa
 import SnapKit
 import RxDataSources
 
-class RankingMainViewController: UIViewController, ViewModelBindable, UITableViewDelegate, UIScrollViewDelegate {
+class RankingMainViewController: UIViewController, ViewModelBindable {
     
     var viewModel: RankingViewModel!
     
@@ -49,17 +49,9 @@ class RankingMainViewController: UIViewController, ViewModelBindable, UITableVie
     private func configureUI() {
         title = "Cookid Rank"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = RankingHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height),viewModel: self.viewModel)
-        return headerView
-    }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 200
-    }
     
     func bindViewModel() {
         
@@ -79,5 +71,17 @@ class RankingMainViewController: UIViewController, ViewModelBindable, UITableVie
         
     }
     
+}
+
+extension RankingMainViewController: UITableViewDelegate, UIScrollViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = RankingHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height),viewModel: self.viewModel)
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 200
+    }
     
 }

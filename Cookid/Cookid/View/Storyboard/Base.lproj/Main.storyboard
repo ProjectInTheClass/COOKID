@@ -144,7 +144,7 @@
                                                         <rect key="frame" x="0.0" y="205" width="374" height="70"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Lww-Oh-4j0">
-                                                                <rect key="frame" x="72.5" y="17" width="229.5" height="36"/>
+                                                                <rect key="frame" x="84" y="17" width="206.5" height="36"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wr-vJ-FR0">
                                                                         <rect key="frame" x="0.0" y="0.0" width="11.5" height="36"/>
@@ -153,13 +153,13 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 흠... 너무 많이 쓰신듯.. 한데.." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HHB-h6-DK9">
-                                                                        <rect key="frame" x="16.5" y="0.0" width="196.5" height="36"/>
-                                                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                                                        <rect key="frame" x="16.5" y="0.0" width="173.5" height="36"/>
+                                                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajl-ns-vEd">
-                                                                        <rect key="frame" x="218" y="0.0" width="11.5" height="36"/>
+                                                                        <rect key="frame" x="195" y="0.0" width="11.5" height="36"/>
                                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="30"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -1100,17 +1100,17 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vId-73-LEb" customClass="FSCalendar">
-                                <rect key="frame" x="57" y="298" width="300" height="300"/>
+                                <rect key="frame" x="57" y="268" width="300" height="360"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="80Y-6C-OQY"/>
-                                    <constraint firstAttribute="width" constant="300" id="NdK-bp-Ih1"/>
+                                    <constraint firstAttribute="width" secondItem="vId-73-LEb" secondAttribute="height" multiplier="1:1.2" id="Fzh-CY-l2I"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MiF-Jx-iSL"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="vId-73-LEb" firstAttribute="width" secondItem="Ex9-FZ-ZPv" secondAttribute="width" multiplier="0.724638" id="Bvr-RN-hXW"/>
                             <constraint firstItem="PQN-v2-g3u" firstAttribute="leading" secondItem="MiF-Jx-iSL" secondAttribute="leading" id="FFv-Ty-M3C"/>
                             <constraint firstItem="MiF-Jx-iSL" firstAttribute="trailing" secondItem="PQN-v2-g3u" secondAttribute="trailing" id="GVw-J0-3uq"/>
                             <constraint firstItem="PQN-v2-g3u" firstAttribute="top" secondItem="MiF-Jx-iSL" secondAttribute="top" id="Mwj-yu-qis"/>
