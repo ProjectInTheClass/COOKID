@@ -213,10 +213,13 @@ class RankingHeaderView: UIView, HasDisposeBag {
             .bind(onNext: { [weak self] userSection in
                 self?.ranker1Name.text = userSection[0].items[0].nickname
                 self?.ranker1Type.text = "# " + userSection[0].items[0].userType.rawValue
+                self?.ranker1Record.text = "\(userSection[0].items[0].groceryMealSum)"
                 self?.ranker2Name.text = userSection[0].items[1].nickname
                 self?.ranker2Type.text = "# " + userSection[0].items[1].userType.rawValue
+                self?.ranker2Record.text = "\(userSection[0].items[1].groceryMealSum)"
                 self?.ranker3Name.text = userSection[0].items[2].nickname
                 self?.ranker3Type.text = "# " + userSection[0].items[2].userType.rawValue
+                self?.ranker3Record.text = "\(userSection[0].items[2].groceryMealSum)"
             })
             .disposed(by: disposeBag)
     }
