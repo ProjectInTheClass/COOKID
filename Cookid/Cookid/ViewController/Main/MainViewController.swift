@@ -95,8 +95,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         rankingButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                viewModel.logoutUser()
-//                self.coordinator?.navigateRankingVC(viewModel: self.viewModel)
+                self.coordinator?.navigateRankingVC(viewModel: self.viewModel)
             })
             .disposed(by: rx.disposeBag)
         

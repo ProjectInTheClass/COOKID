@@ -371,6 +371,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         viewModel.output.newMeal
             .subscribe(onNext: { [unowned self] newMeal in
                 self.newMeal = newMeal
+                print(newMeal.name)
             })
             .disposed(by: rx.disposeBag)
        

@@ -43,8 +43,7 @@ class UserService {
     }
     
     func uploadUserInfo(user: User) {
-        print("-----------> uploaduserInfo")
-//        userRepository.uploadUserInfo(userInfo: user)
+        userRepository.uploadUserInfo(userInfo: user)
         defaultUserInfo = user
         userInfo.onNext(defaultUserInfo)
     }
