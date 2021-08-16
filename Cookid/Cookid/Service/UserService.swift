@@ -68,7 +68,7 @@ class UserService {
                 let nickName = userAllEntity.user.nickname
                 let determination = userAllEntity.user.determination
                 let userType = UserType(rawValue: userAllEntity.user.userType)!
-                let sum = userAllEntity.groceries.count + userAllEntity.meal.count
+                let sum = userAllEntity.totalCount
                 
                 return UserForRanking(nickname: nickName, userType: userType, determination: determination, groceryMealSum: sum)
             }.sorted { user1, user2 in
