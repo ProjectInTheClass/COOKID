@@ -56,15 +56,32 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     
     var meal: Meal? {
         didSet {
-            print("meal is existence")
+            if meal != nil {
+                print("meal is existence")
+            } else {
+                print("meal is nil")
+            }
+            
         }
     }
+    
+    var newMeal: Meal? {
+        didSet {
+            if meal != nil {
+                print("newMeal is existence")
+            } else {
+                print("newMeal is nil")
+            }
+            
+        }
+    }
+    
     var viewModel: AddMealViewModel!
     var selectedPhoto: Bool = false
     var selectedPictrue: Bool = false
     let mealID = UUID().uuidString
     let imagePicker = UIImagePickerController()
-    var newMeal: Meal?
+    
     
     // MARK: - View Life Cycle
     
@@ -364,14 +381,13 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             .disposed(by: rx.disposeBag)
         
         viewModel.output.validation
-            .debug()
             .drive(completionButton.rx.isEnabled)
             .disposed(by: rx.disposeBag)
         
         viewModel.output.newMeal
             .subscribe(onNext: { [unowned self] newMeal in
+                print("구독은되니?")
                 self.newMeal = newMeal
-                print(newMeal.name)
             })
             .disposed(by: rx.disposeBag)
        
@@ -379,7 +395,8 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     
     @IBAction func completedButtonTapped(_ sender: UIButton) {
         
-        guard let newMeal = newMeal else { return }
+        guard let newMeal = newMeal else { print("newMeal nil")
+            return }
         
         if self.meal != nil {
             self.viewModel.mealService.update(updateMeal: newMeal) { success in

@@ -104,7 +104,7 @@ class MealService {
     }
     
     @discardableResult
-    func fetchMealImageURL(mealID: String) -> Observable<URL> {
+    func fetchMealImageURL(mealID: String?) -> Observable<URL> {
         return Observable.create { [unowned self] observer in
             self.mealRepository.fetchImageURL(mealID: mealID) { url in
                 observer.onNext(url)
@@ -113,7 +113,7 @@ class MealService {
         }
     }
     
-    func deleteImage(mealID: String) {
+    func deleteImage(mealID: String?) {
         mealRepository.deleteImage(mealID: mealID)
     }
     

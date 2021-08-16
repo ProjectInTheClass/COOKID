@@ -88,7 +88,10 @@ class MealRepository {
     }
     
     
-    func deleteImage(mealID: String) {
+    func deleteImage(mealID: String?) {
+        guard let mealID = mealID else { print("deleteImage userID nil")
+            return
+        }
         let storageRef = storage.child(mealID + ".jpg")
         
         storageRef.delete { error in
@@ -98,8 +101,11 @@ class MealRepository {
         }
     }
     
-    func fetchImageURL(mealID: String, completion: @escaping (URL) -> Void) {
+    func fetchImageURL(mealID: String?, completion: @escaping (URL) -> Void) {
         print("fetchImage URL")
+        guard let mealID = mealID else { print("mealID nil")
+            return
+        }
         let storageRef = storage.child(mealID + ".jpg")
         storageRef.downloadURL { url, error in
             if let error = error {
@@ -112,8 +118,11 @@ class MealRepository {
     }
     
     
-    func uploadImage(mealID: String, image: UIImage?, completed: @escaping (Bool) -> Void) {
+    func uploadImage(mealID: String?, image: UIImage?, completed: @escaping (Bool) -> Void) {
         print("updloa imgaeeee")
+        guard let mealID = mealID else { print("uploadImage userID nil")
+            return
+        }
         let storageRef = storage.child(mealID + ".jpg")
         let data = image?.jpegData(compressionQuality: 0.1)
         let metadata = StorageMetadata()
