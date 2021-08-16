@@ -64,6 +64,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     var selectedPictrue: Bool = false
     let mealID = UUID().uuidString
     let imagePicker = UIImagePickerController()
+    var newMeal: Meal?
     
     // MARK: - View Life Cycle
     
@@ -366,37 +367,35 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             .debug()
             .drive(completionButton.rx.isEnabled)
             .disposed(by: rx.disposeBag)
+        
+        viewModel.output.newMeal
+            .subscribe(onNext: { [unowned self] newMeal in
+                self.newMeal = newMeal
+            })
+            .disposed(by: rx.disposeBag)
        
     }
     
     @IBAction func completedButtonTapped(_ sender: UIButton) {
         
-        viewModel.output.newMeal
-            .take(1)
-            .subscribe(on:ConcurrentDispatchQueueScheduler.init(queue: DispatchQueue.global()))
-            .subscribe(onNext: { [unowned self] meal in
-                print("---------> meal : \(meal.id)")
-                if self.meal != nil {
-                    self.viewModel.mealService.update(updateMeal: meal) { success in
-                        if success {
-                            DispatchQueue.main.async {
-                                self.dismiss(animated: true, completion: nil)
-                            }
-                        }
-                    }
-                } else {
-                    self.viewModel.mealService.create(meal: meal) { success in
-                        if success {
-                            DispatchQueue.main.async {
-                                self.dismiss(animated: true, completion: nil)
-                            }
-                        }
+        guard let newMeal = newMeal else { return }
+        
+        if self.meal != nil {
+            self.viewModel.mealService.update(updateMeal: newMeal) { success in
+                if success {
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
                     }
                 }
-            })
-            .disposed(by: rx.disposeBag)
+            }
+        } else {
+            self.viewModel.mealService.create(meal: newMeal) { success in
+                if success {
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+        }
     }
-    
-    
-    
 }

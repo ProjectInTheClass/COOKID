@@ -1032,6 +1032,9 @@
                                 <state key="highlighted" image="arrow.right.circle" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50" scale="large"/>
                                 </state>
+                                <connections>
+                                    <action selector="finish:" destination="WDm-Ug-Ecm" eventType="touchUpInside" id="Bml-GP-2lm"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rCf-rT-o8o"/>
@@ -1160,7 +1163,7 @@
         <image name="photo.fill" catalog="system" width="128" height="93"/>
         <image name="trash.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

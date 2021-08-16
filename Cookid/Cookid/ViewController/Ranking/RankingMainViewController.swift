@@ -51,8 +51,6 @@ class RankingMainViewController: UIViewController, ViewModelBindable {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    
-    
     func bindViewModel() {
         
         tableView.rx.setDelegate(self)

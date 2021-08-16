@@ -64,12 +64,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        
         LocalNotificationManager.setNotification()
-        
-//        UserRepository.shared.fetchUsers { userall in
-//            print(userall)
-//        }
     }
     
     // MARK: - Functions
@@ -100,9 +95,8 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         rankingButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                
-                
-                self.coordinator?.navigateRankingVC(viewModel: self.viewModel)
+                viewModel.logoutUser()
+//                self.coordinator?.navigateRankingVC(viewModel: self.viewModel)
             })
             .disposed(by: rx.disposeBag)
         

@@ -87,9 +87,6 @@ class HomeCoordinator: CoordinatorType {
         mainNVC?.present(vc, animated: true, completion: nil)
     }
     
-
-
-    
     func navigateRankingVC(viewModel: MainViewModel) {
         let rankingViewModel = RankingViewModel(userService: viewModel.userService)
         

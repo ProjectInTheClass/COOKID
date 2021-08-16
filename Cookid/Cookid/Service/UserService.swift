@@ -43,7 +43,8 @@ class UserService {
     }
     
     func uploadUserInfo(user: User) {
-        userRepository.uploadUserInfo(userInfo: user)
+        print("-----------> uploaduserInfo")
+//        userRepository.uploadUserInfo(userInfo: user)
         defaultUserInfo = user
         userInfo.onNext(defaultUserInfo)
     }
@@ -54,10 +55,6 @@ class UserService {
         self.defaultUserInfo = user
         self.userInfo.onNext(user)
     }
-    
-//    func fetchTopRanker(completion: @escaping ([UserForRanking]?, Error?)->Void) {
-//        completion(, nil)
-//    }
     
     func makeRanking(completion: @escaping ([UserForRanking]?, Error?)->Void){
         

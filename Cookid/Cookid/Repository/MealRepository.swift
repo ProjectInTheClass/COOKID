@@ -46,7 +46,8 @@ class MealRepository {
     
     func uploadMealToFirebase(meal: Meal, completed: @escaping (String) -> Void) {
         print("upload")
-        guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
+        guard let currentUserUID = Auth.auth().currentUser?.uid else { print("user nil")
+            return }
         
         let mealDic : [String:Any] = [
             "id" : meal.id,

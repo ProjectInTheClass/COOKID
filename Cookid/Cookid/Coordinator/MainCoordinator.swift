@@ -35,4 +35,10 @@ class MainCoordinator: CoordinatorType {
         }
     }
     
+    func navigateHomeCoordinator() -> UIViewController {
+        let homeCoordinator = HomeCoordinator(parentCoordinator: self)
+        childCoordinator.append(homeCoordinator)
+        return homeCoordinator.start()
+    }
+    
 }
