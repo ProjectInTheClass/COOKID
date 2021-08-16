@@ -15,11 +15,6 @@ class MyExpenseViewModel: ViewModelType {
     let mealService: MealService
     let userService: UserService
     let shoppingService: ShoppingService
-    
-    struct MySection {
-        var header : String
-        var items : [Any]
-    }
 
     struct Input {
         let selectedDates : BehaviorSubject<[Date]>
@@ -28,8 +23,7 @@ class MyExpenseViewModel: ViewModelType {
     struct Output {
         let averagePrice: Driver<String>
         let updateData: Driver<([Meal], [Meal], [GroceryShopping])>
-        let updateDataBySelectedDates: Driver<([Meal], [Meal], [GroceryShopping])>
-        let dataSource = RxTableViewSectionedReloadDataSource<MySection>
+        let updateDataBySelectedDates: Driver<[MealShoppingItemSectionModel]>
     }
     
     var input: Input
@@ -52,7 +46,6 @@ class MyExpenseViewModel: ViewModelType {
         let shoppings = shoppingService.shoppingList()
         
         let selectedDates = BehaviorSubject<[Date]>(value: [])
-        
 
         let averagePrice = Observable.combineLatest(shoppings.map(shoppingService.fetchShoppingTotalSpend), meals.map(mealService.fetchEatOutSpend)) { shoppingPrice, mealPrice -> Double in
             let day = Calendar.current.ordinality(of: .day, in: .month, for: Date()) ?? 1
@@ -71,7 +64,7 @@ class MyExpenseViewModel: ViewModelType {
         })
         .asDriver(onErrorJustReturn: ([], [], []))
         
-        let updateDataBySelectedDates = Observable.combineLatest(meals, shoppings, selectedDates , resultSelector: { meals, shoppings, selectedDates -> ([Meal], [Meal], [GroceryShopping]) in
+        let updateDataBySelectedDates = Observable.combineLatest(meals, shoppings, selectedDates , resultSelector: { meals, shoppings, selectedDates -> [MealShoppingItemSectionModel] in
             var dineOutMeals = meals.filter{ $0.mealType == .dineOut}
             var dineInMeals = meals.filter{ $0.mealType == .dineIn}
             var shoppings = shoppings
@@ -83,12 +76,85 @@ class MyExpenseViewModel: ViewModelType {
                 dineInMeals = dineInMeals.filter{ $0.date.dateToString() == dates[i] }
             }
             
-            return (dineOutMeals, dineInMeals, shoppings)
+            var dineOutItems = [MealShoppingSectionItem]()
+            var dineInItems = [MealShoppingSectionItem]()
+            var shoppingItems = [MealShoppingSectionItem]()
+
+            for i in 0...dineOutMeals.count {
+                dineOutItems.append(.DineOutSectionItem(item: dineOutMeals[i]))
+            }
+            for i in 0...dineInMeals.count {
+                dineInItems.append(.DineInSectionItem(item: dineInMeals[i]))
+            }
+            for i in 0...shoppings.count {
+                shoppingItems.append(.ShoppingSectionItem(item: shoppings[i]))
+            }
+
+            let sections: [MealShoppingItemSectionModel] = [
+                .DineOutSection(title: "외식", items: dineOutItems),
+                .DineInSection(title: "집밥", items: dineInItems),
+                .ShoppingSection(title: "마트털이", items: shoppingItems)
+            ]
+            
+            return sections
         })
-        .asDriver(onErrorJustReturn: ([], [], []))
+        .asDriver(onErrorJustReturn: [])
         
         self.input = Input(selectedDates: selectedDates)
         self.output = Output(averagePrice: averagePrice, updateData: updateData, updateDataBySelectedDates: updateDataBySelectedDates)
     }
+}
+
+//DataSource
+enum MealShoppingItemSectionModel {
+    case DineOutSection(title : String, items: [MealShoppingSectionItem])
+    case DineInSection(title : String, items: [MealShoppingSectionItem])
+    case ShoppingSection(title : String, items: [MealShoppingSectionItem])
+}
+
+enum MealShoppingSectionItem {
+    case DineOutSectionItem(item: Meal)
+    case DineInSectionItem(item: Meal)
+    case ShoppingSectionItem(item: GroceryShopping)
+}
+
+extension MealShoppingItemSectionModel: SectionModelType {
+    typealias Item = MealShoppingSectionItem
+    
+    var items: [Item] {
+        switch self {
+        case .DineOutSection(title: _, items: let items):
+            return items.map { $0 }
+        case .DineInSection(title: _, items: let items):
+            return items.map { $0 }
+        case .ShoppingSection(title: _, items: let items):
+            return items.map { $0 }
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .DineInSection:
+            return "집밥"
+        case .DineOutSection:
+            return "외식"
+        case .ShoppingSection:
+            return "마트털이"
+        }
+    }
+    
+    init(original: MealShoppingItemSectionModel, items: [Item]) {
+        switch original {
+        case let .DineOutSection(title: title, items: _):
+            self = .DineOutSection(title: title, items: items)
+        case let .DineInSection(title: title, items: _):
+            self = .DineInSection(title: title, items: items)
+        case let .ShoppingSection(title: title, items: _):
+            self = .ShoppingSection(title: title, items: items)
+        }
+    }
     
 }
+
+typealias MealShoppingDataSource = RxTableViewSectionedReloadDataSource<MealShoppingItemSectionModel>
+

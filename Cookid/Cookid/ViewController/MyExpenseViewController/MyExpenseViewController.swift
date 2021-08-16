@@ -10,6 +10,7 @@ import FSCalendar
 import SnapKit
 import Then
 import RxSwift
+import RxDataSources
 
 class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBased, UIScrollViewDelegate {
   
@@ -35,7 +36,6 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
         super.viewDidLoad()
         setUpConstraint()
         configureNavTab()
-        bindViewModel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,9 +52,7 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     
     func bindViewModel() {
         
-        Observable.of(calendar.selectedDates)
-         .bind(to: viewModel.input.selectedDates)
-         .disposed(by: rx.disposeBag)
+        
         
         viewModel.output.averagePrice
             .drive(onNext: { str in
@@ -74,27 +72,16 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
             .disposed(by: rx.disposeBag)
         
         viewModel.output.updateDataBySelectedDates
-            .drive( onNext: { dineOutMeals, dineInMeals, shoppings in
-                Observable.of(dineOutMeals)
-                    .bind(to: self.listTableView.rx.items(cellIdentifier: "ExpenseTableViewCell", cellType: ExpenseTableViewCell.self)) { row, element, cell in
-                        cell.updateUI(title: "\(element.price)원", date: element.date.dateToString())
-                    }
-                    .disposed(by: self.rx.disposeBag)
-                Observable.of(dineInMeals)
-                    .bind(to: self.listTableView.rx.items(cellIdentifier: "ExpenseTableViewCell", cellType: ExpenseTableViewCell.self)) { row, element, cell in
-                        cell.updateUI(title: "\(element.price)원", date: element.date.dateToString())
-                    }
-                    .disposed(by: self.rx.disposeBag)
-                Observable.of(shoppings)
-                    .bind(to: self.listTableView.rx.items(cellIdentifier: "ExpenseTableViewCell", cellType: ExpenseTableViewCell.self)) { row, element, cell in
-                        cell.updateUI(title: "\(element.totalPrice)원", date: element.date.dateToString())
-                    }
+            .drive( onNext: { [unowned self] sections in
+                let dataSource = MyExpenseViewController.dataSource()
+                Observable.just(sections)
+                    .bind(to: self.listTableView.rx.items(dataSource: dataSource))
                     .disposed(by: self.rx.disposeBag)
             })
             .disposed(by: rx.disposeBag)
         
-//        listTableView.rx.setDelegate(self)
-//            .disposed(by: rx.disposeBag)
+        listTableView.rx.setDelegate(self)
+            .disposed(by: rx.disposeBag)
 
     }
     
@@ -134,9 +121,7 @@ extension MyExpenseViewController {
     func setUpConstraint() {
         self.calendar.delegate = self
         self.calendar.dataSource = self
-        
-//        self.tableView.delegate = self
-//        self.tableView.dataSource = self
+
         calendar.makeShadow()
         
         self.view.addGestureRecognizer(self.scopeGesture)
@@ -147,11 +132,35 @@ extension MyExpenseViewController {
         self.calendar.select(Date())
         self.calendar.scope = .month
         self.calendar.isMultipleTouchEnabled = true
-        self.calendar.allowsMultipleSelection = false
+        self.calendar.allowsMultipleSelection = true
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         self.calendar.appearance.titleTodayColor = .black
         
         self.listTableView.rowHeight = UITableView.automaticDimension
         self.listTableView.estimatedRowHeight = UITableView.automaticDimension
+    }
+    
+    static func dataSource() -> MealShoppingDataSource {
+        return MealShoppingDataSource (configureCell: { dataSource , tableView, indexPath, item in
+            let cell: ExpenseTableViewCell =
+                tableView.dequeueReusableCell(withIdentifier: "ExpenseTableViewCell") as! ExpenseTableViewCell
+            switch dataSource[indexPath] {
+            case let .DineOutSectionItem(item):
+                cell.updateCell(title: "\(item.price)원", date: item.date.dateToString())
+            case let .DineInSectionItem(item):
+                cell.updateCell(title: "\(item.price)원", date: item.date.dateToString())
+            case let .ShoppingSectionItem(item):
+                cell.updateCell(title: "\(item.totalPrice)원", date: item.date.dateToString())
+            }
+            return cell
+        },
+        titleForHeaderInSection: { dataSource, index in
+            let section = dataSource[index]
+            return section.title
+        },
+        canEditRowAtIndexPath: { _, _ in
+            return true
+        }
+        )
     }
 }

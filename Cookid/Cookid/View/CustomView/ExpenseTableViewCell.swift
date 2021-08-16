@@ -74,7 +74,7 @@ class ExpenseTableViewCell: UITableViewCell {
         }
     }
     
-    func updateUI(title: String, date: String) {
+    func updateCell(title: String, date: String) {
         titlelabel.text = title
         dateLabel.text = date
     }
