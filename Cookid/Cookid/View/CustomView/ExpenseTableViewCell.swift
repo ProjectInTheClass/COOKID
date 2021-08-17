@@ -20,7 +20,7 @@ class ExpenseTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    static let identifier = "resultCell"
+    static let identifier = "ExpenseTableViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,8 +33,8 @@ class ExpenseTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    lazy var label = UILabel().then{
-        $0.text = "여기에는 내 식사? 내 외식? 리스트?"
+    lazy var titlelabel = UILabel().then{
+        $0.text = ""
         $0.textColor = .black
         $0.font = .systemFont(ofSize: 17)
     }
@@ -51,11 +51,11 @@ class ExpenseTableViewCell: UITableViewCell {
     
     
     private func setUpConstraint() {
-        contentView.addSubview(label)
+        contentView.addSubview(titlelabel)
         contentView.addSubview(dateLabel)
 //        contentView.addSubview(mealImage)
         
-        label.translatesAutoresizingMaskIntoConstraints = false
+        titlelabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
 //        self.mealImage.snp.makeConstraints{
 //            $0.height.width.equalTo(20)
@@ -63,7 +63,7 @@ class ExpenseTableViewCell: UITableViewCell {
 //            $0.centerY.equalTo(contentView.snp.centerY)
 //        }
         
-        self.label.snp.makeConstraints{
+        self.titlelabel.snp.makeConstraints{
             $0.leading.equalTo(contentView.snp.leading).offset(20)
             $0.centerY.equalTo(contentView.snp.centerY)
         }
@@ -72,5 +72,10 @@ class ExpenseTableViewCell: UITableViewCell {
             $0.trailing.equalTo(contentView.snp.trailing).offset(-20)
             $0.centerY.equalTo(contentView.snp.centerY)
         }
+    }
+    
+    func updateCell(title: String, date: String) {
+        titlelabel.text = title
+        dateLabel.text = date
     }
 }

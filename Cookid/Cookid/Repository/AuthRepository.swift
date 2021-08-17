@@ -26,4 +26,16 @@ class AuthRepository {
     var isLogined: Bool {
         return Auth.auth().currentUser != nil
     }
+    
+    func userLogout(completion: @escaping (Bool)->Void) {
+        do {
+            try Auth.auth().signOut()
+            completion(true)
+        }
+        catch let err {
+            print(err)
+            completion(false)
+        }
+        
+    }
 }

@@ -107,7 +107,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="150" id="1DW-29-5Ux"/>
                                                             <constraint firstItem="0sH-H2-mV5" firstAttribute="top" secondItem="Hz0-jF-xY3" secondAttribute="bottom" constant="15" id="6jl-9k-PhE"/>
@@ -377,6 +377,7 @@
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                             </subviews>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="trailing" secondItem="dFy-Fy-FZc" secondAttribute="trailing" id="lGK-tf-h0k"/>
                                                                                 <constraint firstItem="dFy-Fy-FZc" firstAttribute="leading" secondItem="YCo-Ps-09T" secondAttribute="leading" id="vAb-8f-C8Z"/>
@@ -424,7 +425,7 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="zIX-OV-1Ls" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="6Lp-ot-Io7"/>
                             <constraint firstItem="zIX-OV-1Ls" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="LP1-6M-CzI"/>

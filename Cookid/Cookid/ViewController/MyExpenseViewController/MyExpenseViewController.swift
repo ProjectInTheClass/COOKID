@@ -9,24 +9,22 @@ import UIKit
 import FSCalendar
 import SnapKit
 import Then
+import RxSwift
+import RxDataSources
 
-class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBased {
-        
+class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBased, UIScrollViewDelegate {
+    
     var viewModel: MyExpenseViewModel!
+    
+    var dineOutMeals = [Meal]()
+    var dineInMeals = [Meal]()
+    var shoppings = [GroceryShopping]()
+    var sections = [MealShoppingItemSectionModel]()
     
     @IBOutlet weak var averageExpenseLabel: UILabel!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var calendarHeightConstraint: NSLayoutConstraint!
-    
-    var shopping : [GroceryShopping] = []
-    var dineOutMeals : [Meal] = []
-    var dineInMeals : [Meal] = []
-    
-    var data : [element] = []
-    var selectedDineInMeals : [Meal] = []
-    var selectedDineOutMeals : [Meal] = []
-    var selectedShopping : [GroceryShopping] = []
     
     lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -37,14 +35,11 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraint()
-        fetchShopping()
-        fetchMeals()
         configureNavTab()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateData(dates: [Date()])
     }
     
     private func configureNavTab() {
@@ -61,21 +56,32 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
                 self.averageExpenseLabel.text = str
             })
             .disposed(by: rx.disposeBag)
-        viewModel.output.updateShoppingList
-            .drive(onNext: { [unowned self] (meals, shoppings) in
+        
+        viewModel.output.updateData
+            .drive(onNext: { [unowned self] (dineOutMeals, dineInMeals, shoppings) in
                 
-                self.dineOutMeals = meals.filter{$0.mealType == .dineOut}
-                self.dineInMeals = meals.filter{$0.mealType == .dineIn}
-                self.shopping = shoppings
+                self.dineOutMeals = dineOutMeals
+                self.dineInMeals = dineInMeals
+                self.shoppings = shoppings
                 
-                guard let selectedDate = calendar.selectedDate else { return }
-
-                updateData(dates: [selectedDate])
-                
-                self.tableView.reloadData()
-                self.calendar.reloadData()
+                calendar.reloadData()
             })
             .disposed(by: rx.disposeBag)
+        
+        viewModel.output.updateDataBySelectedDates
+            .drive( onNext: { [unowned self] sections in
+                self.sections = sections
+            })
+            .disposed(by: rx.disposeBag)
+        
+        let dataSource = MyExpenseViewController.dataSource()
+        Observable.just(sections)
+            .bind(to: self.tableView.rx.items(dataSource: dataSource))
+            .disposed(by: self.rx.disposeBag)
+        
+        tableView.rx.setDelegate(self)
+            .disposed(by: rx.disposeBag)
+        
     }
     
     deinit {
@@ -114,9 +120,9 @@ extension MyExpenseViewController {
     func setUpConstraint() {
         self.calendar.delegate = self
         self.calendar.dataSource = self
+        self.tableView.delegate = nil
+        self.tableView.dataSource = nil
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
         calendar.makeShadow()
         
         self.view.addGestureRecognizer(self.scopeGesture)
@@ -127,73 +133,41 @@ extension MyExpenseViewController {
         self.calendar.select(Date())
         self.calendar.scope = .month
         self.calendar.isMultipleTouchEnabled = true
-        self.calendar.allowsMultipleSelection = false
+        self.calendar.allowsMultipleSelection = true
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         self.calendar.appearance.titleTodayColor = .black
         
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = UITableView.automaticDimension
-        self.tableView.register(ExpenseTableViewCell.self, forCellReuseIdentifier: ExpenseTableViewCell.identifier)
-    }
-}
-
-extension MyExpenseViewController {
-    func fetchShopping() {
-        viewModel.userService.loadUserInfo { [unowned self] user in
-            self.viewModel.shoppingService.fetchGroceries(user: user, completion: { shoppings in
-                self.shopping = shoppings
-            })
-        }
     }
     
-    func fetchMeals() {
-        viewModel.userService.loadUserInfo { [unowned self] user in
-            self.viewModel.mealService.fetchMeals(user: user, completion: { meals in
-                self.dineOutMeals = meals.filter{$0.mealType == .dineOut}
-                self.dineInMeals = meals.filter{$0.mealType == .dineIn}
-            })
-        }
-    }
-    
-    func findSelectedDateMeal (meals : [Meal], selectedDate : [Date]) -> [Meal] {
-        var mealArr : [Meal] = []
-        
-        for date in selectedDate {
-            mealArr = meals.filter{ $0.date.dateToString() == date.dateToString()}
-        }
-        return mealArr
-    }
-    
-    func findSelectedDateShopping (shoppings : [GroceryShopping], selectedDate : [Date]) -> [GroceryShopping] {
-        var shoppingArr : [GroceryShopping] = []
-        
-        for date in selectedDate {
-            shoppingArr = shoppings.filter{$0.date.dateToString() == date.dateToString()}
-        }
-        return shoppingArr
-    }
-    
-    func updateData (dates: [Date]) {
-        data.removeAll()
-        selectedDineOutMeals = findSelectedDateMeal(meals : self.dineOutMeals, selectedDate: dates).sorted{$0.date > $1.date}
-        selectedDineInMeals = findSelectedDateMeal(meals : self.dineInMeals, selectedDate: dates).sorted{$0.date > $1.date}
-        selectedShopping = findSelectedDateShopping(shoppings : self.shopping, selectedDate: dates).sorted{$0.date > $1.date}
-        
-        let dineOutElement = element(name: "외식", selected: selectedDineOutMeals)
-        let dineInElement = element(name: "집밥", selected: selectedDineInMeals)
-        let shoppingElement = element(name: "마트털이", selected: selectedShopping)
-        
-        let dataArr = [dineOutElement, dineInElement, shoppingElement]
-        
-        for i in 0...2 {
-            if !dataArr[i].selected.isEmpty {
-                data.append(dataArr[i])
+    static func dataSource() -> MealShoppingDataSource {
+        return MealShoppingDataSource (configureCell: { dataSource , tableView, indexPath, _ in
+            let cell: ExpenseTableViewCell =
+                tableView.dequeueReusableCell(withIdentifier: "ExpenseTableViewCell") as! ExpenseTableViewCell
+            
+            switch dataSource[indexPath] {
+            case let .DineOutSectionItem(item):
+                cell.updateCell(title: "\(item.price)원", date: item.date.dateToString())
+            case let .DineInSectionItem(item):
+                cell.updateCell(title: "\(item.price)원", date: item.date.dateToString())
+            case let .ShoppingSectionItem(item):
+                cell.updateCell(title: "\(item.totalPrice)원", date: item.date.dateToString())
             }
+            return cell
+        },
+        titleForHeaderInSection: { dataSource, index in
+            let section = dataSource[index]
+            return section.title
+        },
+        canEditRowAtIndexPath: { _, _ in
+            return true
         }
+        )
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
 }
 
-struct element {
-   var name : String
-   var selected : [Any]
-}

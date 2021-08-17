@@ -34,10 +34,22 @@
 		035E492726975815002CC084 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492626975815002CC084 /* MainViewModel.swift */; };
 		035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */; };
 		035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */; };
+		037AC1A826B98B48009509CF /* PictureSelectCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AC1A726B98B48009509CF /* PictureSelectCollectionViewController.swift */; };
 		038875AD269FD1EF00D5D202 /* MyExpenseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038875AC269FD1EF00D5D202 /* MyExpenseViewModel.swift */; };
 		038875AE269FD7DA00D5D202 /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1982EC269BF3660055742B /* UserInformationViewController.swift */; };
 		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
+		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
+		0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */; };
+		03E42EB826C412A8005D7B5E /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EB726C412A8005D7B5E /* CookidTests.swift */; };
+		03E42EC626C412C2005D7B5E /* CookidUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EC526C412C2005D7B5E /* CookidUITests.swift */; };
+		03E42ED126C41766005D7B5E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED026C41766005D7B5E /* MainCoordinator.swift */; };
+		03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */; };
+		03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */; };
+		03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */; };
+		03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */; };
+		03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */; };
+		03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */; };
 		241523B0269D093E0077941A /* ShoppingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523AF269D093E0077941A /* ShoppingService.swift */; };
 		241523B4269D24860077941A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523B3269D24860077941A /* Function.swift */; };
 		353BE569269C860E006A6A47 /* InputDataShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353BE568269C860E006A6A47 /* InputDataShoppingViewController.swift */; };
@@ -70,10 +82,28 @@
 		C6BFF46026949A71006295F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6BFF45F26949A71006295F5 /* GoogleService-Info.plist */; };
 		C6BFF46226949AA7006295F5 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF46126949AA7006295F5 /* Constant.swift */; };
 		DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1982EE269BF7D30055742B /* UserInfo.storyboard */; };
+		DB61715226C9577B008F497C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61715126C9577B008F497C /* NotificationManager.swift */; };
 		DB972BC4269FD81E00143CCC /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1982EC269BF3660055742B /* UserInformationViewController.swift */; };
 		DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDA046726969A6500B5C1D6 /* UserService.swift */; };
 		DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		03E42EBA26C412A8005D7B5E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03223390269212860092DD6D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03223397269212860092DD6D;
+			remoteInfo = Cookid;
+		};
+		03E42EC826C412C2005D7B5E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03223390269212860092DD6D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03223397269212860092DD6D;
+			remoteInfo = Cookid;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		03223398269212860092DD6D /* Cookid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookid.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,9 +136,25 @@
 		035E492626975815002CC084 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarViewController.swift; sourceTree = "<group>"; };
+		037AC1A726B98B48009509CF /* PictureSelectCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureSelectCollectionViewController.swift; sourceTree = "<group>"; };
 		038875AC269FD1EF00D5D202 /* MyExpenseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExpenseViewModel.swift; sourceTree = "<group>"; };
 		0395B61426941121009289B7 /* MyMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealViewModel.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
+		0395F6EC26B805360091BB29 /* AddMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewController.swift; sourceTree = "<group>"; };
+		0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewModel.swift; sourceTree = "<group>"; };
+		03E42EB526C412A7005D7B5E /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03E42EB726C412A8005D7B5E /* CookidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidTests.swift; sourceTree = "<group>"; };
+		03E42EB926C412A8005D7B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03E42EC326C412C2005D7B5E /* CookidUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03E42EC526C412C2005D7B5E /* CookidUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidUITests.swift; sourceTree = "<group>"; };
+		03E42EC726C412C2005D7B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03E42ED026C41766005D7B5E /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingMainViewController.swift; sourceTree = "<group>"; };
+		03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewModel.swift; sourceTree = "<group>"; };
+		03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
+		03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHeaderView.swift; sourceTree = "<group>"; };
+		03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingTableViewCell.swift; sourceTree = "<group>"; };
 		0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
 		241523AF269D093E0077941A /* ShoppingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingService.swift; sourceTree = "<group>"; };
 		241523B3269D24860077941A /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
@@ -138,8 +184,9 @@
 		C6BFF45F26949A71006295F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C6BFF46126949AA7006295F5 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		DB0D7D7326949818009B2D51 /* MealService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MealService.swift; path = COOKID/Service/MealService.swift; sourceTree = SOURCE_ROOT; };
-		DB1982EC269BF3660055742B /* UserInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserInformationViewController.swift; path = ../../COOKID/ViewController/UserInformationViewController.swift; sourceTree = "<group>"; };
+		DB1982EC269BF3660055742B /* UserInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationViewController.swift; sourceTree = "<group>"; };
 		DB1982EE269BF7D30055742B /* UserInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UserInfo.storyboard; path = ../../../COOKID/View/Storyboard/UserInfo.storyboard; sourceTree = "<group>"; };
+		DB61715126C9577B008F497C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		DBDA046726969A6500B5C1D6 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = COOKID/Service/UserService.swift; sourceTree = SOURCE_ROOT; };
 		DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,6 +203,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		03E42EB226C412A7005D7B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03E42EC026C412C2005D7B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -163,6 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				0322339A269212860092DD6D /* Cookid */,
+				03E42EB626C412A8005D7B5E /* CookidTests */,
+				03E42EC426C412C2005D7B5E /* CookidUITests */,
 				03223399269212860092DD6D /* Products */,
 				4D7F201105C9BFA7F50A2933 /* Pods */,
 				10D0AB71C5B71C6AD217376D /* Frameworks */,
@@ -174,6 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				03223398269212860092DD6D /* Cookid.app */,
+				03E42EB526C412A7005D7B5E /* CookidTests.xctest */,
+				03E42EC326C412C2005D7B5E /* CookidUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,6 +247,8 @@
 			isa = PBXGroup;
 			children = (
 				032233B6269276920092DD6D /* Resources */,
+				032233D52692F00B0092DD6D /* API */,
+				03E42ECD26C4172E005D7B5E /* Coordinator */,
 				032233B02692765C0092DD6D /* Entity */,
 				032233B1269276680092DD6D /* Model */,
 				032233AF2692764F0092DD6D /* Repository */,
@@ -232,6 +299,7 @@
 				0395B61426941121009289B7 /* MyMealViewModel.swift */,
 				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
 				038875AC269FD1EF00D5D202 /* MyExpenseViewModel.swift */,
+				0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -239,14 +307,11 @@
 		032233B32692767E0092DD6D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C64560C4269DC982009B249F /* InputMealViewController */,
-				C64560C3269DC96A009B249F /* MealDtailViewController */,
 				032233C92692A8310092DD6D /* onboarding */,
+				0395F6EB26B804780091BB29 /* Other */,
+				03E42EDB26C4F6A7005D7B5E /* Main */,
 				35160674269F2047008B7264 /* MyExpenseViewController */,
-				032233B7269276DB0092DD6D /* MainViewController.swift */,
-				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
-				032233BB269279DC0092DD6D /* MyMealViewController.swift */,
-				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
+				03E42ED426C4DBB0005D7B5E /* Ranking */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -263,7 +328,7 @@
 		032233B6269276920092DD6D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				032233D52692F00B0092DD6D /* API */,
+				0395F6EA26B8041E0091BB29 /* Depreacated */,
 				032233D42692D52A0092DD6D /* Font */,
 				032233A4269212870092DD6D /* Assets.xcassets */,
 				0339575026A2C96100594515 /* boardingImage */,
@@ -318,6 +383,8 @@
 				032233E826934F180092DD6D /* Protocol.swift */,
 				C6BFF46126949AA7006295F5 /* Constant.swift */,
 				241523B3269D24860077941A /* Function.swift */,
+				032233C526927EF90092DD6D /* DummyData */,
+				DB61715126C9577B008F497C /* NotificationManager.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -325,9 +392,6 @@
 		0395B61626943B1F009289B7 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				C64560BE269D4C0E009B249F /* DatePickerTextField.swift */,
-				C64560BC269D4C0E009B249F /* ImagePicker.swift */,
-				C64560BD269D4C0E009B249F /* TextFieldWithPickerAsInputView.swift */,
 				0395B61726943B30009289B7 /* CustomProgressBar.swift */,
 				035E4922269681A0002CC084 /* CustomProgressCircleView.swift */,
 				035E491C26956F92002CC084 /* MealTableViewCell.swift */,
@@ -337,6 +401,77 @@
 				353BE56C269D6A85006A6A47 /* InputShoppingDataModalView */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		0395F6EA26B8041E0091BB29 /* Depreacated */ = {
+			isa = PBXGroup;
+			children = (
+				C64560C4269DC982009B249F /* InputMealViewController */,
+				C64560C3269DC96A009B249F /* MealDtailViewController */,
+				C64560BE269D4C0E009B249F /* DatePickerTextField.swift */,
+				C64560BC269D4C0E009B249F /* ImagePicker.swift */,
+				C64560BD269D4C0E009B249F /* TextFieldWithPickerAsInputView.swift */,
+			);
+			path = Depreacated;
+			sourceTree = "<group>";
+		};
+		0395F6EB26B804780091BB29 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
+				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
+				0395F6EC26B805360091BB29 /* AddMealViewController.swift */,
+				037AC1A726B98B48009509CF /* PictureSelectCollectionViewController.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		03E42EB626C412A8005D7B5E /* CookidTests */ = {
+			isa = PBXGroup;
+			children = (
+				03E42EB726C412A8005D7B5E /* CookidTests.swift */,
+				03E42EB926C412A8005D7B5E /* Info.plist */,
+			);
+			path = CookidTests;
+			sourceTree = "<group>";
+		};
+		03E42EC426C412C2005D7B5E /* CookidUITests */ = {
+			isa = PBXGroup;
+			children = (
+				03E42EC526C412C2005D7B5E /* CookidUITests.swift */,
+				03E42EC726C412C2005D7B5E /* Info.plist */,
+			);
+			path = CookidUITests;
+			sourceTree = "<group>";
+		};
+		03E42ECD26C4172E005D7B5E /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				03E42ED026C41766005D7B5E /* MainCoordinator.swift */,
+				03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */,
+				03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		03E42ED426C4DBB0005D7B5E /* Ranking */ = {
+			isa = PBXGroup;
+			children = (
+				03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */,
+				03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */,
+				03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */,
+				03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */,
+			);
+			path = Ranking;
+			sourceTree = "<group>";
+		};
+		03E42EDB26C4F6A7005D7B5E /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				032233B7269276DB0092DD6D /* MainViewController.swift */,
+				032233BB269279DC0092DD6D /* MyMealViewController.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		10D0AB71C5B71C6AD217376D /* Frameworks */ = {
@@ -399,7 +534,6 @@
 		DB0D7D722694980B009B2D51 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				032233C526927EF90092DD6D /* DummyData */,
 				DB0D7D7326949818009B2D51 /* MealService.swift */,
 				DBDA046726969A6500B5C1D6 /* UserService.swift */,
 				241523AF269D093E0077941A /* ShoppingService.swift */,
@@ -434,6 +568,42 @@
 			productReference = 03223398269212860092DD6D /* Cookid.app */;
 			productType = "com.apple.product-type.application";
 		};
+		03E42EB426C412A7005D7B5E /* CookidTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03E42EBE26C412A8005D7B5E /* Build configuration list for PBXNativeTarget "CookidTests" */;
+			buildPhases = (
+				03E42EB126C412A7005D7B5E /* Sources */,
+				03E42EB226C412A7005D7B5E /* Frameworks */,
+				03E42EB326C412A7005D7B5E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03E42EBB26C412A8005D7B5E /* PBXTargetDependency */,
+			);
+			name = CookidTests;
+			productName = CookidTests;
+			productReference = 03E42EB526C412A7005D7B5E /* CookidTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		03E42EC226C412C2005D7B5E /* CookidUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03E42ECA26C412C2005D7B5E /* Build configuration list for PBXNativeTarget "CookidUITests" */;
+			buildPhases = (
+				03E42EBF26C412C2005D7B5E /* Sources */,
+				03E42EC026C412C2005D7B5E /* Frameworks */,
+				03E42EC126C412C2005D7B5E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03E42EC926C412C2005D7B5E /* PBXTargetDependency */,
+			);
+			name = CookidUITests;
+			productName = CookidUITests;
+			productReference = 03E42EC326C412C2005D7B5E /* CookidUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -445,6 +615,14 @@
 				TargetAttributes = {
 					03223397269212860092DD6D = {
 						CreatedOnToolsVersion = 12.5.1;
+					};
+					03E42EB426C412A7005D7B5E = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 03223397269212860092DD6D;
+					};
+					03E42EC226C412C2005D7B5E = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 03223397269212860092DD6D;
 					};
 				};
 			};
@@ -465,6 +643,8 @@
 			projectRoot = "";
 			targets = (
 				03223397269212860092DD6D /* Cookid */,
+				03E42EB426C412A7005D7B5E /* CookidTests */,
+				03E42EC226C412C2005D7B5E /* CookidUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -483,6 +663,20 @@
 				354F331C26A14CDC0013EDBB /* InputDataShopping.storyboard in Resources */,
 				032233A3269212860092DD6D /* Main.storyboard in Resources */,
 				C6BFF46026949A71006295F5 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03E42EB326C412A7005D7B5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03E42EC126C412C2005D7B5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +732,7 @@
 				035E4921269597D4002CC084 /* MealTimeCollectionViewCell.swift in Sources */,
 				032233BA269277520092DD6D /* Meal.swift in Sources */,
 				038875AD269FD1EF00D5D202 /* MyExpenseViewModel.swift in Sources */,
+				0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */,
 				DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */,
 				C6BFF45826949986006295F5 /* GroceryRepository.swift in Sources */,
 				C6BFF45726949986006295F5 /* UserRepositrory.swift in Sources */,
@@ -545,8 +740,10 @@
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
+				03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */,
 				241523B0269D093E0077941A /* ShoppingService.swift in Sources */,
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
+				037AC1A826B98B48009509CF /* PictureSelectCollectionViewController.swift in Sources */,
 				C64560C2269D5D97009B249F /* MealDetailView.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
 				C64560BF269D4C0E009B249F /* ImagePicker.swift in Sources */,
@@ -554,6 +751,7 @@
 				355A36B726989461001A5CD8 /* MyExpenseVC+FSCalendar.swift in Sources */,
 				032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */,
 				355A36BB2698956F001A5CD8 /* ExpenseTableViewCell.swift in Sources */,
+				DB61715226C9577B008F497C /* NotificationManager.swift in Sources */,
 				C64560B6269D4BEF009B249F /* ModifyMealViewForAvailable.swift in Sources */,
 				C64560B5269D4BEF009B249F /* ModifyMealView.swift in Sources */,
 				353BE570269D72B7006A6A47 /* InputDataTableViewCell.swift in Sources */,
@@ -566,11 +764,14 @@
 				032233C726927F0C0092DD6D /* DummyData.swift in Sources */,
 				C6BFF46226949AA7006295F5 /* Constant.swift in Sources */,
 				032233DE2693057C0092DD6D /* User.swift in Sources */,
+				03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */,
 				C6BFF4532694996B006295F5 /* Entities.swift in Sources */,
+				03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */,
 				032233BE26927A160092DD6D /* MyExpenseViewController.swift in Sources */,
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
 				032233D72692F0160092DD6D /* Extension.swift in Sources */,
 				032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */,
+				03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */,
 				353BE56B269D6A7C006A6A47 /* PanModalHeaderView.swift in Sources */,
 				C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */,
 				355A36B9269894A5001A5CD8 /* MyExpenseVC+TableView.swift in Sources */,
@@ -580,18 +781,51 @@
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
 				C64560C1269D4C0E009B249F /* DatePickerTextField.swift in Sources */,
 				C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */,
+				03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */,
 				DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */,
 				038875B126A030F300D5D202 /* MainViewController.swift in Sources */,
 				038875AE269FD7DA00D5D202 /* UserInformationViewController.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
+				03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */,
+				03E42ED126C41766005D7B5E /* MainCoordinator.swift in Sources */,
 				035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */,
 				C64560BA269D4C04009B249F /* InputMealViewController.swift in Sources */,
 				353BE569269C860E006A6A47 /* InputDataShoppingViewController.swift in Sources */,
+				0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03E42EB126C412A7005D7B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03E42EB826C412A8005D7B5E /* CookidTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03E42EBF26C412C2005D7B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03E42EC626C412C2005D7B5E /* CookidUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03E42EBB26C412A8005D7B5E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03223397269212860092DD6D /* Cookid */;
+			targetProxy = 03E42EBA26C412A8005D7B5E /* PBXContainerItemProxy */;
+		};
+		03E42EC926C412C2005D7B5E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03223397269212860092DD6D /* Cookid */;
+			targetProxy = 03E42EC826C412C2005D7B5E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		032233A1269212860092DD6D /* Main.storyboard */ = {
@@ -750,6 +984,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.codershigh.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -771,11 +1006,94 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.codershigh.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		03E42EBC26C412A8005D7B5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MBAJ2NCPU9;
+				INFOPLIST_FILE = CookidTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cookid.app/Cookid";
+			};
+			name = Debug;
+		};
+		03E42EBD26C412A8005D7B5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MBAJ2NCPU9;
+				INFOPLIST_FILE = CookidTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cookid.app/Cookid";
+			};
+			name = Release;
+		};
+		03E42ECB26C412C2005D7B5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MBAJ2NCPU9;
+				INFOPLIST_FILE = CookidUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cookid;
+			};
+			name = Debug;
+		};
+		03E42ECC26C412C2005D7B5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MBAJ2NCPU9;
+				INFOPLIST_FILE = CookidUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cookid;
 			};
 			name = Release;
 		};
@@ -796,6 +1114,24 @@
 			buildConfigurations = (
 				032233AD269212870092DD6D /* Debug */,
 				032233AE269212870092DD6D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03E42EBE26C412A8005D7B5E /* Build configuration list for PBXNativeTarget "CookidTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03E42EBC26C412A8005D7B5E /* Debug */,
+				03E42EBD26C412A8005D7B5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03E42ECA26C412C2005D7B5E /* Build configuration list for PBXNativeTarget "CookidUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03E42ECB26C412C2005D7B5E /* Debug */,
+				03E42ECC26C412C2005D7B5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

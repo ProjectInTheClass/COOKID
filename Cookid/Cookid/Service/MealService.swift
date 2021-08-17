@@ -26,11 +26,16 @@ class MealService {
         self.groceryRepository = groceryRepository
     }
     
+    // MARK: - Meal Storage
+    
     @discardableResult
-    func create(meal: Meal) -> Observable<Meal> {
+    func create(meal: Meal, completion: @escaping (Bool)->Void) -> Observable<Meal> {
+        print("create")
         mealRepository.uploadMealToFirebase(meal: meal) { key in meal.id = key }
+        
         meals.append(meal)
         mealStore.onNext(meals)
+        completion(true)
         return Observable.just(meal)
     }
     
@@ -40,29 +45,27 @@ class MealService {
     }
     
     @discardableResult
-    func update(updateMeal: Meal) -> Observable<Meal> {
-        
+    func update(updateMeal: Meal, completion: @escaping (Bool)->Void) -> Observable<Meal> {
+        print("update")
         mealRepository.updateMealToFirebase(meal: updateMeal)
         
         if let index = meals.firstIndex(where: { $0.id == updateMeal.id }) {
             meals.remove(at: index)
+            print("update" + updateMeal.name)
             meals.insert(updateMeal, at: index)
         }
         mealStore.onNext(meals)
+        completion(true)
         return Observable.just(updateMeal)
     }
     
-    @discardableResult
-    func delete(meal: Meal) -> Observable<Meal> {
-        
-        mealRepository.deleteMealToFirebase(meal: meal)
-        
-        if let index = meals.firstIndex(where: { $0.id == meal.id }) {
+    func delete(mealID: String) {
+        mealRepository.deleteMealToFirebase(mealID: mealID)
+        mealRepository.deleteImage(mealID: mealID)
+        if let index = meals.firstIndex(where: { $0.id == mealID }) {
             meals.remove(at: index)
         }
-        
         mealStore.onNext(meals)
-        return Observable.just(meal)
     }
     
     func fetchMeals(user: User, completion: @escaping ([Meal])->Void) {
@@ -99,6 +102,62 @@ class MealService {
         let meal = self.meals.filter { $0.date.dateToString() == day.dateToString() }
         return (dateString, meal)
     }
+    
+    @discardableResult
+    func fetchMealImageURL(mealID: String) -> Observable<URL> {
+        return Observable.create { [unowned self] observer in
+            self.mealRepository.fetchImageURL(mealID: mealID) { url in
+                observer.onNext(url)
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func deleteImage(mealID: String) {
+        mealRepository.deleteImage(mealID: mealID)
+    }
+    
+    // MARK: - Validation
+    
+    private let charSet: CharacterSet = {
+        var cs = CharacterSet.init(charactersIn: "0123456789")
+        return cs.inverted
+    }()
+    
+    func validationNum(text: String) -> Bool {
+        if text.isEmpty {
+            return false
+        } else {
+            guard text.rangeOfCharacter(from: charSet) == nil else { return false }
+            return true
+        }
+    }
+    
+    func validationText(text: String) -> Bool {
+        return text.count > 1
+    }
+    
+    // MARK: - meal Calculate
+    
+    func todayMeals(meals: [Meal]) -> [Meal] {
+        return meals.filter { $0.date.dateToString() == Date().dateToString() }
+    }
+    
+    func mostExpensiveMeal(meals: [Meal]) -> Meal {
+        let newMeals = meals.sorted { $0.price > $1.price }
+        guard let firstMeal = newMeals.first else { return DummyData.shared.mySingleMeal }
+        return firstMeal
+    }
+    
+    func recentMeals(meals: [Meal]) -> [Meal] {
+        
+        guard let aWeekAgo = Calendar.current.date(byAdding: .weekOfMonth, value: -1, to: Date()) else { return [] }
+        let recentMeals = meals.filter { $0.date > aWeekAgo }
+        let sortedMeals = recentMeals.sorted { $0.date > $1.date }
+        return sortedMeals
+    }
+    
+    // MARK: - Calculate for View
     
     func getSpendPercentage(meals: [Meal], user: User, shoppings: [GroceryShopping]) -> Double {
         
@@ -149,20 +208,6 @@ class MealService {
         
     }
     
-    func mostExpensiveMeal(meals: [Meal]) -> Meal {
-        let newMeals = meals.sorted { $0.price > $1.price }
-        guard let firstMeal = newMeals.first else { return DummyData.shared.mySingleMeal }
-        return firstMeal
-    }
-    
-    func recentMeals(meals: [Meal]) -> [Meal] {
-        
-        guard let aWeekAgo = Calendar.current.date(byAdding: .weekOfMonth, value: -1, to: Date()) else { return [] }
-        let recentMeals = meals.filter { $0.date > aWeekAgo }
-        let sortedMeals = recentMeals.sorted { $0.date > $1.date }
-        return sortedMeals
-    }
-    
     func mealTimesCalc(meals: [Meal]) -> [[Meal]] {
         
         let breakfastNum = meals.filter { $0.mealTime == .breakfast}
@@ -173,10 +218,6 @@ class MealService {
         let snackNum = meals.filter { $0.mealTime == .snack}
         
         return [breakfastNum, brunchNum, lunchNum, lundinnerNum, dinnerNum, snackNum]
-    }
-    
-    func todayMeals(meals: [Meal]) -> [Meal] {
-        return meals.filter { $0.date.dateToString() == Date().dateToString() }
     }
     
     func checkSpendPace(meals: [Meal], user: User, shoppings: [GroceryShopping]) -> String{

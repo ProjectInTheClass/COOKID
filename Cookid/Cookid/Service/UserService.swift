@@ -15,7 +15,11 @@ class UserService {
     
     private var defaultUserInfo =  User(userID: "", nickname: "비회원", determination: "유저 정보를 입력한 후에 사용해 주세요.", priceGoal: "0", userType: .preferDineIn)
     
+    private var userSortedArr = [UserForRanking]()
+    
     private lazy var userInfo = BehaviorSubject<User>(value: defaultUserInfo)
+    private lazy var userSorted = BehaviorSubject<[UserForRanking]>(value: userSortedArr)
+    
     
     init(userRepository: UserRepository) {
         self.userRepository = userRepository
@@ -30,6 +34,10 @@ class UserService {
         }
     }
     
+    func sortedUsers() -> Observable<[UserForRanking]> {
+        return userSorted
+    }
+    
     func user() -> Observable<User> {
         return userInfo
     }
@@ -40,10 +48,31 @@ class UserService {
         userInfo.onNext(defaultUserInfo)
     }
     
-    func updateUserInfo(user: User) {
+    func updateUserInfo(user: User, completion: @escaping ((Bool) -> Void)) {
         userRepository.updateUserInfo(user: user)
+        completion(true)
         self.defaultUserInfo = user
         self.userInfo.onNext(user)
     }
-
+    
+    func makeRanking(completion: @escaping ([UserForRanking]?, Error?)->Void){
+        
+        userRepository.fetchUsers { allEntities in
+            
+            let allUserSotred = allEntities.map { userAllEntity -> UserForRanking in
+                
+                let nickName = userAllEntity.user.nickname
+                let determination = userAllEntity.user.determination
+                let userType = UserType(rawValue: userAllEntity.user.userType)!
+                let sum = userAllEntity.totalCount
+                
+                return UserForRanking(nickname: nickName, userType: userType, determination: determination, groceryMealSum: sum)
+            }.sorted { user1, user2 in
+                user1.groceryMealSum > user2.groceryMealSum
+            }
+            self.userSortedArr = allUserSotred
+            self.userSorted.onNext(allUserSotred)
+            completion(allUserSotred, nil)
+        }
+    }
 }

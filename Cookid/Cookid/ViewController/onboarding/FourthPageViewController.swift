@@ -11,11 +11,13 @@ import RxCocoa
 import NSObject_Rx
 
 class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
+    
+    var user: User?
 
+    var coordinator: OnboardingCoordinator?
     
     var viewModel: OnboardingViewModel!
    
-    
     @IBOutlet weak var determinationTextField: UITextField!
     @IBOutlet weak var finishPageButton: UIButton!
     @IBOutlet weak var determineStackView: UIStackView!
@@ -32,13 +34,22 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
             self.determineStackView.alpha = 1
             self.finishPageButton.alpha = 1
         })
+        if coordinator != nil {
+            print("no nil!!!!!!!!!")
+        } else {
+            print("nil!!!!!!!!!")
+        }
+    }
+    
+    deinit {
+        print("Fourpage Deinit")
     }
     
     func bindViewModel() {
         
         determinationTextField.rx.text.orEmpty
             .do(onNext: { [unowned self] text in
-                if viewModel.validationText(text: text) {
+                if viewModel.mealService.validationText(text: text) {
                     UIView.animate(withDuration: 0.5) {
                         self.finishPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
                         self.finishPageButton.tintColor = .systemGreen
@@ -56,83 +67,28 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
             .bind(to: viewModel.input.determination)
             .disposed(by: rx.disposeBag)
         
-        finishPageButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.viewModel.registrationUser(completion: { (success, user) in
-                    if success {
-                        self?.view.window?.rootViewController?.dismiss(animated: false, completion: {
-                            self?.setRootViewController(user: user)
-                        })
-                    }
-                })
+        viewModel.output.userInformation
+            .subscribe(onNext: { [unowned self] user in
+                self.user = user
             })
             .disposed(by: rx.disposeBag)
-        
     }
     
+    @IBAction func finish(_ sender: Any) {
+        LocalNotificationManager.setNotification()
+        guard let user = self.user else { return }
+        self.setRootViewController(user: user)
+    }
+    
+    // forced unwrapping
     func setRootViewController(user: User) {
-        let mealRepo = MealRepository()
-        let userRepo = UserRepository()
-        let groceryRepo = GroceryRepository()
-
-        let mealService = MealService(mealRepository: mealRepo, userRepository: userRepo, groceryRepository: groceryRepo)
-        let userService = UserService(userRepository: userRepo)
-        let shoppingService = ShoppingService(groceryRepository: groceryRepo)
-
-        var mainVC = MainViewController.instantiate(storyboardID: "Main")
-        mainVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
-        let mainNVC = UINavigationController(rootViewController: mainVC)
-        mainVC.navigationController?.navigationBar.prefersLargeTitles = true
-
-        var myMealVC = MyMealViewController.instantiate(storyboardID: "MyMealTap")
-        myMealVC.bind(viewModel: MyMealViewModel(mealService: mealService, userService: userService))
-        let myMealNVC = UINavigationController(rootViewController: myMealVC)
-        myMealVC.navigationController?.navigationBar.prefersLargeTitles = true
-
-        var myExpenseVC = MyExpenseViewController.instantiate(storyboardID: "MyExpenseTap")
-        myExpenseVC.bind(viewModel: MyExpenseViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
-        let myExpenseNVC = UINavigationController(rootViewController: myExpenseVC)
-        myExpenseVC.navigationController?.navigationBar.prefersLargeTitles = true
-
-        let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([mainNVC, myMealNVC, myExpenseNVC], animated: false)
-        tabBarController.tabBar.tintColor = .black
-        tabBarController.modalPresentationStyle = .fullScreen
-        tabBarController.modalTransitionStyle = .crossDissolve
-        
-        let rootVC = UIApplication.shared.windows.first!.rootViewController
-        rootVC?.present(tabBarController, animated: true, completion: {
-            userService.uploadUserInfo(user: user)
-        })
-    }
-    
-    
-    private func setNotification(){
-        
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.badge, .badge]) { granted, error in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-        
-        let content = UNMutableNotificationContent()
-        content.title = "새로운 달입니다!"
-        content.body = "새로운 가계부 진행시켜 🏃‍♀️"
-        
-        var datComp = DateComponents()
-        datComp.day = 1
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: datComp, repeats: true)
-        
-        let uuidString = UUID().uuidString
-        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-        
-        center.add(request) { (error) in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        }
+        let tabBarController = coordinator?.parentCoordinator?.navigateHomeCoordinator() as! UITabBarController
+        let nvc = tabBarController.viewControllers?[0] as! UINavigationController
+        let vc = nvc.topViewController as! MainViewController
+        let vm = vc.viewModel!
+        let window = UIApplication.shared.windows.first!
+        window.rootViewController = tabBarController
+        vm.userService.uploadUserInfo(user: user)
     }
 
 }

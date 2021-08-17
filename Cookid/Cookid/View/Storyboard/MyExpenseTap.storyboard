@@ -66,7 +66,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="AD9-1B-nf3" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="5JN-Sr-gEj"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="AD9-1B-nf3" secondAttribute="trailing" constant="15" id="8p1-Y5-NzW"/>
@@ -85,7 +85,7 @@
                         <outlet property="averageExpenseLabel" destination="iWV-g3-4r5" id="AKv-80-cJm"/>
                         <outlet property="calendar" destination="AD9-1B-nf3" id="yJY-Vb-4d7"/>
                         <outlet property="calendarHeightConstraint" destination="X7c-Vc-frd" id="bEN-BB-ESt"/>
-                        <outlet property="tableView" destination="Gz1-Yi-DiO" id="SE9-BV-bTS"/>
+                        <outlet property="tableView" destination="Gz1-Yi-DiO" id="qMm-9U-SVL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -100,7 +100,7 @@
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="TJc-2I-Ivd">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

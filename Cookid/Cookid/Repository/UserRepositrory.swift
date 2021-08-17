@@ -59,7 +59,7 @@ class UserRepository {
             
             self.db.child(uid).child(FBChild.user).setValue(userDic)
         }
-
+        
     }
     
     
@@ -77,5 +77,47 @@ class UserRepository {
         
     }
     
+    
+    func fetchUsers(completion: @escaping (([UserAllEntity]) -> Void)) {
+        
+        var allUsers: [UserAllEntity] = []
+        
+        db.observeSingleEvent(of: .value) { snapshot in
+            
+            let values = snapshot.value as? [String:Any] ?? [:]
+            for data in values {
+                let values = data.value as? [String:Any] ?? [:]
+                var groceryCount = 0
+                var mealCount = 0
+                //var groceries = [GroceryEntity]()
+                //var meals = [MealEntity]()
+                var person: UserEntity?
+                for data in values {
+                    if data.key == "meal" {
+                        let snapshotValue = data.value as? [String:Any] ?? [:]
+                        for _ in snapshotValue.values {
+                            mealCount += 1
+                            //let dic = value as! [String:Any]
+                            //let meal = MealEntity(mealDic: dic)
+                            //meals.append(meal)
+                        }
+                    }else if data.key == "groceries" {
+                        let snapshotValue = data.value as? [String:Any] ?? [:]
+                        for _ in snapshotValue.values {
+                            groceryCount += 1
+                            //let dic = value as! [String:Any]
+                            //let meal = GroceryEntity(groceriesDic: dic)
+                            //groceries.append(meal)
+                        }
+                    }else{
+                        let snapshotValue = data.value as? [String:Any] ?? [:]
+                        person = UserEntity(userDic: snapshotValue)
+                    }
+                }
+                allUsers.append(UserAllEntity(user: person!, totalCount: groceryCount + mealCount))
+            }
+            completion(allUsers)
+        }
+    }
 }
 
