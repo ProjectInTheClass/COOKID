@@ -64,6 +64,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     var selectedPictrue: Bool = false
     let mealID = UUID().uuidString
     let imagePicker = UIImagePickerController()
+    var newMeal: Meal?
     
     // MARK: - View Life Cycle
     
@@ -98,19 +99,26 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     private func initialSetting() {
         if let meal = self.meal {
             updateAnnouce.text = "수정이 완료되셨나요?"
+            
             let imageView = UIImageView()
             imageView.kf.setImage(with: meal.image)
             selectedPhoto = true
             addPictureButton.isHidden = true
             addPhotoButton.setImage(imageView.image, for: .normal)
+            
             completionButton.setImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
             completionButton.tintColor = .systemGreen
-
+            deleteButton.isHidden = false
+            
+            dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: meal.date)
+            viewModel.input.mealDate.onNext(meal.date)
+            datePicker.setDate(meal.date, animated: false)
+            
             mealtimeTF.text = meal.mealTime.rawValue
             mealnameTF.text = meal.name
             mealpriceTF.text = String(describing: meal.price)
             isDineInSwitch.isOn = mealTypeToBool(meal.mealType)
-            deleteButton.isHidden = false
+            
         } else {
             deleteButton.isHidden = true
         }
@@ -291,13 +299,9 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         
         datePicker.rx.date
             .subscribe(onNext: { [unowned self] date in
+                self.dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
+                self.viewModel.input.mealDate.onNext(date)
                 
-                if let existingMeal = self.meal {
-                    self.dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: existingMeal.date)
-                } else {
-                    self.dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
-                    self.viewModel.input.mealDate.onNext(date)
-                }
             })
             .disposed(by: rx.disposeBag)
         
@@ -363,36 +367,36 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             .debug()
             .drive(completionButton.rx.isEnabled)
             .disposed(by: rx.disposeBag)
+        
+        viewModel.output.newMeal
+            .subscribe(onNext: { [unowned self] newMeal in
+                self.newMeal = newMeal
+                print(newMeal.name)
+            })
+            .disposed(by: rx.disposeBag)
        
     }
     
     @IBAction func completedButtonTapped(_ sender: UIButton) {
         
-        viewModel.output.newMeal
-            .take(1)
-            .subscribe(on:ConcurrentDispatchQueueScheduler.init(queue: DispatchQueue.global()))
-            .subscribe(onNext: { [unowned self] meal in
-                if self.meal != nil {
-                    self.viewModel.mealService.update(updateMeal: meal) { success in
-                        if success {
-                            DispatchQueue.main.async {
-                                self.dismiss(animated: true, completion: nil)
-                            }
-                        }
-                    }
-                } else {
-                    self.viewModel.mealService.create(meal: meal) { success in
-                        if success {
-                            DispatchQueue.main.async {
-                                self.dismiss(animated: true, completion: nil)
-                            }
-                        }
+        guard let newMeal = newMeal else { return }
+        
+        if self.meal != nil {
+            self.viewModel.mealService.update(updateMeal: newMeal) { success in
+                if success {
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
                     }
                 }
-            })
-            .disposed(by: rx.disposeBag)
+            }
+        } else {
+            self.viewModel.mealService.create(meal: newMeal) { success in
+                if success {
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+        }
     }
-    
-    
-    
 }

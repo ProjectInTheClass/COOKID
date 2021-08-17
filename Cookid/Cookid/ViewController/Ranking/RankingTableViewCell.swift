@@ -12,7 +12,7 @@ import Then
 class RankingTableViewCell: UITableViewCell {
     
     private let userImage = UILabel().then {
-        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 40)
+        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 35)
     }
     private let userName = UILabel().then {
         $0.font = UIFont(name: "Apple SD Gothic Neo", size: 13)
@@ -83,7 +83,7 @@ class RankingTableViewCell: UITableViewCell {
         
         dineInStack.snp.makeConstraints { make in
             make.centerY.equalTo(userInfoStack)
-            make.right.equalTo(contentView).offset(-25)
+            make.right.equalTo(contentView).offset(-30)
         }
     }
     

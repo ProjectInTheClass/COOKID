@@ -55,10 +55,6 @@ class UserService {
         self.userInfo.onNext(user)
     }
     
-//    func fetchTopRanker(completion: @escaping ([UserForRanking]?, Error?)->Void) {
-//        completion(, nil)
-//    }
-    
     func makeRanking(completion: @escaping ([UserForRanking]?, Error?)->Void){
         
         userRepository.fetchUsers { allEntities in

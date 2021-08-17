@@ -46,16 +46,7 @@ class OnboardingViewModel: ViewModelType {
         
         
         self.input = Input(nickname: nickname, monthlyGoal: monthlyGoal, usertype: usertype, determination: determination)
-        
         self.output = Output(userInformation: userInformation)
-    }
-    
-    func registrationUser(completion: @escaping (Bool, User)->Void) {
-        self.output.userInformation
-            .subscribe(onNext: { user in
-                completion(true, user)
-            })
-            .disposed(by: disposeBag)
     }
     
 }

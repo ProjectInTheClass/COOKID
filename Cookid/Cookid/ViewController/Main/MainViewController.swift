@@ -64,12 +64,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        
         LocalNotificationManager.setNotification()
-        
-//        UserRepository.shared.fetchUsers { userall in
-//            print(userall)
-//        }
     }
     
     // MARK: - Functions
@@ -100,8 +95,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         rankingButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                
-                
                 self.coordinator?.navigateRankingVC(viewModel: self.viewModel)
             })
             .disposed(by: rx.disposeBag)
@@ -152,13 +145,12 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .drive(onNext: { user in
                 self.userNickname.text = user.nickname
                 self.userDetermination.text = user.determination
+                self.userType.text = user.userType.rawValue
                 switch user.userType {
                 case .preferDineIn:
                     self.userImage.text = "🍚"
-                    self.userType.text = user.userType.rawValue
                 case .preferDineOut:
                     self.userImage.text = "🍟"
-                    self.userType.text = user.userType.rawValue
                 }
             })
             .disposed(by: rx.disposeBag)

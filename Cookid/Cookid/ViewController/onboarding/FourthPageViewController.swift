@@ -11,6 +11,8 @@ import RxCocoa
 import NSObject_Rx
 
 class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
+    
+    var user: User?
 
     var coordinator: OnboardingCoordinator?
     
@@ -32,6 +34,15 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
             self.determineStackView.alpha = 1
             self.finishPageButton.alpha = 1
         })
+        if coordinator != nil {
+            print("no nil!!!!!!!!!")
+        } else {
+            print("nil!!!!!!!!!")
+        }
+    }
+    
+    deinit {
+        print("Fourpage Deinit")
     }
     
     func bindViewModel() {
@@ -56,51 +67,28 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
             .bind(to: viewModel.input.determination)
             .disposed(by: rx.disposeBag)
         
-        finishPageButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.viewModel.registrationUser(completion: { (success, user) in
-                    if success {
-                        self?.view.window?.rootViewController?.dismiss(animated: false, completion: {
-                            LocalNotificationManager.setNotification()
-                            self?.setRootViewController(user: user)
-                        })
-                    }
-                })
+        viewModel.output.userInformation
+            .subscribe(onNext: { [unowned self] user in
+                self.user = user
             })
             .disposed(by: rx.disposeBag)
-        
     }
     
+    @IBAction func finish(_ sender: Any) {
+        LocalNotificationManager.setNotification()
+        guard let user = self.user else { return }
+        self.setRootViewController(user: user)
+    }
+    
+    // forced unwrapping
     func setRootViewController(user: User) {
-        
-        var mainVC = MainViewController.instantiate(storyboardID: "Main")
-        mainVC.bind(viewModel: MainViewModel(mealService: viewModel.mealService, userService: viewModel.userService, shoppingService: viewModel.shoppingService))
-        let mainNVC = UINavigationController(rootViewController: mainVC)
-        mainVC.navigationController?.navigationBar.prefersLargeTitles = true
-        mainVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
-        
-        var myMealVC = MyMealViewController.instantiate(storyboardID: "MyMealTap")
-        myMealVC.bind(viewModel: MyMealViewModel(mealService: viewModel.mealService, userService: viewModel.userService))
-        let myMealNVC = UINavigationController(rootViewController: myMealVC)
-        myMealVC.navigationController?.navigationBar.prefersLargeTitles = true
-
-        var myExpenseVC = MyExpenseViewController.instantiate(storyboardID: "MyExpenseTap")
-        myExpenseVC.bind(viewModel: MyExpenseViewModel(mealService: viewModel.mealService, userService: viewModel.userService, shoppingService: viewModel.shoppingService))
-        let myExpenseNVC = UINavigationController(rootViewController: myExpenseVC)
-        myExpenseVC.navigationController?.navigationBar.prefersLargeTitles = true
-        myExpenseVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
-
-        let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([mainNVC, myMealNVC, myExpenseNVC], animated: false)
-        
-        tabBarController.tabBar.tintColor = DefaultStyle.Color.tint
-        tabBarController.modalPresentationStyle = .fullScreen
-        tabBarController.modalTransitionStyle = .crossDissolve
-
-        let rootVC = UIApplication.shared.windows.first!.rootViewController
-        rootVC?.present(tabBarController, animated: true, completion: { [weak self] in
-            self?.viewModel.userService.uploadUserInfo(user: user)
-        })
+        let tabBarController = coordinator?.parentCoordinator?.navigateHomeCoordinator() as! UITabBarController
+        let nvc = tabBarController.viewControllers?[0] as! UINavigationController
+        let vc = nvc.topViewController as! MainViewController
+        let vm = vc.viewModel!
+        let window = UIApplication.shared.windows.first!
+        window.rootViewController = tabBarController
+        vm.userService.uploadUserInfo(user: user)
     }
 
 }

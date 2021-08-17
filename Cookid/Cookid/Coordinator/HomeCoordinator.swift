@@ -62,13 +62,14 @@ class HomeCoordinator: CoordinatorType {
             button.setTitle(data.0, for: .normal)
             viewModel.input.todayMeals.onNext(data.1)
         }
-        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
         mainNVC?.present(vc, animated: true, completion: nil)
     }
     
     func navigateAddMealVC(viewModel: MainViewModel, meal: Meal?) {
-        let addMealViewModel = AddMealViewModel(mealService: viewModel.mealService, userService: viewModel.userService, mealID: UUID().uuidString)
+        guard let mealID = meal != nil ? meal?.id : UUID().uuidString else { return }
+        let addMealViewModel = AddMealViewModel(mealService: viewModel.mealService, userService: viewModel.userService, mealID: mealID)
         var vc = AddMealViewController.instantiate(storyboardID: "Main")
         vc.meal = meal
         vc.bind(viewModel: addMealViewModel)
@@ -85,9 +86,6 @@ class HomeCoordinator: CoordinatorType {
         vc.selectBtn(btnState: .saveBtnOn)
         mainNVC?.present(vc, animated: true, completion: nil)
     }
-    
-
-
     
     func navigateRankingVC(viewModel: MainViewModel) {
         let rankingViewModel = RankingViewModel(userService: viewModel.userService)
