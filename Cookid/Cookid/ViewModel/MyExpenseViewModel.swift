@@ -15,7 +15,7 @@ class MyExpenseViewModel: ViewModelType {
     let mealService: MealService
     let userService: UserService
     let shoppingService: ShoppingService
-
+    
     struct Input {
         let selectedDates : BehaviorSubject<[Date]>
     }
@@ -45,7 +45,7 @@ class MyExpenseViewModel: ViewModelType {
         let shoppings = shoppingService.shoppingList()
         
         let selectedDates = BehaviorSubject<[Date]>(value: [Date()])
-
+        
         let averagePrice = Observable.combineLatest(shoppings.map(shoppingService.fetchShoppingTotalSpend), meals.map(mealService.fetchEatOutSpend)) { shoppingPrice, mealPrice -> Double in
             let day = Calendar.current.ordinality(of: .day, in: .month, for: Date()) ?? 1
             return Double(shoppingPrice + mealPrice) / Double(day)
@@ -67,39 +67,31 @@ class MyExpenseViewModel: ViewModelType {
             var dineOutMeals = meals.filter{ $0.mealType == .dineOut}
             var dineInMeals = meals.filter{ $0.mealType == .dineIn}
             var shoppings = shoppings
-            let dates : [String]? = selectedDates.map{ $0.dateToString() }
-
+            let dates = selectedDates.map{ $0.dateToString() }
+            
             var dineOutItems : [MealShoppingSectionItem]? = [MealShoppingSectionItem]()
             var dineInItems : [MealShoppingSectionItem]? = [MealShoppingSectionItem]()
             var shoppingItems : [MealShoppingSectionItem]? = [MealShoppingSectionItem]()
             
-            if let dates = dates, dates.count != 0 {
-                for i in 0...(dates.count-1) {
-                    shoppings = shoppings.filter{ $0.date.dateToString() == dates[i] }
-                    dineOutMeals = dineOutMeals.filter{ $0.date.dateToString() == dates[i]}
-                    dineInMeals = dineInMeals.filter{ $0.date.dateToString() == dates[i] }
-                }
+            
+            for i in 0..<dates.count {
+                shoppings = shoppings.filter{ $0.date.dateToString() == dates[i] }
+                dineOutMeals = dineOutMeals.filter{ $0.date.dateToString() == dates[i]}
+                dineInMeals = dineInMeals.filter{ $0.date.dateToString() == dates[i] }
             }
             
-            let dineOutCount = !dineOutMeals.isEmpty ? dineOutMeals.count-1 : 0
-            let dineInCount = !dineInMeals.isEmpty ? dineInMeals.count-1 : 0
-            let shoppingCount = !shoppings.isEmpty ? shoppings.count-1 : 0
-            
-            guard dineOutCount != 0 else { return [] }
-            for i in 0...dineOutCount {
+            for i in 0..<dineOutMeals.count {
                 dineOutItems?.append(.DineOutSectionItem(item: dineOutMeals[i]))
             }
             
-            guard dineInCount != 0 else { return [] }
-            for i in 0...dineInCount {
+            for i in 0..<dineInMeals.count {
                 dineInItems?.append(.DineInSectionItem(item: dineInMeals[i]))
             }
             
-            guard shoppingCount != 0 else { return [] }
-            for i in 0...shoppingCount {
+            for i in 0..<shoppings.count {
                 shoppingItems?.append(.ShoppingSectionItem(item: shoppings[i]))
             }
-
+            
             let sections: [MealShoppingItemSectionModel] = [
                 .DineOutSection(title: "외식", items: dineOutItems ?? []),
                 .DineInSection(title: "집밥", items: dineInItems ?? []),

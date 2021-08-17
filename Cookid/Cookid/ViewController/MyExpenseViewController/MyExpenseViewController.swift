@@ -19,7 +19,7 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     var dineOutMeals = [Meal]()
     var dineInMeals = [Meal]()
     var shoppings = [GroceryShopping]()
-    
+    var sections = [MealShoppingItemSectionModel]()
     
     @IBOutlet weak var averageExpenseLabel: UILabel!
     @IBOutlet weak var calendar: FSCalendar!
@@ -70,14 +70,14 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
         
         viewModel.output.updateDataBySelectedDates
             .drive( onNext: { [unowned self] sections in
-                
-                let dataSource = MyExpenseViewController.dataSource()
-                
-                Observable.just(sections)
-                    .bind(to: self.tableView.rx.items(dataSource: dataSource))
-                    .disposed(by: self.rx.disposeBag)
+                self.sections = sections
             })
             .disposed(by: rx.disposeBag)
+        
+        let dataSource = MyExpenseViewController.dataSource()
+        Observable.just(sections)
+            .bind(to: self.tableView.rx.items(dataSource: dataSource))
+            .disposed(by: self.rx.disposeBag)
         
         tableView.rx.setDelegate(self)
             .disposed(by: rx.disposeBag)
