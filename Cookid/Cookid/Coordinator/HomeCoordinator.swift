@@ -68,7 +68,7 @@ class HomeCoordinator: CoordinatorType {
     }
     
     func navigateAddMealVC(viewModel: MainViewModel, meal: Meal?) {
-        guard let mealID = meal != nil ? meal?.id : UUID().uuidString else { return }
+        let mealID = meal != nil ? meal?.id : UUID().uuidString
         let addMealViewModel = AddMealViewModel(mealService: viewModel.mealService, userService: viewModel.userService, mealID: mealID)
         var vc = AddMealViewController.instantiate(storyboardID: "Main")
         vc.meal = meal
