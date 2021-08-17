@@ -85,7 +85,7 @@
                         <outlet property="averageExpenseLabel" destination="iWV-g3-4r5" id="AKv-80-cJm"/>
                         <outlet property="calendar" destination="AD9-1B-nf3" id="yJY-Vb-4d7"/>
                         <outlet property="calendarHeightConstraint" destination="X7c-Vc-frd" id="bEN-BB-ESt"/>
-                        <outlet property="listTableView" destination="Gz1-Yi-DiO" id="Us6-Qc-iHh"/>
+                        <outlet property="tableView" destination="Gz1-Yi-DiO" id="qMm-9U-SVL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

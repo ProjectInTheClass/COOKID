@@ -8,7 +8,7 @@
 import UIKit
 
 
-extension MyExpenseViewController : UITableViewDelegate {
+//extension MyExpenseViewController : UITableViewDelegate {
     
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return 5
@@ -37,9 +37,9 @@ extension MyExpenseViewController : UITableViewDelegate {
 //        return cell
 //    }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 50
+//    }
     
 //    func numberOfSections(in tableView: UITableView) -> Int {
 ////        let count = data.count
@@ -104,6 +104,6 @@ extension MyExpenseViewController : UITableViewDelegate {
 ////        }
 //    }
     
-}
+//}
 
 

@@ -13,7 +13,7 @@ import RxSwift
 import RxDataSources
 
 class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBased, UIScrollViewDelegate {
-  
+    
     var viewModel: MyExpenseViewModel!
     
     var dineOutMeals = [Meal]()
@@ -23,7 +23,7 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     
     @IBOutlet weak var averageExpenseLabel: UILabel!
     @IBOutlet weak var calendar: FSCalendar!
-    @IBOutlet weak var listTableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet var calendarHeightConstraint: NSLayoutConstraint!
     
     lazy var dateFormatter: DateFormatter = {
@@ -51,9 +51,6 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     }
     
     func bindViewModel() {
-        
-        
-        
         viewModel.output.averagePrice
             .drive(onNext: { str in
                 self.averageExpenseLabel.text = str
@@ -62,7 +59,7 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
         
         viewModel.output.updateData
             .drive(onNext: { [unowned self] (dineOutMeals, dineInMeals, shoppings) in
-
+                
                 self.dineOutMeals = dineOutMeals
                 self.dineInMeals = dineInMeals
                 self.shoppings = shoppings
@@ -73,16 +70,18 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
         
         viewModel.output.updateDataBySelectedDates
             .drive( onNext: { [unowned self] sections in
+                
                 let dataSource = MyExpenseViewController.dataSource()
+                
                 Observable.just(sections)
-                    .bind(to: self.listTableView.rx.items(dataSource: dataSource))
+                    .bind(to: self.tableView.rx.items(dataSource: dataSource))
                     .disposed(by: self.rx.disposeBag)
             })
             .disposed(by: rx.disposeBag)
         
-        listTableView.rx.setDelegate(self)
+        tableView.rx.setDelegate(self)
             .disposed(by: rx.disposeBag)
-
+        
     }
     
     deinit {
@@ -100,7 +99,7 @@ class MyExpenseViewController: UIViewController, ViewModelBindable, StoryboardBa
     }()
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let shouldBegin = self.listTableView.contentOffset.y <= -self.listTableView.contentInset.top
+        let shouldBegin = self.tableView.contentOffset.y <= -self.tableView.contentInset.top
         if shouldBegin {
             let velocity = self.scopeGesture.velocity(in: self.view)
             switch self.calendar.scope {
@@ -121,11 +120,13 @@ extension MyExpenseViewController {
     func setUpConstraint() {
         self.calendar.delegate = self
         self.calendar.dataSource = self
-
+        self.tableView.delegate = nil
+        self.tableView.dataSource = nil
+        
         calendar.makeShadow()
         
         self.view.addGestureRecognizer(self.scopeGesture)
-        self.listTableView.panGestureRecognizer.require(toFail: self.scopeGesture)
+        self.tableView.panGestureRecognizer.require(toFail: self.scopeGesture)
         
         self.calendar.backgroundColor = .white
         self.calendar.appearance.headerDateFormat = "yyyy년 MM월"
@@ -136,14 +137,15 @@ extension MyExpenseViewController {
         self.calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         self.calendar.appearance.titleTodayColor = .black
         
-        self.listTableView.rowHeight = UITableView.automaticDimension
-        self.listTableView.estimatedRowHeight = UITableView.automaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = UITableView.automaticDimension
     }
     
     static func dataSource() -> MealShoppingDataSource {
-        return MealShoppingDataSource (configureCell: { dataSource , tableView, indexPath, item in
+        return MealShoppingDataSource (configureCell: { dataSource , tableView, indexPath, _ in
             let cell: ExpenseTableViewCell =
                 tableView.dequeueReusableCell(withIdentifier: "ExpenseTableViewCell") as! ExpenseTableViewCell
+            
             switch dataSource[indexPath] {
             case let .DineOutSectionItem(item):
                 cell.updateCell(title: "\(item.price)원", date: item.date.dateToString())
@@ -163,4 +165,9 @@ extension MyExpenseViewController {
         }
         )
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
 }
+
