@@ -81,24 +81,13 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
     }
     
     @IBAction func checkBtnTapped(_ sender: UIButton) {
-        guard let user = user else { return }
-        
-        
+       
         viewModel.output.newUserInfo
             .take(1)
             .subscribe(on:ConcurrentDispatchQueueScheduler.init(queue: DispatchQueue.global()))
             .subscribe(onNext: { [unowned self] newInfo in
                 
-                let newNickname = newInfo.nickName.isEmpty ? user.nickname : newInfo.nickName
-                
-                let newDetermination = newInfo.determination.isEmpty ? user.determination : newInfo.determination
-                
-                let newPriceGoal = newInfo.priceGoal.isEmpty ? user.priceGoal : newInfo.priceGoal
-                
-                
-                let newUserInfo = User(userID: user.userID, nickname: newNickname, determination: newDetermination, priceGoal: newPriceGoal, userType: user.userType)
-                
-                viewModel.userService.updateUserInfo(user: newUserInfo) { bool in
+                viewModel.userService.updateUserInfo(user: newInfo) { bool in
                     DispatchQueue.main.async {
                         self.dismiss(animated: true, completion: nil)
                     }
