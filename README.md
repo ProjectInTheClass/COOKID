@@ -54,12 +54,6 @@
 ### 백앤드
 * Firebase Auth, Realtime Database, Storage
 
-### 테스트
-* Rx : RxTest, RxBlocking
-* Unit : Nimble
-* UI : UITest (swift)
-* Application : Firebase Crashlytics, Analytics
-
 ### 테스트 자동화
 * fastlane
 
@@ -91,15 +85,12 @@
 
 * ### 박형석
 
-  * View
-    * mainView 작업 : 하나의 스크롤뷰 안에 뷰를 넣음 (for 여백의 미) 
-    * 온보딩뷰 작업: 온보딩에서 사용자의 정보를 입력하는 방식, 정보는 버튼으로 들어가고 이를 가능하게 했던 것은 뷰모델을 사용하였기 때문 
-    * charaterSet 
-    * MealtapView : progressBar
-
-  * 데이터 바인딩
-    * MealService
-    * RxSwift, RxCocoa
+  * 맡은 영역
+    * 아키텍쳐 설계
+    * Main Tap 뷰와 뷰모델, 서비스 제작
+    * 식사 추가 수정 삭제 제작
+    * 식사 통계 뷰 및 뷰모델 서비스 제작
+    * 랭킹 페이지 뷰 제작
 
 * ### 홍석현
 
