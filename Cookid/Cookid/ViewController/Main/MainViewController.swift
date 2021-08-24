@@ -41,6 +41,9 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     //adviseView
     @IBOutlet weak var adviseView: UIView!
     @IBOutlet weak var adviseLabel: UILabel!
+    @IBOutlet weak var averageView: UIView!
+    @IBOutlet weak var averageLabel: UILabel!
+    
     
     // chartView
     @IBOutlet weak var chartView: UIView!
@@ -77,6 +80,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         consumeView.makeShadow()
         etcView.makeShadow()
         adviseView.makeShadow()
+        averageView.makeShadow()
         configureNavTab()
         monthSelectButton.setTitle(Date().dateToString(), for: .normal)
     }
@@ -101,23 +105,27 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         leftButton.rx.tap
             .subscribe(onNext: { [unowned self] in
+                let shopping = self.viewModel.shoppingService.fetchShoppingByNavigate(-1)
                 let data = self.viewModel.mealService.fetchMealByNavigate(-1)
                 self.monthSelectButton.setTitle(data.0, for: .normal)
-                self.viewModel.input.yesterdayMeals.onNext(data.1)
+                self.viewModel.input.selectedDate.onNext(stringToDateKr(string: data.0))
+                self.viewModel.input.yesterdayMeals.onNext((data.1, shopping.1))
             })
             .disposed(by: rx.disposeBag)
         
         rightButton.rx.tap
             .subscribe(onNext: { [unowned self] in
+                let shopping = self.viewModel.shoppingService.fetchShoppingByNavigate(1)
                 let data = self.viewModel.mealService.fetchMealByNavigate(1)
                 self.monthSelectButton.setTitle(data.0, for: .normal)
-                self.viewModel.input.tommorowMeals.onNext(data.1)
+                self.viewModel.input.selectedDate.onNext(stringToDateKr(string: data.0))
+                self.viewModel.input.tommorowMeals.onNext((data.1, shopping.1))
             })
             .disposed(by: rx.disposeBag)
         
         monthSelectButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                coordinator?.navigateSelectCalendarVC(viewModel: self.viewModel, button: self.monthSelectButton)
+                coordinator?.navigateSelectCalendarVC(viewModel: self.viewModel)
             })
             .disposed(by: rx.disposeBag)
         
@@ -129,7 +137,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         addShoppingButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                coordinator?.navigateAddShoppingVC(viewModel: self.viewModel)
+                coordinator?.navigateAddShoppingVC(viewModel: self.viewModel, shopping: nil)
             })
             .disposed(by: rx.disposeBag)
         
@@ -139,7 +147,22 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
+        viewModel.input.selectedDate
+            .bind(onNext: { [unowned self] date in
+                let shopping = viewModel.shoppingService.fetchShoppingByDay(date)
+                let data = viewModel.mealService.fetchMealByDay(date)
+                self.monthSelectButton.setTitle(data.0, for: .normal)
+                viewModel.input.todayMeals.onNext((data.1, shopping.1))
+            })
+            .disposed(by: rx.disposeBag)
+        
         // MARK: - bindViewModel output
+        
+        viewModel.output.averagePrice
+            .drive(onNext: { [unowned self] str in
+                self.averageLabel.text = str
+            })
+            .disposed(by: rx.disposeBag)
         
         viewModel.output.userInfo
             .drive(onNext: { user in
@@ -182,26 +205,25 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .disposed(by: rx.disposeBag)
         
         viewModel.output.mealDayList
-            .drive(mealDayCollectionView.rx.items(cellIdentifier: "mainMealCell", cellType: MealDayCollectionViewCell.self)) { item, meal, cell in
-                cell.updateUI(meal: meal)
-            }
+            .drive(mealDayCollectionView.rx.items(dataSource: viewModel.dataSource))
             .disposed(by: rx.disposeBag)
+        
+        mealDayCollectionView.rx.modelSelected(MainCollectionViewItem.self)
+            .subscribe(onNext: { [unowned self] item in
+                switch item {
+                case .meals(meal: let meal):
+                    self.coordinator?.navigateAddMealVC(viewModel: self.viewModel, meal: meal)
+                case .shoppings(shopping: let shopping):
+                    self.coordinator?.navigateAddShoppingVC(viewModel: self.viewModel, shopping: shopping)
+                }
+            })
+            .disposed(by: rx.disposeBag)
+        
         
         // rx delegate
         mealDayCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
         
-        Observable.zip(mealDayCollectionView.rx.modelSelected(Meal.self), mealDayCollectionView.rx.itemSelected)
-            .observe(on: MainScheduler.instance)
-            .do(onNext: { _, indexPath in
-                self.mealDayCollectionView.deselectItem(at: indexPath, animated: false)
-            })
-            .subscribe(onNext: { [unowned self] meal, _ in
-                coordinator?.navigateAddMealVC(viewModel: self.viewModel, meal: meal)
-            })
-            .disposed(by: rx.disposeBag)
     }
-    
-    
     
 }
 

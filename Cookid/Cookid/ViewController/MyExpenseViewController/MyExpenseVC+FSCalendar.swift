@@ -18,7 +18,7 @@ extension MyExpenseViewController : FSCalendarDelegate, FSCalendarDelegateAppear
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-
+        
         print("\(calendar.selectedDates) 선택됨")
         
         if monthPosition == .next || monthPosition == .previous {

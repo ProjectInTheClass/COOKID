@@ -10,6 +10,8 @@ import RxSwift
 
 class ShoppingService {
     
+    var currentDay = Date()
+    
     let groceryRepository: GroceryRepository
     
     private var groceryShoppings: [GroceryShopping] = []
@@ -64,7 +66,7 @@ class ShoppingService {
         return Observable.just(shopping)
     }
     
-    func fetchGroceries(user: User, completion: @escaping (([GroceryShopping]) -> Void)) {
+    func fetchShoppings(user: User, completion: @escaping (([GroceryShopping]) -> Void)) {
         groceryRepository.fetchGroceryInfo(user: user) { [unowned self] models in
             let groceryShoppings = models.map { shoppingModel -> GroceryShopping in
                 
@@ -83,6 +85,26 @@ class ShoppingService {
     func fetchShoppingTotalSpend(shoppings: [GroceryShopping]) -> Int {
         let shoppingSpends = shoppings.map { $0.totalPrice }.reduce(0, +)
         return shoppingSpends
+    }
+    
+    func fetchShoppingByNavigate(_ day: Int) -> (String, [GroceryShopping]) {
+        guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return ("", []) }
+        currentDay = aDay
+        let dateString = convertDateToString(format: "YYYY년 M월 d일", date: aDay)
+        let shopping = self.groceryShoppings.filter {$0.date.dateToString() == aDay.dateToString() }
+        
+        return (dateString, shopping)
+    }
+    
+    func fetchShoppingByDay(_ day: Date) -> (String, [GroceryShopping]) {
+        currentDay = day
+        let dateString = convertDateToString(format: "YYYY년 M월 d일", date: day)
+        let shopping = self.groceryShoppings.filter { $0.date.dateToString() == day.dateToString() }
+        return (dateString, shopping)
+    }
+    
+    func todayShoppings(shoppings: [GroceryShopping]) -> [GroceryShopping] {
+        return shoppings.filter { $0.date.dateToString() == Date().dateToString() }
     }
 
 }

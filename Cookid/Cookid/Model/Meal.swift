@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxDataSources
 
 class Meal: Equatable {
     static func == (lhs: Meal, rhs: Meal) -> Bool {
@@ -30,7 +31,6 @@ class Meal: Equatable {
     }
 }
 
-
 enum MealType: String {
     case dineOut = "외식"
     case dineIn = "집밥"
@@ -45,8 +45,22 @@ enum MealTime: String, CaseIterable {
     case snack = "간식"
 }
 
-struct GroceryShopping {
-    let id: String
-    var date: Date
-    var totalPrice: Int
+
+struct MealSection {
+    typealias Item = Meal
+   
+    var header: String
+    var items: [Item]
+    
+    init(header: String, items: [Item]) {
+        self.header = header
+        self.items = items
+    }
+}
+
+extension MealSection: SectionModelType {
+    init(original: MealSection, items: [Item]) {
+        self = original
+        self.items = items
+    }
 }

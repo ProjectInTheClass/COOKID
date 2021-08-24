@@ -38,7 +38,7 @@ class MyExpenseViewModel: ViewModelType {
         
         userService.loadUserInfo { user in
             mealService.fetchMeals(user: user) { _ in }
-            shoppingService.fetchGroceries(user: user) { _ in }
+            shoppingService.fetchShoppings(user: user) { _ in }
         }
         
         let meals = mealService.mealList()

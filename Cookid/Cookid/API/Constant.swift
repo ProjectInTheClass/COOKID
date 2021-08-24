@@ -35,6 +35,8 @@ public enum DefaultStyle {
 enum CELL_IDENTIFIER {
     static let rankingCell = "rankingCell"
     static let rankingHeaderView = "rankingHeaderView"
+    static let mainMealCell = "mainMealCell"
+    static let mainShoppingCell = "mainShoppingCell"
 }
 
 enum NetWorkingError : String, Error {

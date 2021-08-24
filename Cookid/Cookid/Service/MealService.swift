@@ -120,7 +120,7 @@ class MealService {
     // MARK: - Validation
     
     private let charSet: CharacterSet = {
-        var cs = CharacterSet.init(charactersIn: "0123456789")
+        var cs = CharacterSet(charactersIn: "0123456789")
         return cs.inverted
     }()
     
