@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>721918403644-93srepfg3ecro93eoilpbiqns7obpldo.apps.googleusercontent.com</string>
+	<string>721918403644-8coslpfn36fief2grlfgv0g47euv085h.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.721918403644-93srepfg3ecro93eoilpbiqns7obpldo</string>
+	<string>com.googleusercontent.apps.721918403644-8coslpfn36fief2grlfgv0g47euv085h</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDqDUNrZVc1DHl_rHO79CgqIIbHohDztc4</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.DeveloperPaul.Cookid</string>
+	<string>com.codershigh.Cookid</string>
 	<key>PROJECT_ID</key>
 	<string>cookid-2e07c</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:721918403644:ios:9f82c5797fe0232e77cf39</string>
+	<string>1:721918403644:ios:45c40a0fbbfb042277cf39</string>
+	<key>DATABASE_URL</key>
+	<string>https://cookid-2e07c-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

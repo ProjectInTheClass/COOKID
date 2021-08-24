@@ -18,12 +18,17 @@ func convertDateToString(format: String, date: Date) -> String {
 }
 
 func stringToDate(date: String) -> Date {
-    
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
-    let date = dateFormatter.date(from: date)
-    
-    return date!
+    let date = dateFormatter.date(from: date)!
+    return date
+}
+
+func stringToDateKr(string: String) -> Date {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+    let date = dateFormatter.date(from: string)!
+    return date
 }
 
 

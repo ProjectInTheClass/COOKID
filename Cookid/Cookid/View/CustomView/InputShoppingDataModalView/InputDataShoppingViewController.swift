@@ -14,6 +14,7 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
     let service: ShoppingService
     var currentPrice : String?
     var currentDate : String?
+    var shopping: GroceryShopping?
     
     init(service: ShoppingService) {
         self.service = service
@@ -115,6 +116,7 @@ class InputDataShoppingViewController: UIViewController, UITableViewDelegate, UI
 
 //MARK: - Constraints
 extension InputDataShoppingViewController {
+    
     func setUpConstraints() {
         self.view.addSubview(backView)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)

@@ -55,13 +55,9 @@ class HomeCoordinator: CoordinatorType {
         return tabBarController
     }
     
-    func navigateSelectCalendarVC(viewModel: MainViewModel, button: UIButton) {
-        let vc = SelectCalendarViewController.instantiate(storyboardID: "Main")
-        vc.completionHandler = { date in
-            let data = viewModel.mealService.fetchMealByDay(date)
-            button.setTitle(data.0, for: .normal)
-            viewModel.input.todayMeals.onNext(data.1)
-        }
+    func navigateSelectCalendarVC(viewModel: MainViewModel) {
+        var vc = SelectCalendarViewController.instantiate(storyboardID: "Main")
+        vc.bind(viewModel: viewModel)
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
         mainNVC?.present(vc, animated: true, completion: nil)
@@ -79,8 +75,9 @@ class HomeCoordinator: CoordinatorType {
         mainNVC?.present(vc, animated: true, completion: nil)
     }
     
-    func navigateAddShoppingVC(viewModel: MainViewModel) {
+    func navigateAddShoppingVC(viewModel: MainViewModel, shopping: GroceryShopping?) {
         let vc = InputDataShoppingViewController(service: viewModel.shoppingService)
+        vc.shopping = shopping
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
         vc.selectBtn(btnState: .saveBtnOn)

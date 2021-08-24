@@ -41,8 +41,6 @@ class AddMealViewModel: ViewModelType, HasDisposeBag {
     init(mealService: MealService, userService: UserService, mealID: String? = nil) {
         self.mealService = mealService
         
-        print(mealID)
-        
         // 왜 항상 비헤이비어일까?
         // publish는 구독 이후에 전달되는 next이벤트를 처리하는데, 그거 때문에 초기에 방출한 이벤트들이 들어오지 않습니다. Behavior는 최근에 방출한 이벤트를 가져오기 때문에 초기값 세팅을 할 수 있어서 사용했어요~ 예를 들면 새로운 밀을 추가하는데는 default가 필요없지만 기존 밀을 가져오는데는 문제가 있습니다. 여긴 같은 뷰를 재사용하고 있기 때문에 모두를 만족시킬 코드를 작성한 것이구요! 처음에는 새로운 밀을 추가하는데도 필요했습니다. 매번 mealID를 onNext해서 Input해왔거든요...
         

@@ -31,7 +31,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     @IBOutlet weak var validationView: UIButton!
     @IBOutlet weak var updateAnnouce: UILabel!
     
-    
     // pickers
     lazy var datePicker: UIDatePicker = {
         let dp = UIDatePicker(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 200))
@@ -54,25 +53,10 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     
     // properties
     
-    var meal: Meal? {
-        didSet {
-            if meal != nil {
-                print("meal is existence")
-            } else {
-                print("meal is nil")
-            }
-            
-        }
-    }
-    
+    var meal: Meal?
     var newMeal: Meal? {
         didSet {
-            if meal != nil {
-                print("newMeal is existence")
-            } else {
-                print("newMeal is nil")
-            }
-            
+            print(newMeal?.image)
         }
     }
     
@@ -89,10 +73,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         super.viewDidLoad()
         configureUI()
         initialSetting()
-    }
-    
-    deinit {
-        print("deinit")
     }
     
     // MARK: - UI
@@ -116,7 +96,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     private func initialSetting() {
         if let meal = self.meal {
             updateAnnouce.text = "수정이 완료되셨나요?"
-            
+            print("-------------> \(meal.image!)")
             let imageView = UIImageView()
             imageView.kf.setImage(with: meal.image)
             selectedPhoto = true
@@ -386,7 +366,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         
         viewModel.output.newMeal
             .subscribe(onNext: { [unowned self] newMeal in
-                print("구독은되니?")
                 self.newMeal = newMeal
             })
             .disposed(by: rx.disposeBag)
