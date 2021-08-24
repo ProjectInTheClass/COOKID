@@ -54,16 +54,10 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     // properties
     
     var meal: Meal?
-    var newMeal: Meal? {
-        didSet {
-            print(newMeal?.image)
-        }
-    }
     
     var viewModel: AddMealViewModel!
     var selectedPhoto: Bool = false
     var selectedPictrue: Bool = false
-    let mealID = UUID().uuidString
     let imagePicker = UIImagePickerController()
     
     
@@ -96,7 +90,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     private func initialSetting() {
         if let meal = self.meal {
             updateAnnouce.text = "수정이 완료되셨나요?"
-            print("-------------> \(meal.image!)")
             let imageView = UIImageView()
             imageView.kf.setImage(with: meal.image)
             selectedPhoto = true
@@ -160,7 +153,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         guard let selectedImage = info[.originalImage] as? UIImage else { return }
         addPhotoButton.setImage(selectedImage, for: .normal)
         self.viewModel.mealService.mealRepository.uploadImage(mealID: self.viewModel.input.mealID, image: selectedImage) { _ in }
-        self.viewModel.input.mealURL.onNext(URL(string: "forValidationURL"))
         dismiss(animated: true, completion: nil)
     }
     
@@ -363,36 +355,33 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         viewModel.output.validation
             .drive(completionButton.rx.isEnabled)
             .disposed(by: rx.disposeBag)
-        
-        viewModel.output.newMeal
-            .subscribe(onNext: { [unowned self] newMeal in
-                self.newMeal = newMeal
-            })
-            .disposed(by: rx.disposeBag)
        
     }
     
     @IBAction func completedButtonTapped(_ sender: UIButton) {
         
-        guard let newMeal = newMeal else { print("newMeal nil")
-            return }
-        
-        if self.meal != nil {
-            self.viewModel.mealService.update(updateMeal: newMeal) { success in
-                if success {
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: nil)
+        viewModel.output.newMeal
+            .take(1)
+            .observe(on: ConcurrentDispatchQueueScheduler.init(queue: DispatchQueue.global()))
+            .subscribe(onNext: { [unowned self] newMeal in
+                if self.meal != nil {
+                    self.viewModel.mealService.update(updateMeal: newMeal) { success in
+                        if success {
+                            DispatchQueue.main.async {
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                    }
+                } else {
+                    self.viewModel.mealService.create(meal: newMeal) { success in
+                        if success {
+                            DispatchQueue.main.async {
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                        }
                     }
                 }
-            }
-        } else {
-            self.viewModel.mealService.create(meal: newMeal) { success in
-                if success {
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                }
-            }
-        }
+            })
+            .disposed(by: rx.disposeBag)
     }
 }
