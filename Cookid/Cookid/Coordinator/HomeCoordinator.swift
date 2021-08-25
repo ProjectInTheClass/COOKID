@@ -41,14 +41,8 @@ class HomeCoordinator: CoordinatorType {
         let myMealNVC = UINavigationController(rootViewController: myMealVC)
         myMealVC.navigationController?.navigationBar.prefersLargeTitles = true
         
-        var myExpenseVC = MyExpenseViewController.instantiate(storyboardID: "MyExpenseTap")
-        myExpenseVC.bind(viewModel: MyExpenseViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
-        let myExpenseNVC = UINavigationController(rootViewController: myExpenseVC)
-        myExpenseVC.navigationController?.navigationBar.prefersLargeTitles = true
-        myExpenseVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
-        
         let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([mainNVC!, myMealNVC, myExpenseNVC], animated: false)
+        tabBarController.setViewControllers([mainNVC!, myMealNVC], animated: false)
         tabBarController.tabBar.tintColor = DefaultStyle.Color.tint
         tabBarController.modalPresentationStyle = .fullScreen
         tabBarController.modalTransitionStyle = .crossDissolve
