@@ -316,8 +316,8 @@
 			isa = PBXGroup;
 			children = (
 				032233C92692A8310092DD6D /* onboarding */,
-				0395F6EB26B804780091BB29 /* Other */,
 				03E42EDB26C4F6A7005D7B5E /* Main */,
+				03B2048826D5D3A70099C269 /* MyMeal */,
 				35160674269F2047008B7264 /* MyExpenseViewController */,
 				03E42ED426C4DBB0005D7B5E /* Ranking */,
 			);
@@ -424,15 +424,12 @@
 			path = Depreacated;
 			sourceTree = "<group>";
 		};
-		0395F6EB26B804780091BB29 /* Other */ = {
+		03B2048826D5D3A70099C269 /* MyMeal */ = {
 			isa = PBXGroup;
 			children = (
-				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
-				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
-				0395F6EC26B805360091BB29 /* AddMealViewController.swift */,
-				037AC1A726B98B48009509CF /* PictureSelectCollectionViewController.swift */,
+				032233BB269279DC0092DD6D /* MyMealViewController.swift */,
 			);
-			path = Other;
+			path = MyMeal;
 			sourceTree = "<group>";
 		};
 		03E42EB626C412A8005D7B5E /* CookidTests */ = {
@@ -478,7 +475,10 @@
 			isa = PBXGroup;
 			children = (
 				032233B7269276DB0092DD6D /* MainViewController.swift */,
-				032233BB269279DC0092DD6D /* MyMealViewController.swift */,
+				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
+				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
+				0395F6EC26B805360091BB29 /* AddMealViewController.swift */,
+				037AC1A726B98B48009509CF /* PictureSelectCollectionViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
