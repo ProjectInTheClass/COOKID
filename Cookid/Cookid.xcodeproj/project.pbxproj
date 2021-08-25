@@ -61,7 +61,6 @@
 		353BE569269C860E006A6A47 /* InputDataShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353BE568269C860E006A6A47 /* InputDataShoppingViewController.swift */; };
 		353BE56B269D6A7C006A6A47 /* PanModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353BE56A269D6A7C006A6A47 /* PanModalHeaderView.swift */; };
 		353BE570269D72B7006A6A47 /* InputDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353BE56F269D72B7006A6A47 /* InputDataTableViewCell.swift */; };
-		354F331C26A14CDC0013EDBB /* InputDataShopping.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 354F331E26A14CDC0013EDBB /* InputDataShopping.storyboard */; };
 		355A36B726989461001A5CD8 /* MyExpenseVC+FSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355A36B626989461001A5CD8 /* MyExpenseVC+FSCalendar.swift */; };
 		355A36B9269894A5001A5CD8 /* MyExpenseVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355A36B8269894A5001A5CD8 /* MyExpenseVC+TableView.swift */; };
 		355A36BB2698956F001A5CD8 /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355A36BA2698956F001A5CD8 /* ExpenseTableViewCell.swift */; };
@@ -172,7 +171,6 @@
 		353BE568269C860E006A6A47 /* InputDataShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDataShoppingViewController.swift; sourceTree = "<group>"; };
 		353BE56A269D6A7C006A6A47 /* PanModalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanModalHeaderView.swift; sourceTree = "<group>"; };
 		353BE56F269D72B7006A6A47 /* InputDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDataTableViewCell.swift; sourceTree = "<group>"; };
-		354F331D26A14CDC0013EDBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/InputDataShopping.storyboard; sourceTree = "<group>"; };
 		355A36B626989461001A5CD8 /* MyExpenseVC+FSCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyExpenseVC+FSCalendar.swift"; sourceTree = "<group>"; };
 		355A36B8269894A5001A5CD8 /* MyExpenseVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyExpenseVC+TableView.swift"; sourceTree = "<group>"; };
 		355A36BA2698956F001A5CD8 /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
@@ -309,7 +307,6 @@
 				03B2048B26D5D9270099C269 /* Main */,
 				032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */,
 				0395B61426941121009289B7 /* MyMealViewModel.swift */,
-				038875AC269FD1EF00D5D202 /* MyExpenseViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -320,7 +317,6 @@
 				032233C92692A8310092DD6D /* onboarding */,
 				03E42EDB26C4F6A7005D7B5E /* Main */,
 				03B2048826D5D3A70099C269 /* MyMeal */,
-				35160674269F2047008B7264 /* MyExpenseViewController */,
 				03E42ED426C4DBB0005D7B5E /* Ranking */,
 			);
 			path = ViewController;
@@ -360,9 +356,7 @@
 				032233A6269212870092DD6D /* Launch.storyboard */,
 				032233A1269212860092DD6D /* Main.storyboard */,
 				032233BF26927A4F0092DD6D /* MyMealTap.storyboard */,
-				032233C326927A910092DD6D /* MyExpenseTap.storyboard */,
 				DB1982EE269BF7D30055742B /* UserInfo.storyboard */,
-				354F331E26A14CDC0013EDBB /* InputDataShopping.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -408,8 +402,6 @@
 				035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */,
 				035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */,
 				0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */,
-				355A36BA2698956F001A5CD8 /* ExpenseTableViewCell.swift */,
-				353BE56C269D6A85006A6A47 /* InputShoppingDataModalView */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -417,10 +409,15 @@
 		0395F6EA26B8041E0091BB29 /* Depreacated */ = {
 			isa = PBXGroup;
 			children = (
+				35160674269F2047008B7264 /* MyExpenseViewController */,
+				353BE56C269D6A85006A6A47 /* InputShoppingDataModalView */,
 				C64560C4269DC982009B249F /* InputMealViewController */,
 				C64560C3269DC96A009B249F /* MealDtailViewController */,
+				032233C326927A910092DD6D /* MyExpenseTap.storyboard */,
+				038875AC269FD1EF00D5D202 /* MyExpenseViewModel.swift */,
 				C64560BE269D4C0E009B249F /* DatePickerTextField.swift */,
 				C64560BC269D4C0E009B249F /* ImagePicker.swift */,
+				355A36BA2698956F001A5CD8 /* ExpenseTableViewCell.swift */,
 				C64560BD269D4C0E009B249F /* TextFieldWithPickerAsInputView.swift */,
 			);
 			path = Depreacated;
@@ -684,7 +681,6 @@
 				0339575126A2C96100594515 /* boardingImage in Resources */,
 				DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */,
 				032233C426927A910092DD6D /* MyExpenseTap.storyboard in Resources */,
-				354F331C26A14CDC0013EDBB /* InputDataShopping.storyboard in Resources */,
 				032233A3269212860092DD6D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -870,14 +866,6 @@
 				032233A7269212870092DD6D /* Base */,
 			);
 			name = Launch.storyboard;
-			sourceTree = "<group>";
-		};
-		354F331E26A14CDC0013EDBB /* InputDataShopping.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				354F331D26A14CDC0013EDBB /* Base */,
-			);
-			name = InputDataShopping.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
