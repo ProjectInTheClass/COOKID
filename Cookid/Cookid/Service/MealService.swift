@@ -30,9 +30,9 @@ class MealService {
     
     @discardableResult
     func create(meal: Meal, completion: @escaping (Bool)->Void) -> Observable<Meal> {
-        print("create")
-        mealRepository.uploadMealToFirebase(meal: meal) { key in meal.id = key }
-        
+        DispatchQueue.global().async {
+            self.mealRepository.uploadMealToFirebase(meal: meal)
+        }
         meals.append(meal)
         mealStore.onNext(meals)
         completion(true)
@@ -46,8 +46,10 @@ class MealService {
     
     @discardableResult
     func update(updateMeal: Meal, completion: @escaping (Bool)->Void) -> Observable<Meal> {
-        print("update")
-        mealRepository.updateMealToFirebase(meal: updateMeal)
+        
+        DispatchQueue.global().async {
+            self.mealRepository.updateMealToFirebase(meal: updateMeal)
+        }
         
         if let index = meals.firstIndex(where: { $0.id == updateMeal.id }) {
             meals.remove(at: index)
@@ -60,8 +62,12 @@ class MealService {
     }
     
     func delete(mealID: String) {
-        mealRepository.deleteMealToFirebase(mealID: mealID)
-        mealRepository.deleteImage(mealID: mealID)
+        
+        DispatchQueue.global().async {
+            self.mealRepository.deleteMealToFirebase(mealID: mealID)
+            self.mealRepository.deleteImage(mealID: mealID)
+        }
+        
         if let index = meals.firstIndex(where: { $0.id == mealID }) {
             meals.remove(at: index)
         }

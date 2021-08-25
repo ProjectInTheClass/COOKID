@@ -83,6 +83,9 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         averageView.makeShadow()
         configureNavTab()
         monthSelectButton.setTitle(Date().dateToString(), for: .normal)
+        adviseLabel.textColor = DefaultStyle.Color.labelTint
+        averageLabel.textColor = DefaultStyle.Color.labelTint
+        userDetermination.textColor = DefaultStyle.Color.tint
     }
     
     private func configureNavTab() {

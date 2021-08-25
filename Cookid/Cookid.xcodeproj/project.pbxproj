@@ -45,6 +45,8 @@
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
 		0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */; };
+		03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */; };
+		03B2048D26D5D9440099C269 /* AddShoppingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2048C26D5D9440099C269 /* AddShoppingViewModel.swift */; };
 		03E42EB826C412A8005D7B5E /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EB726C412A8005D7B5E /* CookidTests.swift */; };
 		03E42EC626C412C2005D7B5E /* CookidUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EC526C412C2005D7B5E /* CookidUITests.swift */; };
 		03E42ED126C41766005D7B5E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED026C41766005D7B5E /* MainCoordinator.swift */; };
@@ -149,6 +151,8 @@
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
 		0395F6EC26B805360091BB29 /* AddMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewController.swift; sourceTree = "<group>"; };
 		0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewModel.swift; sourceTree = "<group>"; };
+		03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShoppingViewController.swift; sourceTree = "<group>"; };
+		03B2048C26D5D9440099C269 /* AddShoppingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShoppingViewModel.swift; sourceTree = "<group>"; };
 		03E42EB526C412A7005D7B5E /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E42EB726C412A8005D7B5E /* CookidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidTests.swift; sourceTree = "<group>"; };
 		03E42EB926C412A8005D7B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -302,12 +306,10 @@
 		032233B2269276720092DD6D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				03B2048B26D5D9270099C269 /* Main */,
 				032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */,
-				035E492626975815002CC084 /* MainViewModel.swift */,
 				0395B61426941121009289B7 /* MyMealViewModel.swift */,
-				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
 				038875AC269FD1EF00D5D202 /* MyExpenseViewModel.swift */,
-				0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -432,6 +434,17 @@
 			path = MyMeal;
 			sourceTree = "<group>";
 		};
+		03B2048B26D5D9270099C269 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				035E492626975815002CC084 /* MainViewModel.swift */,
+				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
+				0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */,
+				03B2048C26D5D9440099C269 /* AddShoppingViewModel.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		03E42EB626C412A8005D7B5E /* CookidTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,6 +491,7 @@
 				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
 				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
 				0395F6EC26B805360091BB29 /* AddMealViewController.swift */,
+				03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */,
 				037AC1A726B98B48009509CF /* PictureSelectCollectionViewController.swift */,
 			);
 			path = Main;
@@ -796,8 +810,10 @@
 				DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */,
 				038875B126A030F300D5D202 /* MainViewController.swift in Sources */,
 				038875AE269FD7DA00D5D202 /* UserInformationViewController.swift in Sources */,
+				03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
+				03B2048D26D5D9440099C269 /* AddShoppingViewModel.swift in Sources */,
 				03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */,
 				0348B8FC26D34463001BF3B7 /* Shopping.swift in Sources */,
 				03E42ED126C41766005D7B5E /* MainCoordinator.swift in Sources */,

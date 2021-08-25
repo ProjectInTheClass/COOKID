@@ -29,6 +29,15 @@ public enum DefaultStyle {
                 return .black
             }
         }()
+        public static let labelTint: UIColor = {
+            return UIColor { traitCollection in
+                if traitCollection.userInterfaceStyle == . dark {
+                    return .white
+                } else {
+                    return .black
+                }
+            }
+        }()
     }
 }
 
