@@ -11,6 +11,11 @@ import Then
 
 class RankingTableViewCell: UITableViewCell {
     
+    private let cellBackgroundView = UIView().then {
+        $0.backgroundColor = .systemGray6
+        $0.layer.cornerRadius = 15
+    }
+    
     private let userImage = UILabel().then {
         $0.font = UIFont(name: "Apple SD Gothic Neo", size: 35)
     }
@@ -32,6 +37,12 @@ class RankingTableViewCell: UITableViewCell {
     }
     
     private let dineInCount = UILabel().then {
+        $0.text = "100"
+        $0.textAlignment  = .natural
+        $0.font = UIFont.systemFont(ofSize: 15, weight: .black)
+    }
+    
+    private let rankingLabel = UILabel().then {
         $0.text = "100"
         $0.textAlignment  = .natural
         $0.font = UIFont.systemFont(ofSize: 15, weight: .black)
@@ -60,11 +71,11 @@ class RankingTableViewCell: UITableViewCell {
         userLabelStack.axis = .vertical
         userLabelStack.spacing = -5
         
-        let userInfoStack = UIStackView(arrangedSubviews: [userImage, userLabelStack])
+        let userInfoStack = UIStackView(arrangedSubviews: [rankingLabel, userImage, userLabelStack])
         userInfoStack.distribution = .fill
         userInfoStack.alignment = .fill
         userInfoStack.axis = .horizontal
-        userInfoStack.spacing = 8
+        userInfoStack.spacing = 10
         
         let dineInStack = UIStackView(arrangedSubviews: [dineInImage, dineInCount])
         dineInStack.distribution = .fillProportionally
@@ -72,23 +83,36 @@ class RankingTableViewCell: UITableViewCell {
         dineInStack.axis = .horizontal
         dineInStack.spacing = 5
         
-        contentView.addSubview(userInfoStack)
-        contentView.addSubview(dineInStack)
+        contentView.addSubview(cellBackgroundView)
+        cellBackgroundView.snp.makeConstraints { make in
+            make.top.equalTo(contentView).offset(7)
+            make.left.equalTo(contentView).offset(20)
+            make.bottom.equalTo(contentView).offset(-7)
+            make.right.equalTo(contentView).offset(-20)
+            make.height.equalTo(70)
+        }
+        
+        cellBackgroundView.addSubview(userInfoStack)
+        cellBackgroundView.addSubview(dineInStack)
+        
 
         userInfoStack.snp.makeConstraints { make in
-            make.top.equalTo(contentView).offset(8)
-            make.left.equalTo(contentView).offset(20)
-            make.bottom.equalTo(contentView).offset(-8)
+            make.top.equalTo(cellBackgroundView).offset(10)
+            make.left.equalTo(cellBackgroundView).offset(20)
+            make.bottom.equalTo(cellBackgroundView).offset(-10)
         }
         
         dineInStack.snp.makeConstraints { make in
             make.centerY.equalTo(userInfoStack)
-            make.right.equalTo(contentView).offset(-30)
+            make.right.equalTo(cellBackgroundView).offset(-30)
         }
+        
+        contentView.backgroundColor = .systemBackground
+        
     }
     
-    public func updateUI(user: UserForRanking) {
-        
+    public func updateUI(user: UserForRanking, ranking: Int) {
+        rankingLabel.text = String(describing: ranking + 1)
         userName.text = user.nickname
         userType.text = "#" + user.userType.rawValue
         userDetermine.text = user.determination
