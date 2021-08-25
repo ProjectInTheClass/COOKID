@@ -24,7 +24,6 @@
                     <connections>
                         <segue destination="ieU-X1-ZGy" kind="relationship" relationship="viewControllers" id="v1N-v1-PZd"/>
                         <segue destination="Nv7-yp-Gfu" kind="relationship" relationship="viewControllers" id="K8l-vJ-TfN"/>
-                        <segue destination="D2S-2M-gmi" kind="relationship" relationship="viewControllers" id="NBy-Q8-tGA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="etm-Ay-8lG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1104,16 +1103,6 @@
             </objects>
             <point key="canvasLocation" x="3563.7681159420295" y="189.50892857142856"/>
         </scene>
-        <!--MyExpenseTap-->
-        <scene sceneID="bOV-aQ-2Ow">
-            <objects>
-                <viewControllerPlaceholder storyboardName="MyExpenseTap" id="D2S-2M-gmi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="RjA-Zp-Mkj"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="E5p-mi-5aN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="535" y="616"/>
-        </scene>
         <!--메인-->
         <scene sceneID="SfR-Xh-C90">
             <objects>
@@ -1124,7 +1113,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="SMq-hS-Y3Q">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1159,7 +1148,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="vId-73-LEb" firstAttribute="centerY" secondItem="JxZ-IY-Ct3" secondAttribute="centerY" constant="-5" id="BM4-qI-Yrl"/>
                                     <constraint firstItem="vId-73-LEb" firstAttribute="height" secondItem="JxZ-IY-Ct3" secondAttribute="height" multiplier="0.9" id="Poo-JT-o5I"/>

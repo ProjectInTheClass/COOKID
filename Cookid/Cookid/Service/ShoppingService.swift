@@ -23,13 +23,15 @@ class ShoppingService {
     }
     
     @discardableResult
-    func create(shopping: GroceryShopping) -> Observable<GroceryShopping> {
+    func create(shopping: GroceryShopping, completion: @escaping (Bool)->Void) -> Observable<GroceryShopping> {
         
-        groceryRepository.uploadGroceryInfo(grocery: shopping)
+        DispatchQueue.global().async {
+            self.groceryRepository.uploadGroceryInfo(grocery: shopping)
+        }
         
         groceryShoppings.append(shopping)
         shoppingStore.onNext(groceryShoppings)
-        
+        completion(true)
         return Observable.just(shopping)
     }
     
@@ -39,31 +41,30 @@ class ShoppingService {
     }
     
     @discardableResult
-    func update(updateShopping: GroceryShopping) -> Observable<GroceryShopping> {
+    func update(updateShopping: GroceryShopping, completion: @escaping (Bool)->Void) -> Observable<GroceryShopping> {
         
-         groceryRepository.uploadGroceryInfo(grocery: updateShopping)
-        
+        DispatchQueue.global().async {
+            self.groceryRepository.uploadGroceryInfo(grocery: updateShopping)
+        }
+    
         if let index = groceryShoppings.firstIndex(where: { $0.id == updateShopping.id }) {
             groceryShoppings.remove(at: index)
             groceryShoppings.insert(updateShopping, at: index)
         }
         
         shoppingStore.onNext(groceryShoppings)
-        
+        completion(true)
         return Observable.just(updateShopping)
     }
     
-    @discardableResult
-    func delete(shopping: GroceryShopping) -> Observable<GroceryShopping> {
-        
-         groceryRepository.deleteGroceryInfo(grocery: shopping)
-        
-        if let index = groceryShoppings.firstIndex(where: { $0.id == shopping.id }) {
+    func delete(shoppingID: String) {
+        DispatchQueue.global().async {
+            self.groceryRepository.deleteGroceryInfo(shoppingID: shoppingID)
+        }
+        if let index = groceryShoppings.firstIndex(where: { $0.id == shoppingID }) {
             groceryShoppings.remove(at: index)
         }
-        
         shoppingStore.onNext(groceryShoppings)
-        return Observable.just(shopping)
     }
     
     func fetchShoppings(user: User, completion: @escaping (([GroceryShopping]) -> Void)) {
@@ -105,6 +106,20 @@ class ShoppingService {
     
     func todayShoppings(shoppings: [GroceryShopping]) -> [GroceryShopping] {
         return shoppings.filter { $0.date.dateToString() == Date().dateToString() }
+    }
+    
+    private let charSet: CharacterSet = {
+        var cs = CharacterSet(charactersIn: "0123456789")
+        return cs.inverted
+    }()
+    
+    func validationNum(text: String) -> Bool {
+        if text.isEmpty {
+            return false
+        } else {
+            guard text.rangeOfCharacter(from: charSet) == nil else { return false }
+            return true
+        }
     }
 
 }

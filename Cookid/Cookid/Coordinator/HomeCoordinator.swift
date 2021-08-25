@@ -41,14 +41,8 @@ class HomeCoordinator: CoordinatorType {
         let myMealNVC = UINavigationController(rootViewController: myMealVC)
         myMealVC.navigationController?.navigationBar.prefersLargeTitles = true
         
-        var myExpenseVC = MyExpenseViewController.instantiate(storyboardID: "MyExpenseTap")
-        myExpenseVC.bind(viewModel: MyExpenseViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
-        let myExpenseNVC = UINavigationController(rootViewController: myExpenseVC)
-        myExpenseVC.navigationController?.navigationBar.prefersLargeTitles = true
-        myExpenseVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
-        
         let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([mainNVC!, myMealNVC, myExpenseNVC], animated: false)
+        tabBarController.setViewControllers([mainNVC!, myMealNVC], animated: false)
         tabBarController.tabBar.tintColor = DefaultStyle.Color.tint
         tabBarController.modalPresentationStyle = .fullScreen
         tabBarController.modalTransitionStyle = .crossDissolve
@@ -76,11 +70,13 @@ class HomeCoordinator: CoordinatorType {
     }
     
     func navigateAddShoppingVC(viewModel: MainViewModel, shopping: GroceryShopping?) {
-        let vc = InputDataShoppingViewController(service: viewModel.shoppingService)
+        let shoppingID = shopping != nil ? shopping?.id : UUID().uuidString
+        let addShoppingViewModel = AddShoppingViewModel(shoppingService: viewModel.shoppingService, userService: viewModel.userService, shoppingID: shoppingID)
+        var vc = AddShoppingViewController()
         vc.shopping = shopping
+        vc.bind(viewModel: addShoppingViewModel)
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
-        vc.selectBtn(btnState: .saveBtnOn)
         mainNVC?.present(vc, animated: true, completion: nil)
     }
     

@@ -44,8 +44,8 @@ class MealRepository {
         
     }
     
-    func uploadMealToFirebase(meal: Meal, completed: @escaping (String) -> Void) {
-        print("upload")
+    func uploadMealToFirebase(meal: Meal) {
+    
         guard let currentUserUID = Auth.auth().currentUser?.uid else { print("user nil")
             return }
         
@@ -59,7 +59,7 @@ class MealRepository {
             "mealTime" : meal.mealTime.rawValue
         ]
         self.db.child(currentUserUID).child(FBChild.meal).child(meal.id).setValue(mealDic)
-        completed(meal.id)
+
     }
     
     
