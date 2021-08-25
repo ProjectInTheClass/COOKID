@@ -16,16 +16,16 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     // MARK: - UI
     
     let dimmingButton = UIButton().then {
-        $0.backgroundColor = DefaultStyle.Color.tint
-        $0.alpha = 0.5
+        $0.backgroundColor = .black
+        $0.alpha = 0.6
     }
     
     let backgroundView = UIView().then {
-        $0.backgroundColor = .systemBackground
+        $0.backgroundColor = DefaultStyle.Color.bgTint
     }
     
     let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 17, weight: .thin)
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
         $0.textColor = DefaultStyle.Color.labelTint
         $0.text = "쇼핑 기록  🛒"
     }
@@ -45,7 +45,7 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     }
     
     let dateLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .thin)
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = DefaultStyle.Color.labelTint
         $0.text = "📆 날짜"
     }
@@ -77,7 +77,7 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     }
     
     let priceLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .thin)
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = DefaultStyle.Color.labelTint
         $0.text = "💸 금액"
     }

@@ -51,21 +51,16 @@ class RankingMainViewController: UIViewController, ViewModelBindable {
         navigationController?.navigationBar.backgroundColor = .systemBackground
     }
     
+    // MARK: - Bind ViewModel
+    
     func bindViewModel() {
         
         tableView.rx.setDelegate(self)
             .disposed(by: rx.disposeBag)
         
-        print("binding")
-        // MARK: - BindViewModel Input
-        
         viewModel.output.topRanker
             .bind(to: tableView.rx.items(dataSource: viewModel.dataSource))
             .disposed(by: rx.disposeBag)
-        
-        
-        // MARK: - BindViewModel Output
-        
         
     }
     
@@ -79,8 +74,18 @@ extension RankingMainViewController: UITableViewDelegate, UIScrollViewDelegate {
         return headerView
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+        footerView.backgroundColor = .systemBackground
+        return footerView
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 200
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 25
     }
     
 }

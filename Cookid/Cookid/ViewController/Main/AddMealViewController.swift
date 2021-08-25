@@ -84,7 +84,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         settingPickerInTextField(dateTF)
         settingPickerInTextField(mealtimeTF)
         self.mealtimeTF.text = MealTime.breakfast.rawValue
-        dimmingButton.backgroundColor = DefaultStyle.Color.tint
+        dimmingButton.backgroundColor = .black
     }
     
     private func initialSetting() {

@@ -20,7 +20,7 @@ public enum DefaultStyle {
             if #available(iOS 13.0, *) {
                 return UIColor { traitCollection in
                     if traitCollection.userInterfaceStyle == .dark {
-                        return .gray
+                        return .darkGray
                     } else {
                         return .black
                     }
@@ -35,6 +35,15 @@ public enum DefaultStyle {
                     return .white
                 } else {
                     return .black
+                }
+            }
+        }()
+        public static let bgTint: UIColor = {
+            return UIColor { traitCollection in
+                if traitCollection.userInterfaceStyle == . dark {
+                    return #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)
+                } else {
+                    return .white
                 }
             }
         }()

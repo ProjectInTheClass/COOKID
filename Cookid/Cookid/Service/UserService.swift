@@ -69,10 +69,13 @@ class UserService {
                 return UserForRanking(nickname: nickName, userType: userType, determination: determination, groceryMealSum: sum)
             }.sorted { user1, user2 in
                 user1.groceryMealSum > user2.groceryMealSum
-            }
-            self.userSortedArr = allUserSotred
-            self.userSorted.onNext(allUserSotred)
-            completion(allUserSotred, nil)
+            }[0...29]
+            
+            let rankingArray = Array(allUserSotred).filter { $0.groceryMealSum > 0 }
+            
+            self.userSortedArr = rankingArray
+            self.userSorted.onNext(rankingArray)
+            completion(rankingArray, nil)
         }
     }
 }
