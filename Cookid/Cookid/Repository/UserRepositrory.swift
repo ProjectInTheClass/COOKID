@@ -83,15 +83,23 @@ class UserRepository {
         var allUsers: [UserAllEntity] = []
         
         db.observeSingleEvent(of: .value) { snapshot in
-            
+            //모든 사람이 들어옴
+            print(snapshot.value)
             let values = snapshot.value as? [String:Any] ?? [:]
+            //모든 사람이 딕셔너리로 바뀜
+            print(values)
             for data in values {
+                //사람하나
+                print(data)
+                
                 let values = data.value as? [String:Any] ?? [:]
+                //키를 자르고 값을 얻었다
                 var groceryCount = 0
                 var mealCount = 0
                 //var groceries = [GroceryEntity]()
                 //var meals = [MealEntity]()
                 var person: UserEntity?
+         
                 for data in values {
                     if data.key == "meal" {
                         let snapshotValue = data.value as? [String:Any] ?? [:]
@@ -111,10 +119,13 @@ class UserRepository {
                         }
                     }else{
                         let snapshotValue = data.value as? [String:Any] ?? [:]
+                        print(snapshotValue)
                         person = UserEntity(userDic: snapshotValue)
                     }
                 }
-                allUsers.append(UserAllEntity(user: person!, totalCount: groceryCount + mealCount))
+                if let person = person {
+                    allUsers.append(UserAllEntity(user: person, totalCount: groceryCount + mealCount))
+                }
             }
             completion(allUsers)
         }

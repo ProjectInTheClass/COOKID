@@ -43,7 +43,6 @@ class LocalNotificationManager {
     }
     
     static func scheduleNotifications() {
-        DispatchQueue.main.async {
             UIApplication.shared.applicationIconBadgeNumber = 0
             
             for notification in notifications {
@@ -78,8 +77,6 @@ class LocalNotificationManager {
                     print("Scheduling notification with id: \(notification.id)")
                 }
             }
-
-        }
         notifications.removeAll()
     }
     
