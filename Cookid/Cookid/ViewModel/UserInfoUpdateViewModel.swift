@@ -23,7 +23,7 @@ class UserInfoUpdateViewModel: ViewModelType {
     struct Output {
         
         let userInfo: Driver<User>
-        let newUserInfo: Observable<MiniUser>
+        let newUserInfo: Observable<User>
     }
     
     var input: Input
@@ -43,14 +43,16 @@ class UserInfoUpdateViewModel: ViewModelType {
         let determinationText = BehaviorSubject<String>(value: "")
         
         
-        let newUserInfo = Observable.combineLatest(nickNameText.asObservable(), budgetText.asObservable(), determinationText.asObservable()) {
-            (nickName, buget, determination) -> MiniUser in
+        let newUserInfo = Observable.combineLatest(nickNameText.asObservable(), budgetText.asObservable(), determinationText.asObservable(), userInfo.asObservable()) {
+            (nickName, buget, determination, currentUser) -> User in
             
             
+            let newNickname = nickName.isEmpty ? currentUser.nickname : nickName
+            let newBudget = buget.isEmpty ? currentUser.priceGoal : buget
+            let newDetermination = determination.isEmpty ? currentUser.determination : determination
             
-            let newUser = MiniUser(nickName: nickName, determination: determination, priceGoal: buget)
             
-            print(newUser)
+            let newUser = User(userID: currentUser.userID, nickname: newNickname, determination: newDetermination, priceGoal: newBudget, userType: currentUser.userType)
             
             return newUser
         }
@@ -61,11 +63,4 @@ class UserInfoUpdateViewModel: ViewModelType {
         self.output = Output(userInfo: userInfo, newUserInfo: newUserInfo)
     }
     
-}
-
-
-struct MiniUser {
-    let nickName: String
-    let determination: String
-    let priceGoal: String
 }
