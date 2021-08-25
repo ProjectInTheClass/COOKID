@@ -76,11 +76,13 @@ class HomeCoordinator: CoordinatorType {
     }
     
     func navigateAddShoppingVC(viewModel: MainViewModel, shopping: GroceryShopping?) {
-        let vc = InputDataShoppingViewController(service: viewModel.shoppingService)
+        let shoppingID = shopping != nil ? shopping?.id : UUID().uuidString
+        let addShoppingViewModel = AddShoppingViewModel(shoppingService: viewModel.shoppingService, userService: viewModel.userService, shoppingID: shoppingID)
+        var vc = AddShoppingViewController()
         vc.shopping = shopping
+        vc.bind(viewModel: addShoppingViewModel)
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
-        vc.selectBtn(btnState: .saveBtnOn)
         mainNVC?.present(vc, animated: true, completion: nil)
     }
     

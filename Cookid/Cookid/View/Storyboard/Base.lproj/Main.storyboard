@@ -1159,7 +1159,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="vId-73-LEb" firstAttribute="centerY" secondItem="JxZ-IY-Ct3" secondAttribute="centerY" constant="-5" id="BM4-qI-Yrl"/>
                                     <constraint firstItem="vId-73-LEb" firstAttribute="height" secondItem="JxZ-IY-Ct3" secondAttribute="height" multiplier="0.9" id="Poo-JT-o5I"/>

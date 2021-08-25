@@ -47,7 +47,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     
     lazy var mealTimePicker: UIPickerView = {
         let picker = UIPickerView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 200))
-        picker.backgroundColor = .white
+        picker.backgroundColor = .systemBackground
         return picker
     }()
     
@@ -79,7 +79,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         addPictureButton.layer.cornerRadius = 8
         addPictureButton.layer.masksToBounds = true
         dateTF.inputView = datePicker
-        dateTF.inputView?.backgroundColor = .white
+        dateTF.inputView?.backgroundColor = .systemBackground
         mealtimeTF.inputView = mealTimePicker
         settingPickerInTextField(dateTF)
         settingPickerInTextField(mealtimeTF)
@@ -107,6 +107,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             mealtimeTF.text = meal.mealTime.rawValue
             mealnameTF.text = meal.name
             mealpriceTF.text = String(describing: meal.price)
+            viewModel.input.mealPrice.onNext(String(describing: meal.price))
             isDineInSwitch.isOn = mealTypeToBool(meal.mealType)
             
         } else {
@@ -128,7 +129,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         doneButton.tintColor = .systemGreen
         
         let doneView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 45))
-        doneView.backgroundColor = .white
+        doneView.backgroundColor = .systemBackground
         doneView.roundCorners(corners: [.topLeft, .topRight], radius: 20)
         
         doneView.addSubview(doneButton)
@@ -362,22 +363,17 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         
         viewModel.output.newMeal
             .take(1)
-            .observe(on: ConcurrentDispatchQueueScheduler.init(queue: DispatchQueue.global()))
             .subscribe(onNext: { [unowned self] newMeal in
                 if self.meal != nil {
                     self.viewModel.mealService.update(updateMeal: newMeal) { success in
                         if success {
-                            DispatchQueue.main.async {
-                                self.dismiss(animated: true, completion: nil)
-                            }
+                            self.dismiss(animated: true, completion: nil)
                         }
                     }
                 } else {
                     self.viewModel.mealService.create(meal: newMeal) { success in
                         if success {
-                            DispatchQueue.main.async {
-                                self.dismiss(animated: true, completion: nil)
-                            }
+                            self.dismiss(animated: true, completion: nil)
                         }
                     }
                 }
