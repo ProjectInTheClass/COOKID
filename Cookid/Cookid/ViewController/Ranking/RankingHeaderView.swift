@@ -21,7 +21,6 @@ class RankingHeaderView: UIView, HasDisposeBag {
     
     let headbackgroundView = UIView().then {
         $0.backgroundColor = .systemBackground
-        $0.makeShadow()
     }
     
     // rank 1
@@ -146,10 +145,8 @@ class RankingHeaderView: UIView, HasDisposeBag {
     private func configureHeadBackgroundView() {
         self.addSubview(headbackgroundView)
         headbackgroundView.snp.makeConstraints { make in
-            make.bottom.equalTo(self).offset(-15)
-            make.top.equalTo(self).offset(15)
-            make.left.equalTo(self).offset(15)
-            make.right.equalTo(self).offset(-15)
+            make.top.equalTo(self).offset(-15)
+            make.left.bottom.right.equalToSuperview()
         }
     }
     

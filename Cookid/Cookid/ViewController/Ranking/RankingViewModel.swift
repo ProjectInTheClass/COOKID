@@ -49,7 +49,7 @@ class RankingViewModel: ViewModelType {
         let ds = RxTableViewSectionedReloadDataSource<UserSection>(configureCell: { datasource, tableView, indexPath, user -> UITableViewCell in
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CELL_IDENTIFIER.rankingCell, for: indexPath) as? RankingTableViewCell else { return UITableViewCell() }
-            cell.updateUI(user: user)
+            cell.updateUI(user: user, ranking: indexPath.row)
             return cell
         })
         return ds
