@@ -18,7 +18,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var dimmingButton: UIButton!
     @IBOutlet weak var addPhotoButton: UIButton!
-    @IBOutlet weak var addPictureButton: UIButton!
     @IBOutlet weak var isDineInSwitch: UISwitch!
     @IBOutlet weak var completionButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
@@ -56,8 +55,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     var meal: Meal?
     
     var viewModel: AddMealViewModel!
-    var selectedPhoto: Bool = false
-    var selectedPictrue: Bool = false
     let imagePicker = UIImagePickerController()
     
     // MARK: - View Life Cycle
@@ -75,8 +72,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         contentView.layer.cornerRadius = 8
         addPhotoButton.layer.cornerRadius = 8
         addPhotoButton.layer.masksToBounds = true
-        addPictureButton.layer.cornerRadius = 8
-        addPictureButton.layer.masksToBounds = true
         dateTF.inputView = datePicker
         dateTF.inputView?.backgroundColor = .systemBackground
         mealtimeTF.inputView = mealTimePicker
@@ -88,11 +83,10 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     
     private func initialSetting() {
         if let meal = self.meal {
+            announceLabel.text = "이미지를 수정하시려면 사진을 누르세요:)"
             updateAnnouce.text = "수정이 완료되셨나요?"
             let imageView = UIImageView()
             imageView.kf.setImage(with: meal.image)
-            selectedPhoto = true
-            addPictureButton.isHidden = true
             addPhotoButton.setImage(imageView.image, for: .normal)
             
             completionButton.setImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
@@ -110,6 +104,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             isDineInSwitch.isOn = mealTypeToBool(meal.mealType)
             
         } else {
+            announceLabel.text = "위의 빈 화면을 눌러 이미지를 넣어보세요:)"
             deleteButton.isHidden = true
         }
         
@@ -152,7 +147,9 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.originalImage] as? UIImage else { return }
         addPhotoButton.setImage(selectedImage, for: .normal)
-        self.viewModel.mealService.mealRepository.uploadImage(mealID: self.viewModel.input.mealID, image: selectedImage) { _ in }
+        DispatchQueue.global().async {
+            self.viewModel.mealService.mealRepository.uploadImage(mealID: self.viewModel.input.mealID, image: selectedImage) { _ in }
+        }
         dismiss(animated: true, completion: nil)
     }
     
@@ -178,83 +175,40 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             .disposed(by: rx.disposeBag)
         
         addPhotoButton.rx.tap
-            .do(onNext: {
-                [unowned self] in
+            .bind(onNext: { [unowned self] in
+                let alertController = UIAlertController(title: "메뉴 사진 업로드", message: "어디에서 메뉴의 사진을 업로드 할까요?", preferredStyle: .actionSheet)
                 
-                selectedPhoto.toggle()
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+                alertController.addAction(cancelAction)
                 
-                if selectedPhoto {
-                    UIView.animate(withDuration: 0.3) {
-                        self.addPictureButton.alpha = 0
-                        self.addPictureButton.isHidden = true
-                        self.announceLabel.text = "음식을 중앙에 놓고 찍어주세요:)"
+                imagePicker.delegate = self
+                
+                if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                    let photoAction = UIAlertAction(title: "사진 라이브러리", style: .default) { _ in
+                        imagePicker.sourceType = .photoLibrary
+                        self.present(imagePicker, animated: true, completion: nil)
                     }
-                } else {
-                    UIView.animate(withDuration: 0.3) {
-                        self.addPictureButton.alpha = 1
-                        self.addPictureButton.isHidden = false
-                        self.announceLabel.text = "사진이 없으시다면 이미지로 넣어보세요:)"
-                    }
-                }
-            })
-            .subscribe(onNext: { [unowned self] in
-                if self.selectedPhoto {
-                    
-                    let alertController = UIAlertController(title: "메뉴 사진 업로드", message: "어디에서 메뉴의 사진을 업로드 할까요?", preferredStyle: .actionSheet)
-                    
-                    let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-                    alertController.addAction(cancelAction)
-                   
-                    imagePicker.delegate = self
-                    
-                    if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                        let photoAction = UIAlertAction(title: "사진 라이브러리", style: .default) { _ in
-                            imagePicker.sourceType = .photoLibrary
-                            self.present(imagePicker, animated: true, completion: nil)
-                        }
-                        alertController.addAction(photoAction)
-                    }
-                    
-                    if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                        let cameralAction = UIAlertAction(title: "카메라", style: .default) { _ in
-                            imagePicker.sourceType = .camera
-                            self.present(imagePicker, animated: true, completion: nil)
-                        }
-                        alertController.addAction(cameralAction)
-                    }
-                    
-                    present(alertController, animated: true, completion: nil)
+                    alertController.addAction(photoAction)
                 }
                 
-            })
-            .disposed(by: rx.disposeBag)
-        
-        addPictureButton.rx.tap
-            .do(onNext: { [unowned self] in
-                
-                selectedPictrue.toggle()
-                
-                if selectedPictrue {
-                    UIView.animate(withDuration: 0.3) {
-                        self.addPhotoButton.alpha = 0
-                        self.addPhotoButton.isHidden = true
-                        self.announceLabel.text = "원하시는 이미지를 선택해 주세요:)"
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    let cameralAction = UIAlertAction(title: "카메라", style: .default) { _ in
+                        imagePicker.sourceType = .camera
+                        self.present(imagePicker, animated: true, completion: nil)
                     }
-                } else {
-                    UIView.animate(withDuration: 0.3) {
-                        self.addPhotoButton.alpha = 1
-                        self.addPhotoButton.isHidden = false
-                        self.announceLabel.text = "사진으로 추가하시면 추천 자동완성됩니다:)"
-                    }
+                    alertController.addAction(cameralAction)
                 }
-            })
-            .subscribe(onNext: { [unowned self] in
-                if self.selectedPictrue {
-                    let cvc = PictureSelectCollectionViewController.instantiate(storyboardID: "Main")
+                
+                let pictureAction = UIAlertAction(title: "식사 이미지", style: .default) { _ in
+                    var cvc = PictureSelectViewController()
+                    cvc.bind(viewModel: self.viewModel)
                     cvc.modalTransitionStyle = .crossDissolve
                     cvc.modalPresentationStyle = .automatic
-                    self.present(cvc, animated: true, completion: nil)
+                    self.presentPanModal(cvc)
                 }
+                alertController.addAction(pictureAction)
+                
+                present(alertController, animated: true, completion: nil)
                 
             })
             .disposed(by: rx.disposeBag)
@@ -263,7 +217,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [unowned self] in
                 let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "넹!", style: .default) { _ in
+                let okAction = UIAlertAction(title: "삭제", style: .default) { _ in
                     guard let mealID = self.meal?.id else { return }
                     DispatchQueue.global().async {
                         self.viewModel.mealService.delete(mealID: mealID)
@@ -321,6 +275,14 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             })
             .disposed(by: rx.disposeBag)
         
+        viewModel.input.mealImage
+            .bind { [unowned self] image in
+                self.addPhotoButton.setImage(image, for: .normal)
+                self.addPhotoButton.backgroundColor = .systemBackground
+                self.viewModel.mealService.mealRepository.uploadImage(mealID: self.viewModel.input.mealID, image: image) { _ in }
+            }
+            .disposed(by: rx.disposeBag)
+        
         mealpriceTF.rx.text.orEmpty
             .do(onNext: { [unowned self] text in
                 if viewModel.mealService.validationNum(text: text) {
@@ -349,7 +311,8 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         viewModel.output.validation
             .drive(completionButton.rx.isEnabled)
             .disposed(by: rx.disposeBag)
-       
+    
+        
     }
     
     @IBAction func completedButtonTapped(_ sender: UIButton) {

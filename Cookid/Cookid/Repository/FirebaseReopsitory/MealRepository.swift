@@ -92,6 +92,8 @@ class MealRepository {
         storageRef.delete { error in
             if error != nil {
                 print(error?.localizedDescription as Any)
+            } else {
+                print("delete \(mealID)")
             }
         }
     }
