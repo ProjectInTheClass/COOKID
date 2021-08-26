@@ -11,7 +11,7 @@ class OnboardingCoordinator: CoordinatorType {
     
     var parentCoordinator : MainCoordinator?
     var childCoordinator: [CoordinatorType] = []
-    var navigationController: UINavigationController? = nil
+    var navigationController: UINavigationController?
     
     init(parentCoordinator : MainCoordinator) {
         self.parentCoordinator = parentCoordinator
@@ -29,6 +29,4 @@ class OnboardingCoordinator: CoordinatorType {
         let pageVC = OnboardingPageViewViewController(coordinator: self, userService: userService, mealService: mealService, shoppingService: shoppingService)
         return pageVC
     }
-    
-    
 }

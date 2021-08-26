@@ -35,8 +35,7 @@ class AddShoppingViewModel: ViewModelType {
         let shoppingDate = BehaviorRelay<Date>(value: Date())
         let shoppingPrice = BehaviorRelay<String>(value: "")
         
-        let validation = Observable.combineLatest(shoppingDate, shoppingPrice) { date, price -> Bool in
-       
+        let validation = Observable.combineLatest(shoppingDate, shoppingPrice) { _, price -> Bool in
             if price == "" {
                 return false
             } else {

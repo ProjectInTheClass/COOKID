@@ -42,6 +42,4 @@ class ThirdPageViewController: UIViewController, ViewModelBindable, StoryboardBa
             .disposed(by: rx.disposeBag)
         
     }
-
-
 }

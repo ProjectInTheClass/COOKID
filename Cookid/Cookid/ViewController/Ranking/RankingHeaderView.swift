@@ -145,8 +145,7 @@ class RankingHeaderView: UIView, HasDisposeBag {
     private func configureHeadBackgroundView() {
         self.addSubview(headbackgroundView)
         headbackgroundView.snp.makeConstraints { make in
-            make.top.equalTo(self).offset(-15)
-            make.left.bottom.right.equalToSuperview()
+            make.top.left.bottom.right.equalToSuperview()
         }
     }
     

@@ -16,16 +16,16 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     // MARK: - UI
     
     let dimmingButton = UIButton().then {
-        $0.backgroundColor = DefaultStyle.Color.tint
-        $0.alpha = 0.5
+        $0.backgroundColor = .black
+        $0.alpha = 0.6
     }
     
     let backgroundView = UIView().then {
-        $0.backgroundColor = .systemBackground
+        $0.backgroundColor = DefaultStyle.Color.bgTint
     }
     
     let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 17, weight: .thin)
+        $0.font = .systemFont(ofSize: 17, weight: .regular)
         $0.textColor = DefaultStyle.Color.labelTint
         $0.text = "쇼핑 기록  🛒"
     }
@@ -45,7 +45,7 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     }
     
     let dateLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .thin)
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = DefaultStyle.Color.labelTint
         $0.text = "📆 날짜"
     }
@@ -77,7 +77,7 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     }
     
     let priceLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 15, weight: .thin)
+        $0.font = .systemFont(ofSize: 15, weight: .regular)
         $0.textColor = DefaultStyle.Color.labelTint
         $0.text = "💸 금액"
     }
@@ -302,7 +302,7 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [unowned self] in
                 let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "넹!", style: .default) { action in
+                let okAction = UIAlertAction(title: "넹!", style: .default) { _ in
                     guard let shoppingID = self.shopping?.id else { return }
                     DispatchQueue.global().async {
                         self.viewModel.shoppingService.delete(shoppingID: shoppingID)

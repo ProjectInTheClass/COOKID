@@ -29,7 +29,7 @@ class MealService {
     // MARK: - Meal Storage
     
     @discardableResult
-    func create(meal: Meal, completion: @escaping (Bool)->Void) -> Observable<Meal> {
+    func create(meal: Meal, completion: @escaping (Bool) -> Void) -> Observable<Meal> {
         DispatchQueue.global().async {
             self.mealRepository.uploadMealToFirebase(meal: meal)
         }
@@ -45,7 +45,7 @@ class MealService {
     }
     
     @discardableResult
-    func update(updateMeal: Meal, completion: @escaping (Bool)->Void) -> Observable<Meal> {
+    func update(updateMeal: Meal, completion: @escaping (Bool) -> Void) -> Observable<Meal> {
         
         DispatchQueue.global().async {
             self.mealRepository.updateMealToFirebase(meal: updateMeal)
@@ -74,7 +74,7 @@ class MealService {
         mealStore.onNext(meals)
     }
     
-    func fetchMeals(user: User, completion: @escaping ([Meal])->Void) {
+    func fetchMeals(user: User, completion: @escaping ([Meal]) -> Void) {
         self.mealRepository.fetchMeals(user: user) { [unowned self] mealArr in
             let mealModels = mealArr.map {  model -> Meal in
                 let id = model.id
@@ -168,7 +168,7 @@ class MealService {
     func getSpendPercentage(meals: [Meal], user: User, shoppings: [GroceryShopping]) -> Double {
         
         let shoppingSpends = shoppings.map { Double($0.totalPrice) }.reduce(0, +)
-        let mealSpend = meals.map{ Double($0.price) }.reduce(0, +)
+        let mealSpend = meals.map { Double($0.price) }.reduce(0, +)
         let spend = (shoppingSpends + mealSpend) / Double(user.priceGoal)! * 100
         
         if spend.isNaN {
@@ -184,18 +184,17 @@ class MealService {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.day], from: date)
         guard let dayOfMonth = components.day else {return 1}
-        let currentSpend = meals.map{ Double($0.price) }.reduce(0){ $0 + $1 }
+        let currentSpend = meals.map { Double($0.price) }.reduce(0) { $0 + $1 }
         let average = currentSpend / Double(dayOfMonth)
         return average
     }
     
     func fetchEatOutSpend(meals: [Meal]) -> Int {
         
-        let eatOutSpends = meals.filter {$0.mealType == .dineOut}.map{$0.price}
+        let eatOutSpends = meals.filter {$0.mealType == .dineOut}.map { $0.price }
         let totalSpend = eatOutSpends.reduce(0, +)
         return totalSpend
     }
-    
     
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
         
@@ -225,8 +224,8 @@ class MealService {
         
         return [breakfastNum, brunchNum, lunchNum, lundinnerNum, dinnerNum, snackNum]
     }
-    
-    func checkSpendPace(meals: [Meal], user: User, shoppings: [GroceryShopping]) -> String{
+    // swiftlint:disable cyclomatic_complexity
+    func checkSpendPace(meals: [Meal], user: User, shoppings: [GroceryShopping]) -> String {
         
         let date = Date()
         let calendar = Calendar.current
@@ -263,7 +262,7 @@ class MealService {
                 return "아직 (다음주에 덜 먹으면) 괜찮아요 👏"
             } else if percentage < 75 {
                 return "다음주에 굶으시려나보다 🙋🏻‍♂️"
-            } else if percentage < 100{
+            } else if percentage < 100 {
                 return "예산을 곧 초과합니다 🚨"
             } else {
                 return "(절레절레) 🤷🏻‍♂️"
@@ -289,7 +288,7 @@ class MealService {
                 return "현명한 식비 관리 중입니다 👍"
             } else if percentage < 90 {
                 return "다음주에 굶으시려나보다 🙋🏻‍♂️"
-            } else if percentage < 100{
+            } else if percentage < 100 {
                 return "예산을 곧 초과합니다 🚨"
             } else {
                 return "(절레절레) 🤷🏻‍♂️"
@@ -302,5 +301,6 @@ class MealService {
             }
         }
     }
+    // swiftlint:enable cyclomatic_complexity
     
 }

@@ -17,7 +17,6 @@ class SecondPageViewController: UIViewController, ViewModelBindable, StoryboardB
     @IBOutlet weak var monthlyGoalStackView: UIStackView!
     @IBOutlet weak var monthlyGoal: UITextField!
     @IBOutlet weak var nextPageButton: UIButton!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()

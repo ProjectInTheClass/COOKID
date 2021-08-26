@@ -14,7 +14,6 @@ class PictureSelectCollectionViewController: UICollectionViewController, Storybo
     override func viewDidLoad() {
         super.viewDidLoad()
 
-      
     }
 
     // MARK: UICollectionViewDataSource

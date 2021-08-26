@@ -23,7 +23,7 @@ class ShoppingService {
     }
     
     @discardableResult
-    func create(shopping: GroceryShopping, completion: @escaping (Bool)->Void) -> Observable<GroceryShopping> {
+    func create(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping> {
         
         DispatchQueue.global().async {
             self.groceryRepository.uploadGroceryInfo(grocery: shopping)
@@ -41,7 +41,7 @@ class ShoppingService {
     }
     
     @discardableResult
-    func update(updateShopping: GroceryShopping, completion: @escaping (Bool)->Void) -> Observable<GroceryShopping> {
+    func update(updateShopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping> {
         
         DispatchQueue.global().async {
             self.groceryRepository.uploadGroceryInfo(grocery: updateShopping)

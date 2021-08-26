@@ -95,7 +95,6 @@ class RankingTableViewCell: UITableViewCell {
         cellBackgroundView.addSubview(userInfoStack)
         cellBackgroundView.addSubview(dineInStack)
         
-
         userInfoStack.snp.makeConstraints { make in
             make.top.equalTo(cellBackgroundView).offset(10)
             make.left.equalTo(cellBackgroundView).offset(20)

@@ -33,16 +33,16 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     
     // pickers
     lazy var datePicker: UIDatePicker = {
-        let dp = UIDatePicker(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 200))
-        dp.locale = Locale(identifier: "ko-KR")
-        dp.datePickerMode = .date
-        dp.maximumDate = Date()
+        let picker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 200))
+        picker.locale = Locale(identifier: "ko-KR")
+        picker.datePickerMode = .date
+        picker.maximumDate = Date()
         if #available(iOS 13.4, *) {
-            dp.preferredDatePickerStyle = .wheels
+            picker.preferredDatePickerStyle = .wheels
         } else {
             // Fallback on earlier versions
         }
-        return dp
+        return picker
     }()
     
     lazy var mealTimePicker: UIPickerView = {
@@ -59,7 +59,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     var selectedPhoto: Bool = false
     var selectedPictrue: Bool = false
     let imagePicker = UIImagePickerController()
-    
     
     // MARK: - View Life Cycle
     
@@ -84,7 +83,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         settingPickerInTextField(dateTF)
         settingPickerInTextField(mealtimeTF)
         self.mealtimeTF.text = MealTime.breakfast.rawValue
-        dimmingButton.backgroundColor = DefaultStyle.Color.tint
+        dimmingButton.backgroundColor = .black
     }
     
     private func initialSetting() {
@@ -209,8 +208,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
                     imagePicker.delegate = self
                     
                     if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                        let photoAction = UIAlertAction(title: "사진 라이브러리", style: .default) {
-                            action in
+                        let photoAction = UIAlertAction(title: "사진 라이브러리", style: .default) { _ in
                             imagePicker.sourceType = .photoLibrary
                             self.present(imagePicker, animated: true, completion: nil)
                         }
@@ -218,8 +216,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
                     }
                     
                     if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                        let cameralAction = UIAlertAction(title: "카메라", style: .default) {
-                            action in
+                        let cameralAction = UIAlertAction(title: "카메라", style: .default) { _ in
                             imagePicker.sourceType = .camera
                             self.present(imagePicker, animated: true, completion: nil)
                         }
@@ -259,7 +256,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
                     self.present(cvc, animated: true, completion: nil)
                 }
                 
-                
             })
             .disposed(by: rx.disposeBag)
         
@@ -267,7 +263,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [unowned self] in
                 let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "넹!", style: .default) { action in
+                let okAction = UIAlertAction(title: "넹!", style: .default) { _ in
                     guard let mealID = self.meal?.id else { return }
                     DispatchQueue.global().async {
                         self.viewModel.mealService.delete(mealID: mealID)
@@ -282,7 +278,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             .disposed(by: rx.disposeBag)
         
         Observable.of(MealTime.allCases.map { $0.rawValue })
-            .bind(to: mealTimePicker.rx.itemTitles) { row, element in
+            .bind(to: mealTimePicker.rx.itemTitles) { _, element in
                 return element
             }
             .disposed(by: rx.disposeBag)
@@ -296,14 +292,14 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             .disposed(by: rx.disposeBag)
         
         mealTimePicker.rx.itemSelected
-            .subscribe(onNext: { [unowned self] row, item in
+            .subscribe(onNext: { [unowned self] row, _ in
                 self.mealtimeTF.text = MealTime.allCases[row].rawValue
                 self.viewModel.input.mealTime.onNext(MealTime.allCases[row])
             })
             .disposed(by: rx.disposeBag)
         
         isDineInSwitch.rx.isOn
-            .do(onNext: { [unowned self] isOn in
+            .subscribe(onNext: { [unowned self] isOn in
                 if isOn {
                     UIView.animate(withDuration: 0.3) {
                         priceStackView.alpha = 0
@@ -322,9 +318,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
                     self.viewModel.input.mealType.onNext(.dineOut)
                     scrollView.scrollToBottom()
                 }
-            })
-            .subscribe(onNext: { [unowned self] isOn in
-                self.viewModel.input.isDineIn.onNext(isOn)
             })
             .disposed(by: rx.disposeBag)
         
@@ -363,7 +356,8 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         
         viewModel.output.newMeal
             .take(1)
-            .subscribe(onNext: { [unowned self] newMeal in
+            .observe(on: MainScheduler.instance)
+            .bind(onNext: { [unowned self] newMeal in
                 if self.meal != nil {
                     self.viewModel.mealService.update(updateMeal: newMeal) { success in
                         if success {

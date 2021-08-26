@@ -28,7 +28,7 @@ class SelectCalendarViewController: UIViewController, StoryboardBased, ViewModel
     }
     
     private func initializeForUpdateCalendar() {
-        //utility
+        // utility
         updateCalendar.select(Date())
         updateCalendar.delegate = self
         updateCalendar.dataSource = self
@@ -48,7 +48,7 @@ class SelectCalendarViewController: UIViewController, StoryboardBased, ViewModel
         updateCalendar.appearance.weekdayFont = UIFont.systemFont(ofSize: 13, weight: .light)
         updateCalendar.locale = Locale(identifier: "ko_KR")
         
-        //body
+        // body
         calendarBackground.makeShadow()
         updateCalendar.appearance.titleTodayColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
         updateCalendar.appearance.todayColor = .clear
@@ -111,6 +111,4 @@ extension SelectCalendarViewController: FSCalendarDelegate, FSCalendarDataSource
         }
         return UIColor.clear
     }
-    
-    
 }

@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 func convertDateToString(format: String, date: Date) -> String {
     
     let dateFormatter = DateFormatter()
@@ -31,7 +30,6 @@ func stringToDateKr(string: String) -> Date {
     return date
 }
 
-
 extension Date {
     func dateToInt() -> Int {
         return Int(self.timeIntervalSince1970)
@@ -41,7 +39,6 @@ extension Date {
 func hideKeyboard() {
    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
 }
-
 
 func intToString(_ value: Int) -> String {
     let numberFormatter = NumberFormatter()

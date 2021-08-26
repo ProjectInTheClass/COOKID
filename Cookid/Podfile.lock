@@ -8,6 +8,7 @@ PODS:
   - lottie-ios (3.2.3)
   - "NSObject+Rx (5.2.2)":
     - RxSwift (~> 6.2)
+  - PanModal (1.2.7)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -22,6 +23,7 @@ PODS:
     - RxSwift (= 6.2.0)
   - RxSwift (6.2.0)
   - SnapKit (5.0.1)
+  - SwiftLint (0.43.1)
   - Then (2.7.0)
 
 DEPENDENCIES:
@@ -30,11 +32,13 @@ DEPENDENCIES:
   - Kingfisher (~> 6.0)
   - lottie-ios
   - "NSObject+Rx"
+  - PanModal
   - RxCocoa
   - RxDataSources
   - RxKeyboard
   - RxSwift
   - SnapKit
+  - SwiftLint
   - Then
 
 SPEC REPOS:
@@ -45,12 +49,14 @@ SPEC REPOS:
     - Kingfisher
     - lottie-ios
     - "NSObject+Rx"
+    - PanModal
     - RxCocoa
     - RxDataSources
     - RxKeyboard
     - RxRelay
     - RxSwift
     - SnapKit
+    - SwiftLint
     - Then
 
 SPEC CHECKSUMS:
@@ -60,14 +66,16 @@ SPEC CHECKSUMS:
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
+  PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 94e652e26db838c0ab9b5f4727e873e62715fd3b
+PODFILE CHECKSUM: 753d3c43aeb4bc0ffde35b66888abe9eaebe85f2
 
 COCOAPODS: 1.10.1

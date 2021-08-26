@@ -23,7 +23,6 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
     
     @IBOutlet weak var userInputView: UIView!
     
-    
     @IBOutlet weak var inputViewBottom: NSLayoutConstraint!
     
     var viewModel: UserInfoUpdateViewModel!
@@ -39,7 +38,7 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
         dismiss(animated: false, completion: nil)
     }
     
-    func setUI(){
+    func setUI() {
         self.userInputView.layer.cornerRadius = 8
     }
    
@@ -75,7 +74,7 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
             .disposed(by: rx.disposeBag)
     }
     
-    func setupUI(user: User){
+    func setupUI(user: User) {
         self.nickNameLabel.text = "\(user.nickname)님 🏳️‍🌈"
         self.budgetLimitLabel.text = "현재 목표액은 \(user.priceGoal)원 입니다 💵"
     }
@@ -87,7 +86,7 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
             .subscribe(on:ConcurrentDispatchQueueScheduler.init(queue: DispatchQueue.global()))
             .subscribe(onNext: { [unowned self] newInfo in
                 
-                viewModel.userService.updateUserInfo(user: newInfo) { bool in
+                viewModel.userService.updateUserInfo(user: newInfo) { _ in
                     DispatchQueue.main.async {
                         self.dismiss(animated: true, completion: nil)
                     }

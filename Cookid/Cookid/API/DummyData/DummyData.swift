@@ -45,7 +45,4 @@ class DummyData {
         User(userID: "", nickname: "홍석현", determination: "아자아자!", priceGoal: "300000", userType: .preferDineIn),
         User(userID: "", nickname: "박형석", determination: "아자아자!!@", priceGoal: "400000", userType: .preferDineOut)
     ]
-
-
-
 }

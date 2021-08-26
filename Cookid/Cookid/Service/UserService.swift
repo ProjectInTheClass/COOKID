@@ -20,12 +20,11 @@ class UserService {
     private lazy var userInfo = BehaviorSubject<User>(value: defaultUserInfo)
     private lazy var userSorted = BehaviorSubject<[UserForRanking]>(value: userSortedArr)
     
-    
     init(userRepository: UserRepository) {
         self.userRepository = userRepository
     }
     
-    func loadUserInfo(completion: @escaping (User)->Void) {
+    func loadUserInfo(completion: @escaping (User) -> Void) {
         self.userRepository.fetchUserInfo { [unowned self] userentity in
             let user = User(userID: userentity.userId, nickname: userentity.nickname, determination: userentity.determination, priceGoal: userentity.priceGoal, userType: UserType(rawValue: userentity.userType) ?? .preferDineIn)
             defaultUserInfo = user
@@ -55,7 +54,7 @@ class UserService {
         self.userInfo.onNext(user)
     }
     
-    func makeRanking(completion: @escaping ([UserForRanking]?, Error?)->Void){
+    func makeRanking(completion: @escaping ([UserForRanking]?, Error?) -> Void) {
         
         userRepository.fetchUsers { allEntities in
             
@@ -69,10 +68,13 @@ class UserService {
                 return UserForRanking(nickname: nickName, userType: userType, determination: determination, groceryMealSum: sum)
             }.sorted { user1, user2 in
                 user1.groceryMealSum > user2.groceryMealSum
-            }
-            self.userSortedArr = allUserSotred
-            self.userSorted.onNext(allUserSotred)
-            completion(allUserSotred, nil)
+            }[0...29]
+            
+            let rankingArray = Array(allUserSotred).filter { $0.groceryMealSum > 0 }
+            
+            self.userSortedArr = rankingArray
+            self.userSorted.onNext(rankingArray)
+            completion(rankingArray, nil)
         }
     }
 }

@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class ShoppingCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var shoppingImage: UIImageView!

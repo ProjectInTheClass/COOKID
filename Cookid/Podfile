@@ -17,4 +17,7 @@ pod 'Kingfisher', '~> 6.0'
 pod 'lottie-ios'
 pod 'FSCalendar'
 pod 'Then'
+pod 'SwiftLint'
+pod 'PanModal'
+
 end
