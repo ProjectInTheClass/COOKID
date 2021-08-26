@@ -55,6 +55,7 @@ enum CELLIDENTIFIER {
     static let rankingHeaderView = "rankingHeaderView"
     static let mainMealCell = "mainMealCell"
     static let mainShoppingCell = "mainShoppingCell"
+    static let pictureSelectCell = "pictureSelectCell"
 }
 
 enum NetWorkingError : String, Error {
