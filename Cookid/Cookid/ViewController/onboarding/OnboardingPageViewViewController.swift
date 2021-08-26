@@ -42,7 +42,6 @@ class OnboardingPageViewViewController: UIPageViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-
     private func setupPages() {
         
         self.dataSource = self

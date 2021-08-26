@@ -19,12 +19,11 @@ enum LocalNotificationDurationType {
     case everyDay
 }
 
-
 class LocalNotificationManager {
     
     static private var notifications = [LocalNotification]()
     
-    static func requestPermission() -> Void {
+    static func requestPermission() {
         UNUserNotificationCenter
             .current()
             .requestAuthorization(options: [.alert, .badge, .alert]) { granted, error in
@@ -87,8 +86,6 @@ class LocalNotificationManager {
     }
 }
 
-
-
-//퍼미션을 받음
-//노티피케이션에 추가함
-//노티피케이션 스케줄링함
+// 퍼미션을 받음
+// 노티피케이션에 추가함
+// 노티피케이션 스케줄링함

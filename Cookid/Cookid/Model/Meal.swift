@@ -45,7 +45,6 @@ enum MealTime: String, CaseIterable {
     case snack = "간식"
 }
 
-
 struct MealSection {
     typealias Item = Meal
    

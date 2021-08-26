@@ -74,7 +74,7 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
             .disposed(by: rx.disposeBag)
         
         viewModel.output.recentMeals
-            .drive(mealTableView.rx.items(cellIdentifier: "mealCell", cellType: MealTableViewCell.self)) { row, meal, cell in
+            .drive(mealTableView.rx.items(cellIdentifier: "mealCell", cellType: MealTableViewCell.self)) { _, meal, cell in
                 cell.mealCellImage.kf.setImage(with: meal.image, placeholder: UIImage(systemName: "circle.fill"))
                 cell.mealCellName.text = meal.name
                 cell.mealCellPrice.text = intToString(meal.price)
@@ -86,7 +86,7 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
                 let numArr = mealses.map { $0.count }
                 self?.maxValue = numArr.max()
             })
-            .drive(mealTimeCollectionView.rx.items(cellIdentifier: "timeCell", cellType: MealTimeCollectionViewCell.self)) { item, meals, cell in
+            .drive(mealTimeCollectionView.rx.items(cellIdentifier: "timeCell", cellType: MealTimeCollectionViewCell.self)) { _, meals, cell in
                 if let maxValue = self.maxValue,
                    maxValue != 0 {
                     let ratio = CGFloat(meals.count) / CGFloat(maxValue)

@@ -302,7 +302,7 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [unowned self] in
                 let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "넹!", style: .default) { action in
+                let okAction = UIAlertAction(title: "넹!", style: .default) { _ in
                     guard let shoppingID = self.shopping?.id else { return }
                     DispatchQueue.global().async {
                         self.viewModel.shoppingService.delete(shoppingID: shoppingID)

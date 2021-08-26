@@ -19,12 +19,11 @@ class RankingMainViewController: UIViewController, ViewModelBindable {
     
     lazy var tableView: UITableView = {
         let tv = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), style: .grouped)
-        tv.register(RankingTableViewCell.self, forCellReuseIdentifier: CELL_IDENTIFIER.rankingCell)
+        tv.register(RankingTableViewCell.self, forCellReuseIdentifier: CELLIDENTIFIER.rankingCell)
         tv.separatorStyle = .none
         return tv
     }()
     
-
     // MARK: - View LifeCycle
     
     override func viewDidLoad() {
@@ -69,7 +68,7 @@ class RankingMainViewController: UIViewController, ViewModelBindable {
 extension RankingMainViewController: UITableViewDelegate, UIScrollViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = RankingHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height),viewModel: self.viewModel)
+        let headerView = RankingHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height), viewModel: self.viewModel)
         headerView.roundCorners(corners: [.topLeft, .topRight], radius: 30)
         return headerView
     }

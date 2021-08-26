@@ -44,7 +44,6 @@ class OnboardingViewModel: ViewModelType {
             return User(userID: "", nickname: name, determination: deter, priceGoal: monthlyGoal, userType: usertype)
         })
         
-        
         self.input = Input(nickname: nickname, monthlyGoal: monthlyGoal, usertype: usertype, determination: determination)
         self.output = Output(userInformation: userInformation)
     }

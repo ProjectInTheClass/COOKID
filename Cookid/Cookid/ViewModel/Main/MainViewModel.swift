@@ -81,7 +81,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
             .map { (meals, shoppings) -> [MainCollectionViewSection] in
                 let mealItem = meals.map { MainCollectionViewItem.meals(meal: $0) }
                 let shoppingItem = shoppings.map { MainCollectionViewItem.shoppings(shopping: $0) }
-                return [.MealSection(items: mealItem), .ShoppingSection(items: shoppingItem)]
+                return [.mealSection(items: mealItem), .shoppingSection(items: shoppingItem)]
             }
             .asDriver(onErrorJustReturn: [])
         
@@ -112,7 +112,6 @@ class MainViewModel: ViewModelType, HasDisposeBag {
             return "현재까지 하루 평균 지출은 '\(String(format: "%.0f", price))원' 입니다."
         })
         .asDriver(onErrorJustReturn: "지출이 없습니다.")
-        
         
         self.input = Input(selectedDate: selectedDate, yesterdayMeals: yesterdayMeals, tommorowMeals: tommorowMeals, todayMeals: todayMeals)
         self.output = Output(averagePrice: averagePrice, basicMeal: meals, basicShopping: shoppings, adviceString: adviceString, userInfo: userInfo, mealDayList: mealDayList, consumeProgressCalc: consumeProgressCalc, monthlyDetailed: monthlyDetailed)

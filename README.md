@@ -53,6 +53,7 @@
 
 ### 백앤드
 * Firebase Auth, Realtime Database, Storage
+* CoreData
 
 ### 테스트 자동화
 * fastlane
@@ -64,6 +65,7 @@
 ### 이외에 사용한 오픈소스
 * Kingfisher
 * FSCalendar
+* PanModal
 
 # 5. 업데이트 내역
 

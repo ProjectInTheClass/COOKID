@@ -50,7 +50,7 @@ public enum DefaultStyle {
     }
 }
 
-enum CELL_IDENTIFIER {
+enum CELLIDENTIFIER {
     static let rankingCell = "rankingCell"
     static let rankingHeaderView = "rankingHeaderView"
     static let mainMealCell = "mainMealCell"

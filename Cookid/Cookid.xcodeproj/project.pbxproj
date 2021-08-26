@@ -40,13 +40,13 @@
 		035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */; };
 		037AC1A826B98B48009509CF /* PictureSelectCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AC1A726B98B48009509CF /* PictureSelectCollectionViewController.swift */; };
 		038875AD269FD1EF00D5D202 /* MyExpenseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038875AC269FD1EF00D5D202 /* MyExpenseViewModel.swift */; };
-		038875AE269FD7DA00D5D202 /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1982EC269BF3660055742B /* UserInformationViewController.swift */; };
 		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
 		0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */; };
 		03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */; };
 		03B2048D26D5D9440099C269 /* AddShoppingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2048C26D5D9440099C269 /* AddShoppingViewModel.swift */; };
+		03B2049326D737FD0099C269 /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1982EC269BF3660055742B /* UserInformationViewController.swift */; };
 		03E42EB826C412A8005D7B5E /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EB726C412A8005D7B5E /* CookidTests.swift */; };
 		03E42EC626C412C2005D7B5E /* CookidUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EC526C412C2005D7B5E /* CookidUITests.swift */; };
 		03E42ED126C41766005D7B5E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED026C41766005D7B5E /* MainCoordinator.swift */; };
@@ -87,7 +87,6 @@
 		C6BFF46226949AA7006295F5 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF46126949AA7006295F5 /* Constant.swift */; };
 		DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1982EE269BF7D30055742B /* UserInfo.storyboard */; };
 		DB61715226C9577B008F497C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61715126C9577B008F497C /* NotificationManager.swift */; };
-		DB972BC4269FD81E00143CCC /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1982EC269BF3660055742B /* UserInformationViewController.swift */; };
 		DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDA046726969A6500B5C1D6 /* UserService.swift */; };
 		DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -274,10 +273,7 @@
 		032233AF2692764F0092DD6D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				C67441D726970E7C0086CBAD /* AuthRepository.swift */,
-				C6BFF45426949986006295F5 /* UserRepositrory.swift */,
-				C6BFF45626949986006295F5 /* MealRepository.swift */,
-				C6BFF45526949986006295F5 /* GroceryRepository.swift */,
+				03B2048F26D70DFA0099C269 /* FirebaseReopsitory */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -442,6 +438,17 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		03B2048F26D70DFA0099C269 /* FirebaseReopsitory */ = {
+			isa = PBXGroup;
+			children = (
+				C67441D726970E7C0086CBAD /* AuthRepository.swift */,
+				C6BFF45426949986006295F5 /* UserRepositrory.swift */,
+				C6BFF45626949986006295F5 /* MealRepository.swift */,
+				C6BFF45526949986006295F5 /* GroceryRepository.swift */,
+			);
+			path = FirebaseReopsitory;
+			sourceTree = "<group>";
+		};
 		03E42EB626C412A8005D7B5E /* CookidTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -573,6 +580,7 @@
 				03223395269212860092DD6D /* Frameworks */,
 				03223396269212860092DD6D /* Resources */,
 				620BC73790CEAA4D3BB7172B /* [CP] Embed Pods Frameworks */,
+				03B2049226D712BC0099C269 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -702,6 +710,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		03B2049226D712BC0099C269 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/SwiftLint/swiftlint\n";
+			showEnvVarsInLog = 0;
+		};
 		620BC73790CEAA4D3BB7172B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -748,6 +774,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03B2049326D737FD0099C269 /* UserInformationViewController.swift in Sources */,
 				035E4921269597D4002CC084 /* MealTimeCollectionViewCell.swift in Sources */,
 				032233BA269277520092DD6D /* Meal.swift in Sources */,
 				038875AD269FD1EF00D5D202 /* MyExpenseViewModel.swift in Sources */,
@@ -774,7 +801,6 @@
 				C64560B6269D4BEF009B249F /* ModifyMealViewForAvailable.swift in Sources */,
 				C64560B5269D4BEF009B249F /* ModifyMealView.swift in Sources */,
 				353BE570269D72B7006A6A47 /* InputDataTableViewCell.swift in Sources */,
-				DB972BC4269FD81E00143CCC /* UserInformationViewController.swift in Sources */,
 				035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */,
 				241523B4269D24860077941A /* Function.swift in Sources */,
 				C64560B1269D4BDF009B249F /* MealDetailViewController.swift in Sources */,
@@ -805,7 +831,6 @@
 				03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */,
 				DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */,
 				038875B126A030F300D5D202 /* MainViewController.swift in Sources */,
-				038875AE269FD7DA00D5D202 /* UserInformationViewController.swift in Sources */,
 				03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,

@@ -19,7 +19,6 @@ class MealTimeCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var mealTimeTitle: UILabel!
     
-    
     var heightConstraints: NSLayoutConstraint?
     
     override func awakeFromNib() {

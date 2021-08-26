@@ -29,7 +29,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     @IBOutlet weak var addShoppingButton: UIButton!
     @IBOutlet weak var rankingButton: UIBarButtonItem!
     
-    
     // consumeView
     @IBOutlet weak var consumeView: UIView!
     @IBOutlet weak var monthLabel: UILabel!
@@ -38,12 +37,11 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     @IBOutlet weak var dineOutPrice: UILabel!
     @IBOutlet weak var balanceLabel: UILabel!
     
-    //adviseView
+    // adviseView
     @IBOutlet weak var adviseView: UIView!
     @IBOutlet weak var adviseLabel: UILabel!
     @IBOutlet weak var averageView: UIView!
     @IBOutlet weak var averageLabel: UILabel!
-    
     
     // chartView
     @IBOutlet weak var chartView: UIView!
@@ -200,8 +198,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 self.consumeProgressBar.progress = 0
             })
             .delay(.milliseconds(500))
-            .drive(onNext: {
-                [unowned self] value in
+            .drive(onNext: { [unowned self] value in
                 self.chartPercentLabel.text = String(format: "%.0f", value) + "%"
                 self.consumeProgressBar.progress = CGFloat(value) / CGFloat(100)
             })
@@ -221,7 +218,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 }
             })
             .disposed(by: rx.disposeBag)
-        
         
         // rx delegate
         mealDayCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct MealEntity: Codable {
     var id: String
     var price: Int

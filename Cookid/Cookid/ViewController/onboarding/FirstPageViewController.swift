@@ -72,8 +72,4 @@ class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBa
             .bind(to: viewModel.input.nickname)
             .disposed(by: rx.disposeBag)
     }
-    
-    
-    
 }
-

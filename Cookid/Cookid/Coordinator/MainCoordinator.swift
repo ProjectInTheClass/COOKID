@@ -19,7 +19,7 @@ protocol CoordinatorType {
 class MainCoordinator: CoordinatorType {
     
     var childCoordinator = [CoordinatorType]()
-    var navigationController: UINavigationController? = nil
+    var navigationController: UINavigationController?
     
     // MARK: - START
     

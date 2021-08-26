@@ -27,14 +27,13 @@ class MyMealViewModel: ViewModelType {
     var input: Input
     var output: Output
 
-    init(mealService: MealService, userService: UserService){
+    init(mealService: MealService, userService: UserService) {
         self.userService = userService
         self.mealService = mealService
         
         userService.loadUserInfo { user in
-            mealService.fetchMeals(user: user) { meals in }
+            mealService.fetchMeals(user: user) { _ in }
         }
-        
         
         // input initializer
         let meals = mealService.mealList()

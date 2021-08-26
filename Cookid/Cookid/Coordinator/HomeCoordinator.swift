@@ -12,7 +12,7 @@ class HomeCoordinator: CoordinatorType {
     var parentCoordinator : CoordinatorType?
     var childCoordinator: [CoordinatorType] = []
     
-    var navigationController: UINavigationController? = nil
+    var navigationController: UINavigationController?
     
     var mainNVC: UINavigationController?
 
