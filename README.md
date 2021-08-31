@@ -53,7 +53,7 @@
 
 ### 백앤드
 * Firebase Auth, Realtime Database, Storage
-* CoreData
+* Realm
 
 ### 테스트 자동화
 * fastlane
@@ -67,74 +67,12 @@
 * FSCalendar
 * PanModal
 
-# 5. 업데이트 내역
+# 5. 업데이트 내역 및 예정
 
-* 1.0.1
-* Not yet (진행 중 : 버그 개선, 다크 모드 지원, 식사 CRUD관련 사용자 편의 개선, 위젯 추가, 랭킹 페이지 제작, 리팩토링, 로컬 노티피케이션 추가)
-    
+* 1.0.1 앱 출시 버전
+* 1.0.2 버그 수정, 다크 모드 지원, 식사 & 쇼핑 CRUD관련 사용자 편의 개선, 랭킹 페이지 제작, 리팩토링, 로컬 노티피케이션 추가
+* 1.0.3 Soon(버그 수정, 애플 계정 전환 -> CloudMessage, Realm, fastlane으로 배포 자동화, 식사 기본 이미지 추가)
 
-# 6. 역할 분담
+* 2.0 Not yet(온라인 서비스 준비 : OAuth(카카오, 네이버, 애플), Firestore(유저 & 레시피 & 코멘트 & 게시글 DB) - Realm 연동 / 뷰 변경 : 모든 통계는 메인페이지, 마이페이지(나의 모든 소비, 좋아요 레시피 & 나의 레시피, 프로필), 집밥레시피 페이지(메인테이블, 디테일페이지, 코멘트페이지), 랭킹페이지 변경(베스트 집밥러, 베스트 레시피), 자유게시판 추가 제작)
 
-* ### 임현지
-  * View
-     * swiftUI
-     * Combine : 데이터에 변화가 생길때마다 변화를 감지
-     * UIHostingViewController : 컴플리션 핸들러로 뷰에 정보를 전달할 수 있도록 했음
-     * GeometryEffect 
-     * Firebase : 익명로그인 시도
-
-
-
-* ### 박형석
-
-  * 맡은 영역
-    * 아키텍쳐 설계
-    * Main Tap 뷰와 뷰모델, 서비스 제작
-    * 식사 추가 수정 삭제 제작
-    * 식사 통계 뷰 및 뷰모델 서비스 제작
-    * 랭킹 페이지 뷰 제작
-
-* ### 홍석현
-
-  * View
-    + InputDataShopping view  
-      쇼핑한 데이터를 입력하는 뷰  
-      + UITapGestureRecognizer  
-        사용자가 데이터를 입력하는 서브뷰 외의 공간을 터치하면 입력 취소로 받아드려 view dismiss 기능 구현  
-      + keyboardNotification  
-        키보드 노티피케이션, 옵저버를 등록하고 디바이스에 따라 키보드가 뷰를 가리는 여부에 따라 뷰가 움직이는 로직 
-      + UIAlertController   
-        모든 데이터를 입력 여부에 따른 alert, 확인 버튼을 탭하면 데이터 save  
-        데이터 수정의 경우 alert하여 확인 버튼을 탭하면 데이터 update  
-      + UIDatePicker  
-    + MyExpenseView  
-      나의 식사와 쇼핑 기록을 캘린더에 나타나게 하고, 해당 날짜를 탭하면 테이블 뷰에 상세 데이터 표시
-      + FSCalendar  
-        FSCalendar 오픈소스를 활용하여 scopeGesture, 캘린더 이벤트 날짜 표시하기 기능 구현  
-      + UITableView  
-        캘린더에서 받아온 데이터를 통해 테이블뷰에 전달하여 데이터를 표시하는 로직  
-
-* ### 김동환 
-
-  * View
-
-    * UserInfoUpdate view - user의 정보를 업데이트 하는 뷰
-     - Notification center
-        키보드 노티피케이션 등록으로 키보드가 올라오고 내려갈 때에 따른 사용자 정보 입력 ux 작업
-     - UITapGestureRecognizer
-        사용자가 뷰 상의 텍스트 필드, 버튼 이외의 부분 눌렀을 때 tap을 인식하여 키보드가 내려오는 로직
-    
-  * Service
-    
-    * MealService 
-      -뷰모델에서 필요한 data를 위해 비즈니스로직 구현 
-          -  repository에서 받아온 data 가공을 통해 Meals를 모아둠, 특정 날짜에 해당하는 meals 제공, 하루 평균 소비금액 제공, date string을 Date 타입으로 변환하는 등의 비즈니스 로직 구현
-          -  main 뷰의 사용자의 현재 사용 금액별 현황 메시지 제공을 위한 로직 구현
-      
-    * UserService
-          -  업데이트 된 유저의 정보를 repository로 전달
-    
-    * UserRepository
-          -  UserSevice에서 전달 받은 업데이트 된 유저의 정보를 파이어베이스에 업데이트
-
-
+* 3.0 Not yet(유료 서비스 준비 : 유료레시피, 카드사 연동 API 자동 추가 시스템 제작(시간대, 가격, 업계관련, 이름 등))
