@@ -15,7 +15,7 @@ class MealService {
     let groceryRepository: GroceryRepository
     
     private var totalBudget: Int = 1
-    private var currentDay = Date()
+    
     
     private var meals: [Meal] = []
     private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
@@ -92,21 +92,9 @@ class MealService {
         }
     }
     
-    func fetchMealByNavigate(_ day: Int) -> (String, [Meal]) {
-        
-        guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return ("", []) }
-        currentDay = aDay
-        let dateString = convertDateToString(format: "YYYY년 M월 d일", date: aDay)
-        let meal = self.meals.filter {$0.date.dateToString() == aDay.dateToString() }
-        
-        return (dateString, meal)
-    }
-    
-    func fetchMealByDay(_ day: Date) -> (String, [Meal]) {
-        currentDay = day
-        let dateString = convertDateToString(format: "YYYY년 M월 d일", date: day)
-        let meal = self.meals.filter { $0.date.dateToString() == day.dateToString() }
-        return (dateString, meal)
+    func fetchMealByDay(_ day: Date, meals: [Meal]) -> [Meal] {
+        let dayMeals = meals.filter { $0.date.dateToString() == day.dateToString() }
+        return dayMeals
     }
     
     @discardableResult
