@@ -59,6 +59,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     var viewModel: MainViewModel!
     var coordinator: HomeCoordinator?
+    var currentDay = Date()
     
     // MARK: - View LifeCycle
     
@@ -106,21 +107,15 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         leftButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                let shopping = self.viewModel.shoppingService.fetchShoppingByNavigate(-1)
-                let data = self.viewModel.mealService.fetchMealByNavigate(-1)
-                self.monthSelectButton.setTitle(data.0, for: .normal)
-                self.viewModel.input.selectedDate.onNext(stringToDateKr(string: data.0))
-                self.viewModel.input.yesterdayMeals.onNext((data.1, shopping.1))
+                let date = self.viewModel.fetchMealByNavigate(-1, currentDate: self.currentDay)
+                self.viewModel.input.selectedDate.accept(date)
             })
             .disposed(by: rx.disposeBag)
         
         rightButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                let shopping = self.viewModel.shoppingService.fetchShoppingByNavigate(1)
-                let data = self.viewModel.mealService.fetchMealByNavigate(1)
-                self.monthSelectButton.setTitle(data.0, for: .normal)
-                self.viewModel.input.selectedDate.onNext(stringToDateKr(string: data.0))
-                self.viewModel.input.tommorowMeals.onNext((data.1, shopping.1))
+                let date = self.viewModel.fetchMealByNavigate(1, currentDate: self.currentDay)
+                self.viewModel.input.selectedDate.accept(date)
             })
             .disposed(by: rx.disposeBag)
         
@@ -150,10 +145,8 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         viewModel.input.selectedDate
             .bind(onNext: { [unowned self] date in
-                let shopping = viewModel.shoppingService.fetchShoppingByDay(date)
-                let data = viewModel.mealService.fetchMealByDay(date)
-                self.monthSelectButton.setTitle(data.0, for: .normal)
-                viewModel.input.todayMeals.onNext((data.1, shopping.1))
+                self.currentDay = date
+                self.monthSelectButton.setTitle(convertDateToString(format: "YYYY년 M월 d일", date: date), for: .normal)
             })
             .disposed(by: rx.disposeBag)
         

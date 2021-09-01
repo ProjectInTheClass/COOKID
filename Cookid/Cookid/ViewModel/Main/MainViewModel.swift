@@ -18,10 +18,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
     let dataSource: RxCollectionViewSectionedReloadDataSource<MainCollectionViewSection>
     
     struct Input {
-        let selectedDate: BehaviorSubject<Date>
-        let yesterdayMeals: PublishSubject<([Meal], [GroceryShopping])>
-        let tommorowMeals: PublishSubject<([Meal], [GroceryShopping])>
-        let todayMeals: PublishSubject<([Meal], [GroceryShopping])>
+        let selectedDate: BehaviorRelay<Date>
     }
     
     struct Output {
@@ -42,7 +39,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         self.mealService = mealService
         self.userService = userService
         self.shoppingService = shoppingService
- 
+        
         // user
         userService.loadUserInfo { user in
             mealService.fetchMeals(user: user) { _ in }
@@ -61,29 +58,16 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         self.dataSource = MainDataSource.dataSouce
         
         // input
-        let selectedDate = BehaviorSubject<Date>(value: Date())
-        
-        let yesterdayMeals = PublishSubject<([Meal], [GroceryShopping])>()
-        let tommorowMeals = PublishSubject<([Meal], [GroceryShopping])>()
-        let todayMeals = PublishSubject<([Meal], [GroceryShopping])>()
-        
-        let initialMeal = meals.map(mealService.todayMeals)
-        let initialShopping = shoppings.map(shoppingService.todayShoppings)
+        let selectedDate = BehaviorRelay<Date>(value: Date())
         
         // output
-       
-        let initialItems = Observable.combineLatest(initialMeal, initialShopping) { meals, shoppings -> ([Meal], [GroceryShopping])in
-            return (meals, shoppings)
-        }
         
-        let mealDayList = Observable.of(initialItems, yesterdayMeals, tommorowMeals, todayMeals)
-            .merge()
-            .map { (meals, shoppings) -> [MainCollectionViewSection] in
-                let mealItem = meals.map { MainCollectionViewItem.meals(meal: $0) }
-                let shoppingItem = shoppings.map { MainCollectionViewItem.shoppings(shopping: $0) }
-                return [.mealSection(items: mealItem), .shoppingSection(items: shoppingItem)]
-            }
-            .asDriver(onErrorJustReturn: [])
+        let mealDayList = Observable.combineLatest(selectedDate, meals, shoppings) { date, meals, shoppings -> [MainCollectionViewSection] in
+            let mealItem = mealService.fetchMealByDay(date, meals: meals).map { MainCollectionViewItem.meals(meal: $0) }
+            let shoppingItem = shoppingService.fetchShoppingByDay(date, shoppings: shoppings).map { MainCollectionViewItem.shoppings(shopping: $0) }
+            return [.mealSection(items: mealItem), .shoppingSection(items: shoppingItem)]
+        }
+        .asDriver(onErrorJustReturn: [])
         
         let monthlyDetailed = Observable.combineLatest(userInfo.asObservable(), meals, shoppings) { user, meals, shoppings -> ConsumptionDetailed in
             let goal = Int(user.priceGoal) ?? 0
@@ -113,7 +97,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         })
         .asDriver(onErrorJustReturn: "지출이 없습니다.")
         
-        self.input = Input(selectedDate: selectedDate, yesterdayMeals: yesterdayMeals, tommorowMeals: tommorowMeals, todayMeals: todayMeals)
+        self.input = Input(selectedDate: selectedDate)
         self.output = Output(averagePrice: averagePrice, basicMeal: meals, basicShopping: shoppings, adviceString: adviceString, userInfo: userInfo, mealDayList: mealDayList, consumeProgressCalc: consumeProgressCalc, monthlyDetailed: monthlyDetailed)
     }
     
@@ -125,6 +109,11 @@ class MainViewModel: ViewModelType, HasDisposeBag {
                 print("fail")
             }
         }
+    }
+    
+    func fetchMealByNavigate(_ day: Int, currentDate: Date) -> Date {
+        guard let date = Calendar.current.date(byAdding: .day, value: day, to: currentDate) else { return Date() }
+        return date
     }
     
 }

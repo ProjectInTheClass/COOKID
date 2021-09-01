@@ -90,7 +90,7 @@ class SelectCalendarViewController: UIViewController, StoryboardBased, ViewModel
 extension SelectCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        viewModel.input.selectedDate.onNext(date)
+        viewModel.input.selectedDate.accept(date)
         self.dismiss(animated: true, completion: nil)
     }
     

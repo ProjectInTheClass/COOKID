@@ -10,8 +10,6 @@ import RxSwift
 
 class ShoppingService {
     
-    var currentDay = Date()
-    
     let groceryRepository: GroceryRepository
     
     private var groceryShoppings: [GroceryShopping] = []
@@ -83,25 +81,14 @@ class ShoppingService {
         }
     }
     
+    func fetchShoppingByDay(_ day: Date, shoppings: [GroceryShopping]) -> [GroceryShopping] {
+        let dayShoppings = shoppings.filter { $0.date.dateToString() == day.dateToString() }
+        return dayShoppings
+    }
+    
     func fetchShoppingTotalSpend(shoppings: [GroceryShopping]) -> Int {
         let shoppingSpends = shoppings.map { $0.totalPrice }.reduce(0, +)
         return shoppingSpends
-    }
-    
-    func fetchShoppingByNavigate(_ day: Int) -> (String, [GroceryShopping]) {
-        guard let aDay = Calendar.current.date(byAdding: .day, value: day, to: currentDay) else { return ("", []) }
-        currentDay = aDay
-        let dateString = convertDateToString(format: "YYYY년 M월 d일", date: aDay)
-        let shopping = self.groceryShoppings.filter {$0.date.dateToString() == aDay.dateToString() }
-        
-        return (dateString, shopping)
-    }
-    
-    func fetchShoppingByDay(_ day: Date) -> (String, [GroceryShopping]) {
-        currentDay = day
-        let dateString = convertDateToString(format: "YYYY년 M월 d일", date: day)
-        let shopping = self.groceryShoppings.filter { $0.date.dateToString() == day.dateToString() }
-        return (dateString, shopping)
     }
     
     func todayShoppings(shoppings: [GroceryShopping]) -> [GroceryShopping] {
