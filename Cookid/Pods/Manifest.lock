@@ -9,6 +9,11 @@ PODS:
   - "NSObject+Rx (5.2.2)":
     - RxSwift (~> 6.2)
   - PanModal (1.2.7)
+  - Realm (10.13.0):
+    - Realm/Headers (= 10.13.0)
+  - Realm/Headers (10.13.0)
+  - RealmSwift (10.13.0):
+    - Realm (= 10.13.0)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -33,6 +38,7 @@ DEPENDENCIES:
   - lottie-ios
   - "NSObject+Rx"
   - PanModal
+  - RealmSwift (~> 10)
   - RxCocoa
   - RxDataSources
   - RxKeyboard
@@ -50,6 +56,8 @@ SPEC REPOS:
     - lottie-ios
     - "NSObject+Rx"
     - PanModal
+    - Realm
+    - RealmSwift
     - RxCocoa
     - RxDataSources
     - RxKeyboard
@@ -67,6 +75,8 @@ SPEC CHECKSUMS:
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
+  Realm: e3a1225aafa7cec96a020dc199201b9d1f9cd59c
+  RealmSwift: 62585b4a934754a9d9117331689f4e8a5b1f6113
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
@@ -76,6 +86,6 @@ SPEC CHECKSUMS:
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 753d3c43aeb4bc0ffde35b66888abe9eaebe85f2
+PODFILE CHECKSUM: 364976120f9f9a6d106996cf163250af79558767
 
 COCOAPODS: 1.10.1

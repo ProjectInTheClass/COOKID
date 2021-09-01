@@ -19,5 +19,5 @@ pod 'FSCalendar'
 pod 'Then'
 pod 'SwiftLint'
 pod 'PanModal'
-
+pod 'RealmSwift', '~>10'
 end
