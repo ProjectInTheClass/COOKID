@@ -67,6 +67,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         super.viewDidLoad()
         configureUI()
         LocalNotificationManager.setNotification()
+        RealmUserRepo.shared.createPerson()
     }
     
     // MARK: - Functions
