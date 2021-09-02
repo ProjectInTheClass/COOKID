@@ -13,7 +13,6 @@ class RealmUserRepo {
     
     func fetchUser() -> LocalUser? {
         do {
-            print(Realm.Configuration.defaultConfiguration.fileURL!)
             let realm = try Realm()
             guard let localUser = realm.objects(LocalUser.self).first else { return nil }
             return localUser
@@ -26,12 +25,7 @@ class RealmUserRepo {
     func createUser(user: User) {
         do {
             let realm = try Realm()
-            let localUser = LocalUser()
-            localUser.image = "person.circle.fill"
-            localUser.goal = user.priceGoal
-            localUser.nickName = user.nickname
-            localUser.type = user.userType.rawValue
-            localUser.determination = user.determination
+            let localUser = LocalUser(image: user.image.description, nickName: user.nickname, determination: user.determination, goal: user.priceGoal, type: user.userType.rawValue)
             try realm.write {
                 realm.add(localUser)
             }
@@ -51,21 +45,6 @@ class RealmUserRepo {
                     currentUser.type = user.userType.rawValue
                     // 임시
                     currentUser.image = user.image.description
-                }
-            } else {
-                print("currentUser가 없습니다!")
-            }
-        } catch let error {
-            print(error)
-        }
-    }
-    
-    func deleteUser(user: User) {
-        do {
-            let realm = try Realm()
-            if let currentUser = realm.objects(LocalUser.self).filter(NSPredicate(format: "id=%@", user.userID)).first {
-                try realm.write {
-                    realm.delete(currentUser)
                 }
             } else {
                 print("currentUser가 없습니다!")

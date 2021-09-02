@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class LocalMeal: Object {
-    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var id: String
     @Persisted var price: Int
     @Persisted var date: Date
     @Persisted var name: String
@@ -17,8 +17,9 @@ class LocalMeal: Object {
     @Persisted var mealType: String
     @Persisted var mealTime: String
     
-    convenience init(price: Int, date: Date, name: String, image: String, mealType: String, mealTime: String) {
+    convenience init(id: String, price: Int, date: Date, name: String, image: String, mealType: String, mealTime: String) {
         self.init()
+        self.id = id
         self.price = price
         self.date = date
         self.name = name

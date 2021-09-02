@@ -10,12 +10,13 @@ import RealmSwift
 
 class LocalShopping: Object {
     
-    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var id: String
     @Persisted var date: Date
     @Persisted var price: Int
     
-    convenience init(date: Date, price: Int) {
+    convenience init(id: String, date: Date, price: Int) {
         self.init()
+        self.id = id
         self.date = date
         self.price = price
     }

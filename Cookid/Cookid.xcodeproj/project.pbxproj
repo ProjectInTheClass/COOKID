@@ -62,6 +62,8 @@
 		24B081BA26DFD23500379087 /* LocalUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081B926DFD23500379087 /* LocalUser.swift */; };
 		24B081BF26E0473500379087 /* LocalMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081BE26E0473500379087 /* LocalMeal.swift */; };
 		24B081C426E0473F00379087 /* LocalShopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081C326E0473F00379087 /* LocalShopping.swift */; };
+		24B081CC26E10F7B00379087 /* RealmMealRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081CB26E10F7B00379087 /* RealmMealRepo.swift */; };
+		24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081D026E10F8900379087 /* RealmShoppingRepo.swift */; };
 		7CDB672F20DDD0D65D45B557 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892F362497B138331AC4FAC2 /* Pods_Cookid.framework */; };
 		C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
 		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
@@ -160,6 +162,8 @@
 		24B081B926DFD23500379087 /* LocalUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUser.swift; sourceTree = "<group>"; };
 		24B081BE26E0473500379087 /* LocalMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMeal.swift; sourceTree = "<group>"; };
 		24B081C326E0473F00379087 /* LocalShopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalShopping.swift; sourceTree = "<group>"; };
+		24B081CB26E10F7B00379087 /* RealmMealRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMealRepo.swift; sourceTree = "<group>"; };
+		24B081D026E10F8900379087 /* RealmShoppingRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmShoppingRepo.swift; sourceTree = "<group>"; };
 		892F362497B138331AC4FAC2 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
 		C67441D726970E7C0086CBAD /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
@@ -477,6 +481,8 @@
 			isa = PBXGroup;
 			children = (
 				24B081B026DFD21300379087 /* RealmUserRepo.swift */,
+				24B081CB26E10F7B00379087 /* RealmMealRepo.swift */,
+				24B081D026E10F8900379087 /* RealmShoppingRepo.swift */,
 			);
 			path = RealmRepository;
 			sourceTree = "<group>";
@@ -765,6 +771,7 @@
 				03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */,
 				03B2049B26D7BA830099C269 /* MenuService.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
+				24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
 				24B081BA26DFD23500379087 /* LocalUser.swift in Sources */,
 				03B2048D26D5D9440099C269 /* AddShoppingViewModel.swift in Sources */,
@@ -774,6 +781,7 @@
 				03B2049726D75E7E0099C269 /* PictureSelectCollectionViewCell.swift in Sources */,
 				035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */,
 				0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */,
+				24B081CC26E10F7B00379087 /* RealmMealRepo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

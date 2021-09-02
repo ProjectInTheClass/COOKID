@@ -14,48 +14,44 @@ class UserService {
     let userRepository: UserRepository
     
     private var defaultUserInfo =  User(userID: "", nickname: "비회원", determination: "유저 정보를 입력한 후에 사용해 주세요.", priceGoal: 0, userType: .preferDineIn)
-    
-    private var userSortedArr = [UserForRanking]()
-    
     private lazy var userInfo = BehaviorSubject<User>(value: defaultUserInfo)
+    private var userSortedArr = [UserForRanking]()
     private lazy var userSorted = BehaviorSubject<[UserForRanking]>(value: userSortedArr)
     
     init(userRepository: UserRepository) {
         self.userRepository = userRepository
     }
     
+    // fetch
     func loadUserInfo(completion: @escaping (User) -> Void) {
-        //        self.userRepository.fetchUserInfo { [unowned self] userentity in
-        //            let user = User(userID: userentity.userId, nickname: userentity.nickname, determination: userentity.determination, priceGoal: userentity.priceGoal, userType: UserType(rawValue: userentity.userType) ?? .preferDineIn)
-        //            defaultUserInfo = user
-        //            self.userInfo.onNext(user)
-        //            completion(user)
-        //        }
         guard let userentity = RealmUserRepo.instance.fetchUser() else { return }
         let user = User(userID: userentity.id.stringValue, nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn)
         defaultUserInfo = user
         self.userInfo.onNext(user)
+        completion(user)
     }
     
-    func sortedUsers() -> Observable<[UserForRanking]> {
-        return userSorted
+    // create
+    func uploadUserInfo(user: User) {
+        RealmUserRepo.instance.createUser(user: user)
+        defaultUserInfo = user
+        userInfo.onNext(defaultUserInfo)
+    }
+    
+    // update
+    func updateUserInfo(user: User, completion: @escaping ((Bool) -> Void)) {
+        RealmUserRepo.instance.updateUser(user: user)
+        self.defaultUserInfo = user
+        self.userInfo.onNext(user)
+        completion(true)
     }
     
     func user() -> Observable<User> {
         return userInfo
     }
     
-    func uploadUserInfo(user: User) {
-        userRepository.uploadUserInfo(userInfo: user)
-        defaultUserInfo = user
-        userInfo.onNext(defaultUserInfo)
-    }
-    
-    func updateUserInfo(user: User, completion: @escaping ((Bool) -> Void)) {
-        userRepository.updateUserInfo(user: user)
-        completion(true)
-        self.defaultUserInfo = user
-        self.userInfo.onNext(user)
+    func sortedUsers() -> Observable<[UserForRanking]> {
+        return userSorted
     }
     
     func makeRanking(completion: @escaping ([UserForRanking]?, Error?) -> Void) {

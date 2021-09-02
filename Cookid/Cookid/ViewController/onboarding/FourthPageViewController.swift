@@ -70,12 +70,12 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         viewModel.output.userInformation
             .subscribe(onNext: { [unowned self] user in
                 self.user = user
+                print(self.user)
             })
             .disposed(by: rx.disposeBag)
     }
     
     @IBAction func finish(_ sender: Any) {
-        LocalNotificationManager.setNotification()
         guard let user = self.user else { return }
         self.setRootViewController(user: user)
     }
@@ -85,11 +85,10 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         guard let tabBarController = coordinator?.parentCoordinator?.navigateHomeCoordinator() as? UITabBarController else { return }
         guard let nvc = tabBarController.viewControllers?[0] as? UINavigationController else { return }
         guard let vc = nvc.topViewController as? MainViewController else { return }
-//        let vm = vc.viewModel!
+        let vm = vc.viewModel!
         let window = UIApplication.shared.windows.first!
         window.rootViewController = tabBarController
-//        vm.userService.uploadUserInfo(user: user)
-        RealmUserRepo.instance.createUser(user: DummyData.shared.singleUser)
+        vm.userService.uploadUserInfo(user: user)
     }
 
 }
