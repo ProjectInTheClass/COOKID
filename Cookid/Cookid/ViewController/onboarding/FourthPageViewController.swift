@@ -70,12 +70,12 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         viewModel.output.userInformation
             .subscribe(onNext: { [unowned self] user in
                 self.user = user
+                print(self.user)
             })
             .disposed(by: rx.disposeBag)
     }
     
     @IBAction func finish(_ sender: Any) {
-        LocalNotificationManager.setNotification()
         guard let user = self.user else { return }
         self.setRootViewController(user: user)
     }

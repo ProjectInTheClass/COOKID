@@ -157,7 +157,7 @@ class MealService {
         
         let shoppingSpends = shoppings.map { Double($0.totalPrice) }.reduce(0, +)
         let mealSpend = meals.map { Double($0.price) }.reduce(0, +)
-        let spend = (shoppingSpends + mealSpend) / Double(user.priceGoal)! * 100
+        let spend = (shoppingSpends + mealSpend) / Double(user.priceGoal) * 100
         
         if spend.isNaN {
             return 0

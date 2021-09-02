@@ -9,25 +9,48 @@ import Foundation
 import RealmSwift
 
 class RealmUserRepo {
-    static let shared = RealmUserRepo()
+    static let instance = RealmUserRepo()
     
-    func createPerson() {
+    func fetchUser() -> LocalUser? {
         do {
             let realm = try Realm()
-            let person1 = LocalUser()
-            person1.name = "철수"
-            person1.age = 10
-            let person2 = LocalUser()
-            person2.name = "영희"
-            person2.age = 11
-            print(Realm.Configuration.defaultConfiguration.fileURL!)
+            guard let localUser = realm.objects(LocalUser.self).first else { return nil }
+            return localUser
+        } catch let error {
+            print(error)
+            return nil
+        }
+    }
+    
+    func createUser(user: User) {
+        do {
+            let realm = try Realm()
+            let localUser = LocalUser(image: user.image.description, nickName: user.nickname, determination: user.determination, goal: user.priceGoal, type: user.userType.rawValue)
             try realm.write {
-                realm.add(person1)
-                realm.add(person2)
+                realm.add(localUser)
             }
         } catch let error {
             print(error)
         }
-       
+    }
+    
+    func updateUser(user: User) {
+        do {
+            let realm = try Realm()
+            if let currentUser = realm.objects(LocalUser.self).first {
+                try realm.write {
+                    currentUser.nickName = user.nickname
+                    currentUser.determination = user.determination
+                    currentUser.goal = user.priceGoal
+                    currentUser.type = user.userType.rawValue
+                    // 임시
+                    currentUser.image = user.image.description
+                }
+            } else {
+                print("currentUser가 없습니다!")
+            }
+        } catch let error {
+            print(error)
+        }
     }
 }

@@ -47,7 +47,10 @@ class SecondPageViewController: UIViewController, ViewModelBindable, StoryboardB
                     }
                 }
             })
-            .bind(to: viewModel.input.monthlyGoal)
+            .bind(onNext: { [unowned self] text in
+                let validaeInt = Int(text) ?? 0
+                self.viewModel.input.monthlyGoal.accept(validaeInt)
+            })
             .disposed(by: rx.disposeBag)
     }
 
