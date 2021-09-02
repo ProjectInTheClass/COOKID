@@ -16,7 +16,7 @@ class UserInfoUpdateViewModel: ViewModelType {
     
     struct Input {
         let nickNameText: BehaviorSubject<String>
-        let budgetText: BehaviorSubject<String>
+        let budgetText: BehaviorSubject<Int>
         let determinationText: BehaviorSubject<String>
     }
     
@@ -33,18 +33,18 @@ class UserInfoUpdateViewModel: ViewModelType {
         self.userService = userService
        
         let userInfo = userService.user()
-            .asDriver(onErrorJustReturn: User(userID: "", nickname: "", determination: "", priceGoal: "", userType: .preferDineIn))
+            .asDriver(onErrorJustReturn: User(userID: "", nickname: "", determination: "", priceGoal: 0, userType: .preferDineIn))
         
         let nickNameText = BehaviorSubject<String>(value:"")
         
-        let budgetText = BehaviorSubject<String>(value: "")
+        let budgetText = BehaviorSubject<Int>(value: 0)
         
         let determinationText = BehaviorSubject<String>(value: "")
         
         let newUserInfo = Observable.combineLatest(nickNameText.asObservable(), budgetText.asObservable(), determinationText.asObservable(), userInfo.asObservable()) { (nickName, buget, determination, currentUser) -> User in
             
             let newNickname = nickName.isEmpty ? currentUser.nickname : nickName
-            let newBudget = buget.isEmpty ? currentUser.priceGoal : buget
+            let newBudget = buget == 0 ? currentUser.priceGoal : buget
             let newDetermination = determination.isEmpty ? currentUser.determination : determination
             
             let newUser = User(userID: currentUser.userID, nickname: newNickname, determination: newDetermination, priceGoal: newBudget, userType: currentUser.userType)

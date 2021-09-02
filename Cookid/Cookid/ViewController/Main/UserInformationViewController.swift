@@ -70,7 +70,10 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
             .disposed(by: rx.disposeBag)
         
         budgetTextField.rx.text.orEmpty
-            .bind(to: viewModel.input.budgetText)
+            .bind(onNext: { [unowned self] text in
+                let value = Int(text) ?? 0
+                self.viewModel.input.budgetText.onNext(value)
+            })
             .disposed(by: rx.disposeBag)
     }
     

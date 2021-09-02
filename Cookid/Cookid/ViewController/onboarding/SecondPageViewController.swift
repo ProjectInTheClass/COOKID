@@ -47,7 +47,9 @@ class SecondPageViewController: UIViewController, ViewModelBindable, StoryboardB
                     }
                 }
             })
-            .bind(to: viewModel.input.monthlyGoal)
+            .bind(onNext: { [unowned self] text in self.viewModel.input.monthlyGoal
+                
+            })
             .disposed(by: rx.disposeBag)
     }
 

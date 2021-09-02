@@ -13,7 +13,7 @@ class UserService {
     
     let userRepository: UserRepository
     
-    private var defaultUserInfo =  User(userID: "", nickname: "비회원", determination: "유저 정보를 입력한 후에 사용해 주세요.", priceGoal: "0", userType: .preferDineIn)
+    private var defaultUserInfo =  User(userID: "", nickname: "비회원", determination: "유저 정보를 입력한 후에 사용해 주세요.", priceGoal: 0, userType: .preferDineIn)
     
     private var userSortedArr = [UserForRanking]()
     
@@ -25,12 +25,16 @@ class UserService {
     }
     
     func loadUserInfo(completion: @escaping (User) -> Void) {
-        self.userRepository.fetchUserInfo { [unowned self] userentity in
-            let user = User(userID: userentity.userId, nickname: userentity.nickname, determination: userentity.determination, priceGoal: userentity.priceGoal, userType: UserType(rawValue: userentity.userType) ?? .preferDineIn)
-            defaultUserInfo = user
-            self.userInfo.onNext(user)
-            completion(user)
-        }
+        //        self.userRepository.fetchUserInfo { [unowned self] userentity in
+        //            let user = User(userID: userentity.userId, nickname: userentity.nickname, determination: userentity.determination, priceGoal: userentity.priceGoal, userType: UserType(rawValue: userentity.userType) ?? .preferDineIn)
+        //            defaultUserInfo = user
+        //            self.userInfo.onNext(user)
+        //            completion(user)
+        //        }
+        guard let userentity = RealmUserRepo.instance.fetchUser() else { return }
+        let user = User(userID: userentity.id.stringValue, nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn)
+        defaultUserInfo = user
+        self.userInfo.onNext(user)
     }
     
     func sortedUsers() -> Observable<[UserForRanking]> {

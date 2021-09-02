@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 protocol CoordinatorType {
     var childCoordinator: [CoordinatorType] { get set }
@@ -20,11 +19,12 @@ class MainCoordinator: CoordinatorType {
     
     var childCoordinator = [CoordinatorType]()
     var navigationController: UINavigationController?
+    let currentUser = RealmUserRepo.instance.fetchUser()
     
     // MARK: - START
     
     func start() -> UIViewController {
-        if Auth.auth().currentUser != nil {
+        if currentUser != nil {
             let homeCoordinator = HomeCoordinator(parentCoordinator: self)
             childCoordinator.append(homeCoordinator)
             return homeCoordinator.start()

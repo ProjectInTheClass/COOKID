@@ -51,7 +51,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         let meals = mealService.mealList()
         let shoppings = shoppingService.shoppingList()
         let userInfo = userService.user()
-            .asDriver(onErrorJustReturn: User(userID: "none", nickname: "비회원", determination: "사용자 등록을 먼저 해주세요.", priceGoal: "0", userType: .preferDineOut))
+            .asDriver(onErrorJustReturn: User(userID: "none", nickname: "비회원", determination: "사용자 등록을 먼저 해주세요.", priceGoal: 0, userType: .preferDineOut))
         
         // dataSouce
         
@@ -70,10 +70,9 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         .asDriver(onErrorJustReturn: [])
         
         let monthlyDetailed = Observable.combineLatest(userInfo.asObservable(), meals, shoppings) { user, meals, shoppings -> ConsumptionDetailed in
-            let goal = Int(user.priceGoal) ?? 0
             let shop = shoppingService.fetchShoppingTotalSpend(shoppings: shoppings)
             let dineOutPrice = mealService.fetchEatOutSpend(meals: meals)
-            return ConsumptionDetailed(month: Date().convertDateToString(format: "MM월"), priceGoal: goal, shoppingPrice: shop, dineOutPrice: dineOutPrice, balance: goal - shop - dineOutPrice)
+            return ConsumptionDetailed(month: Date().convertDateToString(format: "MM월"), priceGoal: user.priceGoal, shoppingPrice: shop, dineOutPrice: dineOutPrice, balance: user.priceGoal - shop - dineOutPrice)
         }
         .asDriver(onErrorJustReturn: ConsumptionDetailed(month: "1월", priceGoal: 0, shoppingPrice: 0, dineOutPrice: 0, balance: 0))
         

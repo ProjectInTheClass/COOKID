@@ -38,7 +38,7 @@ class UserRepository {
             let userDic: [String:Any] = [
                 "nickname": "비회원님",
                 "determination" : "정보 기입 후에 이용해주세요.",
-                "priceGoal" : "0",
+                "priceGoal" : 0,
                 "userType" : "외식러",
                 "userId" : "emrgnionergm"
             ]

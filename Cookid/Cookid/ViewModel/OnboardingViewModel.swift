@@ -16,10 +16,10 @@ class OnboardingViewModel: ViewModelType {
     let disposeBag = DisposeBag()
     
     struct Input {
-        let nickname: BehaviorSubject<String>
-        let monthlyGoal: BehaviorSubject<String>
-        let usertype: BehaviorSubject<UserType>
-        let determination: BehaviorSubject<String>
+        let nickname: PublishRelay<String>
+        let monthlyGoal: PublishRelay<Int>
+        let usertype: PublishRelay<UserType>
+        let determination: PublishRelay<String>
     }
     
     struct Output {
@@ -35,10 +35,10 @@ class OnboardingViewModel: ViewModelType {
         self.mealService = mealService
         self.shoppingService = shoppingService
         
-        let nickname = BehaviorSubject(value: "노네임")
-        let monthlyGoal = BehaviorSubject(value: "00")
-        let usertype = BehaviorSubject(value: UserType.preferDineIn)
-        let determination = BehaviorSubject(value: "화이팅!")
+        let nickname = PublishRelay<String>()
+        let monthlyGoal = PublishRelay<Int>()
+        let usertype = PublishRelay<UserType>()
+        let determination = PublishRelay<String>()
         
         let userInformation = Observable.combineLatest(nickname, determination, usertype, monthlyGoal, resultSelector: { name, deter, usertype, monthlyGoal -> User in
             return User(userID: "", nickname: name, determination: deter, priceGoal: monthlyGoal, userType: usertype)

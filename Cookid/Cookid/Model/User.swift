@@ -9,10 +9,11 @@ import UIKit
 import RxDataSources
 
 struct User {
+    var image: UIImage = UIImage(systemName: "person.circle.fill")!
     var userID: String
     var nickname: String
     var determination: String
-    var priceGoal: String
+    var priceGoal: Int
     var userType: UserType
 }
 

@@ -32,9 +32,9 @@ class ThirdPageViewController: UIViewController, ViewModelBindable, StoryboardBa
             .bind { [weak self] num in
                 switch num {
                 case 0:
-                    self?.viewModel.input.usertype.onNext(UserType.preferDineIn)
+                    self?.viewModel.input.usertype.accept(UserType.preferDineIn)
                 case 1:
-                    self?.viewModel.input.usertype.onNext(UserType.preferDineOut)
+                    self?.viewModel.input.usertype.accept(UserType.preferDineOut)
                 default :
                     break
                 }
