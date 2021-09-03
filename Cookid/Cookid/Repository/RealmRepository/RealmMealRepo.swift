@@ -23,9 +23,10 @@ class RealmMealRepo {
     }
     
     func createMeal(meal: Meal) {
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         do {
             let realm = try Realm()
-            let localMeal = LocalMeal(id: meal.id, price: meal.price, date: meal.date, name: meal.name, image: meal.image!.absoluteString, mealType: meal.mealType.rawValue, mealTime: meal.mealTime.rawValue)
+            let localMeal = LocalMeal(id: meal.id, price: meal.price, date: meal.date, name: meal.name, mealType: meal.mealType.rawValue, mealTime: meal.mealTime.rawValue)
             try realm.write {
                 realm.add(localMeal)
             }
@@ -56,7 +57,6 @@ class RealmMealRepo {
                 try realm.write {
                     updateMeal.date = meal.date
                     updateMeal.name = meal.name
-                    updateMeal.image = meal.image!.absoluteString
                     updateMeal.mealTime = meal.mealTime.rawValue
                     updateMeal.mealType = meal.mealType.rawValue
                     updateMeal.price = meal.price

@@ -45,19 +45,19 @@ class MealRepository {
     
     func uploadMealToFirebase(meal: Meal) {
     
-        guard let currentUserUID = Auth.auth().currentUser?.uid else { print("user nil")
-            return }
-        
-        let mealDic : [String:Any] = [
-            "id" : meal.id,
-            "price" : meal.price,
-            "date" : meal.date.dateToInt(),
-            "image" : meal.image?.absoluteString as Any,
-            "name" : meal.name,
-            "mealType" : meal.mealType.rawValue,
-            "mealTime" : meal.mealTime.rawValue
-        ]
-        self.db.child(currentUserUID).child(FBChild.meal).child(meal.id).setValue(mealDic)
+//        guard let currentUserUID = Auth.auth().currentUser?.uid else { print("user nil")
+//            return }
+//        
+//        let mealDic : [String:Any] = [
+//            "id" : meal.id,
+//            "price" : meal.price,
+//            "date" : meal.date.dateToInt(),
+//            "image" : meal.image?.absoluteString as Any,
+//            "name" : meal.name,
+//            "mealType" : meal.mealType.rawValue,
+//            "mealTime" : meal.mealTime.rawValue
+//        ]
+//        self.db.child(currentUserUID).child(FBChild.meal).child(meal.id).setValue(mealDic)
 
     }
     
@@ -65,17 +65,17 @@ class MealRepository {
         print("updateMealToFirebase")
         guard let currentUserUID = Auth.auth().currentUser?.uid else { return }
         
-        let mealDic : [String:Any] = [
-            "id" : meal.id as Any,
-            "price" : meal.price,
-            "date" : meal.date.dateToInt(),
-            "image" : meal.image?.absoluteString as Any,
-            "name" : meal.name,
-            "mealType" : meal.mealType.rawValue,
-            "mealTime" : meal.mealTime.rawValue
-        ]
-        
-        self.db.child(currentUserUID).child(FBChild.meal).child(meal.id).updateChildValues(mealDic)
+//        let mealDic : [String:Any] = [
+//            "id" : meal.id as Any,
+//            "price" : meal.price,
+//            "date" : meal.date.dateToInt(),
+//            "image" : meal.image?.absoluteString as Any,
+//            "name" : meal.name,
+//            "mealType" : meal.mealType.rawValue,
+//            "mealTime" : meal.mealTime.rawValue
+//        ]
+//        
+//        self.db.child(currentUserUID).child(FBChild.meal).child(meal.id).updateChildValues(mealDic)
     }
     
     func deleteMealToFirebase(mealID: String) {

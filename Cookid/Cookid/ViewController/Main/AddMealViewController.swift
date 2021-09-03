@@ -86,7 +86,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             announceLabel.text = "이미지를 수정하시려면 사진을 누르세요:)"
             updateAnnouce.text = "수정이 완료되셨나요?"
             let imageView = UIImageView()
-            imageView.kf.setImage(with: meal.image)
+            imageView.image = meal.image
             addPhotoButton.setImage(imageView.image, for: .normal)
             
             completionButton.setImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
@@ -94,13 +94,13 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             deleteButton.isHidden = false
             
             dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: meal.date)
-            viewModel.input.mealDate.onNext(meal.date)
+            viewModel.input.mealDate.accept(meal.date)
             datePicker.setDate(meal.date, animated: false)
             
             mealtimeTF.text = meal.mealTime.rawValue
             mealnameTF.text = meal.name
             mealpriceTF.text = String(describing: meal.price)
-            viewModel.input.mealPrice.onNext(String(describing: meal.price))
+            viewModel.input.mealPrice.accept(String(describing: meal.price))
             isDineInSwitch.isOn = mealTypeToBool(meal.mealType)
             
         } else {
@@ -218,10 +218,8 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             .subscribe(onNext: { [unowned self] in
                 let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "삭제", style: .default) { _ in
-                    guard let mealID = self.meal?.id else { return }
-                    DispatchQueue.global().async {
-                        self.viewModel.mealService.delete(mealID: mealID)
-                    }
+                    guard let meal = self.meal else { return }
+                    self.viewModel.mealService.deleteMeal(meal: meal)
                     self.dismiss(animated: true, completion: nil)
                 }
                 let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -240,7 +238,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         datePicker.rx.date
             .subscribe(onNext: { [unowned self] date in
                 self.dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
-                self.viewModel.input.mealDate.onNext(date)
+                self.viewModel.input.mealDate.accept(date)
                 
             })
             .disposed(by: rx.disposeBag)
@@ -248,7 +246,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         mealTimePicker.rx.itemSelected
             .subscribe(onNext: { [unowned self] row, _ in
                 self.mealtimeTF.text = MealTime.allCases[row].rawValue
-                self.viewModel.input.mealTime.onNext(MealTime.allCases[row])
+                self.viewModel.input.mealTime.accept(MealTime.allCases[row])
             })
             .disposed(by: rx.disposeBag)
         
@@ -261,15 +259,15 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
                         self.validationView.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
                         self.validationView.tintColor = .red
                     }
-                    self.viewModel.input.mealType.onNext(.dineIn)
-                    self.viewModel.input.mealPrice.onNext("")
+                    self.viewModel.input.mealType.accept(.dineIn)
+                    self.viewModel.input.mealPrice.accept("")
                     self.mealpriceTF.text = ""
                 } else {
                     UIView.animate(withDuration: 0.3) {
                         priceStackView.alpha = 1
                         priceStackView.isHidden = false
                     }
-                    self.viewModel.input.mealType.onNext(.dineOut)
+                    self.viewModel.input.mealType.accept(.dineOut)
                     scrollView.scrollToBottom()
                 }
             })
@@ -298,13 +296,13 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
                 }
             })
             .subscribe(onNext: { [unowned self] text in
-                self.viewModel.input.mealPrice.onNext(text)
+                self.viewModel.input.mealPrice.accept(text)
             })
             .disposed(by: rx.disposeBag)
         
         mealnameTF.rx.text.orEmpty
             .subscribe(onNext: { [unowned self] text in
-                self.viewModel.input.mealName.onNext(text)
+                self.viewModel.input.mealName.accept(text)
             })
             .disposed(by: rx.disposeBag)
         
