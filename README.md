@@ -52,10 +52,12 @@
 * RxSwift, RxCocoa, RxDataSource, RxKeyboard, NSObject+Rx
 
 ### 백앤드
-* Firebase Auth, Realtime Database, Storage
-* Realm
+* FirebaseAuth -> OAuth
+* Firebase RealtimeDatabase -> FireStore
+* Firebase Storage
+* Local DB: Realm
 
-### 테스트 자동화
+### CI/CD
 * fastlane
 
 ### 개발 아키텍처
