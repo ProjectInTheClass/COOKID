@@ -23,12 +23,11 @@ class UserService {
     }
     
     // fetch
-    func loadUserInfo(completion: @escaping (User) -> Void) {
+    func loadUserInfo() {
         guard let userentity = RealmUserRepo.instance.fetchUser() else { return }
         let user = User(userID: userentity.id.stringValue, nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn)
         defaultUserInfo = user
         self.userInfo.onNext(user)
-        completion(user)
     }
     
     // create

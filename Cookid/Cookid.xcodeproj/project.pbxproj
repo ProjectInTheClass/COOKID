@@ -288,8 +288,8 @@
 		032233B2269276720092DD6D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				03B2048B26D5D9270099C269 /* Main */,
 				032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */,
+				03B2048B26D5D9270099C269 /* Main */,
 				0395B61426941121009289B7 /* MyMealViewModel.swift */,
 			);
 			path = ViewModel;

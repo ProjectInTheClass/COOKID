@@ -40,6 +40,11 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         self.userService = userService
         self.shoppingService = shoppingService
         
+        // fetch
+        userService.loadUserInfo()
+        mealService.fetchMeals()
+        shoppingService.fetchShoppings()
+        
         // meal & user Storage
         
         let meals = mealService.mealList()

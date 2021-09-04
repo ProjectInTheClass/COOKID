@@ -10,41 +10,51 @@ import UIKit
 class ImageRepo {
     static let instance = ImageRepo()
     
-    func saveImage(image: UIImage, id: String, completion: @escaping (Bool)->Void) {
+    func saveImage(image: UIImage, id: String, completion: @escaping (Bool) -> Void) {
         guard let data = image.jpegData(compressionQuality: 0.5) else {
+            print("-----> Can't convert Image to jpeg")
             return completion(false) }
-        if let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) {
+       
+        if let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let archiveURL = directory.appendingPathComponent(id)
             do {
-                try data.write(to: directory.appendingPathComponent(id))
+                try data.write(to: archiveURL)
                 completion(true)
             } catch let error {
-                completion(false)
                 print(error)
+                completion(false)
             }
+        } else {
+            print("-----> directory not found")
         }
     }
     
-    func fetchImage(id: String) -> UIImage? {
-        if let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) {
-            let path = URL(fileURLWithPath: directory.absoluteString).appendingPathComponent(id).path
-            let image = UIImage(contentsOfFile: path)
-            return image
+    func loadImage(id: String) -> UIImage? {
+        if let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let archiveURL = directory.appendingPathComponent(id)
+            do {
+                let data = try Data(contentsOf: archiveURL)
+                let image = UIImage(data: data)
+                return image
+            } catch {
+                print(error)
+                return nil
+            }
         } else {
+            print("-----> directory not found")
             return nil
         }
     }
     
-    func deleteImage(id: String, completion: @escaping (Bool)->Void) {
+    func deleteImage(id: String, completion: @escaping (Bool) -> Void) {
         if let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) {
             do {
                 let fileIDs = try FileManager.default.contentsOfDirectory(atPath: directory.path)
-                for fileID in fileIDs {
-                    if fileID == id {
-                        let filePath = "\(directory.path)\(fileID)"
-                        try FileManager.default.removeItem(atPath: filePath)
-                        completion(true)
-                        return
-                    }
+                for fileID in fileIDs where fileID == id {
+                    let filePath = "\(directory.path)\(fileID)"
+                    try FileManager.default.removeItem(atPath: filePath)
+                    completion(true)
+                    return
                 }
             } catch let error {
                 print(error)

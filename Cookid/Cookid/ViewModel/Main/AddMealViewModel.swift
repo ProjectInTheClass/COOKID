@@ -17,7 +17,7 @@ class AddMealViewModel: ViewModelType, HasDisposeBag {
     
     struct Input {
         var mealID: String?
-        let mealImage: BehaviorRelay<UIImage?>
+        let mealImage: PublishRelay<UIImage?>
         let mealName: BehaviorRelay<String>
         let mealDate: BehaviorRelay<Date>
         let mealTime: BehaviorRelay<MealTime>
@@ -37,7 +37,7 @@ class AddMealViewModel: ViewModelType, HasDisposeBag {
     init(mealService: MealService, userService: UserService, mealID: String? = nil) {
         self.mealService = mealService
         
-        let mealImage = BehaviorRelay<UIImage?>(value: UIImage(named: "circle.fill"))
+        let mealImage = PublishRelay<UIImage?>()
         let mealName = BehaviorRelay<String>(value: "")
         let mealDate = BehaviorRelay<Date>(value: Date())
         let mealTime = BehaviorRelay<MealTime>(value: .breakfast)

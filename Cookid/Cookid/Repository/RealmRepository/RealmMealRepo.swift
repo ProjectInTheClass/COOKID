@@ -12,6 +12,7 @@ class RealmMealRepo {
     static let instance = RealmMealRepo()
     
     func fetchMeals() -> [LocalMeal]? {
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         do {
             let realm = try Realm()
             let localMeals = realm.objects(LocalMeal.self)
@@ -23,7 +24,6 @@ class RealmMealRepo {
     }
     
     func createMeal(meal: Meal) {
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
         do {
             let realm = try Realm()
             let localMeal = LocalMeal(id: meal.id, price: meal.price, date: meal.date, name: meal.name, mealType: meal.mealType.rawValue, mealTime: meal.mealTime.rawValue)

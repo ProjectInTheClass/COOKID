@@ -68,21 +68,18 @@ class MealService {
     
     func fetchMeals() {
         guard let meals = RealmMealRepo.instance.fetchMeals() else { return }
-            let mealModels = meals.map {  model -> Meal in
-                let id = model.id
-                let price = model.price
-                let date = model.date
-                let name = model.name
-                let image = ImageRepo.instance.fetchImage(id: model.id)
-                let mealType = MealType(rawValue: model.mealType) ?? .dineIn
-                let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
-                return Meal(id: id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-            }
-            self.meals = mealModels
-            self.mealStore.onNext(mealModels)
+        let mealModels = meals.map {  model -> Meal in
+            let id = model.id
+            let price = model.price
+            let date = model.date
+            let name = model.name
+            let image = ImageRepo.instance.loadImage(id: model.id)
+            let mealType = MealType(rawValue: model.mealType) ?? .dineIn
+            let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
+            return Meal(id: id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
         }
-        
-        
+        self.meals = mealModels
+        self.mealStore.onNext(mealModels)
     }
     
     func fetchMealByDay(_ day: Date, meals: [Meal]) -> [Meal] {
