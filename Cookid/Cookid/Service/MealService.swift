@@ -16,8 +16,8 @@ class MealService {
     
     private var totalBudget: Int = 1
     
-    
     private var meals: [Meal] = []
+    
     private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
     
     init(mealRepository: MealRepository, userRepository: UserRepository, groceryRepository: GroceryRepository) {
@@ -30,9 +30,8 @@ class MealService {
     
     @discardableResult
     func create(meal: Meal, completion: @escaping (Bool) -> Void) -> Observable<Meal> {
-        DispatchQueue.global().async {
-            self.mealRepository.uploadMealToFirebase(meal: meal)
-        }
+        ImageRepo.instance.saveImage(image: meal.image ?? UIImage(named: "salad")!, id: meal.id) { _ in }
+        RealmMealRepo.instance.createMeal(meal: meal)
         meals.append(meal)
         mealStore.onNext(meals)
         completion(true)
@@ -46,11 +45,8 @@ class MealService {
     
     @discardableResult
     func update(updateMeal: Meal, completion: @escaping (Bool) -> Void) -> Observable<Meal> {
-        
-        DispatchQueue.global().async {
-            self.mealRepository.updateMealToFirebase(meal: updateMeal)
-        }
-        
+        ImageRepo.instance.saveImage(image: updateMeal.image ?? UIImage(named: "salad")!, id: updateMeal.id) { _ in }
+        RealmMealRepo.instance.updateMeal(meal: updateMeal)
         if let index = meals.firstIndex(where: { $0.id == updateMeal.id }) {
             meals.remove(at: index)
             print("update" + updateMeal.name)
@@ -61,35 +57,29 @@ class MealService {
         return Observable.just(updateMeal)
     }
     
-    func delete(mealID: String) {
-        
-        DispatchQueue.global().async {
-            self.mealRepository.deleteMealToFirebase(mealID: mealID)
-            self.mealRepository.deleteImage(mealID: mealID)
-        }
-        
-        if let index = meals.firstIndex(where: { $0.id == mealID }) {
+    func deleteMeal(meal: Meal) {
+        ImageRepo.instance.deleteImage(id: meal.id) { _ in }
+        RealmMealRepo.instance.deleteMeal(meal: meal)
+        if let index = meals.firstIndex(where: { $0.id == meal.id }) {
             meals.remove(at: index)
         }
         mealStore.onNext(meals)
     }
     
-    func fetchMeals(user: User, completion: @escaping ([Meal]) -> Void) {
-        self.mealRepository.fetchMeals(user: user) { [unowned self] mealArr in
-            let mealModels = mealArr.map {  model -> Meal in
-                let id = model.id
-                let price = model.price
-                let date = Date(timeIntervalSince1970: TimeInterval(model.date))
-                let name = model.name
-                let image = model.image
-                let mealType = MealType(rawValue: model.mealType) ?? .dineIn
-                let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
-                return Meal(id: id, price: price, date: date, name: name, image: URL(string: image!) ?? nil, mealType: mealType, mealTime: mealTime)
-            }
-            completion(mealModels)
-            self.meals = mealModels
-            self.mealStore.onNext(mealModels)
+    func fetchMeals() {
+        guard let meals = RealmMealRepo.instance.fetchMeals() else { return }
+        let mealModels = meals.map {  model -> Meal in
+            let id = model.id
+            let price = model.price
+            let date = model.date
+            let name = model.name
+            let image = ImageRepo.instance.loadImage(id: model.id)
+            let mealType = MealType(rawValue: model.mealType) ?? .dineIn
+            let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
+            return Meal(id: id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
         }
+        self.meals = mealModels
+        self.mealStore.onNext(mealModels)
     }
     
     func fetchMealByDay(_ day: Date, meals: [Meal]) -> [Meal] {
@@ -97,18 +87,12 @@ class MealService {
         return dayMeals
     }
     
-    @discardableResult
-    func fetchMealImageURL(mealID: String?) -> Observable<URL> {
-        return Observable.create { [unowned self] observer in
-            self.mealRepository.fetchImageURL(mealID: mealID) { url in
-                observer.onNext(url)
-            }
-            return Disposables.create()
-        }
-    }
-    
     func deleteImage(mealID: String?) {
-        mealRepository.deleteImage(mealID: mealID)
+        ImageRepo.instance.deleteImage(id: mealID!) { success in
+            if success {
+                print("success")
+            }
+        }
     }
     
     // MARK: - Validation

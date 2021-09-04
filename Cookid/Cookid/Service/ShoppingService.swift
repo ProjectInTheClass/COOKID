@@ -65,20 +65,13 @@ class ShoppingService {
         shoppingStore.onNext(groceryShoppings)
     }
     
-    func fetchShoppings(user: User, completion: @escaping (([GroceryShopping]) -> Void)) {
-        groceryRepository.fetchGroceryInfo(user: user) { [unowned self] models in
-            let groceryShoppings = models.map { shoppingModel -> GroceryShopping in
-                
-                let id = shoppingModel.id
-                let date = Date(timeIntervalSince1970: TimeInterval(shoppingModel.date))
-                let totalPrice = shoppingModel.totalPrice
-                
-                return GroceryShopping(id: id, date: date, totalPrice: totalPrice)
+    func fetchShoppings() {
+        guard let shoppings = RealmShoppingRepo.instance.fetchShoppings() else { return }
+            let groceryShoppings = shoppings.map { shoppingModel -> GroceryShopping in
+                return GroceryShopping(id: shoppingModel.id, date: shoppingModel.date, totalPrice: shoppingModel.price)
             }
             self.groceryShoppings = groceryShoppings
-            completion(groceryShoppings)
             self.shoppingStore.onNext(groceryShoppings)
-        }
     }
     
     func fetchShoppingByDay(_ day: Date, shoppings: [GroceryShopping]) -> [GroceryShopping] {

@@ -31,9 +31,7 @@ class MyMealViewModel: ViewModelType {
         self.userService = userService
         self.mealService = mealService
         
-        userService.loadUserInfo { user in
-            mealService.fetchMeals(user: user) { _ in }
-        }
+        mealService.fetchMeals()
         
         // input initializer
         let meals = mealService.mealList()

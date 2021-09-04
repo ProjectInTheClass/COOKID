@@ -16,11 +16,11 @@ class Meal: Equatable {
     var price: Int
     var date: Date
     var name: String
-    var image: URL?
+    var image: UIImage?
     var mealType: MealType
     var mealTime: MealTime
     
-    init(id: String, price: Int, date: Date, name: String, image: URL?, mealType: MealType, mealTime: MealTime) {
+    init(id: String, price: Int, date: Date, name: String, image: UIImage?, mealType: MealType, mealTime: MealTime) {
         self.id = id
         self.price = price
         self.date = date

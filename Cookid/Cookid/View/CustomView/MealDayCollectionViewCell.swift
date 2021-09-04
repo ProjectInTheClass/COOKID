@@ -18,7 +18,7 @@ class MealDayCollectionViewCell: UICollectionViewCell {
     }
     
     func updateUI(meal: Meal) {
-        mealImage.kf.setImage(with: meal.image, placeholder: UIImage(systemName: "circle.fill"))
+        mealImage.image = meal.image ?? UIImage(systemName: "circle.fill")!
     }
     
 }

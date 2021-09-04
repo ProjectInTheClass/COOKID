@@ -48,7 +48,6 @@ class PictureSelectViewController: UIViewController, ViewModelBindable {
     func bindViewModel() {
         
         viewModel.input.menus
-            .debug()
             .bind(to: collectionView.rx.items(cellIdentifier: CELLIDENTIFIER.pictureSelectCell, cellType: PictureSelectCollectionViewCell.self)) { _, item, cell in
                 cell.updateUI(menu: item)
             }

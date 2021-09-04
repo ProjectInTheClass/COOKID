@@ -58,6 +58,7 @@
 		03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */; };
 		241523B0269D093E0077941A /* ShoppingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523AF269D093E0077941A /* ShoppingService.swift */; };
 		241523B4269D24860077941A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523B3269D24860077941A /* Function.swift */; };
+		244B2B0826E24062001226F0 /* ImageRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B2B0726E24062001226F0 /* ImageRepo.swift */; };
 		24B081B126DFD21300379087 /* RealmUserRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081B026DFD21300379087 /* RealmUserRepo.swift */; };
 		24B081BA26DFD23500379087 /* LocalUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081B926DFD23500379087 /* LocalUser.swift */; };
 		24B081BF26E0473500379087 /* LocalMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081BE26E0473500379087 /* LocalMeal.swift */; };
@@ -158,6 +159,7 @@
 		0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
 		241523AF269D093E0077941A /* ShoppingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingService.swift; sourceTree = "<group>"; };
 		241523B3269D24860077941A /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
+		244B2B0726E24062001226F0 /* ImageRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepo.swift; sourceTree = "<group>"; };
 		24B081B026DFD21300379087 /* RealmUserRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUserRepo.swift; sourceTree = "<group>"; };
 		24B081B926DFD23500379087 /* LocalUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUser.swift; sourceTree = "<group>"; };
 		24B081BE26E0473500379087 /* LocalMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMeal.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		032233AF2692764F0092DD6D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				244B2B0626E24044001226F0 /* ImageRepository */,
 				24B081A926DFD1FA00379087 /* RealmRepository */,
 				03B2048F26D70DFA0099C269 /* FirebaseReopsitory */,
 			);
@@ -285,8 +288,8 @@
 		032233B2269276720092DD6D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				03B2048B26D5D9270099C269 /* Main */,
 				032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */,
+				03B2048B26D5D9270099C269 /* Main */,
 				0395B61426941121009289B7 /* MyMealViewModel.swift */,
 			);
 			path = ViewModel;
@@ -477,6 +480,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		244B2B0626E24044001226F0 /* ImageRepository */ = {
+			isa = PBXGroup;
+			children = (
+				244B2B0726E24062001226F0 /* ImageRepo.swift */,
+			);
+			path = ImageRepository;
+			sourceTree = "<group>";
+		};
 		24B081A926DFD1FA00379087 /* RealmRepository */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,8 +520,8 @@
 		DB0D7D722694980B009B2D51 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				DB0D7D7326949818009B2D51 /* MealService.swift */,
 				DBDA046726969A6500B5C1D6 /* UserService.swift */,
+				DB0D7D7326949818009B2D51 /* MealService.swift */,
 				241523AF269D093E0077941A /* ShoppingService.swift */,
 				03B2049A26D7BA830099C269 /* MenuService.swift */,
 			);
@@ -755,6 +766,7 @@
 				0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */,
 				032233D72692F0160092DD6D /* Extension.swift in Sources */,
 				032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */,
+				244B2B0826E24062001226F0 /* ImageRepo.swift in Sources */,
 				03B2049926D7B8AC0099C269 /* Menu.swift in Sources */,
 				03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */,
 				C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */,
