@@ -46,16 +46,14 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] keyboardVisibleHeight in
-               
                 if keyboardVisibleHeight != 0 {
-                    
                     self.inputViewBottom.constant = keyboardVisibleHeight
                 }
             })
             .disposed(by: rx.disposeBag)
         
         viewModel.output.userInfo
-            .drive(onNext: { [unowned self] user in
+            .bind(onNext: { [unowned self] user in
                 self.user = user
                 setupUI(user: user)
             })

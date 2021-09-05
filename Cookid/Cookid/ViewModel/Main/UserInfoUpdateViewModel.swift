@@ -22,7 +22,7 @@ class UserInfoUpdateViewModel: ViewModelType {
     
     struct Output {
         
-        let userInfo: Driver<User>
+        let userInfo: Observable<User>
         let newUserInfo: Observable<User>
     }
     
@@ -33,7 +33,6 @@ class UserInfoUpdateViewModel: ViewModelType {
         self.userService = userService
        
         let userInfo = userService.user()
-            .asDriver(onErrorJustReturn: User(id: "", nickname: "", determination: "", priceGoal: 0, userType: .preferDineIn))
         
         let nickNameText = BehaviorSubject<String>(value:"")
         
@@ -47,7 +46,7 @@ class UserInfoUpdateViewModel: ViewModelType {
             let newBudget = buget == 0 ? currentUser.priceGoal : buget
             let newDetermination = determination.isEmpty ? currentUser.determination : determination
             
-            let newUser = User(id: currentUser.id, nickname: newNickname, determination: newDetermination, priceGoal: newBudget, userType: currentUser.userType)
+            let newUser = User(id: currentUser.id, nickname: newNickname, determination: newDetermination, priceGoal: newBudget, userType: currentUser.userType, dineInCount: 0, cookidsCount: 0)
             
             return newUser
         }

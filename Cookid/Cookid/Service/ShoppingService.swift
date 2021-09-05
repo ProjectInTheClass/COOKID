@@ -9,16 +9,10 @@ import Foundation
 import RxSwift
 
 class ShoppingService {
-    
-    let groceryRepository: GroceryRepository
-    
+   
     private var groceryShoppings: [GroceryShopping] = []
     
     private lazy var shoppingStore = BehaviorSubject<[GroceryShopping]>(value: groceryShoppings)
-    
-    init(groceryRepository: GroceryRepository) {
-        self.groceryRepository = groceryRepository
-    }
     
     @discardableResult
     func create(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping> {

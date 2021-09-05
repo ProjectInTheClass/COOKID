@@ -11,6 +11,8 @@ import RealmSwift
 class RealmUserRepo {
     static let instance = RealmUserRepo()
     
+    // local의 속도니 completion을 안쓰지만 문제가 생길시 변경
+    
     func fetchUser() -> LocalUser? {
         do {
             let realm = try Realm()
@@ -22,15 +24,17 @@ class RealmUserRepo {
         }
     }
     
-    func createUser(user: User) {
+    func createUser(user: User, completion: @escaping (Bool) -> Void) {
         do {
             let realm = try Realm()
-            let localUser = LocalUser(image: user.image.description, nickName: user.nickname, determination: user.determination, goal: user.priceGoal, type: user.userType.rawValue)
+            let localUser = LocalUser(nickName: user.nickname, determination: user.determination, goal: user.priceGoal, type: user.userType.rawValue)
             try realm.write {
                 realm.add(localUser)
             }
+            completion(true)
         } catch let error {
             print(error)
+            completion(false)
         }
     }
     
@@ -43,8 +47,6 @@ class RealmUserRepo {
                     currentUser.determination = user.determination
                     currentUser.goal = user.priceGoal
                     currentUser.type = user.userType.rawValue
-                    // 임시
-                    currentUser.image = user.image.description
                 }
             } else {
                 print("currentUser가 없습니다!")

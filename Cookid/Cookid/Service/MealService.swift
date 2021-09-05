@@ -9,22 +9,10 @@ import UIKit
 import RxSwift
 
 class MealService {
-    
-    let mealRepository: MealRepository
-    let userRepository: UserRepository
-    let groceryRepository: GroceryRepository
-    
+
     private var totalBudget: Int = 1
-    
     private var meals: [Meal] = []
-    
     private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
-    
-    init(mealRepository: MealRepository, userRepository: UserRepository, groceryRepository: GroceryRepository) {
-        self.mealRepository = mealRepository
-        self.userRepository = userRepository
-        self.groceryRepository = groceryRepository
-    }
     
     // MARK: - Meal Storage
     

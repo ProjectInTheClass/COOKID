@@ -10,39 +10,71 @@ import RxSwift
 import RxCocoa
 
 class UserService {
+   
+    private var defaultUserInfo = RealmUserRepo.instance.fetchUser().map { userentity -> User in
+        return User(id: userentity.id.stringValue, nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn)
+    } ?? DummyData.shared.singleUser
     
-    let userRepository: UserRepository
-    
-    private var defaultUserInfo =  User(id: "", nickname: "비회원", determination: "유저 정보를 입력한 후에 사용해 주세요.", priceGoal: 0, userType: .preferDineIn)
     private lazy var userInfo = BehaviorSubject<User>(value: defaultUserInfo)
+    
     private var userSortedArr = [UserForRanking]()
     private lazy var userSorted = BehaviorSubject<[UserForRanking]>(value: userSortedArr)
     
-    init(userRepository: UserRepository) {
-        self.userRepository = userRepository
-    }
-    
     // fetch
-    func loadUserInfo() {
-        guard let userentity = RealmUserRepo.instance.fetchUser() else { return }
-        let user = User(id: userentity.id.stringValue, nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn)
-        defaultUserInfo = user
-        self.userInfo.onNext(user)
+    func loadUserInfo(completion: @escaping (User?) -> Void) {
+        FireStoreUserRepo.instance.fetchUser(user: defaultUserInfo) { user in
+            if let user = user {
+                self.defaultUserInfo = user
+                self.userInfo.onNext(user)
+                completion(user)
+            } else {
+                print("fetch User Error")
+                completion(nil)
+            }
+        }
     }
     
     // create
     func uploadUserInfo(user: User) {
-        RealmUserRepo.instance.createUser(user: user)
-        defaultUserInfo = user
-        userInfo.onNext(defaultUserInfo)
+        RealmUserRepo.instance.createUser(user: user) { [weak self] success in
+            guard let self = self else { return }
+            if success {
+                self.defaultUserInfo = user
+                self.userInfo.onNext(self.defaultUserInfo)
+            }
+        }
+    }
+    
+    func connectUserInfo(user: User) {
+        FireStoreUserRepo.instance.createUser(user: user) { [weak self] success in
+            guard let self = self else { return }
+            if success {
+                self.defaultUserInfo = user
+                self.userInfo.onNext(self.defaultUserInfo)
+            }
+        }
     }
     
     // update
     func updateUserInfo(user: User, completion: @escaping ((Bool) -> Void)) {
+        if user.image != nil,
+           user.cookidsCount != nil,
+           user.dineInCount != nil {
+            FireStoreUserRepo.instance.updateUser(updateUser: user)
+        }
         RealmUserRepo.instance.updateUser(user: user)
-        self.defaultUserInfo = user
-        self.userInfo.onNext(user)
+        defaultUserInfo = user
+        userInfo.onNext(user)
         completion(true)
+    }
+    
+    func uploadUserImage(user: User, image: UIImage?) -> Observable<URL?> {
+        return Observable.create { observer in
+            FireStoreUserRepo.instance.uploadUserImage(user: user, image: image) { url in
+                observer.onNext(url)
+            }
+            return Disposables.create()
+        }
     }
     
     func user() -> Observable<User> {
@@ -53,27 +85,5 @@ class UserService {
         return userSorted
     }
     
-    func makeRanking(completion: @escaping ([UserForRanking]?, Error?) -> Void) {
-        
-        userRepository.fetchUsers { allEntities in
-            
-            let allUserSotred = allEntities.map { userAllEntity -> UserForRanking in
-                
-                let nickName = userAllEntity.user.nickname
-                let determination = userAllEntity.user.determination
-                let userType = UserType(rawValue: userAllEntity.user.userType)!
-                let sum = userAllEntity.totalCount
-                
-                return UserForRanking(nickname: nickName, userType: userType, determination: determination, groceryMealSum: sum)
-            }.sorted { user1, user2 in
-                user1.groceryMealSum > user2.groceryMealSum
-            }[0...29]
-            
-            let rankingArray = Array(allUserSotred).filter { $0.groceryMealSum > 0 }
-            
-            self.userSortedArr = rankingArray
-            self.userSorted.onNext(rankingArray)
-            completion(rankingArray, nil)
-        }
-    }
+    
 }

@@ -26,7 +26,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         let basicMeal: Observable<[Meal]>
         let basicShopping : Observable<[GroceryShopping]>
         let adviceString: Driver<String>
-        let userInfo: Driver<User>
+        let userInfo: Observable<User>
         let mealDayList: Driver<[MainCollectionViewSection]>
         let consumeProgressCalc: Driver<Double>
         let monthlyDetailed: Driver<ConsumptionDetailed>
@@ -41,7 +41,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         self.shoppingService = shoppingService
         
         // fetch
-        userService.loadUserInfo()
+        userService.loadUserInfo { _ in }
         mealService.fetchMeals()
         shoppingService.fetchShoppings()
         
@@ -50,7 +50,6 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         let meals = mealService.mealList()
         let shoppings = shoppingService.shoppingList()
         let userInfo = userService.user()
-            .asDriver(onErrorJustReturn: User(id: "none", nickname: "비회원", determination: "사용자 등록을 먼저 해주세요.", priceGoal: 0, userType: .preferDineOut))
         
         // dataSouce
         
@@ -97,16 +96,6 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         
         self.input = Input(selectedDate: selectedDate)
         self.output = Output(averagePrice: averagePrice, basicMeal: meals, basicShopping: shoppings, adviceString: adviceString, userInfo: userInfo, mealDayList: mealDayList, consumeProgressCalc: consumeProgressCalc, monthlyDetailed: monthlyDetailed)
-    }
-    
-    func logoutUser() {
-        userService.userRepository.authRepo.userLogout { success in
-            if success {
-                print("success")
-            } else {
-                print("fail")
-            }
-        }
     }
     
     func fetchMealByNavigate(_ day: Int, currentDate: Date) -> Date {

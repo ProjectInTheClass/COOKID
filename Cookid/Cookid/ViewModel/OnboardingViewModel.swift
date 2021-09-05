@@ -13,7 +13,6 @@ class OnboardingViewModel: ViewModelType {
     let userService: UserService
     let mealService: MealService
     let shoppingService: ShoppingService
-    let disposeBag = DisposeBag()
     
     struct Input {
         let nickname: BehaviorRelay<String>
@@ -41,7 +40,7 @@ class OnboardingViewModel: ViewModelType {
         let determination = BehaviorRelay<String>(value: "화이팅!")
         
         let userInformation = Observable.combineLatest(nickname, determination, usertype, monthlyGoal, resultSelector: { name, deter, usertype, monthlyGoal -> User in
-            return User(id: "", nickname: name, determination: deter, priceGoal: monthlyGoal, userType: usertype)
+            return User(id: "", nickname: name, determination: deter, priceGoal: monthlyGoal, userType: usertype, dineInCount: 0, cookidsCount: 0)
         })
         
         self.input = Input(nickname: nickname, monthlyGoal: monthlyGoal, usertype: usertype, determination: determination)

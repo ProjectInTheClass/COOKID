@@ -15,8 +15,8 @@ struct User : Codable {
     var determination: String
     var priceGoal: Int
     var userType: UserType
-    var dineInCount: Int
-    var cookidsCount: Int
+    var dineInCount: Int?
+    var cookidsCount: Int?
     
     enum CodingKeys: String, CodingKey {
         case id
