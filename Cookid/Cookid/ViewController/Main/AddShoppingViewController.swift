@@ -122,7 +122,6 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
         let image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: config)
         $0.setImage(image, for: .normal)
         $0.tintColor = .systemYellow
-        $0.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
     }
     
     let deleteButton = UIButton().then {
@@ -149,6 +148,7 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     // MARK: - Property
     
     var viewModel: AddShoppingViewModel!
+    var newShopping: GroceryShopping?
     var shopping: GroceryShopping?
     
     // MARK: - View Life Cycle
@@ -192,11 +192,10 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
             saveButton.tintColor = .systemGreen
             deleteButton.isHidden = false
             dateTextField.text = convertDateToString(format: "yyyy년 MM월 dd일", date: shopping.date)
-            viewModel.input.shoppingDate.accept(shopping.date)
             datePicker.setDate(shopping.date, animated: false)
             priceTextField.text = String(describing: shopping.totalPrice)
-            viewModel.input.shoppingPrice.accept(String(describing: shopping.totalPrice))
         } else {
+            updateAnnouce.text = "쇼핑 기록이 완료되셨나요?"
             deleteButton.isHidden = true
         }
     }
@@ -228,28 +227,6 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     
     @objc func pickerDone() {
         dateTextField.resignFirstResponder()
-    }
-    
-    @objc func saveButtonTapped() {
-        
-        viewModel.output.newShopping
-            .take(1)
-            .subscribe(onNext: { [unowned self] newShopping in
-                if self.shopping != nil {
-                    self.viewModel.shoppingService.update(updateShopping: newShopping) { success in
-                        if success {
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    }
-                } else {
-                    self.viewModel.shoppingService.create(shopping: newShopping) { success in
-                        if success {
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    }
-                }
-            })
-            .disposed(by: rx.disposeBag)
     }
     
     // MARK: - Binding ViewModel
@@ -303,10 +280,8 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
             .subscribe(onNext: { [unowned self] in
                 let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "삭제", style: .default) { _ in
-                    guard let shoppingID = self.shopping?.id else { return }
-                    DispatchQueue.global().async {
-                        self.viewModel.shoppingService.delete(shoppingID: shoppingID)
-                    }
+                    guard let shopping = self.shopping else { return }
+                    self.viewModel.shoppingService.deleteShopping(shopping: shopping)
                     self.dismiss(animated: true, completion: nil)
                 }
                 let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -321,6 +296,32 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
                 self.saveButton.isEnabled = validation
             })
             .disposed(by: rx.disposeBag)
+        
+        viewModel.output.newShopping
+            .bind(onNext: { [unowned self] newShopping in
+                self.newShopping = newShopping
+            })
+            .disposed(by: rx.disposeBag)
+        
+        saveButton.rx.tap
+            .bind(onNext: { [unowned self] _ in
+                guard let newShopping = self.newShopping else { return }
+                if self.shopping != nil {
+                    self.viewModel.shoppingService.update(updateShopping: newShopping) { success in
+                        if success {
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    }
+                } else {
+                    self.viewModel.shoppingService.create(shopping: newShopping) { success in
+                        if success {
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    }
+                }
+            })
+            .disposed(by: rx.disposeBag)
+        
     }
     
 }

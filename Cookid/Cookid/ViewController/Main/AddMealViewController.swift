@@ -263,13 +263,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             })
             .disposed(by: rx.disposeBag)
         
-        viewModel.input.mealImage
-            .bind { [unowned self] image in
-                self.addPhotoButton.setImage(image, for: .normal)
-                self.addPhotoButton.backgroundColor = .systemBackground
-            }
-            .disposed(by: rx.disposeBag)
-        
         mealpriceTF.rx.text.orEmpty
             .do(onNext: { [unowned self] text in
                 if viewModel.mealService.validationNum(text: text) {
@@ -295,6 +288,15 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             })
             .disposed(by: rx.disposeBag)
         
+        // MARK: - output
+        
+        viewModel.input.mealImage
+            .bind { [unowned self] image in
+                self.addPhotoButton.setImage(image, for: .normal)
+                self.addPhotoButton.backgroundColor = .systemBackground
+            }
+            .disposed(by: rx.disposeBag)
+        
         viewModel.output.validation
             .drive(completionButton.rx.isEnabled)
             .disposed(by: rx.disposeBag)
@@ -309,6 +311,7 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         
         if let meal = self.meal {
             viewModel.input.mealImage.accept(meal.image)
+            viewModel.input.mealTime.accept(meal.mealTime)
         }
 
         // MARK: - Completion Button

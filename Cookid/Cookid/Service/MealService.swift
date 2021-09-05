@@ -49,7 +49,6 @@ class MealService {
         RealmMealRepo.instance.updateMeal(meal: updateMeal)
         if let index = meals.firstIndex(where: { $0.id == updateMeal.id }) {
             meals.remove(at: index)
-            print("update" + updateMeal.name)
             meals.insert(updateMeal, at: index)
         }
         mealStore.onNext(meals)
@@ -215,7 +214,7 @@ class MealService {
             } else if percentage < 12 {
                 return "아직 (다음주에 덜 먹으면) 괜찮아요 👏"
             } else if percentage < 25 {
-                return "첫 주 예산의 끝이 다가오고 있습니다! 👮🏻‍♂️"
+                return "첫 주 예산의 끝에 다가가고 있습니다! 👮🏻‍♂️"
             } else if percentage < 50 {
                 return "첫 주에 절반을 태워..? 👮🏻‍♂️"
             } else if percentage < 80 {
