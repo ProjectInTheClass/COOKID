@@ -90,7 +90,7 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     }
     
     let validationView = UIButton().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .regular, scale: .default)
+        let config = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular, scale: .default)
         let image = UIImage(systemName: "minus.circle", withConfiguration: config)
         $0.setImage(image, for: .normal)
         $0.contentHorizontalAlignment = .right
@@ -107,25 +107,26 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     lazy var priceStackView = UIStackView(arrangedSubviews: [priceLabel, validationStackView]).then {
         $0.axis = .vertical
         $0.alignment = .fill
-        $0.spacing = 13
-        $0.distribution = .fillProportionally
+        $0.spacing = 15
+        $0.distribution = .fill
     }
     
     let updateAnnouce = UILabel().then {
         $0.text = "쇼핑 기록이 완료되셨나요?"
         $0.textColor = DefaultStyle.Color.labelTint
         $0.font = UIFont(name: "Apple SD Gothic Neo", size: 14)
+        $0.textAlignment = .right
     }
     
     let saveButton = UIButton().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
+        let config = UIImage.SymbolConfiguration(pointSize: 35, weight: .regular, scale: .default)
         let image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: config)
         $0.setImage(image, for: .normal)
         $0.tintColor = .systemYellow
     }
     
     let deleteButton = UIButton().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
+        let config = UIImage.SymbolConfiguration(pointSize: 35, weight: .regular, scale: .default)
         let image = UIImage(systemName: "trash.circle.fill", withConfiguration: config)
         $0.setImage(image, for: .normal)
         $0.tintColor = .systemRed
@@ -133,16 +134,16 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     
     lazy var buttonStack = UIStackView(arrangedSubviews: [updateAnnouce, deleteButton, saveButton]).then {
         $0.axis = .horizontal
-        $0.alignment = .fill
+        $0.alignment = .center
         $0.spacing = 10.0
-        $0.distribution = .fillProportionally
+        $0.distribution = .fill
     }
     
     lazy var wholeStackView = UIStackView(arrangedSubviews: [titleStackView, dateStackView, priceStackView, buttonStack]).then {
         $0.axis = .vertical
         $0.alignment = .fill
-        $0.spacing = 25.0
-        $0.distribution = .fill
+        $0.spacing = 30.0
+        $0.distribution = .fillEqually
     }
     
     // MARK: - Property
@@ -171,22 +172,24 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
         backgroundView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.width.equalTo(view).multipliedBy(0.8)
-            make.height.equalTo(backgroundView.snp.width).multipliedBy(1.1 / 1.0)
+            make.width.equalTo(view).multipliedBy(0.7)
+            make.height.equalTo(backgroundView.snp.width)
         }
         backgroundView.makeShadow()
         
         backgroundView.addSubview(wholeStackView)
         wholeStackView.snp.makeConstraints { make in
-            make.top.left.equalTo(30)
-            make.bottom.right.equalTo(-30)
+            make.top.equalTo(40)
+            make.left.equalTo(30)
+            make.bottom.equalTo(-30)
+            make.right.equalTo(-30)
         }
     }
     
     private func initialSetting() {
         if let shopping = self.shopping {
             updateAnnouce.text = "수정이 완료되셨나요?"
-            let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
+            let config = UIImage.SymbolConfiguration(pointSize: 35, weight: .regular, scale: .default)
             let image = UIImage(systemName: "pencil.circle.fill", withConfiguration: config)
             saveButton.setImage(image, for: .normal)
             saveButton.tintColor = .systemGreen
