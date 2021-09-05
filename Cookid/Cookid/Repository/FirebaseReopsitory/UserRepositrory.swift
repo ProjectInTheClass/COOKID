@@ -68,10 +68,10 @@ class UserRepository {
             "determination" : user.determination,
             "priceGoal" : user.priceGoal,
             "userType" : user.userType.rawValue,
-            "userId" : user.userID
+            "userId" : user.id
         ]
         
-        self.db.child(user.userID).child(FBChild.user).updateChildValues(userDic)
+        self.db.child(user.id).child(FBChild.user).updateChildValues(userDic)
         
     }
     

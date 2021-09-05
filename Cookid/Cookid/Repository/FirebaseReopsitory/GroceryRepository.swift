@@ -23,7 +23,7 @@ class GroceryRepository {
             
             var monthFilterQuery: DatabaseQuery?
             
-        monthFilterQuery = self.db.child(user.userID).child(FBChild.groceries).queryOrdered(byChild: "date").queryStarting(atValue: date)
+        monthFilterQuery = self.db.child(user.id).child(FBChild.groceries).queryOrdered(byChild: "date").queryStarting(atValue: date)
            
             monthFilterQuery?.observeSingleEvent(of: .value) { snapshot in
             
