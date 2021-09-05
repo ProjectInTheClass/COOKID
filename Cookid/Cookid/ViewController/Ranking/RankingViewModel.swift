@@ -31,15 +31,15 @@ class RankingViewModel: ViewModelType {
         let topRanker = BehaviorSubject<[UserSection]>(value: [])
         let allSortedUsers = userService.sortedUsers()
         
-        userService.makeRanking { users, error in
-            if let error = error {
-                print(error)
-            } else {
-                guard let users = users else { return }
-                let userSection = [UserSection(header: UIView(), items: users)]
-                topRanker.onNext(userSection)
-            }
-        }
+//        userService.makeRanking { users, error in
+//            if let error = error {
+//                print(error)
+//            } else {
+//                guard let users = users else { return }
+//                let userSection = [UserSection(header: UIView(), items: users)]
+//                topRanker.onNext(userSection)
+//            }
+//        }
         
         self.input = Input()
         self.output = Output(topRanker: topRanker, allSortedUsers: allSortedUsers)

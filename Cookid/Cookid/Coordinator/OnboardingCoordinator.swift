@@ -19,13 +19,9 @@ class OnboardingCoordinator: CoordinatorType {
     
     func start() -> UIViewController {
         
-        let mealRepo = MealRepository()
-        let userRepo = UserRepository()
-        let groceryRepo = GroceryRepository()
-        
-        let mealService = MealService(mealRepository: mealRepo, userRepository: userRepo, groceryRepository: groceryRepo)
-        let shoppingService = ShoppingService(groceryRepository: groceryRepo)
-        let userService = UserService(userRepository: userRepo)
+        let mealService = MealService()
+        let shoppingService = ShoppingService()
+        let userService = UserService()
         let pageVC = OnboardingPageViewViewController(coordinator: self, userService: userService, mealService: mealService, shoppingService: shoppingService)
         return pageVC
     }

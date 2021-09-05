@@ -70,7 +70,6 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         viewModel.output.userInformation
             .subscribe(onNext: { [unowned self] user in
                 self.user = user
-                print(self.user)
             })
             .disposed(by: rx.disposeBag)
     }

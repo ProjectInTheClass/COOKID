@@ -61,6 +61,7 @@ class ImageRepo {
                 completion(false)
             }
         } else {
+            print("-----> directory not found")
             completion(false)
         }
     }

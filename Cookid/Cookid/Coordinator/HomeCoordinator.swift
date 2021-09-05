@@ -21,12 +21,9 @@ class HomeCoordinator: CoordinatorType {
     }
     
     func start() -> UIViewController {
-        let mealRepo = MealRepository()
-        let userRepo = UserRepository()
-        let groceryRepo = GroceryRepository()
-        let mealService = MealService(mealRepository: mealRepo, userRepository: userRepo, groceryRepository: groceryRepo)
-        let userService = UserService(userRepository: userRepo)
-        let shoppingService = ShoppingService(groceryRepository: groceryRepo)
+        let mealService = MealService()
+        let userService = UserService()
+        let shoppingService = ShoppingService()
         
         var mainVC = MainViewController.instantiate(storyboardID: "Main")
         mainVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))

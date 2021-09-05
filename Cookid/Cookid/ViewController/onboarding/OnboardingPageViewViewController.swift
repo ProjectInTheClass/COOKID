@@ -19,10 +19,8 @@ class OnboardingPageViewViewController: UIPageViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupPages()
         setupPageControl()
-        
     }
     
     let userService: UserService
