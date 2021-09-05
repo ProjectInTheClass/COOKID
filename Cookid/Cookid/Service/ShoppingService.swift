@@ -22,11 +22,7 @@ class ShoppingService {
     
     @discardableResult
     func create(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping> {
-        
-        DispatchQueue.global().async {
-            self.groceryRepository.uploadGroceryInfo(grocery: shopping)
-        }
-        
+        RealmShoppingRepo.instance.createShopping(shopping: shopping)
         groceryShoppings.append(shopping)
         shoppingStore.onNext(groceryShoppings)
         completion(true)
@@ -40,26 +36,19 @@ class ShoppingService {
     
     @discardableResult
     func update(updateShopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping> {
-        
-        DispatchQueue.global().async {
-            self.groceryRepository.uploadGroceryInfo(grocery: updateShopping)
-        }
-    
+        RealmShoppingRepo.instance.updateShopping(shopping: updateShopping)
         if let index = groceryShoppings.firstIndex(where: { $0.id == updateShopping.id }) {
             groceryShoppings.remove(at: index)
             groceryShoppings.insert(updateShopping, at: index)
         }
-        
         shoppingStore.onNext(groceryShoppings)
         completion(true)
         return Observable.just(updateShopping)
     }
     
-    func delete(shoppingID: String) {
-        DispatchQueue.global().async {
-            self.groceryRepository.deleteGroceryInfo(shoppingID: shoppingID)
-        }
-        if let index = groceryShoppings.firstIndex(where: { $0.id == shoppingID }) {
+    func deleteShopping(shopping: GroceryShopping) {
+        RealmShoppingRepo.instance.deleteShopping(shopping: shopping)
+        if let index = groceryShoppings.firstIndex(where: { $0.id == shopping.id }) {
             groceryShoppings.remove(at: index)
         }
         shoppingStore.onNext(groceryShoppings)
