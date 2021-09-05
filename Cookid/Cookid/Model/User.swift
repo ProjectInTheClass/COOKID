@@ -8,18 +8,36 @@
 import UIKit
 import RxDataSources
 
-struct User {
-    var image: UIImage = UIImage(systemName: "person.circle.fill")!
-    var userID: String
+struct User : Codable {
+    let id: String
+    var image: URL?
     var nickname: String
     var determination: String
     var priceGoal: Int
     var userType: UserType
+    var dineInCount: Int
+    var cookidsCount: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case image
+        case nickname
+        case determination
+        case priceGoal
+        case userType
+        case dineInCount
+        case cookidsCount
+    }
 }
 
-enum UserType: String {
+enum UserType: String, Codable {
     case preferDineOut = "외식러"
     case preferDineIn = "집밥러"
+    
+    enum CodingKeys: String, CodingKey {
+        case preferDineOut = "외식러"
+        case preferDineIn = "집밥러"
+    }
 }
 
 struct UserSection {

@@ -14,6 +14,6 @@ class DummyData {
 
     var mySingleShopping = GroceryShopping(id: UUID().uuidString, date: Date(), totalPrice: 10000)
 
-    var singleUser = User(userID: "", nickname: "천가닥버섯", determination: "아자아자", priceGoal: 100000, userType: .preferDineIn)
+    var singleUser = User(id: "", nickname: "천가닥버섯", determination: "아자아자", priceGoal: 100000, userType: .preferDineIn)
 
 }

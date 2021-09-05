@@ -13,7 +13,7 @@ class UserService {
     
     let userRepository: UserRepository
     
-    private var defaultUserInfo =  User(userID: "", nickname: "비회원", determination: "유저 정보를 입력한 후에 사용해 주세요.", priceGoal: 0, userType: .preferDineIn)
+    private var defaultUserInfo =  User(id: "", nickname: "비회원", determination: "유저 정보를 입력한 후에 사용해 주세요.", priceGoal: 0, userType: .preferDineIn)
     private lazy var userInfo = BehaviorSubject<User>(value: defaultUserInfo)
     private var userSortedArr = [UserForRanking]()
     private lazy var userSorted = BehaviorSubject<[UserForRanking]>(value: userSortedArr)
@@ -25,7 +25,7 @@ class UserService {
     // fetch
     func loadUserInfo() {
         guard let userentity = RealmUserRepo.instance.fetchUser() else { return }
-        let user = User(userID: userentity.id.stringValue, nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn)
+        let user = User(id: userentity.id.stringValue, nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn)
         defaultUserInfo = user
         self.userInfo.onNext(user)
     }
