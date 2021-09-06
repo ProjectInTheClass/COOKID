@@ -29,7 +29,7 @@ class MyMealViewController: UIViewController, UICollectionViewDelegateFlowLayout
     @IBOutlet weak var mealTimeCollectionView: UICollectionView!
     
     var viewModel : MyMealViewModel!
-
+    var coordinator: HomeCoordinator?
     var maxValue: Int?
     
     override func viewDidLoad() {
