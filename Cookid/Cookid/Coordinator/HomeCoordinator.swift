@@ -29,18 +29,27 @@ class HomeCoordinator: CoordinatorType {
         mainVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
         mainVC.coordinator = self
         mainNVC = UINavigationController(rootViewController: mainVC)
-        
         mainVC.navigationController?.navigationBar.prefersLargeTitles = true
         mainVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         
         var myMealVC = MyMealViewController.instantiate(storyboardID: "MyMealTap")
         myMealVC.bind(viewModel: MyMealViewModel(mealService: mealService, userService: userService))
+        myMealVC.coordinator = self
         let myMealNVC = UINavigationController(rootViewController: myMealVC)
         myMealVC.navigationController?.navigationBar.prefersLargeTitles = true
+        myMealVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
+        
+        var myPageVC = MyPageViewController()
+        myPageVC.bind(viewModel: MyPageViewModel(userService: userService))
+        myPageVC.coordinator = self
+        let myPageNVC = UINavigationController(rootViewController: myPageVC)
+        myPageVC.navigationController?.navigationBar.prefersLargeTitles = true
+        myPageVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         
         let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([mainNVC!, myMealNVC], animated: false)
+        tabBarController.setViewControllers([mainNVC!, myMealNVC, myPageNVC], animated: false)
         tabBarController.tabBar.tintColor = DefaultStyle.Color.tint
+        tabBarController.tabBar.items?[2].title = "내 정보"
         tabBarController.modalPresentationStyle = .fullScreen
         tabBarController.modalTransitionStyle = .crossDissolve
         return tabBarController
