@@ -137,12 +137,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
-        userInfoUpdateButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                coordinator?.navigateUserInfoVC(viewModel: self.viewModel)
-            })
-            .disposed(by: rx.disposeBag)
-        
         viewModel.input.selectedDate
             .bind(onNext: { [unowned self] date in
                 self.currentDay = date

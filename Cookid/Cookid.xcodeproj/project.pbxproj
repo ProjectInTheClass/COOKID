@@ -309,10 +309,10 @@
 		032233B2269276720092DD6D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				2417EAB426E58CF7006F2785 /* MyPage */,
-				2417EAB326E58CEF006F2785 /* MyMeal */,
 				2417EAB226E58CDD006F2785 /* Onboarding */,
 				03B2048B26D5D9270099C269 /* Main */,
+				2417EAB326E58CEF006F2785 /* MyMeal */,
+				2417EAB426E58CF7006F2785 /* MyPage */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

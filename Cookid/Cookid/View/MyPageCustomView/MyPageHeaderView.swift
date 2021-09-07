@@ -14,87 +14,113 @@ class MyPageHeaderView: UIView {
     
     // MARK: - UIComponents
     
-    let user: User
-    
-    lazy var userImage = UIImageView().then {
-        $0.kf.setImage(with: user.image, placeholder: UIImage(named: "placeholder"))
+    let userImage = UIImageView().then {
+        $0.snp.makeConstraints { make in
+            make.height.width.equalTo(100)
+        }
+        $0.layer.cornerRadius = 20
+        $0.layer.masksToBounds = true
     }
     
-    lazy var userNickname = UILabel().then {
-        $0.text = user.nickname
+    let userNickname = UILabel().then {
+        $0.textAlignment = .left
     }
     
-    lazy var userType = UILabel().then {
-        $0.text = "#" + user.userType.rawValue
+    let userType = UILabel().then {
+        $0.textColor = .systemYellow
+        $0.textAlignment = .left
     }
     
-    lazy var userDetermination = UILabel().then {
-        $0.text = user.determination
+    let userDetermination = UILabel().then {
+        $0.textAlignment = .left
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .light)
     }
     
-    lazy var userCookidCount = UILabel().then {
-        $0.text = String(describing: user.cookidsCount)
+    let userCookidCount = UILabel().then {
+        $0.textAlignment = .center
+        $0.font = UIFont.systemFont(ofSize: 15, weight: .black)
+    }
+ 
+    let userDinInCount = UILabel().then {
+        
+        $0.textAlignment = .center
+        $0.font = UIFont.systemFont(ofSize: 15, weight: .black)
     }
     
-    lazy var userDinInCount = UILabel().then {
-        $0.text = String(describing: user.dineInCount)
-    }
-    
-    lazy var settingImage = UIButton().then {
-        $0.tintColor = .darkGray
-        $0.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
+    let userRecipeCount = UILabel().then {
+        $0.textAlignment = .center
+        $0.font = UIFont.systemFont(ofSize: 15, weight: .black)
     }
     
     // MARK: - Initializer
     
-    init(user: User) {
-        self.user = user
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.makeConstraints()
-        self.configureUI()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        self.makeConstraints()
     }
     
     // MARK: - ConfigureUI
     
-    private func configureUI() {
-        self.makeShadow()
+    func updateUI(user: User) {
+        userImage.kf.setImage(with: user.image, placeholder: UIImage(named: "placeholder"))
+        userNickname.text = user.nickname
+        userType.text = user.userType.rawValue
+        userDetermination.text = user.determination
+        userCookidCount.text = "💸  " + String(describing: user.cookidsCount ?? 0)
+        userDinInCount.text = "🍚  " + String(describing: user.dineInCount ?? 0)
+        userRecipeCount.text = "📝  " + "0"
     }
     
     private func makeConstraints() {
         
         let userNT = UIStackView(arrangedSubviews: [userType, userNickname]).then {
-            $0.alignment = .fill
+            $0.alignment = .leading
             $0.distribution = .fill
             $0.axis = .horizontal
-            $0.spacing = 10
-            $0.backgroundColor = .blue
+            $0.spacing = 5
         }
         
         let userNTD = UIStackView(arrangedSubviews: [userNT, userDetermination]).then {
+            $0.alignment = .leading
+            $0.distribution = .fillEqually
+            $0.axis = .vertical
+            $0.spacing = 9
+        }
+        
+        let countSV = UIStackView(arrangedSubviews: [userCookidCount, userDinInCount, userRecipeCount]).then {
+            $0.alignment = .center
+            $0.distribution = .fillEqually
+            $0.axis = .horizontal
+            $0.spacing = 0
+        }
+        
+        let userStackView = UIStackView(arrangedSubviews: [userNTD, countSV]).then {
             $0.alignment = .fill
             $0.distribution = .fill
             $0.axis = .vertical
-            $0.spacing = 10
-            $0.backgroundColor = .red
+            $0.spacing = 12
         }
         
-        let wholeStackView = UIStackView(arrangedSubviews: [userImage, userNTD, settingImage]).then {
-            $0.alignment = .fill
+        let wholeStackView = UIStackView(arrangedSubviews: [userImage, userStackView]).then {
+            $0.alignment = .center
             $0.distribution = .fill
             $0.axis = .horizontal
-            $0.spacing = 10
-            $0.backgroundColor = .yellow
+            $0.spacing = 15
         }
         
         self.addSubview(wholeStackView)
         wholeStackView.snp.makeConstraints { (make) in
-            make.top.left.equalTo(20)
-            make.bottom.right.equalTo(-20)
+            make.top.equalTo(10)
+            make.left.equalTo(20)
+            make.right.equalTo(-20)
+            make.bottom.equalTo(10)
         }
+        
     }
     
 }

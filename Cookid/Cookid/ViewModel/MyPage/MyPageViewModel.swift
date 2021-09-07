@@ -27,8 +27,6 @@ class MyPageViewModel: ViewModelType {
     init(userService: UserService) {
         self.userService = userService
         
-        userService.loadUserInfo { _ in }
-        
         let userInfo = userService.user()
         
         self.input = Input()

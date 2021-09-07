@@ -12,21 +12,23 @@ import NSObject_Rx
 import SnapKit
 import Then
 
-class MyPageViewController: UIViewController, ViewModelBindable {
+class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     // MARK: - UIComponents
     
-    private let userView = MyPageHeaderView(user: DummyData.shared.singleUser)
+    @IBOutlet weak var userInfo: MyPageHeaderView!
+    
     
     // MARK: - Properties
+    
     var viewModel: MyPageViewModel!
     var coordinator : HomeCoordinator?
     
-    // MARK: - View LifeCycle
+    // MARK: - View LifeCycle and Fuctions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        makeConstraints()
     }
     
     private func configureUI() {
@@ -34,23 +36,21 @@ class MyPageViewController: UIViewController, ViewModelBindable {
         tabBarItem.image = UIImage(systemName: "person.crop.circle")
         tabBarItem.selectedImage = UIImage(systemName: "person.crop.circle.fill")
         navigationItem.title = "내 정보📙"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape.fill"), style: .plain, target: self, action: #selector(settingButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = .systemGray
     }
     
-    private func makeConstraints() {
-        view.addSubview(userView)
-        userView.snp.makeConstraints { (make) in
-            make.centerX.centerY.equalToSuperview()
-            make.height.equalTo(150)
-            make.width.equalTo(400)
-        }
+    @objc func settingButtonTapped() {
+        coordinator?.navigateUserInfoVC(viewModel: viewModel)
     }
     
     // MARK: - BindViewMdoel
     func bindViewModel() {
         viewModel.output.userInfo
             .bind { [unowned self] (user) in
-                
+                self.userInfo.updateUI(user: user)
             }
             .disposed(by: rx.disposeBag)
     }
+    
 }

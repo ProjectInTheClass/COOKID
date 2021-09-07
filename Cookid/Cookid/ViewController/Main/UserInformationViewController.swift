@@ -14,16 +14,13 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
     
     @IBOutlet weak var nickNameLabel: UILabel!
     @IBOutlet weak var nickNameTextField: UITextField!
-    
     @IBOutlet weak var budgetLimitLabel: UILabel!
     @IBOutlet weak var budgetTextField: UITextField!
-    
     @IBOutlet weak var newDeterminationLabel: UILabel!
     @IBOutlet weak var newDeterminationTextField: UITextField!
-    
     @IBOutlet weak var userInputView: UIView!
-    
     @IBOutlet weak var inputViewBottom: NSLayoutConstraint!
+    @IBOutlet weak var completeButton: UIButton!
     
     var viewModel: UserInfoUpdateViewModel!
     var user: User?
@@ -73,27 +70,28 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
                 self.viewModel.input.budgetText.onNext(value)
             })
             .disposed(by: rx.disposeBag)
+        
+        viewModel.output.newUserInfo
+            .bind { [unowned self] user in
+                self.user = user
+            }
+            .disposed(by: rx.disposeBag)
+        
+        completeButton.rx.tap
+            .bind { [unowned self] in
+                guard let newUserInfo = self.user else { return }
+                self.viewModel.userService.updateUserInfo(user: newUserInfo) { _ in
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+            .disposed(by: rx.disposeBag)
     }
     
     func setupUI(user: User) {
         self.nickNameLabel.text = "\(user.nickname)님 🏳️‍🌈"
         self.budgetLimitLabel.text = "현재 목표액은 \(user.priceGoal)원 입니다 💵"
-    }
-    
-    @IBAction func checkBtnTapped(_ sender: UIButton) {
-       
-        viewModel.output.newUserInfo
-            .take(1)
-            .subscribe(on:ConcurrentDispatchQueueScheduler.init(queue: DispatchQueue.global()))
-            .subscribe(onNext: { [unowned self] newInfo in
-                
-                viewModel.userService.updateUserInfo(user: newInfo) { _ in
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                }
-            })
-            .disposed(by: rx.disposeBag)
     }
     
     @IBAction func BGTapped(_ sender: Any) {
