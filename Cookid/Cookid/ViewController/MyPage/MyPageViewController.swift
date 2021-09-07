@@ -12,12 +12,12 @@ import NSObject_Rx
 import SnapKit
 import Then
 
-class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
+class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased, UIScrollViewDelegate {
     
     // MARK: - UIComponents
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var userInfo: MyPageHeaderView!
-    
     
     // MARK: - Properties
     
@@ -32,6 +32,7 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
     }
     
     private func configureUI() {
+        scrollView.delegate = self
         view.backgroundColor = .systemBackground
         tabBarItem.image = UIImage(systemName: "person.crop.circle")
         tabBarItem.selectedImage = UIImage(systemName: "person.crop.circle.fill")
@@ -51,6 +52,19 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
                 self.userInfo.updateUI(user: user)
             }
             .disposed(by: rx.disposeBag)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let offSet = scrollView.contentOffset.y
+        
+        if offSet < 150 {
+            let alpha = 1 - (offSet / 150)
+            
+            headerView.transform = .init(translationX: 0, y: min(0,-offSet))
+            scrollViewTopLayout.constant = min(0,-offSet)
+            headerView.layer.shadowOpacity = Float((offSet / 150) - 0.5)
+        }
     }
     
 }
