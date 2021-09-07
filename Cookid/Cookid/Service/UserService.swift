@@ -60,7 +60,7 @@ class UserService {
         if user.image != nil,
            user.cookidsCount != nil,
            user.dineInCount != nil {
-            FireStoreUserRepo.instance.updateUser(updateUser: user)
+//            FireStoreUserRepo.instance.updateUser(updateUser: user)
         }
         RealmUserRepo.instance.updateUser(user: user)
         defaultUserInfo = user

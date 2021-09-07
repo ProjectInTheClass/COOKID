@@ -46,9 +46,9 @@ extension String {
 extension UIView {
     
     func makeShadow() {
-        self.layer.cornerRadius = 8
+        self.layer.cornerRadius = 15
         self.layer.shadowColor = UIColor.systemGray3.cgColor
-        self.layer.shadowRadius = 8
+        self.layer.shadowRadius = 15
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.layer.shadowOpacity = 0.4
     }
@@ -56,6 +56,14 @@ extension UIView {
     func makeCircleView() {
         self.layer.cornerRadius = self.frame.height / 2
         self.layer.masksToBounds = true
+    }
+    
+    func makeOutsideStroke(cornerRadius: CGFloat) {
+        self.layer.cornerRadius = cornerRadius
+        let path = UIBezierPath(roundedRect: self.bounds,cornerRadius: cornerRadius)
+        path.stroke()
+        UIColor.systemGray6.setStroke()
+        path.lineWidth = 0.5
     }
     
 }

@@ -39,7 +39,7 @@ class HomeCoordinator: CoordinatorType {
         myMealVC.navigationController?.navigationBar.prefersLargeTitles = true
         myMealVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         
-        var myPageVC = MyPageViewController()
+        var myPageVC = MyPageViewController.instantiate(storyboardID: "UserInfo")
         myPageVC.bind(viewModel: MyPageViewModel(userService: userService))
         myPageVC.coordinator = self
         let myPageNVC = UINavigationController(rootViewController: myPageVC)
@@ -95,7 +95,7 @@ class HomeCoordinator: CoordinatorType {
         mainNVC?.pushViewController(vc, animated: true)
     }
     
-    func navigateUserInfoVC(viewModel: MainViewModel) {
+    func navigateUserInfoVC(viewModel: MyPageViewModel) {
         let userUpdateViewModel = UserInfoUpdateViewModel(userService: viewModel.userService)
         var userInfoVC = UserInformationViewController.instantiate(storyboardID: "UserInfo")
         userInfoVC.bind(viewModel: userUpdateViewModel)
