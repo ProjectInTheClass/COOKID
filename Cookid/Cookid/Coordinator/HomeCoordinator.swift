@@ -40,8 +40,9 @@ class HomeCoordinator: CoordinatorType {
         myMealVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         
         var myPageVC = MyPageViewController.instantiate(storyboardID: "UserInfo")
-        myPageVC.bind(viewModel: MyPageViewModel(userService: userService))
         myPageVC.coordinator = self
+        myPageVC.bind(viewModel: MyPageViewModel(userService: userService, mealService: mealService))
+        
         let myPageNVC = UINavigationController(rootViewController: myPageVC)
         myPageVC.navigationController?.navigationBar.prefersLargeTitles = true
         myPageVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint

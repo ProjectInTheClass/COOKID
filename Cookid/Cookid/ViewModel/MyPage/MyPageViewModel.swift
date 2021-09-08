@@ -12,6 +12,7 @@ import RxCocoa
 class MyPageViewModel: ViewModelType {
     
     let userService: UserService
+    let mealService: MealService
     
     struct Input {
         
@@ -19,17 +20,20 @@ class MyPageViewModel: ViewModelType {
     
     struct Output {
         let userInfo: Observable<User>
+        let meals: Observable<[Meal]>
     }
     
     var input: Input
     var output: Output
     
-    init(userService: UserService) {
+    init(userService: UserService, mealService: MealService) {
         self.userService = userService
+        self.mealService = mealService
         
         let userInfo = userService.user()
+        let meals = mealService.mealList()
         
         self.input = Input()
-        self.output = Output(userInfo: userInfo)
+        self.output = Output(userInfo: userInfo, meals: meals)
     }
 }
