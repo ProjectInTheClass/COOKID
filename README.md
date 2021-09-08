@@ -43,7 +43,7 @@
 
 ### 코딩컨벤션
 * SwiftLint
-* Naming Conventions / https://soojin.ro/blog/english-for-developers-swift
+* Naming Conventions / https://soojin.ro/blog/english-for-developers-swift (Refactoring)
 
 ### 뷰 드로잉
 * Storyboard
