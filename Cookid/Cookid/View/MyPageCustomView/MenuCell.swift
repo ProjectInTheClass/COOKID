@@ -6,7 +6,8 @@
 //
 
 import UIKit
+import PagingKit
 
-class MenuCell: UICollectionViewCell {
-    
+class MenuCell: PagingMenuViewCell {
+    @IBOutlet weak var titleLabel: UILabel!
 }

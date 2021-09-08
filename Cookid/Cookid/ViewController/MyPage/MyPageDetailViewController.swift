@@ -6,64 +6,71 @@
 //
 
 import UIKit
-
-protocol MenuBarDelegate: AnyObject {
-    func menuTapped(indexPath: IndexPath)
-}
- 
-protocol ContentsViewControllerDelegate: AnyObject {
-    func scrolledContentsViewController(currentIndex: Int)
-}
+import PagingKit
 
 class MyPageDetailViewController: UIViewController {
     
-    private lazy var menuBar: MenuBarViewController = {
-        let view = MenuBarViewController(foodMenu: menu)
-        view.view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-     
-    private lazy var containerView: ContainerViewController = {
-        let view = ContainerViewController(foodMenu: menu)
-        view.view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
+    var menuViewController: PagingMenuViewController!
+    var contentViewController: PagingContentViewController!
+    var dataSource: [(String, UIViewController)] = [(menuTitle: "모든 식사", vc: MyMealsViewController()), (menuTitle: "나의 레시피", vc: MyRecipesViewController()), (menuTitle: "좋은 레시피", vc: MyHeartsViewController())]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        menuViewController.register(type: TitleLabelMenuViewCell.self, forCellWithReuseIdentifier: CELLIDENTIFIER.menuCell)
+        menuViewController.registerFocusView(view: UnderlineFocusView())
+        menuViewController.cellAlignment = .center
+        menuViewController.reloadData()
+        contentViewController.reloadData()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
-
-extension MyPageDetailViewController: MenuBarDelegate {
-    func menuTapped(indexPath: IndexPath) {
-        if indexPath.row == self.containerView.currentIndex {
-            return
+        if let vc = segue.destination as? PagingMenuViewController {
+            menuViewController = vc
+            menuViewController.dataSource = self
+            menuViewController.delegate = self
+        } else if let vc = segue.destination as? PagingContentViewController {
+            contentViewController = vc
+            contentViewController.dataSource = self
+            contentViewController.delegate = self
         }
-        let direction: UIPageViewController.NavigationDirection = indexPath.row > (self.containerView.currentIndex ?? 0) ? .forward : .reverse
-        let nextViewController = getNextVC(indexPath)
-        self.containerView.setViewControllers([nextViewController], direction: direction, animated: false, completion: nil)
-        self.containerView.currentIndex = indexPath.row
+    }
+    
+}
+
+extension MyPageDetailViewController: PagingMenuViewControllerDataSource {
+    func numberOfItemsForMenuViewController(viewController: PagingMenuViewController) -> Int {
+        return dataSource.count
+    }
+    
+    func menuViewController(viewController: PagingMenuViewController, widthForItemAt index: Int) -> CGFloat {
+        return view.frame.width / 3
+    }
+    
+    func menuViewController(viewController: PagingMenuViewController, cellForItemAt index: Int) -> PagingMenuViewCell {
+        guard let cell = viewController.dequeueReusableCell(withReuseIdentifier: CELLIDENTIFIER.menuCell, for: index) as? TitleLabelMenuViewCell else { return PagingMenuViewCell() }
+        cell.titleLabel.text = dataSource[index].0
+        return cell
     }
 }
 
-extension MyPageDetailViewController: ContentsViewControllerDelegate {
-    func scrolledContentsViewController(currentIndex: Int) {
-        let indexPath: IndexPath = IndexPath(row: currentIndex, section: 0)
-        _ = getNextVC(indexPath)
-        self.menuBar.collectionView(self.menuBar.menu, didSelectItemAt: indexPath)
+extension MyPageDetailViewController: PagingContentViewControllerDataSource {
+    func numberOfItemsForContentViewController(viewController: PagingContentViewController) -> Int {
+        return dataSource.count
+    }
+    
+    func contentViewController(viewController: PagingContentViewController, viewControllerAt index: Int) -> UIViewController {
+        return dataSource[index].1
+    }
+}
+
+extension MyPageDetailViewController: PagingMenuViewControllerDelegate {
+    func menuViewController(viewController: PagingMenuViewController, didSelect page: Int, previousPage: Int) {
+        contentViewController.scroll(to: page, animated: true)
+    }
+}
+
+extension MyPageDetailViewController: PagingContentViewControllerDelegate {
+    func contentViewController(viewController: PagingContentViewController, didManualScrollOn index: Int, percent: CGFloat) {
+        menuViewController.scroll(index: index, percent: percent, animated: false)
     }
 }

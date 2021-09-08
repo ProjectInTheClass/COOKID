@@ -56,6 +56,7 @@ enum CELLIDENTIFIER {
     static let mainMealCell = "mainMealCell"
     static let mainShoppingCell = "mainShoppingCell"
     static let pictureSelectCell = "pictureSelectCell"
+    static let menuCell = "menuCell"
 }
 
 enum NetWorkingError : String, Error {

@@ -54,9 +54,12 @@
 		03B2049926D7B8AC0099C269 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049826D7B8AC0099C269 /* Menu.swift */; };
 		03B2049B26D7BA830099C269 /* MenuService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049A26D7BA830099C269 /* MenuService.swift */; };
 		03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */; };
-		03D8C1D126E7A8CC00238CB6 /* MenuBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1D026E7A8CC00238CB6 /* MenuBarViewController.swift */; };
-		03D8C1D326E7A8E600238CB6 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1D226E7A8E600238CB6 /* ContainerViewController.swift */; };
 		03D8C1D526E7A95F00238CB6 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1D426E7A95F00238CB6 /* MenuCell.swift */; };
+		03D8C1DD26E8504700238CB6 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D8C1DC26E8504700238CB6 /* MenuCell.xib */; };
+		03D8C1DF26E850DF00238CB6 /* FocusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D8C1DE26E850DF00238CB6 /* FocusView.xib */; };
+		03D8C1E126E852CD00238CB6 /* MyMealsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */; };
+		03D8C1E326E852D600238CB6 /* MyRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */; };
+		03D8C1E526E852E000238CB6 /* MyHeartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E426E852E000238CB6 /* MyHeartsViewController.swift */; };
 		03E42EB826C412A8005D7B5E /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EB726C412A8005D7B5E /* CookidTests.swift */; };
 		03E42EC626C412C2005D7B5E /* CookidUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EC526C412C2005D7B5E /* CookidUITests.swift */; };
 		03E42ED126C41766005D7B5E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED026C41766005D7B5E /* MainCoordinator.swift */; };
@@ -162,9 +165,12 @@
 		03B2049826D7B8AC0099C269 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		03B2049A26D7BA830099C269 /* MenuService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuService.swift; sourceTree = "<group>"; };
 		03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDetailViewController.swift; sourceTree = "<group>"; };
-		03D8C1D026E7A8CC00238CB6 /* MenuBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarViewController.swift; sourceTree = "<group>"; };
-		03D8C1D226E7A8E600238CB6 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		03D8C1D426E7A95F00238CB6 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		03D8C1DC26E8504700238CB6 /* MenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
+		03D8C1DE26E850DF00238CB6 /* FocusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FocusView.xib; sourceTree = "<group>"; };
+		03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealsViewController.swift; sourceTree = "<group>"; };
+		03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecipesViewController.swift; sourceTree = "<group>"; };
+		03D8C1E426E852E000238CB6 /* MyHeartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHeartsViewController.swift; sourceTree = "<group>"; };
 		03E42EB526C412A7005D7B5E /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E42EB726C412A8005D7B5E /* CookidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidTests.swift; sourceTree = "<group>"; };
 		03E42EB926C412A8005D7B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -545,8 +551,9 @@
 			children = (
 				2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */,
 				03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */,
-				03D8C1D026E7A8CC00238CB6 /* MenuBarViewController.swift */,
-				03D8C1D226E7A8E600238CB6 /* ContainerViewController.swift */,
+				03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */,
+				03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */,
+				03D8C1E426E852E000238CB6 /* MyHeartsViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -580,6 +587,8 @@
 			children = (
 				2417EABB26E5A562006F2785 /* MyPageHeaderView.swift */,
 				03D8C1D426E7A95F00238CB6 /* MenuCell.swift */,
+				03D8C1DC26E8504700238CB6 /* MenuCell.xib */,
+				03D8C1DE26E850DF00238CB6 /* FocusView.xib */,
 			);
 			path = MyPageCustomView;
 			sourceTree = "<group>";
@@ -758,11 +767,13 @@
 			files = (
 				032233A8269212870092DD6D /* Launch.storyboard in Resources */,
 				032233C026927A4F0092DD6D /* MyMealTap.storyboard in Resources */,
+				03D8C1DD26E8504700238CB6 /* MenuCell.xib in Resources */,
 				0348B90926D542EF001BF3B7 /* GoogleService-Info.plist in Resources */,
 				032233A5269212870092DD6D /* Assets.xcassets in Resources */,
 				0339575126A2C96100594515 /* boardingImage in Resources */,
 				DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */,
 				032233A3269212860092DD6D /* Main.storyboard in Resources */,
+				03D8C1DF26E850DF00238CB6 /* FocusView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,6 +871,7 @@
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
 				03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */,
 				241523B0269D093E0077941A /* ShoppingService.swift in Sources */,
+				03D8C1E126E852CD00238CB6 /* MyMealsViewController.swift in Sources */,
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
 				03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */,
 				2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */,
@@ -878,10 +890,10 @@
 				032233DE2693057C0092DD6D /* User.swift in Sources */,
 				03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */,
 				C6BFF4532694996B006295F5 /* Entities.swift in Sources */,
+				03D8C1E326E852D600238CB6 /* MyRecipesViewController.swift in Sources */,
 				03586EB326E4FEC0002A56C6 /* OAuthForKakao.swift in Sources */,
 				03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */,
 				0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */,
-				03D8C1D326E7A8E600238CB6 /* ContainerViewController.swift in Sources */,
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
 				0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */,
 				032233D72692F0160092DD6D /* Extension.swift in Sources */,
@@ -897,6 +909,7 @@
 				24B081B126DFD21300379087 /* RealmUserRepo.swift in Sources */,
 				03586EB926E4FEE7002A56C6 /* OAuthForApple.swift in Sources */,
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
+				03D8C1E526E852E000238CB6 /* MyHeartsViewController.swift in Sources */,
 				2417EABC26E5A562006F2785 /* MyPageHeaderView.swift in Sources */,
 				C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */,
 				03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */,
@@ -905,7 +918,6 @@
 				DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */,
 				038875B126A030F300D5D202 /* MainViewController.swift in Sources */,
 				03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */,
-				03D8C1D126E7A8CC00238CB6 /* MenuBarViewController.swift in Sources */,
 				03B2049B26D7BA830099C269 /* MenuService.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */,
