@@ -49,16 +49,19 @@
 * Then, SnapKit
 
 ### 반응형 프로그래밍 및 커뮤니티 기술
-* RxSwift, RxCocoa, RxDataSource, RxKeyboard, NSObject+Rx
+* RxSwift, RxCocoa, RxDataSource, RxKeyboard, NSObject+Rx, ReactorKit
 
 ### 백앤드
-* FirebaseAuth -> OAuth
-* Firebase RealtimeDatabase -> FireStore
+* OAuth
+* Firebase FireStore
 * Firebase Storage
 * Local DB: Realm
 
 ### CI/CD
 * fastlane
+
+### TestCode
+* XCTest (Unit Test, UITest)
 
 ### 개발 아키텍처
 * Rx + MVVM + Coordinator Pattern 
@@ -68,6 +71,7 @@
 * Kingfisher
 * FSCalendar
 * PanModal
+* PagingKit
 
 # 5. 업데이트 내역 및 예정
 
