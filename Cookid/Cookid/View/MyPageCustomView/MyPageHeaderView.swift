@@ -89,7 +89,7 @@ class MyPageHeaderView: UIView {
             $0.alignment = .leading
             $0.distribution = .fillEqually
             $0.axis = .vertical
-            $0.spacing = 9
+            $0.spacing = 5
         }
         
         let countSV = UIStackView(arrangedSubviews: [userCookidCount, userDinInCount, userRecipeCount]).then {
@@ -103,7 +103,7 @@ class MyPageHeaderView: UIView {
             $0.alignment = .fill
             $0.distribution = .fill
             $0.axis = .vertical
-            $0.spacing = 12
+            $0.spacing = 15
         }
         
         let wholeStackView = UIStackView(arrangedSubviews: [userImage, userStackView]).then {

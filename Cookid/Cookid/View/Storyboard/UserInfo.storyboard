@@ -21,10 +21,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jct-uy-Qm3">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1105.3333333333333"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="974.33333333333337"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Hx-iF-519">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="1105.3333333333333"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="974.33333333333337"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dU2-oF-EZI" customClass="MyPageHeaderView" customModule="Cookid" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
@@ -46,35 +46,41 @@
                                                         </constraints>
                                                     </view>
                                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TH-Pw-YI7">
-                                                        <rect key="frame" x="0.0" y="160" width="375" height="812"/>
+                                                        <rect key="frame" x="0.0" y="160" width="375" height="649.66666666666663"/>
                                                         <connections>
                                                             <segue destination="767-ax-dT6" kind="embed" id="oFD-lt-FfM"/>
                                                         </connections>
                                                     </containerView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Luu-3d-uX8">
-                                                        <rect key="frame" x="0.0" y="982.00000000000011" width="375" height="123.33333333333337"/>
+                                                        <rect key="frame" x="0.0" y="819.66666666666663" width="375" height="154.66666666666663"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fyF-uh-BgW">
-                                                                <rect key="frame" x="15" y="15" width="345" height="93.333333333333329"/>
+                                                                <rect key="frame" x="15" y="15.000000000000007" width="345" height="124.66666666666669"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ Copyright Cookid Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leu-Go-wU4">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="155.33333333333334" height="20.666666666666668"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="집밥러 Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leu-Go-wU4">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="69.666666666666671" height="31.333333333333332"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이용자 개인정보 및 운영방침은 AppStore에 기재되어 있습니다. 문의는 아래 이메일 혹은 AppStore 게시판을 이용해 주세요." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oat-Yr-6SB">
-                                                                        <rect key="frame" x="0.0" y="25.666666666666629" width="331.33333333333331" height="31.333333333333329"/>
+                                                                        <rect key="frame" x="0.0" y="36.333333333333371" width="331.33333333333331" height="31.333333333333329"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSw-vu-cht">
-                                                                        <rect key="frame" x="0.0" y="62.000000000000007" width="185.66666666666666" height="31.333333333333336"/>
+                                                                        <rect key="frame" x="0.0" y="72.666666666666742" width="185.66666666666666" height="31.333333333333329"/>
                                                                         <string key="text">Email : phs880623@gmail.com
 AppStore Cookid</string>
                                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@Copyright Cookid" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1d-kx-zg9">
+                                                                        <rect key="frame" x="0.0" y="109" width="116.33333333333333" height="15.666666666666671"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -115,7 +121,7 @@ AppStore Cookid</string>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="BgP-4U-f9C" secondAttribute="bottom" id="0wN-Ro-npr"/>
-                            <constraint firstItem="0TH-Pw-YI7" firstAttribute="height" secondItem="KxS-X6-GHs" secondAttribute="height" id="FJ7-LM-Iis"/>
+                            <constraint firstItem="0TH-Pw-YI7" firstAttribute="height" secondItem="KxS-X6-GHs" secondAttribute="height" multiplier="0.8" id="FJ7-LM-Iis"/>
                             <constraint firstItem="jct-uy-Qm3" firstAttribute="width" secondItem="KxS-X6-GHs" secondAttribute="width" id="GsA-TP-Nti"/>
                             <constraint firstItem="BgP-4U-f9C" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="WuH-F5-9rm"/>
                             <constraint firstItem="BgP-4U-f9C" firstAttribute="trailing" secondItem="UOe-zw-poI" secondAttribute="trailing" id="hH9-vu-s0z"/>
@@ -295,14 +301,71 @@ AppStore Cookid</string>
             <objects>
                 <viewController id="767-ax-dT6" customClass="MyPageDetailViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="a9p-mE-xQA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="649.66666666666663"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-x0-Nt8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="OxK-iy-wPK"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="Z8M-JH-EHW" kind="embed" id="dFJ-oe-bim"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Boe-PT-gOE">
+                                <rect key="frame" x="0.0" y="50" width="375" height="599.66666666666663"/>
+                                <connections>
+                                    <segue destination="4T5-lf-MOA" kind="embed" id="Sid-VV-pJF"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hcj-X4-1cD"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="wRv-x0-Nt8" secondAttribute="trailing" id="BdK-NJ-nJh"/>
+                            <constraint firstItem="Boe-PT-gOE" firstAttribute="top" secondItem="wRv-x0-Nt8" secondAttribute="bottom" id="Irk-N5-LVR"/>
+                            <constraint firstItem="wRv-x0-Nt8" firstAttribute="leading" secondItem="a9p-mE-xQA" secondAttribute="leading" id="N9k-ch-PyM"/>
+                            <constraint firstAttribute="bottom" secondItem="Boe-PT-gOE" secondAttribute="bottom" id="Oec-6U-2Ve"/>
+                            <constraint firstItem="wRv-x0-Nt8" firstAttribute="top" secondItem="a9p-mE-xQA" secondAttribute="top" id="VQc-c9-ZDU"/>
+                            <constraint firstItem="Boe-PT-gOE" firstAttribute="leading" secondItem="a9p-mE-xQA" secondAttribute="leading" id="of0-j2-nQA"/>
+                            <constraint firstAttribute="trailing" secondItem="Boe-PT-gOE" secondAttribute="trailing" id="wae-LU-7qU"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tpe-W7-WUu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1223" y="89"/>
+            <point key="canvasLocation" x="1221.5999999999999" y="87.931034482758619"/>
+        </scene>
+        <!--Paging Menu View Controller-->
+        <scene sceneID="zB1-EG-eY7">
+            <objects>
+                <viewController id="Z8M-JH-EHW" customClass="PagingMenuViewController" customModule="PagingKit" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Gyg-N1-e9f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="WQR-JQ-YDY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="asi-At-RHH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1945" y="-134"/>
+        </scene>
+        <!--Paging Content View Controller-->
+        <scene sceneID="KwG-Rg-q0s">
+            <objects>
+                <viewController id="4T5-lf-MOA" customClass="PagingContentViewController" customModule="PagingKit" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eAJ-DG-dXK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="599.66666666666663"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Oci-sU-h10"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fnn-k1-Z37" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1945" y="172"/>
         </scene>
     </scenes>
     <resources>

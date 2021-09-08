@@ -54,17 +54,17 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
             .disposed(by: rx.disposeBag)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        let offSet = scrollView.contentOffset.y
-        
-        if offSet < 150 {
-            let alpha = 1 - (offSet / 150)
-            
-            headerView.transform = .init(translationX: 0, y: min(0,-offSet))
-            scrollViewTopLayout.constant = min(0,-offSet)
-            headerView.layer.shadowOpacity = Float((offSet / 150) - 0.5)
-        }
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        
+//        let offSet = scrollView.contentOffset.y
+//        
+//        if offSet < 150 {
+//            let alpha = 1 - (offSet / 150)
+//            
+//            headerView.transform = .init(translationX: 0, y: min(0,-offSet))
+//            scrollViewTopLayout.constant = min(0,-offSet)
+//            headerView.layer.shadowOpacity = Float((offSet / 150) - 0.5)
+//        }
+//    }
     
 }
