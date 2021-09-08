@@ -8,17 +8,33 @@
 import UIKit
 import PagingKit
 
-class MyPageDetailViewController: UIViewController {
+class MyPageDetailViewController: UIViewController, ViewModelBindable {
+    
+    var viewModel: MyPageViewModel!
+    var coordinator: HomeCoordinator?
     
     var menuViewController: PagingMenuViewController!
     var contentViewController: PagingContentViewController!
-    var dataSource: [(String, UIViewController)] = [(menuTitle: "모든 식사", vc: MyMealsViewController()), (menuTitle: "나의 레시피", vc: MyRecipesViewController()), (menuTitle: "좋은 레시피", vc: MyHeartsViewController())]
+    var dataSource: [(String, UIViewController)]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var myMealsVC = MyMealsViewController()
+        myMealsVC.bind(viewModel: viewModel)
+        myMealsVC.coordinator = coordinator
+        var myRecipesVC = MyRecipesViewController()
+        myRecipesVC.bind(viewModel: viewModel)
+        var myHeartsVC = MyHeartsViewController()
+        myHeartsVC.bind(viewModel: viewModel)
+        
+        dataSource = [(menuTitle: "나의 식사", vc: myMealsVC), (menuTitle: "나의 레시피", vc: myRecipesVC), (menuTitle: "좋아요", vc: myHeartsVC)]
+        
         menuViewController.register(type: TitleLabelMenuViewCell.self, forCellWithReuseIdentifier: CELLIDENTIFIER.menuCell)
         menuViewController.registerFocusView(view: UnderlineFocusView())
+        
         menuViewController.cellAlignment = .center
+        
         menuViewController.reloadData()
         contentViewController.reloadData()
     }
@@ -35,11 +51,14 @@ class MyPageDetailViewController: UIViewController {
         }
     }
     
+    func bindViewModel() {
+        
+    }
 }
 
 extension MyPageDetailViewController: PagingMenuViewControllerDataSource {
     func numberOfItemsForMenuViewController(viewController: PagingMenuViewController) -> Int {
-        return dataSource.count
+        return dataSource?.count ?? 0
     }
     
     func menuViewController(viewController: PagingMenuViewController, widthForItemAt index: Int) -> CGFloat {
@@ -48,18 +67,18 @@ extension MyPageDetailViewController: PagingMenuViewControllerDataSource {
     
     func menuViewController(viewController: PagingMenuViewController, cellForItemAt index: Int) -> PagingMenuViewCell {
         guard let cell = viewController.dequeueReusableCell(withReuseIdentifier: CELLIDENTIFIER.menuCell, for: index) as? TitleLabelMenuViewCell else { return PagingMenuViewCell() }
-        cell.titleLabel.text = dataSource[index].0
+        cell.titleLabel.text = dataSource?[index].0
         return cell
     }
 }
 
 extension MyPageDetailViewController: PagingContentViewControllerDataSource {
     func numberOfItemsForContentViewController(viewController: PagingContentViewController) -> Int {
-        return dataSource.count
+        return dataSource?.count ?? 0
     }
     
     func contentViewController(viewController: PagingContentViewController, viewControllerAt index: Int) -> UIViewController {
-        return dataSource[index].1
+        return dataSource?[index].1 ?? UIViewController()
     }
 }
 

@@ -36,13 +36,22 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
         view.backgroundColor = .systemBackground
         tabBarItem.image = UIImage(systemName: "person.crop.circle")
         tabBarItem.selectedImage = UIImage(systemName: "person.crop.circle.fill")
-        navigationItem.title = "내 정보📙"
+        navigationItem.title = "내 정보 ⚙️"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape.fill"), style: .plain, target: self, action: #selector(settingButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = .systemGray
     }
     
     @objc func settingButtonTapped() {
         coordinator?.navigateUserInfoVC(viewModel: viewModel)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detailSegue" {
+            guard var vc = segue.destination as? MyPageDetailViewController else { return }
+            vc.coordinator = coordinator
+            vc.bind(viewModel: viewModel)
+            
+        }
     }
     
     // MARK: - BindViewMdoel
