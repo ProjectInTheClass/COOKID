@@ -17,77 +17,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BgP-4U-f9C">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Hx-iF-519">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jct-uy-Qm3">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="809.66666666666663"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dU2-oF-EZI" customClass="MyPageHeaderView" customModule="Cookid" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Hx-iF-519">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="809.66666666666663"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dU2-oF-EZI" customClass="MyPageHeaderView" customModule="Cookid" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
-                                                        <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EO4-pW-nUv">
-                                                                <rect key="frame" x="0.0" y="149" width="375" height="1"/>
-                                                                <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="Cfg-or-meX"/>
-                                                                </constraints>
-                                                            </view>
-                                                        </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="150" id="6JF-P4-xWN"/>
-                                                            <constraint firstAttribute="bottom" secondItem="EO4-pW-nUv" secondAttribute="bottom" id="9ku-VN-qeO"/>
-                                                            <constraint firstItem="EO4-pW-nUv" firstAttribute="leading" secondItem="dU2-oF-EZI" secondAttribute="leading" id="SIB-Gc-SQf"/>
-                                                            <constraint firstAttribute="trailing" secondItem="EO4-pW-nUv" secondAttribute="trailing" id="cf4-5q-tbG"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TH-Pw-YI7">
-                                                        <rect key="frame" x="0.0" y="160" width="375" height="649.66666666666663"/>
-                                                        <connections>
-                                                            <segue destination="767-ax-dT6" kind="embed" identifier="detailSegue" id="oFD-lt-FfM"/>
-                                                        </connections>
-                                                    </containerView>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                            </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EO4-pW-nUv">
+                                                <rect key="frame" x="0.0" y="139" width="375" height="1"/>
+                                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="Cfg-or-meX"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="3Hx-iF-519" secondAttribute="bottom" id="GRP-7n-2Uu"/>
-                                            <constraint firstAttribute="trailing" secondItem="3Hx-iF-519" secondAttribute="trailing" id="YFE-i4-j2H"/>
-                                            <constraint firstItem="3Hx-iF-519" firstAttribute="top" secondItem="jct-uy-Qm3" secondAttribute="top" id="czp-9P-rPN"/>
-                                            <constraint firstItem="3Hx-iF-519" firstAttribute="leading" secondItem="jct-uy-Qm3" secondAttribute="leading" id="pnN-VE-ajN"/>
+                                            <constraint firstAttribute="height" constant="140" id="6JF-P4-xWN"/>
+                                            <constraint firstAttribute="bottom" secondItem="EO4-pW-nUv" secondAttribute="bottom" id="9ku-VN-qeO"/>
+                                            <constraint firstItem="EO4-pW-nUv" firstAttribute="leading" secondItem="dU2-oF-EZI" secondAttribute="leading" id="SIB-Gc-SQf"/>
+                                            <constraint firstAttribute="trailing" secondItem="EO4-pW-nUv" secondAttribute="trailing" id="cf4-5q-tbG"/>
                                         </constraints>
                                     </view>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TH-Pw-YI7">
+                                        <rect key="frame" x="0.0" y="150" width="375" height="540"/>
+                                        <connections>
+                                            <segue destination="767-ax-dT6" kind="embed" identifier="detailSegue" id="SBR-bW-gcK"/>
+                                        </connections>
+                                    </containerView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="jct-uy-Qm3" firstAttribute="top" secondItem="sbh-35-g3x" secondAttribute="top" id="8fu-1y-MLs"/>
-                                    <constraint firstItem="jct-uy-Qm3" firstAttribute="leading" secondItem="sbh-35-g3x" secondAttribute="leading" id="Egg-bR-coo"/>
-                                    <constraint firstItem="jct-uy-Qm3" firstAttribute="trailing" secondItem="sbh-35-g3x" secondAttribute="trailing" id="N7D-LP-U6p"/>
-                                    <constraint firstItem="jct-uy-Qm3" firstAttribute="bottom" secondItem="sbh-35-g3x" secondAttribute="bottom" id="eWv-El-B9h"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="sbh-35-g3x"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="Abp-Jl-HN4"/>
-                            </scrollView>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UOe-zw-poI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="BgP-4U-f9C" secondAttribute="bottom" id="0wN-Ro-npr"/>
-                            <constraint firstItem="0TH-Pw-YI7" firstAttribute="height" secondItem="KxS-X6-GHs" secondAttribute="height" multiplier="0.8" id="FJ7-LM-Iis"/>
-                            <constraint firstItem="jct-uy-Qm3" firstAttribute="width" secondItem="KxS-X6-GHs" secondAttribute="width" id="GsA-TP-Nti"/>
-                            <constraint firstItem="BgP-4U-f9C" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="WuH-F5-9rm"/>
-                            <constraint firstItem="BgP-4U-f9C" firstAttribute="trailing" secondItem="UOe-zw-poI" secondAttribute="trailing" id="hH9-vu-s0z"/>
-                            <constraint firstItem="BgP-4U-f9C" firstAttribute="top" secondItem="KxS-X6-GHs" secondAttribute="top" id="kGv-hZ-xtO"/>
+                            <constraint firstItem="3Hx-iF-519" firstAttribute="top" secondItem="UOe-zw-poI" secondAttribute="top" id="9rs-Sr-4Cb"/>
+                            <constraint firstItem="3Hx-iF-519" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="Cx6-oQ-vt0"/>
+                            <constraint firstItem="UOe-zw-poI" firstAttribute="bottom" secondItem="3Hx-iF-519" secondAttribute="bottom" id="F7N-pj-mWJ"/>
+                            <constraint firstItem="3Hx-iF-519" firstAttribute="trailing" secondItem="UOe-zw-poI" secondAttribute="trailing" id="Is9-Du-5R0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cza-vu-c4J"/>
                     <connections>
-                        <outlet property="scrollView" destination="BgP-4U-f9C" id="C4W-S4-QY9"/>
                         <outlet property="userInfo" destination="dU2-oF-EZI" id="WwL-aw-PSY"/>
                     </connections>
                 </viewController>
@@ -238,6 +210,7 @@
         <!--Navigation Controller-->
         <scene sceneID="nI6-em-dy4">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PBD-qJ-1W4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ehP-XY-jm9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OZK-aG-bY5">
@@ -249,7 +222,6 @@
                         <segue destination="bDA-Fs-qOq" kind="relationship" relationship="rootViewController" id="QM8-SC-nrA"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PBD-qJ-1W4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-645.60000000000002" y="87.931034482758619"/>
         </scene>
@@ -258,7 +230,7 @@
             <objects>
                 <viewController id="767-ax-dT6" customClass="MyPageDetailViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="a9p-mE-xQA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="649.66666666666663"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="540"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-x0-Nt8">
@@ -271,7 +243,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Boe-PT-gOE">
-                                <rect key="frame" x="0.0" y="50" width="375" height="599.66666666666663"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="490"/>
                                 <connections>
                                     <segue destination="4T5-lf-MOA" kind="embed" id="Sid-VV-pJF"/>
                                 </connections>
@@ -314,7 +286,7 @@
             <objects>
                 <viewController id="4T5-lf-MOA" customClass="PagingContentViewController" customModule="PagingKit" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eAJ-DG-dXK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="599.66666666666663"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="490"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Oci-sU-h10"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

@@ -12,11 +12,10 @@ import NSObject_Rx
 import SnapKit
 import Then
 
-class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased, UIScrollViewDelegate {
+class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     // MARK: - UIComponents
     
-    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var userInfo: MyPageHeaderView!
     
     // MARK: - Properties
@@ -32,13 +31,13 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
     }
     
     private func configureUI() {
-        scrollView.delegate = self
         view.backgroundColor = .systemBackground
         tabBarItem.image = UIImage(systemName: "person.crop.circle")
         tabBarItem.selectedImage = UIImage(systemName: "person.crop.circle.fill")
-        navigationItem.title = "내 정보 ⚙️"
+        navigationItem.title = "내 정보"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape.fill"), style: .plain, target: self, action: #selector(settingButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = .systemGray
+        
     }
     
     @objc func settingButtonTapped() {
@@ -50,7 +49,6 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
             guard var vc = segue.destination as? MyPageDetailViewController else { return }
             vc.coordinator = coordinator
             vc.bind(viewModel: viewModel)
-            
         }
     }
     
@@ -62,18 +60,5 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
             }
             .disposed(by: rx.disposeBag)
     }
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        
-//        let offSet = scrollView.contentOffset.y
-//        
-//        if offSet < 150 {
-//            let alpha = 1 - (offSet / 150)
-//            
-//            headerView.transform = .init(translationX: 0, y: min(0,-offSet))
-//            scrollViewTopLayout.constant = min(0,-offSet)
-//            headerView.layer.shadowOpacity = Float((offSet / 150) - 0.5)
-//        }
-//    }
     
 }

@@ -44,9 +44,11 @@ class HomeCoordinator: CoordinatorType {
         myPageVC.bind(viewModel: MyPageViewModel(userService: userService, mealService: mealService))
         
         let myPageNVC = UINavigationController(rootViewController: myPageVC)
-        myPageVC.navigationController?.navigationBar.prefersLargeTitles = true
         myPageVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
-        
+        myPageVC.navigationController?.navigationBar.barTintColor = .systemBackground
+//        myPageVC.navigationController?.navigationBar.shadowImage = UIImage()
+//        myPageVC.navigationController?.navigationBar.isTranslucent = false
+
         let tabBarController = UITabBarController()
         tabBarController.setViewControllers([mainNVC!, myMealNVC, myPageNVC], animated: false)
         tabBarController.tabBar.tintColor = DefaultStyle.Color.tint
