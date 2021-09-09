@@ -57,11 +57,13 @@ class MyPageHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.makeConstraints()
+//        self.backgroundColor = .systemRed
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.makeConstraints()
+//        self.backgroundColor = .systemRed
     }
     
     // MARK: - ConfigureUI
@@ -115,10 +117,10 @@ class MyPageHeaderView: UIView {
         
         self.addSubview(wholeStackView)
         wholeStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(10)
+            make.top.equalToSuperview()
             make.left.equalTo(20)
             make.right.equalTo(-20)
-            make.bottom.equalTo(10)
+            make.bottom.equalToSuperview()
         }
         
     }
