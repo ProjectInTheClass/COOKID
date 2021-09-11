@@ -25,10 +25,10 @@ class MyPageDetailViewController: UIViewController, ViewModelBindable {
         myMealsVC.coordinator = coordinator
         var myRecipesVC = MyRecipesViewController()
         myRecipesVC.bind(viewModel: viewModel)
-        var myHeartsVC = MyHeartsViewController()
+        var myHeartsVC = MyPostsViewController()
         myHeartsVC.bind(viewModel: viewModel)
         
-        dataSource = [(menuTitle: "나의 식사", vc: myMealsVC), (menuTitle: "나의 레시피", vc: myRecipesVC), (menuTitle: "좋아요", vc: myHeartsVC)]
+        dataSource = [(menuTitle: "나의 식사", vc: myMealsVC), (menuTitle: "나의 레시피", vc: myRecipesVC), (menuTitle: "나의 글", vc: myHeartsVC)]
         
         menuViewController.register(type: TitleLabelMenuViewCell.self, forCellWithReuseIdentifier: CELLIDENTIFIER.menuCell)
         menuViewController.registerFocusView(view: UnderlineFocusView())

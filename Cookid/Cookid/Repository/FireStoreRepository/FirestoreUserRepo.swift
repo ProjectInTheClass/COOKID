@@ -1,5 +1,5 @@
 //
-//  FireStoreUserRepo.swift
+//  FirestoreUserRepo.swift
 //  Cookid
 //
 //  Created by 박형석 on 2021/09/05.
@@ -10,8 +10,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 
-class FireStoreUserRepo {
-    static let instance = FireStoreUserRepo()
+class FirestoreUserRepo {
+    static let instance = FirestoreUserRepo()
     
     private let userDB = Firestore.firestore().collection("user")
     private let userStorage = Storage.storage().reference().child("user")

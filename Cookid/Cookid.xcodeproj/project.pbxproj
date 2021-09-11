@@ -56,10 +56,17 @@
 		03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */; };
 		03D8C1E126E852CD00238CB6 /* MyMealsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */; };
 		03D8C1E326E852D600238CB6 /* MyRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */; };
-		03D8C1E526E852E000238CB6 /* MyHeartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E426E852E000238CB6 /* MyHeartsViewController.swift */; };
 		03D8C1E726E8927700238CB6 /* MyMealsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */; };
+		03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */; };
+		03D8C1EB26EA539300238CB6 /* MyPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1EA26EA539300238CB6 /* MyPostTableViewCell.swift */; };
+		03D8C1EF26EB6D8C00238CB6 /* FirestorePostRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1EE26EB6D8C00238CB6 /* FirestorePostRepo.swift */; };
+		03D8C1F126EB6FD600238CB6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1F026EB6FD600238CB6 /* Post.swift */; };
+		03D8C1F326EB7E0500238CB6 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1F226EB7E0500238CB6 /* Comment.swift */; };
+		03D8C1F626EBB85200238CB6 /* RemotePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1F526EBB85200238CB6 /* RemotePost.swift */; };
+		03D8C1F826EBB85F00238CB6 /* RemoteComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1F726EBB85F00238CB6 /* RemoteComment.swift */; };
+		03D8C1FB26EBB92A00238CB6 /* FirebaseStorageRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1FA26EBB92A00238CB6 /* FirebaseStorageRepo.swift */; };
+		03D8C1FD26EBBC9800238CB6 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1FC26EBBC9800238CB6 /* PostService.swift */; };
 		03E42EB826C412A8005D7B5E /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EB726C412A8005D7B5E /* CookidTests.swift */; };
-		03E42EC626C412C2005D7B5E /* CookidUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EC526C412C2005D7B5E /* CookidUITests.swift */; };
 		03E42ED126C41766005D7B5E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED026C41766005D7B5E /* MainCoordinator.swift */; };
 		03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */; };
 		03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */; };
@@ -73,7 +80,7 @@
 		2417EAB626E58D0C006F2785 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2417EAB526E58D0C006F2785 /* MyPageViewModel.swift */; };
 		2417EABC26E5A562006F2785 /* MyPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2417EABB26E5A562006F2785 /* MyPageHeaderView.swift */; };
 		244B2B0826E24062001226F0 /* ImageRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B2B0726E24062001226F0 /* ImageRepo.swift */; };
-		244B2B1126E4A0DB001226F0 /* FireStoreUserRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B2B1026E4A0DB001226F0 /* FireStoreUserRepo.swift */; };
+		244B2B1126E4A0DB001226F0 /* FirestoreUserRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B2B1026E4A0DB001226F0 /* FirestoreUserRepo.swift */; };
 		24B081B126DFD21300379087 /* RealmUserRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081B026DFD21300379087 /* RealmUserRepo.swift */; };
 		24B081BA26DFD23500379087 /* LocalUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081B926DFD23500379087 /* LocalUser.swift */; };
 		24B081BF26E0473500379087 /* LocalMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081BE26E0473500379087 /* LocalMeal.swift */; };
@@ -85,7 +92,6 @@
 		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
 		C67441D62696FA530086CBAD /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
 		C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67441D726970E7C0086CBAD /* AuthRepository.swift */; };
-		C6BFF4532694996B006295F5 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF4522694996A006295F5 /* Entities.swift */; };
 		C6BFF45726949986006295F5 /* UserRepositrory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45426949986006295F5 /* UserRepositrory.swift */; };
 		C6BFF45826949986006295F5 /* GroceryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45526949986006295F5 /* GroceryRepository.swift */; };
 		C6BFF45926949986006295F5 /* MealRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45626949986006295F5 /* MealRepository.swift */; };
@@ -100,13 +106,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		03E42EBA26C412A8005D7B5E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 03223390269212860092DD6D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 03223397269212860092DD6D;
-			remoteInfo = Cookid;
-		};
-		03E42EC826C412C2005D7B5E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 03223390269212860092DD6D /* Project object */;
 			proxyType = 1;
@@ -165,14 +164,19 @@
 		03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDetailViewController.swift; sourceTree = "<group>"; };
 		03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealsViewController.swift; sourceTree = "<group>"; };
 		03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecipesViewController.swift; sourceTree = "<group>"; };
-		03D8C1E426E852E000238CB6 /* MyHeartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHeartsViewController.swift; sourceTree = "<group>"; };
 		03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealsCollectionViewCell.swift; sourceTree = "<group>"; };
+		03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostsViewController.swift; sourceTree = "<group>"; };
+		03D8C1EA26EA539300238CB6 /* MyPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostTableViewCell.swift; sourceTree = "<group>"; };
+		03D8C1EE26EB6D8C00238CB6 /* FirestorePostRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostRepo.swift; sourceTree = "<group>"; };
+		03D8C1F026EB6FD600238CB6 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		03D8C1F226EB7E0500238CB6 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		03D8C1F526EBB85200238CB6 /* RemotePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePost.swift; sourceTree = "<group>"; };
+		03D8C1F726EBB85F00238CB6 /* RemoteComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteComment.swift; sourceTree = "<group>"; };
+		03D8C1FA26EBB92A00238CB6 /* FirebaseStorageRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageRepo.swift; sourceTree = "<group>"; };
+		03D8C1FC26EBBC9800238CB6 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		03E42EB526C412A7005D7B5E /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E42EB726C412A8005D7B5E /* CookidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidTests.swift; sourceTree = "<group>"; };
 		03E42EB926C412A8005D7B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		03E42EC326C412C2005D7B5E /* CookidUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		03E42EC526C412C2005D7B5E /* CookidUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidUITests.swift; sourceTree = "<group>"; };
-		03E42EC726C412C2005D7B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03E42ED026C41766005D7B5E /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingMainViewController.swift; sourceTree = "<group>"; };
@@ -187,7 +191,7 @@
 		2417EAB526E58D0C006F2785 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		2417EABB26E5A562006F2785 /* MyPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderView.swift; sourceTree = "<group>"; };
 		244B2B0726E24062001226F0 /* ImageRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepo.swift; sourceTree = "<group>"; };
-		244B2B1026E4A0DB001226F0 /* FireStoreUserRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreUserRepo.swift; sourceTree = "<group>"; };
+		244B2B1026E4A0DB001226F0 /* FirestoreUserRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUserRepo.swift; sourceTree = "<group>"; };
 		24B081B026DFD21300379087 /* RealmUserRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUserRepo.swift; sourceTree = "<group>"; };
 		24B081B926DFD23500379087 /* LocalUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUser.swift; sourceTree = "<group>"; };
 		24B081BE26E0473500379087 /* LocalMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMeal.swift; sourceTree = "<group>"; };
@@ -197,7 +201,6 @@
 		892F362497B138331AC4FAC2 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
 		C67441D726970E7C0086CBAD /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
-		C6BFF4522694996A006295F5 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		C6BFF45426949986006295F5 /* UserRepositrory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepositrory.swift; sourceTree = "<group>"; };
 		C6BFF45526949986006295F5 /* GroceryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryRepository.swift; sourceTree = "<group>"; };
 		C6BFF45626949986006295F5 /* MealRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealRepository.swift; sourceTree = "<group>"; };
@@ -231,13 +234,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		03E42EC026C412C2005D7B5E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -246,7 +242,6 @@
 			children = (
 				0322339A269212860092DD6D /* Cookid */,
 				03E42EB626C412A8005D7B5E /* CookidTests */,
-				03E42EC426C412C2005D7B5E /* CookidUITests */,
 				03223399269212860092DD6D /* Products */,
 				4D7F201105C9BFA7F50A2933 /* Pods */,
 				10D0AB71C5B71C6AD217376D /* Frameworks */,
@@ -258,7 +253,6 @@
 			children = (
 				03223398269212860092DD6D /* Cookid.app */,
 				03E42EB526C412A7005D7B5E /* CookidTests.xctest */,
-				03E42EC326C412C2005D7B5E /* CookidUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -288,6 +282,7 @@
 		032233AF2692764F0092DD6D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				03D8C1F926EBB8EE00238CB6 /* StorageRepository */,
 				244B2B0F26E4A0BF001226F0 /* FireStoreRepository */,
 				244B2B0626E24044001226F0 /* ImageRepository */,
 				24B081A926DFD1FA00379087 /* RealmRepository */,
@@ -298,8 +293,8 @@
 		032233B02692765C0092DD6D /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				03D8C1F426EBB7E500238CB6 /* RemoteEntity */,
 				24B081B526DFD22100379087 /* LocalEntity */,
-				C6BFF4522694996A006295F5 /* Entities.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -312,6 +307,8 @@
 				0348B8FB26D34463001BF3B7 /* Shopping.swift */,
 				03B2049826D7B8AC0099C269 /* Menu.swift */,
 				0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */,
+				03D8C1F226EB7E0500238CB6 /* Comment.swift */,
+				03D8C1F026EB6FD600238CB6 /* Post.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -482,6 +479,23 @@
 			path = FirebaseReopsitory;
 			sourceTree = "<group>";
 		};
+		03D8C1F426EBB7E500238CB6 /* RemoteEntity */ = {
+			isa = PBXGroup;
+			children = (
+				03D8C1F526EBB85200238CB6 /* RemotePost.swift */,
+				03D8C1F726EBB85F00238CB6 /* RemoteComment.swift */,
+			);
+			path = RemoteEntity;
+			sourceTree = "<group>";
+		};
+		03D8C1F926EBB8EE00238CB6 /* StorageRepository */ = {
+			isa = PBXGroup;
+			children = (
+				03D8C1FA26EBB92A00238CB6 /* FirebaseStorageRepo.swift */,
+			);
+			path = StorageRepository;
+			sourceTree = "<group>";
+		};
 		03E42EB626C412A8005D7B5E /* CookidTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,15 +503,6 @@
 				03E42EB926C412A8005D7B5E /* Info.plist */,
 			);
 			path = CookidTests;
-			sourceTree = "<group>";
-		};
-		03E42EC426C412C2005D7B5E /* CookidUITests */ = {
-			isa = PBXGroup;
-			children = (
-				03E42EC526C412C2005D7B5E /* CookidUITests.swift */,
-				03E42EC726C412C2005D7B5E /* Info.plist */,
-			);
-			path = CookidUITests;
 			sourceTree = "<group>";
 		};
 		03E42ECD26C4172E005D7B5E /* Coordinator */ = {
@@ -549,7 +554,7 @@
 				03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */,
 				03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */,
 				03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */,
-				03D8C1E426E852E000238CB6 /* MyHeartsViewController.swift */,
+				03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -583,6 +588,7 @@
 			children = (
 				2417EABB26E5A562006F2785 /* MyPageHeaderView.swift */,
 				03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */,
+				03D8C1EA26EA539300238CB6 /* MyPostTableViewCell.swift */,
 			);
 			path = MyPageCustomView;
 			sourceTree = "<group>";
@@ -598,7 +604,8 @@
 		244B2B0F26E4A0BF001226F0 /* FireStoreRepository */ = {
 			isa = PBXGroup;
 			children = (
-				244B2B1026E4A0DB001226F0 /* FireStoreUserRepo.swift */,
+				244B2B1026E4A0DB001226F0 /* FirestoreUserRepo.swift */,
+				03D8C1EE26EB6D8C00238CB6 /* FirestorePostRepo.swift */,
 			);
 			path = FireStoreRepository;
 			sourceTree = "<group>";
@@ -639,6 +646,7 @@
 				DB0D7D7326949818009B2D51 /* MealService.swift */,
 				241523AF269D093E0077941A /* ShoppingService.swift */,
 				03B2049A26D7BA830099C269 /* MenuService.swift */,
+				03D8C1FC26EBBC9800238CB6 /* PostService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -691,24 +699,6 @@
 			productReference = 03E42EB526C412A7005D7B5E /* CookidTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		03E42EC226C412C2005D7B5E /* CookidUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 03E42ECA26C412C2005D7B5E /* Build configuration list for PBXNativeTarget "CookidUITests" */;
-			buildPhases = (
-				03E42EBF26C412C2005D7B5E /* Sources */,
-				03E42EC026C412C2005D7B5E /* Frameworks */,
-				03E42EC126C412C2005D7B5E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				03E42EC926C412C2005D7B5E /* PBXTargetDependency */,
-			);
-			name = CookidUITests;
-			productName = CookidUITests;
-			productReference = 03E42EC326C412C2005D7B5E /* CookidUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -722,10 +712,6 @@
 						CreatedOnToolsVersion = 12.5.1;
 					};
 					03E42EB426C412A7005D7B5E = {
-						CreatedOnToolsVersion = 12.5.1;
-						TestTargetID = 03223397269212860092DD6D;
-					};
-					03E42EC226C412C2005D7B5E = {
 						CreatedOnToolsVersion = 12.5.1;
 						TestTargetID = 03223397269212860092DD6D;
 					};
@@ -749,7 +735,6 @@
 			targets = (
 				03223397269212860092DD6D /* Cookid */,
 				03E42EB426C412A7005D7B5E /* CookidTests */,
-				03E42EC226C412C2005D7B5E /* CookidUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -770,13 +755,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		03E42EB326C412A7005D7B5E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		03E42EC126C412C2005D7B5E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -859,6 +837,7 @@
 				C6BFF45726949986006295F5 /* UserRepositrory.swift in Sources */,
 				0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */,
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
+				03D8C1EB26EA539300238CB6 /* MyPostTableViewCell.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
 				03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */,
@@ -868,6 +847,7 @@
 				03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */,
 				2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
+				03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */,
 				032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */,
 				DB61715226C9577B008F497C /* NotificationManager.swift in Sources */,
 				03B2049526D75DD50099C269 /* PictureSelectViewController.swift in Sources */,
@@ -877,12 +857,12 @@
 				035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */,
 				2417EAB626E58D0C006F2785 /* MyPageViewModel.swift in Sources */,
 				032233CB2692A8630092DD6D /* OnboardingPageViewViewController.swift in Sources */,
-				244B2B1126E4A0DB001226F0 /* FireStoreUserRepo.swift in Sources */,
+				03D8C1F826EBB85F00238CB6 /* RemoteComment.swift in Sources */,
+				244B2B1126E4A0DB001226F0 /* FirestoreUserRepo.swift in Sources */,
 				032233C726927F0C0092DD6D /* DummyData.swift in Sources */,
 				C6BFF46226949AA7006295F5 /* Constant.swift in Sources */,
 				032233DE2693057C0092DD6D /* User.swift in Sources */,
 				03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */,
-				C6BFF4532694996B006295F5 /* Entities.swift in Sources */,
 				03D8C1E326E852D600238CB6 /* MyRecipesViewController.swift in Sources */,
 				03586EB326E4FEC0002A56C6 /* OAuthForKakao.swift in Sources */,
 				03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */,
@@ -891,18 +871,21 @@
 				0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */,
 				032233D72692F0160092DD6D /* Extension.swift in Sources */,
 				032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */,
+				03D8C1FD26EBBC9800238CB6 /* PostService.swift in Sources */,
 				244B2B0826E24062001226F0 /* ImageRepo.swift in Sources */,
 				03B2049926D7B8AC0099C269 /* Menu.swift in Sources */,
 				03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */,
 				C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */,
 				0322339E269212860092DD6D /* SceneDelegate.swift in Sources */,
+				03D8C1FB26EBB92A00238CB6 /* FirebaseStorageRepo.swift in Sources */,
 				C67441D62696FA530086CBAD /* MealService.swift in Sources */,
 				03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */,
+				03D8C1F626EBB85200238CB6 /* RemotePost.swift in Sources */,
+				03D8C1EF26EB6D8C00238CB6 /* FirestorePostRepo.swift in Sources */,
 				24B081BF26E0473500379087 /* LocalMeal.swift in Sources */,
 				24B081B126DFD21300379087 /* RealmUserRepo.swift in Sources */,
 				03586EB926E4FEE7002A56C6 /* OAuthForApple.swift in Sources */,
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
-				03D8C1E526E852E000238CB6 /* MyHeartsViewController.swift in Sources */,
 				2417EABC26E5A562006F2785 /* MyPageHeaderView.swift in Sources */,
 				C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */,
 				03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */,
@@ -916,10 +899,12 @@
 				24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
 				24B081BA26DFD23500379087 /* LocalUser.swift in Sources */,
+				03D8C1F126EB6FD600238CB6 /* Post.swift in Sources */,
 				03B2048D26D5D9440099C269 /* AddShoppingViewModel.swift in Sources */,
 				03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */,
 				0348B8FC26D34463001BF3B7 /* Shopping.swift in Sources */,
 				03E42ED126C41766005D7B5E /* MainCoordinator.swift in Sources */,
+				03D8C1F326EB7E0500238CB6 /* Comment.swift in Sources */,
 				03B2049726D75E7E0099C269 /* PictureSelectCollectionViewCell.swift in Sources */,
 				035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */,
 				0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */,
@@ -935,14 +920,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		03E42EBF26C412C2005D7B5E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				03E42EC626C412C2005D7B5E /* CookidUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -950,11 +927,6 @@
 			isa = PBXTargetDependency;
 			target = 03223397269212860092DD6D /* Cookid */;
 			targetProxy = 03E42EBA26C412A8005D7B5E /* PBXContainerItemProxy */;
-		};
-		03E42EC926C412C2005D7B5E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 03223397269212860092DD6D /* Cookid */;
-			targetProxy = 03E42EC826C412C2005D7B5E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1180,46 +1152,6 @@
 			};
 			name = Release;
 		};
-		03E42ECB26C412C2005D7B5E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAJ2NCPU9;
-				INFOPLIST_FILE = CookidUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Cookid;
-			};
-			name = Debug;
-		};
-		03E42ECC26C412C2005D7B5E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBAJ2NCPU9;
-				INFOPLIST_FILE = CookidUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Cookid;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1246,15 +1178,6 @@
 			buildConfigurations = (
 				03E42EBC26C412A8005D7B5E /* Debug */,
 				03E42EBD26C412A8005D7B5E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		03E42ECA26C412C2005D7B5E /* Build configuration list for PBXNativeTarget "CookidUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				03E42ECB26C412C2005D7B5E /* Debug */,
-				03E42ECC26C412C2005D7B5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

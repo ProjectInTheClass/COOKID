@@ -7,12 +7,6 @@
 
 import UIKit
 
-enum FBChild {
-    static let groceries = "groceries"
-    static let user = "user"
-    static let meal = "meal"
-}
-
 public enum DefaultStyle {
    
     public enum Color {
@@ -57,8 +51,16 @@ enum CELLIDENTIFIER {
     static let mainShoppingCell = "mainShoppingCell"
     static let pictureSelectCell = "pictureSelectCell"
     static let menuCell = "menuCell"
+    static let recipeCell = "recipeCell"
+    static let postCell = "postCell"
 }
 
 enum NetWorkingError : String, Error {
-    case fetchError = "서버에서 유저 정보를 가져오는데 실패했습니다."
+    case fetchError = "서버에서 정보를 가져오는데 실패했습니다. made by 형석"
+}
+
+enum NetWorkingResult {
+    case success(String)
+    case post(Post)
+    case comment(Comment)
 }

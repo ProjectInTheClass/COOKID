@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--My Page View Controller-->
+        <!--Item-->
         <scene sceneID="k3d-NM-s7Y">
             <objects>
                 <viewController storyboardIdentifier="MyPageViewController" id="bDA-Fs-qOq" customClass="MyPageViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,48 +17,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Hx-iF-519">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dU2-oF-EZI" customClass="MyPageHeaderView" customModule="Cookid" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="375" height="140"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dU2-oF-EZI" customClass="MyPageHeaderView" customModule="Cookid" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EO4-pW-nUv">
-                                                <rect key="frame" x="0.0" y="139" width="375" height="1"/>
-                                                <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="Cfg-or-meX"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EO4-pW-nUv">
+                                        <rect key="frame" x="0.0" y="139" width="375" height="1"/>
+                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="140" id="6JF-P4-xWN"/>
-                                            <constraint firstAttribute="bottom" secondItem="EO4-pW-nUv" secondAttribute="bottom" id="9ku-VN-qeO"/>
-                                            <constraint firstItem="EO4-pW-nUv" firstAttribute="leading" secondItem="dU2-oF-EZI" secondAttribute="leading" id="SIB-Gc-SQf"/>
-                                            <constraint firstAttribute="trailing" secondItem="EO4-pW-nUv" secondAttribute="trailing" id="cf4-5q-tbG"/>
+                                            <constraint firstAttribute="height" constant="1" id="Cfg-or-meX"/>
                                         </constraints>
                                     </view>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TH-Pw-YI7">
-                                        <rect key="frame" x="0.0" y="150" width="375" height="540"/>
-                                        <connections>
-                                            <segue destination="767-ax-dT6" kind="embed" identifier="detailSegue" id="SBR-bW-gcK"/>
-                                        </connections>
-                                    </containerView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
-                            </stackView>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="140" id="0hu-VD-8yc"/>
+                                    <constraint firstAttribute="height" constant="140" id="6JF-P4-xWN"/>
+                                    <constraint firstAttribute="bottom" secondItem="EO4-pW-nUv" secondAttribute="bottom" id="9ku-VN-qeO"/>
+                                    <constraint firstItem="EO4-pW-nUv" firstAttribute="leading" secondItem="dU2-oF-EZI" secondAttribute="leading" id="SIB-Gc-SQf"/>
+                                    <constraint firstAttribute="trailing" secondItem="EO4-pW-nUv" secondAttribute="trailing" id="cf4-5q-tbG"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TH-Pw-YI7">
+                                <rect key="frame" x="0.0" y="228" width="375" height="501"/>
+                                <connections>
+                                    <segue destination="767-ax-dT6" kind="embed" identifier="detailSegue" id="SBR-bW-gcK"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UOe-zw-poI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="3Hx-iF-519" firstAttribute="top" secondItem="UOe-zw-poI" secondAttribute="top" id="9rs-Sr-4Cb"/>
-                            <constraint firstItem="3Hx-iF-519" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="Cx6-oQ-vt0"/>
-                            <constraint firstItem="UOe-zw-poI" firstAttribute="bottom" secondItem="3Hx-iF-519" secondAttribute="bottom" id="F7N-pj-mWJ"/>
-                            <constraint firstItem="3Hx-iF-519" firstAttribute="trailing" secondItem="UOe-zw-poI" secondAttribute="trailing" id="Is9-Du-5R0"/>
+                            <constraint firstItem="dU2-oF-EZI" firstAttribute="trailing" secondItem="UOe-zw-poI" secondAttribute="trailing" id="2GL-3y-nlF"/>
+                            <constraint firstItem="UOe-zw-poI" firstAttribute="bottom" secondItem="0TH-Pw-YI7" secondAttribute="bottom" id="Bbd-Q9-eoR"/>
+                            <constraint firstItem="dU2-oF-EZI" firstAttribute="top" secondItem="UOe-zw-poI" secondAttribute="top" id="Ftk-vq-nUB"/>
+                            <constraint firstItem="0TH-Pw-YI7" firstAttribute="top" secondItem="dU2-oF-EZI" secondAttribute="bottom" id="KzI-8S-DEn"/>
+                            <constraint firstItem="dU2-oF-EZI" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="gY6-oE-KiH"/>
+                            <constraint firstItem="0TH-Pw-YI7" firstAttribute="trailing" secondItem="UOe-zw-poI" secondAttribute="trailing" id="iDD-fB-6yD"/>
+                            <constraint firstItem="0TH-Pw-YI7" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="nek-W8-aKN"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="ltJ-Jx-j90"/>
                     <navigationItem key="navigationItem" id="cza-vu-c4J"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="userInfo" destination="dU2-oF-EZI" id="WwL-aw-PSY"/>
                     </connections>
@@ -230,7 +230,7 @@
             <objects>
                 <viewController id="767-ax-dT6" customClass="MyPageDetailViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="a9p-mE-xQA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="540"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="501"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-x0-Nt8">
@@ -243,7 +243,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Boe-PT-gOE">
-                                <rect key="frame" x="0.0" y="50" width="375" height="490"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="451"/>
                                 <connections>
                                     <segue destination="4T5-lf-MOA" kind="embed" id="Sid-VV-pJF"/>
                                 </connections>
@@ -255,7 +255,7 @@
                             <constraint firstAttribute="trailing" secondItem="wRv-x0-Nt8" secondAttribute="trailing" id="BdK-NJ-nJh"/>
                             <constraint firstItem="Boe-PT-gOE" firstAttribute="top" secondItem="wRv-x0-Nt8" secondAttribute="bottom" id="Irk-N5-LVR"/>
                             <constraint firstItem="wRv-x0-Nt8" firstAttribute="leading" secondItem="a9p-mE-xQA" secondAttribute="leading" id="N9k-ch-PyM"/>
-                            <constraint firstAttribute="bottom" secondItem="Boe-PT-gOE" secondAttribute="bottom" id="Oec-6U-2Ve"/>
+                            <constraint firstItem="hcj-X4-1cD" firstAttribute="bottom" secondItem="Boe-PT-gOE" secondAttribute="bottom" id="Oec-6U-2Ve"/>
                             <constraint firstItem="wRv-x0-Nt8" firstAttribute="top" secondItem="a9p-mE-xQA" secondAttribute="top" id="VQc-c9-ZDU"/>
                             <constraint firstItem="Boe-PT-gOE" firstAttribute="leading" secondItem="a9p-mE-xQA" secondAttribute="leading" id="of0-j2-nQA"/>
                             <constraint firstAttribute="trailing" secondItem="Boe-PT-gOE" secondAttribute="trailing" id="wae-LU-7qU"/>
@@ -286,7 +286,7 @@
             <objects>
                 <viewController id="4T5-lf-MOA" customClass="PagingContentViewController" customModule="PagingKit" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eAJ-DG-dXK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="490"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="451"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Oci-sU-h10"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -304,9 +304,6 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
