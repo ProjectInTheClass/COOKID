@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1240"
+   LastUpgradeVersion = "1250"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -42,9 +42,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "03E42EC226C412C2005D7B5E"
-               BuildableName = "CookidUITests.xctest"
-               BlueprintName = "CookidUITests"
+               BlueprintIdentifier = "03D8C20126EC404200238CB6"
+               BuildableName = "NewCookidTests.xctest"
+               BlueprintName = "NewCookidTests"
                ReferencedContainer = "container:Cookid.xcodeproj">
             </BuildableReference>
          </TestableReference>

@@ -22,7 +22,7 @@ class UserService {
     
     // fetch
     func loadUserInfo(completion: @escaping (User?) -> Void) {
-        FireStoreUserRepo.instance.fetchUser(user: defaultUserInfo) { user in
+        FirestoreUserRepo.instance.fetchUser(user: defaultUserInfo) { user in
             if let user = user {
                 self.defaultUserInfo = user
                 self.userInfo.onNext(user)
@@ -46,7 +46,7 @@ class UserService {
     }
     
     func connectUserInfo(user: User) {
-        FireStoreUserRepo.instance.createUser(user: user) { [weak self] success in
+        FirestoreUserRepo.instance.createUser(user: user) { [weak self] success in
             guard let self = self else { return }
             if success {
                 self.defaultUserInfo = user
@@ -70,7 +70,7 @@ class UserService {
     
     func uploadUserImage(user: User, image: UIImage?) -> Observable<URL?> {
         return Observable.create { observer in
-            FireStoreUserRepo.instance.uploadUserImage(user: user, image: image) { url in
+            FirestoreUserRepo.instance.uploadUserImage(user: user, image: image) { url in
                 observer.onNext(url)
             }
             return Disposables.create()

@@ -31,6 +31,7 @@ class HomeCoordinator: CoordinatorType {
         mainNVC = UINavigationController(rootViewController: mainVC)
         mainVC.navigationController?.navigationBar.prefersLargeTitles = true
         mainVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
+        mainVC.navigationController?.navigationBar.barTintColor = .systemBackground
         
         var myMealVC = MyMealViewController.instantiate(storyboardID: "MyMealTap")
         myMealVC.bind(viewModel: MyMealViewModel(mealService: mealService, userService: userService))
@@ -38,6 +39,7 @@ class HomeCoordinator: CoordinatorType {
         let myMealNVC = UINavigationController(rootViewController: myMealVC)
         myMealVC.navigationController?.navigationBar.prefersLargeTitles = true
         myMealVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
+        myMealVC.navigationController?.navigationBar.barTintColor = .systemBackground
         
         var myPageVC = MyPageViewController.instantiate(storyboardID: "UserInfo")
         myPageVC.coordinator = self
@@ -46,8 +48,6 @@ class HomeCoordinator: CoordinatorType {
         let myPageNVC = UINavigationController(rootViewController: myPageVC)
         myPageVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         myPageVC.navigationController?.navigationBar.barTintColor = .systemBackground
-//        myPageVC.navigationController?.navigationBar.shadowImage = UIImage()
-//        myPageVC.navigationController?.navigationBar.isTranslucent = false
 
         let tabBarController = UITabBarController()
         tabBarController.setViewControllers([mainNVC!, myMealNVC, myPageNVC], animated: false)
