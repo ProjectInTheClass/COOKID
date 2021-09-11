@@ -9,10 +9,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SignInViewController: UIViewController, ViewModelBindable {
+class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     // MARK: - UI Components
     
+    @IBOutlet weak var kidLabel: UILabel!
+    @IBOutlet weak var appleSignInButton: UIButton!
+    @IBOutlet weak var naverSignInButton: UIButton!
+    @IBOutlet weak var kakaoSignInButton: UIButton!
     
     // MARK: - Properties
     
@@ -25,9 +29,35 @@ class SignInViewController: UIViewController, ViewModelBindable {
         
     }
     
-    func bindViewModel() {
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        kidLabel.text = "😀"
+        UIView.animate(withDuration: 0.3, delay: 1) { [unowned self] in
+            self.kidLabel.text = "KID"
+        }
     }
     
+    // MARK: - bindViewModel
     
+    func bindViewModel() {
+        
+        appleSignInButton.rx.tap
+            .bind {
+                print("apple login")
+            }
+            .disposed(by: rx.disposeBag)
+        
+        naverSignInButton.rx.tap
+            .bind {
+                print("naver login")
+            }
+            .disposed(by: rx.disposeBag)
+        
+        kakaoSignInButton.rx.tap
+            .bind {
+                print("kakao login")
+            }
+            .disposed(by: rx.disposeBag)
+        
+    }
 }

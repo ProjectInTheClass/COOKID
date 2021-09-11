@@ -37,6 +37,11 @@
                BlueprintName = "CookidTests"
                ReferencedContainer = "container:Cookid.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "CookidFakeTest">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO">
