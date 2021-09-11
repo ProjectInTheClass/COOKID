@@ -33,9 +33,6 @@
 		03586EAA26E4FC05002A56C6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 03586EA926E4FC05002A56C6 /* FirebaseFirestore */; };
 		03586EAC26E4FC2C002A56C6 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 03586EAB26E4FC2C002A56C6 /* FirebaseFirestoreSwift-Beta */; };
 		03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */; };
-		03586EB326E4FEC0002A56C6 /* OAuthForKakao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03586EB226E4FEC0002A56C6 /* OAuthForKakao.swift */; };
-		03586EB726E4FEDA002A56C6 /* OAuthForNaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03586EB626E4FEDA002A56C6 /* OAuthForNaver.swift */; };
-		03586EB926E4FEE7002A56C6 /* OAuthForApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03586EB826E4FEE7002A56C6 /* OAuthForApple.swift */; };
 		035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E491C26956F92002CC084 /* MealTableViewCell.swift */; };
 		035E4921269597D4002CC084 /* MealTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */; };
 		035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E4922269681A0002CC084 /* CustomProgressCircleView.swift */; };
@@ -74,6 +71,7 @@
 		03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */; };
 		03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */; };
 		03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */; };
+		03F2ED6226ED048300CFE87C /* AuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6126ED048300CFE87C /* AuthRepo.swift */; };
 		241523B0269D093E0077941A /* ShoppingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523AF269D093E0077941A /* ShoppingService.swift */; };
 		241523B4269D24860077941A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523B3269D24860077941A /* Function.swift */; };
 		2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */; };
@@ -142,9 +140,6 @@
 		0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCollectionViewCell.swift; sourceTree = "<group>"; };
 		0348B90826D542EF001BF3B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		03586EB226E4FEC0002A56C6 /* OAuthForKakao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthForKakao.swift; sourceTree = "<group>"; };
-		03586EB626E4FEDA002A56C6 /* OAuthForNaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthForNaver.swift; sourceTree = "<group>"; };
-		03586EB826E4FEE7002A56C6 /* OAuthForApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthForApple.swift; sourceTree = "<group>"; };
 		035E491C26956F92002CC084 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		035E4922269681A0002CC084 /* CustomProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressCircleView.swift; sourceTree = "<group>"; };
@@ -184,6 +179,7 @@
 		03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHeaderView.swift; sourceTree = "<group>"; };
 		03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingTableViewCell.swift; sourceTree = "<group>"; };
+		03F2ED6126ED048300CFE87C /* AuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepo.swift; sourceTree = "<group>"; };
 		0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
 		241523AF269D093E0077941A /* ShoppingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingService.swift; sourceTree = "<group>"; };
 		241523B3269D24860077941A /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
@@ -263,7 +259,6 @@
 				032233B6269276920092DD6D /* Resources */,
 				032233D52692F00B0092DD6D /* API */,
 				03E42ECD26C4172E005D7B5E /* Coordinator */,
-				03586EB126E4FE97002A56C6 /* Network */,
 				032233AF2692764F0092DD6D /* Repository */,
 				032233B02692765C0092DD6D /* Entity */,
 				032233B1269276680092DD6D /* Model */,
@@ -282,8 +277,9 @@
 		032233AF2692764F0092DD6D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				03F2ED6026ED046700CFE87C /* AuthRepository */,
 				03D8C1F926EBB8EE00238CB6 /* StorageRepository */,
-				244B2B0F26E4A0BF001226F0 /* FireStoreRepository */,
+				244B2B0F26E4A0BF001226F0 /* FirestoreRepository */,
 				244B2B0626E24044001226F0 /* ImageRepository */,
 				24B081A926DFD1FA00379087 /* RealmRepository */,
 			);
@@ -417,16 +413,6 @@
 			path = SignIn;
 			sourceTree = "<group>";
 		};
-		03586EB126E4FE97002A56C6 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				03586EB226E4FEC0002A56C6 /* OAuthForKakao.swift */,
-				03586EB626E4FEDA002A56C6 /* OAuthForNaver.swift */,
-				03586EB826E4FEE7002A56C6 /* OAuthForApple.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		03586EBA26E4FF64002A56C6 /* Deprecated */ = {
 			isa = PBXGroup;
 			children = (
@@ -539,6 +525,14 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		03F2ED6026ED046700CFE87C /* AuthRepository */ = {
+			isa = PBXGroup;
+			children = (
+				03F2ED6126ED048300CFE87C /* AuthRepo.swift */,
+			);
+			path = AuthRepository;
+			sourceTree = "<group>";
+		};
 		10D0AB71C5B71C6AD217376D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,13 +595,13 @@
 			path = ImageRepository;
 			sourceTree = "<group>";
 		};
-		244B2B0F26E4A0BF001226F0 /* FireStoreRepository */ = {
+		244B2B0F26E4A0BF001226F0 /* FirestoreRepository */ = {
 			isa = PBXGroup;
 			children = (
 				244B2B1026E4A0DB001226F0 /* FirestoreUserRepo.swift */,
 				03D8C1EE26EB6D8C00238CB6 /* FirestorePostRepo.swift */,
 			);
-			path = FireStoreRepository;
+			path = FirestoreRepository;
 			sourceTree = "<group>";
 		};
 		24B081A926DFD1FA00379087 /* RealmRepository */ = {
@@ -864,7 +858,6 @@
 				032233DE2693057C0092DD6D /* User.swift in Sources */,
 				03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */,
 				03D8C1E326E852D600238CB6 /* MyRecipesViewController.swift in Sources */,
-				03586EB326E4FEC0002A56C6 /* OAuthForKakao.swift in Sources */,
 				03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */,
 				0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */,
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
@@ -884,13 +877,12 @@
 				03D8C1EF26EB6D8C00238CB6 /* FirestorePostRepo.swift in Sources */,
 				24B081BF26E0473500379087 /* LocalMeal.swift in Sources */,
 				24B081B126DFD21300379087 /* RealmUserRepo.swift in Sources */,
-				03586EB926E4FEE7002A56C6 /* OAuthForApple.swift in Sources */,
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
 				2417EABC26E5A562006F2785 /* MyPageHeaderView.swift in Sources */,
 				C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */,
 				03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */,
+				03F2ED6226ED048300CFE87C /* AuthRepo.swift in Sources */,
 				24B081C426E0473F00379087 /* LocalShopping.swift in Sources */,
-				03586EB726E4FEDA002A56C6 /* OAuthForNaver.swift in Sources */,
 				DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */,
 				038875B126A030F300D5D202 /* MainViewController.swift in Sources */,
 				03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */,

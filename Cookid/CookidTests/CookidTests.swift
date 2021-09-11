@@ -51,14 +51,14 @@ class CookidTests: XCTestCase {
     func testFireStoreCreateTest() {
         
         // given : 필요한 모든 값을 set up. 예를 들어, 추측되는 값을 생성하고 타겟과 얼마나 다른지를 특정할 수 있다. 예를 들어 유저가 넣게 되는 값, userActions이 되겠지?
-        
         // when : 유저의 action이 들어왔을 때, 수행하게 되는 함수
-        
         // then : 결과검사
-        //        XCTAssertEqual("wef", "wef", "false")
+        // XCTAssertEqual("wef", "wef", "false")
     }
     
     func testAsyncronizedMethods() throws {
+        
+        try XCTSkipUnless(true)
         
         // XCTestExpectation를 사용해서 비동기 작업이 완료될 때까지 테스트를 대기하는데 사용한다. 이 테스트는 비교적 느리기 때문에 다른 테스트와 별도로 유지해야 한다. 이 메소드처럼 새로운 메소드를 만든다. 마찬가지 순서대로 진행한다.
         
