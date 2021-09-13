@@ -1,4 +1,4 @@
-${PODS_ROOT}/Target Support Files/Pods-Cookid/Pods-Cookid-frameworks.sh
+${PODS_ROOT}/Target Support Files/Pods-CookidTests/Pods-CookidTests-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework
 ${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework

@@ -82,6 +82,8 @@
 		03F2ED7926EDD46900CFE87C /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7826EDD46900CFE87C /* PostDetailViewController.swift */; };
 		03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */; };
 		03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */; };
+		03F2ED8226EF537E00CFE87C /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 03F2ED8126EF537E00CFE87C /* Realm */; };
+		03F2ED8426EF537E00CFE87C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03F2ED8326EF537E00CFE87C /* RealmSwift */; };
 		241523B0269D093E0077941A /* ShoppingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523AF269D093E0077941A /* ShoppingService.swift */; };
 		241523B4269D24860077941A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523B3269D24860077941A /* Function.swift */; };
 		2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */; };
@@ -96,6 +98,7 @@
 		24B081CC26E10F7B00379087 /* RealmMealRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081CB26E10F7B00379087 /* RealmMealRepo.swift */; };
 		24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081D026E10F8900379087 /* RealmShoppingRepo.swift */; };
 		8DE13647C08469F3C72C2F18 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B632E4718B240458C546A106 /* Pods_Cookid.framework */; };
+		B254AC1C10960A5F525656B8 /* Pods_CookidTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CFE3186FE4C8D4D4C424A8 /* Pods_CookidTests.framework */; };
 		C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
 		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
 		C67441D62696FA530086CBAD /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
@@ -214,7 +217,9 @@
 		24B081CB26E10F7B00379087 /* RealmMealRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMealRepo.swift; sourceTree = "<group>"; };
 		24B081D026E10F8900379087 /* RealmShoppingRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmShoppingRepo.swift; sourceTree = "<group>"; };
 		633B5656FDBC98360D286571 /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
+		73D95818DBDA44D075AAF3DF /* Pods-CookidTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookidTests.release.xcconfig"; path = "Target Support Files/Pods-CookidTests/Pods-CookidTests.release.xcconfig"; sourceTree = "<group>"; };
 		904741279A4F1CFB953C5D48 /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
+		9B2D5500FAB87ECEE29995E1 /* Pods-CookidTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookidTests.debug.xcconfig"; path = "Target Support Files/Pods-CookidTests/Pods-CookidTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B632E4718B240458C546A106 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C67441D726970E7C0086CBAD /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		C6BFF45426949986006295F5 /* UserRepositrory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepositrory.swift; sourceTree = "<group>"; };
@@ -227,6 +232,7 @@
 		DB61715126C9577B008F497C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		DBDA046726969A6500B5C1D6 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = COOKID/Service/UserService.swift; sourceTree = SOURCE_ROOT; };
 		DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateViewModel.swift; sourceTree = "<group>"; };
+		F2CFE3186FE4C8D4D4C424A8 /* Pods_CookidTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookidTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +240,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03F2ED8426EF537E00CFE87C /* RealmSwift in Frameworks */,
+				03F2ED8226EF537E00CFE87C /* Realm in Frameworks */,
 				C6BFF45C26949A1E006295F5 /* FirebaseDatabase in Frameworks */,
 				C6BFF45E26949A1E006295F5 /* FirebaseStorage in Frameworks */,
 				03586EAC26E4FC2C002A56C6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
@@ -247,6 +255,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B254AC1C10960A5F525656B8 /* Pods_CookidTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,6 +684,8 @@
 			children = (
 				904741279A4F1CFB953C5D48 /* Pods-Cookid.debug.xcconfig */,
 				633B5656FDBC98360D286571 /* Pods-Cookid.release.xcconfig */,
+				9B2D5500FAB87ECEE29995E1 /* Pods-CookidTests.debug.xcconfig */,
+				73D95818DBDA44D075AAF3DF /* Pods-CookidTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -683,6 +694,7 @@
 			isa = PBXGroup;
 			children = (
 				B632E4718B240458C546A106 /* Pods_Cookid.framework */,
+				F2CFE3186FE4C8D4D4C424A8 /* Pods_CookidTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -724,6 +736,8 @@
 				C6150A082696C20800578EAB /* FirebaseAuth */,
 				03586EA926E4FC05002A56C6 /* FirebaseFirestore */,
 				03586EAB26E4FC2C002A56C6 /* FirebaseFirestoreSwift-Beta */,
+				03F2ED8126EF537E00CFE87C /* Realm */,
+				03F2ED8326EF537E00CFE87C /* RealmSwift */,
 			);
 			productName = Cookid;
 			productReference = 03223398269212860092DD6D /* Cookid.app */;
@@ -733,9 +747,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03E42EBE26C412A8005D7B5E /* Build configuration list for PBXNativeTarget "CookidTests" */;
 			buildPhases = (
+				48892CF3E627BF04B060A701 /* [CP] Check Pods Manifest.lock */,
 				03E42EB126C412A7005D7B5E /* Sources */,
 				03E42EB226C412A7005D7B5E /* Frameworks */,
 				03E42EB326C412A7005D7B5E /* Resources */,
+				75FD79DEDC422FE4D92C25CA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -776,6 +792,7 @@
 			mainGroup = 0322338F269212860092DD6D;
 			packageReferences = (
 				C6BFF45A26949A1E006295F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				03F2ED8026EF537E00CFE87C /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = 03223399269212860092DD6D /* Products */;
 			projectDirPath = "";
@@ -829,6 +846,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/SwiftLint/swiftlint\n";
+			showEnvVarsInLog = 0;
+		};
+		48892CF3E627BF04B060A701 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CookidTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		75FD79DEDC422FE4D92C25CA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookidTests/Pods-CookidTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookidTests/Pods-CookidTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CookidTests/Pods-CookidTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8312B1C70BDD423B8B3AAE3A /* [CP] Check Pods Manifest.lock */ = {
@@ -1168,6 +1224,7 @@
 		};
 		03E42EBC26C412A8005D7B5E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B2D5500FAB87ECEE29995E1 /* Pods-CookidTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1189,6 +1246,7 @@
 		};
 		03E42EBD26C412A8005D7B5E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73D95818DBDA44D075AAF3DF /* Pods-CookidTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1241,6 +1299,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		03F2ED8026EF537E00CFE87C /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.15.0;
+			};
+		};
 		C6BFF45A26949A1E006295F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1261,6 +1327,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C6BFF45A26949A1E006295F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
+		};
+		03F2ED8126EF537E00CFE87C /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03F2ED8026EF537E00CFE87C /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		03F2ED8326EF537E00CFE87C /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03F2ED8026EF537E00CFE87C /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
 		};
 		C6150A082696C20800578EAB /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
