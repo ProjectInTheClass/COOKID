@@ -14,12 +14,12 @@ class PostUserView: UIView {
     }
     
     private let userNickname = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 14, weight: .black)
+        $0.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         $0.textAlignment = .left
     }
     
     private let userType = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 14, weight: .black)
+        $0.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         $0.textAlignment = .left
         $0.textColor = .systemYellow
     }

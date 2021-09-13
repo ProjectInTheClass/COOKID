@@ -14,6 +14,7 @@ class Post {
     var caption: String
     var likes = 0
     var star = 0
+    var collections = 0
     var location: String
     var timestamp = Date()
     var didLike = false

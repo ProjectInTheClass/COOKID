@@ -78,7 +78,6 @@
 		03F2ED7026ED929300CFE87C /* PostMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6F26ED929300CFE87C /* PostMainViewController.swift */; };
 		03F2ED7326ED92D500CFE87C /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7226ED92D500CFE87C /* PostViewModel.swift */; };
 		03F2ED7526EDD23A00CFE87C /* PostUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7426EDD23A00CFE87C /* PostUserView.swift */; };
-		03F2ED7726EDD25700CFE87C /* PostCaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7626EDD25700CFE87C /* PostCaptionView.swift */; };
 		03F2ED7926EDD46900CFE87C /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7826EDD46900CFE87C /* PostDetailViewController.swift */; };
 		03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */; };
 		03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */; };
@@ -199,7 +198,6 @@
 		03F2ED6F26ED929300CFE87C /* PostMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMainViewController.swift; sourceTree = "<group>"; };
 		03F2ED7226ED92D500CFE87C /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		03F2ED7426EDD23A00CFE87C /* PostUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostUserView.swift; sourceTree = "<group>"; };
-		03F2ED7626EDD25700CFE87C /* PostCaptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCaptionView.swift; sourceTree = "<group>"; };
 		03F2ED7826EDD46900CFE87C /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
@@ -579,10 +577,9 @@
 			isa = PBXGroup;
 			children = (
 				03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */,
-				03F2ED7426EDD23A00CFE87C /* PostUserView.swift */,
 				03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */,
+				03F2ED7426EDD23A00CFE87C /* PostUserView.swift */,
 				03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */,
-				03F2ED7626EDD25700CFE87C /* PostCaptionView.swift */,
 			);
 			path = PostCustomVIew;
 			sourceTree = "<group>";
@@ -945,7 +942,6 @@
 				03D8C1EB26EA539300238CB6 /* MyPostTableViewCell.swift in Sources */,
 				03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
-				03F2ED7726EDD25700CFE87C /* PostCaptionView.swift in Sources */,
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
 				03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */,
 				241523B0269D093E0077941A /* ShoppingService.swift in Sources */,
