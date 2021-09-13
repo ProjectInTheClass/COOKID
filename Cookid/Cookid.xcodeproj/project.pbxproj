@@ -367,9 +367,9 @@
 		032233B4269276840092DD6D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0395B61626943B1F009289B7 /* MainCustomView */,
 				03F2ED6826ED913800CFE87C /* PostCustomVIew */,
 				2417EABA26E5A549006F2785 /* MyPageCustomView */,
-				0395B61626943B1F009289B7 /* CustomView */,
 				032233C8269280640092DD6D /* Storyboard */,
 			);
 			path = View;
@@ -454,7 +454,7 @@
 			path = Deprecated;
 			sourceTree = "<group>";
 		};
-		0395B61626943B1F009289B7 /* CustomView */ = {
+		0395B61626943B1F009289B7 /* MainCustomView */ = {
 			isa = PBXGroup;
 			children = (
 				0395B61726943B30009289B7 /* CustomProgressBar.swift */,
@@ -465,7 +465,7 @@
 				0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */,
 				03B2049626D75E7E0099C269 /* PictureSelectCollectionViewCell.swift */,
 			);
-			path = CustomView;
+			path = MainCustomView;
 			sourceTree = "<group>";
 		};
 		03B2048826D5D3A70099C269 /* MyMeal */ = {

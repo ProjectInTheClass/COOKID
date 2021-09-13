@@ -8,6 +8,8 @@
 import UIKit
 
 class PostCaptionView: UIView {
+    
+    
 
     override init(frame: CGRect) {
         super.init(frame: frame)

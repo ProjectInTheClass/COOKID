@@ -12,79 +12,106 @@ import Then
 
 class PostHeaderView: UIView {
     
+    private let imagebackgroundView = UIView().then {
+        $0.backgroundColor = .black
+        $0.makeCircleView()
+        $0.clipsToBounds = true
+    }
     private let userImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.makeCircleView()
     }
     
-    private let toplineView = UIView().then {
-        $0.backgroundColor = .systemGray6
-    }
-    
-    private let bottomlineView = UIView().then {
-        $0.backgroundColor = .systemGray6
-    }
-    
     private let caption = UILabel().then {
-        $0.text = "추천할 만한 식사를 하셨나요?\n소중한 후기를 공유하고 🥇 랭커가 되어주세요!"
+        $0.text = "추천할 만한 맛있는 식사를 하셨나요?\n소중한 후기를 공유하고 🥇 랭커가 되어주세요!"
         $0.numberOfLines = 0
+        $0.textColor = .darkGray
+        $0.textAlignment = .left
         $0.font = UIFont.systemFont(ofSize: 13, weight: .light)
-        $0.textColor = .systemGray3
+        $0.textColor = .darkGray
     }
     
-    private let cameraButton = UIButton().then {
+    let captionButton = UIButton().then {
+        $0.setTitle("📄 글 올리기", for: .normal)
+        $0.setTitleColor(.darkGray, for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 11, weight: .light)
+        $0.backgroundColor = .systemGray6
+        $0.layer.cornerRadius = 8
+    }
+    
+    let cameraButton = UIButton().then {
         $0.setTitle("📷 사진 올리기", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 11, weight: .light)
+        $0.setTitleColor(.darkGray, for: .normal)
+        $0.backgroundColor = .systemGray6
+        $0.layer.cornerRadius = 8
+    }
+    
+    private let underLine = UIView().then {
+        $0.backgroundColor = .systemGray6
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.makeConstraints()
+        
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.makeConstraints()
+        
     }
     
     func updateUI(user: User) {
         userImage.kf.setImage(with: user.image, placeholder: UIImage(named: IMAGENAME.placeholder))
     }
     
-    private func makeConstraints() {
+    override func updateConstraints() {
+        super.updateConstraints()
         
-        self.addSubview(toplineView)
-        toplineView.snp.makeConstraints { make in
-            make.width.equalTo(self.snp.width)
-            make.height.equalTo(5)
-            make.right.top.left.equalToSuperview()
-        }
-    
-        self.addSubview(userImage)
-        userImage.snp.makeConstraints { make in
+        imagebackgroundView.snp.makeConstraints { make in
             make.width.height.equalTo(50)
+        }
+        
+        imagebackgroundView.addSubview(userImage)
+        userImage.snp.makeConstraints { make in
+            make.width.height.equalTo(48)
+            make.centerX.centerY.equalTo(imagebackgroundView)
+        }
+        
+        let userInfoStackView = UIStackView(arrangedSubviews: [imagebackgroundView, caption]).then {
+            $0.alignment = .fill
+            $0.distribution = .fill
+            $0.spacing = 15
+            $0.axis = .horizontal
+        }
+        
+        let buttonStackView = UIStackView(arrangedSubviews: [captionButton, cameraButton]).then {
+            $0.alignment = .fill
+            $0.distribution = .fillEqually
+            $0.spacing = 10
+            $0.axis = .horizontal
+        }
+        
+        self.addSubview(userInfoStackView)
+        userInfoStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(15)
             make.left.equalTo(20)
-            make.centerY.equalToSuperview()
+            make.right.equalTo(-20)
         }
-        
-        self.addSubview(bottomlineView)
-        bottomlineView.snp.makeConstraints { make in
-            make.width.equalTo(self.snp.width)
-            make.height.equalTo(5)
-            make.right.bottom.left.equalToSuperview()
-        }
-        
-        let buttonStackView = UIStackView(arrangedSubviews: [caption, cameraButton])
-        buttonStackView.axis = .vertical
-        buttonStackView.distribution = .fillProportionally
-        buttonStackView.spacing = 0
-        buttonStackView.alignment = .fill
         
         self.addSubview(buttonStackView)
-        buttonStackView.snp.makeConstraints { make in
-            make.left.equalTo(userImage.snp.right).offset(20)
-            make.right.equalToSuperview().offset(-20)
-            make.centerY.equalToSuperview()
+        buttonStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(userInfoStackView.snp.bottom).offset(10)
+            make.left.equalTo(20)
+            make.right.equalTo(-20)
         }
+        
+        self.addSubview(underLine)
+        underLine.snp.makeConstraints { make in
+            make.top.equalTo(buttonStackView.snp.bottom).offset(10)
+            make.bottom.left.right.equalToSuperview()
+            make.height.equalTo(5)
+        }
+        
     }
 }

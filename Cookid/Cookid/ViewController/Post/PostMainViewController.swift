@@ -81,7 +81,6 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                 print("postButtonWithCamera")
             }
             .disposed(by: rx.disposeBag)
-        
     }
 
 }

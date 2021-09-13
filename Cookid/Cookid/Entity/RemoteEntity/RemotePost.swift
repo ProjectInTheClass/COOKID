@@ -18,6 +18,3 @@ struct PostEntity: Codable {
     var didCollect: [String:Bool]
     var isReported: [String:Bool]
 }
-
-
-
