@@ -54,7 +54,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         
         viewModel.output.posts
             .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { _, item, cell in
-                cell.updateUI(post: item)
+                cell.updateUI(post: item, commentCount: 2)
             }
             .disposed(by: rx.disposeBag)
         
