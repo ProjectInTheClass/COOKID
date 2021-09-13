@@ -204,7 +204,6 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
             .disposed(by: rx.disposeBag)
         
         deleteButton.rx.tap
-            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [unowned self] in
                 let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "삭제", style: .default) { _ in

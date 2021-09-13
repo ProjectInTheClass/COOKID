@@ -27,7 +27,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     // buttonView
     @IBOutlet weak var addMealButton: UIButton!
     @IBOutlet weak var addShoppingButton: UIButton!
-    @IBOutlet weak var rankingButton: UIBarButtonItem!
     
     // consumeView
     @IBOutlet weak var consumeView: UIView!
@@ -98,12 +97,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     func bindViewModel() {
         
         // MARK: - bindViewModel input
-        
-        rankingButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                self.coordinator?.navigateRankingVC(viewModel: self.viewModel)
-            })
-            .disposed(by: rx.disposeBag)
         
         leftButton.rx.tap
             .subscribe(onNext: { [unowned self] in

@@ -50,10 +50,17 @@ public class RxKeyboard: NSObject, RxKeyboardType {
   // MARK: Initializing
 
   override init() {
-    
-    let keyboardWillChangeFrame = UIResponder.keyboardWillChangeFrameNotification
-    let keyboardWillHide = UIResponder.keyboardWillHideNotification
-    let keyboardFrameEndKey = UIResponder.keyboardFrameEndUserInfoKey
+    #if swift(>=4.2)
+      let keyboardWillChangeFrame = UIResponder.keyboardWillChangeFrameNotification
+      let keyboardWillHide = UIResponder.keyboardWillHideNotification
+      let keyboardFrameEndKey = UIResponder.keyboardFrameEndUserInfoKey
+      let applicationDidFinishLaunching = UIApplication.didFinishLaunchingNotification
+    #else
+      let keyboardWillChangeFrame = NSNotification.Name.UIKeyboardWillChangeFrame
+      let keyboardWillHide = NSNotification.Name.UIKeyboardWillHide
+      let keyboardFrameEndKey = UIKeyboardFrameEndUserInfoKey
+      let applicationDidFinishLaunching = NSNotification.Name.UIApplicationDidFinishLaunching
+    #endif
 
     let defaultFrame = CGRect(
       x: 0,
@@ -124,8 +131,9 @@ public class RxKeyboard: NSObject, RxKeyboardType {
 
     // gesture recognizer
     self.panRecognizer.delegate = self
-    
-    UIApplication.rx.didFinishLaunching // when RxKeyboard is initialized before UIApplication.window is created
+    NotificationCenter.default.rx.notification(applicationDidFinishLaunching)
+      .map { _ in Void() }
+      .startWith(Void()) // when RxKeyboard is initialized before UIApplication.window is created
       .subscribe(onNext: { _ in
         UIApplication.shared.windows.first?.addGestureRecognizer(self.panRecognizer)
       })
@@ -159,7 +167,7 @@ extension RxKeyboard: UIGestureRecognizerDelegate {
     _ gestureRecognizer: UIGestureRecognizer,
     shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
   ) -> Bool {
-    gestureRecognizer === self.panRecognizer
+    return gestureRecognizer === self.panRecognizer
   }
 
 }

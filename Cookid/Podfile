@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+# platform :ios, '13.0'
 
 use_frameworks!
 
@@ -8,7 +8,6 @@ def pods
  pod 'RxSwift'
  pod 'RxCocoa'
  pod 'NSObject+Rx'
- pod 'Action'
  pod 'RxKeyboard'
  pod 'RxDataSources'
  pod 'Kingfisher', '~> 6.0'
@@ -19,6 +18,7 @@ def pods
  pod 'PanModal'
  pod 'RealmSwift'
  pod 'PagingKit'
+ pod 'RxKakaoSDK'
 end
 
 target 'Cookid' do

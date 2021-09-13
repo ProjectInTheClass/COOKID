@@ -10,10 +10,14 @@ import RxSwift
 
 class PostService {
     
-    private var posts = [Post]()
+    private var posts = DummyData.shared.posts
     private lazy var postStore = BehaviorSubject<[Post]>(value: posts)
     
     func createPost() {
         
+    }
+    
+    func fetchPosts() -> Observable<[Post]> {
+        return postStore
     }
 }

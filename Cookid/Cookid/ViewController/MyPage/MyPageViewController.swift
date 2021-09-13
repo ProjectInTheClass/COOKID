@@ -34,14 +34,7 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
         view.backgroundColor = .systemBackground
         tabBarItem.image = UIImage(systemName: "person.crop.circle")
         tabBarItem.selectedImage = UIImage(systemName: "person.crop.circle.fill")
-        navigationItem.title = "내 정보"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape.fill"), style: .plain, target: self, action: #selector(settingButtonTapped))
-        navigationItem.rightBarButtonItem?.tintColor = .systemGray
-        
-    }
-    
-    @objc func settingButtonTapped() {
-        coordinator?.navigateUserInfoVC(viewModel: viewModel)
+        navigationItem.title = "내 정보 ⚙️"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -20,7 +20,8 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
     
     // MARK: - Properties
     
-    var viewModel: OnboardingViewModel!
+    var viewModel: PostViewModel!
+    var localUser: LocalUser?
     
     // MARK: - View LifeCycle
     
@@ -42,7 +43,7 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
     func bindViewModel() {
         
         appleSignInButton.rx.tap
-            .bind {
+            .bind { [unowned self] in
                 print("apple login")
             }
             .disposed(by: rx.disposeBag)
@@ -56,6 +57,25 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
         kakaoSignInButton.rx.tap
             .bind {
                 print("kakao login")
+                AuthRepo.instance.kakaoLogin { result in
+                    switch result {
+                    case .success(let str) :
+                        print("----> kakaoLogin success", str)
+                        AuthRepo.instance.fetchKakaoUserInfo { result in
+                            switch result {
+                            case .success(let url):
+                                guard let localUser = self.localUser else { return }
+                                self.viewModel.userService.connectUserInfo(localUser: localUser, imageURL: url)
+                                self.dismiss(animated: true, completion: nil)
+                            case .failure(let error):
+                                errorAlert(selfView: self, errorMessage: error.rawValue)
+                            }
+                        }
+                        self.dismiss(animated: true, completion: nil)
+                    case .failure(let error):
+                        errorAlert(selfView: self, errorMessage: error.rawValue)
+                    }
+                }
             }
             .disposed(by: rx.disposeBag)
         

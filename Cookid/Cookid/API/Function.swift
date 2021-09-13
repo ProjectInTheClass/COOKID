@@ -62,3 +62,12 @@ func mealTypeToBool(_ mealType: MealType) -> Bool {
         return false
     }
 }
+
+func errorAlert(selfView: UIViewController, errorMessage: String?) {
+    let alert = UIAlertController(title: "에러 발생 😥", message: errorMessage, preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
+        alert.dismiss(animated: true, completion: nil)
+    }
+    alert.addAction(okAction)
+    selfView.present(alert, animated: true, completion: nil)
+}

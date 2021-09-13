@@ -57,13 +57,11 @@ class MyPageHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.makeConstraints()
-//        self.backgroundColor = .systemRed
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.makeConstraints()
-//        self.backgroundColor = .systemRed
     }
     
     // MARK: - ConfigureUI
