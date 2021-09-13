@@ -8,7 +8,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Action
 import NSObject_Rx
 
 class AddMealViewModel: ViewModelType, HasDisposeBag {

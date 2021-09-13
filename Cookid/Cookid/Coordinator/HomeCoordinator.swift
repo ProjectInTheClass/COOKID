@@ -15,6 +15,7 @@ class HomeCoordinator: CoordinatorType {
     var navigationController: UINavigationController?
     
     var mainNVC: UINavigationController?
+    var postMainNVC: UINavigationController?
 
     init(parentCoordinator : CoordinatorType) {
         self.parentCoordinator = parentCoordinator
@@ -24,6 +25,7 @@ class HomeCoordinator: CoordinatorType {
         let mealService = MealService()
         let userService = UserService()
         let shoppingService = ShoppingService()
+        let postService = PostService()
         
         var mainVC = MainViewController.instantiate(storyboardID: "Main")
         mainVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
@@ -41,18 +43,26 @@ class HomeCoordinator: CoordinatorType {
         myMealVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         myMealVC.navigationController?.navigationBar.barTintColor = .systemBackground
         
+        var postMainVC = PostMainViewController.instantiate(storyboardID: "Post")
+        postMainVC.bind(viewModel: PostViewModel(postService: postService, userService: userService))
+        postMainVC.coordinator = self
+        postMainNVC = UINavigationController(rootViewController: postMainVC)
+        postMainVC.navigationController?.navigationBar.prefersLargeTitles = true
+        postMainVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
+        postMainVC.navigationController?.navigationBar.barTintColor = .systemBackground
+        
         var myPageVC = MyPageViewController.instantiate(storyboardID: "UserInfo")
         myPageVC.coordinator = self
-        myPageVC.bind(viewModel: MyPageViewModel(userService: userService, mealService: mealService))
+        myPageVC.bind(viewModel: MyPageViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService))
         
         let myPageNVC = UINavigationController(rootViewController: myPageVC)
         myPageVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         myPageVC.navigationController?.navigationBar.barTintColor = .systemBackground
 
         let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([mainNVC!, myMealNVC, myPageNVC], animated: false)
+        tabBarController.setViewControllers([mainNVC!, myMealNVC, postMainNVC!, myPageNVC], animated: false)
         tabBarController.tabBar.tintColor = DefaultStyle.Color.tint
-        tabBarController.tabBar.items?[2].title = "내 정보"
+        tabBarController.tabBar.items?[3].title = "내 정보"
         tabBarController.modalPresentationStyle = .fullScreen
         tabBarController.modalTransitionStyle = .crossDissolve
         return tabBarController
@@ -89,13 +99,18 @@ class HomeCoordinator: CoordinatorType {
         mainNVC?.present(vc, animated: true, completion: nil)
     }
     
-    func navigateRankingVC(viewModel: MainViewModel) {
+    func navigateRankingVC(viewModel: PostViewModel) {
         let rankingViewModel = RankingViewModel(userService: viewModel.userService)
         
         var vc = RankingMainViewController()
         vc.bind(viewModel: rankingViewModel)
         vc.modalPresentationStyle = .automatic
-        mainNVC?.pushViewController(vc, animated: true)
+        postMainNVC?.pushViewController(vc, animated: true)
+    }
+    
+    func navigateAddPostVC(viewModel: PostViewModel) {
+        var vc = AddPostViewController.instantiate(storyboardID: "Post")
+        // 받아와서 올리기
     }
     
     func navigateUserInfoVC(viewModel: MyPageViewModel) {
@@ -106,6 +121,13 @@ class HomeCoordinator: CoordinatorType {
         userInfoVC.modalTransitionStyle = .crossDissolve
        
         mainNVC?.present(userInfoVC, animated: true, completion: nil)
+    }
+    
+    func navigateSignInVC(viewModel: PostViewModel) {
+        var signInVC = SignInViewController.instantiate(storyboardID: "UserInfo")
+        signInVC.bind(viewModel: viewModel)
+        signInVC.modalPresentationStyle = .overFullScreen
+        postMainNVC?.present(signInVC, animated: true)
     }
     
 }

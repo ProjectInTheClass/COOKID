@@ -21,7 +21,7 @@ class FirestorePostRepo {
     
     func createPost(post: Post, completion: @escaping (Result<NetWorkingResult, NetWorkingError>) -> Void) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
-            completion(.success(.success("")))
+            completion(.success(.successSignIn))
         }
     }
     

@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import RealmSwift
+import RxKakaoSDKCommon
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,17 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let config = Realm.Configuration(
             schemaVersion: 4,
-            migrationBlock: { _, oldSchemaVersion in
-                if oldSchemaVersion < 1 {
-                    // 아직 할게 없음
-                }
-                if oldSchemaVersion > 2 {
-                    // 아직 할게 없음
-                }
-            }
+            migrationBlock: { _, _ in }
         )
         
         Realm.Configuration.defaultConfiguration = config
+        
+        RxKakaoSDKCommon.initSDK(appKey: "b80501f14838bee643dab9d0e68e786d")
         
         return true
     }

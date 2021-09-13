@@ -13,14 +13,17 @@ class Post {
     var images: [URL?]
     var caption: String
     var likes = 0
+    var star = 0
+    var location: String
     var timestamp = Date()
     var didLike = false
     var didCollect = false
     var isReported = false
     
-    init(user: User, images: [URL], caption: String) {
+    init(user: User, images: [URL], caption: String, location: String) {
         self.user = user
         self.images = images
         self.caption = caption
+        self.location = location
     }
 }

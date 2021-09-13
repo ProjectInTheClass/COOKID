@@ -72,6 +72,16 @@
 		03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */; };
 		03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */; };
 		03F2ED6226ED048300CFE87C /* AuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6126ED048300CFE87C /* AuthRepo.swift */; };
+		03F2ED6426ED906C00CFE87C /* Post.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03F2ED6326ED906C00CFE87C /* Post.storyboard */; };
+		03F2ED6A26ED914B00CFE87C /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */; };
+		03F2ED6C26ED916900CFE87C /* PostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */; };
+		03F2ED7026ED929300CFE87C /* PostMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6F26ED929300CFE87C /* PostMainViewController.swift */; };
+		03F2ED7326ED92D500CFE87C /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7226ED92D500CFE87C /* PostViewModel.swift */; };
+		03F2ED7526EDD23A00CFE87C /* PostUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7426EDD23A00CFE87C /* PostUserView.swift */; };
+		03F2ED7726EDD25700CFE87C /* PostCaptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7626EDD25700CFE87C /* PostCaptionView.swift */; };
+		03F2ED7926EDD46900CFE87C /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7826EDD46900CFE87C /* PostDetailViewController.swift */; };
+		03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */; };
+		03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */; };
 		241523B0269D093E0077941A /* ShoppingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523AF269D093E0077941A /* ShoppingService.swift */; };
 		241523B4269D24860077941A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523B3269D24860077941A /* Function.swift */; };
 		2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */; };
@@ -85,7 +95,7 @@
 		24B081C426E0473F00379087 /* LocalShopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081C326E0473F00379087 /* LocalShopping.swift */; };
 		24B081CC26E10F7B00379087 /* RealmMealRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081CB26E10F7B00379087 /* RealmMealRepo.swift */; };
 		24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081D026E10F8900379087 /* RealmShoppingRepo.swift */; };
-		7CDB672F20DDD0D65D45B557 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892F362497B138331AC4FAC2 /* Pods_Cookid.framework */; };
+		8DE13647C08469F3C72C2F18 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B632E4718B240458C546A106 /* Pods_Cookid.framework */; };
 		C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
 		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
 		C67441D62696FA530086CBAD /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
@@ -180,7 +190,16 @@
 		03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHeaderView.swift; sourceTree = "<group>"; };
 		03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingTableViewCell.swift; sourceTree = "<group>"; };
 		03F2ED6126ED048300CFE87C /* AuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepo.swift; sourceTree = "<group>"; };
-		0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
+		03F2ED6326ED906C00CFE87C /* Post.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Post.storyboard; sourceTree = "<group>"; };
+		03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderView.swift; sourceTree = "<group>"; };
+		03F2ED6F26ED929300CFE87C /* PostMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMainViewController.swift; sourceTree = "<group>"; };
+		03F2ED7226ED92D500CFE87C /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		03F2ED7426EDD23A00CFE87C /* PostUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostUserView.swift; sourceTree = "<group>"; };
+		03F2ED7626EDD25700CFE87C /* PostCaptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCaptionView.swift; sourceTree = "<group>"; };
+		03F2ED7826EDD46900CFE87C /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
+		03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
 		241523AF269D093E0077941A /* ShoppingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingService.swift; sourceTree = "<group>"; };
 		241523B3269D24860077941A /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -194,8 +213,9 @@
 		24B081C326E0473F00379087 /* LocalShopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalShopping.swift; sourceTree = "<group>"; };
 		24B081CB26E10F7B00379087 /* RealmMealRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMealRepo.swift; sourceTree = "<group>"; };
 		24B081D026E10F8900379087 /* RealmShoppingRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmShoppingRepo.swift; sourceTree = "<group>"; };
-		892F362497B138331AC4FAC2 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
+		633B5656FDBC98360D286571 /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
+		904741279A4F1CFB953C5D48 /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
+		B632E4718B240458C546A106 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C67441D726970E7C0086CBAD /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		C6BFF45426949986006295F5 /* UserRepositrory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepositrory.swift; sourceTree = "<group>"; };
 		C6BFF45526949986006295F5 /* GroceryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryRepository.swift; sourceTree = "<group>"; };
@@ -215,11 +235,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6BFF45C26949A1E006295F5 /* FirebaseDatabase in Frameworks */,
-				7CDB672F20DDD0D65D45B557 /* Pods_Cookid.framework in Frameworks */,
 				C6BFF45E26949A1E006295F5 /* FirebaseStorage in Frameworks */,
 				03586EAC26E4FC2C002A56C6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				03586EAA26E4FC05002A56C6 /* FirebaseFirestore in Frameworks */,
 				C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */,
+				8DE13647C08469F3C72C2F18 /* Pods_Cookid.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +260,7 @@
 				03E42EB626C412A8005D7B5E /* CookidTests */,
 				03223399269212860092DD6D /* Products */,
 				4D7F201105C9BFA7F50A2933 /* Pods */,
-				10D0AB71C5B71C6AD217376D /* Frameworks */,
+				92531E26D24250D9D4D81488 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -314,6 +334,7 @@
 			children = (
 				2417EAB226E58CDD006F2785 /* Onboarding */,
 				03B2048B26D5D9270099C269 /* Main */,
+				03F2ED7126ED92C900CFE87C /* Post */,
 				2417EAB326E58CEF006F2785 /* MyMeal */,
 				2417EAB426E58CF7006F2785 /* MyPage */,
 			);
@@ -327,6 +348,7 @@
 				03586EAD26E4FD52002A56C6 /* SignIn */,
 				03E42EDB26C4F6A7005D7B5E /* Main */,
 				03B2048826D5D3A70099C269 /* MyMeal */,
+				03F2ED6526ED90A300CFE87C /* Post */,
 				03E42ED426C4DBB0005D7B5E /* Ranking */,
 				2417EAA626E58C7C006F2785 /* MyPage */,
 			);
@@ -336,6 +358,7 @@
 		032233B4269276840092DD6D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				03F2ED6826ED913800CFE87C /* PostCustomVIew */,
 				2417EABA26E5A549006F2785 /* MyPageCustomView */,
 				0395B61626943B1F009289B7 /* CustomView */,
 				032233C8269280640092DD6D /* Storyboard */,
@@ -367,6 +390,7 @@
 				032233A6269212870092DD6D /* Launch.storyboard */,
 				032233A1269212860092DD6D /* Main.storyboard */,
 				032233BF26927A4F0092DD6D /* MyMealTap.storyboard */,
+				03F2ED6326ED906C00CFE87C /* Post.storyboard */,
 				DB1982EE269BF7D30055742B /* UserInfo.storyboard */,
 			);
 			path = Storyboard;
@@ -517,7 +541,6 @@
 			children = (
 				032233B7269276DB0092DD6D /* MainViewController.swift */,
 				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
-				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
 				0395F6EC26B805360091BB29 /* AddMealViewController.swift */,
 				03B2049426D75DD50099C269 /* PictureSelectViewController.swift */,
 				03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */,
@@ -533,12 +556,34 @@
 			path = AuthRepository;
 			sourceTree = "<group>";
 		};
-		10D0AB71C5B71C6AD217376D /* Frameworks */ = {
+		03F2ED6526ED90A300CFE87C /* Post */ = {
 			isa = PBXGroup;
 			children = (
-				892F362497B138331AC4FAC2 /* Pods_Cookid.framework */,
+				03F2ED6F26ED929300CFE87C /* PostMainViewController.swift */,
+				03F2ED7826EDD46900CFE87C /* PostDetailViewController.swift */,
+				03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */,
 			);
-			name = Frameworks;
+			path = Post;
+			sourceTree = "<group>";
+		};
+		03F2ED6826ED913800CFE87C /* PostCustomVIew */ = {
+			isa = PBXGroup;
+			children = (
+				03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */,
+				03F2ED7426EDD23A00CFE87C /* PostUserView.swift */,
+				03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */,
+				03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */,
+				03F2ED7626EDD25700CFE87C /* PostCaptionView.swift */,
+			);
+			path = PostCustomVIew;
+			sourceTree = "<group>";
+		};
+		03F2ED7126ED92C900CFE87C /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				03F2ED7226ED92D500CFE87C /* PostViewModel.swift */,
+			);
+			path = Post;
 			sourceTree = "<group>";
 		};
 		2417EAA626E58C7C006F2785 /* MyPage */ = {
@@ -549,6 +594,7 @@
 				03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */,
 				03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */,
 				03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */,
+				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -627,10 +673,18 @@
 		4D7F201105C9BFA7F50A2933 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */,
-				8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */,
+				904741279A4F1CFB953C5D48 /* Pods-Cookid.debug.xcconfig */,
+				633B5656FDBC98360D286571 /* Pods-Cookid.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		92531E26D24250D9D4D81488 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B632E4718B240458C546A106 /* Pods_Cookid.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		DB0D7D722694980B009B2D51 /* Service */ = {
@@ -652,12 +706,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 032233AC269212870092DD6D /* Build configuration list for PBXNativeTarget "Cookid" */;
 			buildPhases = (
-				B408D14B1A4FFC8211A3E8F9 /* [CP] Check Pods Manifest.lock */,
+				8312B1C70BDD423B8B3AAE3A /* [CP] Check Pods Manifest.lock */,
 				03223394269212860092DD6D /* Sources */,
 				03223395269212860092DD6D /* Frameworks */,
 				03223396269212860092DD6D /* Resources */,
-				620BC73790CEAA4D3BB7172B /* [CP] Embed Pods Frameworks */,
 				03B2049226D712BC0099C269 /* ShellScript */,
+				A837CEB17A41A16EF9097457 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -742,6 +796,7 @@
 				032233C026927A4F0092DD6D /* MyMealTap.storyboard in Resources */,
 				0348B90926D542EF001BF3B7 /* GoogleService-Info.plist in Resources */,
 				032233A5269212870092DD6D /* Assets.xcassets in Resources */,
+				03F2ED6426ED906C00CFE87C /* Post.storyboard in Resources */,
 				0339575126A2C96100594515 /* boardingImage in Resources */,
 				DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */,
 				032233A3269212860092DD6D /* Main.storyboard in Resources */,
@@ -776,24 +831,7 @@
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/SwiftLint/swiftlint\n";
 			showEnvVarsInLog = 0;
 		};
-		620BC73790CEAA4D3BB7172B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Cookid/Pods-Cookid-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Cookid/Pods-Cookid-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cookid/Pods-Cookid-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B408D14B1A4FFC8211A3E8F9 /* [CP] Check Pods Manifest.lock */ = {
+		8312B1C70BDD423B8B3AAE3A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -815,6 +853,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A837CEB17A41A16EF9097457 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cookid/Pods-Cookid-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cookid/Pods-Cookid-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cookid/Pods-Cookid-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -832,7 +887,9 @@
 				0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */,
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
 				03D8C1EB26EA539300238CB6 /* MyPostTableViewCell.swift in Sources */,
+				03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
+				03F2ED7726EDD25700CFE87C /* PostCaptionView.swift in Sources */,
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
 				03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */,
 				241523B0269D093E0077941A /* ShoppingService.swift in Sources */,
@@ -840,10 +897,13 @@
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
 				03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */,
 				2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */,
+				03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
 				03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */,
 				032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */,
+				03F2ED7526EDD23A00CFE87C /* PostUserView.swift in Sources */,
 				DB61715226C9577B008F497C /* NotificationManager.swift in Sources */,
+				03F2ED6C26ED916900CFE87C /* PostHeaderView.swift in Sources */,
 				03B2049526D75DD50099C269 /* PictureSelectViewController.swift in Sources */,
 				03D8C1E726E8927700238CB6 /* MyMealsCollectionViewCell.swift in Sources */,
 				035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */,
@@ -857,6 +917,7 @@
 				C6BFF46226949AA7006295F5 /* Constant.swift in Sources */,
 				032233DE2693057C0092DD6D /* User.swift in Sources */,
 				03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */,
+				03F2ED7326ED92D500CFE87C /* PostViewModel.swift in Sources */,
 				03D8C1E326E852D600238CB6 /* MyRecipesViewController.swift in Sources */,
 				03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */,
 				0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */,
@@ -886,6 +947,7 @@
 				DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */,
 				038875B126A030F300D5D202 /* MainViewController.swift in Sources */,
 				03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */,
+				03F2ED7026ED929300CFE87C /* PostMainViewController.swift in Sources */,
 				03B2049B26D7BA830099C269 /* MenuService.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */,
@@ -901,6 +963,8 @@
 				035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */,
 				0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */,
 				24B081CC26E10F7B00379087 /* RealmMealRepo.swift in Sources */,
+				03F2ED6A26ED914B00CFE87C /* PostTableViewCell.swift in Sources */,
+				03F2ED7926EDD46900CFE87C /* PostDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1060,7 +1124,7 @@
 		};
 		032233AD269212870092DD6D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D9E6C6D928F53B1DABF630B /* Pods-Cookid.debug.xcconfig */;
+			baseConfigurationReference = 904741279A4F1CFB953C5D48 /* Pods-Cookid.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1072,7 +1136,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.codershigh.Cookid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
@@ -1082,19 +1146,19 @@
 		};
 		032233AE269212870092DD6D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C50FE9E568A82974743347A /* Pods-Cookid.release.xcconfig */;
+			baseConfigurationReference = 633B5656FDBC98360D286571 /* Pods-Cookid.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4QG3GC35LA;
+				DEVELOPMENT_TEAM = MBAJ2NCPU9;
 				INFOPLIST_FILE = Cookid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.codershigh.Cookid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
