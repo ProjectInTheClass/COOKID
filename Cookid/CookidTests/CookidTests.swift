@@ -9,22 +9,26 @@ import XCTest
 @testable import Cookid
 @testable import FirebaseFirestore
 @testable import FirebaseStorage
+@testable import RealmSwift
 
 class CookidTests: XCTestCase {
     
     var postRepo: FirestorePostRepo!
+    var reaml: Realm!
     
     override func setUpWithError() throws {
         try super.setUpWithError()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         // 여기에 설정 코드를 입력하십시오. 이 메서드는 클래스의 각 테스트 메서드를 호출하기 전에 호출됩니다. 보통 테스트 케이스에서 공통으로 사용되는 뭔가를 정의해서 사용하면 됩니다.
         postRepo = FirestorePostRepo()
+        reaml = try Realm()
     }
     
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         // 여기에 해체 코드를 넣습니다. 이 메서드는 클래스의 각 테스트 메서드를 호출한 후 호출됩니다.  setUp에서 설정한 값들을 해제할 필요가 있을 때 사용합니다.
         postRepo = nil
+        reaml = nil
         try super.tearDownWithError()
     }
     
@@ -45,11 +49,7 @@ class CookidTests: XCTestCase {
         }
     }
     
-    // 테스트 코드 TIP
-    // - 하나의 기능만 테스트하는 코드로 작성
-    
     func testFireStoreCreateTest() {
-        
         // given : 필요한 모든 값을 set up. 예를 들어, 추측되는 값을 생성하고 타겟과 얼마나 다른지를 특정할 수 있다. 예를 들어 유저가 넣게 되는 값, userActions이 되겠지?
         // when : 유저의 action이 들어왔을 때, 수행하게 되는 함수
         // then : 결과검사
@@ -66,7 +66,7 @@ class CookidTests: XCTestCase {
         
         let foodImageURL1 = URL(string: "https://images.unsplash.com/photo-1618107057892-67f36135fe17?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80")!
         let foodImageURL2 = URL(string: "https://images.unsplash.com/photo-1597484389225-c68a9f0fa106?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=686&q=80")!
-        let newPost = Post(user: DummyData.shared.singleUser, images: [foodImageURL1, foodImageURL2], caption: "오늘 내가 먹은 음식들 짱 맛있다아~~")
+        let newPost = Post(user: DummyData.shared.singleUser, images: [foodImageURL1, foodImageURL2], caption: "오늘 내가 먹은 음식들 짱 맛있다아~~", location: "제주도")
         
         /// 'expectation' can be fulfilled when asynchronous tasks in your tests complete.
         let promise = expectation(description: "post is uploaded successfully")
