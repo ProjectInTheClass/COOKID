@@ -24,7 +24,12 @@ class PostUserView: UIView {
         $0.textColor = .systemYellow
     }
     
-    private let reportingButton = UIButton().then {
+    private let location = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .light)
+        $0.textAlignment = .left
+    }
+    
+    let reportingButton = UIButton().then {
         $0.setImage(UIImage(systemName: "archivebox"), for: .normal)
         $0.tintColor = .black
     }
@@ -41,6 +46,7 @@ class PostUserView: UIView {
         userImage.kf.setImage(with: post.user.image, placeholder: UIImage(named: IMAGENAME.placeholder))
         userType.text = post.user.userType.rawValue
         userNickname.text = post.user.nickname
+        location.text = "📮 " + post.location
     }
     
     override func updateConstraints() {
@@ -55,7 +61,7 @@ class PostUserView: UIView {
         
         self.addSubview(userType)
         userType.snp.makeConstraints { make in
-            make.left.equalTo(userImage.snp.right).offset(15)
+            make.left.equalTo(userImage.snp.right).offset(10)
             make.centerY.equalTo(self)
         }
         
@@ -65,11 +71,18 @@ class PostUserView: UIView {
             make.centerY.equalTo(self)
         }
         
+        self.addSubview(location)
+        location.snp.makeConstraints { make in
+            make.left.equalTo(userNickname.snp.right).offset(5)
+            make.centerY.equalTo(self)
+        }
+        
         self.addSubview(reportingButton)
         reportingButton.snp.makeConstraints { make in
             make.right.equalTo(self).offset(-10)
             make.centerY.equalTo(self)
             make.width.height.equalTo(40)
         }
+
     }
 }

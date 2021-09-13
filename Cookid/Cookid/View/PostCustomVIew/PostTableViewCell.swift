@@ -33,7 +33,13 @@ class PostTableViewCell: UITableViewCell {
                 cell.updateUI(url: item)
             }
             .disposed(by: rx.disposeBag)
-
+        
+        postUserView.reportingButton.rx.tap
+            .bind {
+                print("--->", "\(post.likes)")
+            }
+            .disposed(by: rx.disposeBag)
+        
         imageCollectionView.rx.setDelegate(self)
     }
 }
