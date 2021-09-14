@@ -12,6 +12,7 @@ struct PostEntity: Codable {
     let userID: String
     var images: [URL]
     var caption: String
+    var mealBudget: Int
     var likes: Int
     var timestamp: Date
     var didLike: [String:Bool]
