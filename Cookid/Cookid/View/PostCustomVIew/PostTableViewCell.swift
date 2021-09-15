@@ -8,7 +8,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import NSObject_Rx
 
 class PostTableViewCell: UITableViewCell {
     
@@ -24,79 +23,122 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var postCaptionLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
-    @IBOutlet weak var heartButton: UIButton!
-    @IBOutlet weak var bookmarkButton: UIButton!
+    @IBOutlet weak var heartButton: HeartButton!
+    @IBOutlet weak var bookmarkButton: BookMarkButton!
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var commentListButton: UIButton!
     
     @IBOutlet weak var firstStar: UIImageView!
     @IBOutlet weak var secondStar: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
+    var viewModel: PostCellViewModel!
+    var coordinator: HomeCoordinator?
+    private var disposeBag = DisposeBag()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
     
-    func updateUI(post: Post, user: User, commentCount: Int) {
-        postUserView.updateUI(post: post)
-        updateCaptionView(post: post, user: user, commentCount: commentCount)
-        setPageControl(post: post)
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
+        viewModel.output.post.star = 2
+        postUserView.updateUI(post: viewModel.output.post)
+        userNicknameLabel.text = viewModel.output.post.user.nickname
+        postCaptionLabel.text = viewModel.output.post.caption
+        dateLabel.text = viewModel.output.post.timestamp.convertDateToString(format: "yy.MM.dd")
+        makeUpBookmark(post: viewModel.output.post)
+        makeUpStar(post: viewModel.output.post)
+        makeUpLikes(post: viewModel.output.post)
+        setPageControl(post: viewModel.output.post)
+        heartButton.setState(viewModel.output.post.didLike)
+        bookmarkButton.setState(viewModel.output.post.didCollect)
+        
+        viewModel.output.user
+            .drive(onNext: { [weak self] user in
+                guard let self = self else { return }
+                self.makeUpBudgetCheck(post: self.viewModel.output.post, user: user)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.output.comments
+            .drive(onNext: { [weak self] comments in
+                guard let self = self else { return }
+                self.makeUpComments(commentCount: comments.count)
+            })
+            .disposed(by: disposeBag)
+        
+        heartButton.rx.tap
+            .bind(onNext: { [unowned self] in
+                self.viewModel.output.post.didLike = heartButton.isActivated
+                if self.heartButton.isActivated {
+                    self.viewModel.output.post.likes += 1
+                } else {
+                    self.viewModel.output.post.likes -= 1
+                }
+                self.viewModel.postService.updatePost(post: self.viewModel.output.post)
+                self.makeUpLikes(post: self.viewModel.output.post)
+            })
+            .disposed(by: disposeBag)
+        
+        bookmarkButton.rx.tap
+            .bind(onNext: { [unowned self] in
+                if self.bookmarkButton.isActivated {
+                    self.viewModel.output.post.collections += 1
+                } else {
+                    self.viewModel.output.post.collections -= 1
+                }
+                self.viewModel.output.post.didCollect = bookmarkButton.isActivated
+                
+                self.viewModel.postService.updatePost(post: self.viewModel.output.post)
+                self.makeUpBookmark(post: self.viewModel.output.post)
+            })
+            .disposed(by: disposeBag)
+        
+        detailButton.rx.tap
+            .bind(onNext: { [unowned self] in
+                print(self.coordinator.debugDescription)
+            })
+            .disposed(by: disposeBag)
+        
+        commentListButton.rx.tap
+            .bind(onNext: { [unowned self] in
+                print(self.coordinator.debugDescription)
+            })
+            .disposed(by: disposeBag)
         
         imageCollectionView.delegate = nil
         imageCollectionView.dataSource = nil
         
-        Observable.just(post.images)
+        Observable.just(viewModel.output.post.images)
             .bind(to: imageCollectionView.rx.items(cellIdentifier: "imageCell", cellType: PostImageCollectionViewCell.self)) { _, item, cell in
                 cell.updateUI(url: item)
-                print("image collectionView Cell")
             }
             .disposed(by: rx.disposeBag)
         
         imageCollectionView.rx.setDelegate(self)
     }
-    
+   
     private func setPageControl(post: Post) {
         imagePageControl.hidesForSinglePage = true
         imagePageControl.numberOfPages = post.images.count
     }
     
-    private func updateCaptionView(post: Post, user: User, commentCount: Int) {
-        post.star = 2
-        makeUpLikes(post: post)
-        makeUpComments(commentCount: commentCount)
-        makeUpBookmark(post: post)
-        makeUpStar(post: post)
-        makeUpBudgetCheck(post: post, user: user)
-        userNicknameLabel.text = post.user.nickname
-        postCaptionLabel.text = post.caption
-        dateLabel.text = post.timestamp.dateToString()
-    }
-    
     private func makeUpLikes(post: Post) {
-        if post.likes == 0 && post.didLike == false {
-            userCountLabel.text = "이 추천이 마음에 드시면 하트를 눌러주세요 "
-        } else if post.likes == 1 && post.didLike == true {
-            userCountLabel.text = "\(post.user.nickname)님이 이 추천을 좋아해요"
-        } else {
-            userCountLabel.text = "\(post.user.nickname)님 외 \(post.likes)명이 이 추천을 좋아해요"
-        }
+        userCountLabel.text = "좋아요 \(post.likes)개"
     }
     
     private func makeUpComments(commentCount: Int) {
         if commentCount == 0 {
-            commentListButton.setTitle("아직 댓글이 없습니다", for: .normal)
+            commentListButton.setTitle("아직 댓글이 없어요", for: .normal)
         } else {
-            commentListButton.setTitle("\(commentCount)개의 댓글이 있어요", for: .normal)
+            commentListButton.setTitle("댓글 \(commentCount)개 모두 보기", for: .normal)
         }
     }
     
     private func makeUpBookmark(post: Post) {
-        if post.collections == 0 {
-            bookmarkCountLabel.text = "나만의 공간에 이 추천을 저장하세요"
-        } else {
-            bookmarkCountLabel.text = "\(post.collections)명이 저장한 추천이에요"
-        }
+        bookmarkCountLabel.text = "북마크 \(post.collections)개"
     }
     
     private func makeUpStar(post: Post) {
@@ -113,14 +155,20 @@ class PostTableViewCell: UITableViewCell {
     }
     
     private func makeUpBudgetCheck(post: Post, user: User) {
-        let image = UIImage(systemName: "checkmark.fill")
-        if post.mealBudget / user.priceGoal * 100 > 50 {
-            image?.withTintColor(.systemYellow)
+        if Double(post.mealBudget) / Double(user.priceGoal) * 100 > 66 {
+            let image = UIImage(systemName: "xmark.circle.fill")
             budgetCheckImage.image = image
+            budgetCheckImage.tintColor = .systemRed
+            budgetCheckLabel.text = "예산에 위험한 식사에요"
+        } else if Double(post.mealBudget) / Double(user.priceGoal) * 100 > 33 {
+            let image = UIImage(systemName: "minus.circle.fill")
+            budgetCheckImage.image = image
+            budgetCheckImage.tintColor = .systemYellow
             budgetCheckLabel.text = "흠.. 조금 고민이 되는 금액이에요"
         } else {
-            image?.withTintColor(.systemGreen)
+            let image = UIImage(systemName: "checkmark.circle.fill")
             budgetCheckImage.image = image
+            budgetCheckImage.tintColor = .systemGreen
             budgetCheckLabel.text = "예산 범위 안에서 즐길 수 있는 식사에요"
         }
     }
@@ -129,7 +177,6 @@ class PostTableViewCell: UITableViewCell {
 extension PostTableViewCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print("size")
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
     
@@ -137,6 +184,5 @@ extension PostTableViewCell: UICollectionViewDelegate, UICollectionViewDelegateF
         let page = Int(targetContentOffset.pointee.x / self.frame.width)
         self.imagePageControl.currentPage = page
       }
-    
     
 }

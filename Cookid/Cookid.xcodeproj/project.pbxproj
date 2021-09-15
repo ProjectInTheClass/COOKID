@@ -83,6 +83,10 @@
 		03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */; };
 		03F2ED8226EF537E00CFE87C /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 03F2ED8126EF537E00CFE87C /* Realm */; };
 		03F2ED8426EF537E00CFE87C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03F2ED8326EF537E00CFE87C /* RealmSwift */; };
+		03F2ED8626F0343E00CFE87C /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED8526F0343E00CFE87C /* CommentService.swift */; };
+		03F2ED8826F04D6200CFE87C /* PostCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED8726F04D6100CFE87C /* PostCellViewModel.swift */; };
+		03F2ED8A26F06BC300CFE87C /* FirestoreCommentRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED8926F06BC300CFE87C /* FirestoreCommentRepo.swift */; };
+		03F2ED8C26F17D2D00CFE87C /* PostCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED8B26F17D2C00CFE87C /* PostCustomButton.swift */; };
 		241523B0269D093E0077941A /* ShoppingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523AF269D093E0077941A /* ShoppingService.swift */; };
 		241523B4269D24860077941A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523B3269D24860077941A /* Function.swift */; };
 		2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */; };
@@ -201,6 +205,10 @@
 		03F2ED7826EDD46900CFE87C /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
+		03F2ED8526F0343E00CFE87C /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
+		03F2ED8726F04D6100CFE87C /* PostCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellViewModel.swift; sourceTree = "<group>"; };
+		03F2ED8926F06BC300CFE87C /* FirestoreCommentRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCommentRepo.swift; sourceTree = "<group>"; };
+		03F2ED8B26F17D2C00CFE87C /* PostCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomButton.swift; sourceTree = "<group>"; };
 		241523AF269D093E0077941A /* ShoppingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingService.swift; sourceTree = "<group>"; };
 		241523B3269D24860077941A /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -580,6 +588,7 @@
 				03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */,
 				03F2ED7426EDD23A00CFE87C /* PostUserView.swift */,
 				03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */,
+				03F2ED8B26F17D2C00CFE87C /* PostCustomButton.swift */,
 			);
 			path = PostCustomVIew;
 			sourceTree = "<group>";
@@ -588,6 +597,7 @@
 			isa = PBXGroup;
 			children = (
 				03F2ED7226ED92D500CFE87C /* PostViewModel.swift */,
+				03F2ED8726F04D6100CFE87C /* PostCellViewModel.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -652,6 +662,7 @@
 			children = (
 				244B2B1026E4A0DB001226F0 /* FirestoreUserRepo.swift */,
 				03D8C1EE26EB6D8C00238CB6 /* FirestorePostRepo.swift */,
+				03F2ED8926F06BC300CFE87C /* FirestoreCommentRepo.swift */,
 			);
 			path = FirestoreRepository;
 			sourceTree = "<group>";
@@ -704,6 +715,7 @@
 				241523AF269D093E0077941A /* ShoppingService.swift */,
 				03B2049A26D7BA830099C269 /* MenuService.swift */,
 				03D8C1FC26EBBC9800238CB6 /* PostService.swift */,
+				03F2ED8526F0343E00CFE87C /* CommentService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -949,6 +961,7 @@
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
 				03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */,
 				2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */,
+				03F2ED8626F0343E00CFE87C /* CommentService.swift in Sources */,
 				03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
 				03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */,
@@ -974,6 +987,7 @@
 				03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */,
 				0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */,
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
+				03F2ED8C26F17D2D00CFE87C /* PostCustomButton.swift in Sources */,
 				0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */,
 				032233D72692F0160092DD6D /* Extension.swift in Sources */,
 				032233BC269279DC0092DD6D /* MyMealViewController.swift in Sources */,
@@ -1004,6 +1018,7 @@
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */,
 				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
+				03F2ED8A26F06BC300CFE87C /* FirestoreCommentRepo.swift in Sources */,
 				24B081BA26DFD23500379087 /* LocalUser.swift in Sources */,
 				03D8C1F126EB6FD600238CB6 /* Post.swift in Sources */,
 				03B2048D26D5D9440099C269 /* AddShoppingViewModel.swift in Sources */,
@@ -1016,6 +1031,7 @@
 				0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */,
 				24B081CC26E10F7B00379087 /* RealmMealRepo.swift in Sources */,
 				03F2ED6A26ED914B00CFE87C /* PostTableViewCell.swift in Sources */,
+				03F2ED8826F04D6200CFE87C /* PostCellViewModel.swift in Sources */,
 				03F2ED7926EDD46900CFE87C /* PostDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

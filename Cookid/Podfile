@@ -18,6 +18,7 @@ def pods
  pod 'RxKakaoSDKCommon'
  pod 'RxKakaoSDKAuth'
  pod 'RxKakaoSDKUser'
+ pod 'ReactorKit'
 end
 
 target 'Cookid' do

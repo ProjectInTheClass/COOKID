@@ -18,6 +18,17 @@ class PostService {
     }
     
     func fetchPosts() -> Observable<[Post]> {
+        print("fetch posts")
+        postStore.onNext(posts)
         return postStore
     }
+    
+    func updatePost(post: Post) {
+        FirestorePostRepo.instance.updatePost(updatedPost: post)
+        if let index = posts.firstIndex(where: { $0.postID == post.postID }) {
+            posts.remove(at: index)
+            posts.insert(post, at: index)
+        }
+    }
+    
 }

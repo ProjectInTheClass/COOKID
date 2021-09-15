@@ -26,6 +26,7 @@ class HomeCoordinator: CoordinatorType {
         let userService = UserService()
         let shoppingService = ShoppingService()
         let postService = PostService()
+        let commentService = CommentService()
         
         var mainVC = MainViewController.instantiate(storyboardID: "Main")
         mainVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
@@ -44,7 +45,7 @@ class HomeCoordinator: CoordinatorType {
         myMealVC.navigationController?.navigationBar.barTintColor = .systemBackground
         
         var postMainVC = PostMainViewController.instantiate(storyboardID: "Post")
-        postMainVC.bind(viewModel: PostViewModel(postService: postService, userService: userService))
+        postMainVC.bind(viewModel: PostViewModel(postService: postService, userService: userService, commentService: commentService))
         postMainVC.coordinator = self
         postMainNVC = UINavigationController(rootViewController: postMainVC)
         postMainVC.navigationController?.navigationBar.prefersLargeTitles = true
