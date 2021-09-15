@@ -15,7 +15,7 @@
 * [김동환](https://github.com/supersupremekim)
 * [박형석](https://github.com/Developer-Paul-t)
 * [임현지](https://github.com/leemyeonji)
-* [홍석현](https://github.com/nyokki1119)
+* [홍석현](https://github.com/Derek1119)
 
 
 
