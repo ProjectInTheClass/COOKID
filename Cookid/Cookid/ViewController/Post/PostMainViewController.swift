@@ -24,9 +24,6 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     var viewModel: PostViewModel!
     var coordinator: HomeCoordinator?
     
-    var user: User?
-    var comments: [Comment]?
-    
     // MARK: - View LC
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,35 +57,21 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         
         viewModel.output.user
             .bind { [unowned self] user in
-                self.user = user
+                userImage.kf.setImage(with: user.image)
             }
             .disposed(by: rx.disposeBag)
-        
-        viewModel.output.comments
-            .bind { [unowned self] comments in
-                self.comments = comments
-            }
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.posts
+
+        viewModel.output.postCellViewModel
             .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self]  _, item, cell in
                 guard let self = self else { return }
-                print("make cell")
-                let viewModel = PostCellViewModel(postService: self.viewModel.postService, userService: self.viewModel.userService, commentService: self.viewModel.commentService, post: item)
-                cell.viewModel = viewModel
                 cell.coordinator = self.coordinator
+                cell.updateUI(viewModel: item)
             }
             .disposed(by: rx.disposeBag)
-        
+    
         rankingButton.rx.tap
             .bind { [unowned self] in
                 self.coordinator?.navigateRankingVC(viewModel: self.viewModel)
-            }
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.userService.user()
-            .bind { [unowned self] user in
-                userImage.kf.setImage(with: user.image)
             }
             .disposed(by: rx.disposeBag)
         
