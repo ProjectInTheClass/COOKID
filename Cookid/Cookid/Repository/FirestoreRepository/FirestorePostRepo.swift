@@ -12,13 +12,7 @@ import FirebaseStorage
 
 class FirestorePostRepo {
     static let instance = FirestorePostRepo()
-    
-    func asyncTask(completionHandler: @escaping (String?) -> Void) {
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
-            completionHandler("Hello World !!!")
-        }
-    }
-    
+
     func createPost(post: Post, completion: @escaping (Result<NetWorkingResult, NetWorkingError>) -> Void) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
             completion(.success(.successSignIn))

@@ -6,7 +6,7 @@ identifier_name:
         warning: 1
         error: 1 # 에러만 적용
     max_length: # max_length에서 warning: 40 #40글자 넘으면
-        error: 500 #50글자 넘으면 에러
+        warning: 600
     excluded: # 제외할 문자열 목록 사용
         - id
         - URL

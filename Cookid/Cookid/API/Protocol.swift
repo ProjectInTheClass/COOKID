@@ -25,6 +25,14 @@ extension ViewModelBindable where Self: UIViewController {
     }
 }
 
+extension ViewModelBindable where Self: UITableViewCell {
+    mutating func bind(viewModel: ViewModelType) {
+        self.viewModel = viewModel
+        reloadInputViews()
+        bindViewModel()
+    }
+}
+
 protocol StoryboardBased {
     static func instantiate(storyboardID: String) -> Self
 }

@@ -19,6 +19,9 @@ PODS:
     - RxSwift (~> 5.1)
   - PagingKit (1.18.0)
   - PanModal (1.2.7)
+  - ReactorKit (2.1.1):
+    - RxSwift (~> 5.0)
+    - WeakMapTable (~> 1.1)
   - RxAlamofire (5.7.1):
     - RxAlamofire/Core (= 5.7.1)
   - RxAlamofire/Core (5.7.1):
@@ -57,6 +60,7 @@ PODS:
   - SnapKit (5.0.1)
   - SwiftLint (0.44.0)
   - Then (2.7.0)
+  - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
   - FSCalendar
@@ -65,6 +69,7 @@ DEPENDENCIES:
   - "NSObject+Rx"
   - PagingKit
   - PanModal
+  - ReactorKit
   - RxCocoa
   - RxDataSources
   - RxKakaoSDKAuth
@@ -89,6 +94,7 @@ SPEC REPOS:
     - "NSObject+Rx"
     - PagingKit
     - PanModal
+    - ReactorKit
     - RxAlamofire
     - RxCocoa
     - RxDataSources
@@ -101,6 +107,7 @@ SPEC REPOS:
     - SnapKit
     - SwiftLint
     - Then
+    - WeakMapTable
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
@@ -114,6 +121,7 @@ SPEC CHECKSUMS:
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
   PagingKit: 366cc22d74f4de7768bb31d8fcd49182f53e3ce7
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
+  ReactorKit: 6d894a20c3d508344320901cd8e386fde92df4b6
   RxAlamofire: 8e144c62dcc01d68dcb366bfc542eb6dd46bab78
   RxCocoa: e2ed092d5432e4296aa818021d27de4090ac0354
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
@@ -126,7 +134,8 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
+  WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: c5b1310dff78458b6d1d5c4061878eebde689f6b
+PODFILE CHECKSUM: 2a8768ecc49b90364800eabffd58a6cec2c206d2
 
 COCOAPODS: 1.10.1

@@ -11,6 +11,7 @@ import RxSwift
 class PostViewModel: ViewModelType {
     
     let postService: PostService
+    let commentService: CommentService
     let userService: UserService
     
     struct Input {
@@ -19,19 +20,24 @@ class PostViewModel: ViewModelType {
     
     struct Output {
         let posts: Observable<[Post]>
+        let user: Observable<User>
+        let comments: Observable<[Comment]>
     }
     
     var input: Input
     var output: Output
     
-    init(postService: PostService, userService: UserService) {
+    init(postService: PostService, userService: UserService, commentService: CommentService) {
         self.postService = postService
         self.userService = userService
-        
+        self.commentService = commentService
+
         let posts = postService.fetchPosts()
+        let comments = commentService.fetchComments(postID: "")
+        let user = userService.user()
         
         self.input = Input()
-        self.output = Output(posts: posts)
+        self.output = Output(posts: posts, user: user, comments: comments)
     }
     
 }

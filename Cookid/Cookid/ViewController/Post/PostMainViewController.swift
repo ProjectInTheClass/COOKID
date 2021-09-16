@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import NSObject_Rx
 import Kingfisher
 
 class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBased {
@@ -20,6 +23,9 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     // MARK: - Properties
     var viewModel: PostViewModel!
     var coordinator: HomeCoordinator?
+    
+    var user: User?
+    var comments: [Comment]?
     
     // MARK: - View LC
     override func viewDidLoad() {
@@ -52,9 +58,25 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     // MARK: - bindViewModel
     func bindViewModel() {
         
+        viewModel.output.user
+            .bind { [unowned self] user in
+                self.user = user
+            }
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.comments
+            .bind { [unowned self] comments in
+                self.comments = comments
+            }
+            .disposed(by: rx.disposeBag)
+        
         viewModel.output.posts
-            .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { _, item, cell in
-                cell.updateUI(post: item, user: DummyData.shared.singleUser, commentCount: 2)
+            .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self]  _, item, cell in
+                guard let self = self else { return }
+                print("make cell")
+                let viewModel = PostCellViewModel(postService: self.viewModel.postService, userService: self.viewModel.userService, commentService: self.viewModel.commentService, post: item)
+                cell.viewModel = viewModel
+                cell.coordinator = self.coordinator
             }
             .disposed(by: rx.disposeBag)
         
@@ -66,7 +88,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         
         viewModel.userService.user()
             .bind { [unowned self] user in
-                userImage.kf.setImage(with: user.image, placeholder: UIImage(named: IMAGENAME.placeholder))
+                userImage.kf.setImage(with: user.image)
             }
             .disposed(by: rx.disposeBag)
         
@@ -82,5 +104,4 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             }
             .disposed(by: rx.disposeBag)
     }
-
 }
