@@ -458,7 +458,6 @@
 			isa = PBXGroup;
 			children = (
 				035E492626975815002CC084 /* MainViewModel.swift */,
-				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
 				0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */,
 				03B2048C26D5D9440099C269 /* AddShoppingViewModel.swift */,
 			);
@@ -591,6 +590,7 @@
 			isa = PBXGroup;
 			children = (
 				2417EAB526E58D0C006F2785 /* MyPageViewModel.swift */,
+				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
