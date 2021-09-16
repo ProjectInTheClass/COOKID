@@ -15,7 +15,7 @@ import NSObject_Rx
 class MyMealsViewController: UIViewController, ViewModelBindable {
     
     var viewModel: MyPageViewModel!
-    var coordinator: HomeCoordinator?
+    var coordinator: MyPageCoordinator?
     
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: MyMealsViewController.createLayout())
 
@@ -105,12 +105,7 @@ class MyMealsViewController: UIViewController, ViewModelBindable {
         
         collectionView.rx.modelSelected(Meal.self)
             .bind(onNext: { [unowned self] meal in
-                let mainCoordinator = coordinator?.parentCoordinator as? MainCoordinator
-                let tabBarController = mainCoordinator?.navigateHomeCoordinator() as? UITabBarController
-                let nvc = tabBarController?.viewControllers?[0] as? UINavigationController
-                guard let vc = nvc?.topViewController as? MainViewController else { return }
-                let vm = vc.viewModel!
-                self.coordinator?.navigateAddMealVC(viewModel: vm, meal: meal)
+                print(meal)
             })
             .disposed(by: rx.disposeBag)
     }

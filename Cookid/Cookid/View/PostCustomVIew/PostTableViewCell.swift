@@ -32,19 +32,17 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var firstStar: UIImageView!
     @IBOutlet weak var secondStar: UIImageView!
     
-    var coordinator: HomeCoordinator?
+    var coordinator: PostCoordinator?
     var disposeBag = DisposeBag()
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        print("prepareForReuse")
         disposeBag = DisposeBag()
     }
     
     func updateUI(viewModel: PostCellViewModel) {
-        print("updateUI")
         
-        viewModel.output.post.star = 2
+        viewModel.output.post.star = 3
         postUserView.updateUI(post: viewModel.output.post)
         userNicknameLabel.text = viewModel.output.post.user.nickname
         postCaptionLabel.text = viewModel.output.post.caption
@@ -120,7 +118,7 @@ class PostTableViewCell: UITableViewCell {
             }
             .disposed(by: rx.disposeBag)
         
-        imageCollectionView.rx.setDelegate(self)
+        imageCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
     }
    
     private func setPageControl(post: Post) {

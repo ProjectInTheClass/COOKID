@@ -30,6 +30,9 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         let mealDayList: Driver<[MainCollectionViewSection]>
         let consumeProgressCalc: Driver<Double>
         let monthlyDetailed: Driver<ConsumptionDetailed>
+        let dineInProgress: Driver<CGFloat>
+        let mostExpensiveMeal: Driver<Meal>
+        let mealtimes: Driver<[[Meal]]>
     }
     
     var input: Input
@@ -94,8 +97,17 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         })
         .asDriver(onErrorJustReturn: "지출이 없습니다.")
         
+        let dineInProgress = meals.map(mealService.dineInProgressCalc)
+            .asDriver(onErrorJustReturn: 0)
+
+        let mostExpensiveMeal = meals.map(mealService.mostExpensiveMeal)
+            .asDriver(onErrorJustReturn: DummyData.shared.mySingleMeal)
+
+        let mealtimes = meals.map(mealService.mealTimesCalc(meals:))
+            .asDriver(onErrorJustReturn: [])
+        
         self.input = Input(selectedDate: selectedDate)
-        self.output = Output(averagePrice: averagePrice, basicMeal: meals, basicShopping: shoppings, adviceString: adviceString, userInfo: userInfo, mealDayList: mealDayList, consumeProgressCalc: consumeProgressCalc, monthlyDetailed: monthlyDetailed)
+        self.output = Output(averagePrice: averagePrice, basicMeal: meals, basicShopping: shoppings, adviceString: adviceString, userInfo: userInfo, mealDayList: mealDayList, consumeProgressCalc: consumeProgressCalc, monthlyDetailed: monthlyDetailed, dineInProgress: dineInProgress, mostExpensiveMeal: mostExpensiveMeal, mealtimes: mealtimes)
     }
     
     func fetchMealByNavigate(_ day: Int, currentDate: Date) -> Date {
