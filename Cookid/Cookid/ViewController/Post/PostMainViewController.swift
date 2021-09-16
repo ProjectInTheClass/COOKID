@@ -22,7 +22,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     
     // MARK: - Properties
     var viewModel: PostViewModel!
-    var coordinator: HomeCoordinator?
+    var coordinator: PostCoordinator?
     
     // MARK: - View LC
     override func viewDidLoad() {

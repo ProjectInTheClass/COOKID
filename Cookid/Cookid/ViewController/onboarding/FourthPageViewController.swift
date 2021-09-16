@@ -81,7 +81,10 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
     
     // forced unwrapping
     func setRootViewController(user: User) {
-        guard let tabBarController = coordinator?.parentCoordinator?.navigateHomeCoordinator() as? UITabBarController else { return }
+        
+        guard let appCoordinator = coordinator?.parentCoordinator as? AppCoordinator else { return }
+        
+        guard let tabBarController = appCoordinator.navigateHomeCoordinator() as? UITabBarController else { return }
         guard let nvc = tabBarController.viewControllers?[0] as? UINavigationController else { return }
         guard let vc = nvc.topViewController as? MainViewController else { return }
         let vm = vc.viewModel!

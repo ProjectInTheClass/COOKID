@@ -11,7 +11,7 @@ import PagingKit
 class MyPageDetailViewController: UIViewController, ViewModelBindable {
     
     var viewModel: MyPageViewModel!
-    var coordinator: HomeCoordinator?
+    var coordinator: MyPageCoordinator?
     
     var menuViewController: PagingMenuViewController!
     var contentViewController: PagingContentViewController!

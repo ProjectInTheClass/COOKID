@@ -9,16 +9,15 @@ import UIKit
 
 class OnboardingCoordinator: CoordinatorType {
     
-    var parentCoordinator : MainCoordinator?
+    var parentCoordinator : CoordinatorType?
     var childCoordinator: [CoordinatorType] = []
     var navigationController: UINavigationController?
     
-    init(parentCoordinator : MainCoordinator) {
+    init(parentCoordinator : CoordinatorType) {
         self.parentCoordinator = parentCoordinator
     }
     
     func start() -> UIViewController {
-        
         let mealService = MealService()
         let shoppingService = ShoppingService()
         let userService = UserService()

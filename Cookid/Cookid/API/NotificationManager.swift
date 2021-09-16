@@ -34,11 +34,8 @@ class LocalNotificationManager {
     }
     
     static func addNotification() {
-        
         notifications.append(LocalNotification(id: UUID().uuidString, title: "새로운 달입니다!", body: "새로운 가계부 진행시켜 🏃‍♀️"))
-        
         notifications.append(LocalNotification(id: UUID().uuidString, title: "오늘은 어떤 음식을 드셨나요?", body: "오늘의 식사기록을 남겨볼까요? 🍽"))
-        
     }
     
     static func scheduleNotifications() {
@@ -58,15 +55,13 @@ class LocalNotificationManager {
                     var datComp = DateComponents()
                 
                     datComp.day = 1
-                    datComp.hour = 9
+                    datComp.hour = 20
                     let trigger = UNCalendarNotificationTrigger(dateMatching: datComp, repeats: true)
                     request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
                 default:
                     
                     var dateComponents = DateComponents()
-                    
-                    dateComponents.hour = 2
-                    dateComponents.minute = 10
+                    dateComponents.hour = 20
                     let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
                     request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
                 }

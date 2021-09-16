@@ -65,6 +65,7 @@ class AuthRepo: HasDisposeBag {
     }
     
     func fetchKakaoUserInfo(completion: @escaping (Result<URL?, NetWorkingError>) -> Void) {
+        
         UserApi.shared.rx.scopes()
             .subscribe(onSuccess: { scopeInfo in
                 print(scopeInfo)

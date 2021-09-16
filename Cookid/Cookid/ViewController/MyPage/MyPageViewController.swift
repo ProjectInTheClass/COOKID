@@ -21,7 +21,7 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
     // MARK: - Properties
     
     var viewModel: MyPageViewModel!
-    var coordinator : HomeCoordinator?
+    var coordinator : MyPageCoordinator?
     
     // MARK: - View LifeCycle and Fuctions
     

@@ -27,6 +27,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     // buttonView
     @IBOutlet weak var addMealButton: UIButton!
     @IBOutlet weak var addShoppingButton: UIButton!
+    @IBOutlet weak var todayMealButton: UIButton!
     
     // consumeView
     @IBOutlet weak var consumeView: UIView!
@@ -54,11 +55,24 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     @IBOutlet weak var monthSelectButton: UIButton!
     @IBOutlet weak var mealDayCollectionView: UICollectionView!
 
+    // My Meal
+    @IBOutlet weak var dineStaticView: UIView!
+    @IBOutlet weak var mostExpensiveStaticView: UIView!
+    @IBOutlet weak var dineInCircleView: UIView!
+    @IBOutlet weak var dineOutCircleView: UIView!
+    @IBOutlet weak var dineInProgressBar: PlainHorizontalProgressBar!
+    @IBOutlet weak var mealName: UILabel!
+    @IBOutlet weak var mealPrice: UILabel!
+    @IBOutlet weak var mealImage: UIImageView!
+    @IBOutlet weak var mealtimeCollectionBGView: UIView!
+    @IBOutlet weak var mealTimeCollectionView: UICollectionView!
+
     // property
     
     var viewModel: MainViewModel!
-    var coordinator: HomeCoordinator?
+    var coordinator: MainCoordinator?
     var currentDay = Date()
+    var maxValue: Int? = 1
     
     // MARK: - View LifeCycle
     
@@ -73,12 +87,19 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     private func configureUI() {
         addMealButton.layer.cornerRadius = 8
         addShoppingButton.layer.cornerRadius = 8
+        todayMealButton.layer.cornerRadius = 8
         chartView.makeShadow()
         mealCalendarView.makeShadow()
         consumeView.makeShadow()
         etcView.makeShadow()
         adviseView.makeShadow()
         averageView.makeShadow()
+        dineStaticView.makeShadow()
+        mealtimeCollectionBGView.makeShadow()
+        mostExpensiveStaticView.makeShadow()
+        dineInCircleView.makeCircleView()
+        dineOutCircleView.makeCircleView()
+        mealImage.makeCircleView()
         configureNavTab()
         monthSelectButton.setTitle(Date().dateToString(), for: .normal)
         adviseLabel.textColor = DefaultStyle.Color.labelTint
@@ -115,6 +136,12 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         monthSelectButton.rx.tap
             .subscribe(onNext: { [unowned self] in
                 coordinator?.navigateSelectCalendarVC(viewModel: self.viewModel)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        todayMealButton.rx.tap
+            .subscribe(onNext: { [unowned self] in
+                coordinator?.navigateAddMealVC(viewModel: self.viewModel, meal: nil)
             })
             .disposed(by: rx.disposeBag)
         
@@ -202,12 +229,53 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         // rx delegate
         mealDayCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
         
+        viewModel.output.dineInProgress
+            .delay(.microseconds(500))
+            .drive(onNext: { [unowned self] progress in
+                self.dineInProgressBar.progress = progress
+            })
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.mostExpensiveMeal
+            .drive(onNext: { [unowned self] meal in
+                self.mealName.text = meal.name
+                self.mealPrice.text = intToString(meal.price)
+                self.mealImage.image = meal.image ?? UIImage(systemName: "circle.fill")
+            })
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.mealtimes
+            .do(onNext: { [weak self] mealses in
+                let numArr = mealses.map { $0.count }
+                self?.maxValue = numArr.max()
+            })
+            .drive(mealTimeCollectionView.rx.items(cellIdentifier: "timeCell", cellType: MealTimeCollectionViewCell.self)) { _, meals, cell in
+                if let maxValue = self.maxValue,
+                   maxValue != 0 {
+                    let ratio = CGFloat(meals.count) / CGFloat(maxValue)
+                    let arrString = meals.first?.mealTime.rawValue ?? ""
+                    cell.updateUI(ratio: ratio, name: arrString)
+                    cell.backgroundColor = .white
+                } else {
+                    let arrString = meals.first?.mealTime.rawValue ?? ""
+                    cell.updateUI(ratio: 0.5, name: arrString)
+                    cell.backgroundColor = .white
+                }
+            }
+            .disposed(by: rx.disposeBag)
+        
+        mealTimeCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+        
     }
     
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.height, height: collectionView.frame.height)
+        if collectionView == mealTimeCollectionView {
+            return CGSize(width: collectionView.frame.width/6 - 5, height: collectionView.frame.height)
+        } else {
+            return CGSize(width: collectionView.frame.height, height: collectionView.frame.height)
+        }
     }
 }
