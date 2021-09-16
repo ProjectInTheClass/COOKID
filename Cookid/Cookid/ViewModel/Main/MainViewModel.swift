@@ -43,7 +43,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         self.userService = userService
         self.shoppingService = shoppingService
         
-        // fetch
+        // fetch data
         userService.loadUserInfo { _ in }
         mealService.fetchMeals()
         shoppingService.fetchShoppings()
