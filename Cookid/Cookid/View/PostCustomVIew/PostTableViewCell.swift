@@ -8,8 +8,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import ReactorKit
 
-class PostTableViewCell: UITableViewCell {
+class PostTableViewCell: UITableViewCell, View {
     
     @IBOutlet weak var postUserView: PostUserView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -33,11 +34,30 @@ class PostTableViewCell: UITableViewCell {
     
     var viewModel: PostCellViewModel!
     var coordinator: HomeCoordinator?
-    private var disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     override func prepareForReuse() {
         super.prepareForReuse()
         disposeBag = DisposeBag()
+    }
+    
+    class PostCellReactor: Reactor {
+        
+    }
+    
+    func bind(reactor: PostCellReactor) {
+        self.heartButton.rx.tap
+            .bind(onNext: { [unowned self] in
+                self.viewModel.output.post.didLike = heartButton.isActivated
+                if self.heartButton.isActivated {
+                    self.viewModel.output.post.likes += 1
+                } else {
+                    self.viewModel.output.post.likes -= 1
+                }
+                self.viewModel.postService.updatePost(post: self.viewModel.output.post)
+                self.makeUpLikes(post: self.viewModel.output.post)
+            })
+            .disposed(by: self.disposeBag)
     }
     
     override func layoutSubviews() {
