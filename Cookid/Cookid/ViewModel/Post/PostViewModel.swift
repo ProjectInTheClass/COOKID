@@ -19,9 +19,8 @@ class PostViewModel: ViewModelType {
     }
     
     struct Output {
-        let posts: Observable<[Post]>
+        let postCellViewModel: Observable<[PostCellViewModel]>
         let user: Observable<User>
-        let comments: Observable<[Comment]>
     }
     
     var input: Input
@@ -32,12 +31,17 @@ class PostViewModel: ViewModelType {
         self.userService = userService
         self.commentService = commentService
 
-        let posts = postService.fetchPosts()
-        let comments = commentService.fetchComments(postID: "")
+        let postCellViewModel = postService.fetchPosts()
+            .map { posts -> [PostCellViewModel] in
+                return posts.map { post -> PostCellViewModel in
+                    return PostCellViewModel(postService: postService, userService: userService, commentService: commentService, post: post)
+                }
+            }
+        
         let user = userService.user()
         
         self.input = Input()
-        self.output = Output(posts: posts, user: user, comments: comments)
+        self.output = Output(postCellViewModel: postCellViewModel, user: user)
     }
     
 }

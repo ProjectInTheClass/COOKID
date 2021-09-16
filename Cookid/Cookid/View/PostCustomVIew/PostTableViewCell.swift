@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import ReactorKit
 
-class PostTableViewCell: UITableViewCell, View {
+class PostTableViewCell: UITableViewCell {
     
     @IBOutlet weak var postUserView: PostUserView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -32,36 +32,17 @@ class PostTableViewCell: UITableViewCell, View {
     @IBOutlet weak var firstStar: UIImageView!
     @IBOutlet weak var secondStar: UIImageView!
     
-    var viewModel: PostCellViewModel!
     var coordinator: HomeCoordinator?
     var disposeBag = DisposeBag()
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        print("prepareForReuse")
         disposeBag = DisposeBag()
     }
     
-    class PostCellReactor: Reactor {
-        
-    }
-    
-    func bind(reactor: PostCellReactor) {
-        self.heartButton.rx.tap
-            .bind(onNext: { [unowned self] in
-                self.viewModel.output.post.didLike = heartButton.isActivated
-                if self.heartButton.isActivated {
-                    self.viewModel.output.post.likes += 1
-                } else {
-                    self.viewModel.output.post.likes -= 1
-                }
-                self.viewModel.postService.updatePost(post: self.viewModel.output.post)
-                self.makeUpLikes(post: self.viewModel.output.post)
-            })
-            .disposed(by: self.disposeBag)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    func updateUI(viewModel: PostCellViewModel) {
+        print("updateUI")
         
         viewModel.output.post.star = 2
         postUserView.updateUI(post: viewModel.output.post)
@@ -78,7 +59,7 @@ class PostTableViewCell: UITableViewCell, View {
         viewModel.output.user
             .drive(onNext: { [weak self] user in
                 guard let self = self else { return }
-                self.makeUpBudgetCheck(post: self.viewModel.output.post, user: user)
+                self.makeUpBudgetCheck(post: viewModel.output.post, user: user)
             })
             .disposed(by: disposeBag)
         
@@ -91,28 +72,30 @@ class PostTableViewCell: UITableViewCell, View {
         
         heartButton.rx.tap
             .bind(onNext: { [unowned self] in
-                self.viewModel.output.post.didLike = heartButton.isActivated
+                viewModel.output.post.didLike = heartButton.isActivated
+                
                 if self.heartButton.isActivated {
-                    self.viewModel.output.post.likes += 1
+                    viewModel.output.post.likes += 1
                 } else {
-                    self.viewModel.output.post.likes -= 1
+                    viewModel.output.post.likes -= 1
                 }
-                self.viewModel.postService.updatePost(post: self.viewModel.output.post)
-                self.makeUpLikes(post: self.viewModel.output.post)
+                viewModel.postService.updatePost(post: viewModel.output.post)
+                
+                self.makeUpLikes(post: viewModel.output.post)
             })
             .disposed(by: disposeBag)
         
         bookmarkButton.rx.tap
             .bind(onNext: { [unowned self] in
                 if self.bookmarkButton.isActivated {
-                    self.viewModel.output.post.collections += 1
+                    viewModel.output.post.collections += 1
                 } else {
-                    self.viewModel.output.post.collections -= 1
+                    viewModel.output.post.collections -= 1
                 }
-                self.viewModel.output.post.didCollect = bookmarkButton.isActivated
+                viewModel.output.post.didCollect = bookmarkButton.isActivated
                 
-                self.viewModel.postService.updatePost(post: self.viewModel.output.post)
-                self.makeUpBookmark(post: self.viewModel.output.post)
+                viewModel.postService.updatePost(post: viewModel.output.post)
+                self.makeUpBookmark(post: viewModel.output.post)
             })
             .disposed(by: disposeBag)
         

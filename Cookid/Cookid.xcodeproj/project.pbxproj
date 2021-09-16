@@ -105,10 +105,6 @@
 		C6150A062696BB3300578EAB /* MyMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61426941121009289B7 /* MyMealViewModel.swift */; };
 		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
 		C67441D62696FA530086CBAD /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
-		C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67441D726970E7C0086CBAD /* AuthRepository.swift */; };
-		C6BFF45726949986006295F5 /* UserRepositrory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45426949986006295F5 /* UserRepositrory.swift */; };
-		C6BFF45826949986006295F5 /* GroceryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45526949986006295F5 /* GroceryRepository.swift */; };
-		C6BFF45926949986006295F5 /* MealRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF45626949986006295F5 /* MealRepository.swift */; };
 		C6BFF45C26949A1E006295F5 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C6BFF45B26949A1E006295F5 /* FirebaseDatabase */; };
 		C6BFF45E26949A1E006295F5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C6BFF45D26949A1E006295F5 /* FirebaseStorage */; };
 		C6BFF46226949AA7006295F5 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF46126949AA7006295F5 /* Constant.swift */; };
@@ -227,10 +223,6 @@
 		904741279A4F1CFB953C5D48 /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
 		9B2D5500FAB87ECEE29995E1 /* Pods-CookidTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookidTests.debug.xcconfig"; path = "Target Support Files/Pods-CookidTests/Pods-CookidTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B632E4718B240458C546A106 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C67441D726970E7C0086CBAD /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
-		C6BFF45426949986006295F5 /* UserRepositrory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepositrory.swift; sourceTree = "<group>"; };
-		C6BFF45526949986006295F5 /* GroceryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroceryRepository.swift; sourceTree = "<group>"; };
-		C6BFF45626949986006295F5 /* MealRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealRepository.swift; sourceTree = "<group>"; };
 		C6BFF46126949AA7006295F5 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		DB0D7D7326949818009B2D51 /* MealService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MealService.swift; path = COOKID/Service/MealService.swift; sourceTree = SOURCE_ROOT; };
 		DB1982EC269BF3660055742B /* UserInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationViewController.swift; sourceTree = "<group>"; };
@@ -433,7 +425,6 @@
 		032233D52692F00B0092DD6D /* API */ = {
 			isa = PBXGroup;
 			children = (
-				03586EBA26E4FF64002A56C6 /* Deprecated */,
 				032233C526927EF90092DD6D /* DummyData */,
 				032233D62692F0160092DD6D /* Extension.swift */,
 				032233E826934F180092DD6D /* Protocol.swift */,
@@ -450,14 +441,6 @@
 				03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */,
 			);
 			path = SignIn;
-			sourceTree = "<group>";
-		};
-		03586EBA26E4FF64002A56C6 /* Deprecated */ = {
-			isa = PBXGroup;
-			children = (
-				03B2048F26D70DFA0099C269 /* FirebaseReopsitory */,
-			);
-			path = Deprecated;
 			sourceTree = "<group>";
 		};
 		0395B61626943B1F009289B7 /* MainCustomView */ = {
@@ -491,17 +474,6 @@
 				03B2048C26D5D9440099C269 /* AddShoppingViewModel.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		03B2048F26D70DFA0099C269 /* FirebaseReopsitory */ = {
-			isa = PBXGroup;
-			children = (
-				C67441D726970E7C0086CBAD /* AuthRepository.swift */,
-				C6BFF45426949986006295F5 /* UserRepositrory.swift */,
-				C6BFF45626949986006295F5 /* MealRepository.swift */,
-				C6BFF45526949986006295F5 /* GroceryRepository.swift */,
-			);
-			path = FirebaseReopsitory;
 			sourceTree = "<group>";
 		};
 		03D8C1F426EBB7E500238CB6 /* RemoteEntity */ = {
@@ -947,8 +919,6 @@
 				032233BA269277520092DD6D /* Meal.swift in Sources */,
 				0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */,
 				DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */,
-				C6BFF45826949986006295F5 /* GroceryRepository.swift in Sources */,
-				C6BFF45726949986006295F5 /* UserRepositrory.swift in Sources */,
 				0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */,
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
 				03D8C1EB26EA539300238CB6 /* MyPostTableViewCell.swift in Sources */,
@@ -1006,7 +976,6 @@
 				24B081B126DFD21300379087 /* RealmUserRepo.swift in Sources */,
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
 				2417EABC26E5A562006F2785 /* MyPageHeaderView.swift in Sources */,
-				C67441D826970E7C0086CBAD /* AuthRepository.swift in Sources */,
 				03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */,
 				03F2ED6226ED048300CFE87C /* AuthRepo.swift in Sources */,
 				24B081C426E0473F00379087 /* LocalShopping.swift in Sources */,
@@ -1017,7 +986,6 @@
 				03B2049B26D7BA830099C269 /* MenuService.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */,
-				C6BFF45926949986006295F5 /* MealRepository.swift in Sources */,
 				03F2ED8A26F06BC300CFE87C /* FirestoreCommentRepo.swift in Sources */,
 				24B081BA26DFD23500379087 /* LocalUser.swift in Sources */,
 				03D8C1F126EB6FD600238CB6 /* Post.swift in Sources */,

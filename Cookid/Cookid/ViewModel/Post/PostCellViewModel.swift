@@ -44,4 +44,12 @@ class PostCellViewModel: ViewModelType {
         self.output = Output(post: post, user: user, comments: comments)
     }
     
+    func updateHeartButton() {
+        
+    }
+    
+    func updateBookmarkButton() {
+        
+    }
+    
 }
