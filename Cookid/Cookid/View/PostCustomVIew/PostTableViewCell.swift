@@ -99,7 +99,8 @@ class PostTableViewCell: UITableViewCell {
         
         detailButton.rx.tap
             .bind(onNext: { [unowned self] in
-                print(self.coordinator.debugDescription)
+                self.postCaptionLabel.numberOfLines = 0
+                self.detailButton.isHidden = true
             })
             .disposed(by: disposeBag)
         
