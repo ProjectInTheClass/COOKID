@@ -19,6 +19,7 @@ def pods
  pod 'RxKakaoSDKAuth'
  pod 'RxKakaoSDKUser'
  pod 'ReactorKit'
+ pod 'YPImagePicker'
 end
 
 target 'Cookid' do

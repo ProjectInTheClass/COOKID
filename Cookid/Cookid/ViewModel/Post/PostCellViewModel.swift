@@ -10,11 +10,7 @@ import RxSwift
 import RxCocoa
 
 class PostCellViewModel: ViewModelType {
-    
-    deinit {
-        print("------> deinit cell viewModel")
-    }
-    
+
     let postService: PostService
     let commentService: CommentService
     let userService: UserService
@@ -27,6 +23,7 @@ class PostCellViewModel: ViewModelType {
         var post: Post
         let user: Driver<User>
         let comments: Driver<[Comment]>
+        let commentReactors: Driver<[CommentReactor]>
     }
     
     var input: Input
@@ -38,10 +35,12 @@ class PostCellViewModel: ViewModelType {
         self.commentService = commentService
         
         let user = userService.user().asDriver(onErrorJustReturn: DummyData.shared.singleUser)
-        let comments = commentService.fetchComments(postID: post.postID).asDriver(onErrorJustReturn: [])
-
+        let comments = commentService.fetchComments(postID: post.postID)
+            .asDriver(onErrorJustReturn: [])
+        let commentReactors = comments.map { $0.map { CommentReactor(comment: $0)} }
+        
         self.input = Input()
-        self.output = Output(post: post, user: user, comments: comments)
+        self.output = Output(post: post, user: user, comments: comments, commentReactors: commentReactors)
     }
     
 }

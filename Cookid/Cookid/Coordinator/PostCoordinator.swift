@@ -52,7 +52,15 @@ class PostCoordinator: CoordinatorType {
     }
     
     func navigateAddPostVC(viewModel: PostViewModel) {
-        var _ = AddPostViewController.instantiate(storyboardID: "Post")
-        // 받아와서 올리기
+        var addPostVC = AddPostViewController.instantiate(storyboardID: "Post")
+        addPostVC.bind(viewModel: viewModel)
+        navigationController?.pushViewController(addPostVC, animated: true)
+    }
+    
+    func navigateCommentVC(viewModel: PostCellViewModel) {
+        var commentVC = CommentViewController()
+        commentVC.bind(viewModel: viewModel)
+        commentVC.modalPresentationStyle = .overFullScreen
+        navigationController?.pushViewController(commentVC, animated: true)
     }
 }

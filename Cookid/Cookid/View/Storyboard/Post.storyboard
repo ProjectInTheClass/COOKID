@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aZO-F3-Zym">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aZO-F3-Zym">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -107,7 +107,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" id="ayq-pS-bOt" customClass="PostTableViewCell" customModule="Cookid" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="156.5" width="414" height="714"/>
+                                        <rect key="frame" x="0.0" y="176.5" width="414" height="714"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ayq-pS-bOt" id="DpJ-NE-pt9">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
@@ -290,7 +290,7 @@
                                                                     </subviews>
                                                                 </stackView>
                                                                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="L4n-by-AGg">
-                                                                    <rect key="frame" x="146.5" y="13.5" width="121.5" height="27.5"/>
+                                                                    <rect key="frame" x="129.5" y="14" width="155.5" height="26"/>
                                                                     <color key="pageIndicatorTintColor" systemColor="systemGray6Color"/>
                                                                     <color key="currentPageIndicatorTintColor" red="0.0" green="0.56904578210000001" blue="0.57461684940000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </pageControl>
@@ -431,6 +431,101 @@
             </objects>
             <point key="canvasLocation" x="776.81159420289862" y="87.723214285714278"/>
         </scene>
+        <!--Add Post View Controller-->
+        <scene sceneID="woi-V8-eNG">
+            <objects>
+                <viewController storyboardIdentifier="AddPostViewController" id="efs-ay-Ei0" customClass="AddPostViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vQ9-pn-vCX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFQ-aw-Aps">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="byf-3p-4oO">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1124"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7VY-pe-alx" customClass="PostImageView" customModule="Cookid" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="7VY-pe-alx" secondAttribute="height" multiplier="1:1" id="0hM-qf-dsq"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WpL-Jm-Uep">
+                                                <rect key="frame" x="0.0" y="424" width="414" height="150"/>
+                                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="mIt-QH-bw9"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SHT-bR-0DW">
+                                                <rect key="frame" x="0.0" y="584" width="414" height="150"/>
+                                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="cS5-MR-YGf"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pfe-VE-EQ1">
+                                                <rect key="frame" x="0.0" y="744" width="414" height="150"/>
+                                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="xwN-W3-bgl"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4o-z8-ptV">
+                                                <rect key="frame" x="0.0" y="904" width="414" height="150"/>
+                                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="GSv-UF-k4P"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVG-UC-x6e">
+                                                <rect key="frame" x="0.0" y="1064" width="414" height="60"/>
+                                                <color key="backgroundColor" red="0.0" green="0.66246559979999997" blue="0.66912123099999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="Ss4-2u-Wyx"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="포스트 올리기">
+                                                    <fontDescription key="titleFontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="18"/>
+                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </buttonConfiguration>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="byf-3p-4oO" firstAttribute="trailing" secondItem="HdP-q4-7F0" secondAttribute="trailing" id="Noi-jJ-Vag"/>
+                                    <constraint firstItem="byf-3p-4oO" firstAttribute="bottom" secondItem="HdP-q4-7F0" secondAttribute="bottom" id="OyH-H5-qdq"/>
+                                    <constraint firstItem="byf-3p-4oO" firstAttribute="leading" secondItem="HdP-q4-7F0" secondAttribute="leading" id="hFP-HI-z0o"/>
+                                    <constraint firstItem="byf-3p-4oO" firstAttribute="top" secondItem="HdP-q4-7F0" secondAttribute="top" id="sO6-aZ-kW1"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="HdP-q4-7F0"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="cln-np-UY0"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="oHk-PA-vjn"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="VFQ-aw-Aps" firstAttribute="top" secondItem="vQ9-pn-vCX" secondAttribute="top" id="PZx-md-2bv"/>
+                            <constraint firstItem="VFQ-aw-Aps" firstAttribute="trailing" secondItem="oHk-PA-vjn" secondAttribute="trailing" id="XJ7-fX-TXj"/>
+                            <constraint firstItem="VFQ-aw-Aps" firstAttribute="leading" secondItem="oHk-PA-vjn" secondAttribute="leading" id="geV-X3-hgl"/>
+                            <constraint firstItem="byf-3p-4oO" firstAttribute="width" secondItem="vQ9-pn-vCX" secondAttribute="width" id="lA8-cZ-Acd"/>
+                            <constraint firstAttribute="bottom" secondItem="VFQ-aw-Aps" secondAttribute="bottom" id="mJM-Ts-SIF"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hSm-bV-FCm"/>
+                    <connections>
+                        <outlet property="postImageView" destination="7VY-pe-alx" id="tdT-Hh-92C"/>
+                        <outlet property="uploadPostButton" destination="HVG-UC-x6e" id="1iW-AP-hVd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aP9-2f-jLn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1582.608695652174" y="87.723214285714278"/>
+        </scene>
     </scenes>
     <resources>
         <image name="boardingImage" width="640" height="960"/>
@@ -458,6 +553,9 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

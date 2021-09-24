@@ -6,20 +6,36 @@
 //
 
 import UIKit
+import SnapKit
+import Then
+import NSObject_Rx
 
 class AddPostViewController: UIViewController, ViewModelBindable, StoryboardBased {
-
+    
+    // UIComponent
+    
+    @IBOutlet weak var postImageView: PostImageView!
+    @IBOutlet weak var uploadPostButton: UIButton!
+    
     var viewModel: PostViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configureUI()
     }
     
-
+    private func configureUI() {
+        navigationItem.title = "포스트 작성"
+    }
+    
     func bindViewModel() {
         
+        uploadPostButton.rx.tap
+            .bind(onNext: {
+                print("uploadPostButton tapped")
+            })
+            .disposed(by: rx.disposeBag)
+        
     }
-
+    
 }
