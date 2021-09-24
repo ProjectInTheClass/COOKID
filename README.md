@@ -53,16 +53,12 @@
 * RxSwift, RxCocoa, RxDataSource, RxKeyboard, NSObject+Rx, ReactorKit
 
 ### 백앤드
-* OAuth
+* Kakao, Naver, Apple Auth
 * Firebase FireStore
 * Firebase Storage
 * Local DB: Realm
 
-### CI/CD
-* fastlane
-
-### TestCode
-* XCTest (Unit Test, UITest)
+### CI/CD, Test
 
 ### 개발 아키텍처
 * Rx + MVVM + Coordinator Pattern 
