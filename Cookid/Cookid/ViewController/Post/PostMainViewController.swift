@@ -77,7 +77,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         
         postButtonWithCaption.rx.tap
             .bind { [unowned self] in
-                print("postButtonWithCaption")
+                coordinator?.navigateAddPostVC(viewModel: self.viewModel)
             }
             .disposed(by: rx.disposeBag)
         

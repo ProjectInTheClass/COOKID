@@ -26,9 +26,9 @@ class FirestoreUserRepo {
         }
     }
     
-    func fetchUser(user: User, completion: @escaping (User?) -> Void) {
-        print(user.nickname)
-        //        userDB.document(user.id).getDocument(source: .default) { (document, error) in
+    func fetchUser(userID: String, completion: @escaping (User?) -> Void) {
+        print(userID)
+        //        userDB.document(userID).getDocument(source: .default) { (document, error) in
         //
         //            let result = Result {
         //                try document?.data(as: User.self)

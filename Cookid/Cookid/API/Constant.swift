@@ -54,6 +54,8 @@ enum CELLIDENTIFIER {
     static let menuCell = "menuCell"
     static let recipeCell = "recipeCell"
     static let postCell = "postCell"
+    static let commentCell = "commentCell"
+    static let postImageCell = "postImageCell"
 }
 
 enum NetWorkingError : String, Error {
@@ -65,6 +67,7 @@ enum NetWorkingError : String, Error {
 }
 
 enum NetWorkingResult : String {
+    case success
     case successSignIn = "로그인에 성공했습니다!"
     case token
 }

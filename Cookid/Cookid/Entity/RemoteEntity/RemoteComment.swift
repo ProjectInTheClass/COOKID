@@ -10,10 +10,10 @@ import Foundation
 struct CommentEntity: Codable {
     var commentID: String
     var postID: String
+    var parentID: String?
     var userID: String
     var content: String
     var timestamp: Date
-    var isSubComment: Bool
     var didLike: [String:Bool]
     var isReported: [String:Bool]
 }

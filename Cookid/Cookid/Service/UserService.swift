@@ -23,7 +23,7 @@ class UserService {
     
     /// Fetch from Firebase
     func loadUserInfo(completion: @escaping (User?) -> Void) {
-        FirestoreUserRepo.instance.fetchUser(user: defaultUserInfo) { user in
+        FirestoreUserRepo.instance.fetchUser(userID: defaultUserInfo.id) { user in
             if let user = user {
                 self.defaultUserInfo = user
                 self.userInfo.onNext(user)

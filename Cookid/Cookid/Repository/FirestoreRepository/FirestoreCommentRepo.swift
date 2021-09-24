@@ -20,15 +20,16 @@ class FirestoreCommentRepo {
         }
     }
     
-    func updateComment(comment: Comment) {
-        print(comment.commentID)
+    func fetchComments(postID: String, completion: @escaping ([CommentEntity]) -> Void) {
+        // 파이어베이스 comments db에서 postID이고 parentID가 nil인 댓글을 최신순으로 불러온다.
+        print("CommentRepo fetchComments call")
+        completion([])
     }
     
-    func fetchComments(postID: String, completion: @escaping ([CommentEntity]) -> Void) {
-        completion([
-            CommentEntity(commentID: "", postID: postID, userID: "", content: "오와 맛있게다아", timestamp: Date(), isSubComment: false, didLike: [:], isReported: [:]),
-            CommentEntity(commentID: "", postID: postID, userID: "", content: "굿굿!!", timestamp: Date(), isSubComment: false, didLike: [:], isReported: [:])
-        ])
+    func fetchSubComments(postID: String, parentID: String, completion: @escaping ([CommentEntity]) -> Void) {
+        // 파이어베이스 comments db에서 postID와 parentID에 일치하는 댓글을 최신순으로 5개씩 불러온다.
+        print("CommentRepo fetchSubComments call")
+        completion([])
     }
     
     func deleteComment(comment: Comment) {
