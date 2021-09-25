@@ -8,13 +8,14 @@
 import UIKit
 import SnapKit
 import Then
+import YPImagePicker
 
 class AddPostCollectionReusableView: UICollectionReusableView {
     
-    private let plusButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "plus.app.fill"), for: .normal)
+    let plusButton = UIButton().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .regular, scale: .default)
+        $0.setImage(UIImage(systemName: "plus.app.fill", withConfiguration: config), for: .normal)
         $0.tintColor = .systemGray6
-        $0.addTarget(self, action: #selector(navigateYPImagePicker), for: .touchUpInside)
     }
     
     override init(frame: CGRect) {
@@ -22,16 +23,13 @@ class AddPostCollectionReusableView: UICollectionReusableView {
         self.backgroundColor = .systemBackground
         self.addSubview(plusButton)
         plusButton.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(5)
-            make.bottom.right.equalToSuperview().offset(-5)
+            make.centerX.centerY.equalToSuperview()
+            make.width.height.equalTo(50)
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    @objc func navigateYPImagePicker() {
-        print("navigateYPImagePicker")
-    }
+
 }

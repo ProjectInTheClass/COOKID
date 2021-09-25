@@ -51,7 +51,6 @@
 		03B2049926D7B8AC0099C269 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049826D7B8AC0099C269 /* Menu.swift */; };
 		03B2049B26D7BA830099C269 /* MenuService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049A26D7BA830099C269 /* MenuService.swift */; };
 		03D3045D26FDE2F300042CB7 /* AddPostReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */; };
-		03D3046026FDE45200042CB7 /* PostImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3045F26FDE45200042CB7 /* PostImageView.swift */; };
 		03D3046426FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */; };
 		03D3046626FDF12600042CB7 /* ReactorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3046526FDF12600042CB7 /* ReactorTests.swift */; };
 		03D3046826FDFA7D00042CB7 /* AddPostCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3046726FDFA7D00042CB7 /* AddPostCollectionReusableView.swift */; };
@@ -109,6 +108,7 @@
 		24B081CC26E10F7B00379087 /* RealmMealRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081CB26E10F7B00379087 /* RealmMealRepo.swift */; };
 		24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081D026E10F8900379087 /* RealmShoppingRepo.swift */; };
 		24BA287726F8E85F005D344E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BA287626F8E85F005D344E /* CommentTableViewCell.swift */; };
+		24C86C6C26FF6F8000E84477 /* AddPostImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */; };
 		8DE13647C08469F3C72C2F18 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B632E4718B240458C546A106 /* Pods_Cookid.framework */; };
 		B254AC1C10960A5F525656B8 /* Pods_CookidTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CFE3186FE4C8D4D4C424A8 /* Pods_CookidTests.framework */; };
 		C6150A092696C20800578EAB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C6150A082696C20800578EAB /* FirebaseAuth */; };
@@ -176,7 +176,6 @@
 		03B2049826D7B8AC0099C269 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		03B2049A26D7BA830099C269 /* MenuService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuService.swift; sourceTree = "<group>"; };
 		03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostReactor.swift; sourceTree = "<group>"; };
-		03D3045F26FDE45200042CB7 /* PostImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageView.swift; sourceTree = "<group>"; };
 		03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		03D3046526FDF12600042CB7 /* ReactorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactorTests.swift; sourceTree = "<group>"; };
 		03D3046726FDFA7D00042CB7 /* AddPostCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -234,6 +233,7 @@
 		24B081CB26E10F7B00379087 /* RealmMealRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMealRepo.swift; sourceTree = "<group>"; };
 		24B081D026E10F8900379087 /* RealmShoppingRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmShoppingRepo.swift; sourceTree = "<group>"; };
 		24BA287626F8E85F005D344E /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostImageCollectionViewController.swift; sourceTree = "<group>"; };
 		633B5656FDBC98360D286571 /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
 		73D95818DBDA44D075AAF3DF /* Pods-CookidTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookidTests.release.xcconfig"; path = "Target Support Files/Pods-CookidTests/Pods-CookidTests.release.xcconfig"; sourceTree = "<group>"; };
 		904741279A4F1CFB953C5D48 /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
@@ -484,7 +484,6 @@
 		03D3045E26FDE41200042CB7 /* AddPostCustomView */ = {
 			isa = PBXGroup;
 			children = (
-				03D3045F26FDE45200042CB7 /* PostImageView.swift */,
 				03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */,
 				03D3046726FDFA7D00042CB7 /* AddPostCollectionReusableView.swift */,
 			);
@@ -566,8 +565,9 @@
 			isa = PBXGroup;
 			children = (
 				03F2ED6F26ED929300CFE87C /* PostMainViewController.swift */,
-				0398E16A26FB3E6000E98F77 /* CommentViewController.swift */,
 				03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */,
+				24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */,
+				0398E16A26FB3E6000E98F77 /* CommentViewController.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -963,7 +963,6 @@
 				241523B4269D24860077941A /* Function.swift in Sources */,
 				035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */,
 				2417EAB626E58D0C006F2785 /* MyPageViewModel.swift in Sources */,
-				03D3046026FDE45200042CB7 /* PostImageView.swift in Sources */,
 				032233CB2692A8630092DD6D /* OnboardingPageViewViewController.swift in Sources */,
 				03D8C1F826EBB85F00238CB6 /* RemoteComment.swift in Sources */,
 				244B2B1126E4A0DB001226F0 /* FirestoreUserRepo.swift in Sources */,
@@ -995,6 +994,7 @@
 				03D8C1EF26EB6D8C00238CB6 /* FirestorePostRepo.swift in Sources */,
 				24BA287726F8E85F005D344E /* CommentTableViewCell.swift in Sources */,
 				24B081BF26E0473500379087 /* LocalMeal.swift in Sources */,
+				24C86C6C26FF6F8000E84477 /* AddPostImageCollectionViewController.swift in Sources */,
 				24B081B126DFD21300379087 /* RealmUserRepo.swift in Sources */,
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
 				2417EABC26E5A562006F2785 /* MyPageHeaderView.swift in Sources */,

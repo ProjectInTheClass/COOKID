@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class PostViewModel: ViewModelType {
     
@@ -15,7 +16,7 @@ class PostViewModel: ViewModelType {
     let userService: UserService
     
     struct Input {
-        
+        let postImages: BehaviorRelay<[UIImage]>
     }
     
     struct Output {
@@ -40,7 +41,9 @@ class PostViewModel: ViewModelType {
         
         let user = userService.user()
         
-        self.input = Input()
+        let postImages = BehaviorRelay<[UIImage]>(value: [])
+        
+        self.input = Input(postImages: postImages)
         self.output = Output(postCellViewModel: postCellViewModel, user: user)
     }
     
