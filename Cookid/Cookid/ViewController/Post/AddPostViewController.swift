@@ -14,7 +14,6 @@ class AddPostViewController: UIViewController, ViewModelBindable, StoryboardBase
     
     // UIComponent
     
-    @IBOutlet weak var postImageView: PostImageView!
     @IBOutlet weak var uploadPostButton: UIButton!
     
     var viewModel: PostViewModel!
@@ -36,6 +35,13 @@ class AddPostViewController: UIViewController, ViewModelBindable, StoryboardBase
             })
             .disposed(by: rx.disposeBag)
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addPostImageCV" {
+            guard var cv = segue.destination as? AddPostImageCollectionViewController else { return }
+            cv.bind(viewModel: viewModel)
+        }
     }
     
 }

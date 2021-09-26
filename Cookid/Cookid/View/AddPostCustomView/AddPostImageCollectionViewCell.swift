@@ -11,15 +11,30 @@ import Then
 
 class AddPostImageCollectionViewCell: UICollectionViewCell {
     
-    private let postImage = UIImageView().then {
+    let postImage = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+    }
+    
+    let cancelButton = UIButton().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
+        $0.setImage(UIImage(systemName: "xmark.circle.fill", withConfiguration: config), for: .normal)
+        $0.tintColor = .systemBackground
+        $0.alpha = 0.8
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         contentView.addSubview(postImage)
         postImage.snp.makeConstraints { make in
             make.top.right.left.bottom.equalToSuperview()
+        }
+        
+        contentView.addSubview(cancelButton)
+        cancelButton.snp.makeConstraints { make in
+            make.width.height.equalTo(50)
+            make.top.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
         }
     }
     

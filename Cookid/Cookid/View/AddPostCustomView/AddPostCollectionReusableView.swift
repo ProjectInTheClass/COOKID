@@ -8,30 +8,39 @@
 import UIKit
 import SnapKit
 import Then
+import YPImagePicker
 
 class AddPostCollectionReusableView: UICollectionReusableView {
     
-    private let plusButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "plus.app.fill"), for: .normal)
+    let plusButton = UIButton().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 100, weight: .regular, scale: .default)
+        $0.setImage(UIImage(systemName: "plus.app.fill", withConfiguration: config), for: .normal)
         $0.tintColor = .systemGray6
-        $0.addTarget(self, action: #selector(navigateYPImagePicker), for: .touchUpInside)
+    }
+    
+    let noticeLabel = UILabel().then {
+        $0.text = "이미지는 3장까지 선택하실 수 있어요:)"
+        $0.textColor = .systemGray2
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .systemBackground
+        
         self.addSubview(plusButton)
         plusButton.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(5)
-            make.bottom.right.equalToSuperview().offset(-5)
+            make.centerX.centerY.equalToSuperview()
+            make.width.height.equalTo(100)
+        }
+        
+        self.addSubview(noticeLabel)
+        noticeLabel.snp.makeConstraints { make in
+            make.top.equalTo(plusButton.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    @objc func navigateYPImagePicker() {
-        print("navigateYPImagePicker")
-    }
+
 }
