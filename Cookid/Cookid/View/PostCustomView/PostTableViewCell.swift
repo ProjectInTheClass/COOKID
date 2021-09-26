@@ -101,6 +101,7 @@ class PostTableViewCell: UITableViewCell {
             .bind(onNext: { [unowned self] in
                 self.postCaptionLabel.numberOfLines = 0
                 self.detailButton.isHidden = true
+                self.layoutIfNeeded()
             })
             .disposed(by: disposeBag)
         

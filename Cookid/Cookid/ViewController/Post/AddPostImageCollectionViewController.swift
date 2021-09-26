@@ -73,7 +73,11 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        if images.count < 3 {
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        } else {
+            return .zero
+        }
     }
     
     @objc func navigateYPImagePicker() {
@@ -99,9 +103,9 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
     }
     
     @objc func didTapCancel(_ sender: UIButton) {
-        let cell = sender.superview?.superclass as? AddPostImageCollectionViewCell
-        
-        images.remove(at: <#T##Int#>)
-        print("cancel")
+        guard let cell = sender.superview?.superview as? AddPostImageCollectionViewCell else { return }
+        let indexPath = collectionView.indexPath(for: cell)!
+        images.remove(at: indexPath.item)
+        collectionView.reloadData()
     }
 }
