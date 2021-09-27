@@ -32,17 +32,17 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        AuthRepo.instance.isSignIn { result in
-            switch result {
-            case .success(.successSignIn) :
-                print("success")
-            case .failure(let error) :
-                print(error)
-                self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
-            default :
-                print("error")
-            }
-        }
+//        AuthRepo.instance.isSignIn { result in
+//            switch result {
+//            case .success(.successSignIn) :
+//                print("success")
+//            case .failure(let error) :
+//                print(error)
+//                self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
+//            default :
+//                print("error")
+//            }
+//        }
     }
     
     // MARK: - Functions
@@ -63,7 +63,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
 
         viewModel.output.postCellViewModel
             .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self]  index, item, cell in
-                guard let self = self else { return }
+                guard let self = self else { return }                
                 cell.coordinator = self.coordinator
                 cell.updateUI(viewModel: item)
             }
@@ -86,5 +86,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                 print("postButtonWithCamera")
             }
             .disposed(by: rx.disposeBag)
+        
+        tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
     }
 }
