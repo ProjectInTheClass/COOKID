@@ -13,12 +13,6 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
     var viewModel: PostViewModel!
     
     var images = [UIImage]()
-    
-    let imagePageControl = UIPageControl().then {
-        $0.hidesForSinglePage = true
-        $0.pageIndicatorTintColor = .darkGray
-        $0.currentPageIndicatorTintColor = .cyan
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,15 +20,6 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
         collectionView.register(AddPostImageCollectionViewCell.self, forCellWithReuseIdentifier: CELLIDENTIFIER.postImageCell)
         collectionView.register(AddPostCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footer")
 
-        collectionView.addSubview(imagePageControl)
-        imagePageControl.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.width.equalTo(200)
-            make.height.equalTo(50)
-        }
-        
-        imagePageControl.numberOfPages = images.count + 1
     }
     
     func bindViewModel() {
@@ -50,16 +35,10 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-   
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELLIDENTIFIER.postImageCell, for: indexPath) as? AddPostImageCollectionViewCell else { return UICollectionViewCell() }
         cell.updateUI(image: images[indexPath.item])
         cell.cancelButton.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)
         return cell
-    }
-    
-    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let page = Int(targetContentOffset.pointee.x / view.frame.width)
-        self.imagePageControl.currentPage = page
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

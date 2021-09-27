@@ -101,7 +101,6 @@ class PostTableViewCell: UITableViewCell {
             .bind(onNext: { [unowned self] in
                 self.postCaptionLabel.numberOfLines = 0
                 self.detailButton.isHidden = true
-                self.layoutIfNeeded()
             })
             .disposed(by: disposeBag)
         
@@ -124,6 +123,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     private func setPageControl(post: Post) {
+        imagePageControl.isEnabled = false
         imagePageControl.hidesForSinglePage = true
         imagePageControl.numberOfPages = post.images.count
     }
@@ -175,9 +175,16 @@ class PostTableViewCell: UITableViewCell {
             budgetCheckLabel.text = "예산 범위 안에서 즐길 수 있는 식사에요"
         }
     }
+    
 }
 
 extension PostTableViewCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.postCaptionLabel.numberOfLines = 0
+        self.detailButton.isHidden = true
+        collectionView.reloadItems(at: [indexPath])
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
