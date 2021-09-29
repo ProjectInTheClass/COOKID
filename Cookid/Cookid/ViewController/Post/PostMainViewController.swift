@@ -19,6 +19,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var postButtonWithCaption: UIButton!
     @IBOutlet weak var postButtonWithCamera: UIButton!
+    @IBOutlet weak var addPostBarButton: UIBarButtonItem!
     
     // MARK: - Properties
     var viewModel: PostViewModel!
@@ -50,6 +51,9 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         userImage.makeCircleView()
         postButtonWithCaption.layer.cornerRadius = 10
         postButtonWithCamera.layer.cornerRadius = 10
+        addPostBarButton.tag = 1
+        postButtonWithCaption.tag = 2
+        postButtonWithCamera.tag = 3
     }
     
     // MARK: - bindViewModel
@@ -62,8 +66,8 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             .disposed(by: rx.disposeBag)
 
         viewModel.output.postCellViewModel
-            .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self]  index, item, cell in
-                guard let self = self else { return }                
+            .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self] _, item, cell in
+                guard let self = self else { return }
                 cell.coordinator = self.coordinator
                 cell.updateUI(viewModel: item)
             }
@@ -75,18 +79,37 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             }
             .disposed(by: rx.disposeBag)
         
+        addPostBarButton.rx.tap
+            .bind { [unowned self] in
+                coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.addPostBarButton.tag)
+            }
+            .disposed(by: rx.disposeBag)
+        
         postButtonWithCaption.rx.tap
             .bind { [unowned self] in
-                coordinator?.navigateAddPostVC(viewModel: self.viewModel)
+                coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.postButtonWithCaption.tag)
             }
             .disposed(by: rx.disposeBag)
         
         postButtonWithCamera.rx.tap
             .bind { [unowned self] in
-                print("postButtonWithCamera")
+                coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.postButtonWithCamera.tag)
             }
             .disposed(by: rx.disposeBag)
         
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+    }
+}
+
+extension PostMainViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 36 {
+            self.addPostBarButton.tintColor = .black
+            self.addPostBarButton.isEnabled = true
+        } else {
+            self.addPostBarButton.tintColor = .clear
+            self.addPostBarButton.isEnabled = false
+        }
     }
 }

@@ -13,8 +13,8 @@ class PostService {
     private var posts = DummyData.shared.posts
     private lazy var postStore = BehaviorSubject<[Post]>(value: posts)
     
-    func createPost() {
-        
+    func createPost(post: Post) {
+        print("createPost completion")
     }
     
     func fetchPosts() -> Observable<[Post]> {

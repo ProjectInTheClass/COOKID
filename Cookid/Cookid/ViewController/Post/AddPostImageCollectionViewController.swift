@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import ReactorKit
 import YPImagePicker
 
-class AddPostImageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, ViewModelBindable, StoryboardBased {
+class AddPostImageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, View {
     
-    var viewModel: PostViewModel!
+    var disposeBag: DisposeBag = DisposeBag()
     
     var images = [UIImage]()
 
@@ -22,12 +23,8 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
 
     }
     
-    func bindViewModel() {
-        viewModel.input.postImages
-            .bind { images in
-                print(images.count)
-            }
-            .disposed(by: rx.disposeBag)
+    func bind(reactor: AddPostReactor) {
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -61,9 +58,26 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
     
     @objc func navigateYPImagePicker() {
         var config = YPImagePickerConfiguration()
+        config.library.minNumberOfItems = 1
         config.library.maxNumberOfItems = 3
+        config.library.numberOfItemsInRow = 3
+        config.library.mediaType = YPlibraryMediaType.photo
+        config.hidesStatusBar = false
+        config.library.skipSelectionsGallery = true
+        config.showsPhotoFilters = false
+        config.shouldSaveNewPicturesToAlbum = true
+        config.albumName = "Cookid Album"
+        config.startOnScreen = .library
+        config.wordings.cameraTitle = "카메라"
+        config.wordings.cancel = "취소"
+        config.wordings.libraryTitle = "앨범"
+        config.wordings.next = "선택 완료"
+        config.colors.multipleItemsSelectedCircleColor = .systemIndigo
+        config.colors.tintColor = .systemIndigo
+        config.wordings.warningMaxItemsLimit = "최대 3장을 선택할 수 있어요."
         
         let picker = YPImagePicker(configuration: config)
+        picker.view.backgroundColor = .systemBackground
         picker.didFinishPicking { [unowned picker] items, _ in
             for item in items {
                 switch item {
@@ -74,7 +88,7 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
                 }
             }
             picker.dismiss(animated: true, completion: {
-                self.viewModel.input.postImages.accept(self.images)
+                // 리액터에 이미지
                 self.collectionView.reloadData()
             })
         }
@@ -85,6 +99,7 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
         guard let cell = sender.superview?.superview as? AddPostImageCollectionViewCell else { return }
         let indexPath = collectionView.indexPath(for: cell)!
         images.remove(at: indexPath.item)
+        // 리액터에 이미지
         collectionView.reloadData()
     }
 }

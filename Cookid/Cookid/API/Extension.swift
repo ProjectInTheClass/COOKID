@@ -60,7 +60,7 @@ extension UIView {
     
     func makeOutsideStroke(cornerRadius: CGFloat) {
         self.layer.cornerRadius = cornerRadius
-        let path = UIBezierPath(roundedRect: self.bounds,cornerRadius: cornerRadius)
+        let path = UIBezierPath(roundedRect: self.bounds, cornerRadius: cornerRadius)
         path.stroke()
         UIColor.systemGray6.setStroke()
         path.lineWidth = 0.5
@@ -70,7 +70,7 @@ extension UIView {
 
 extension UIScrollView {
     func scrollToBottom() {
-           let bottomOffset = CGPoint(x: 0, y: contentSize.height - bounds.size.height + contentInset.bottom)
+           let bottomOffset = CGPoint(x: 0, y: (contentSize.height - bounds.size.height)/2)
            setContentOffset(bottomOffset, animated: true)
        }
 }

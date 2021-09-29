@@ -43,7 +43,7 @@ class AuthRepo: HasDisposeBag {
         // 카카오톡 설치 여부 확인
         if UserApi.isKakaoTalkLoginAvailable() {
             UserApi.shared.rx.loginWithKakaoTalk()
-                .subscribe(onNext: { oauthToken in
+                .subscribe(onNext: { _ in
                     print("loginWithKakaoTalk() success.")
                     completion(.success(.successSignIn))
                 }, onError: { error in
@@ -53,7 +53,7 @@ class AuthRepo: HasDisposeBag {
                 .disposed(by: disposeBag)
         } else {
             UserApi.shared.rx.loginWithKakaoAccount()
-                .subscribe(onNext: { oauthToken in
+                .subscribe(onNext: { _ in
                     print("loginWithKakaoAccount() success.")
                     completion(.success(.successSignIn))
                 }, onError: {error in

@@ -24,7 +24,7 @@ class PostImageCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func updateUI(url: URL?) {
-        postImage.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"))
+    func updateUI(image: UIImage) {
+        postImage.image = image
     }
 }

@@ -13,6 +13,8 @@ class AddPostImageCollectionViewCell: UICollectionViewCell {
     
     let postImage = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+        $0.layer.cornerRadius = 15
+        $0.layer.masksToBounds = true
     }
     
     let cancelButton = UIButton().then {

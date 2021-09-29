@@ -17,6 +17,7 @@ class PostHeaderView: UIView {
         $0.makeCircleView()
         $0.clipsToBounds = true
     }
+    
     private let userImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.makeCircleView()

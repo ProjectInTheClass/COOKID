@@ -62,7 +62,7 @@ class PictureSelectViewController: UIViewController, ViewModelBindable {
             })
             .disposed(by: rx.disposeBag)
         
-        collectionView.rx.setDelegate(self)
+        collectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
     }
 
 }
