@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 import RxKeyboard
@@ -77,9 +79,9 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         
         uploadPostButton.rx.tap
             .map { AddPostReactor.Action.uploadPostButtonTapped }
-            .bind(onNext: { value in
-                reactor.action.onNext(value)
-                self.dismiss(animated: true, completion: nil)
+            .do(onNext: { reactor.action.onNext($0) })
+            .bind(onNext: { _ in
+                self.navigationController?.popViewController(animated: true)
             })
             .disposed(by: self.disposeBag)
         
@@ -112,16 +114,40 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
             regionTextField.rx.text.orEmpty
                 .distinctUntilChanged(),
             captionTextView.rx.text.orEmpty
-                .distinctUntilChanged()) { images, region, caption -> Bool in
-            return self.buttonValidation(images: images, caption: caption, region: region)
+                .distinctUntilChanged(),
+            priceTextField.rx.text.orEmpty
+                .distinctUntilChanged()) { images, region, caption, price -> Bool in
+            return self.buttonValidation(images: images, caption: caption, region: region, price: price)
         }
         .distinctUntilChanged()
         .bind(to: uploadPostButton.rx.isEnabled)
         .disposed(by: disposeBag)
+        
+        let postObservable = Observable.combineLatest(
+            reactor.userService.user(),
+            reactor.state.map { $0.images }
+                .distinctUntilChanged(),
+            regionTextField.rx.text.orEmpty
+                .distinctUntilChanged(),
+            captionTextView.rx.text.orEmpty
+                .distinctUntilChanged(),
+            priceTextField.rx.text.orEmpty
+                .distinctUntilChanged(),
+            starSlider.rx.value
+                .map { Int(round($0)) }
+                .distinctUntilChanged(), resultSelector: { user, images, place, caption, price, star -> Post in
+                    let newPost = Post(postID: reactor.postID, user: user, images: images, star: star, caption: caption, mealBudget: Int(price) ?? 0 , location: place)
+                    return newPost
+                })
+        
+        postObservable.map { Reactor.Action.makePost($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
     }
     
-    func buttonValidation(images: [UIImage], caption: String, region: String) -> Bool {
-        guard caption.isEmpty || caption == "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)" || images.isEmpty || region.isEmpty else { return true }
+    func buttonValidation(images: [UIImage], caption: String, region: String, price: String) -> Bool {
+        guard caption.isEmpty || caption == "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)" || images.isEmpty || region.isEmpty || price.isEmpty else { return true }
         return false
     }
     

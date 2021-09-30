@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import FirebaseFirestore
+import Firebase
 import FirebaseFirestoreSwift
 
 class FirestoreCommentRepo {
