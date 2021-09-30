@@ -85,7 +85,7 @@ class UserInformationViewController: UIViewController, ViewModelBindable, Storyb
 //                        self.dismiss(animated: true, completion: nil)
 //                    }
 //                }
-                AuthRepo.instance.kakaoLogout()
+//                AuthRepo.instance.kakaoLogout()
             }
             .disposed(by: rx.disposeBag)
     }

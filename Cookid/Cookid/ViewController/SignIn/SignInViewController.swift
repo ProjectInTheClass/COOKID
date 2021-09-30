@@ -22,6 +22,7 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
     
     var viewModel: PostViewModel!
     var localUser: LocalUser?
+    lazy var authRepo = AuthRepo(userService: viewModel.userService, mealService: viewModel.mealService, shoppingService: viewModel.shoppingService)
     
     // MARK: - View LifeCycle
     
@@ -51,17 +52,25 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
         naverSignInButton.rx.tap
             .bind {
                 print("naver login")
+                self.authRepo.naverLogin { result in
+                    switch result {
+                    case .success(let str):
+                        print("----> naverLogin success", str)
+                    case .failure(let error):
+                        errorAlert(selfView: self, errorMessage: error.rawValue)
+                    }
+                }
             }
             .disposed(by: rx.disposeBag)
         
         kakaoSignInButton.rx.tap
-            .bind {
+            .bind { [unowned self] in
                 print("kakao login")
-                AuthRepo.instance.kakaoLogin { result in
+                self.authRepo.kakaoLogin { result in
                     switch result {
                     case .success(let str) :
                         print("----> kakaoLogin success", str)
-                        AuthRepo.instance.fetchKakaoUserInfo { result in
+                        self.authRepo.fetchKakaoUserInfo { result in
                             switch result {
                             case .success(let url):
                                 let initialDineInCount = self.viewModel.mealService.initialDineInMeal

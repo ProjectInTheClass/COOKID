@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 import Kingfisher
+import NaverThirdPartyLogin
 
 class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBased {
 

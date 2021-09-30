@@ -13,9 +13,20 @@ import KakaoSDKAuth
 import RxKakaoSDKAuth
 import KakaoSDKUser
 import RxKakaoSDKUser
+import NaverThirdPartyLogin
+import Alamofire
 
-class AuthRepo: HasDisposeBag {
-    static let instance = AuthRepo()
+class AuthRepo: NSObject, HasDisposeBag, NaverThirdPartyLoginConnectionDelegate {
+    
+    let userService: UserService
+    let mealService: MealService
+    let shoppingService: ShoppingService
+    
+    init(userService: UserService, mealService: MealService, shoppingService: ShoppingService) {
+        self.userService = userService
+        self.mealService = mealService
+        self.shoppingService = shoppingService
+    }
     
     func isSignIn(completion: @escaping (Result<NetWorkingResult, NetWorkingError>) -> Void) {
         if AuthApi.hasToken() {
@@ -95,4 +106,64 @@ class AuthRepo: HasDisposeBag {
             .disposed(by: disposeBag)
     }
     
+    let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
+    
+    func naverLogin(completion: @escaping (Result<NetWorkingResult, NetWorkingError>) -> Void) {
+        loginInstance?.delegate = self
+        loginInstance?.requestThirdPartyLogin()
+    }
+    
+    func fetchNaverUserInfo() {
+
+        guard let isValidAccessToken = loginInstance?.isValidAccessTokenExpireTimeNow() else { return }
+        guard isValidAccessToken else { return }
+        
+        guard let tokenType = loginInstance?.tokenType else { return }
+        guard let accessToken = loginInstance?.accessToken else { return }
+        
+        let urlString = "https://openapi.naver.com/v1/nid/me"
+        let url = URL(string: urlString)!
+        
+        let authorization = "\(tokenType) \(accessToken)"
+        
+        let req = AF.request(url, method: .get, encoding: JSONEncoding.default, headers: ["Authorization": authorization])
+        
+        req.responseJSON { [weak self] response in
+            guard let self = self else { return }
+            guard let result = response.value as? [String:Any] else { return }
+            guard let object = result["response"] as? [String:Any] else { return }
+            
+            guard let localUser = RealmUserRepo.instance.fetchUser() else { return }
+            let initialDineInCount = self.mealService.initialDineInMeal
+            let initialCookidsCount = initialDineInCount + self.shoppingService.initialShoppingCount
+            
+            if let imageURL = object["imageURL"] as? URL {
+                self.userService.connectUserInfo(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount)
+            } else {
+                let image = UIImage(systemName: "person.circle.fill")
+                FirebaseStorageRepo.instance.uploadUserImage(userID: localUser.id.stringValue, image: image) { imageURL in
+                    self.userService.connectUserInfo(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount)
+                }
+            }
+        }
+    }
+    
+    func naverLogout() {
+        loginInstance?.requestDeleteToken()
+    }
+    
+    func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
+        print("naver Login Success")
+        fetchNaverUserInfo()
+    }
+    
+    func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() { }
+    
+    func oauth20ConnectionDidFinishDeleteToken() {
+        loginInstance?.requestDeleteToken()
+    }
+    
+    func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
+        print("naver login Error : \(String(describing: error))")
+    }
 }

@@ -45,6 +45,8 @@
 		0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */; };
 		0398E16B26FB3E6000E98F77 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0398E16A26FB3E6000E98F77 /* CommentViewController.swift */; };
 		0398E16D26FB3EA500E98F77 /* CommentSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0398E16C26FB3EA500E98F77 /* CommentSectionView.swift */; };
+		03A943652705FC03009B5F09 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A943642705FC03009B5F09 /* Pods_Cookid.framework */; };
+		03A943662705FC03009B5F09 /* Pods_Cookid.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03A943642705FC03009B5F09 /* Pods_Cookid.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */; };
 		03B2048D26D5D9440099C269 /* AddShoppingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2048C26D5D9440099C269 /* AddShoppingViewModel.swift */; };
 		03B2049326D737FD0099C269 /* UserInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1982EC269BF3660055742B /* UserInformationViewController.swift */; };
@@ -111,7 +113,6 @@
 		24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081D026E10F8900379087 /* RealmShoppingRepo.swift */; };
 		24BA287726F8E85F005D344E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BA287626F8E85F005D344E /* CommentTableViewCell.swift */; };
 		24C86C6C26FF6F8000E84477 /* AddPostImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */; };
-		8DE13647C08469F3C72C2F18 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B632E4718B240458C546A106 /* Pods_Cookid.framework */; };
 		B254AC1C10960A5F525656B8 /* Pods_CookidTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2CFE3186FE4C8D4D4C424A8 /* Pods_CookidTests.framework */; };
 		C67441D62696FA530086CBAD /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
 		C6BFF45E26949A1E006295F5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C6BFF45D26949A1E006295F5 /* FirebaseStorage */; };
@@ -131,6 +132,20 @@
 			remoteInfo = Cookid;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		03A943672705FC03009B5F09 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				03A943662705FC03009B5F09 /* Pods_Cookid.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		03223398269212860092DD6D /* Cookid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookid.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +186,7 @@
 		0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewModel.swift; sourceTree = "<group>"; };
 		0398E16A26FB3E6000E98F77 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		0398E16C26FB3EA500E98F77 /* CommentSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionView.swift; sourceTree = "<group>"; };
+		03A943642705FC03009B5F09 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShoppingViewController.swift; sourceTree = "<group>"; };
 		03B2048C26D5D9440099C269 /* AddShoppingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShoppingViewModel.swift; sourceTree = "<group>"; };
 		03B2049426D75DD50099C269 /* PictureSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureSelectViewController.swift; sourceTree = "<group>"; };
@@ -259,9 +275,9 @@
 				03F2ED8426EF537E00CFE87C /* RealmSwift in Frameworks */,
 				03F2ED8226EF537E00CFE87C /* Realm in Frameworks */,
 				C6BFF45E26949A1E006295F5 /* FirebaseStorage in Frameworks */,
+				03A943652705FC03009B5F09 /* Pods_Cookid.framework in Frameworks */,
 				0380E3F42705A957007F8AA5 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				0380E3F22705A957007F8AA5 /* FirebaseFirestore in Frameworks */,
-				8DE13647C08469F3C72C2F18 /* Pods_Cookid.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,6 +707,7 @@
 		92531E26D24250D9D4D81488 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				03A943642705FC03009B5F09 /* Pods_Cookid.framework */,
 				B632E4718B240458C546A106 /* Pods_Cookid.framework */,
 				F2CFE3186FE4C8D4D4C424A8 /* Pods_CookidTests.framework */,
 			);
@@ -723,6 +740,7 @@
 				03223396269212860092DD6D /* Resources */,
 				03B2049226D712BC0099C269 /* ShellScript */,
 				94B5D6EA4FFA9BEB423DCE9A /* [CP] Embed Pods Frameworks */,
+				03A943672705FC03009B5F09 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1123,7 +1141,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1193,6 +1211,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = Cookid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1202,6 +1221,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
