@@ -14,6 +14,10 @@ class ShoppingService {
     
     private lazy var shoppingStore = BehaviorSubject<[GroceryShopping]>(value: groceryShoppings)
     
+    var initialShoppingCount: Int {
+        return groceryShoppings.count
+    }
+    
     @discardableResult
     func create(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping> {
         RealmShoppingRepo.instance.createShopping(shopping: shopping)

@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import YPImagePicker
 
 extension UIPageViewController {
     
@@ -83,3 +86,4 @@ extension UIView {
         layer.mask = mask
     }
 }
+

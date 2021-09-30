@@ -27,12 +27,12 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var starView: UIView!
     
-    let loadingView = AnimationView(name: "loadingImage").then {
-        $0.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
-    }
+    //    let loadingView = AnimationView(name: "loadingImage").then {
+    //        $0.snp.makeConstraints { make in
+    //            make.centerX.equalToSuperview()
+    //            make.centerY.equalToSuperview()
+    //        }
+    //    }
     
     var disposeBag: DisposeBag = DisposeBag()
     
@@ -51,7 +51,7 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         captionTextView.layer.cornerRadius = 15
         captionTextView.contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         captionTextView.delegate = self
-        captionTextView.text = "맛있게 하셨던 식사에 대해서 알려주세요:)\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)"
+        captionTextView.text = "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)"
         captionTextView.textColor = UIColor.darkGray
         priceTextField.delegate = self
         regionTextField.delegate = self
@@ -59,15 +59,28 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
     
     func bind(reactor: AddPostReactor) {
         
-        RxKeyboard.instance.visibleHeight
-            .drive(onNext: { [unowned self] keyboardVisibleHeight in
-                self.addScrollView.contentInset.bottom = keyboardVisibleHeight
+        reactor.state
+            .map { $0.isLoading }
+            .distinctUntilChanged()
+            .bind(onNext: { value in
+                print(value)
             })
-            .disposed(by: rx.disposeBag)
+            .disposed(by: disposeBag)
+        
+        reactor.state
+            .map { $0.newPost }
+            .bind(onNext: { post in
+                guard let post = post else { return }
+                print(post)
+            })
+            .disposed(by: disposeBag)
         
         uploadPostButton.rx.tap
             .map { AddPostReactor.Action.uploadPostButtonTapped }
-            .bind(to: reactor.action)
+            .bind(onNext: { value in
+                reactor.action.onNext(value)
+                self.dismiss(animated: true, completion: nil)
+            })
             .disposed(by: self.disposeBag)
         
         starSlider.rx.value
@@ -87,56 +100,36 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
             }
             .disposed(by: rx.disposeBag)
         
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [unowned self] keyboardVisibleHeight in
+                self.addScrollView.contentInset.bottom = keyboardVisibleHeight
+            })
+            .disposed(by: rx.disposeBag)
+        
         Observable.combineLatest(
-            reactor.state.map { $0.imageURLs }
+            reactor.state.map { $0.images }
                 .distinctUntilChanged(),
             regionTextField.rx.text.orEmpty
                 .distinctUntilChanged(),
             captionTextView.rx.text.orEmpty
-                .distinctUntilChanged()) { urls, region, caption -> Bool in
-                    guard urls.isEmpty,
-                          caption == "",
-                          region == "" else { return true }
-                    return false
-                }
-                .distinctUntilChanged()
-                .map { Reactor.Action.buttonValidation($0) }
-                .bind(to: reactor.action)
-                .disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            reactor.state.map { $0.images },
-            regionTextField.rx.text.orEmpty,
-            captionTextView.rx.text.orEmpty,
-            priceTextField.rx.text.orEmpty,
-            starSlider.rx.value.map { Int(round($0)) }) { images, region, caption, price, star -> Post in
-                    return Post(postID: reactor.postID, user: reactor.userService.user(), images: images, star: star, caption: caption, mealBudget: price, location: region)
-                }
-                .map { Reactor.Action.makePost($0) }
-                .bind(to: reactor.action)
-                .disposed(by: disposeBag)
-        
-        reactor.state
-            .map { $0.validation }
-            .distinctUntilChanged()
-            .bind(to: self.uploadPostButton.rx.isEnabled)
-            .disposed(by: rx.disposeBag)
-        
-        reactor.state
-            .map { $0.isLoading }
-            .distinctUntilChanged()
-            .bind(onNext: { value in
-                print(value)
-            })
-            .disposed(by: disposeBag)
-        
-        reactor.state
-            .map { $0.newPost }
-            .bind(onNext: { post in
-                guard let post = post else { return }
-                print(post)
-            })
-            .disposed(by: disposeBag)
+                .distinctUntilChanged()) { images, region, caption -> Bool in
+            return self.buttonValidation(images: images, caption: caption, region: region)
+        }
+        .distinctUntilChanged()
+        .bind(to: uploadPostButton.rx.isEnabled)
+        .disposed(by: disposeBag)
+    }
+    
+    func buttonValidation(images: [UIImage], caption: String, region: String) -> Bool {
+        guard caption.isEmpty || caption == "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)" || images.isEmpty || region.isEmpty else { return true }
+        return false
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addPostImageCV" {
+            guard let vc = segue.destination as? AddPostImageCollectionViewController else { return }
+            vc.reactor = reactor
+        }
     }
     
 }

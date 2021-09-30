@@ -12,6 +12,8 @@ import NSObject_Rx
 
 class PostViewModel: ViewModelType, HasDisposeBag {
     
+    let mealService: MealService
+    let shoppingService: ShoppingService
     let postService: PostService
     let commentService: CommentService
     let userService: UserService
@@ -28,7 +30,9 @@ class PostViewModel: ViewModelType, HasDisposeBag {
     var input: Input
     var output: Output
     
-    init(postService: PostService, userService: UserService, commentService: CommentService) {
+    init(postService: PostService, userService: UserService, commentService: CommentService, mealService: MealService, shoppingService: ShoppingService) {
+        self.mealService = mealService
+        self.shoppingService = shoppingService
         self.postService = postService
         self.userService = userService
         self.commentService = commentService

@@ -14,6 +14,9 @@ class FirebaseStorageRepo {
     
     private let postImageStorage = Storage.storage().reference().child("postImage")
     
+    private let userImageStorage = Storage.storage().reference()
+        .child("userImage")
+    
     @discardableResult
     func uploadImages(postID: String, images: [UIImage], completion: @escaping (Result<[URL], NetWorkingError>) -> Void) -> Observable<[URL]> {
         return Observable.create { observer in
@@ -26,4 +29,13 @@ class FirebaseStorageRepo {
         
     }
     
+    func uploadUserImage(userID: String, image: UIImage?, completion: @escaping (URL?) -> Void) {
+        guard let imageData = image?.jpegData(compressionQuality: 0.25) else { return }
+        let fileName = userID
+        userImageStorage.child(fileName).putData(imageData, metadata: nil) { _, _ in
+            self.userImageStorage.child(fileName).downloadURL { url, _ in
+                completion(url)
+            }
+        }
+    }
 }

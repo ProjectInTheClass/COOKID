@@ -20,23 +20,21 @@ class AddPostReactor: Reactor {
     enum Action {
         case imageUpload([UIImage])
         case makePost(Post)
-        case buttonValidation(Bool)
         case uploadPostButtonTapped
     }
     
     enum Mutation {
         case setImages([UIImage])
         case setPost(Post)
-        case setValidation(Bool)
         case setLoading(Bool)
-        case uploadNewPost(Post)
+        case uploadCompletion(Post)
     }
     
     struct State {
         var newPost: Post?
-        var images: [UIImage]
-        var validation: Bool
-        var isLoading: Bool
+        var images: [UIImage] = []
+        var isLoading: Bool = false
+        var uploadCompletion: Post?
     }
     
     let initialState: State
@@ -46,44 +44,40 @@ class AddPostReactor: Reactor {
         self.userService = userService
         self.postService = postService
         
-        self.initialState = State(newPost: nil, images: [], validation: false, isLoading: false)
+        self.initialState = State()
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         
         switch action {
+        
         case .imageUpload(let images):
             return Observable.just(Mutation.setImages(images))
-        case .buttonValidation(let valid):
-            return Observable.just(Mutation.setValidation(valid))
+  
+        case .makePost(let post):
+            return Observable.just(Mutation.setPost(post))
+            
         case .uploadPostButtonTapped:
             guard let post = self.currentState.newPost else {
                 return Observable.empty()
             }
             postService.createPost(post: post)
-            return Observable.just(Mutation.uploadNewPost(post))
-        case .makePost(let post):
-            return Observable.just(Mutation.setPost(post))
+            return Observable.just(Mutation.uploadCompletion(post))
         }
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case .downloadImageURL(let images):
+        case .setImages(let images):
             newState.images = images
-        case .setValidation(let validation):
-            newState.validation = validation
         case .setLoading(let isLoading):
             newState.isLoading = isLoading
-        case .uploadNewPost(_):
-            break
+        case .uploadCompletion(let value):
+            newState.uploadCompletion = value
         case .setPost(let post):
             newState.newPost = post
         }
         return newState
     }
-    
 }
-
-

@@ -16,17 +16,21 @@ class PostCoordinator: CoordinatorType {
     let userService: UserService
     let commentService: CommentService
     let postService: PostService
+    let mealService: MealService
+    let shoppingService: ShoppingService
     
-    init(parentCoordinator : CoordinatorType, userService: UserService, commentService: CommentService, postService: PostService) {
+    init(parentCoordinator : CoordinatorType, userService: UserService, commentService: CommentService, postService: PostService, mealService: MealService, shoppingService: ShoppingService) {
         self.parentCoordinator = parentCoordinator
         self.userService = userService
         self.commentService = commentService
         self.postService = postService
+        self.mealService = mealService
+        self.shoppingService = shoppingService
     }
     
     func start() -> UIViewController {
         var postMainVC = PostMainViewController.instantiate(storyboardID: "Post")
-        postMainVC.bind(viewModel: PostViewModel(postService: postService, userService: userService, commentService: commentService))
+        postMainVC.bind(viewModel: PostViewModel(postService: postService, userService: userService, commentService: commentService, mealService: mealService, shoppingService: shoppingService))
         postMainVC.coordinator = self
         navigationController = UINavigationController(rootViewController: postMainVC)
         navigationBarConfigure()

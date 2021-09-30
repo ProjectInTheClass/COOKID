@@ -17,14 +17,20 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         collectionView.register(AddPostImageCollectionViewCell.self, forCellWithReuseIdentifier: CELLIDENTIFIER.postImageCell)
         collectionView.register(AddPostCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footer")
-
     }
     
     func bind(reactor: AddPostReactor) {
-        
+       
+        reactor.state
+            .map { $0.images }
+            .distinctUntilChanged()
+            .bind { images in
+                print(images.count)
+            }
+            .disposed(by: disposeBag)
+       
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -88,7 +94,7 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
                 }
             }
             picker.dismiss(animated: true, completion: {
-                // 리액터에 이미지
+                self.reactor!.action.onNext(.imageUpload(self.images))
                 self.collectionView.reloadData()
             })
         }
@@ -99,7 +105,7 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
         guard let cell = sender.superview?.superview as? AddPostImageCollectionViewCell else { return }
         let indexPath = collectionView.indexPath(for: cell)!
         images.remove(at: indexPath.item)
-        // 리액터에 이미지
+        self.reactor?.action.onNext(.imageUpload(self.images))
         collectionView.reloadData()
     }
 }

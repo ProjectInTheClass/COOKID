@@ -14,6 +14,10 @@ class MealService {
     private var meals: [Meal] = []
     private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
     
+    var initialDineInMeal: Int {
+        return meals.filter { $0.mealType == .dineIn }.count
+    }
+    
     // MARK: - Meal Storage
     
     @discardableResult

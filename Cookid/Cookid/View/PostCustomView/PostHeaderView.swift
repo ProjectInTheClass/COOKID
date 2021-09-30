@@ -63,7 +63,7 @@ class PostHeaderView: UIView {
     }
     
     func updateUI(user: User) {
-        userImage.kf.setImage(with: user.image, placeholder: UIImage(named: IMAGENAME.placeholder))
+        userImage.image = user.image
     }
     
     override func updateConstraints() {

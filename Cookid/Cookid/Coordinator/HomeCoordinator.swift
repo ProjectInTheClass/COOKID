@@ -19,17 +19,18 @@ class HomeCoordinator: CoordinatorType {
     }
     
     func start() -> UIViewController {
+        let firestorePostRepo = FirestorePostRepo()
         let mealService = MealService()
         let userService = UserService()
         let shoppingService = ShoppingService()
-        let postService = PostService()
+        let postService = PostService(firestoreRepo: firestorePostRepo)
         let commentService = CommentService()
         
         let mainCoordinator = MainCoordinator(parentCoordinator: self, userService: userService, mealService: mealService, shoppingService: shoppingService)
         let mainNVC = mainCoordinator.start()
         childCoordinator.append(mainCoordinator)
         
-        let postCoordinator = PostCoordinator(parentCoordinator: self, userService: userService, commentService: commentService, postService: postService)
+        let postCoordinator = PostCoordinator(parentCoordinator: self, userService: userService, commentService: commentService, postService: postService, mealService: mealService, shoppingService: shoppingService)
         let postNVC = postCoordinator.start()
         childCoordinator.append(postCoordinator)
         

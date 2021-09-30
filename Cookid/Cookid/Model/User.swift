@@ -8,26 +8,15 @@
 import UIKit
 import RxDataSources
 
-struct User : Codable {
+struct User {
     let id: String
-    var image: URL?
+    var image: UIImage?
     var nickname: String
     var determination: String
     var priceGoal: Int
     var userType: UserType
     var dineInCount: Int?
     var cookidsCount: Int?
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case image
-        case nickname
-        case determination
-        case priceGoal
-        case userType
-        case dineInCount
-        case cookidsCount
-    }
 }
 
 enum UserType: String, Codable {
