@@ -8,15 +8,18 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import NSObject_Rx
 
-class PostViewModel: ViewModelType {
+class PostViewModel: ViewModelType, HasDisposeBag {
     
+    let mealService: MealService
+    let shoppingService: ShoppingService
     let postService: PostService
     let commentService: CommentService
     let userService: UserService
     
     struct Input {
-        let postImages: BehaviorRelay<[UIImage]>
+     
     }
     
     struct Output {
@@ -27,7 +30,9 @@ class PostViewModel: ViewModelType {
     var input: Input
     var output: Output
     
-    init(postService: PostService, userService: UserService, commentService: CommentService) {
+    init(postService: PostService, userService: UserService, commentService: CommentService, mealService: MealService, shoppingService: ShoppingService) {
+        self.mealService = mealService
+        self.shoppingService = shoppingService
         self.postService = postService
         self.userService = userService
         self.commentService = commentService
@@ -41,9 +46,7 @@ class PostViewModel: ViewModelType {
         
         let user = userService.user()
         
-        let postImages = BehaviorRelay<[UIImage]>(value: [])
-        
-        self.input = Input(postImages: postImages)
+        self.input = Input()
         self.output = Output(postCellViewModel: postCellViewModel, user: user)
     }
     

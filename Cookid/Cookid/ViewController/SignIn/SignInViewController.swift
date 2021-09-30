@@ -64,8 +64,10 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
                         AuthRepo.instance.fetchKakaoUserInfo { result in
                             switch result {
                             case .success(let url):
+                                let initialDineInCount = self.viewModel.mealService.initialDineInMeal
+                                let initialCookidsCount = initialDineInCount + self.viewModel.shoppingService.initialShoppingCount
                                 guard let localUser = self.localUser else { return }
-                                self.viewModel.userService.connectUserInfo(localUser: localUser, imageURL: url)
+                                self.viewModel.userService.connectUserInfo(localUser: localUser, imageURL: url, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount)
                                 self.dismiss(animated: true, completion: nil)
                             case .failure(let error):
                                 errorAlert(selfView: self, errorMessage: error.rawValue)

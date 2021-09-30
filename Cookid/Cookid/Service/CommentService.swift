@@ -37,8 +37,8 @@ class CommentService {
                         guard let user = user else { return }
                         let didLike = entity.didLike[entity.userID] == nil
                         let isReported = entity.isReported[entity.userID] == nil
-                        let newComment = Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: user, content: entity.content, timestamp: entity.timestamp, didLike: didLike, likes: entity.didLike.count, isReported: isReported)
-                        newComments.append(newComment)
+//                        let newComment = Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: user, content: entity.content, timestamp: entity.timestamp, didLike: didLike, likes: entity.didLike.count, isReported: isReported)
+//                        newComments.append(newComment)
                     }
                 }
                 observer.onNext(newComments)
@@ -58,8 +58,8 @@ class CommentService {
                         guard let user = user else { return }
                         let didLike = entity.didLike[entity.userID] == nil
                         let isReported = entity.isReported[entity.userID] == nil
-                        let newComment = Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: user, content: entity.content, timestamp: entity.timestamp, didLike: didLike, likes: entity.didLike.count, isReported: isReported)
-                        newComments.append(newComment)
+//                        let newComment = Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: user, content: entity.content, timestamp: entity.timestamp, didLike: didLike, likes: entity.didLike.count, isReported: isReported)
+//                        newComments.append(newComment)
                     }
                 }
                 observer.onNext(newComments)

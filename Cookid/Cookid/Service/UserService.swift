@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 class UserService {
     
@@ -23,11 +24,21 @@ class UserService {
     
     /// Fetch from Firebase
     func loadUserInfo(completion: @escaping (User?) -> Void) {
-        FirestoreUserRepo.instance.fetchUser(userID: defaultUserInfo.id) { user in
-            if let user = user {
-                self.defaultUserInfo = user
-                self.userInfo.onNext(user)
-                completion(user)
+        FirestoreUserRepo.instance.fetchUser(userID: defaultUserInfo.id) { userEntity in
+            if let entity = userEntity {
+                guard let url = entity.imageURL else { return }
+                KingfisherManager.shared.retrieveImage(with: url) { result in
+                    switch result {
+                    case .success(let imageResult):
+                        let userImage = imageResult.image
+                        let user = User(id: entity.id, image: userImage, nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
+                        self.defaultUserInfo = user
+                        self.userInfo.onNext(user)
+                        completion(user)
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
             } else {
                 print("fetch User Error")
                 completion(nil)
@@ -47,9 +58,9 @@ class UserService {
     }
     
     /// Upload at Firebase
-    func connectUserInfo(localUser: LocalUser, imageURL: URL?) {
+    func connectUserInfo(localUser: LocalUser, imageURL: URL?, dineInCount: Int, cookidsCount: Int) {
         
-        let connectedUser = User(id: localUser.id.stringValue, image: imageURL, nickname: localUser.nickName, determination: localUser.determination, priceGoal: localUser.goal, userType: UserType(rawValue: localUser.type) ?? .preferDineIn, dineInCount: 0, cookidsCount: 0)
+        let connectedUser = User(id: localUser.id.stringValue, image: nil, nickname: localUser.nickName, determination: localUser.determination, priceGoal: localUser.goal, userType: UserType(rawValue: localUser.type) ?? .preferDineIn, dineInCount: dineInCount, cookidsCount: cookidsCount)
         
         FirestoreUserRepo.instance.createUser(user: connectedUser) { [weak self] success in
             guard let self = self else { return }
@@ -71,15 +82,6 @@ class UserService {
         defaultUserInfo = user
         userInfo.onNext(user)
         completion(true)
-    }
-    
-    func uploadUserImage(user: User, image: UIImage?) -> Observable<URL?> {
-        return Observable.create { observer in
-            FirestoreUserRepo.instance.uploadUserImage(user: user, image: image) { url in
-                observer.onNext(url)
-            }
-            return Disposables.create()
-        }
     }
     
     func user() -> Observable<User> {

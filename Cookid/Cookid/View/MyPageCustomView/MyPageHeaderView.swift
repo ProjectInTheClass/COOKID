@@ -67,7 +67,7 @@ class MyPageHeaderView: UIView {
     // MARK: - ConfigureUI
     
     func updateUI(user: User) {
-        userImage.kf.setImage(with: user.image, placeholder: UIImage(named: "placeholder"))
+        userImage.image = user.image
         userNickname.text = user.nickname
         userType.text = user.userType.rawValue
         userDetermination.text = user.determination

@@ -68,7 +68,7 @@ class CookidTests: XCTestCase {
 //        let foodImageURL2 = URL(string: "https://images.unsplash.com/photo-1597484389225-c68a9f0fa106?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=686&q=80")!
 //        let newPost = Post(user: DummyData.shared.singleUser, images: [foodImageURL1, foodImageURL2], caption: "오늘 내가 먹은 음식들 짱 맛있다아~~", mealBudget: 23000, location: "제주도")
         
-        /// 'expectation' can be fulfilled when asynchronous tasks in your tests complete.
+        // 'expectation' can be fulfilled when asynchronous tasks in your tests complete.
 //        let promise = expectation(description: "post is uploaded successfully")
         
         // when

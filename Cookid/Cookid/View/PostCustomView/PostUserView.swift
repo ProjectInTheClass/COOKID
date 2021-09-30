@@ -43,7 +43,7 @@ class PostUserView: UIView {
     }
     
     func updateUI(post: Post) {
-        userImage.kf.setImage(with: post.user.image, placeholder: UIImage(named: IMAGENAME.placeholder))
+        userImage.image = post.user.image
         userType.text = post.user.userType.rawValue
         userNickname.text = post.user.nickname
         location.text = "📮 " + post.location

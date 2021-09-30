@@ -17,17 +17,19 @@ class FirestoreUserRepo {
     private let userStorage = Storage.storage().reference().child("user")
     
     func createUser(user: User, completion: @escaping (Bool) -> Void) {
-        do {
-            try userDB.document(user.id).setData(from: user)
-            completion(true)
-        } catch {
-            print("Error writing user to Firestore: \(error)")
-            completion(false)
+        FirebaseStorageRepo.instance.uploadUserImage(userID: user.id, image: user.image) { url in
+            let userEntity = UserEntity(id: user.id, imageURL: url, nickname: user.nickname, determination: user.determination, priceGoal: user.priceGoal, userType: user.userType, dineInCount: user.dineInCount, cookidsCount: user.cookidsCount)
+            do {
+                try self.userDB.document(user.id).setData(from: userEntity)
+                completion(true)
+            } catch {
+                print("Error writing user to Firestore: \(error)")
+                completion(false)
+            }
         }
     }
     
-    func fetchUser(userID: String, completion: @escaping (User?) -> Void) {
-        print(userID)
+    func fetchUser(userID: String, completion: @escaping (UserEntity?) -> Void) {
         //        userDB.document(userID).getDocument(source: .default) { (document, error) in
         //
         //            let result = Result {
@@ -50,27 +52,11 @@ class FirestoreUserRepo {
     }
     
     func updateUser(updateUser: User) {
-        do {
-            try userDB.document(updateUser.id).setData(from: updateUser, merge: true)
-        } catch {
-            print("Error writing user to Firestore: \(error)")
-        }
-    }
-    
-    func uploadUserImage(user: User, image: UIImage?, completion: @escaping (URL?) -> Void) {
-        let storageRef = userStorage.child(user.id + ".jpeg")
-        let data = image?.jpegData(compressionQuality: 0.1)
-        if let data = data {
-            storageRef.putData(data, metadata: nil) { _, error in
-                if let error = error {
-                    print("Error while uploading file : \(error.localizedDescription)")
-                } else {
-                    storageRef.downloadURL { (url, error) in
-                        completion(url)
-                    }
-                }
-            }
-        }
+//        do {
+//            try userDB.document(updateUser.id).setData(from: updateUser, merge: true)
+//        } catch {
+//            print("Error writing user to Firestore: \(error)")
+//        }
     }
     
     func fetchDineInRankers() {

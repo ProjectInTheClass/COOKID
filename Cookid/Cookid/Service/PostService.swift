@@ -10,11 +10,30 @@ import RxSwift
 
 class PostService {
     
-    private var posts = DummyData.shared.posts
+    let firestoreRepo: FirestorePostRepo
+    
+    private var posts = [Post]()
     private lazy var postStore = BehaviorSubject<[Post]>(value: posts)
     
-    func createPost() {
-        
+    init(firestoreRepo: FirestorePostRepo) {
+        self.firestoreRepo = firestoreRepo
+    }
+    
+    var currentPosts: [Post] {
+        return posts
+    }
+    
+    func createPost(post: Post) {
+        firestoreRepo.createPost(post: post) { result in
+            switch result {
+            case .success(let result):
+                print("success upload Post \(result)")
+            case .failure(let error):
+                print("fail upload Post \(error)")
+            }
+        }
+        posts.append(post)
+        postStore.onNext(posts)
     }
     
     func fetchPosts() -> Observable<[Post]> {

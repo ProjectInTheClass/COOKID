@@ -1,18 +1,18 @@
 PODS:
-  - Alamofire (5.4.3)
+  - Alamofire (5.4.4)
   - Differentiator (4.0.1)
   - FSCalendar (2.8.2)
-  - KakaoSDKAuth (2.7.1):
-    - KakaoSDKCommon (= 2.7.1)
-  - KakaoSDKCommon (2.7.1):
-    - KakaoSDKCommon/Common (= 2.7.1)
-    - KakaoSDKCommon/Network (= 2.7.1)
-  - KakaoSDKCommon/Common (2.7.1)
-  - KakaoSDKCommon/Network (2.7.1):
+  - KakaoSDKAuth (2.8.0):
+    - KakaoSDKCommon (= 2.8.0)
+  - KakaoSDKCommon (2.8.0):
+    - KakaoSDKCommon/Common (= 2.8.0)
+    - KakaoSDKCommon/Network (= 2.8.0)
+  - KakaoSDKCommon/Common (2.8.0)
+  - KakaoSDKCommon/Network (2.8.0):
     - Alamofire (~> 5.1)
-    - KakaoSDKCommon/Common (= 2.7.1)
-  - KakaoSDKUser (2.7.1):
-    - KakaoSDKAuth (= 2.7.1)
+    - KakaoSDKCommon/Common (= 2.8.0)
+  - KakaoSDKUser (2.8.0):
+    - KakaoSDKAuth (= 2.8.0)
   - Kingfisher (6.3.1)
   - lottie-ios (3.2.3)
   - "NSObject+Rx (5.1.0)":
@@ -35,23 +35,23 @@ PODS:
     - Differentiator (~> 4.0)
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
-  - RxKakaoSDKAuth (2.7.1):
-    - KakaoSDKAuth (= 2.7.1)
-    - RxKakaoSDKCommon (= 2.7.1)
-  - RxKakaoSDKCommon (2.7.1):
-    - RxKakaoSDKCommon/Common (= 2.7.1)
-    - RxKakaoSDKCommon/Network (= 2.7.1)
-  - RxKakaoSDKCommon/Common (2.7.1):
-    - KakaoSDKCommon/Common (= 2.7.1)
+  - RxKakaoSDKAuth (2.8.0):
+    - KakaoSDKAuth (= 2.8.0)
+    - RxKakaoSDKCommon (= 2.8.0)
+  - RxKakaoSDKCommon (2.8.0):
+    - RxKakaoSDKCommon/Common (= 2.8.0)
+    - RxKakaoSDKCommon/Network (= 2.8.0)
+  - RxKakaoSDKCommon/Common (2.8.0):
+    - KakaoSDKCommon/Common (= 2.8.0)
     - RxCocoa
     - RxSwift
-  - RxKakaoSDKCommon/Network (2.7.1):
-    - KakaoSDKCommon/Network (= 2.7.1)
+  - RxKakaoSDKCommon/Network (2.8.0):
+    - KakaoSDKCommon/Network (= 2.8.0)
     - RxAlamofire (~> 5.2)
-    - RxKakaoSDKCommon/Common (= 2.7.1)
-  - RxKakaoSDKUser (2.7.1):
-    - KakaoSDKUser (= 2.7.1)
-    - RxKakaoSDKAuth (= 2.7.1)
+    - RxKakaoSDKCommon/Common (= 2.8.0)
+  - RxKakaoSDKUser (2.8.0):
+    - KakaoSDKUser (= 2.8.0)
+    - RxKakaoSDKAuth (= 2.8.0)
   - RxKeyboard (1.0.0):
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
@@ -63,9 +63,9 @@ PODS:
   - SwiftLint (0.44.0)
   - Then (2.7.0)
   - WeakMapTable (1.2.0)
-  - YPImagePicker (4.5.0):
-    - PryntTrimmerView (~> 4.0.2)
-    - SteviaLayout (~> 4.7.3)
+  - YPImagePicker (5.0.0):
+    - PryntTrimmerView (= 4.0.2)
+    - SteviaLayout (= 4.7.3)
 
 DEPENDENCIES:
   - FSCalendar
@@ -119,12 +119,12 @@ SPEC REPOS:
     - YPImagePicker
 
 SPEC CHECKSUMS:
-  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
-  KakaoSDKAuth: 70cfb1e4e60f543fd5f0ece2995c3b0e879c532e
-  KakaoSDKCommon: 48fe293e8970a8db8d10d5ca63600a7a8cc5f74c
-  KakaoSDKUser: 5609a2679b6beda86298d63c45961953c7203101
+  KakaoSDKAuth: 614d5c1b2c52f0e25436765c52bfb27b522bf116
+  KakaoSDKCommon: 54ab936e6fc31ddaa78b056a6796db0d4be33923
+  KakaoSDKUser: 24a737aa1e17b75579cb9e392062811d19d40045
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
@@ -135,9 +135,9 @@ SPEC CHECKSUMS:
   RxAlamofire: 8e144c62dcc01d68dcb366bfc542eb6dd46bab78
   RxCocoa: e2ed092d5432e4296aa818021d27de4090ac0354
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
-  RxKakaoSDKAuth: d71b1e40f54d42cd58340efd54e735e06f08d178
-  RxKakaoSDKCommon: 6bd82569c74652da97c4660059d9445b6efdf549
-  RxKakaoSDKUser: 4479a5dccc8251c04edce573e613b3f5e3d8a579
+  RxKakaoSDKAuth: c449c82c8d57233e34d562659b0e80651d6fb474
+  RxKakaoSDKCommon: 4e208b52b8570061749fa35e50855897df50db10
+  RxKakaoSDKUser: 7a62842bccffdf232a33e49ed8fd4e54104aef7c
   RxKeyboard: 6683c4344304a00f943c158bd8a43ce5469c82a7
   RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
@@ -146,7 +146,7 @@ SPEC CHECKSUMS:
   SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
-  YPImagePicker: 6f410f475bd22fa8cd430495b54d4b2f15865c2d
+  YPImagePicker: 1463a19a36244e209dcb03c30e63559c5afa9602
 
 PODFILE CHECKSUM: 90e30b6deea9175af20a3db970b644452d39899d
 

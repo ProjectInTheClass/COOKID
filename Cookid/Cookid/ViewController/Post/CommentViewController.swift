@@ -37,7 +37,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
     func bindViewModel() {
         
         viewModel.output.commentReactors
-            .drive(tableView.rx.items(cellIdentifier: CELLIDENTIFIER.commentCell, cellType: CommentTableViewCell.self)) { datasource, item, cell in
+            .drive(tableView.rx.items(cellIdentifier: CELLIDENTIFIER.commentCell, cellType: CommentTableViewCell.self)) { _, item, cell in
                 cell.reactor = item
             }
             .disposed(by: disposeBag)

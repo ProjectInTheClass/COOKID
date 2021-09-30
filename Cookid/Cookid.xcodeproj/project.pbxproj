@@ -37,6 +37,8 @@
 		035E492726975815002CC084 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492626975815002CC084 /* MainViewModel.swift */; };
 		035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */; };
 		035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */; };
+		0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E3EB27045A00007F8AA5 /* RemoteUser.swift */; };
+		0380E3F02704A86B007F8AA5 /* ViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E3EF2704A86B007F8AA5 /* ViewTest.swift */; };
 		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
@@ -164,6 +166,8 @@
 		035E492626975815002CC084 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarViewController.swift; sourceTree = "<group>"; };
+		0380E3EB27045A00007F8AA5 /* RemoteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteUser.swift; sourceTree = "<group>"; };
+		0380E3EF2704A86B007F8AA5 /* ViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTest.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
 		0395F6EC26B805360091BB29 /* AddMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewController.swift; sourceTree = "<group>"; };
 		0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewModel.swift; sourceTree = "<group>"; };
@@ -493,6 +497,7 @@
 		03D8C1F426EBB7E500238CB6 /* RemoteEntity */ = {
 			isa = PBXGroup;
 			children = (
+				0380E3EB27045A00007F8AA5 /* RemoteUser.swift */,
 				03D8C1F526EBB85200238CB6 /* RemotePost.swift */,
 				03D8C1F726EBB85F00238CB6 /* RemoteComment.swift */,
 			);
@@ -512,6 +517,7 @@
 			children = (
 				03E42EB726C412A8005D7B5E /* CookidTests.swift */,
 				03D3046526FDF12600042CB7 /* ReactorTests.swift */,
+				0380E3EF2704A86B007F8AA5 /* ViewTest.swift */,
 				03E42EB926C412A8005D7B5E /* Info.plist */,
 			);
 			path = CookidTests;
@@ -774,6 +780,7 @@
 					};
 					03E42EB426C412A7005D7B5E = {
 						CreatedOnToolsVersion = 12.5.1;
+						LastSwiftMigration = 1250;
 						TestTargetID = 03223397269212860092DD6D;
 					};
 				};
@@ -983,6 +990,7 @@
 				244B2B0826E24062001226F0 /* ImageRepo.swift in Sources */,
 				03B2049926D7B8AC0099C269 /* Menu.swift in Sources */,
 				03F2ED9026F3886700CFE87C /* PostCoordinator.swift in Sources */,
+				0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */,
 				03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */,
 				0322339E269212860092DD6D /* SceneDelegate.swift in Sources */,
 				03D3046426FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift in Sources */,
@@ -1033,6 +1041,7 @@
 			files = (
 				03D3046626FDF12600042CB7 /* ReactorTests.swift in Sources */,
 				03E42EB826C412A8005D7B5E /* CookidTests.swift in Sources */,
+				0380E3F02704A86B007F8AA5 /* ViewTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1231,6 +1240,7 @@
 			baseConfigurationReference = 9B2D5500FAB87ECEE29995E1 /* Pods-CookidTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
 				INFOPLIST_FILE = CookidTests/Info.plist;
@@ -1242,6 +1252,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cookid.app/Cookid";
@@ -1253,6 +1264,7 @@
 			baseConfigurationReference = 73D95818DBDA44D075AAF3DF /* Pods-CookidTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
 				INFOPLIST_FILE = CookidTests/Info.plist;

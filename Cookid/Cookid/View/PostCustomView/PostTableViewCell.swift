@@ -115,7 +115,7 @@ class PostTableViewCell: UITableViewCell {
         
         Observable.just(viewModel.output.post.images)
             .bind(to: imageCollectionView.rx.items(cellIdentifier: "imageCell", cellType: PostImageCollectionViewCell.self)) { _, item, cell in
-                cell.updateUI(url: item)
+                cell.updateUI(image: item)
             }
             .disposed(by: rx.disposeBag)
         

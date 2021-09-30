@@ -17,6 +17,7 @@ class PostHeaderView: UIView {
         $0.makeCircleView()
         $0.clipsToBounds = true
     }
+    
     private let userImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.makeCircleView()
@@ -62,7 +63,7 @@ class PostHeaderView: UIView {
     }
     
     func updateUI(user: User) {
-        userImage.kf.setImage(with: user.image, placeholder: UIImage(named: IMAGENAME.placeholder))
+        userImage.image = user.image
     }
     
     override func updateConstraints() {
