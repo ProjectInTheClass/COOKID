@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 import RxKakaoSDKAuth
 import KakaoSDKAuth
 

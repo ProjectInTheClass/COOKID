@@ -24,6 +24,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     // MARK: - Properties
     var viewModel: PostViewModel!
     var coordinator: PostCoordinator?
+    var expandedIndexSet: IndexSet = []
     
     // MARK: - View LC
     override func viewDidLoad() {
@@ -64,15 +65,34 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                 self.userImage.image = user.image
             }
             .disposed(by: rx.disposeBag)
-
+        
         viewModel.output.postCellViewModel
-            .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self] _, item, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
                 cell.coordinator = self.coordinator
                 cell.updateUI(viewModel: item)
+                
+                if self.expandedIndexSet.contains(index) {
+                    cell.postCaptionLabel.numberOfLines = 0
+                    cell.detailButton.isHidden = true
+                } else {
+                    cell.postCaptionLabel.numberOfLines = 2
+                    cell.detailButton.isHidden = false
+                }
+                
+                cell.detailButton.rx.tap
+                    .bind(onNext: {
+                        if self.expandedIndexSet.contains(index) {
+                            self.expandedIndexSet.remove(index)
+                        } else {
+                            self.expandedIndexSet.insert(index)
+                        }
+                        self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                    })
+                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: rx.disposeBag)
-    
+        
         rankingButton.rx.tap
             .bind { [unowned self] in
                 self.coordinator?.navigateRankingVC(viewModel: self.viewModel)
@@ -101,7 +121,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     }
 }
 
-extension PostMainViewController: UIScrollViewDelegate {
+extension PostMainViewController: UIScrollViewDelegate, UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 36 {

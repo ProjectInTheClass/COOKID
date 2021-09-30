@@ -186,42 +186,6 @@
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="fEw-sQ-jwj">
-                                                                    <rect key="frame" x="325" y="17" width="74" height="20"/>
-                                                                    <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bv1-ER-QIv">
-                                                                            <rect key="frame" x="0.0" y="-0.5" width="20" height="20"/>
-                                                                            <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="20" id="Fg8-N8-TK9"/>
-                                                                                <constraint firstAttribute="width" secondItem="bv1-ER-QIv" secondAttribute="height" multiplier="1:1" id="GVx-M4-pY0"/>
-                                                                                <constraint firstAttribute="height" constant="20" id="nB6-t9-Zfl"/>
-                                                                            </constraints>
-                                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
-                                                                        </imageView>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Sem-uB-mIu">
-                                                                            <rect key="frame" x="27" y="-0.5" width="20" height="20"/>
-                                                                            <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" secondItem="Sem-uB-mIu" secondAttribute="height" multiplier="1:1" id="q9F-op-4oQ"/>
-                                                                            </constraints>
-                                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
-                                                                        </imageView>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wkw-Bw-two">
-                                                                            <rect key="frame" x="54" y="-0.5" width="20" height="20"/>
-                                                                            <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" secondItem="wkw-Bw-two" secondAttribute="height" multiplier="1:1" id="jVJ-Bh-NXi"/>
-                                                                            </constraints>
-                                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
-                                                                        </imageView>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstItem="wkw-Bw-two" firstAttribute="width" secondItem="wkw-Bw-two" secondAttribute="height" multiplier="1:1" id="MJW-5t-yNG"/>
-                                                                        <constraint firstItem="Sem-uB-mIu" firstAttribute="width" secondItem="Sem-uB-mIu" secondAttribute="height" multiplier="1:1" id="iAE-7p-cM8"/>
-                                                                        <constraint firstItem="wkw-Bw-two" firstAttribute="width" secondItem="wkw-Bw-two" secondAttribute="height" multiplier="1:1" id="rRN-1Z-cVG"/>
-                                                                    </constraints>
-                                                                </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YEC-Xu-XcU">
                                                                     <rect key="frame" x="15" y="54" width="237" height="48"/>
                                                                     <subviews>
@@ -353,23 +317,52 @@
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="BE3-fC-eZU">
+                                                                    <rect key="frame" x="275" y="15" width="124" height="24"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4Ru-ac-gkh">
+                                                                            <rect key="frame" x="0.0" y="-0.5" width="24" height="24"/>
+                                                                            <color key="tintColor" name="AccentColor"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="24" id="mFt-4m-tgk"/>
+                                                                                <constraint firstAttribute="height" constant="24" id="zPp-rz-nLO"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="IY1-RI-tKh">
+                                                                            <rect key="frame" x="25" y="-0.5" width="24" height="24"/>
+                                                                            <color key="tintColor" name="AccentColor"/>
+                                                                        </imageView>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="iic-uz-Ndh">
+                                                                            <rect key="frame" x="50" y="-0.5" width="24" height="24"/>
+                                                                            <color key="tintColor" name="AccentColor"/>
+                                                                        </imageView>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wpv-Kp-RcF">
+                                                                            <rect key="frame" x="75" y="-0.5" width="24" height="24"/>
+                                                                            <color key="tintColor" name="AccentColor"/>
+                                                                        </imageView>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OW4-E7-dj8">
+                                                                            <rect key="frame" x="100" y="-0.5" width="24" height="24"/>
+                                                                            <color key="tintColor" name="AccentColor"/>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                </stackView>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstItem="kyi-LB-8vl" firstAttribute="leading" secondItem="P12-Gy-7cF" secondAttribute="leading" constant="15" id="1Ri-7E-fZG"/>
                                                                 <constraint firstItem="BJk-fu-7Bz" firstAttribute="top" secondItem="YEC-Xu-XcU" secondAttribute="bottom" constant="10" id="1Wx-IR-HpJ"/>
                                                                 <constraint firstAttribute="bottom" secondItem="kyi-LB-8vl" secondAttribute="bottom" constant="10" id="1fI-gM-qwj"/>
-                                                                <constraint firstItem="fEw-sQ-jwj" firstAttribute="centerY" secondItem="L4n-by-AGg" secondAttribute="centerY" id="51O-8V-aG6"/>
                                                                 <constraint firstItem="kyi-LB-8vl" firstAttribute="top" secondItem="BJk-fu-7Bz" secondAttribute="bottom" constant="10" id="5WI-rX-aKo"/>
                                                                 <constraint firstItem="RhE-Ex-icd" firstAttribute="leading" secondItem="P12-Gy-7cF" secondAttribute="leading" constant="15" id="6gG-k2-7NC"/>
                                                                 <constraint firstItem="BJk-fu-7Bz" firstAttribute="leading" secondItem="P12-Gy-7cF" secondAttribute="leading" constant="15" id="EdL-ZG-1IV"/>
-                                                                <constraint firstAttribute="trailing" secondItem="fEw-sQ-jwj" secondAttribute="trailing" constant="15" id="JFn-ec-A3p"/>
                                                                 <constraint firstItem="RhE-Ex-icd" firstAttribute="top" secondItem="P12-Gy-7cF" secondAttribute="top" constant="15" id="KdH-5g-HCa"/>
                                                                 <constraint firstItem="YEC-Xu-XcU" firstAttribute="leading" secondItem="P12-Gy-7cF" secondAttribute="leading" constant="15" id="MEa-nH-VRc"/>
+                                                                <constraint firstItem="BE3-fC-eZU" firstAttribute="centerY" secondItem="L4n-by-AGg" secondAttribute="centerY" id="PKO-pm-OHf"/>
                                                                 <constraint firstItem="L4n-by-AGg" firstAttribute="centerY" secondItem="RhE-Ex-icd" secondAttribute="centerY" id="XYJ-ZD-v8s"/>
                                                                 <constraint firstItem="L4n-by-AGg" firstAttribute="centerX" secondItem="P12-Gy-7cF" secondAttribute="centerX" id="Zse-sy-jJs"/>
                                                                 <constraint firstAttribute="trailing" secondItem="BJk-fu-7Bz" secondAttribute="trailing" constant="15" id="bpx-IA-6GJ"/>
                                                                 <constraint firstItem="YEC-Xu-XcU" firstAttribute="top" secondItem="RhE-Ex-icd" secondAttribute="bottom" constant="15" id="eKE-sK-8tc"/>
+                                                                <constraint firstAttribute="trailing" secondItem="BE3-fC-eZU" secondAttribute="trailing" constant="15" id="ob9-j8-ls6"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -390,13 +383,11 @@
                                             <outlet property="commentListButton" destination="lS9-dy-oYI" id="rOj-uC-Zho"/>
                                             <outlet property="dateLabel" destination="QeC-wa-vFR" id="bbw-cL-mS7"/>
                                             <outlet property="detailButton" destination="4G3-Mw-bm9" id="tcy-Qx-gT1"/>
-                                            <outlet property="firstStar" destination="bv1-ER-QIv" id="535-pr-zPw"/>
                                             <outlet property="heartButton" destination="7jQ-FL-IkY" id="Log-lL-xIJ"/>
                                             <outlet property="imageCollectionView" destination="ewT-CZ-OvY" id="BDY-Ts-9Go"/>
                                             <outlet property="imagePageControl" destination="L4n-by-AGg" id="fXQ-8U-upA"/>
                                             <outlet property="postCaptionLabel" destination="9ff-H4-pG0" id="MYM-aS-nMV"/>
                                             <outlet property="postUserView" destination="Niu-AO-XfM" id="zIn-kG-NDY"/>
-                                            <outlet property="secondStar" destination="Sem-uB-mIu" id="QWt-OG-Epb"/>
                                             <outlet property="userCountLabel" destination="Anz-Ed-V4c" id="CHX-1T-Xum"/>
                                             <outlet property="userNicknameLabel" destination="dZF-Rg-wJU" id="wnM-p3-p8X"/>
                                         </connections>
@@ -742,7 +733,6 @@
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
         <image name="star" catalog="system" width="128" height="116"/>
-        <image name="star.fill" catalog="system" width="128" height="116"/>
         <namedColor name="AccentColor">
             <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -20,8 +20,8 @@ class AddPostImageCollectionViewCell: UICollectionViewCell {
     let cancelButton = UIButton().then {
         let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .default)
         $0.setImage(UIImage(systemName: "xmark.circle.fill", withConfiguration: config), for: .normal)
-        $0.tintColor = .systemBackground
-        $0.alpha = 0.8
+        $0.tintColor = .systemGray4
+        $0.alpha = 0.9
     }
     
     override init(frame: CGRect) {

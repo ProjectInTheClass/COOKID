@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
@@ -20,7 +21,8 @@ class FirestoreUserRepo {
         FirebaseStorageRepo.instance.uploadUserImage(userID: user.id, image: user.image) { url in
             let userEntity = UserEntity(id: user.id, imageURL: url, nickname: user.nickname, determination: user.determination, priceGoal: user.priceGoal, userType: user.userType, dineInCount: user.dineInCount, cookidsCount: user.cookidsCount)
             do {
-                try self.userDB.document(user.id).setData(from: userEntity)
+                print("upload \(userEntity)")
+//                try self.userDB.document(user.id).setdate
                 completion(true)
             } catch {
                 print("Error writing user to Firestore: \(error)")

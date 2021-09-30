@@ -29,8 +29,6 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var commentListButton: UIButton!
     
-    @IBOutlet weak var firstStar: UIImageView!
-    @IBOutlet weak var secondStar: UIImageView!
     
     var coordinator: PostCoordinator?
     var disposeBag = DisposeBag()
@@ -42,13 +40,12 @@ class PostTableViewCell: UITableViewCell {
     
     func updateUI(viewModel: PostCellViewModel) {
         
-        viewModel.output.post.star = 3
         postUserView.updateUI(post: viewModel.output.post)
         userNicknameLabel.text = viewModel.output.post.user.nickname
-        postCaptionLabel.text = viewModel.output.post.caption
         dateLabel.text = viewModel.output.post.timestamp.convertDateToString(format: "yy.MM.dd")
+        postCaptionLabel.text = viewModel.output.post.caption
+        makeUpStarPoint(post: viewModel.output.post)
         makeUpBookmark(post: viewModel.output.post)
-        makeUpStar(post: viewModel.output.post)
         makeUpLikes(post: viewModel.output.post)
         setPageControl(post: viewModel.output.post)
         heartButton.setState(viewModel.output.post.didLike)
@@ -97,13 +94,6 @@ class PostTableViewCell: UITableViewCell {
             })
             .disposed(by: disposeBag)
         
-        detailButton.rx.tap
-            .bind(onNext: { [unowned self] in
-                self.postCaptionLabel.numberOfLines = 0
-                self.detailButton.isHidden = true
-            })
-            .disposed(by: disposeBag)
-        
         commentListButton.rx.tap
             .bind(onNext: { [unowned self] in
                 coordinator?.navigateCommentVC(viewModel: viewModel)
@@ -120,6 +110,14 @@ class PostTableViewCell: UITableViewCell {
             .disposed(by: rx.disposeBag)
         
         imageCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+    }
+    
+    private func makeUpStarPoint(post: Post) {
+        for index in 0...post.star {
+            if let tagView = self.contentView.viewWithTag(index) as? UIImageView {
+                tagView.image = UIImage(systemName: "star.fill")
+            }
+        }
     }
     
     private func setPageControl(post: Post) {
@@ -142,19 +140,6 @@ class PostTableViewCell: UITableViewCell {
     
     private func makeUpBookmark(post: Post) {
         bookmarkCountLabel.text = "북마크 \(post.collections)개"
-    }
-    
-    private func makeUpStar(post: Post) {
-        switch post.star {
-        case 1:
-            firstStar.isHidden = true
-            secondStar.isHidden = true
-        case 2:
-            firstStar.isHidden = false
-            secondStar.isHidden = true
-        default:
-            print(post.star)
-        }
     }
     
     private func makeUpBudgetCheck(post: Post, user: User) {
