@@ -29,7 +29,6 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var commentListButton: UIButton!
     
-    
     var coordinator: PostCoordinator?
     var disposeBag = DisposeBag()
     
