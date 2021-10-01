@@ -26,6 +26,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     var viewModel: PostViewModel!
     var coordinator: PostCoordinator?
     var expandedIndexSet: IndexSet = []
+    lazy var authRepo = AuthRepo(viewModel: viewModel)
     
     // MARK: - View LC
     override func viewDidLoad() {
@@ -35,17 +36,20 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        AuthRepo.instance.isSignIn { result in
-//            switch result {
-//            case .success(.successSignIn) :
-//                print("success")
-//            case .failure(let error) :
-//                print(error)
-//                self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
-//            default :
-//                print("error")
-//            }
-//        }
+        authRepo.isSignIn { result in
+            switch result {
+            case .success(.successSignIn) :
+                print("success")
+            case .failure(_) :
+                self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
+            default :
+                print("error")
+            }
+        }
+    }
+    
+    @IBAction func logout(_ sender: Any) {
+        NaverAutoRepo.shared.naverLogout()
     }
     
     // MARK: - Functions
@@ -57,7 +61,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         postButtonWithCaption.tag = 2
         postButtonWithCamera.tag = 3
     }
-    
+
     // MARK: - bindViewModel
     func bindViewModel() {
         
@@ -125,7 +129,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
 extension PostMainViewController: UIScrollViewDelegate, UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 36 {
+        if scrollView.contentOffset.y > 25 {
             self.addPostBarButton.tintColor = .black
             self.addPostBarButton.isEnabled = true
         } else {

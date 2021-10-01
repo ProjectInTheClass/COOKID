@@ -8,6 +8,8 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import NaverThirdPartyLogin
+import Alamofire
 
 class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
@@ -22,13 +24,14 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
     
     var viewModel: PostViewModel!
     var localUser: LocalUser?
-    lazy var authRepo = AuthRepo(userService: viewModel.userService, mealService: viewModel.mealService, shoppingService: viewModel.shoppingService)
+    let naverAuthRepo = NaverAutoRepo.shared
+    lazy var authRepo = AuthRepo(viewModel: viewModel)
     
     // MARK: - View LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        naverAuthRepo.viewModel = viewModel
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,21 +48,16 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
         
         appleSignInButton.rx.tap
             .bind { [unowned self] in
-                print("apple login")
+                print("appleLogin")
+                self.naverAuthRepo.naverLogout()
             }
             .disposed(by: rx.disposeBag)
         
         naverSignInButton.rx.tap
-            .bind {
+            .bind { [unowned self] in
                 print("naver login")
-                self.authRepo.naverLogin { result in
-                    switch result {
-                    case .success(let str):
-                        print("----> naverLogin success", str)
-                    case .failure(let error):
-                        errorAlert(selfView: self, errorMessage: error.rawValue)
-                    }
-                }
+                self.naverAuthRepo.setDelegate(newValue: self)
+                self.naverAuthRepo.naverLogin()
             }
             .disposed(by: rx.disposeBag)
         
@@ -76,8 +74,14 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
                                 let initialDineInCount = self.viewModel.mealService.initialDineInMeal
                                 let initialCookidsCount = initialDineInCount + self.viewModel.shoppingService.initialShoppingCount
                                 guard let localUser = self.localUser else { return }
-                                self.viewModel.userService.connectUserInfo(localUser: localUser, imageURL: url, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount)
-                                self.dismiss(animated: true, completion: nil)
+                                self.viewModel.userService.connectUserInfo(localUser: localUser, imageURL: url, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount, completion: { success in
+                                    if success {
+                                        self.dismiss(animated: true, completion: nil)
+                                    } else {
+                                        errorAlert(selfView: self, errorMessage: "사용자 연결에 실패했습니다.")
+                                    }
+                                })
+                                
                             case .failure(let error):
                                 errorAlert(selfView: self, errorMessage: error.rawValue)
                             }
@@ -90,5 +94,25 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
             }
             .disposed(by: rx.disposeBag)
         
+    }
+}
+
+extension SignInViewController: NaverThirdPartyLoginConnectionDelegate {
+    
+    func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
+        print("naver Login Success")
+        naverAuthRepo.fetchNaverUserInfo(viewController: self)
+    }
+    
+    func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
+        print("naver Refresh Token Success")
+    }
+    
+    func oauth20ConnectionDidFinishDeleteToken() {
+        print("naver Logout Success")
+    }
+    
+    func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
+        print("naver login Error : \(String(describing: error))")
     }
 }
