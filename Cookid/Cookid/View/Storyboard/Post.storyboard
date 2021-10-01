@@ -410,9 +410,17 @@
                         <barButtonItem key="leftBarButtonItem" title="Item" image="crown.fill" catalog="system" id="n5Q-94-h7M">
                             <color key="tintColor" systemColor="systemYellowColor"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="plus.app" catalog="system" id="19P-A7-edz">
-                            <color key="tintColor" systemColor="labelColor"/>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="plus.app" catalog="system" id="19P-A7-edz">
+                                <color key="tintColor" systemColor="labelColor"/>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="xmark.bin.circle" catalog="system" id="m6m-YU-ASZ">
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <connections>
+                                    <action selector="logout:" destination="rwc-lk-uZl" id="7ME-Jt-0hY"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -733,6 +741,7 @@
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
         <image name="star" catalog="system" width="128" height="116"/>
+        <image name="xmark.bin.circle" catalog="system" width="128" height="121"/>
         <namedColor name="AccentColor">
             <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

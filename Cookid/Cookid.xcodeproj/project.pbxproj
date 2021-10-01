@@ -35,6 +35,7 @@
 		035E492726975815002CC084 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492626975815002CC084 /* MainViewModel.swift */; };
 		035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */; };
 		035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */; };
+		0363F1F82706C7CD0017680D /* NaverAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */; };
 		0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E3EB27045A00007F8AA5 /* RemoteUser.swift */; };
 		0380E3F02704A86B007F8AA5 /* ViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E3EF2704A86B007F8AA5 /* ViewTest.swift */; };
 		0380E3F22705A957007F8AA5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0380E3F12705A957007F8AA5 /* FirebaseFirestore */; };
@@ -54,6 +55,7 @@
 		03B2049726D75E7E0099C269 /* PictureSelectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049626D75E7E0099C269 /* PictureSelectCollectionViewCell.swift */; };
 		03B2049926D7B8AC0099C269 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049826D7B8AC0099C269 /* Menu.swift */; };
 		03B2049B26D7BA830099C269 /* MenuService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049A26D7BA830099C269 /* MenuService.swift */; };
+		03CFDA9127073C2F008F99C0 /* AppleAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFDA9027073C2F008F99C0 /* AppleAuthRepo.swift */; };
 		03D3045D26FDE2F300042CB7 /* AddPostReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */; };
 		03D3046426FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */; };
 		03D3046626FDF12600042CB7 /* ReactorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3046526FDF12600042CB7 /* ReactorTests.swift */; };
@@ -179,6 +181,7 @@
 		035E492626975815002CC084 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarViewController.swift; sourceTree = "<group>"; };
+		0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthRepo.swift; sourceTree = "<group>"; };
 		0380E3EB27045A00007F8AA5 /* RemoteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteUser.swift; sourceTree = "<group>"; };
 		0380E3EF2704A86B007F8AA5 /* ViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTest.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
@@ -193,6 +196,7 @@
 		03B2049626D75E7E0099C269 /* PictureSelectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureSelectCollectionViewCell.swift; sourceTree = "<group>"; };
 		03B2049826D7B8AC0099C269 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		03B2049A26D7BA830099C269 /* MenuService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuService.swift; sourceTree = "<group>"; };
+		03CFDA9027073C2F008F99C0 /* AppleAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRepo.swift; sourceTree = "<group>"; };
 		03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostReactor.swift; sourceTree = "<group>"; };
 		03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		03D3046526FDF12600042CB7 /* ReactorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactorTests.swift; sourceTree = "<group>"; };
@@ -575,6 +579,8 @@
 			isa = PBXGroup;
 			children = (
 				03F2ED6126ED048300CFE87C /* AuthRepo.swift */,
+				0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */,
+				03CFDA9027073C2F008F99C0 /* AppleAuthRepo.swift */,
 			);
 			path = AuthRepository;
 			sourceTree = "<group>";
@@ -992,6 +998,7 @@
 				03F2ED7326ED92D500CFE87C /* PostViewModel.swift in Sources */,
 				03D8C1E326E852D600238CB6 /* MyRecipesViewController.swift in Sources */,
 				03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */,
+				0363F1F82706C7CD0017680D /* NaverAuthRepo.swift in Sources */,
 				0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */,
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
 				03F2ED8C26F17D2D00CFE87C /* PostCustomButton.swift in Sources */,
@@ -1015,6 +1022,7 @@
 				24BA287726F8E85F005D344E /* CommentTableViewCell.swift in Sources */,
 				24B081BF26E0473500379087 /* LocalMeal.swift in Sources */,
 				24C86C6C26FF6F8000E84477 /* AddPostImageCollectionViewController.swift in Sources */,
+				03CFDA9127073C2F008F99C0 /* AppleAuthRepo.swift in Sources */,
 				24B081B126DFD21300379087 /* RealmUserRepo.swift in Sources */,
 				032233E926934F180092DD6D /* Protocol.swift in Sources */,
 				2417EABC26E5A562006F2785 /* MyPageHeaderView.swift in Sources */,

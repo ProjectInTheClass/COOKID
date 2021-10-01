@@ -58,15 +58,24 @@ class UserService {
     }
     
     /// Upload at Firebase
-    func connectUserInfo(localUser: LocalUser, imageURL: URL?, dineInCount: Int, cookidsCount: Int) {
-        
-        let connectedUser = User(id: localUser.id.stringValue, image: nil, nickname: localUser.nickName, determination: localUser.determination, priceGoal: localUser.goal, userType: UserType(rawValue: localUser.type) ?? .preferDineIn, dineInCount: dineInCount, cookidsCount: cookidsCount)
-        
-        FirestoreUserRepo.instance.createUser(user: connectedUser) { [weak self] success in
-            guard let self = self else { return }
-            if success {
+    func connectUserInfo(localUser: LocalUser, imageURL: URL?, dineInCount: Int, cookidsCount: Int, completion: @escaping (Bool) -> Void) {
+        guard let imageURL = imageURL else { return }
+        KingfisherManager.shared.retrieveImage(with: imageURL) { result in
+            switch result {
+            case .success(let image):
+                
+                let connectedUser = User(id: localUser.id.stringValue, image: image.image, nickname: localUser.nickName, determination: localUser.determination, priceGoal: localUser.goal, userType: UserType(rawValue: localUser.type) ?? .preferDineIn, dineInCount: dineInCount, cookidsCount: cookidsCount)
                 self.defaultUserInfo = connectedUser
                 self.userInfo.onNext(self.defaultUserInfo)
+                completion(true)
+                
+                DispatchQueue.global(qos: .background).async {
+                    FirestoreUserRepo.instance.createUser(user: connectedUser) { _ in }
+                }
+                
+            case .failure(_):
+                print("kingfisher - connectUserInfo - error")
+                completion(false)
             }
         }
     }

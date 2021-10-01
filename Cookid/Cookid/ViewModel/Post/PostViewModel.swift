@@ -19,7 +19,7 @@ class PostViewModel: ViewModelType, HasDisposeBag {
     let userService: UserService
     
     struct Input {
-     
+        let naverLogin: BehaviorRelay<Bool>
     }
     
     struct Output {
@@ -46,7 +46,9 @@ class PostViewModel: ViewModelType, HasDisposeBag {
         
         let user = userService.user()
         
-        self.input = Input()
+        let naverLogin = BehaviorRelay<Bool>(value: false)
+        
+        self.input = Input(naverLogin: naverLogin)
         self.output = Output(postCellViewModel: postCellViewModel, user: user)
     }
     
