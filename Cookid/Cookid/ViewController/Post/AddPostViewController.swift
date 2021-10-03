@@ -136,7 +136,7 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
             starSlider.rx.value
                 .map { Int(round($0)) }
                 .distinctUntilChanged(), resultSelector: { user, images, place, caption, price, star -> Post in
-                    let newPost = Post(postID: reactor.postID, user: user, images: images, star: star, caption: caption, mealBudget: Int(price) ?? 0 , location: place)
+                    let newPost = Post(postID: reactor.postID, user: user, images: images, star: star, caption: caption, mealBudget: Int(price) ?? 0, location: place)
                     return newPost
                 })
         

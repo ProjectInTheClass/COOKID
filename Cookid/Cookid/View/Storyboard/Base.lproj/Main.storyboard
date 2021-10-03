@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CSE-tM-JIq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CSE-tM-JIq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Image references" minToolsVersion="12.0"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -69,7 +68,7 @@
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="집밥러" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5e-Hh-tmE">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="44.5" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
-                                                                                <color key="textColor" name="AccentColor"/>
+                                                                                <color key="textColor" systemColor="systemYellowColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="유저 닉네임" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7H-7K-xmw">
@@ -774,7 +773,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="aEK-A1-euq">
                                                                 <rect key="frame" x="0.0" y="0.0" width="266.5" height="266.5"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lbt-fu-qXZ">
+                                                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lbt-fu-qXZ">
                                                                         <rect key="frame" x="0.0" y="0.0" width="266.5" height="266.5"/>
                                                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                                         <constraints>
@@ -1083,9 +1082,7 @@
                             <constraint firstItem="jxX-ho-ra6" firstAttribute="top" secondItem="3CS-28-L9Z" secondAttribute="bottom" constant="40" id="NtO-T9-Hku"/>
                             <constraint firstItem="3CS-28-L9Z" firstAttribute="top" secondItem="3kX-Tc-gHs" secondAttribute="bottom" constant="20" id="Si0-go-kxL"/>
                             <constraint firstItem="3kX-Tc-gHs" firstAttribute="trailing" secondItem="jxX-ho-ra6" secondAttribute="trailing" id="UUc-Ew-eRH"/>
-                            <constraint firstItem="jxX-ho-ra6" firstAttribute="centerX" secondItem="ofg-Y6-VIt" secondAttribute="centerX" id="Wn5-hL-43r"/>
                             <constraint firstItem="3kX-Tc-gHs" firstAttribute="leading" secondItem="jxX-ho-ra6" secondAttribute="leading" id="Wyr-vs-bev"/>
-                            <constraint firstItem="jxX-ho-ra6" firstAttribute="centerX" secondItem="ofg-Y6-VIt" secondAttribute="centerX" id="nbF-Ht-ukL"/>
                             <constraint firstItem="jxX-ho-ra6" firstAttribute="leading" secondItem="KPh-8V-jSQ" secondAttribute="leading" constant="50" id="qj3-9Q-bja"/>
                             <constraint firstItem="KPh-8V-jSQ" firstAttribute="trailing" secondItem="jxX-ho-ra6" secondAttribute="trailing" constant="50" id="vPx-Xu-XAd"/>
                         </constraints>
@@ -1149,7 +1146,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="OEd-l8-GGH" firstAttribute="leading" secondItem="Sma-vm-DpE" secondAttribute="leading" constant="50" id="VpT-Pg-RMd"/>
-                            <constraint firstItem="OEd-l8-GGH" firstAttribute="centerX" secondItem="Gu1-BA-T8d" secondAttribute="centerX" id="Z5h-Hc-r8z"/>
                             <constraint firstItem="OEd-l8-GGH" firstAttribute="centerY" secondItem="Gu1-BA-T8d" secondAttribute="centerY" id="ZMS-RY-kb1"/>
                             <constraint firstItem="Sma-vm-DpE" firstAttribute="trailing" secondItem="OEd-l8-GGH" secondAttribute="trailing" constant="50" id="fb4-X0-qrT"/>
                         </constraints>
@@ -1201,7 +1197,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="k3P-9X-rIL" firstAttribute="trailing" secondItem="yBf-Nf-rMA" secondAttribute="trailing" constant="50" id="aJe-3u-yxR"/>
-                            <constraint firstItem="yBf-Nf-rMA" firstAttribute="centerX" secondItem="oTo-JS-OxI" secondAttribute="centerX" id="mea-qt-0Th"/>
                             <constraint firstItem="yBf-Nf-rMA" firstAttribute="centerY" secondItem="oTo-JS-OxI" secondAttribute="centerY" id="rZQ-jW-5fJ"/>
                             <constraint firstItem="yBf-Nf-rMA" firstAttribute="leading" secondItem="k3P-9X-rIL" secondAttribute="leading" constant="50" id="y0p-Xr-zdl"/>
                         </constraints>
@@ -1264,7 +1259,6 @@
                         <constraints>
                             <constraint firstItem="rCf-rT-o8o" firstAttribute="trailing" secondItem="P3B-lb-M2f" secondAttribute="trailing" constant="50" id="7tC-Qi-Kbh"/>
                             <constraint firstItem="P3B-lb-M2f" firstAttribute="leading" secondItem="rCf-rT-o8o" secondAttribute="leading" constant="50" id="gxc-1c-CWG"/>
-                            <constraint firstItem="P3B-lb-M2f" firstAttribute="centerX" secondItem="rnq-qK-0Dk" secondAttribute="centerX" id="i9G-iv-n42"/>
                             <constraint firstItem="sOt-IG-kRd" firstAttribute="centerX" secondItem="P3B-lb-M2f" secondAttribute="centerX" id="m3a-4E-sz1"/>
                             <constraint firstItem="sOt-IG-kRd" firstAttribute="top" secondItem="P3B-lb-M2f" secondAttribute="bottom" constant="30" id="ngt-5A-xhM"/>
                             <constraint firstItem="P3B-lb-M2f" firstAttribute="centerY" secondItem="rnq-qK-0Dk" secondAttribute="centerY" id="tCY-N9-Bj5"/>
@@ -1290,7 +1284,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="SMq-hS-Y3Q">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1370,9 +1364,6 @@
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="minus.circle" catalog="system" width="128" height="121"/>
         <image name="trash.circle.fill" catalog="system" width="128" height="121"/>
-        <namedColor name="AccentColor">
-            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

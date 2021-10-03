@@ -26,30 +26,38 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     var viewModel: PostViewModel!
     var coordinator: PostCoordinator?
     var expandedIndexSet: IndexSet = []
-    lazy var authRepo = AuthRepo(viewModel: viewModel)
+    
+    let naverAuthRepo = NaverAutoRepo.shared
+    let kakaoAuthRepo = KakaoAuthRepo.shared
+    let appleAuthRepo = AppleAuthRepo.shared
     
     // MARK: - View LC
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.naverAuthRepo.viewModel = viewModel
+        self.kakaoAuthRepo.viewModel = viewModel
+        self.appleAuthRepo.viewModel = viewModel
         configureUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        authRepo.isSignIn { result in
-            switch result {
-            case .success(.successSignIn) :
-                print("success")
-            case .failure(_) :
-                self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
-            default :
-                print("error")
+        kakaoAuthRepo.isSignIn { [weak self] success in
+            guard let self = self else { return }
+            if success {
+                print("Kakao Login success")
+            } else if self.naverAuthRepo.isSignIn {
+                print("Naver Login success")
+            } else {
+                self.appleAuthRepo.isSignIn { success in
+                    if success {
+                        print("Apple Login success")
+                    } else {
+                        self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
+                    }
+                }
             }
         }
-    }
-    
-    @IBAction func logout(_ sender: Any) {
-        NaverAutoRepo.shared.naverLogout()
     }
     
     // MARK: - Functions
@@ -76,6 +84,12 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                 guard let self = self else { return }
                 cell.coordinator = self.coordinator
                 cell.updateUI(viewModel: item)
+                
+                if cell.postCaptionLabel.isTruncated {
+                    cell.detailButton.isHidden = false
+                } else {
+                    cell.detailButton.isHidden = true
+                }
                 
                 if self.expandedIndexSet.contains(index) {
                     cell.postCaptionLabel.numberOfLines = 0

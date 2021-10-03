@@ -14,7 +14,7 @@ class UserService {
     
     /// Fetch from Realm
     private var defaultUserInfo = RealmUserRepo.instance.fetchUser().map { userentity -> User in
-        return User(id: userentity.id.stringValue, nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn)
+        return User(id: userentity.id.stringValue, image: UIImage(systemName: "")?.withTintColor(.darkGray), nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn)
     } ?? DummyData.shared.singleUser
     
     private lazy var userInfo = BehaviorSubject<User>(value: defaultUserInfo)
@@ -63,7 +63,6 @@ class UserService {
         KingfisherManager.shared.retrieveImage(with: imageURL) { result in
             switch result {
             case .success(let image):
-                
                 let connectedUser = User(id: localUser.id.stringValue, image: image.image, nickname: localUser.nickName, determination: localUser.determination, priceGoal: localUser.goal, userType: UserType(rawValue: localUser.type) ?? .preferDineIn, dineInCount: dineInCount, cookidsCount: cookidsCount)
                 self.defaultUserInfo = connectedUser
                 self.userInfo.onNext(self.defaultUserInfo)

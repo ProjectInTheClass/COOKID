@@ -29,6 +29,6 @@ type_body_length:
 
 excluded:
 - Pods
-- Cookid/Resources/Depreacated
+- Carthage
 
 

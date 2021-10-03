@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import NaverThirdPartyLogin
 import Alamofire
+import AuthenticationServices
 
 class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
@@ -19,27 +20,20 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
     @IBOutlet weak var appleSignInButton: UIButton!
     @IBOutlet weak var naverSignInButton: UIButton!
     @IBOutlet weak var kakaoSignInButton: UIButton!
-    
+
     // MARK: - Properties
     
     var viewModel: PostViewModel!
     var localUser: LocalUser?
-    let naverAuthRepo = NaverAutoRepo.shared
-    lazy var authRepo = AuthRepo(viewModel: viewModel)
+    lazy var naverAuthRepo = NaverAutoRepo.shared
+    lazy var kakaoAuthRepo = KakaoAuthRepo.shared
+    lazy var appleAuthRepo = AppleAuthRepo.shared
     
     // MARK: - View LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        naverAuthRepo.viewModel = viewModel
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        kidLabel.text = "😀"
-        UIView.animate(withDuration: 0.3, delay: 1) { [unowned self] in
-            self.kidLabel.text = "KID"
-        }
+       
     }
     
     // MARK: - bindViewModel
@@ -48,8 +42,7 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
         
         appleSignInButton.rx.tap
             .bind { [unowned self] in
-                print("appleLogin")
-                self.naverAuthRepo.naverLogout()
+                appleLogin()
             }
             .disposed(by: rx.disposeBag)
         
@@ -64,36 +57,25 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
         kakaoSignInButton.rx.tap
             .bind { [unowned self] in
                 print("kakao login")
-                self.authRepo.kakaoLogin { result in
+                self.kakaoAuthRepo.kakaoLogin { result in
                     switch result {
                     case .success(let str) :
                         print("----> kakaoLogin success", str)
-                        self.authRepo.fetchKakaoUserInfo { result in
+                        self.kakaoAuthRepo.fetchKakaoUserInfo { result in
                             switch result {
-                            case .success(let url):
-                                let initialDineInCount = self.viewModel.mealService.initialDineInMeal
-                                let initialCookidsCount = initialDineInCount + self.viewModel.shoppingService.initialShoppingCount
-                                guard let localUser = self.localUser else { return }
-                                self.viewModel.userService.connectUserInfo(localUser: localUser, imageURL: url, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount, completion: { success in
-                                    if success {
-                                        self.dismiss(animated: true, completion: nil)
-                                    } else {
-                                        errorAlert(selfView: self, errorMessage: "사용자 연결에 실패했습니다.")
-                                    }
-                                })
-                                
+                            case .success(let success):
+                                print(success.rawValue)
+                                self.dismiss(animated: true, completion: nil)
                             case .failure(let error):
-                                errorAlert(selfView: self, errorMessage: error.rawValue)
+                                print(error.rawValue)
                             }
                         }
-                        self.dismiss(animated: true, completion: nil)
                     case .failure(let error):
                         errorAlert(selfView: self, errorMessage: error.rawValue)
                     }
                 }
             }
             .disposed(by: rx.disposeBag)
-        
     }
 }
 
@@ -101,7 +83,13 @@ extension SignInViewController: NaverThirdPartyLoginConnectionDelegate {
     
     func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
         print("naver Login Success")
-        naverAuthRepo.fetchNaverUserInfo(viewController: self)
+        naverAuthRepo.fetchNaverUserInfo { success in
+            if success {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                errorAlert(selfView: self, errorMessage: "사용자 정보를 가져오지 못했습니다.")
+            }
+        }
     }
     
     func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
@@ -114,5 +102,42 @@ extension SignInViewController: NaverThirdPartyLoginConnectionDelegate {
     
     func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
         print("naver login Error : \(String(describing: error))")
+        errorAlert(selfView: self, errorMessage: "네이버 로그인에 실패했습니다ㅠㅠ")
     }
+}
+
+extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    
+    func appleLogin() {
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = []
+        let appleAuthController = ASAuthorizationController(authorizationRequests: [request])
+        appleAuthController.presentationContextProvider = self
+        appleAuthController.delegate = self
+        appleAuthController.performRequests()
+    }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        print("----------> success")
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            appleAuthRepo.fetchAppleUserInfo { success in
+                if success {
+                    let userIdentifier = appleIDCredential.user
+                    KeyChainAuthRepo.shared.create(account: "userIdentifier", value: userIdentifier)
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        } else {
+            errorAlert(selfView: self, errorMessage: "사용자 정보를 가져오지 못했습니다.")
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        errorAlert(selfView: self, errorMessage: "애플 로그인에 실패했습니다ㅠㅠ")
+    }
+    
 }

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ehP-XY-jm9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ehP-XY-jm9">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,55 +18,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dU2-oF-EZI" customClass="MyPageHeaderView" customModule="Cookid" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="140"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EO4-pW-nUv">
-                                        <rect key="frame" x="0.0" y="139" width="414" height="1"/>
-                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="Cfg-or-meX"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="140" id="0hu-VD-8yc"/>
-                                    <constraint firstAttribute="height" constant="140" id="6JF-P4-xWN"/>
-                                    <constraint firstAttribute="bottom" secondItem="EO4-pW-nUv" secondAttribute="bottom" id="9ku-VN-qeO"/>
-                                    <constraint firstItem="EO4-pW-nUv" firstAttribute="leading" secondItem="dU2-oF-EZI" secondAttribute="leading" id="SIB-Gc-SQf"/>
-                                    <constraint firstAttribute="trailing" secondItem="EO4-pW-nUv" secondAttribute="trailing" id="cf4-5q-tbG"/>
-                                </constraints>
-                            </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TH-Pw-YI7">
                                 <rect key="frame" x="0.0" y="228" width="414" height="585"/>
                                 <connections>
                                     <segue destination="767-ax-dT6" kind="embed" identifier="detailSegue" id="SBR-bW-gcK"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="js9-2f-gv6">
+                                <rect key="frame" x="0.0" y="88" width="414" height="140"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="ZP8-ft-PEB"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="kLY-8R-YD0" kind="embed" identifier="headerSegue" id="hUo-4I-pPS"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UOe-zw-poI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="dU2-oF-EZI" firstAttribute="trailing" secondItem="UOe-zw-poI" secondAttribute="trailing" id="2GL-3y-nlF"/>
                             <constraint firstItem="UOe-zw-poI" firstAttribute="bottom" secondItem="0TH-Pw-YI7" secondAttribute="bottom" id="Bbd-Q9-eoR"/>
-                            <constraint firstItem="dU2-oF-EZI" firstAttribute="top" secondItem="UOe-zw-poI" secondAttribute="top" id="Ftk-vq-nUB"/>
-                            <constraint firstItem="0TH-Pw-YI7" firstAttribute="top" secondItem="dU2-oF-EZI" secondAttribute="bottom" id="KzI-8S-DEn"/>
-                            <constraint firstItem="dU2-oF-EZI" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="gY6-oE-KiH"/>
+                            <constraint firstItem="UOe-zw-poI" firstAttribute="trailing" secondItem="js9-2f-gv6" secondAttribute="trailing" id="IOo-bg-jhe"/>
+                            <constraint firstItem="0TH-Pw-YI7" firstAttribute="top" secondItem="js9-2f-gv6" secondAttribute="bottom" id="Xbj-NE-v8u"/>
                             <constraint firstItem="0TH-Pw-YI7" firstAttribute="trailing" secondItem="UOe-zw-poI" secondAttribute="trailing" id="iDD-fB-6yD"/>
                             <constraint firstItem="0TH-Pw-YI7" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="nek-W8-aKN"/>
+                            <constraint firstItem="js9-2f-gv6" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="plT-WS-mBo"/>
+                            <constraint firstItem="js9-2f-gv6" firstAttribute="top" secondItem="UOe-zw-poI" secondAttribute="top" id="w4i-9P-ff9"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="ltJ-Jx-j90"/>
                     <navigationItem key="navigationItem" id="cza-vu-c4J"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="userInfo" destination="dU2-oF-EZI" id="WwL-aw-PSY"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dl4-Se-zta" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="296.80000000000001" y="87.931034482758619"/>
+            <point key="canvasLocation" x="295.6521739130435" y="87.723214285714278"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="0dk-6m-cKj">
@@ -89,22 +76,32 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="18"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="  Apple Login Service" image="applelogo" catalog="system">
+                                        <state key="normal" title="  애플로 로그인" image="applelogo" catalog="system">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="21"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ou-iV-uH4">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ou-iV-uH4">
                                         <rect key="frame" x="0.0" y="58" width="320" height="48"/>
-                                        <state key="normal" image="naver">
+                                        <color key="backgroundColor" red="0.03021929227" green="0.77913218740000001" blue="0.35237377879999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="17"/>
+                                        <state key="normal" title="네이버로 로그인" image="naverIcon">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g4s-aD-TBS">
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g4s-aD-TBS">
                                         <rect key="frame" x="0.0" y="116" width="320" height="48"/>
+                                        <color key="backgroundColor" systemColor="systemYellowColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="320" id="0Hn-NM-Qqz"/>
                                         </constraints>
-                                        <state key="normal" image="kakao"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="  카카오로 로그인">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                            <imageReference key="image" image="message.fill" catalog="system" symbolScale="medium"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="19"/>
+                                        </state>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -337,16 +334,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-x0-Nt8">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="OxK-iy-wPK"/>
+                                    <constraint firstAttribute="height" constant="44" id="OxK-iy-wPK"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="Z8M-JH-EHW" kind="embed" id="dFJ-oe-bim"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Boe-PT-gOE">
-                                <rect key="frame" x="0.0" y="50" width="414" height="535"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="541"/>
                                 <connections>
                                     <segue destination="4T5-lf-MOA" kind="embed" id="Sid-VV-pJF"/>
                                 </connections>
@@ -367,14 +364,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tpe-W7-WUu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1221.5999999999999" y="87.931034482758619"/>
+            <point key="canvasLocation" x="1217" y="172"/>
         </scene>
         <!--Paging Menu View Controller-->
         <scene sceneID="zB1-EG-eY7">
             <objects>
                 <viewController id="Z8M-JH-EHW" customClass="PagingMenuViewController" customModule="PagingKit" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gyg-N1-e9f">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="WQR-JQ-YDY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -389,7 +386,7 @@
             <objects>
                 <viewController id="4T5-lf-MOA" customClass="PagingContentViewController" customModule="PagingKit" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eAJ-DG-dXK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="535"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="541"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Oci-sU-h10"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -399,18 +396,32 @@
             </objects>
             <point key="canvasLocation" x="1945" y="172"/>
         </scene>
+        <!--My Page Header View Controller-->
+        <scene sceneID="Yza-Xp-jgQ">
+            <objects>
+                <viewController id="kLY-8R-YD0" customClass="MyPageHeaderViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XWM-13-5TH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Ud-xg-Y42" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1216" y="-123"/>
+        </scene>
     </scenes>
     <resources>
         <image name="applelogo" catalog="system" width="103" height="128"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="kakao" width="200" height="30"/>
-        <image name="naver" width="333.33334350585938" height="66.666664123535156"/>
+        <image name="message.fill" catalog="system" width="128" height="113"/>
+        <image name="naverIcon" width="50" height="50"/>
         <image name="signinBG" width="800" height="1200"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

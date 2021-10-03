@@ -6,13 +6,12 @@
 //
 
 import Foundation
-import Firebase
-import FirebaseFirestoreSwift
+//import Firebase
 
 class FirestoreCommentRepo {
     static let instance = FirestoreCommentRepo()
     
-    private let commentDB = Firestore.firestore().collection("comment")
+//    private let commentDB = Firestore.firestore().collection("comment")
 
     func createComment(comment: Comment, completion: @escaping (Result<NetWorkingResult, NetWorkingError>) -> Void) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
@@ -33,6 +32,6 @@ class FirestoreCommentRepo {
     }
     
     func deleteComment(comment: Comment) {
-        print(comment.commentID)
+        
     }
 }
