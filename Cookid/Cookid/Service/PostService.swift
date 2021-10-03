@@ -18,9 +18,13 @@ class PostService {
     init(firestoreRepo: FirestorePostRepo) {
         self.firestoreRepo = firestoreRepo
     }
+//    
+//    var currentPosts: [Post] {
+//        return posts
+//    }
     
-    var currentPosts: [Post] {
-        return posts
+    var postsCount: Observable<Int> {
+        return postStore.map { $0.count }
     }
     
     func createPost(post: Post) {

@@ -16,18 +16,21 @@ class MyPageCoordinator: CoordinatorType {
     let userService: UserService
     let mealService: MealService
     let shoppingService: ShoppingService
+    let postService: PostService
     
-    init(parentCoordinator : CoordinatorType, userService: UserService, mealService: MealService, shoppingService: ShoppingService) {
+    init(parentCoordinator : CoordinatorType, userService: UserService, mealService: MealService, shoppingService: ShoppingService, postService: PostService) {
         self.parentCoordinator = parentCoordinator
         self.userService = userService
         self.mealService = mealService
         self.shoppingService = shoppingService
+        self.postService = postService
+        
     }
     
     func start() -> UIViewController {
         var myPageVC = MyPageViewController.instantiate(storyboardID: "UserInfo")
         myPageVC.coordinator = self
-        myPageVC.bind(viewModel: MyPageViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService))
+        myPageVC.bind(viewModel: MyPageViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService, postService: postService))
         navigationController = UINavigationController(rootViewController: myPageVC)
         myPageVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         myPageVC.navigationController?.navigationBar.barTintColor = .systemBackground

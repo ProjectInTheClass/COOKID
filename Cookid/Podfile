@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '13.0'
 
 def pods
  pod 'SwiftLint'
@@ -10,29 +10,20 @@ def pods
  pod 'FSCalendar'
  pod 'PanModal'
  pod 'PagingKit'
+ pod 'YPImagePicker'
  pod 'RxSwift'
  pod 'RxCocoa'
  pod 'NSObject+Rx'
  pod 'RxKeyboard'
  pod 'RxDataSources'
- pod 'RxKakaoSDKCommon'
- pod 'RxKakaoSDKAuth'
- pod 'RxKakaoSDKUser'
  pod 'ReactorKit'
- pod 'YPImagePicker'
  pod 'naveridlogin-sdk-ios'
+ pod 'KakaoSDKCommon'
+ pod 'KakaoSDKAuth'
+ pod 'KakaoSDKUser'
 end
 
 target 'Cookid' do
-  # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
-  # Pods for Cookid
   pods
-  target 'CookidTests' do
-    inherit! :search_paths
-    # Pods for testing
-    pods
-  end
-
 end

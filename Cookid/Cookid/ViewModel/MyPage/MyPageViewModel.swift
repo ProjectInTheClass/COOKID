@@ -14,6 +14,7 @@ class MyPageViewModel: ViewModelType {
     let userService: UserService
     let mealService: MealService
     let shoppingService: ShoppingService
+    let postService: PostService
     
     struct Input {
         
@@ -22,20 +23,35 @@ class MyPageViewModel: ViewModelType {
     struct Output {
         let userInfo: Observable<User>
         let meals: Observable<[Meal]>
+        let dineInCount: Observable<Int>
+        let cookidsCount: Observable<Int>
+        let postCount: Observable<Int>
     }
     
     var input: Input
     var output: Output
     
-    init(userService: UserService, mealService: MealService, shoppingService: ShoppingService) {
+    init(userService: UserService, mealService: MealService, shoppingService: ShoppingService, postService: PostService) {
         self.userService = userService
         self.mealService = mealService
         self.shoppingService = shoppingService
+        self.postService = postService
         
         let userInfo = userService.user()
         let meals = mealService.mealList()
+        let shoppings = shoppingService.shoppingList()
+        
+        let dineInCount = meals.map { meals -> Int in
+            return meals.filter { $0.mealType == .dineIn }.count
+        }
+        
+        let cookidsCount = Observable.combineLatest(meals, shoppings) { meals, shoppings -> Int in
+            return meals.count + shoppings.count
+        }
+        
+        let postCount = postService.postsCount
         
         self.input = Input()
-        self.output = Output(userInfo: userInfo, meals: meals)
+        self.output = Output(userInfo: userInfo, meals: meals, dineInCount: dineInCount, cookidsCount: cookidsCount, postCount: postCount)
     }
 }

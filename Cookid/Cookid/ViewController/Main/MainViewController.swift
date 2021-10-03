@@ -10,7 +10,7 @@ import SwiftUI
 import RxSwift
 import RxCocoa
 import NSObject_Rx
-import Firebase
+//import Firebase
 
 class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     

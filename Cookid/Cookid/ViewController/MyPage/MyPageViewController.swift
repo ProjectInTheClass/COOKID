@@ -14,10 +14,6 @@ import Then
 
 class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
-    // MARK: - UIComponents
-    
-    @IBOutlet weak var userInfo: MyPageHeaderView!
-    
     // MARK: - Properties
     
     var viewModel: MyPageViewModel!
@@ -43,15 +39,17 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
             vc.coordinator = coordinator
             vc.bind(viewModel: viewModel)
         }
+        
+        if segue.identifier == "headerSegue" {
+            guard var vc = segue.destination as? MyPageHeaderViewController else { return }
+            vc.coordinator = coordinator
+            vc.bind(viewModel: viewModel)
+        }
     }
     
     // MARK: - BindViewMdoel
     func bindViewModel() {
-        viewModel.output.userInfo
-            .bind { [unowned self] (user) in
-                self.userInfo.updateUI(user: user)
-            }
-            .disposed(by: rx.disposeBag)
+        
     }
     
 }

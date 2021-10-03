@@ -22,7 +22,7 @@ class MenuService {
         Menu(name: "bread", image: UIImage(named: "bread")),
         Menu(name: "etc", image: UIImage(named: "etc")),
         Menu(name: "ricesoup", image: UIImage(named: "ricesoup")),
-        Menu(name: "soup", image: UIImage(named: "soup")),
+        Menu(name: "soup", image: UIImage(named: "soup"))
     ]
     
 }

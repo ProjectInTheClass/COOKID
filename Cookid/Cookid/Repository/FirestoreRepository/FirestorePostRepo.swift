@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import FirebaseFirestore
-import FirebaseFirestoreSwift
-import FirebaseStorage
+//import FirebaseFirestore
+//import FirebaseStorage
 
 class FirestorePostRepo {
     static let instance = FirestorePostRepo()

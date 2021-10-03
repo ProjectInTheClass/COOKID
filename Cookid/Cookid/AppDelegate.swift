@@ -6,18 +6,19 @@
 //
 
 import UIKit
-import Firebase
+//import Firebase
 import RealmSwift
-import RxKakaoSDKCommon
+import KakaoSDKCommon
 import NaverThirdPartyLogin
+import AuthenticationServices
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+    
         // Firebase
-        FirebaseApp.configure()
+//        FirebaseApp.configure()
         
         // Realm
         let config = Realm.Configuration(
@@ -28,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Realm.Configuration.defaultConfiguration = config
         
         // Kakao
-        RxKakaoSDKCommon.initSDK(appKey: "b80501f14838bee643dab9d0e68e786d")
+        KakaoSDKCommon.initSDK(appKey: "b80501f14838bee643dab9d0e68e786d")
         
         // Naver
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()
@@ -46,11 +47,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         NaverThirdPartyLoginConnection.getSharedInstance().application(app, open: url, options: options)
+     
         return true
     }
-
+    
     // MARK: UISceneSession Lifecycle
-
+    
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.

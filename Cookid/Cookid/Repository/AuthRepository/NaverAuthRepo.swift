@@ -32,7 +32,7 @@ class NaverAutoRepo {
         connectionInstance?.requestDeleteToken()
     }
     
-    func fetchNaverUserInfo(viewController: UIViewController) {
+    func fetchNaverUserInfo(completion: @escaping (Bool) -> Void) {
         
         guard let isValidAccessToken = connectionInstance?.isValidAccessTokenExpireTimeNow() else { return }
         guard isValidAccessToken else { return }
@@ -61,7 +61,9 @@ class NaverAutoRepo {
                     let imageURL = URL(string: imageURLString)!
                     self.viewModel.userService.connectUserInfo(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
                         if success {
-                            viewController.dismiss(animated: true, completion: nil)
+                            completion(true)
+                        } else {
+                            completion(false)
                         }
                     }
                 } else {
@@ -69,7 +71,9 @@ class NaverAutoRepo {
                     FirebaseStorageRepo.instance.uploadUserImage(userID: localUser.id.stringValue, image: image) { imageURL in
                         self.viewModel.userService.connectUserInfo(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
                             if success {
-                                viewController.dismiss(animated: true, completion: nil)
+                                completion(true)
+                            } else {
+                                completion(false)
                             }
                         }
                     }

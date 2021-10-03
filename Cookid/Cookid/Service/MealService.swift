@@ -208,9 +208,9 @@ class MealService {
             } else if percentage < 25 {
                 return "첫 주 예산의 끝에 다가가고 있습니다! 👮🏻‍♂️"
             } else if percentage < 50 {
-                return "첫 주에 절반을 태워..? 👮🏻‍♂️"
-            } else if percentage < 80 {
                 return "한 달 예산을 한 주에 너무 많이... 👮🏻‍♂️"
+            } else if percentage < 80 {
+                return "첫 주에 절반을 태워..? 👮🏻‍♂️"
             } else if percentage < 100 {
                 return "예산을 곧 초과합니다 🚨"
             } else {
