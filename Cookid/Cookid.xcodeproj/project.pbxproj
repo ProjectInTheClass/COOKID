@@ -26,6 +26,7 @@
 		032233E926934F180092DD6D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233E826934F180092DD6D /* Protocol.swift */; };
 		0339575126A2C96100594515 /* boardingImage in Resources */ = {isa = PBXBuildFile; fileRef = 0339575026A2C96100594515 /* boardingImage */; };
 		033D3C212709FF49009B29B9 /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C202709FF49009B29B9 /* CookidTests.swift */; };
+		033D3C28270A0CC8009B29B9 /* ReactorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C27270A0CC8009B29B9 /* ReactorTest.swift */; };
 		0348B8FC26D34463001BF3B7 /* Shopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B8FB26D34463001BF3B7 /* Shopping.swift */; };
 		0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */; };
 		0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */; };
@@ -168,6 +169,7 @@
 		0339575026A2C96100594515 /* boardingImage */ = {isa = PBXFileReference; lastKnownFileType = file; path = boardingImage; sourceTree = "<group>"; };
 		033D3C1E2709FF49009B29B9 /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		033D3C202709FF49009B29B9 /* CookidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidTests.swift; sourceTree = "<group>"; };
+		033D3C27270A0CC8009B29B9 /* ReactorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactorTest.swift; sourceTree = "<group>"; };
 		0348B8FB26D34463001BF3B7 /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
 		0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSectionModel.swift; sourceTree = "<group>"; };
 		0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				033D3C202709FF49009B29B9 /* CookidTests.swift */,
+				033D3C27270A0CC8009B29B9 /* ReactorTest.swift */,
 			);
 			path = CookidTests;
 			sourceTree = "<group>";
@@ -1020,6 +1023,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				033D3C28270A0CC8009B29B9 /* ReactorTest.swift in Sources */,
 				033D3C212709FF49009B29B9 /* CookidTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

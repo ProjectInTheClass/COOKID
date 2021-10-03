@@ -10,6 +10,8 @@ import XCTest
 
 class CookidTests: XCTestCase {
 
-    
+    func testinitial() {
+        
+    }
 
 }
