@@ -141,19 +141,19 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         todayMealButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                coordinator?.navigateAddMealVC(viewModel: self.viewModel, meal: nil)
+                coordinator?.navigateAddMealVC(meal: nil)
             })
             .disposed(by: rx.disposeBag)
         
         addMealButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                coordinator?.navigateAddMealVC(viewModel: self.viewModel, meal: nil)
+                coordinator?.navigateAddMealVC(meal: nil)
             })
             .disposed(by: rx.disposeBag)
         
         addShoppingButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                coordinator?.navigateAddShoppingVC(viewModel: self.viewModel, shopping: nil)
+                coordinator?.navigateAddShoppingVC(shopping: nil)
             })
             .disposed(by: rx.disposeBag)
         
@@ -219,9 +219,9 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .subscribe(onNext: { [unowned self] item in
                 switch item {
                 case .meals(meal: let meal):
-                    self.coordinator?.navigateAddMealVC(viewModel: self.viewModel, meal: meal)
+                    self.coordinator?.navigateAddMealVC(meal: meal)
                 case .shoppings(shopping: let shopping):
-                    self.coordinator?.navigateAddShoppingVC(viewModel: self.viewModel, shopping: shopping)
+                    self.coordinator?.navigateAddShoppingVC(shopping: shopping)
                 }
             })
             .disposed(by: rx.disposeBag)

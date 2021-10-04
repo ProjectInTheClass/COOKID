@@ -18,13 +18,13 @@ class PostService {
     init(firestoreRepo: FirestorePostRepo) {
         self.firestoreRepo = firestoreRepo
     }
-//    
-//    var currentPosts: [Post] {
-//        return posts
-//    }
     
     var postsCount: Observable<Int> {
         return postStore.map { $0.count }
+    }
+    
+    func myPosts(user: User) -> Observable<[Post]> {
+        return postStore.map { $0.filter { $0.user.id ==  user.id } }
     }
     
     func createPost(post: Post) {

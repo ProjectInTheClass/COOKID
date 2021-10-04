@@ -17,7 +17,7 @@ class MyMealsViewController: UIViewController, ViewModelBindable {
     var viewModel: MyPageViewModel!
     var coordinator: MyPageCoordinator?
     
-    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: MyMealsViewController.createLayout())
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,46 +43,46 @@ class MyMealsViewController: UIViewController, ViewModelBindable {
         // Item
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(2/3),
+                widthDimension: .fractionalWidth(1/2),
                 heightDimension: .fractionalHeight(1)))
         
-        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
         
         let verticalItem = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(0.5)))
+                heightDimension: .fractionalHeight(1/2)))
         
-        verticalItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+        verticalItem.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
       
         let verticalStackGroup = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1/3),
+                widthDimension: .fractionalWidth(1/2),
                 heightDimension: .fractionalHeight(1)),
             subitem: verticalItem,
             count: 2)
-        
-        let tripleItem = NSCollectionLayoutItem(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalWidth(1)))
-        
-        tripleItem.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-        
-        let tripleHorizontalGroup = NSCollectionLayoutGroup.horizontal(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalWidth(0.3)),
-            subitem: tripleItem,
-            count: 3)
         
         // Group
         let horizontalGroup = NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalWidth(0.7)),
+                heightDimension: .fractionalHeight(1/2)),
             subitems: [item, verticalStackGroup])
         
+        let tripleItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(1)))
+        
+        tripleItem.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
+        
+        let tripleHorizontalGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(1/2)),
+            subitem: tripleItem,
+            count: 3)
+
         let verticalGroup = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
@@ -105,7 +105,9 @@ class MyMealsViewController: UIViewController, ViewModelBindable {
         
         collectionView.rx.modelSelected(Meal.self)
             .bind(onNext: { [unowned self] meal in
-                print(meal)
+                print("tapped")
+                guard let mainCoordinator = coordinator?.parentCoordinator.childCoordinator.first as? MainCoordinator else { return }
+                mainCoordinator.navigateAddMealVC(meal: meal)
             })
             .disposed(by: rx.disposeBag)
     }

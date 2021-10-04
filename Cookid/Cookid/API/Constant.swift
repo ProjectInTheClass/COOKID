@@ -56,6 +56,7 @@ enum CELLIDENTIFIER {
     static let postCell = "postCell"
     static let commentCell = "commentCell"
     static let postImageCell = "postImageCell"
+    static let myPostCollectionViewCell = "myPostCollectionViewCell"
 }
 
 enum NetWorkingError : String, Error {

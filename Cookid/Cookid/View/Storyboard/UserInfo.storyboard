@@ -18,37 +18,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TH-Pw-YI7">
-                                <rect key="frame" x="0.0" y="228" width="414" height="585"/>
-                                <connections>
-                                    <segue destination="767-ax-dT6" kind="embed" identifier="detailSegue" id="SBR-bW-gcK"/>
-                                </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="js9-2f-gv6">
-                                <rect key="frame" x="0.0" y="88" width="414" height="140"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="140" id="ZP8-ft-PEB"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="kLY-8R-YD0" kind="embed" identifier="headerSegue" id="hUo-4I-pPS"/>
-                                </connections>
-                            </containerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="MH5-dO-eni">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rBf-0J-3HI">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="140" id="wDg-pg-dpH"/>
+                                        </constraints>
+                                        <connections>
+                                            <segue destination="ZG1-ic-Hch" kind="embed" identifier="headerSegue" id="2R5-Ro-9zS"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TH-Pw-YI7">
+                                        <rect key="frame" x="0.0" y="140" width="414" height="585"/>
+                                        <connections>
+                                            <segue destination="767-ax-dT6" kind="embed" identifier="detailSegue" id="SBR-bW-gcK"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UOe-zw-poI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="UOe-zw-poI" firstAttribute="bottom" secondItem="0TH-Pw-YI7" secondAttribute="bottom" id="Bbd-Q9-eoR"/>
-                            <constraint firstItem="UOe-zw-poI" firstAttribute="trailing" secondItem="js9-2f-gv6" secondAttribute="trailing" id="IOo-bg-jhe"/>
-                            <constraint firstItem="0TH-Pw-YI7" firstAttribute="top" secondItem="js9-2f-gv6" secondAttribute="bottom" id="Xbj-NE-v8u"/>
-                            <constraint firstItem="0TH-Pw-YI7" firstAttribute="trailing" secondItem="UOe-zw-poI" secondAttribute="trailing" id="iDD-fB-6yD"/>
-                            <constraint firstItem="0TH-Pw-YI7" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="nek-W8-aKN"/>
-                            <constraint firstItem="js9-2f-gv6" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="plT-WS-mBo"/>
-                            <constraint firstItem="js9-2f-gv6" firstAttribute="top" secondItem="UOe-zw-poI" secondAttribute="top" id="w4i-9P-ff9"/>
+                            <constraint firstItem="MH5-dO-eni" firstAttribute="bottom" secondItem="UOe-zw-poI" secondAttribute="bottom" id="9D0-l8-ygq"/>
+                            <constraint firstItem="MH5-dO-eni" firstAttribute="top" secondItem="UOe-zw-poI" secondAttribute="top" id="IY3-o8-mUA"/>
+                            <constraint firstItem="MH5-dO-eni" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="OEu-PR-i0Z"/>
+                            <constraint firstItem="MH5-dO-eni" firstAttribute="trailing" secondItem="UOe-zw-poI" secondAttribute="trailing" id="VZ2-z0-6Zn"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="ltJ-Jx-j90"/>
-                    <navigationItem key="navigationItem" id="cza-vu-c4J"/>
+                    <navigationItem key="navigationItem" id="cza-vu-c4J">
+                        <barButtonItem key="rightBarButtonItem" image="person.circle.fill" catalog="system" id="hgG-4w-SxR">
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="userInfoButton:" destination="bDA-Fs-qOq" id="dnB-qC-t0S"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="headerView" destination="rBf-0J-3HI" id="geW-1t-qlM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dl4-Se-zta" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -310,6 +322,7 @@
         <!--Navigation Controller-->
         <scene sceneID="nI6-em-dy4">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PBD-qJ-1W4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ehP-XY-jm9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OZK-aG-bY5">
@@ -321,9 +334,37 @@
                         <segue destination="bDA-Fs-qOq" kind="relationship" relationship="rootViewController" id="QM8-SC-nrA"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PBD-qJ-1W4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-645.60000000000002" y="87.931034482758619"/>
+        </scene>
+        <!--My Page Header View Controller-->
+        <scene sceneID="Tbs-c1-h6V">
+            <objects>
+                <viewController id="ZG1-ic-Hch" customClass="MyPageHeaderViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="p8p-jw-6dO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vGw-SB-yId">
+                                <rect key="frame" x="0.0" y="139" width="414" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Wv5-gR-nGt"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Sq6-nx-2UU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Sq6-nx-2UU" firstAttribute="trailing" secondItem="vGw-SB-yId" secondAttribute="trailing" id="Cmx-nL-cIG"/>
+                            <constraint firstItem="vGw-SB-yId" firstAttribute="bottom" secondItem="Sq6-nx-2UU" secondAttribute="bottom" id="MK2-ps-mcB"/>
+                            <constraint firstItem="vGw-SB-yId" firstAttribute="leading" secondItem="Sq6-nx-2UU" secondAttribute="leading" id="zeb-gf-ldy"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xGX-94-7JA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1178" y="-212"/>
         </scene>
         <!--My Page Detail View Controller-->
         <scene sceneID="yI4-3k-lfH">
@@ -334,16 +375,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-x0-Nt8">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <rect key="frame" x="5" y="0.0" width="404" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="OxK-iy-wPK"/>
+                                    <constraint firstAttribute="height" constant="50" id="OxK-iy-wPK"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="Z8M-JH-EHW" kind="embed" id="dFJ-oe-bim"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Boe-PT-gOE">
-                                <rect key="frame" x="0.0" y="44" width="414" height="541"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="535"/>
                                 <connections>
                                     <segue destination="4T5-lf-MOA" kind="embed" id="Sid-VV-pJF"/>
                                 </connections>
@@ -352,9 +393,9 @@
                         <viewLayoutGuide key="safeArea" id="hcj-X4-1cD"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="wRv-x0-Nt8" secondAttribute="trailing" id="BdK-NJ-nJh"/>
+                            <constraint firstAttribute="trailing" secondItem="wRv-x0-Nt8" secondAttribute="trailing" constant="5" id="BdK-NJ-nJh"/>
                             <constraint firstItem="Boe-PT-gOE" firstAttribute="top" secondItem="wRv-x0-Nt8" secondAttribute="bottom" id="Irk-N5-LVR"/>
-                            <constraint firstItem="wRv-x0-Nt8" firstAttribute="leading" secondItem="a9p-mE-xQA" secondAttribute="leading" id="N9k-ch-PyM"/>
+                            <constraint firstItem="wRv-x0-Nt8" firstAttribute="leading" secondItem="a9p-mE-xQA" secondAttribute="leading" constant="5" id="N9k-ch-PyM"/>
                             <constraint firstItem="hcj-X4-1cD" firstAttribute="bottom" secondItem="Boe-PT-gOE" secondAttribute="bottom" id="Oec-6U-2Ve"/>
                             <constraint firstItem="wRv-x0-Nt8" firstAttribute="top" secondItem="a9p-mE-xQA" secondAttribute="top" id="VQc-c9-ZDU"/>
                             <constraint firstItem="Boe-PT-gOE" firstAttribute="leading" secondItem="a9p-mE-xQA" secondAttribute="leading" id="of0-j2-nQA"/>
@@ -364,14 +405,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tpe-W7-WUu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1217" y="172"/>
+            <point key="canvasLocation" x="1177" y="88"/>
         </scene>
         <!--Paging Menu View Controller-->
         <scene sceneID="zB1-EG-eY7">
             <objects>
                 <viewController id="Z8M-JH-EHW" customClass="PagingMenuViewController" customModule="PagingKit" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gyg-N1-e9f">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="404" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="WQR-JQ-YDY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -379,14 +420,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asi-At-RHH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1945" y="-134"/>
+            <point key="canvasLocation" x="1923" y="-140"/>
         </scene>
         <!--Paging Content View Controller-->
         <scene sceneID="KwG-Rg-q0s">
             <objects>
                 <viewController id="4T5-lf-MOA" customClass="PagingContentViewController" customModule="PagingKit" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eAJ-DG-dXK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="541"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="535"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Oci-sU-h10"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -394,21 +435,21 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fnn-k1-Z37" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1945" y="172"/>
+            <point key="canvasLocation" x="1922" y="137"/>
         </scene>
-        <!--My Page Header View Controller-->
-        <scene sceneID="Yza-Xp-jgQ">
+        <!--View Controller-->
+        <scene sceneID="V59-Ys-JQs">
             <objects>
-                <viewController id="kLY-8R-YD0" customClass="MyPageHeaderViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="XWM-13-5TH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                <viewController id="WEg-il-qkP" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jPa-l6-J91">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0Ud-xg-Y42" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pB0-BA-UvM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1216" y="-123"/>
+            <point key="canvasLocation" x="-1187" y="48"/>
         </scene>
     </scenes>
     <resources>
@@ -416,12 +457,16 @@
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="message.fill" catalog="system" width="128" height="113"/>
         <image name="naverIcon" width="50" height="50"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <image name="signinBG" width="800" height="1200"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

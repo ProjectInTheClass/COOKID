@@ -10,25 +10,14 @@ import RxSwift
 
 protocol ViewModelBindable {
     associatedtype ViewModelType
-    
     var viewModel: ViewModelType! { get set }
-    
     func bindViewModel()
-    
 }
 
 extension ViewModelBindable where Self: UIViewController {
     mutating func bind(viewModel: ViewModelType) {
         self.viewModel = viewModel
         loadViewIfNeeded()
-        bindViewModel()
-    }
-}
-
-extension ViewModelBindable where Self: UITableViewCell {
-    mutating func bind(viewModel: ViewModelType) {
-        self.viewModel = viewModel
-        reloadInputViews()
         bindViewModel()
     }
 }

@@ -43,9 +43,9 @@ class MainCoordinator: CoordinatorType {
         navigationController?.present(vc, animated: true, completion: nil)
     }
     
-    func navigateAddMealVC(viewModel: MainViewModel, meal: Meal?) {
+    func navigateAddMealVC(meal: Meal?) {
         let mealID = meal != nil ? meal?.id : UUID().uuidString
-        let addMealViewModel = AddMealViewModel(mealService: viewModel.mealService, userService: viewModel.userService, mealID: mealID)
+        let addMealViewModel = AddMealViewModel(mealService: mealService, userService: userService, mealID: mealID)
         var vc = AddMealViewController.instantiate(storyboardID: "Main")
         vc.meal = meal
         vc.bind(viewModel: addMealViewModel)
@@ -55,9 +55,9 @@ class MainCoordinator: CoordinatorType {
         navigationController?.present(vc, animated: true, completion: nil)
     }
     
-    func navigateAddShoppingVC(viewModel: MainViewModel, shopping: GroceryShopping?) {
+    func navigateAddShoppingVC(shopping: GroceryShopping?) {
         let shoppingID = shopping != nil ? shopping?.id : UUID().uuidString
-        let addShoppingViewModel = AddShoppingViewModel(shoppingService: viewModel.shoppingService, userService: viewModel.userService, shoppingID: shoppingID)
+        let addShoppingViewModel = AddShoppingViewModel(shoppingService: shoppingService, userService: userService, shoppingID: shoppingID)
         var vc = AddShoppingViewController()
         vc.shopping = shopping
         vc.bind(viewModel: addShoppingViewModel)
@@ -66,12 +66,4 @@ class MainCoordinator: CoordinatorType {
         navigationController?.present(vc, animated: true, completion: nil)
     }
     
-    func navigateUserInfoVC(viewModel: MyPageViewModel) {
-        let userUpdateViewModel = UserInfoUpdateViewModel(userService: viewModel.userService)
-        var userInfoVC = UserInformationViewController.instantiate(storyboardID: "UserInfo")
-        userInfoVC.bind(viewModel: userUpdateViewModel)
-        userInfoVC.modalPresentationStyle = .custom
-        userInfoVC.modalTransitionStyle = .crossDissolve
-        navigationController?.present(userInfoVC, animated: true, completion: nil)
-    }
 }

@@ -27,6 +27,8 @@
 		0339575126A2C96100594515 /* boardingImage in Resources */ = {isa = PBXBuildFile; fileRef = 0339575026A2C96100594515 /* boardingImage */; };
 		033D3C212709FF49009B29B9 /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C202709FF49009B29B9 /* CookidTests.swift */; };
 		033D3C28270A0CC8009B29B9 /* ReactorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C27270A0CC8009B29B9 /* ReactorTest.swift */; };
+		033D3C2A270A780E009B29B9 /* MyPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C29270A780E009B29B9 /* MyPostCollectionViewCell.swift */; };
+		033D3C2C270A7C96009B29B9 /* MyPostReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */; };
 		0348B8FC26D34463001BF3B7 /* Shopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B8FB26D34463001BF3B7 /* Shopping.swift */; };
 		0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */; };
 		0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */; };
@@ -65,7 +67,6 @@
 		03D8C1E326E852D600238CB6 /* MyRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */; };
 		03D8C1E726E8927700238CB6 /* MyMealsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */; };
 		03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */; };
-		03D8C1EB26EA539300238CB6 /* MyPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1EA26EA539300238CB6 /* MyPostTableViewCell.swift */; };
 		03D8C1EF26EB6D8C00238CB6 /* FirestorePostRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1EE26EB6D8C00238CB6 /* FirestorePostRepo.swift */; };
 		03D8C1F126EB6FD600238CB6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1F026EB6FD600238CB6 /* Post.swift */; };
 		03D8C1F326EB7E0500238CB6 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1F226EB7E0500238CB6 /* Comment.swift */; };
@@ -170,6 +171,8 @@
 		033D3C1E2709FF49009B29B9 /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		033D3C202709FF49009B29B9 /* CookidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidTests.swift; sourceTree = "<group>"; };
 		033D3C27270A0CC8009B29B9 /* ReactorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactorTest.swift; sourceTree = "<group>"; };
+		033D3C29270A780E009B29B9 /* MyPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostCollectionViewCell.swift; sourceTree = "<group>"; };
+		033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostReactor.swift; sourceTree = "<group>"; };
 		0348B8FB26D34463001BF3B7 /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
 		0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSectionModel.swift; sourceTree = "<group>"; };
 		0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -205,7 +208,6 @@
 		03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecipesViewController.swift; sourceTree = "<group>"; };
 		03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealsCollectionViewCell.swift; sourceTree = "<group>"; };
 		03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostsViewController.swift; sourceTree = "<group>"; };
-		03D8C1EA26EA539300238CB6 /* MyPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostTableViewCell.swift; sourceTree = "<group>"; };
 		03D8C1EE26EB6D8C00238CB6 /* FirestorePostRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostRepo.swift; sourceTree = "<group>"; };
 		03D8C1F026EB6FD600238CB6 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		03D8C1F226EB7E0500238CB6 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -623,8 +625,8 @@
 				2417EABB26E5A562006F2785 /* MyPageHeaderViewController.swift */,
 				03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */,
 				03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */,
-				03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */,
 				03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */,
+				03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */,
 				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
 			);
 			path = MyPage;
@@ -642,6 +644,7 @@
 			isa = PBXGroup;
 			children = (
 				2417EAB526E58D0C006F2785 /* MyPageViewModel.swift */,
+				033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */,
 				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
 			);
 			path = MyPage;
@@ -651,7 +654,7 @@
 			isa = PBXGroup;
 			children = (
 				03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */,
-				03D8C1EA26EA539300238CB6 /* MyPostTableViewCell.swift */,
+				033D3C29270A780E009B29B9 /* MyPostCollectionViewCell.swift */,
 			);
 			path = MyPageCustomView;
 			sourceTree = "<group>";
@@ -922,10 +925,10 @@
 				035E4921269597D4002CC084 /* MealTimeCollectionViewCell.swift in Sources */,
 				032233BA269277520092DD6D /* Meal.swift in Sources */,
 				0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */,
+				033D3C2A270A780E009B29B9 /* MyPostCollectionViewCell.swift in Sources */,
 				DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */,
 				0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */,
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
-				03D8C1EB26EA539300238CB6 /* MyPostTableViewCell.swift in Sources */,
 				03D3046826FDFA7D00042CB7 /* AddPostCollectionReusableView.swift in Sources */,
 				03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
@@ -1003,6 +1006,7 @@
 				03525F742707E72D006C8B40 /* KakaoAuthRepo.swift in Sources */,
 				24B081BA26DFD23500379087 /* LocalUser.swift in Sources */,
 				03F2ED9626FA20A900CFE87C /* CommentReactor.swift in Sources */,
+				033D3C2C270A7C96009B29B9 /* MyPostReactor.swift in Sources */,
 				03D8C1F126EB6FD600238CB6 /* Post.swift in Sources */,
 				03B2048D26D5D9440099C269 /* AddShoppingViewModel.swift in Sources */,
 				03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */,

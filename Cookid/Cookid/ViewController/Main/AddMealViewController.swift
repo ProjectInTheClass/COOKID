@@ -139,7 +139,8 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.originalImage] as? UIImage else { return }
-        viewModel.input.mealImage.accept(selectedImage)
+        let renderImage = selectedImage.resize(newWidth: self.view.frame.width/2)
+        viewModel.input.mealImage.accept(renderImage)
         dismiss(animated: true, completion: nil)
     }
     
