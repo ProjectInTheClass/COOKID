@@ -60,7 +60,7 @@ class PostCoordinator: CoordinatorType {
     
     func navigateAddPostVC(viewModel: PostViewModel, senderTag: Int) {
         let addPostVC = AddPostViewController.instantiate(storyboardID: "Post")
-        addPostVC.reactor = AddPostReactor(postID: UUID().uuidString, postService: postService, userService: userService)
+        addPostVC.reactor = AddPostReactor(postService: postService, userService: userService)
         navigationController?.pushViewController(addPostVC, animated: true)
         
         switch senderTag {

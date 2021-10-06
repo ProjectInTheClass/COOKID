@@ -11,6 +11,7 @@ import RxCocoa
 import ReactorKit
 import Then
 import SnapKit
+import Kingfisher
 
 class MyPostCollectionViewCell: UICollectionViewCell, View {
     
@@ -45,7 +46,9 @@ class MyPostCollectionViewCell: UICollectionViewCell, View {
     }
     
     func updateUI(post: Post) {
-        postImage.image = post.images.first
+        guard let postFirstImageUrl = post.images.first else { return }
+        postImage.kf.indicatorType = .activity
+        postImage.setImageWithKf(url: postFirstImageUrl)
     }
     
     func bind(reactor: MyPostReactor) {
@@ -53,7 +56,8 @@ class MyPostCollectionViewCell: UICollectionViewCell, View {
             .map { $0.myPost }
             .withUnretained(self)
             .bind { cell, post in
-                cell.postImage.image = post.images.first
+                guard let postFirstImageUrl = post.images.first else { return }
+                cell.postImage.setImageWithKf(url: postFirstImageUrl)
             }
             .disposed(by: disposeBag)
     }

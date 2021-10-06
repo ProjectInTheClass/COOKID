@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import YPImagePicker
+import Kingfisher
 
 extension UIPageViewController {
     
@@ -107,9 +108,29 @@ extension UIImage {
         let newHeight = self.size.height * scale
         let size = CGSize(width: newWidth, height: newHeight)
         let render = UIGraphicsImageRenderer(size: size)
-        let renderImage = render.image { context in
+        let renderImage = render.image { _ in
             self.draw(in: CGRect(origin: .zero, size: size))
         }
         return renderImage
     }
+}
+
+extension UIImageView {
+    
+    func setImageWithKf(url: URL?) {
+        guard let url = url else { return }
+        let placeholder = UIImage(named: "placeholder")
+        let cacheKey = "imageCacheKey"
+        let resource = ImageResource(downloadURL: url, cacheKey: cacheKey)
+        let downsamplingImageProcessor = DownsamplingImageProcessor(size: self.frame.size)
+        self.kf.indicatorType = .activity
+        self.kf.setImage(with: resource, placeholder: placeholder,
+                         options: [
+                            .transition(.fade(0.2)),
+                            .scaleFactor(UIScreen.main.scale),
+                            .cacheOriginalImage,
+                            .processor(downsamplingImageProcessor)
+                         ])
+    }
+    
 }

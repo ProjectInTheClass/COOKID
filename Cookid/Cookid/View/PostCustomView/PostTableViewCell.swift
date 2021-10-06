@@ -25,7 +25,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     
     @IBOutlet weak var heartButton: HeartButton!
-    @IBOutlet weak var bookmarkButton: BookMarkButton!
+    @IBOutlet weak var bookmarkButton: BookmarkButton!
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var commentListButton: UIButton!
     
@@ -41,7 +41,7 @@ class PostTableViewCell: UITableViewCell {
         
         postUserView.updateUI(post: viewModel.output.post)
         userNicknameLabel.text = viewModel.output.post.user.nickname
-        dateLabel.text = viewModel.output.post.timestamp.convertDateToString(format: "yy.MM.dd")
+        dateLabel.text = viewModel.output.post.timeStamp.convertDateToString(format: "yy.MM.dd")
         postCaptionLabel.text = viewModel.output.post.caption
         makeUpStarPoint(post: viewModel.output.post)
         makeUpBookmark(post: viewModel.output.post)
@@ -104,7 +104,7 @@ class PostTableViewCell: UITableViewCell {
         
         Observable.just(viewModel.output.post.images)
             .bind(to: imageCollectionView.rx.items(cellIdentifier: "imageCell", cellType: PostImageCollectionViewCell.self)) { _, item, cell in
-                cell.updateUI(image: item)
+                cell.updateUI(imageURL: item)
             }
             .disposed(by: rx.disposeBag)
         

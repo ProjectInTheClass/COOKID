@@ -13,8 +13,13 @@ class HeartButton: UIButton {
     let activeButtonImage = UIImage(systemName: "suit.heart.fill")!
     let inActiveButtonImage = UIImage(systemName: "suit.heart")!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.addTarget(self, action: #selector(heartButtonTapped), for: .touchUpInside)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
         self.addTarget(self, action: #selector(heartButtonTapped), for: .touchUpInside)
     }
     
@@ -40,15 +45,20 @@ class HeartButton: UIButton {
     }
 }
 
-class BookMarkButton: UIButton {
+class BookmarkButton: UIButton {
     
     var isActivated: Bool = false
     let activeButtonImage = UIImage(systemName: "bookmark.fill")
     let inActiveButtonImage = UIImage(systemName: "bookmark")
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.addTarget(self, action: #selector(starButtonTapped), for: .touchUpInside)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.addTarget(self, action: #selector(bookmarkButtonTapped), for: .touchUpInside)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.addTarget(self, action: #selector(bookmarkButtonTapped), for: .touchUpInside)
     }
     
     func setState(_ newValue: Bool) {
@@ -56,7 +66,7 @@ class BookMarkButton: UIButton {
         self.setImage(self.isActivated ? activeButtonImage : inActiveButtonImage, for: .normal)
     }
     
-    @objc func starButtonTapped() {
+    @objc func bookmarkButtonTapped() {
         self.isActivated.toggle()
         
         UIView.animate(withDuration: 0.1, animations: { [weak self] in

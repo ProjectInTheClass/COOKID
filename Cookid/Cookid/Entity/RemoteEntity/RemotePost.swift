@@ -10,10 +10,10 @@ import Foundation
 struct PostEntity: Codable {
     let postID: String
     let userID: String
-    var images: [URL]
+    var images: [URL?]
+    var star: Int
     var caption: String
     var mealBudget: Int
-    var likes: Int
     var timestamp: Date
     var didLike: [String:Bool]
     var didCollect: [String:Bool]

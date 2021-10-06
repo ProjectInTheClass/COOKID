@@ -24,14 +24,15 @@ class MyPageDetailViewController: UIViewController, ViewModelBindable {
         myMealsVC.bind(viewModel: viewModel)
         myMealsVC.coordinator = coordinator
         
-        var myRecipesVC = MyRecipesViewController()
-        myRecipesVC.bind(viewModel: viewModel)
+        let myBookmarkVC = MyBookmarkViewController()
+        myBookmarkVC.reactor = MyBookmarkReactor(postService: viewModel.postService, userService: viewModel.userService)
+        myBookmarkVC.coordinator = coordinator
         
         var myPostVC = MyPostsViewController()
         myPostVC.coordinator = coordinator
         myPostVC.bind(viewModel: viewModel)
         
-        dataSource = [(menuTitle: "식사들 🍚", vc: myMealsVC), (menuTitle: "내 글 모음 📝", vc: myPostVC), (menuTitle: "북마크 📚", vc: myRecipesVC)]
+        dataSource = [(menuTitle: "식사들 🍚", vc: myMealsVC), (menuTitle: "내 글 모음 📝", vc: myPostVC), (menuTitle: "북마크 📚", vc: myBookmarkVC)]
         
         menuViewController.register(type: TitleLabelMenuViewCell.self, forCellWithReuseIdentifier: CELLIDENTIFIER.menuCell)
         menuViewController.registerFocusView(view: UnderlineFocusView())

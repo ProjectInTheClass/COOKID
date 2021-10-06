@@ -62,9 +62,13 @@
 		03D3045D26FDE2F300042CB7 /* AddPostReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */; };
 		03D3046426FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */; };
 		03D3046826FDFA7D00042CB7 /* AddPostCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3046726FDFA7D00042CB7 /* AddPostCollectionReusableView.swift */; };
+		03D660C4270B4C6B0044FE1E /* MyBookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660C3270B4C6B0044FE1E /* MyBookmarkViewController.swift */; };
+		03D660C7270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660C6270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift */; };
+		03D660C9270B57B30044FE1E /* MyBookmarkReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */; };
+		03D660CE270CAD740044FE1E /* RepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660CD270CAD740044FE1E /* RepoTests.swift */; };
+		03D660D0270D938B0044FE1E /* MyBookmarCollectionViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660CF270D938B0044FE1E /* MyBookmarCollectionViewCellReactor.swift */; };
 		03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */; };
 		03D8C1E126E852CD00238CB6 /* MyMealsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */; };
-		03D8C1E326E852D600238CB6 /* MyRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */; };
 		03D8C1E726E8927700238CB6 /* MyMealsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */; };
 		03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */; };
 		03D8C1EF26EB6D8C00238CB6 /* FirestorePostRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1EE26EB6D8C00238CB6 /* FirestorePostRepo.swift */; };
@@ -113,6 +117,7 @@
 		24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B081D026E10F8900379087 /* RealmShoppingRepo.swift */; };
 		24BA287726F8E85F005D344E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BA287626F8E85F005D344E /* CommentTableViewCell.swift */; };
 		24C86C6C26FF6F8000E84477 /* AddPostImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */; };
+		4255C87D6C8D5A6C8AAFDBA1 /* Pods_CookidTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C02D874ED96A95A539EEFD /* Pods_CookidTests.framework */; };
 		C67441D62696FA530086CBAD /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
 		C6BFF46226949AA7006295F5 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF46126949AA7006295F5 /* Constant.swift */; };
 		DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1982EE269BF7D30055742B /* UserInfo.storyboard */; };
@@ -203,9 +208,13 @@
 		03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostReactor.swift; sourceTree = "<group>"; };
 		03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		03D3046726FDFA7D00042CB7 /* AddPostCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostCollectionReusableView.swift; sourceTree = "<group>"; };
+		03D660C3270B4C6B0044FE1E /* MyBookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkViewController.swift; sourceTree = "<group>"; };
+		03D660C6270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkCollectionViewCell.swift; sourceTree = "<group>"; };
+		03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkReactor.swift; sourceTree = "<group>"; };
+		03D660CD270CAD740044FE1E /* RepoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoTests.swift; sourceTree = "<group>"; };
+		03D660CF270D938B0044FE1E /* MyBookmarCollectionViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarCollectionViewCellReactor.swift; sourceTree = "<group>"; };
 		03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDetailViewController.swift; sourceTree = "<group>"; };
 		03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealsViewController.swift; sourceTree = "<group>"; };
-		03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecipesViewController.swift; sourceTree = "<group>"; };
 		03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealsCollectionViewCell.swift; sourceTree = "<group>"; };
 		03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostsViewController.swift; sourceTree = "<group>"; };
 		03D8C1EE26EB6D8C00238CB6 /* FirestorePostRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostRepo.swift; sourceTree = "<group>"; };
@@ -254,6 +263,8 @@
 		24B081D026E10F8900379087 /* RealmShoppingRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmShoppingRepo.swift; sourceTree = "<group>"; };
 		24BA287626F8E85F005D344E /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostImageCollectionViewController.swift; sourceTree = "<group>"; };
+		315E1B49EB52F86958E2CED3 /* Pods-CookidTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookidTests.debug.xcconfig"; path = "Target Support Files/Pods-CookidTests/Pods-CookidTests.debug.xcconfig"; sourceTree = "<group>"; };
+		46C02D874ED96A95A539EEFD /* Pods_CookidTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookidTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92784250C9969CCBA901BA20 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6BFF46126949AA7006295F5 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		DB0D7D7326949818009B2D51 /* MealService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MealService.swift; path = COOKID/Service/MealService.swift; sourceTree = SOURCE_ROOT; };
@@ -263,6 +274,7 @@
 		DBDA046726969A6500B5C1D6 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = COOKID/Service/UserService.swift; sourceTree = SOURCE_ROOT; };
 		DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateViewModel.swift; sourceTree = "<group>"; };
 		F431FF06FC6CBE03E157E905 /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
+		F9537FA5A2A0EEC2493683E1 /* Pods-CookidTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookidTests.release.xcconfig"; path = "Target Support Files/Pods-CookidTests/Pods-CookidTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +292,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4255C87D6C8D5A6C8AAFDBA1 /* Pods_CookidTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				033D3C202709FF49009B29B9 /* CookidTests.swift */,
+				03D660CD270CAD740044FE1E /* RepoTests.swift */,
 				033D3C27270A0CC8009B29B9 /* ReactorTest.swift */,
 			);
 			path = CookidTests;
@@ -621,13 +635,13 @@
 		2417EAA626E58C7C006F2785 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
 				2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */,
 				2417EABB26E5A562006F2785 /* MyPageHeaderViewController.swift */,
 				03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */,
 				03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */,
 				03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */,
-				03D8C1E226E852D600238CB6 /* MyRecipesViewController.swift */,
-				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
+				03D660C3270B4C6B0044FE1E /* MyBookmarkViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -646,6 +660,8 @@
 				2417EAB526E58D0C006F2785 /* MyPageViewModel.swift */,
 				033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */,
 				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
+				03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */,
+				03D660CF270D938B0044FE1E /* MyBookmarCollectionViewCellReactor.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -655,6 +671,7 @@
 			children = (
 				03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */,
 				033D3C29270A780E009B29B9 /* MyPostCollectionViewCell.swift */,
+				03D660C6270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift */,
 			);
 			path = MyPageCustomView;
 			sourceTree = "<group>";
@@ -703,6 +720,7 @@
 				03C04C8B2709C38700F72DB1 /* RealmSwift.framework */,
 				03C04C892709C38300F72DB1 /* Realm.framework */,
 				92784250C9969CCBA901BA20 /* Pods_Cookid.framework */,
+				46C02D874ED96A95A539EEFD /* Pods_CookidTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -712,6 +730,8 @@
 			children = (
 				1E6CBAD80279B45E67A6BDDE /* Pods-Cookid.debug.xcconfig */,
 				F431FF06FC6CBE03E157E905 /* Pods-Cookid.release.xcconfig */,
+				315E1B49EB52F86958E2CED3 /* Pods-CookidTests.debug.xcconfig */,
+				F9537FA5A2A0EEC2493683E1 /* Pods-CookidTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -750,8 +770,6 @@
 			dependencies = (
 			);
 			name = Cookid;
-			packageProductDependencies = (
-			);
 			productName = Cookid;
 			productReference = 03223398269212860092DD6D /* Cookid.app */;
 			productType = "com.apple.product-type.application";
@@ -760,6 +778,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 033D3C242709FF49009B29B9 /* Build configuration list for PBXNativeTarget "CookidTests" */;
 			buildPhases = (
+				768FB75FCABB842D5DDB9092 /* [CP] Check Pods Manifest.lock */,
 				033D3C1A2709FF49009B29B9 /* Sources */,
 				033D3C1B2709FF49009B29B9 /* Frameworks */,
 				033D3C1C2709FF49009B29B9 /* Resources */,
@@ -801,8 +820,6 @@
 				Base,
 			);
 			mainGroup = 0322338F269212860092DD6D;
-			packageReferences = (
-			);
 			productRefGroup = 03223399269212860092DD6D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -874,6 +891,28 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
+		768FB75FCABB842D5DDB9092 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CookidTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		BA5A9C8F3F7EAC49A2D59923 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -940,10 +979,12 @@
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
 				03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */,
 				2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */,
+				03D660D0270D938B0044FE1E /* MyBookmarCollectionViewCellReactor.swift in Sources */,
 				03F2ED8626F0343E00CFE87C /* CommentService.swift in Sources */,
 				03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
 				03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */,
+				03D660C9270B57B30044FE1E /* MyBookmarkReactor.swift in Sources */,
 				032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */,
 				03F2ED7526EDD23A00CFE87C /* PostUserView.swift in Sources */,
 				DB61715226C9577B008F497C /* NotificationManager.swift in Sources */,
@@ -962,11 +1003,11 @@
 				032233DE2693057C0092DD6D /* User.swift in Sources */,
 				03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */,
 				03F2ED7326ED92D500CFE87C /* PostViewModel.swift in Sources */,
-				03D8C1E326E852D600238CB6 /* MyRecipesViewController.swift in Sources */,
 				03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */,
 				0363F1F82706C7CD0017680D /* NaverAuthRepo.swift in Sources */,
 				0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */,
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
+				03D660C7270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift in Sources */,
 				03F2ED8C26F17D2D00CFE87C /* PostCustomButton.swift in Sources */,
 				03D3045D26FDE2F300042CB7 /* AddPostReactor.swift in Sources */,
 				0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */,
@@ -985,6 +1026,7 @@
 				03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */,
 				03D8C1F626EBB85200238CB6 /* RemotePost.swift in Sources */,
 				03D8C1EF26EB6D8C00238CB6 /* FirestorePostRepo.swift in Sources */,
+				03D660C4270B4C6B0044FE1E /* MyBookmarkViewController.swift in Sources */,
 				24BA287726F8E85F005D344E /* CommentTableViewCell.swift in Sources */,
 				24B081BF26E0473500379087 /* LocalMeal.swift in Sources */,
 				24C86C6C26FF6F8000E84477 /* AddPostImageCollectionViewController.swift in Sources */,
@@ -1028,6 +1070,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				033D3C28270A0CC8009B29B9 /* ReactorTest.swift in Sources */,
+				03D660CE270CAD740044FE1E /* RepoTests.swift in Sources */,
 				033D3C212709FF49009B29B9 /* CookidTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1246,6 +1289,7 @@
 		};
 		033D3C252709FF49009B29B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 315E1B49EB52F86958E2CED3 /* Pods-CookidTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1271,6 +1315,7 @@
 		};
 		033D3C262709FF49009B29B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F9537FA5A2A0EEC2493683E1 /* Pods-CookidTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

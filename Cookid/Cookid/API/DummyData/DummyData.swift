@@ -14,7 +14,7 @@ class DummyData {
 
     var mySingleShopping = GroceryShopping(id: UUID().uuidString, date: Date(), totalPrice: 10000)
 
-    var singleUser = User(id: "", nickname: "비회원님", determination: "회원정보가 입력되지 않았습니다.", priceGoal: 40000, userType: .preferDineIn, dineInCount: 0, cookidsCount: 0)
+    var singleUser = User(id: "", nickname: "비회원님", determination: "회원정보가 입력되지 않았습니다.", priceGoal: 0, userType: .preferDineIn, dineInCount: 0, cookidsCount: 0)
     
     lazy var posts = [Post]()
     

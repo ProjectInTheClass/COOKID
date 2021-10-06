@@ -39,4 +39,3 @@ class UserEntity: Codable {
         case cookidsCount
     }
 }
-

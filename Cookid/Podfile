@@ -1,5 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '13.0'
+use_frameworks!
+inhibit_all_warnings!
 
 def pods
  pod 'SwiftLint'
@@ -24,6 +26,9 @@ def pods
 end
 
 target 'Cookid' do
-  use_frameworks!
+
   pods
+  target 'CookidTests' do
+     inherit! :search_paths
+  end
 end

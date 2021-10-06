@@ -30,5 +30,4 @@ class MyPostReactor: Reactor {
         self.initialState = State(myPost: myPost)
     }
     
-    
 }

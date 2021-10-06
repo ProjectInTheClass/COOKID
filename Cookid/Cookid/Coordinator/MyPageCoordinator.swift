@@ -37,7 +37,6 @@ class MyPageCoordinator: CoordinatorType {
         return navigationController!
     }
     
-    
     func navigateUserInfoVC(viewModel: MyPageViewModel) {
         let userUpdateViewModel = UserInfoUpdateViewModel(userService: viewModel.userService)
         var userInfoVC = UserInformationViewController.instantiate(storyboardID: "UserInfo")
