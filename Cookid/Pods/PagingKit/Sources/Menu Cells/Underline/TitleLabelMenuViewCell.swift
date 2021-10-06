@@ -31,11 +31,11 @@ import UIKit
 public class TitleLabelMenuViewCell: PagingMenuViewCell {
 
     ///  The text color when selecred
-    public var focusColor = UIColor.pk.focusRed {
+    public var focusColor: UIColor = .systemOrange {
         didSet {
             if isSelected {
-                imageView.tintColor = focusColor
-                titleLabel.textColor = focusColor
+                imageView.tintColor = .systemOrange
+                titleLabel.textColor = .black
             }
         }
     }
@@ -56,7 +56,7 @@ public class TitleLabelMenuViewCell: PagingMenuViewCell {
     
     public let titleLabel = { () -> UILabel in
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
         return label
     }()
@@ -65,6 +65,7 @@ public class TitleLabelMenuViewCell: PagingMenuViewCell {
         let imageView = UIImageView()
         imageView.isHidden = true
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .systemOrange
         return imageView
     }()
     

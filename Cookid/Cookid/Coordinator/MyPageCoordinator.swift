@@ -36,5 +36,14 @@ class MyPageCoordinator: CoordinatorType {
         myPageVC.navigationController?.navigationBar.barTintColor = .systemBackground
         return navigationController!
     }
+    
+    func navigateUserInfoVC(viewModel: MyPageViewModel) {
+        let userUpdateViewModel = UserInfoUpdateViewModel(userService: viewModel.userService)
+        var userInfoVC = UserInformationViewController.instantiate(storyboardID: "UserInfo")
+        userInfoVC.bind(viewModel: userUpdateViewModel)
+        userInfoVC.modalPresentationStyle = .custom
+        userInfoVC.modalTransitionStyle = .crossDissolve
+        navigationController?.present(userInfoVC, animated: true, completion: nil)
+    }
  
 }

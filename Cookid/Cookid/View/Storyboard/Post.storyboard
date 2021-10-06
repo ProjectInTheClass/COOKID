@@ -177,7 +177,7 @@
                                                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
                                                                             </state>
                                                                         </button>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GaB-th-ZnB" customClass="BookMarkButton" customModule="Cookid" customModuleProvider="target">
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GaB-th-ZnB" customClass="BookmarkButton" customModule="Cookid" customModuleProvider="target">
                                                                             <rect key="frame" x="41" y="0.0" width="29" height="24"/>
                                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <state key="normal" image="bookmark" catalog="system">

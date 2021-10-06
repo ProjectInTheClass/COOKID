@@ -64,30 +64,45 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         reactor.state
             .map { $0.isLoading }
             .distinctUntilChanged()
-            .bind(onNext: { value in
-                print(value)
+            .bind(onNext: { isLoading in
+                // 업로드 이미지 뷰 하나 만들자
+                print(isLoading)
             })
             .disposed(by: disposeBag)
         
         reactor.state
-            .map { $0.newPost }
-            .bind(onNext: { post in
-                guard let post = post else { return }
-                print(post)
+            .map { $0.isError }
+            .bind(onNext: { isError in
+                if isError {
+                    errorAlert(selfView: self, errorMessage: "포스트 업로드에 실패했습니다.")
+                }
             })
             .disposed(by: disposeBag)
         
-        uploadPostButton.rx.tap
-            .map { AddPostReactor.Action.uploadPostButtonTapped }
-            .do(onNext: { reactor.action.onNext($0) })
-            .bind(onNext: { _ in
-                self.navigationController?.popViewController(animated: true)
-            })
-            .disposed(by: self.disposeBag)
+        reactor.action.onNext(.userSetting)
+        
+        regionTextField.rx.text.orEmpty
+            .distinctUntilChanged()
+            .map { Reactor.Action.inputRegion($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        captionTextView.rx.text.orEmpty
+            .distinctUntilChanged()
+            .map { Reactor.Action.inputCaption($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        priceTextField.rx.text.orEmpty
+            .distinctUntilChanged()
+            .map { Reactor.Action.inputPrice(Int($0) ?? 0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
         starSlider.rx.value
             .map { Int(round($0)) }
             .distinctUntilChanged()
+            .do(onNext: { reactor.action.onNext(.inputStar($0)) })
             .bind { [unowned self] value in
                 for index in 0...5 {
                     if let tagView = self.view.viewWithTag(index) as? UIImageView {
@@ -102,11 +117,12 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
             }
             .disposed(by: rx.disposeBag)
         
-        RxKeyboard.instance.visibleHeight
-            .drive(onNext: { [unowned self] keyboardVisibleHeight in
-                self.addScrollView.contentInset.bottom = keyboardVisibleHeight
+        uploadPostButton.rx.tap
+            .map { AddPostReactor.Action.uploadPostButtonTapped }
+            .bind(onNext: { _ in
+                self.navigationController?.popViewController(animated: true)
             })
-            .disposed(by: rx.disposeBag)
+            .disposed(by: self.disposeBag)
         
         Observable.combineLatest(
             reactor.state.map { $0.images }
@@ -123,26 +139,11 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         .bind(to: uploadPostButton.rx.isEnabled)
         .disposed(by: disposeBag)
         
-        let postObservable = Observable.combineLatest(
-            reactor.userService.user(),
-            reactor.state.map { $0.images }
-                .distinctUntilChanged(),
-            regionTextField.rx.text.orEmpty
-                .distinctUntilChanged(),
-            captionTextView.rx.text.orEmpty
-                .distinctUntilChanged(),
-            priceTextField.rx.text.orEmpty
-                .distinctUntilChanged(),
-            starSlider.rx.value
-                .map { Int(round($0)) }
-                .distinctUntilChanged(), resultSelector: { user, images, place, caption, price, star -> Post in
-                    let newPost = Post(postID: reactor.postID, user: user, images: images, star: star, caption: caption, mealBudget: Int(price) ?? 0, location: place)
-                    return newPost
-                })
-        
-        postObservable.map { Reactor.Action.makePost($0) }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [unowned self] keyboardVisibleHeight in
+                self.addScrollView.contentInset.bottom = keyboardVisibleHeight
+            })
+            .disposed(by: rx.disposeBag)
         
     }
     

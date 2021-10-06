@@ -72,8 +72,8 @@ class UserService {
                     FirestoreUserRepo.instance.createUser(user: connectedUser) { _ in }
                 }
                 
-            case .failure(_):
-                print("kingfisher - connectUserInfo - error")
+            case .failure(let error):
+                print("kingfisher - connectUserInfo - \(error)")
                 completion(false)
             }
         }

@@ -13,56 +13,75 @@ import YPImagePicker
 
 class AddPostReactor: Reactor {
     
-    let postID: String
     let postService: PostService
     let userService: UserService
     
     enum Action {
         case imageUpload([UIImage])
-        case makePost(Post)
+        case inputRegion(String)
+        case inputCaption(String)
+        case inputPrice(Int)
+        case inputStar(Int)
+        case userSetting
         case uploadPostButtonTapped
     }
     
     enum Mutation {
+        case setPostValues(PostValue)
         case setImages([UIImage])
-        case setPost(Post)
+        case setUser(User)
         case setLoading(Bool)
-        case uploadCompletion(Post)
+        case sendErrorMessage(Bool)
     }
     
     struct State {
-        var newPost: Post?
         var images: [UIImage] = []
+        var postValue = PostValue()
+        var user: User = DummyData.shared.singleUser
         var isLoading: Bool = false
-        var uploadCompletion: Post?
+        var isError: Bool = false
     }
     
     let initialState: State
     
-    init(postID: String, postService: PostService, userService: UserService) {
-        self.postID = postID
+    init(postService: PostService, userService: UserService) {
         self.userService = userService
         self.postService = postService
-        
         self.initialState = State()
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         
         switch action {
-        
         case .imageUpload(let images):
             return Observable.just(Mutation.setImages(images))
-  
-        case .makePost(let post):
-            return Observable.just(Mutation.setPost(post))
-            
+        case .inputRegion(let region):
+            let currentPostValue = self.currentState.postValue
+            currentPostValue.region = region
+            return Observable.just(Mutation.setPostValues(currentPostValue))
+        case .inputCaption(let caption):
+            let currentPostValue = self.currentState.postValue
+            currentPostValue.caption = caption
+            return Observable.just(Mutation.setPostValues(currentPostValue))
+        case .inputPrice(let price):
+            let currentPostValue = self.currentState.postValue
+            currentPostValue.price = price
+            return Observable.just(Mutation.setPostValues(currentPostValue))
+        case .inputStar(let star):
+            let currentPostValue = self.currentState.postValue
+            currentPostValue.star = star
+            return Observable.just(Mutation.setPostValues(currentPostValue))
+        case .userSetting:
+            return userService.user().map { Mutation.setUser($0) }
         case .uploadPostButtonTapped:
-            guard let post = self.currentState.newPost else {
-                return Observable.empty()
-            }
-            postService.createPost(post: post)
-            return Observable.just(Mutation.uploadCompletion(post))
+            let postValue = self.currentState.postValue
+            let user = self.currentState.user
+            let images = self.currentState.images
+            return Observable.concat([
+                Observable.just(Mutation.setLoading(true)),
+                self.makePost(user: user, postValue: postValue, images: images),
+                Observable.just(Mutation.setLoading(false))
+            ])
         }
     }
     
@@ -73,11 +92,19 @@ class AddPostReactor: Reactor {
             newState.images = images
         case .setLoading(let isLoading):
             newState.isLoading = isLoading
-        case .uploadCompletion(let value):
-            newState.uploadCompletion = value
-        case .setPost(let post):
-            newState.newPost = post
+        case .setPostValues(let postValue):
+            newState.postValue = postValue
+        case .setUser(let user):
+            newState.user = user
+        case .sendErrorMessage(let isError):
+            newState.isError = isError
         }
         return newState
     }
+    
+    func makePost(user: User, postValue: PostValue, images: [UIImage]) -> Observable<Mutation> {
+        return self.postService.createPost(user: user, images: images, postValue: postValue)
+            .map { Mutation.sendErrorMessage(!$0) }
+    }
+    
 }

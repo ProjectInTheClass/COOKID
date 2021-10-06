@@ -26,6 +26,7 @@ class MyPageViewModel: ViewModelType {
         let dineInCount: Observable<Int>
         let cookidsCount: Observable<Int>
         let postCount: Observable<Int>
+        let myPosts: Observable<[Post]>
     }
     
     var input: Input
@@ -51,7 +52,9 @@ class MyPageViewModel: ViewModelType {
         
         let postCount = postService.postsCount
         
+        let myPosts = userService.user().flatMap(postService.myPosts(user:))
+        
         self.input = Input()
-        self.output = Output(userInfo: userInfo, meals: meals, dineInCount: dineInCount, cookidsCount: cookidsCount, postCount: postCount)
+        self.output = Output(userInfo: userInfo, meals: meals, dineInCount: dineInCount, cookidsCount: cookidsCount, postCount: postCount, myPosts: myPosts)
     }
 }

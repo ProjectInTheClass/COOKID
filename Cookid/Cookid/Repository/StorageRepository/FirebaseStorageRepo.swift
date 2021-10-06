@@ -6,8 +6,8 @@
 //
 
 import UIKit
-//import Firebase
-//import FirebaseStorage
+// import Firebase
+// import FirebaseStorage
 import RxSwift
 
 class FirebaseStorageRepo {
@@ -16,11 +16,9 @@ class FirebaseStorageRepo {
 //    private let postImageStorage = Storage.storage().reference().child("postImage")
 //    private let userImageStorage = Storage.storage().reference().child("userImage")
     
-    @discardableResult
-    func uploadImages(postID: String, images: [UIImage], completion: @escaping (Result<[URL], NetWorkingError>) -> Void) -> Observable<[URL]> {
-        return Observable.create { observer in
-            observer.onNext([])
-            return Disposables.create()
+    func uploadImages(postID: String, images: [UIImage], completion: @escaping (Result<[URL], FirebaseError>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            completion(.success([URL(string: "https://images.unsplash.com/photo-1606818171990-d7dd127e962c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=685&q=80")!]))
         }
     }
     

@@ -88,7 +88,8 @@ class AddPostImageCollectionViewController: UICollectionViewController, UICollec
             for item in items {
                 switch item {
                 case .photo(let photo):
-                    self.images.append(photo.image)
+                    let renderImage = photo.image.resize(newWidth: self.view.frame.width/2)
+                    self.images.append(renderImage)
                 case .video(let video):
                     print(video)
                 }

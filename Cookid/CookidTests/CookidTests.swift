@@ -6,12 +6,11 @@
 //
 
 import XCTest
+import Kingfisher
 @testable import Cookid
 
 class CookidTests: XCTestCase {
-
-    func testinitial() {
-        
-    }
-
+    
+    
+    
 }

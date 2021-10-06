@@ -9,8 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 import NSObject_Rx
-import SnapKit
-import Then
 
 class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
@@ -18,6 +16,8 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
     
     var viewModel: MyPageViewModel!
     var coordinator : MyPageCoordinator?
+   
+    @IBOutlet weak var headerView: UIView!
     
     // MARK: - View LifeCycle and Fuctions
     
@@ -31,6 +31,7 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
         tabBarItem.image = UIImage(systemName: "person.crop.circle")
         tabBarItem.selectedImage = UIImage(systemName: "person.crop.circle.fill")
         navigationItem.title = "내 정보 ⚙️"
+        self.headerView.isHidden = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -47,6 +48,10 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
         }
     }
     
+    @IBAction func userInfoButton(_ sender: Any) {
+        self.headerView.isHidden.toggle()
+    }
+
     // MARK: - BindViewMdoel
     func bindViewModel() {
         

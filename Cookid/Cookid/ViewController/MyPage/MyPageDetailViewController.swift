@@ -23,12 +23,16 @@ class MyPageDetailViewController: UIViewController, ViewModelBindable {
         var myMealsVC = MyMealsViewController()
         myMealsVC.bind(viewModel: viewModel)
         myMealsVC.coordinator = coordinator
-        var myRecipesVC = MyRecipesViewController()
-        myRecipesVC.bind(viewModel: viewModel)
-        var myHeartsVC = MyPostsViewController()
-        myHeartsVC.bind(viewModel: viewModel)
         
-        dataSource = [(menuTitle: "나의 식사", vc: myMealsVC), (menuTitle: "나의 레시피", vc: myRecipesVC), (menuTitle: "나의 글", vc: myHeartsVC)]
+        let myBookmarkVC = MyBookmarkViewController()
+        myBookmarkVC.reactor = MyBookmarkReactor(postService: viewModel.postService, userService: viewModel.userService)
+        myBookmarkVC.coordinator = coordinator
+        
+        var myPostVC = MyPostsViewController()
+        myPostVC.coordinator = coordinator
+        myPostVC.bind(viewModel: viewModel)
+        
+        dataSource = [(menuTitle: "식사들 🍚", vc: myMealsVC), (menuTitle: "내 글 모음 📝", vc: myPostVC), (menuTitle: "북마크 📚", vc: myBookmarkVC)]
         
         menuViewController.register(type: TitleLabelMenuViewCell.self, forCellWithReuseIdentifier: CELLIDENTIFIER.menuCell)
         menuViewController.registerFocusView(view: UnderlineFocusView())
@@ -62,7 +66,7 @@ extension MyPageDetailViewController: PagingMenuViewControllerDataSource {
     }
     
     func menuViewController(viewController: PagingMenuViewController, widthForItemAt index: Int) -> CGFloat {
-        return view.frame.width / 3
+        return view.frame.width / 2.5
     }
     
     func menuViewController(viewController: PagingMenuViewController, cellForItemAt index: Int) -> PagingMenuViewCell {

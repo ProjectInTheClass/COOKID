@@ -12,6 +12,7 @@ import ReactorKit
 class Reactor: XCTestCase {
     
     var firestorePostRepo: FirestorePostRepo!
+    var firebaseStorageRepo: FirebaseStorageRepo!
     var postService: PostService!
     var userService: UserService!
     var disposeBag: DisposeBag!
@@ -19,7 +20,8 @@ class Reactor: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         firestorePostRepo = FirestorePostRepo()
-        postService = PostService(firestoreRepo: firestorePostRepo)
+        firebaseStorageRepo = FirebaseStorageRepo()
+        postService = PostService(firestoreRepo: firestorePostRepo, firebaseStorageRepo: firebaseStorageRepo)
         userService = UserService()
         disposeBag = DisposeBag()
     }
@@ -32,7 +34,8 @@ class Reactor: XCTestCase {
     }
     
     func testAddPostReactorTest_actionImageTest() {
-        let reactor = AddPostReactor(postID: UUID().uuidString, postService: postService, userService: userService)
+        
+        let reactor = AddPostReactor(postService: postService, userService: userService)
         
         let images = [
             UIImage(systemName: "circle.grid.cross.fill")!,
@@ -40,47 +43,35 @@ class Reactor: XCTestCase {
             UIImage(systemName: "circle.grid.cross.up.fill")!
         ]
         
+        reactor.action.onNext(.userSetting)
         reactor.action.onNext(.imageUpload(images))
-        XCTAssertEqual(reactor.currentState.images.count, 3)
-    }
-    
-    func testAddPostReactorTest_actionPostTest() {
-        
-        let reactor = AddPostReactor(postID: UUID().uuidString, postService: postService, userService: userService)
-        
-        let images = [
-            UIImage(systemName: "circle.grid.cross.fill")!,
-            UIImage(systemName: "circle.grid.cross.left.fill")!,
-            UIImage(systemName: "circle.grid.cross.up.fill")!
-        ]
-        
-        reactor.action.onNext(.imageUpload(images))
-        
-        let user = User(id: UUID().uuidString, image: UIImage(systemName: "person.circle"), nickname: "형석이다.", determination: "화이팅", priceGoal: 300000, userType: .preferDineIn, dineInCount: 0, cookidsCount: 0)
-        
-        let post = Post(postID: reactor.postID, user: user, images: images, star: 4, caption: "맛있다", mealBudget: 40000, location: "제주도")
-        
-        reactor.action.onNext(.makePost(post))
-        
+        reactor.action.onNext(.inputRegion("제주도"))
+        reactor.action.onNext(.inputCaption("너무 맛있는 식사였습니다! 가성비 최고!"))
+        reactor.action.onNext(.inputPrice(30000))
+        reactor.action.onNext(.inputStar(5))
         reactor.action.onNext(.uploadPostButtonTapped)
-        
-        XCTAssertTrue(reactor.currentState.uploadCompletion?.postID == post.postID)
+     
+        XCTAssertEqual(reactor.currentState.images.count, 3)
+        XCTAssertEqual(reactor.currentState.postValue.region, "제주도")
+        XCTAssertEqual(reactor.currentState.postValue.caption, "너무 맛있는 식사였습니다! 가성비 최고!")
+        XCTAssertEqual(reactor.currentState.postValue.price, 30000)
+        XCTAssertEqual(reactor.currentState.postValue.star, 5)
+        XCTAssertEqual(reactor.currentState.isError, false)
     }
     
-    func testPostService_UploadPost() {
-        let reactor = AddPostReactor(postID: UUID().uuidString, postService: postService, userService: userService)
-        let user = User(id: UUID().uuidString, image: UIImage(systemName: "person.circle"), nickname: "형석이다.", determination: "화이팅", priceGoal: 300000, userType: .preferDineIn, dineInCount: 0, cookidsCount: 0)
-        let images = [
-            UIImage(systemName: "circle.grid.cross.fill")!,
-            UIImage(systemName: "circle.grid.cross.left.fill")!,
-            UIImage(systemName: "circle.grid.cross.up.fill")!
-        ]
-        let post = Post(postID: reactor.postID, user: user, images: images, star: 4, caption: "맛있다", mealBudget: 40000, location: "제주도")
+    func testMyBookmarkCollectionViewCellReactor() {
+        let post = DummyData.shared.singlePost
+        let reactor = MyBookmarkCollectionViewCellReactor(post: post, postService: postService, userService: userService)
         
-        postService.createPost(post: post)
+        reactor.action.onNext(.heartTapped)
+        reactor.action.onNext(.bookmarkTapped)
         
-        XCTAssertNotNil(postService.currentPosts, "equals")
-        
+        XCTAssertTrue(!reactor.currentState.isBookmark)
+        XCTAssertTrue(!reactor.currentState.isHeart)
     }
 
+    func testMyBookmarkReactor() {
+        
+    }
+    
 }

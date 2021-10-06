@@ -13,7 +13,8 @@ class MyMealsCollectionViewCell: UICollectionViewCell {
     static let identifire = "MyCollectionViewCell"
     
     private let imageView = UIImageView().then {
-        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 10
+        $0.layer.masksToBounds = true
         $0.contentMode = .scaleAspectFill
     }
     

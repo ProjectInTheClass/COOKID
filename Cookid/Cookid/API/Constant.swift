@@ -56,6 +56,8 @@ enum CELLIDENTIFIER {
     static let postCell = "postCell"
     static let commentCell = "commentCell"
     static let postImageCell = "postImageCell"
+    static let myPostCollectionViewCell = "myPostCollectionViewCell"
+    static let myBookmarkCollectionViewCell = "myBookmarkCollectionViewCell"
 }
 
 enum NetWorkingError : String, Error {
@@ -74,4 +76,14 @@ enum NetWorkingResult : String {
 
 enum IMAGENAME {
     static let placeholder = "placeholder"
+}
+
+enum FirebaseError: String, Error {
+    case postFetchError = "⚠️ 포스트를 가져오는데 실패했습니다."
+    case postUploadError = "⚠️ 포스트를 업로드하는데 실패했습니다."
+    case imagesUploadError = "⚠️ 이미지 배열을 업로드하는데 실패했습니다."
+}
+
+enum FirebaseSuccess: String {
+    case postUploadSuccess = "✅ 포스트를 업로드에 성공했습니다."
 }

@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import YPImagePicker
+import Kingfisher
 
 extension UIPageViewController {
     
@@ -69,6 +70,13 @@ extension UIView {
         path.lineWidth = 0.5
     }
     
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+         let mask = CAShapeLayer()
+         mask.path = path.cgPath
+         layer.mask = mask
+     }
+    
 }
 
 extension UIScrollView {
@@ -76,15 +84,6 @@ extension UIScrollView {
            let bottomOffset = CGPoint(x: 0, y: (contentSize.height - bounds.size.height)/2)
            setContentOffset(bottomOffset, animated: true)
        }
-}
-
-extension UIView {
-   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
-    }
 }
 
 extension UILabel {
@@ -101,4 +100,36 @@ extension UILabel {
 
         return labelTextSize.height > bounds.size.height
     }
+}
+
+extension UIImage {
+    func resize(newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / self.size.width
+        let newHeight = self.size.height * scale
+        let size = CGSize(width: newWidth, height: newHeight)
+        let render = UIGraphicsImageRenderer(size: size)
+        let renderImage = render.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: size))
+        }
+        return renderImage
+    }
+}
+
+extension UIImageView {
+    
+    func setImageWithKf(url: URL?) {
+        guard let url = url else { return }
+        let placeholder = UIImage(systemName: "photo.fill.on.rectangle.fill")?.withTintColor(.darkGray)
+        let cacheKey = "imageCacheKey"
+        let resource = ImageResource(downloadURL: url, cacheKey: cacheKey)
+        let downsamplingImageProcessor = DownsamplingImageProcessor(size: self.frame.size)
+        self.kf.indicatorType = .activity
+        self.kf.setImage(with: resource, placeholder: placeholder,
+                         options: [
+                            .transition(.fade(0.2)),
+                            .scaleFactor(UIScreen.main.scale),
+                            .cacheOriginalImage
+                         ])
+    }
+    
 }

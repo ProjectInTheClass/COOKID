@@ -51,8 +51,7 @@ class KakaoAuthRepo {
                 if let error = error {
                     print("Kakao Login Error \(error)")
                     completion(.failure(.signInError))
-                }
-                else {
+                } else {
                     print("loginWithKakaoAccount() success.")
                     print("loginWithKakaoTalk() success.")
                     completion(.success(.successSignIn))
