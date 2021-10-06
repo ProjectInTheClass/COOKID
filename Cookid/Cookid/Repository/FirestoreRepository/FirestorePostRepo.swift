@@ -50,28 +50,25 @@ class FirestorePostRepo {
                         URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                         URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                        ], star: 4, caption: "최고의 식사였다.", mealBudget: 10000,
-                       timestamp: date1, didLike: [:], didCollect: [:], isReported: [:]),
+                       timestamp: date1, location: "제주도", didLike: [:], didCollect: [:], isReported: [:]),
             PostEntity(postID: UUID().uuidString, userID: user.id,
                        images: [
-                        URL(string: "https://images.unsplash.com/photo-1632917374642-1a9020c5eb43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                         URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                         URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                        ], star: 2, caption: "덜 최고의 식사였다.", mealBudget: 3000,
-                       timestamp: date2, didLike: [:], didCollect: [:], isReported: [:]),
+                       timestamp: date2, location: "경북 구미", didLike: [:], didCollect: [:], isReported: [:]),
             PostEntity(postID: UUID().uuidString, userID: user.id,
                        images: [
-                        URL(string: "https://images.unsplash.com/photo-1632917374642-1a9020c5eb43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                        URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                         URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                        ], star: 0, caption: "보통의 식사였다.", mealBudget: 12000,
-                       timestamp: date3, didLike: [:], didCollect: [:], isReported: [:]),
+                       timestamp: date3, location: "부산", didLike: [:], didCollect: [:], isReported: [:]),
             PostEntity(postID: UUID().uuidString, userID: user.id,
                        images: [
                         URL(string: "https://images.unsplash.com/photo-1632917374642-1a9020c5eb43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                         URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                         URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                        ], star: 8, caption: "별로였다.", mealBudget: 50000,
-                       timestamp: date4, didLike: [:], didCollect: [:], isReported: [:])
+                       timestamp: date4, location: "서울", didLike: [:], didCollect: [:], isReported: [:])
         ]
         
         let sortedPostEntities = postEntities.sorted { $0.timestamp > $1.timestamp }

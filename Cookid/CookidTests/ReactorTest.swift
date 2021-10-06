@@ -59,4 +59,19 @@ class Reactor: XCTestCase {
         XCTAssertEqual(reactor.currentState.isError, false)
     }
     
+    func testMyBookmarkCollectionViewCellReactor() {
+        let post = DummyData.shared.singlePost
+        let reactor = MyBookmarkCollectionViewCellReactor(post: post, postService: postService, userService: userService)
+        
+        reactor.action.onNext(.heartTapped)
+        reactor.action.onNext(.bookmarkTapped)
+        
+        XCTAssertTrue(!reactor.currentState.isBookmark)
+        XCTAssertTrue(!reactor.currentState.isHeart)
+    }
+
+    func testMyBookmarkReactor() {
+        
+    }
+    
 }

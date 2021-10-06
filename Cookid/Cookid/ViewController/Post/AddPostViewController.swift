@@ -95,7 +95,7 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         
         priceTextField.rx.text.orEmpty
             .distinctUntilChanged()
-            .map { Reactor.Action.inputPrice(Int($0)!) }
+            .map { Reactor.Action.inputPrice(Int($0) ?? 0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         

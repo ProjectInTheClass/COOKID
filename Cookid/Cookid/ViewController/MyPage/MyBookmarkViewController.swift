@@ -45,6 +45,9 @@ class MyBookmarkViewController: UIViewController, View {
     
     func bind(reactor: MyBookmarkReactor) {
         
+        reactor.action.onNext(.userSetting)
+        reactor.action.onNext(.fetchBookmarkPosts)
+        
         reactor.state.map { $0.isLoadingNextPart }
         .distinctUntilChanged()
         .withUnretained(self)
@@ -54,8 +57,8 @@ class MyBookmarkViewController: UIViewController, View {
         .disposed(by: disposeBag)
         
         reactor.state.map { $0.bookmarkPosts }
-        .bind(to: collectionView.rx.items(cellIdentifier: CELLIDENTIFIER.myBookmarkCollectionViewCell, cellType: MyBookmarkCollectionViewCell.self)) { index, item, cell in
-            cell.reactor = MyBookmarCollectionViewCellReactor()
+        .bind(to: collectionView.rx.items(cellIdentifier: CELLIDENTIFIER.myBookmarkCollectionViewCell, cellType: MyBookmarkCollectionViewCell.self)) { _, item, cell in
+            cell.reactor = MyBookmarkCollectionViewCellReactor(post: item, postService: reactor.postService, userService: reactor.userService)
         }
         .disposed(by: disposeBag)
         
@@ -92,18 +95,18 @@ class MyBookmarkViewController: UIViewController, View {
             subitem: verticalItem,
             count: 2)
         
-        let tripleItem = NSCollectionLayoutItem(
+        let tripHorizentalItem = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
                 heightDimension: .fractionalHeight(1)))
         
-        tripleItem.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
+        tripHorizentalItem.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
         
-        let tripHorizentalGroup = NSCollectionLayoutGroup.horizontal(
+        let tripHorizentalStackGroup = NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(2/3),
                 heightDimension: .fractionalHeight(1)),
-            subitem: tripleItem,
+            subitem: tripHorizentalItem,
             count: 2)
         
         let tripVerticalItem = NSCollectionLayoutItem(
@@ -124,7 +127,7 @@ class MyBookmarkViewController: UIViewController, View {
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
                 heightDimension: .fractionalHeight(1/2)),
-            subitems: [tripHorizentalGroup, tripVerticalStackGroup])
+            subitems: [tripVerticalStackGroup, tripHorizentalStackGroup])
         
         // Group
         let horizontalGroup = NSCollectionLayoutGroup.horizontal(
@@ -137,7 +140,7 @@ class MyBookmarkViewController: UIViewController, View {
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
                 heightDimension: .fractionalHeight(1)),
-            subitems: [tripleHorizontalGroup, horizontalGroup])
+            subitems: [horizontalGroup, tripleHorizontalGroup])
         
         // Section
         let section = NSCollectionLayoutSection(group: verticalGroup)

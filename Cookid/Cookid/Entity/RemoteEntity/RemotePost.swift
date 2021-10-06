@@ -15,6 +15,7 @@ struct PostEntity: Codable {
     var caption: String
     var mealBudget: Int
     var timestamp: Date
+    var location: String
     var didLike: [String:Bool]
     var didCollect: [String:Bool]
     var isReported: [String:Bool]

@@ -23,7 +23,7 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
     let dateLabel = UILabel().then {
         $0.textAlignment = .left
         $0.textColor = .white
-        $0.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        $0.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         $0.shadowColor = .black
         $0.shadowOffset = CGSize(width: 1, height: 1)
     }
@@ -39,21 +39,15 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
     let priceLabel = UILabel().then {
         $0.textAlignment = .left
         $0.textColor = .white
-        $0.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.shadowColor = .black
         $0.shadowOffset = CGSize(width: 1, height: 1)
     }
     
     let heartButton = HeartButton().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)
+        let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .bold, scale: .large)
         let heartImage = UIImage(systemName: "heart", withConfiguration: config)
         $0.setImage(heartImage, for: .normal)
-    }
-    
-    let bookmarkButton = BookmarkButton().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold, scale: .large)
-        let bookmarkImage = UIImage(systemName: "bookmark", withConfiguration: config)
-        $0.setImage(bookmarkImage, for: .normal)
     }
     
     var disposeBag: DisposeBag = DisposeBag()
@@ -65,67 +59,61 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        makeConstraints()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        makeConstraints()
     }
     
-    override func updateConstraints() {
-        super.updateConstraints()
+    private func makeConstraints() {
         contentView.backgroundColor = .systemBackground
         
         contentView.addSubview(postImage)
         postImage.snp.makeConstraints { make in
-            make.top.bottom.right.left.equalToSuperview()
+            make.top.bottom.right.left.equalTo(contentView)
         }
-        
+
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { make in
             make.left.equalTo(contentView.snp.left).offset(5)
             make.right.equalTo(contentView.snp.right).offset(-5)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-5)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-8)
         }
-        
-        contentView.addSubview(dateLabel)
+
+        contentView.addSubview(regionLabel)
         regionLabel.snp.makeConstraints { make in
             make.left.equalTo(contentView.snp.left).offset(5)
             make.right.equalTo(contentView.snp.right).offset(-5)
-            make.bottom.equalTo(priceLabel.snp.top).offset(-5)
+            make.bottom.equalTo(priceLabel.snp.top).offset(-1)
         }
         
-        contentView.addSubview(regionLabel)
+        contentView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { make in
             make.left.equalTo(contentView.snp.left).offset(5)
             make.right.equalTo(contentView.snp.right).offset(-5)
-            make.bottom.equalTo(regionLabel.snp.top).offset(-5)
+            make.bottom.equalTo(regionLabel.snp.top).offset(-2)
         }
-        
+
         contentView.addSubview(heartButton)
         heartButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(5)
-            make.right.equalToSuperview().offset(-5)
+            make.top.equalTo(contentView.snp.top).offset(5)
+            make.right.equalTo(contentView.snp.right).offset(-5)
             make.width.height.equalTo(30)
         }
-        
-        contentView.addSubview(bookmarkButton)
-        bookmarkButton.snp.makeConstraints { make in
-            make.top.equalTo(heartButton.snp.bottom).offset(5)
-            make.right.equalToSuperview().offset(-5)
-            make.width.height.equalTo(30)
-        }
+
     }
     
-    func bind(reactor: MyBookmarCollectionViewCellReactor) {
+    func bind(reactor: MyBookmarkCollectionViewCellReactor) {
         
         reactor.state.map { $0.post }
         .withUnretained(self)
         .bind(onNext: { owner, post in
             owner.heartButton.setState(post.didLike)
-            owner.bookmarkButton.setState(post.didCollect)
             owner.postImage.setImageWithKf(url: post.images.first!)
-            owner.dateLabel.text = post.timeStamp.convertDateToString(format: "yy년 MM월 dd일")
-            owner.priceLabel.text = String(describing: post.mealBudget)
+            owner.dateLabel.text = post.timeStamp.convertDateToString(format: "MM월 dd일")
+            owner.priceLabel.text = intToString(post.mealBudget)
             owner.regionLabel.text = post.location
         })
         .disposed(by: disposeBag)
@@ -136,18 +124,6 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
             owner.heartButton.setState(isHeart)
         }
         .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.isBookmark }
-        .withUnretained(self)
-        .bind { owner, isBookmark in
-            owner.bookmarkButton.setState(isBookmark)
-        }
-        .disposed(by: disposeBag)
-        
-        bookmarkButton.rx.tap
-            .map { Reactor.Action.bookmarkTapped }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
         
         heartButton.rx.tap
             .map { Reactor.Action.heartTapped }

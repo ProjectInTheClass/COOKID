@@ -119,7 +119,7 @@ extension UIImageView {
     
     func setImageWithKf(url: URL?) {
         guard let url = url else { return }
-        let placeholder = UIImage(named: "placeholder")
+        let placeholder = UIImage(systemName: "photo.fill.on.rectangle.fill")?.withTintColor(.darkGray)
         let cacheKey = "imageCacheKey"
         let resource = ImageResource(downloadURL: url, cacheKey: cacheKey)
         let downsamplingImageProcessor = DownsamplingImageProcessor(size: self.frame.size)
@@ -128,8 +128,7 @@ extension UIImageView {
                          options: [
                             .transition(.fade(0.2)),
                             .scaleFactor(UIScreen.main.scale),
-                            .cacheOriginalImage,
-                            .processor(downsamplingImageProcessor)
+                            .cacheOriginalImage
                          ])
     }
     

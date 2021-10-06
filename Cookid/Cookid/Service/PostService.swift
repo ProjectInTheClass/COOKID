@@ -71,24 +71,21 @@ class PostService {
     }
     
     func fetchBookmarkedPosts(user: User) -> Observable<[Post]> {
-        return Observable.create { observer in
-//            FirestorePostRepo.instance.fetchBookmarkedPosts(user: user) { result in
-//                switch result {
-//                case .success(let entities):
-//
-//                    let posts = entities.map {
-//                        var images = [UIImage]()
-//                        $0.images.forEach { self.urlToImageWithKingFisher(url: $0, completion: { image in
-//                            guard let image = image else { return }
-//                            images.append(image)
-//                        })}
-//
-//                        Post(postID: $0.postID, user: $0.userID, images: images, likes: $0.didLike.count, collections: $0.didCollect.count, star: $0, caption: <#T##String#>, mealBudget: <#T##Int#>, location: <#T##String#>, timeStamp: <#T##Date#>, didLike: <#T##Bool#>, didCollect: <#T##Bool#>) }
-//                case .failure(let error):
-//                    print("PostService - fetchBookmarkedPosts() - \(error)")
-//                    return
-//                }
-//            }
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            self.firestoreRepo.fetchBookmarkedPosts(user: user) { result in
+                switch result {
+                case .success(let postEntities):
+                    let bookmarkedPosts = postEntities.map { entity -> Post in
+                        let didLike = entity.didLike.contains { $0.key == user.id }
+                        return Post(postID: entity.postID, user: user, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: true)
+                    }
+                    observer.onNext(bookmarkedPosts)
+                case .failure(let error):
+                    print("fetchBookmarkedPosts() error - \(error)")
+                    observer.onNext([])
+                }
+            }
             return Disposables.create()
         }
     }

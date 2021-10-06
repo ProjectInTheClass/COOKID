@@ -54,11 +54,13 @@ class BookmarkButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addTarget(self, action: #selector(bookmarkButtonTapped), for: .touchUpInside)
+        self.tintColor = DefaultStyle.Color.labelTint
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.addTarget(self, action: #selector(bookmarkButtonTapped), for: .touchUpInside)
+        self.tintColor = DefaultStyle.Color.labelTint
     }
     
     func setState(_ newValue: Bool) {
