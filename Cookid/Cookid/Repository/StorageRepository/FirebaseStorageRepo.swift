@@ -22,8 +22,15 @@ class FirebaseStorageRepo {
         }
     }
     
-    func deleteImages<T: Codable>(postID: String, completion: @escaping (Result<T, NetWorkingError>) -> Void) {
-        
+    func updateImages(postID: String, images: [UIImage], completion: @escaping (Result<[URL], FirebaseError>) -> Void) {
+        // 기존의 이미지들 지우고 새로 넣기
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            completion(.success([URL(string: "https://images.unsplash.com/photo-1606818171990-d7dd127e962c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=685&q=80")!]))
+        }
+    }
+    
+    func deleteImages(postID: String, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
+        completion(.success(.deleteImageSuccess))
     }
     
     func uploadUserImage(userID: String, image: UIImage?, completion: @escaping (URL?) -> Void) {

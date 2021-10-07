@@ -21,10 +21,11 @@ class HomeCoordinator: CoordinatorType {
     func start() -> UIViewController {
         let firestorePostRepo = FirestorePostRepo()
         let firebaseStorageRepo = FirebaseStorageRepo()
+        let firestoreUserRepo = FirestoreUserRepo()
         let mealService = MealService()
-        let userService = UserService()
+        let userService = UserService(firestoreUserRepo: firestoreUserRepo)
         let shoppingService = ShoppingService()
-        let postService = PostService(firestoreRepo: firestorePostRepo, firebaseStorageRepo: firebaseStorageRepo)
+        let postService = PostService(firestoreRepo: firestorePostRepo, firebaseStorageRepo: firebaseStorageRepo, firestoreUserRepo: firestoreUserRepo)
         let commentService = CommentService()
         
         let mainCoordinator = MainCoordinator(parentCoordinator: self, userService: userService, mealService: mealService, shoppingService: shoppingService)

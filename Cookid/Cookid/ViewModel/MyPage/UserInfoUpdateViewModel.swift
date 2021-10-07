@@ -46,7 +46,7 @@ class UserInfoUpdateViewModel: ViewModelType {
             let newBudget = buget == 0 ? currentUser.priceGoal : buget
             let newDetermination = determination.isEmpty ? currentUser.determination : determination
             
-            let newUser = User(id: currentUser.id, nickname: newNickname, determination: newDetermination, priceGoal: newBudget, userType: currentUser.userType, dineInCount: 0, cookidsCount: 0)
+            let newUser = User(id: currentUser.id, image: nil, nickname: newNickname, determination: newDetermination, priceGoal: newBudget, userType: currentUser.userType, dineInCount: 0, cookidsCount: 0)
             
             return newUser
         }

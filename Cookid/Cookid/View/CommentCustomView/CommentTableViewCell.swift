@@ -105,7 +105,7 @@ class CommentTableViewCell: UITableViewCell, View {
     func bind(reactor: CommentReactor) {
         reactor.state.map { $0.comment }
         .bind { [unowned self] comment in
-            self.userImage.image = comment.user.image
+            self.userImage.setImageWithKf(url: comment.user.image)
             self.userNickname.text = comment.user.nickname
             self.userType.text = comment.user.userType.rawValue
             self.content.text = comment.content

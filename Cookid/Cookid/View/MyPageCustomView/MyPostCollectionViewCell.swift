@@ -47,7 +47,6 @@ class MyPostCollectionViewCell: UICollectionViewCell, View {
     
     func updateUI(post: Post) {
         guard let postFirstImageUrl = post.images.first else { return }
-        postImage.kf.indicatorType = .activity
         postImage.setImageWithKf(url: postFirstImageUrl)
     }
     

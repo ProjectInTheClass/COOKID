@@ -12,9 +12,15 @@ import Kingfisher
 
 class UserService {
     
+    let firestoreUserRepo: FirestoreUserRepo
+    
+    init(firestoreUserRepo: FirestoreUserRepo) {
+        self.firestoreUserRepo = firestoreUserRepo
+    }
+    
     /// Fetch from Realm
     private var defaultUserInfo = RealmUserRepo.instance.fetchUser().map { userentity -> User in
-        return User(id: userentity.id.stringValue, image: UIImage(systemName: "")?.withTintColor(.darkGray), nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn)
+        return User(id: userentity.id.stringValue, image: URL(string: "https://www.vippng.com/png/detail/171-1717034_png-file-blank-person.png"), nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn, dineInCount: 0, cookidsCount: 0)
     } ?? DummyData.shared.singleUser
     
     private lazy var userInfo = BehaviorSubject<User>(value: defaultUserInfo)
@@ -23,26 +29,22 @@ class UserService {
     private lazy var userSorted = BehaviorSubject<[UserForRanking]>(value: userSortedArr)
     
     /// Fetch from Firebase
-    func loadUserInfo(completion: @escaping (User?) -> Void) {
-        FirestoreUserRepo.instance.fetchUser(userID: defaultUserInfo.id) { userEntity in
-            if let entity = userEntity {
-                guard let url = entity.imageURL else { return }
-                KingfisherManager.shared.retrieveImage(with: url) { result in
-                    switch result {
-                    case .success(let imageResult):
-                        let userImage = imageResult.image
-                        let user = User(id: entity.id, image: userImage, nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
-                        self.defaultUserInfo = user
-                        self.userInfo.onNext(user)
-                        completion(user)
-                    case .failure(let error):
-                        print(error)
-                    }
+    @discardableResult
+    func loadUserInfo() -> Observable<User>{
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            self.firestoreUserRepo.fetchUser(userID: self.defaultUserInfo.id) { result in
+                switch result {
+                case .success(let entity):
+                    guard let entity = entity else { return }
+                    let user = User(id: entity.id, image: entity.imageURL, nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
+                    self.defaultUserInfo = user
+                    self.userInfo.onNext(user)
+                case .failure(let error):
+                    print(error.rawValue)
                 }
-            } else {
-                print("fetch User Error")
-                completion(nil)
             }
+            return Disposables.create()
         }
     }
     
@@ -59,23 +61,13 @@ class UserService {
     
     /// Upload at Firebase
     func connectUserInfo(localUser: LocalUser, imageURL: URL?, dineInCount: Int, cookidsCount: Int, completion: @escaping (Bool) -> Void) {
-        guard let imageURL = imageURL else { return }
-        KingfisherManager.shared.retrieveImage(with: imageURL) { result in
-            switch result {
-            case .success(let image):
-                let connectedUser = User(id: localUser.id.stringValue, image: image.image, nickname: localUser.nickName, determination: localUser.determination, priceGoal: localUser.goal, userType: UserType(rawValue: localUser.type) ?? .preferDineIn, dineInCount: dineInCount, cookidsCount: cookidsCount)
-                self.defaultUserInfo = connectedUser
-                self.userInfo.onNext(self.defaultUserInfo)
-                completion(true)
-                
-                DispatchQueue.global(qos: .background).async {
-                    FirestoreUserRepo.instance.createUser(user: connectedUser) { _ in }
-                }
-                
-            case .failure(let error):
-                print("kingfisher - connectUserInfo - \(error)")
-                completion(false)
-            }
+        let connectedUser = User(id: localUser.id.stringValue, image: imageURL, nickname: localUser.nickName, determination: localUser.determination, priceGoal: localUser.goal, userType: UserType(rawValue: localUser.type) ?? .preferDineIn, dineInCount: dineInCount, cookidsCount: cookidsCount)
+        self.defaultUserInfo = connectedUser
+        self.userInfo.onNext(self.defaultUserInfo)
+        completion(true)
+        
+        DispatchQueue.global(qos: .background).async {
+            self.firestoreUserRepo.createUser(user: connectedUser) { _ in }
         }
     }
     

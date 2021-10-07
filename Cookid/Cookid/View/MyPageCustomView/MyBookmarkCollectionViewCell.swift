@@ -77,22 +77,22 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
 
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { make in
-            make.left.equalTo(contentView.snp.left).offset(5)
-            make.right.equalTo(contentView.snp.right).offset(-5)
+            make.left.equalTo(contentView.snp.left).offset(8)
+            make.right.equalTo(contentView.snp.right).offset(-8)
             make.bottom.equalTo(contentView.snp.bottom).offset(-8)
         }
 
         contentView.addSubview(regionLabel)
         regionLabel.snp.makeConstraints { make in
-            make.left.equalTo(contentView.snp.left).offset(5)
-            make.right.equalTo(contentView.snp.right).offset(-5)
+            make.left.equalTo(contentView.snp.left).offset(8)
+            make.right.equalTo(contentView.snp.right).offset(-8)
             make.bottom.equalTo(priceLabel.snp.top).offset(-1)
         }
         
         contentView.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { make in
-            make.left.equalTo(contentView.snp.left).offset(5)
-            make.right.equalTo(contentView.snp.right).offset(-5)
+            make.left.equalTo(contentView.snp.left).offset(8)
+            make.right.equalTo(contentView.snp.right).offset(-8)
             make.bottom.equalTo(regionLabel.snp.top).offset(-2)
         }
 

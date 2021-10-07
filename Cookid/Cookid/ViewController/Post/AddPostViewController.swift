@@ -36,11 +36,24 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
     //        }
     //    }
     
+    let activityIndicator = UIActivityIndicatorView().then {
+        $0.hidesWhenStopped = true
+    }
+    
     var disposeBag: DisposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        makeConstraints()
+    }
+    
+    private func makeConstraints() {
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.width.height.equalTo(100)
+            make.centerX.centerY.equalToSuperview()
+        }
     }
     
     private func configureUI() {
@@ -64,17 +77,21 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         reactor.state
             .map { $0.isLoading }
             .distinctUntilChanged()
-            .bind(onNext: { isLoading in
+            .withUnretained(self)
+            .bind(onNext: { owner, isLoading in
                 // 업로드 이미지 뷰 하나 만들자
-                print(isLoading)
+                isLoading ? owner.activityIndicator.startAnimating() : owner.activityIndicator.stopAnimating()
             })
             .disposed(by: disposeBag)
         
         reactor.state
             .map { $0.isError }
             .bind(onNext: { isError in
+                guard let isError = isError else { return }
                 if isError {
                     errorAlert(selfView: self, errorMessage: "포스트 업로드에 실패했습니다.")
+                } else {
+                    self.navigationController?.popViewController(animated: true)
                 }
             })
             .disposed(by: disposeBag)
@@ -119,8 +136,8 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         
         uploadPostButton.rx.tap
             .map { AddPostReactor.Action.uploadPostButtonTapped }
-            .bind(onNext: { _ in
-                self.navigationController?.popViewController(animated: true)
+            .bind(onNext: { tap in
+                reactor.action.onNext(tap)
             })
             .disposed(by: self.disposeBag)
         

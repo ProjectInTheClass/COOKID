@@ -71,7 +71,7 @@ class MyPageHeaderViewController: UIViewController, ViewModelBindable, HasDispos
         viewModel.output.userInfo
             .withUnretained(self)
             .bind(onNext: { (owner, user) in
-                owner.userImage.image = user.image
+                owner.userImage.setImageWithKf(url: user.image)
                 owner.userNickname.text = user.nickname
                 owner.userType.text = user.userType.rawValue
                 owner.userDetermination.text = user.determination
