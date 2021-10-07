@@ -73,7 +73,7 @@ class PostTableViewCell: UITableViewCell {
                 } else {
                     viewModel.output.post.likes -= 1
                 }
-                viewModel.postService.updatePost(post: viewModel.output.post)
+//                viewModel.postService.updatePost(post: viewModel.output.post)
                 
                 self.makeUpLikes(post: viewModel.output.post)
             })
@@ -88,7 +88,7 @@ class PostTableViewCell: UITableViewCell {
                 }
                 viewModel.output.post.didCollect = bookmarkButton.isActivated
                 
-                viewModel.postService.updatePost(post: viewModel.output.post)
+//                viewModel.postService.updatePost(post: viewModel.output.post)
                 self.makeUpBookmark(post: viewModel.output.post)
             })
             .disposed(by: disposeBag)

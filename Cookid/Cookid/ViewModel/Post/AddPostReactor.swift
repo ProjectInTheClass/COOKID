@@ -31,7 +31,7 @@ class AddPostReactor: Reactor {
         case setImages([UIImage])
         case setUser(User)
         case setLoading(Bool)
-        case sendErrorMessage(Bool)
+        case sendErrorMessage(Bool?)
     }
     
     struct State {
@@ -39,7 +39,7 @@ class AddPostReactor: Reactor {
         var postValue = PostValue()
         var user: User = DummyData.shared.singleUser
         var isLoading: Bool = false
-        var isError: Bool = false
+        var isError: Bool?
     }
     
     let initialState: State

@@ -7,10 +7,12 @@
 
 import UIKit
 import Then
+import SnapKit
 
 class PostUserView: UIView {
     
     private let userImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
         $0.makeCircleView()
     }
     
@@ -44,7 +46,7 @@ class PostUserView: UIView {
     }
     
     func updateUI(post: Post) {
-        userImage.image = post.user.image
+        userImage.setImageWithKf(url: post.user.image)
         userType.text = post.user.userType.rawValue
         userNickname.text = post.user.nickname
         location.text = "📮 " + post.location
@@ -55,7 +57,7 @@ class PostUserView: UIView {
         
         self.addSubview(userImage)
         userImage.snp.makeConstraints { make in
-            make.left.equalTo(10)
+            make.left.equalToSuperview().offset(10)
             make.centerY.equalTo(self)
             make.width.height.equalTo(35)
         }
@@ -63,7 +65,7 @@ class PostUserView: UIView {
         self.addSubview(userType)
         userType.snp.makeConstraints { make in
             make.left.equalTo(userImage.snp.right).offset(10)
-            make.centerY.equalTo(self)
+            make.centerY.equalToSuperview()
         }
         
         self.addSubview(userNickname)

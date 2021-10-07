@@ -75,7 +75,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         
         viewModel.output.user
             .bind { [unowned self] user in
-                self.userImage.image = user.image
+                self.userImage.setImageWithKf(url: user.image)
             }
             .disposed(by: rx.disposeBag)
         

@@ -36,15 +36,17 @@ class PostViewModel: ViewModelType, HasDisposeBag {
         self.postService = postService
         self.userService = userService
         self.commentService = commentService
-
-        let postCellViewModel = postService.fetchPosts()
+        
+        let user = userService.user()
+        
+        _ = user.flatMap{ postService.fetchPosts(currentUser: $0) }
+        
+        let postCellViewModel = postService.totlaPosts
             .map { posts -> [PostCellViewModel] in
                 return posts.map { post -> PostCellViewModel in
                     return PostCellViewModel(postService: postService, userService: userService, commentService: commentService, post: post)
                 }
             }
-        
-        let user = userService.user()
         
         let naverLogin = BehaviorRelay<Bool>(value: false)
         

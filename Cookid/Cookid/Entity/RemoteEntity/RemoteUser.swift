@@ -14,10 +14,10 @@ class UserEntity: Codable {
     var determination: String
     var priceGoal: Int
     var userType: String
-    var dineInCount: Int?
-    var cookidsCount: Int?
+    var dineInCount: Int
+    var cookidsCount: Int
     
-    init(id: String, imageURL: URL?, nickname: String, determination: String, priceGoal: Int, userType: UserType, dineInCount: Int?, cookidsCount: Int?) {
+    init(id: String, imageURL: URL?, nickname: String, determination: String, priceGoal: Int, userType: UserType, dineInCount: Int, cookidsCount: Int) {
         self.id = id
         self.imageURL = imageURL
         self.nickname = nickname

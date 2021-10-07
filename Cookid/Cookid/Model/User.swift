@@ -10,13 +10,13 @@ import RxDataSources
 
 struct User {
     let id: String
-    var image: UIImage?
+    var image: URL?
     var nickname: String
     var determination: String
     var priceGoal: Int
     var userType: UserType
-    var dineInCount: Int?
-    var cookidsCount: Int?
+    var dineInCount: Int
+    var cookidsCount: Int
 }
 
 enum UserType: String, Codable {

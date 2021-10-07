@@ -20,7 +20,8 @@ class OnboardingCoordinator: CoordinatorType {
     func start() -> UIViewController {
         let mealService = MealService()
         let shoppingService = ShoppingService()
-        let userService = UserService()
+        let firestoreUserRepo = FirestoreUserRepo()
+        let userService = UserService(firestoreUserRepo: firestoreUserRepo)
         let pageVC = OnboardingPageViewViewController(coordinator: self, userService: userService, mealService: mealService, shoppingService: shoppingService)
         return pageVC
     }
