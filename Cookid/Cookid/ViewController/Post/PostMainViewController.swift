@@ -83,20 +83,13 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
                 cell.coordinator = self.coordinator
-                cell.updateUI(viewModel: item)
-                
-                if cell.postCaptionLabel.isTruncated {
-                    cell.detailButton.isHidden = false
-                } else {
-                    cell.detailButton.isHidden = true
-                }
                 
                 if self.expandedIndexSet.contains(index) {
                     cell.postCaptionLabel.numberOfLines = 0
-                    cell.detailButton.isHidden = true
+                    cell.detailButton.isHidden = false
                 } else {
                     cell.postCaptionLabel.numberOfLines = 2
-                    cell.detailButton.isHidden = false
+                    cell.detailButton.isHidden = true
                 }
                 
                 cell.detailButton.rx.tap
@@ -109,6 +102,8 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                         self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
                     })
                     .disposed(by: cell.disposeBag)
+                
+                cell.updateUI(viewModel: item)
             }
             .disposed(by: rx.disposeBag)
         

@@ -16,9 +16,12 @@ class FirebaseStorageRepo {
 //    private let postImageStorage = Storage.storage().reference().child("postImage")
 //    private let userImageStorage = Storage.storage().reference().child("userImage")
     
-    func uploadImages(postID: String, images: [UIImage], completion: @escaping (Result<[URL], FirebaseError>) -> Void) {
+    func uploadImages(postID: String, images: [UIImage], completion: @escaping (Result<[URL?], FirebaseError>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            completion(.success([URL(string: "https://images.unsplash.com/photo-1606818171990-d7dd127e962c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=685&q=80")!]))
+            completion(.success([
+                URL(string: "https://images.unsplash.com/photo-1633534855355-bfe52ee56d75?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
+                URL(string: "https://images.unsplash.com/photo-1633534855355-bfe52ee56d75?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80")
+            ]))
         }
     }
     

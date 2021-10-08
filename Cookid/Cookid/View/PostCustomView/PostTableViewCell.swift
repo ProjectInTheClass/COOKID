@@ -12,10 +12,8 @@ import ReactorKit
 
 class PostTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var postUserView: PostUserView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var imagePageControl: UIPageControl!
-    
     @IBOutlet weak var budgetCheckImage: UIImageView!
     @IBOutlet weak var budgetCheckLabel: UILabel!
     @IBOutlet weak var userCountLabel: UILabel!
@@ -29,6 +27,12 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var commentListButton: UIButton!
     
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var userType: UILabel!
+    @IBOutlet weak var userNickname: UILabel!
+    @IBOutlet weak var location: UILabel!
+    @IBOutlet weak var reportButton: UIImageView!
+    
     var coordinator: PostCoordinator?
     var disposeBag = DisposeBag()
     
@@ -39,7 +43,13 @@ class PostTableViewCell: UITableViewCell {
     
     func updateUI(viewModel: PostCellViewModel) {
         
-        postUserView.updateUI(post: viewModel.output.post)
+        if postCaptionLabel.isTruncated {
+            detailButton.isHidden = false
+        } else {
+            detailButton.isHidden = true
+        }
+        
+        makeUpUserView(post: viewModel.output.post)
         userNicknameLabel.text = viewModel.output.post.user.nickname
         dateLabel.text = viewModel.output.post.timeStamp.convertDateToString(format: "yy.MM.dd")
         postCaptionLabel.text = viewModel.output.post.caption
@@ -111,6 +121,14 @@ class PostTableViewCell: UITableViewCell {
         imageCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
     }
     
+    private func makeUpUserView(post: Post) {
+        userImage.setImageWithKf(url: post.user.image)
+        userImage.makeCircleView()
+        userType.text = post.user.userType.rawValue
+        userNickname.text = post.user.nickname
+        location.text = "📮 " + post.location
+    }
+    
     private func makeUpStarPoint(post: Post) {
         for index in 0...post.star {
             if let tagView = self.contentView.viewWithTag(index) as? UIImageView {
@@ -129,16 +147,16 @@ class PostTableViewCell: UITableViewCell {
         userCountLabel.text = "좋아요 \(post.likes)개"
     }
     
+    private func makeUpBookmark(post: Post) {
+        bookmarkCountLabel.text = "북마크 \(post.collections)개"
+    }
+    
     private func makeUpComments(commentCount: Int) {
         if commentCount == 0 {
             commentListButton.setTitle("아직 댓글이 없어요", for: .normal)
         } else {
             commentListButton.setTitle("댓글 \(commentCount)개 모두 보기", for: .normal)
         }
-    }
-    
-    private func makeUpBookmark(post: Post) {
-        bookmarkCountLabel.text = "북마크 \(post.collections)개"
     }
     
     private func makeUpBudgetCheck(post: Post, user: User) {

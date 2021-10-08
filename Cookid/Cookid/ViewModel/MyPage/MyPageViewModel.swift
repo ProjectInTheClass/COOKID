@@ -50,7 +50,7 @@ class MyPageViewModel: ViewModelType {
             return meals.count + shoppings.count
         }
         
-        let postCount = postService.postsCount
+        let postCount = userInfo.flatMap { postService.myPosts(user: $0).map { $0.count } }
         
         let myPosts = userService.user().flatMap(postService.myPosts(user:))
         
