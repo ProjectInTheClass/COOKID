@@ -48,10 +48,8 @@ class PostService {
                         switch result {
                         case .success(let success):
                             print(success.rawValue)
-                            print(self.posts.count)
                             self.posts.append(newPost)
                             self.postStore.onNext(self.posts)
-                            print(self.posts.count)
                             observer.onNext(true)
                         case .failure(let error):
                             print(error.rawValue)
@@ -67,6 +65,7 @@ class PostService {
         }
     }
     
+    @discardableResult
     func fetchPosts(currentUser: User) -> Observable<[Post]> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
@@ -89,6 +88,8 @@ class PostService {
                             }
                         }
                     }
+                    self.posts += fetchedPosts
+                    self.postStore.onNext(self.posts)
                     observer.onNext(fetchedPosts)
                 case .failure(let error):
                     print("fetchBookmarkedPosts() error - \(error)")

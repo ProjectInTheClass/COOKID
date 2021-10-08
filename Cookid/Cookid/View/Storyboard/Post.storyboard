@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -36,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jju-ch-hoF">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="H4n-Zs-AlA">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
@@ -117,7 +116,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6yw-0j-LDp">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="747.5"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Niu-AO-XfM" customClass="PostUserView" customModule="Cookid" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Niu-AO-XfM">
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grk-FM-lvq">
@@ -127,12 +126,55 @@
                                                                         <constraint firstAttribute="height" constant="1" id="PYQ-Gm-IVO"/>
                                                                     </constraints>
                                                                 </view>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MTm-bI-sJT">
+                                                                    <rect key="frame" x="10" y="10" width="35" height="35"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" secondItem="MTm-bI-sJT" secondAttribute="height" multiplier="1:1" id="Ot7-9c-NEL"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="외식러" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gou-eJ-1qS">
+                                                                    <rect key="frame" x="55" y="19" width="36.5" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="14"/>
+                                                                    <color key="textColor" systemColor="systemYellowColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="테스터" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCm-63-5rr">
+                                                                    <rect key="frame" x="96.5" y="19" width="36.5" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="14"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📮 제주도" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKK-Ej-lVY">
+                                                                    <rect key="frame" x="138" y="19" width="59.5" height="17"/>
+                                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text.alignright" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1Wq-Tv-zqh">
+                                                                    <rect key="frame" x="384" y="18" width="20" height="18.5"/>
+                                                                    <color key="tintColor" systemColor="labelColor"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="22" id="2PI-6T-I3Y"/>
+                                                                        <constraint firstAttribute="width" constant="20" id="Gc0-4y-mVy"/>
+                                                                    </constraints>
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17"/>
+                                                                </imageView>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="1Wq-Tv-zqh" secondAttribute="trailing" constant="10" id="141-Lu-i6v"/>
+                                                                <constraint firstItem="MTm-bI-sJT" firstAttribute="leading" secondItem="Niu-AO-XfM" secondAttribute="leading" constant="10" id="AH0-gM-O0T"/>
+                                                                <constraint firstItem="oKK-Ej-lVY" firstAttribute="centerY" secondItem="mCm-63-5rr" secondAttribute="centerY" id="Blj-fA-9Ct"/>
+                                                                <constraint firstAttribute="bottom" secondItem="MTm-bI-sJT" secondAttribute="bottom" constant="10" id="D6P-bP-jKs"/>
                                                                 <constraint firstItem="grk-FM-lvq" firstAttribute="leading" secondItem="Niu-AO-XfM" secondAttribute="leading" id="IFd-uQ-unT"/>
+                                                                <constraint firstItem="mCm-63-5rr" firstAttribute="centerY" secondItem="Gou-eJ-1qS" secondAttribute="centerY" id="IXF-0T-K14"/>
+                                                                <constraint firstItem="MTm-bI-sJT" firstAttribute="top" secondItem="Niu-AO-XfM" secondAttribute="top" constant="10" id="L9a-Ih-WUT"/>
+                                                                <constraint firstItem="Gou-eJ-1qS" firstAttribute="leading" secondItem="MTm-bI-sJT" secondAttribute="trailing" constant="10" id="LS6-Je-1JE"/>
+                                                                <constraint firstItem="1Wq-Tv-zqh" firstAttribute="centerY" secondItem="Niu-AO-XfM" secondAttribute="centerY" id="aR1-Zd-Ind"/>
+                                                                <constraint firstItem="mCm-63-5rr" firstAttribute="leading" secondItem="Gou-eJ-1qS" secondAttribute="trailing" constant="5" id="fTT-SC-HOg"/>
                                                                 <constraint firstAttribute="height" constant="55" id="lGM-5l-fn3"/>
+                                                                <constraint firstItem="oKK-Ej-lVY" firstAttribute="leading" secondItem="mCm-63-5rr" secondAttribute="trailing" constant="5" id="o7k-dD-Eao"/>
                                                                 <constraint firstAttribute="trailing" secondItem="grk-FM-lvq" secondAttribute="trailing" id="qhw-40-ZGY"/>
+                                                                <constraint firstItem="Gou-eJ-1qS" firstAttribute="centerY" secondItem="MTm-bI-sJT" secondAttribute="centerY" id="r78-Ud-KU5"/>
                                                                 <constraint firstAttribute="bottom" secondItem="grk-FM-lvq" secondAttribute="bottom" id="rvO-nO-Hwx"/>
                                                             </constraints>
                                                         </view>
@@ -386,10 +428,14 @@
                                             <outlet property="heartButton" destination="7jQ-FL-IkY" id="Log-lL-xIJ"/>
                                             <outlet property="imageCollectionView" destination="ewT-CZ-OvY" id="BDY-Ts-9Go"/>
                                             <outlet property="imagePageControl" destination="L4n-by-AGg" id="fXQ-8U-upA"/>
+                                            <outlet property="location" destination="oKK-Ej-lVY" id="b3R-Gq-lQs"/>
                                             <outlet property="postCaptionLabel" destination="9ff-H4-pG0" id="MYM-aS-nMV"/>
-                                            <outlet property="postUserView" destination="Niu-AO-XfM" id="zIn-kG-NDY"/>
+                                            <outlet property="reportButton" destination="1Wq-Tv-zqh" id="Yrs-hY-aly"/>
                                             <outlet property="userCountLabel" destination="Anz-Ed-V4c" id="CHX-1T-Xum"/>
+                                            <outlet property="userImage" destination="MTm-bI-sJT" id="QiN-5w-U3E"/>
+                                            <outlet property="userNickname" destination="mCm-63-5rr" id="3Sf-Oy-Dy2"/>
                                             <outlet property="userNicknameLabel" destination="dZF-Rg-wJU" id="wnM-p3-p8X"/>
+                                            <outlet property="userType" destination="Gou-eJ-1qS" id="0Bl-rq-iKc"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -400,8 +446,8 @@
                         <constraints>
                             <constraint firstItem="Jju-ch-hoF" firstAttribute="trailing" secondItem="qIX-9Y-hl7" secondAttribute="trailing" id="6Vz-ar-9eh"/>
                             <constraint firstItem="Jju-ch-hoF" firstAttribute="leading" secondItem="qIX-9Y-hl7" secondAttribute="leading" id="CkF-5G-Ncq"/>
-                            <constraint firstItem="Jju-ch-hoF" firstAttribute="top" secondItem="T0b-1L-c0k" secondAttribute="top" id="Jzu-qF-c1N"/>
-                            <constraint firstAttribute="bottom" secondItem="Jju-ch-hoF" secondAttribute="bottom" id="cMK-uc-2dL"/>
+                            <constraint firstItem="Jju-ch-hoF" firstAttribute="top" secondItem="qIX-9Y-hl7" secondAttribute="top" id="Jzu-qF-c1N"/>
+                            <constraint firstItem="qIX-9Y-hl7" firstAttribute="bottom" secondItem="Jju-ch-hoF" secondAttribute="bottom" id="cMK-uc-2dL"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="식사추천" image="hand.wave" catalog="system" selectedImage="hand.wave.fill" id="j1f-k2-mdM"/>
@@ -578,7 +624,7 @@
                                                                         <subviews>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DYp-iN-65m">
                                                                                 <rect key="frame" x="0.0" y="-0.5" width="30" height="30"/>
-                                                                                <color key="tintColor" name="AccentColor"/>
+                                                                                <color key="tintColor" systemColor="systemYellowColor"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="30" id="WEe-qr-Pfj"/>
                                                                                     <constraint firstAttribute="height" constant="30" id="ZGe-EK-H8P"/>
@@ -586,19 +632,19 @@
                                                                             </imageView>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="i2B-Kz-COc">
                                                                                 <rect key="frame" x="35" y="-0.5" width="30" height="30"/>
-                                                                                <color key="tintColor" name="AccentColor"/>
+                                                                                <color key="tintColor" systemColor="systemYellowColor"/>
                                                                             </imageView>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9lQ-rF-ifO">
                                                                                 <rect key="frame" x="70" y="-0.5" width="30" height="30"/>
-                                                                                <color key="tintColor" name="AccentColor"/>
+                                                                                <color key="tintColor" systemColor="systemYellowColor"/>
                                                                             </imageView>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CBN-vh-KfP">
                                                                                 <rect key="frame" x="105" y="-0.5" width="30" height="30"/>
-                                                                                <color key="tintColor" name="AccentColor"/>
+                                                                                <color key="tintColor" systemColor="systemYellowColor"/>
                                                                             </imageView>
                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xIx-OE-Ach">
                                                                                 <rect key="frame" x="140" y="-0.5" width="30" height="30"/>
-                                                                                <color key="tintColor" name="AccentColor"/>
+                                                                                <color key="tintColor" systemColor="systemYellowColor"/>
                                                                             </imageView>
                                                                         </subviews>
                                                                     </stackView>
@@ -733,9 +779,7 @@
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
         <image name="star" catalog="system" width="128" height="116"/>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <image name="text.alignright" catalog="system" width="128" height="100"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

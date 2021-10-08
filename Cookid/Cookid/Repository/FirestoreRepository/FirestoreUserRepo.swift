@@ -30,6 +30,10 @@ class FirestoreUserRepo {
 //        }
     }
     
+    func loadUser(user: User, completion: @escaping (Result<UserEntity?, FirebaseError>) -> Void) {
+        completion(.success(UserEntity(id: user.id, imageURL: user.image, nickname: user.nickname, determination: user.determination, priceGoal: user.priceGoal, userType: user.userType, dineInCount: 0, cookidsCount: 0)))
+    }
+    
     func fetchUser(userID: String, completion: @escaping (Result<UserEntity?, FirebaseError>) -> Void) {
         //        userDB.document(userID).getDocument(source: .default) { (document, error) in
         //
@@ -52,10 +56,12 @@ class FirestoreUserRepo {
         //        }
         
         // 유저ID 쿼리에 일치하는 유저를 DB에서 불러온다.
-        completion(.success(UserEntity(id: userID, imageURL: URL(string: "https://images.unsplash.com/photo-1623800417590-f522665790a4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=715&q=80"), nickname: "테스터", determination: "화이또오!", priceGoal: 400000, userType: .preferDineOut, dineInCount: 40, cookidsCount: 34)))
+        completion(.success(UserEntity(id: userID, imageURL: URL(string: "https://images.unsplash.com/photo-1623800417590-f522665790a4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=715&q=80"), nickname: "테스터", determination: "화이또오!", priceGoal: 372920, userType: .preferDineOut, dineInCount: 40, cookidsCount: 34)))
     }
     
     func updateUser(updateUser: User) {
+        // 업데이트시에 localUser의 정보도 건드린다면 함께 업데이트 해야 한다.
+        
 //        do {
 //            try userDB.document(updateUser.id).setData(from: updateUser, merge: true)
 //        } catch {

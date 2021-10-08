@@ -28,18 +28,37 @@ class UserService {
     private var userSortedArr = [UserForRanking]()
     private lazy var userSorted = BehaviorSubject<[UserForRanking]>(value: userSortedArr)
     
-    /// Fetch from Firebase
     @discardableResult
-    func loadUserInfo() -> Observable<User>{
+    func loadMyInfo() -> Observable<User> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.firestoreUserRepo.fetchUser(userID: self.defaultUserInfo.id) { result in
+            self.firestoreUserRepo.loadUser(user: self.defaultUserInfo) { result in
                 switch result {
                 case .success(let entity):
                     guard let entity = entity else { return }
                     let user = User(id: entity.id, image: entity.imageURL, nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
                     self.defaultUserInfo = user
                     self.userInfo.onNext(user)
+                    observer.onNext(user)
+                case .failure(let error):
+                    print(error.rawValue)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    /// Fetch from Firebase
+    @discardableResult
+    func loadUserInfo(user: User) -> Observable<User> {
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            self.firestoreUserRepo.fetchUser(userID: user.id) { result in
+                switch result {
+                case .success(let entity):
+                    guard let entity = entity else { return }
+                    let user = User(id: entity.id, image: entity.imageURL, nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
+                    observer.onNext(user)
                 case .failure(let error):
                     print(error.rawValue)
                 }

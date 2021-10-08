@@ -11,9 +11,9 @@ import SnapKit
 
 class PostUserView: UIView {
     
-    private let userImage = UIImageView().then {
+    let userImage = UIImageView().then {
+        $0.backgroundColor = .black
         $0.contentMode = .scaleAspectFill
-        $0.makeCircleView()
     }
     
     private let userNickname = UILabel().then {
@@ -57,9 +57,9 @@ class PostUserView: UIView {
         
         self.addSubview(userImage)
         userImage.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
-            make.centerY.equalTo(self)
-            make.width.height.equalTo(35)
+            make.top.left.equalToSuperview().offset(10)
+            make.bottom.equalToSuperview().offset(-10)
+            make.width.equalTo(userImage.snp.height).multipliedBy(1)
         }
         
         self.addSubview(userType)
@@ -71,19 +71,19 @@ class PostUserView: UIView {
         self.addSubview(userNickname)
         userNickname.snp.makeConstraints { make in
             make.left.equalTo(userType.snp.right).offset(5)
-            make.centerY.equalTo(self)
+            make.centerY.equalToSuperview()
         }
         
         self.addSubview(location)
         location.snp.makeConstraints { make in
             make.left.equalTo(userNickname.snp.right).offset(5)
-            make.centerY.equalTo(self)
+            make.centerY.equalToSuperview()
         }
         
         self.addSubview(reportingButton)
         reportingButton.snp.makeConstraints { make in
-            make.right.equalTo(self).offset(-10)
-            make.centerY.equalTo(self)
+            make.right.equalTo(self.snp.right).offset(-10)
+            make.centerY.equalToSuperview()
             make.width.height.equalTo(40)
         }
 
