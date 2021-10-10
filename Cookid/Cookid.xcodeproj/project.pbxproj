@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,6 +24,9 @@
 		032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */; };
 		032233DE2693057C0092DD6D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233DD2693057C0092DD6D /* User.swift */; };
 		032233E926934F180092DD6D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233E826934F180092DD6D /* Protocol.swift */; };
+		03250E0E2712654900425036 /* CommentCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03250E0D2712654900425036 /* CommentCellReactor.swift */; };
+		03250E1127126A5600425036 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 03250E1027126A5600425036 /* Kingfisher */; };
+		0331A9CF2711C3EA005EF05B /* PostCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */; };
 		0339575126A2C96100594515 /* boardingImage in Resources */ = {isa = PBXBuildFile; fileRef = 0339575026A2C96100594515 /* boardingImage */; };
 		033D3C212709FF49009B29B9 /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C202709FF49009B29B9 /* CookidTests.swift */; };
 		033D3C28270A0CC8009B29B9 /* ReactorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C27270A0CC8009B29B9 /* ReactorTest.swift */; };
@@ -94,7 +97,6 @@
 		03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */; };
 		03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */; };
 		03F2ED8626F0343E00CFE87C /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED8526F0343E00CFE87C /* CommentService.swift */; };
-		03F2ED8826F04D6200CFE87C /* PostCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED8726F04D6100CFE87C /* PostCellViewModel.swift */; };
 		03F2ED8A26F06BC300CFE87C /* FirestoreCommentRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED8926F06BC300CFE87C /* FirestoreCommentRepo.swift */; };
 		03F2ED8C26F17D2D00CFE87C /* PostCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED8B26F17D2C00CFE87C /* PostCustomButton.swift */; };
 		03F2ED9026F3886700CFE87C /* PostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED8F26F3886700CFE87C /* PostCoordinator.swift */; };
@@ -172,6 +174,8 @@
 		032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		032233DD2693057C0092DD6D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		032233E826934F180092DD6D /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		03250E0D2712654900425036 /* CommentCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellReactor.swift; sourceTree = "<group>"; };
+		0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellReactor.swift; sourceTree = "<group>"; };
 		0339575026A2C96100594515 /* boardingImage */ = {isa = PBXFileReference; lastKnownFileType = file; path = boardingImage; sourceTree = "<group>"; };
 		033D3C1E2709FF49009B29B9 /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		033D3C202709FF49009B29B9 /* CookidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidTests.swift; sourceTree = "<group>"; };
@@ -240,7 +244,6 @@
 		03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
 		03F2ED8526F0343E00CFE87C /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
-		03F2ED8726F04D6100CFE87C /* PostCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellViewModel.swift; sourceTree = "<group>"; };
 		03F2ED8926F06BC300CFE87C /* FirestoreCommentRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCommentRepo.swift; sourceTree = "<group>"; };
 		03F2ED8B26F17D2C00CFE87C /* PostCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomButton.swift; sourceTree = "<group>"; };
 		03F2ED8F26F3886700CFE87C /* PostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCoordinator.swift; sourceTree = "<group>"; };
@@ -282,6 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03250E1127126A5600425036 /* Kingfisher in Frameworks */,
 				03C04C8C2709C38700F72DB1 /* RealmSwift.framework in Frameworks */,
 				163C7CE736B3B3B05C1C5545 /* Pods_Cookid.framework in Frameworks */,
 				03C04C8A2709C38300F72DB1 /* Realm.framework in Frameworks */,
@@ -626,8 +630,9 @@
 			children = (
 				03F2ED7226ED92D500CFE87C /* PostViewModel.swift */,
 				03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */,
-				03F2ED8726F04D6100CFE87C /* PostCellViewModel.swift */,
+				0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */,
 				03F2ED9526FA20A800CFE87C /* CommentReactor.swift */,
+				03250E0D2712654900425036 /* CommentCellReactor.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -658,8 +663,8 @@
 			isa = PBXGroup;
 			children = (
 				2417EAB526E58D0C006F2785 /* MyPageViewModel.swift */,
-				033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */,
 				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
+				033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */,
 				03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */,
 				03D660CF270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift */,
 			);
@@ -770,6 +775,9 @@
 			dependencies = (
 			);
 			name = Cookid;
+			packageProductDependencies = (
+				03250E1027126A5600425036 /* Kingfisher */,
+			);
 			productName = Cookid;
 			productReference = 03223398269212860092DD6D /* Cookid.app */;
 			productType = "com.apple.product-type.application";
@@ -820,6 +828,9 @@
 				Base,
 			);
 			mainGroup = 0322338F269212860092DD6D;
+			packageReferences = (
+				03250E0F27126A5600425036 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 03223399269212860092DD6D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -977,6 +988,7 @@
 				241523B0269D093E0077941A /* ShoppingService.swift in Sources */,
 				03D8C1E126E852CD00238CB6 /* MyMealsViewController.swift in Sources */,
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
+				03250E0E2712654900425036 /* CommentCellReactor.swift in Sources */,
 				03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */,
 				2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */,
 				03D660D0270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift in Sources */,
@@ -1045,6 +1057,7 @@
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */,
 				03F2ED8A26F06BC300CFE87C /* FirestoreCommentRepo.swift in Sources */,
+				0331A9CF2711C3EA005EF05B /* PostCellReactor.swift in Sources */,
 				03525F742707E72D006C8B40 /* KakaoAuthRepo.swift in Sources */,
 				24B081BA26DFD23500379087 /* LocalUser.swift in Sources */,
 				03F2ED9626FA20A900CFE87C /* CommentReactor.swift in Sources */,
@@ -1061,7 +1074,6 @@
 				0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */,
 				24B081CC26E10F7B00379087 /* RealmMealRepo.swift in Sources */,
 				03F2ED6A26ED914B00CFE87C /* PostTableViewCell.swift in Sources */,
-				03F2ED8826F04D6200CFE87C /* PostCellViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1370,6 +1382,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		03250E0F27126A5600425036 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		03250E1027126A5600425036 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03250E0F27126A5600425036 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 03223390269212860092DD6D /* Project object */;
 }

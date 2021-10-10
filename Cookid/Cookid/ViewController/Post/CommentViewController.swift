@@ -8,18 +8,16 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import NSObject_Rx
 import ReactorKit
 import RxDataSources
 
-class CommentViewController: UIViewController, ViewModelBindable {
+class CommentViewController: UIViewController, View {
     
     private let tableView = UITableView(frame: .zero, style: .grouped).then {
         $0.register(CommentTableViewCell.self, forCellReuseIdentifier: CELLIDENTIFIER.commentCell)
         $0.separatorStyle = .none
     }
-    
-    var viewModel: PostCellViewModel!
+
     var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -34,14 +32,12 @@ class CommentViewController: UIViewController, ViewModelBindable {
         }
     }
     
-    func bindViewModel() {
-        
-        viewModel.output.commentReactors
-            .drive(tableView.rx.items(cellIdentifier: CELLIDENTIFIER.commentCell, cellType: CommentTableViewCell.self)) { _, item, cell in
-                cell.reactor = item
-            }
-            .disposed(by: disposeBag)
-        
+    func bind(reactor: CommentReactor) {
+        reactor.state.map { $0.commentReactors }
+        .bind(to: tableView.rx.items(cellIdentifier: CELLIDENTIFIER.commentCell, cellType: CommentTableViewCell.self)) { _, item, cell in
+            cell.reactor = item
+        }
+        .disposed(by: disposeBag)
     }
 
 }

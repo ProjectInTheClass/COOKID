@@ -79,10 +79,11 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             }
             .disposed(by: rx.disposeBag)
         
-        viewModel.output.postCellViewModel
+        viewModel.output.postCellReactors
             .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
                 cell.coordinator = self.coordinator
+                cell.reactor = PostCellReactor(post: item, postService: self.viewModel.postService, userService: self.viewModel.userService, commentService: self.viewModel.commentService)
                 
                 if self.expandedIndexSet.contains(index) {
                     cell.postCaptionLabel.numberOfLines = 0
@@ -102,8 +103,6 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                         self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
                     })
                     .disposed(by: cell.disposeBag)
-                
-                cell.updateUI(viewModel: item)
             }
             .disposed(by: rx.disposeBag)
         

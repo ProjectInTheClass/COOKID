@@ -28,9 +28,9 @@ class CommentService {
         commentStore.onNext(comments)
     }
     
-    func fetchComments(postID: String) -> Observable<[Comment]> {
+    func fetchComments(post: Post) -> Observable<[Comment]> {
         return Observable.create { observer in
-//            FirestoreCommentRepo.instance.fetchComments(postID: postID) { entities in
+//            FirestoreCommentRepo.instance.fetchComments(postID: post.postID) { entities in
 //                var newComments = [Comment]()
 //                entities.forEach { entity in
 //                    FirestoreUserRepo.instance.fetchUser(userID: entity.userID) { user in

@@ -10,14 +10,17 @@ import RxSwift
 import RxCocoa
 import ReactorKit
 
-class PostTableViewCell: UITableViewCell {
+class PostTableViewCell: UITableViewCell, View {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var imagePageControl: UIPageControl!
+    
     @IBOutlet weak var budgetCheckImage: UIImageView!
     @IBOutlet weak var budgetCheckLabel: UILabel!
+    
     @IBOutlet weak var userCountLabel: UILabel!
     @IBOutlet weak var bookmarkCountLabel: UILabel!
+    
     @IBOutlet weak var userNicknameLabel: UILabel!
     @IBOutlet weak var postCaptionLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -41,7 +44,7 @@ class PostTableViewCell: UITableViewCell {
         disposeBag = DisposeBag()
     }
     
-    func updateUI(viewModel: PostCellViewModel) {
+    func bind(reactor: PostCellReactor) {
         
         if postCaptionLabel.isTruncated {
             detailButton.isHidden = false
@@ -49,76 +52,98 @@ class PostTableViewCell: UITableViewCell {
             detailButton.isHidden = true
         }
         
-        makeUpUserView(post: viewModel.output.post)
-        userNicknameLabel.text = viewModel.output.post.user.nickname
-        dateLabel.text = viewModel.output.post.timeStamp.convertDateToString(format: "yy.MM.dd")
-        postCaptionLabel.text = viewModel.output.post.caption
-        makeUpStarPoint(post: viewModel.output.post)
-        makeUpBookmark(post: viewModel.output.post)
-        makeUpLikes(post: viewModel.output.post)
-        setPageControl(post: viewModel.output.post)
-        heartButton.setState(viewModel.output.post.didLike)
-        bookmarkButton.setState(viewModel.output.post.didCollect)
+        // MARK: - Reactor Binding
         
-        viewModel.output.user
-            .drive(onNext: { [weak self] user in
-                guard let self = self else { return }
-                self.makeUpBudgetCheck(post: viewModel.output.post, user: user)
-            })
-            .disposed(by: disposeBag)
+        // 포스트에서 변경되지 않는 값
+        reactor.state.map { $0.post }
+        .withUnretained(self)
+        .bind(onNext: { owner, post in
+            owner.makeUpUserView(post: post)
+            owner.userNicknameLabel.text = post.user.nickname
+            owner.dateLabel.text = post.timeStamp.convertDateToString(format: "yy.MM.dd")
+            owner.postCaptionLabel.text = post.caption
+            owner.makeUpStarPoint(post: post)
+            owner.setPageControl(post: post)
+        })
+        .disposed(by: disposeBag)
         
-        viewModel.output.comments
-            .drive(onNext: { [weak self] comments in
-                guard let self = self else { return }
-                self.makeUpComments(commentCount: comments.count)
-            })
-            .disposed(by: disposeBag)
+        Observable.combineLatest(reactor.state.map { $0.post },
+                                 reactor.state.map { $0.user },
+                                 resultSelector: { user, post in
+            return (user, post)
+        })
+        .withUnretained(self)
+        .bind(onNext: { owner, info in
+            owner.makeUpBudgetCheck(post: info.0, user: info.1)
+        })
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.comments }
+        .withUnretained(self)
+        .bind(onNext: { owner, comments in
+            owner.makeUpComments(commentCount: comments.count)
+        })
+        .disposed(by: disposeBag)
+        
+        // 포스트에서 변경되는 값, 좋아요, 북마크, 숫자
+        reactor.state.map { $0.isHeart }
+        .withUnretained(self)
+        .bind(onNext: { owner, isHeart in
+            owner.heartButton.setState(isHeart)
+        })
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.heartCount }
+        .withUnretained(self)
+        .bind { owner, heartCount in
+            owner.makeUpLikes(heartCount: heartCount)
+        }
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isBookmark }
+        .withUnretained(self)
+        .bind(onNext: { owner, isBookmark in
+            owner.bookmarkButton.setState(isBookmark)
+        })
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.bookmarkCount }
+        .withUnretained(self)
+        .bind { owner, bookmarkCount in
+            owner.makeUpBookmark(bookmarkCount: bookmarkCount)
+        }
+        .disposed(by: disposeBag)
+        
+        // MARK: - Action
         
         heartButton.rx.tap
-            .bind(onNext: { [unowned self] in
-                viewModel.output.post.didLike = heartButton.isActivated
-                
-                if self.heartButton.isActivated {
-                    viewModel.output.post.likes += 1
-                } else {
-                    viewModel.output.post.likes -= 1
-                }
-//                viewModel.postService.updatePost(post: viewModel.output.post)
-                
-                self.makeUpLikes(post: viewModel.output.post)
-            })
+            .map { PostCellReactor.Action.heartbuttonTapped(self.heartButton.isActivated) }
+            .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         bookmarkButton.rx.tap
-            .bind(onNext: { [unowned self] in
-                if self.bookmarkButton.isActivated {
-                    viewModel.output.post.collections += 1
-                } else {
-                    viewModel.output.post.collections -= 1
-                }
-                viewModel.output.post.didCollect = bookmarkButton.isActivated
-                
-//                viewModel.postService.updatePost(post: viewModel.output.post)
-                self.makeUpBookmark(post: viewModel.output.post)
-            })
+            .map { PostCellReactor.Action.bookmarkButtonTapped(self.bookmarkButton.isActivated) }
+            .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         commentListButton.rx.tap
-            .bind(onNext: { [unowned self] in
-                coordinator?.navigateCommentVC(viewModel: viewModel)
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.coordinator?.navigateCommentVC()
             })
             .disposed(by: disposeBag)
         
         imageCollectionView.delegate = nil
         imageCollectionView.dataSource = nil
         
-        Observable.just(viewModel.output.post.images)
+        Observable.just(reactor.currentState.post.images)
             .bind(to: imageCollectionView.rx.items(cellIdentifier: "imageCell", cellType: PostImageCollectionViewCell.self)) { _, item, cell in
                 cell.updateUI(imageURL: item)
             }
-            .disposed(by: rx.disposeBag)
+            .disposed(by: disposeBag)
         
-        imageCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+        imageCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+            
     }
     
     private func makeUpUserView(post: Post) {
@@ -143,12 +168,12 @@ class PostTableViewCell: UITableViewCell {
         imagePageControl.numberOfPages = post.images.count
     }
     
-    private func makeUpLikes(post: Post) {
-        userCountLabel.text = "좋아요 \(post.likes)개"
+    private func makeUpLikes(heartCount: Int) {
+        userCountLabel.text = "좋아요 \(heartCount)개"
     }
     
-    private func makeUpBookmark(post: Post) {
-        bookmarkCountLabel.text = "북마크 \(post.collections)개"
+    private func makeUpBookmark(bookmarkCount: Int) {
+        bookmarkCountLabel.text = "북마크 \(bookmarkCount)개"
     }
     
     private func makeUpComments(commentCount: Int) {
@@ -181,12 +206,6 @@ class PostTableViewCell: UITableViewCell {
 }
 
 extension PostTableViewCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.postCaptionLabel.numberOfLines = 0
-        self.detailButton.isHidden = true
-        collectionView.reloadItems(at: [indexPath])
-    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)

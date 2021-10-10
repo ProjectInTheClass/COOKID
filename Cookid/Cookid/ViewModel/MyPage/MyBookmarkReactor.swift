@@ -17,21 +17,16 @@ class MyBookmarkReactor: Reactor {
     let initialState: State
     
     enum Action {
-        case userSetting
-        case fetchBookmarkPosts
-        case loadNextPart
+        
     }
     
     enum Mutation {
         case setUser(User)
         case setPosts([Post])
-        case appendPosts([Post])
-        case setLoadingNextPart(Bool)
     }
     
     struct State {
         var bookmarkPosts: [Post] = []
-        var isLoadingNextPart: Bool = false
         var user: User = DummyData.shared.singleUser
     }
     
@@ -42,22 +37,15 @@ class MyBookmarkReactor: Reactor {
         self.initialState = State()
     }
     
-    func mutate(action: Action) -> Observable<Mutation> {
-        switch action {
-        case .fetchBookmarkPosts:
-            let user = self.currentState.user
-            return Observable<Mutation>.concat([
-                Observable.just(Mutation.setLoadingNextPart(true)),
-                self.postService.fetchBookmarkedPosts(user: user).map { Mutation.setPosts($0) },
-                Observable.just(Mutation.setLoadingNextPart(false))
-            ])
-        case .userSetting:
-            return self.userService.user().map { Mutation.setUser($0) }
-        case .loadNextPart:
-            // fetch posts
-            return Observable.just(Mutation.appendPosts([]))
-        }
+    func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
+        
+        let user = userService.user()
+        let userMutation = user.map { Mutation.setUser($0) }
+        let fetchedPosts = Observable.merge(postService.bookmaredTotalPosts, user.flatMap(postService.fetchBookmarkedPosts(user:))).map { Mutation.setPosts($0) }
+        return Observable.merge(mutation, userMutation, fetchedPosts)
     }
+    
+  
     
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
@@ -67,13 +55,6 @@ class MyBookmarkReactor: Reactor {
             return newState
         case .setUser(let user):
             newState.user = user
-            return newState
-        case .appendPosts(let posts):
-            // 이건 어떻게 그냥 안해도 될 것같음
-            newState.bookmarkPosts.append(contentsOf: posts)
-            return newState
-        case .setLoadingNextPart(let isLoading):
-            newState.isLoadingNextPart = isLoading
             return newState
         }
     }

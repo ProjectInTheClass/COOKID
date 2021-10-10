@@ -126,7 +126,7 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
         .disposed(by: disposeBag)
         
         heartButton.rx.tap
-            .map { Reactor.Action.heartTapped }
+            .map { Reactor.Action.heartTapped(reactor.currentState.post) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     
