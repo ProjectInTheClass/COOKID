@@ -15,25 +15,35 @@ class PostService {
     let firebaseStorageRepo: FirebaseStorageRepo
     let firestoreUserRepo: FirestoreUserRepo
     
-    private var posts = [Post]()
-    private lazy var postStore = BehaviorSubject<[Post]>(value: posts)
-    
     init(firestoreRepo: FirestorePostRepo, firebaseStorageRepo: FirebaseStorageRepo, firestoreUserRepo: FirestoreUserRepo) {
         self.firestorePostRepo = firestoreRepo
         self.firebaseStorageRepo = firebaseStorageRepo
         self.firestoreUserRepo = firestoreUserRepo
     }
     
+    private var posts = [Post]()
+    private lazy var postStore = BehaviorSubject<[Post]>(value: posts)
+    
+    private var myPosts = [Post]()
+    private lazy var myPostStore = BehaviorSubject<[Post]>(value: myPosts)
+    
+    private var bookmarkedPosts = [Post]()
+    private lazy var bookmarkedPostStore = BehaviorSubject<[Post]>(value: bookmarkedPosts)
+    
     var postsCount: Observable<Int> {
         return postStore.map { $0.count }
     }
     
-    func myPosts(user: User) -> Observable<[Post]> {
-        return postStore.map { $0.filter { $0.user.id ==  user.id } }
+    var totalPosts: Observable<[Post]> {
+        return postStore
     }
     
-    var totlaPosts: Observable<[Post]> {
-        return postStore
+    var myTotalPosts: Observable<[Post]> {
+        return myPostStore
+    }
+    
+    var bookmaredTotalPosts: Observable<[Post]> {
+        return bookmarkedPostStore
     }
     
     func createPost(user: User, images: [UIImage], postValue: PostValue) -> Observable<Bool> {
@@ -66,10 +76,10 @@ class PostService {
     }
     
     @discardableResult
-    func fetchPosts(currentUser: User) -> Observable<[Post]> {
+    func fetchLatestPosts(currentUser: User) -> Observable<[Post]> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.firestorePostRepo.fetchPosts(userID: currentUser.id) {  result in
+            self.firestorePostRepo.fetchLatestPosts(userID: currentUser.id) {  result in
                 switch result {
                 case .success(let entities):
                     var fetchedPosts = [Post]()
@@ -84,16 +94,49 @@ class PostService {
                                 fetchedPosts.append(post)
                             case .failure(let error):
                                 print(error.rawValue)
-                                observer.onNext([])
                             }
                         }
                     }
                     self.posts += fetchedPosts
-                    self.postStore.onNext(self.posts)
+                    let sortedPostEntities = self.posts.sorted { $0.timeStamp > $1.timeStamp }
+                    self.postStore.onNext(sortedPostEntities)
                     observer.onNext(fetchedPosts)
                 case .failure(let error):
                     print("fetchBookmarkedPosts() error - \(error)")
-                    observer.onNext([])
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    @discardableResult
+    func fetchLastPosts(currentUser: User) -> Observable<[Post]> {
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            self.firestorePostRepo.fetchPastPosts(userID: currentUser.id) {  result in
+                switch result {
+                case .success(let entities):
+                    var fetchedPosts = [Post]()
+                    for entity in entities {
+                        let didLike = entity.didLike.contains { $0.key == currentUser.id }
+                        let didCollect = entity.didCollect.contains { $0.key == currentUser.id }
+                        self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
+                            switch result {
+                            case .success(let userEntity):
+                                let user = userEntity.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType.init(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
+                                let post = Post(postID: entity.postID, user: user!, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect)
+                                fetchedPosts.append(post)
+                            case .failure(let error):
+                                print(error.rawValue)
+                            }
+                        }
+                    }
+                    self.posts += fetchedPosts
+                    let sortedPostEntities = self.posts.sorted { $0.timeStamp > $1.timeStamp }
+                    self.postStore.onNext(sortedPostEntities)
+                    observer.onNext(fetchedPosts)
+                case .failure(let error):
+                    print("fetchBookmarkedPosts() error - \(error)")
                 }
             }
             return Disposables.create()
@@ -161,32 +204,94 @@ class PostService {
         }
     }
     
+    @discardableResult
     func fetchBookmarkedPosts(user: User) -> Observable<[Post]> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
             self.firestorePostRepo.fetchBookmarkedPosts(user: user) { result in
                 switch result {
-                case .success(let postEntities):
-                    let bookmarkedPosts = postEntities.map { entity -> Post in
+                case .success(let entities):
+                    var fetchedPosts = [Post]()
+                    for entity in entities {
                         let didLike = entity.didLike.contains { $0.key == user.id }
-                        return Post(postID: entity.postID, user: user, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: true)
+                        self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
+                            switch result {
+                            case .success(let userEntity):
+                                let user = userEntity.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType.init(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
+                                let post = Post(postID: entity.postID, user: user!, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: true)
+                                fetchedPosts.append(post)
+                            case .failure(let error):
+                                print(error.rawValue)
+                                observer.onNext([])
+                            }
+                        }
                     }
-                    observer.onNext(bookmarkedPosts)
+                    self.bookmarkedPosts += fetchedPosts
+                    self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
+                    observer.onNext(fetchedPosts)
                 case .failure(let error):
                     print("fetchBookmarkedPosts() error - \(error)")
-                    observer.onNext([])
                 }
             }
             return Disposables.create()
         }
     }
     
-    func heartTransaction(isSelect: Bool) {
-        print(isSelect)
+    @discardableResult
+    func fetchMyPosts(user: User) -> Observable<[Post]> {
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            self.firestorePostRepo.fetchMyPosts(userID: user.id) { result in
+                switch result {
+                case .success(let postEntities):
+                    let fetchedPosts = postEntities.map { entity -> Post in
+                        let didLike = entity.didLike.contains { $0.key == user.id }
+                        let didCollect = entity.didCollect.contains { $0.key == user.id }
+                        return Post(postID: entity.postID, user: user, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect)
+                    }
+                    self.myPosts += fetchedPosts
+                    self.myPostStore.onNext(self.myPosts)
+                    observer.onNext(fetchedPosts)
+                case .failure(let error):
+                    print("fetchMyPosts() error" + error.rawValue)
+                }
+            }
+            return Disposables.create()
+        }
     }
     
-    func bookmarkTransaction(isSelect: Bool) {
-        print(isSelect)
+    func heartTransaction(user: User, post: Post, isSelect: Bool) {
+        self.firestorePostRepo.updatePostHeart(userID: user.id, postID: post.postID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let success):
+                print(success.rawValue)
+                // 버튼의 뷰는 이미 변경되어 있기 때문에 뷰 변경을 위해서 굳이 다시 방출할 필요가 없음
+                guard let totalPost = self.posts.filter({ $0.postID == post.postID }).first else { return }
+                guard let myPost = self.posts.filter({ $0.postID == post.postID }).first else { return }
+                guard let bookmarkedPost = self.posts.filter({ $0.postID == post.postID }).first else { return }
+                bookmarkedPost.didLike = isSelect
+                myPost.didLike = isSelect
+                bookmarkedPost.didLike = isSelect
+                self.myPostStore.onNext(self.myPosts)
+                self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
+            case .failure(let error):
+                print(error.rawValue)
+            }
+        }
+    }
+    
+    func bookmarkTransaction(user: User, post: Post, isSelect: Bool) {
+        self.firestorePostRepo.updatePostBookmark(userID: user.id, postID: post.postID) { result in
+            switch result {
+            case .success(let success):
+                print(success.rawValue)
+                print(post.didCollect)
+                print(post.collections)
+            case .failure(let error):
+                print(error.rawValue)
+            }
+        }
     }
     
 }

@@ -14,7 +14,7 @@ class MyBookmarkCollectionViewCellReactor: Reactor {
     let userService: UserService
     
     enum Action {
-        case heartTapped
+        case heartTapped(Post)
     }
     
     enum Mutation {
@@ -36,9 +36,9 @@ class MyBookmarkCollectionViewCellReactor: Reactor {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .heartTapped:
+        case .heartTapped(let post):
             let isSelect = !self.currentState.isHeart
-            self.postService.heartTransaction(isSelect: isSelect)
+//            self.postService.heartTransaction(post: post, isSelect: isSelect)
             return Observable.just(Mutation.setIsHeart(isSelect))
         }
     }

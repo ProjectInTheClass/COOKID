@@ -13,7 +13,6 @@ PODS:
     - KakaoSDKCommon/Common (= 2.8.1)
   - KakaoSDKUser (2.8.1):
     - KakaoSDKAuth (= 2.8.1)
-  - Kingfisher (6.3.1)
   - lottie-ios (3.2.3)
   - naveridlogin-sdk-ios (4.1.3)
   - "NSObject+Rx (5.2.2)":
@@ -51,7 +50,6 @@ DEPENDENCIES:
   - KakaoSDKAuth
   - KakaoSDKCommon
   - KakaoSDKUser
-  - Kingfisher (~> 6.0)
   - lottie-ios
   - naveridlogin-sdk-ios
   - "NSObject+Rx"
@@ -75,7 +73,6 @@ SPEC REPOS:
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
-    - Kingfisher
     - lottie-ios
     - naveridlogin-sdk-ios
     - "NSObject+Rx"
@@ -102,7 +99,6 @@ SPEC CHECKSUMS:
   KakaoSDKAuth: 3cf74660531ac85cd2c7931df8d90d562b0a8fe2
   KakaoSDKCommon: 701ef2a9b92215a4bf131b2a6139c3586b5e8d99
   KakaoSDKUser: c4bdbca17b05ce7a25c67176ac68b6b0c8b1db56
-  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   naveridlogin-sdk-ios: b9d7c20677981177ed994ecb1c8c2b49f223277d
   "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
@@ -122,6 +118,6 @@ SPEC CHECKSUMS:
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
   YPImagePicker: 1463a19a36244e209dcb03c30e63559c5afa9602
 
-PODFILE CHECKSUM: 91806d25199917a5e5d1b642aad9f8772f0f9ca2
+PODFILE CHECKSUM: c541ca616519fb27d270a7fa4e908e8a54537a31
 
 COCOAPODS: 1.11.2

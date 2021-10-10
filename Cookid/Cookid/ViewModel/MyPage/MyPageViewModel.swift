@@ -42,6 +42,8 @@ class MyPageViewModel: ViewModelType {
         let meals = mealService.mealList()
         let shoppings = shoppingService.shoppingList()
         
+        _ = userInfo.flatMap({ postService.fetchMyPosts(user: $0) })
+        
         let dineInCount = meals.map { meals -> Int in
             return meals.filter { $0.mealType == .dineIn }.count
         }
@@ -50,9 +52,9 @@ class MyPageViewModel: ViewModelType {
             return meals.count + shoppings.count
         }
         
-        let postCount = userInfo.flatMap { postService.myPosts(user: $0).map { $0.count } }
+        let postCount = postService.myTotalPosts.map { $0.count }
         
-        let myPosts = userService.user().flatMap(postService.myPosts(user:))
+        let myPosts = postService.myTotalPosts
         
         self.input = Input()
         self.output = Output(userInfo: userInfo, meals: meals, dineInCount: dineInCount, cookidsCount: cookidsCount, postCount: postCount, myPosts: myPosts)

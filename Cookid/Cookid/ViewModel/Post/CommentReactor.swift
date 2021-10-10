@@ -10,26 +10,27 @@ import RxSwift
 import ReactorKit
 import RxDataSources
 
+// 다시 짜기
 final class CommentReactor: Reactor {
     
     enum Action {
-        case delete
-        case update
+        
     }
     
     enum Mutation {
-        case deleteComment(Comment)
-        case updateComment(Comment)
+        case setCommentsReactor([CommentCellReactor])
     }
     
     struct State {
-        let comment: Comment
+        var commentReactors: [CommentCellReactor] = []
     }
     
     let initialState: State
     
-    init(comment: Comment) {
-        self.initialState = State(comment: comment)
+    init() {
+        self.initialState = State()
     }
+    
+    // comments로 commentsCellReactor 만들기 tranform 
    
 }
