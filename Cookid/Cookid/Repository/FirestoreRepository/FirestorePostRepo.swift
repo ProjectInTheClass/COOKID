@@ -144,14 +144,16 @@ class FirestorePostRepo {
         
         let sortedPostEntities = postEntities.sorted { $0.timestamp > $1.timestamp }
         
-        completion(.success(sortedPostEntities))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            completion(.success(sortedPostEntities))
+        }
     }
     
-    func updatePostHeart(userID: String, postID: String, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
+    func updatePostHeart(userID: String, postID: String, isHeart: Bool, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
         completion(.success(.buttonTransactionSuccess))
     }
     
-    func updatePostBookmark(userID: String, postID: String, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
+    func updatePostBookmark(userID: String, postID: String, isBookmark: Bool, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
         completion(.success(.buttonTransactionSuccess))
     }
   

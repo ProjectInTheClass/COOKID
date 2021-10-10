@@ -14,10 +14,13 @@ class PostTableViewCell: UITableViewCell, View {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var imagePageControl: UIPageControl!
+    
     @IBOutlet weak var budgetCheckImage: UIImageView!
     @IBOutlet weak var budgetCheckLabel: UILabel!
+    
     @IBOutlet weak var userCountLabel: UILabel!
     @IBOutlet weak var bookmarkCountLabel: UILabel!
+    
     @IBOutlet weak var userNicknameLabel: UILabel!
     @IBOutlet weak var postCaptionLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -51,6 +54,7 @@ class PostTableViewCell: UITableViewCell, View {
         
         // MARK: - Reactor Binding
         
+        // 포스트에서 변경되지 않는 값
         reactor.state.map { $0.post }
         .withUnretained(self)
         .bind(onNext: { owner, post in
@@ -60,22 +64,6 @@ class PostTableViewCell: UITableViewCell, View {
             owner.postCaptionLabel.text = post.caption
             owner.makeUpStarPoint(post: post)
             owner.setPageControl(post: post)
-        })
-        .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.isHeart }
-        .withUnretained(self)
-        .bind(onNext: { owner, isHeart in
-            owner.heartButton.setState(isHeart)
-            owner.makeUpLikes(post: reactor.currentState.post)
-        })
-        .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.isBookmark }
-        .withUnretained(self)
-        .bind(onNext: { owner, isBookmark in
-            owner.bookmarkButton.setState(isBookmark)
-            owner.makeUpBookmark(post: reactor.currentState.post)
         })
         .disposed(by: disposeBag)
         
@@ -93,24 +81,48 @@ class PostTableViewCell: UITableViewCell, View {
         reactor.state.map { $0.comments }
         .withUnretained(self)
         .bind(onNext: { owner, comments in
-            print(comments)
             owner.makeUpComments(commentCount: comments.count)
         })
+        .disposed(by: disposeBag)
+        
+        // 포스트에서 변경되는 값, 좋아요, 북마크, 숫자
+        reactor.state.map { $0.isHeart }
+        .withUnretained(self)
+        .bind(onNext: { owner, isHeart in
+            owner.heartButton.setState(isHeart)
+        })
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.heartCount }
+        .withUnretained(self)
+        .bind { owner, heartCount in
+            owner.makeUpLikes(heartCount: heartCount)
+        }
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isBookmark }
+        .withUnretained(self)
+        .bind(onNext: { owner, isBookmark in
+            owner.bookmarkButton.setState(isBookmark)
+        })
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.bookmarkCount }
+        .withUnretained(self)
+        .bind { owner, bookmarkCount in
+            owner.makeUpBookmark(bookmarkCount: bookmarkCount)
+        }
         .disposed(by: disposeBag)
         
         // MARK: - Action
         
         heartButton.rx.tap
-            .withUnretained(self)
-            .map { owner, _ in
-                Reactor.Action.heartbuttonTapped(owner.heartButton.isActivated) }
+            .map { PostCellReactor.Action.heartbuttonTapped(self.heartButton.isActivated) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         bookmarkButton.rx.tap
-            .withUnretained(self)
-            .map { owner, _ in
-                Reactor.Action.bookmarkButtonTapped(owner.bookmarkButton.isActivated) }
+            .map { PostCellReactor.Action.bookmarkButtonTapped(self.bookmarkButton.isActivated) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -156,12 +168,12 @@ class PostTableViewCell: UITableViewCell, View {
         imagePageControl.numberOfPages = post.images.count
     }
     
-    private func makeUpLikes(post: Post) {
-        userCountLabel.text = "좋아요 \(post.likes)개"
+    private func makeUpLikes(heartCount: Int) {
+        userCountLabel.text = "좋아요 \(heartCount)개"
     }
     
-    private func makeUpBookmark(post: Post) {
-        bookmarkCountLabel.text = "북마크 \(post.collections)개"
+    private func makeUpBookmark(bookmarkCount: Int) {
+        bookmarkCountLabel.text = "북마크 \(bookmarkCount)개"
     }
     
     private func makeUpComments(commentCount: Int) {

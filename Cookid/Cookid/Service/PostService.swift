@@ -59,7 +59,10 @@ class PostService {
                         case .success(let success):
                             print(success.rawValue)
                             self.posts.append(newPost)
-                            self.postStore.onNext(self.posts)
+                            self.myPosts.append(newPost)
+                            let sortedPosts = self.posts.sorted { $0.timeStamp > $1.timeStamp }
+                            self.postStore.onNext(sortedPosts)
+                            self.myPostStore.onNext(self.myPosts)
                             observer.onNext(true)
                         case .failure(let error):
                             print(error.rawValue)
@@ -98,9 +101,9 @@ class PostService {
                         }
                     }
                     self.posts += fetchedPosts
-                    let sortedPostEntities = self.posts.sorted { $0.timeStamp > $1.timeStamp }
-                    self.postStore.onNext(sortedPostEntities)
-                    observer.onNext(fetchedPosts)
+                    let sortedPosts = self.posts.sorted { $0.timeStamp > $1.timeStamp }
+                    self.postStore.onNext(sortedPosts)
+                    observer.onNext(sortedPosts)
                 case .failure(let error):
                     print("fetchBookmarkedPosts() error - \(error)")
                 }
@@ -132,9 +135,9 @@ class PostService {
                         }
                     }
                     self.posts += fetchedPosts
-                    let sortedPostEntities = self.posts.sorted { $0.timeStamp > $1.timeStamp }
-                    self.postStore.onNext(sortedPostEntities)
-                    observer.onNext(fetchedPosts)
+                    let sortedPosts = self.posts.sorted { $0.timeStamp > $1.timeStamp }
+                    self.postStore.onNext(sortedPosts)
+                    observer.onNext(sortedPosts)
                 case .failure(let error):
                     print("fetchBookmarkedPosts() error - \(error)")
                 }
@@ -260,34 +263,32 @@ class PostService {
         }
     }
     
-    func heartTransaction(user: User, post: Post, isSelect: Bool) {
-        self.firestorePostRepo.updatePostHeart(userID: user.id, postID: post.postID) { [weak self] result in
-            guard let self = self else { return }
+    func heartTransaction(user: User, post: Post, isHeart: Bool) {
+        self.firestorePostRepo.updatePostHeart(userID: user.id, postID: post.postID, isHeart: isHeart) { result in
             switch result {
             case .success(let success):
                 print(success.rawValue)
-                // 버튼의 뷰는 이미 변경되어 있기 때문에 뷰 변경을 위해서 굳이 다시 방출할 필요가 없음
-                guard let totalPost = self.posts.filter({ $0.postID == post.postID }).first else { return }
-                guard let myPost = self.posts.filter({ $0.postID == post.postID }).first else { return }
-                guard let bookmarkedPost = self.posts.filter({ $0.postID == post.postID }).first else { return }
-                bookmarkedPost.didLike = isSelect
-                myPost.didLike = isSelect
-                bookmarkedPost.didLike = isSelect
-                self.myPostStore.onNext(self.myPosts)
-                self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
             case .failure(let error):
                 print(error.rawValue)
             }
         }
     }
     
-    func bookmarkTransaction(user: User, post: Post, isSelect: Bool) {
-        self.firestorePostRepo.updatePostBookmark(userID: user.id, postID: post.postID) { result in
+    func bookmarkTransaction(user: User, post: Post, isBookmark: Bool) {
+        self.firestorePostRepo.updatePostBookmark(userID: user.id, postID: post.postID, isBookmark: isBookmark) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let success):
                 print(success.rawValue)
-                print(post.didCollect)
-                print(post.collections)
+                if isBookmark {
+                    self.bookmarkedPosts.append(post)
+                    self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
+                } else {
+                    if let index = self.bookmarkedPosts.firstIndex(where: { $0.postID == post.postID }) {
+                        self.bookmarkedPosts.remove(at: index)
+                        self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
+                    }
+                }
             case .failure(let error):
                 print(error.rawValue)
             }

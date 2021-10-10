@@ -10,12 +10,12 @@ import SnapKit
 import Then
 import RxSwift
 import RxCocoa
-import NSObject_Rx
+import ReactorKit
 
-class MyPostsViewController: UIViewController, ViewModelBindable {
+class MyPostsViewController: UIViewController, View {
     
-    var viewModel: MyPageViewModel!
     var coordinator: MyPageCoordinator?
+    var disposeBag: DisposeBag = DisposeBag()
     
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
 
@@ -31,12 +31,18 @@ class MyPostsViewController: UIViewController, ViewModelBindable {
         collectionView.backgroundColor = .systemBackground
     }
     
-    func bindViewModel() {
-        viewModel.output.myPosts
+    func bind(reactor: MyPostReactor) {
+        reactor.state.map { $0.myPosts }
             .bind(to: collectionView.rx.items(cellIdentifier: CELLIDENTIFIER.myPostCollectionViewCell, cellType: MyPostCollectionViewCell.self)) { _, item, cell in
                     cell.updateUI(post: item)
             }
             .disposed(by: rx.disposeBag)
+        
+        collectionView.rx.modelSelected(Post.self)
+            .bind { [unowned self] post in
+                print(post.caption)
+            }
+            .disposed(by: disposeBag)
     }
     
     func makeConstraints() {

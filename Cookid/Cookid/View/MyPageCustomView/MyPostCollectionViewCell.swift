@@ -8,20 +8,17 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import ReactorKit
 import Then
 import SnapKit
 import Kingfisher
 
-class MyPostCollectionViewCell: UICollectionViewCell, View {
+class MyPostCollectionViewCell: UICollectionViewCell {
     
     private let postImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 8
         $0.layer.masksToBounds = true
     }
-    
-    var disposeBag: DisposeBag = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,11 +28,6 @@ class MyPostCollectionViewCell: UICollectionViewCell, View {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         makeConstraints()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        disposeBag = DisposeBag()
     }
     
     private func makeConstraints() {
@@ -50,14 +42,4 @@ class MyPostCollectionViewCell: UICollectionViewCell, View {
         postImage.setImageWithKf(url: postFirstImageUrl)
     }
     
-    func bind(reactor: MyPostReactor) {
-        reactor.state
-            .map { $0.myPost }
-            .withUnretained(self)
-            .bind { cell, post in
-                guard let postFirstImageUrl = post.images.first else { return }
-                cell.postImage.setImageWithKf(url: postFirstImageUrl)
-            }
-            .disposed(by: disposeBag)
-    }
 }

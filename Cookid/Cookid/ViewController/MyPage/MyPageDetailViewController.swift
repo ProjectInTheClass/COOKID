@@ -28,9 +28,9 @@ class MyPageDetailViewController: UIViewController, ViewModelBindable {
         myBookmarkVC.reactor = MyBookmarkReactor(postService: viewModel.postService, userService: viewModel.userService)
         myBookmarkVC.coordinator = coordinator
         
-        var myPostVC = MyPostsViewController()
+        let myPostVC = MyPostsViewController()
         myPostVC.coordinator = coordinator
-        myPostVC.bind(viewModel: viewModel)
+        myPostVC.reactor = MyPostReactor(postService: viewModel.postService, userService: viewModel.userService)
         
         dataSource = [(menuTitle: "식사들 🍚", vc: myMealsVC), (menuTitle: "내 글 모음 📝", vc: myPostVC), (menuTitle: "북마크 📚", vc: myBookmarkVC)]
         

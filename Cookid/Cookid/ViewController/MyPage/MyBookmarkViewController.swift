@@ -21,6 +21,7 @@ class MyBookmarkViewController: UIViewController, View {
     
     private var loadingIndicator = UIActivityIndicatorView().then {
         $0.hidesWhenStopped = true
+        $0.size(100)
     }
     
     var coordinator: MyPageCoordinator?
@@ -41,20 +42,14 @@ class MyBookmarkViewController: UIViewController, View {
         collectionView.snp.makeConstraints { make in
             make.top.bottom.right.left.equalToSuperview()
         }
+        view.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { make in
+            make.width.height.equalTo(100)
+            make.centerX.centerY.equalToSuperview()
+        }
     }
     
     func bind(reactor: MyBookmarkReactor) {
-        
-        reactor.action.onNext(.userSetting)
-        reactor.action.onNext(.fetchBookmarkPosts)
-        
-        reactor.state.map { $0.isLoadingNextPart }
-        .distinctUntilChanged()
-        .withUnretained(self)
-        .bind(onNext: { owner, isLoading in
-            isLoading ? owner.loadingIndicator.startAnimating() : owner.loadingIndicator.stopAnimating()
-        })
-        .disposed(by: disposeBag)
         
         reactor.state.map { $0.bookmarkPosts }
         .bind(to: collectionView.rx.items(cellIdentifier: CELLIDENTIFIER.myBookmarkCollectionViewCell, cellType: MyBookmarkCollectionViewCell.self)) { _, item, cell in
@@ -65,7 +60,7 @@ class MyBookmarkViewController: UIViewController, View {
         collectionView.rx.modelSelected(Post.self)
             .bind { post in
                 // 해당 포스트가 있는 디테일뷰, 댓글뷰로 가기
-                print(post)
+                print(post.caption)
             }
             .disposed(by: disposeBag)
         

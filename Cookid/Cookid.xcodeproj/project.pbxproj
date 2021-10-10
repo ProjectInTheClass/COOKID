@@ -663,8 +663,8 @@
 			isa = PBXGroup;
 			children = (
 				2417EAB526E58D0C006F2785 /* MyPageViewModel.swift */,
-				033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */,
 				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
+				033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */,
 				03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */,
 				03D660CF270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift */,
 			);

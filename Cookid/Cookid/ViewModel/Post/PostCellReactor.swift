@@ -17,13 +17,15 @@ class PostCellReactor: Reactor {
     let commentService: CommentService
     
     enum Action {
-        case heartbuttonTapped(Bool, Int)
-        case bookmarkButtonTapped(Bool, Int)
+        case heartbuttonTapped(Bool)
+        case bookmarkButtonTapped(Bool)
     }
     
     enum Mutation {
-        case setHeart(Bool, Int)
-        case setBookmark(Bool, Int)
+        case setHeart(Bool)
+        case setHeartCount(Int)
+        case setBookmark(Bool)
+        case setBookmarkCount(Int)
         case setUser(User)
         case setComments([Comment])
     }
@@ -51,15 +53,38 @@ class PostCellReactor: Reactor {
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
         let comment = commentService.fetchComments(post: self.currentState.post).map { Mutation.setComments($0) }
         let user = userService.user().map { Mutation.setUser($0) }
-        return Observable.merge(comment, user)
+        return Observable.merge(mutation, comment, user)
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
+        let post = self.currentState.post
+        let user = self.currentState.user
+        
         switch action {
-        case .heartbuttonTapped(let heartValue):
-            return Observable.just(Mutation.setHeart(heartValue.0, heartValue.1))
-        case .bookmarkButtonTapped(let BookmarkValue):
-            return Observable.just(Mutation.setBookmark(BookmarkValue.0, BookmarkValue.1))
+        case .heartbuttonTapped(let isHeart):
+            if isHeart {
+                post.likes += 1
+                post.didLike = isHeart
+            } else {
+                post.likes -= 1
+                post.didLike = isHeart
+            }
+            self.postService.heartTransaction(user: user, post: post, isHeart: isHeart)
+            return Observable.concat([
+                Observable.just(Mutation.setHeart(isHeart)),
+                Observable.just(Mutation.setHeartCount(self.currentState.post.likes))])
+        case .bookmarkButtonTapped(let isBookmark):
+            if isBookmark {
+                post.collections += 1
+                post.didCollect = isBookmark
+            } else {
+                post.collections -= 1
+                post.didCollect = isBookmark
+            }
+            self.postService.bookmarkTransaction(user: user, post: post, isBookmark: isBookmark)
+            return Observable.concat([
+                Observable.just(Mutation.setBookmark(isBookmark)),
+                Observable.just(Mutation.setBookmarkCount(self.currentState.post.collections))])
         }
     }
     
@@ -73,12 +98,16 @@ class PostCellReactor: Reactor {
             newState.user = user
             return newState
         case .setHeart(let isHeart):
-            newState.isHeart = isHeart.0
-            newState.heartCount = isHeart.1
+            newState.isHeart = isHeart
             return newState
         case .setBookmark(let isBookmark):
-            newState.isBookmark = isBookmark.0
-            newState.bookmarkCount = isBookmark.1
+            newState.isBookmark = isBookmark
+            return newState
+        case .setHeartCount(let heartCount):
+            newState.heartCount = heartCount
+            return newState
+        case .setBookmarkCount(let bookmarkCount):
+            newState.bookmarkCount = bookmarkCount
             return newState
         }
     }
