@@ -54,7 +54,7 @@
 
 ### 백앤드
 * Kakao, Naver, Apple Auth
-* Firebase FireStore
+* Firebase Firestore
 * Firebase Storage
 * Local DB: Realm
 
