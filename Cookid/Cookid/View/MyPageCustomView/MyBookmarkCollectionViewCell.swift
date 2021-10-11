@@ -50,6 +50,12 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
         $0.setImage(heartImage, for: .normal)
     }
     
+    let bookmarkButton = BookmarkButton().then {
+        let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .bold, scale: .large)
+        let bookmarkImage = UIImage(systemName: "bookmark", withConfiguration: config)
+        $0.setImage(bookmarkImage, for: .normal)
+    }
+    
     var disposeBag: DisposeBag = DisposeBag()
     
     override func prepareForReuse() {
@@ -102,10 +108,17 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
             make.right.equalTo(contentView.snp.right).offset(-5)
             make.width.height.equalTo(30)
         }
+        
+        contentView.addSubview(bookmarkButton)
+        bookmarkButton.snp.makeConstraints { make in
+            make.top.equalTo(heartButton.snp.bottom).offset(5)
+            make.right.equalTo(contentView.snp.right).offset(-5)
+            make.width.height.equalTo(30)
+        }
 
     }
     
-    func bind(reactor: MyBookmarkCollectionViewCellReactor) {
+    func bind(reactor: PostCellReactor) {
         
         reactor.state.map { $0.post }
         .withUnretained(self)
@@ -125,8 +138,20 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
         }
         .disposed(by: disposeBag)
         
+        reactor.state.map { $0.isBookmark }
+        .withUnretained(self)
+        .bind { owner, isBookmark in
+            owner.bookmarkButton.setState(isBookmark)
+        }
+        .disposed(by: disposeBag)
+        
         heartButton.rx.tap
-            .map { Reactor.Action.heartTapped(reactor.currentState.post) }
+            .map { Reactor.Action.heartbuttonTapped(self.heartButton.isActivated) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        bookmarkButton.rx.tap
+            .map { Reactor.Action.bookmarkButtonTapped(self.bookmarkButton.isActivated)}
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     

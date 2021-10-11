@@ -14,6 +14,7 @@ class MyBookmarkReactor: Reactor {
     
     let postService: PostService
     let userService: UserService
+    let commentService: CommentService
     let initialState: State
     
     enum Action {
@@ -30,9 +31,10 @@ class MyBookmarkReactor: Reactor {
         var user: User = DummyData.shared.singleUser
     }
     
-    init(postService: PostService, userService: UserService) {
+    init(postService: PostService, userService: UserService, commentService: CommentService) {
         self.postService = postService
         self.userService = userService
+        self.commentService = commentService
         
         self.initialState = State()
     }
@@ -44,8 +46,6 @@ class MyBookmarkReactor: Reactor {
         let fetchedPosts = Observable.merge(postService.bookmaredTotalPosts, user.flatMap(postService.fetchBookmarkedPosts(user:))).map { Mutation.setPosts($0) }
         return Observable.merge(mutation, userMutation, fetchedPosts)
     }
-    
-  
     
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state

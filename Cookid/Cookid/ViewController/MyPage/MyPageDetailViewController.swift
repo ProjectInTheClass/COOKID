@@ -25,7 +25,7 @@ class MyPageDetailViewController: UIViewController, ViewModelBindable {
         myMealsVC.coordinator = coordinator
         
         let myBookmarkVC = MyBookmarkViewController()
-        myBookmarkVC.reactor = MyBookmarkReactor(postService: viewModel.postService, userService: viewModel.userService)
+        myBookmarkVC.reactor = MyBookmarkReactor(postService: viewModel.postService, userService: viewModel.userService, commentService: viewModel.commentService)
         myBookmarkVC.coordinator = coordinator
         
         let myPostVC = MyPostsViewController()

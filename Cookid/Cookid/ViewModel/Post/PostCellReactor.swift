@@ -12,6 +12,7 @@ import ReactorKit
 
 class PostCellReactor: Reactor {
     
+    let sender: UIViewController
     let postService: PostService
     let userService: UserService
     let commentService: CommentService
@@ -42,10 +43,11 @@ class PostCellReactor: Reactor {
     
     let initialState: State
     
-    init(post: Post, postService: PostService, userService: UserService, commentService: CommentService) {
+    init(sender: UIViewController, post: Post, postService: PostService, userService: UserService, commentService: CommentService) {
         self.postService = postService
         self.userService = userService
         self.commentService = commentService
+        self.sender = sender
         
         self.initialState = State(post: post, isHeart: post.didLike, isBookmark: post.didCollect, heartCount: post.likes, bookmarkCount: post.collections)
     }
@@ -69,7 +71,7 @@ class PostCellReactor: Reactor {
                 post.likes -= 1
                 post.didLike = isHeart
             }
-            self.postService.heartTransaction(user: user, post: post, isHeart: isHeart)
+            self.postService.heartTransaction(sender: self.sender, user: user, post: post, isHeart: isHeart)
             return Observable.concat([
                 Observable.just(Mutation.setHeart(isHeart)),
                 Observable.just(Mutation.setHeartCount(self.currentState.post.likes))])
@@ -81,7 +83,7 @@ class PostCellReactor: Reactor {
                 post.collections -= 1
                 post.didCollect = isBookmark
             }
-            self.postService.bookmarkTransaction(user: user, post: post, isBookmark: isBookmark)
+            self.postService.bookmarkTransaction(sender: self.sender, user: user, post: post, isBookmark: isBookmark)
             return Observable.concat([
                 Observable.just(Mutation.setBookmark(isBookmark)),
                 Observable.just(Mutation.setBookmarkCount(self.currentState.post.collections))])

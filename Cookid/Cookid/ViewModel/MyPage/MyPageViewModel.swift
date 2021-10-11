@@ -15,6 +15,7 @@ class MyPageViewModel: ViewModelType {
     let mealService: MealService
     let shoppingService: ShoppingService
     let postService: PostService
+    let commentService: CommentService
     
     struct Input {
         
@@ -32,11 +33,12 @@ class MyPageViewModel: ViewModelType {
     var input: Input
     var output: Output
     
-    init(userService: UserService, mealService: MealService, shoppingService: ShoppingService, postService: PostService) {
+    init(userService: UserService, mealService: MealService, shoppingService: ShoppingService, postService: PostService, commentService: CommentService) {
         self.userService = userService
         self.mealService = mealService
         self.shoppingService = shoppingService
         self.postService = postService
+        self.commentService = commentService
         
         let userInfo = userService.user()
         let meals = mealService.mealList()
