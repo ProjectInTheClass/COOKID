@@ -35,7 +35,7 @@ class PostService {
     }
     
     var totalPosts: Observable<[Post]> {
-        return postStore
+        return postStore.map { $0.sorted(by: { $0.timeStamp > $1.timeStamp })}
     }
     
     var myTotalPosts: Observable<[Post]> {
@@ -60,8 +60,7 @@ class PostService {
                             print(success.rawValue)
                             self.posts.append(newPost)
                             self.myPosts.append(newPost)
-                            let sortedPosts = self.posts.sorted { $0.timeStamp > $1.timeStamp }
-                            self.postStore.onNext(sortedPosts)
+                            self.postStore.onNext(self.posts)
                             self.myPostStore.onNext(self.myPosts)
                             observer.onNext(true)
                         case .failure(let error):
@@ -101,9 +100,8 @@ class PostService {
                         }
                     }
                     self.posts += fetchedPosts
-                    let sortedPosts = self.posts.sorted { $0.timeStamp > $1.timeStamp }
-                    self.postStore.onNext(sortedPosts)
-                    observer.onNext(sortedPosts)
+                    self.postStore.onNext(self.posts)
+                    observer.onNext(self.posts)
                 case .failure(let error):
                     print("fetchBookmarkedPosts() error - \(error)")
                 }
@@ -135,9 +133,8 @@ class PostService {
                         }
                     }
                     self.posts += fetchedPosts
-                    let sortedPosts = self.posts.sorted { $0.timeStamp > $1.timeStamp }
-                    self.postStore.onNext(sortedPosts)
-                    observer.onNext(sortedPosts)
+                    self.postStore.onNext(self.posts)
+                    observer.onNext(self.posts)
                 case .failure(let error):
                     print("fetchBookmarkedPosts() error - \(error)")
                 }
@@ -263,23 +260,46 @@ class PostService {
         }
     }
     
-    func heartTransaction(user: User, post: Post, isHeart: Bool) {
+    func heartTransaction(sender: UIViewController, user: User, post: Post, isHeart: Bool) {
         self.firestorePostRepo.updatePostHeart(userID: user.id, postID: post.postID, isHeart: isHeart) { result in
             switch result {
             case .success(let success):
                 print(success.rawValue)
+                
+                switch sender {
+                case is PostMainViewController:
+                    if self.myPosts.contains(where: { $0.postID == post.postID }) {
+                        self.myPostStore.onNext(self.myPosts)
+                    }
+                    
+                    if self.bookmarkedPosts.contains(where: { $0.postID == post.postID }) {
+                        self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
+                    }
+                case is MyBookmarkViewController:
+                    if self.posts.contains(where: { $0.postID == post.postID }) {
+                        self.postStore.onNext(self.posts)
+                    }
+                    
+                    if self.myPosts.contains(where: { $0.postID == post.postID }) {
+                        self.myPostStore.onNext(self.myPosts)
+                    }
+                default:
+                    break
+                }
+                
             case .failure(let error):
                 print(error.rawValue)
             }
         }
     }
     
-    func bookmarkTransaction(user: User, post: Post, isBookmark: Bool) {
+    func bookmarkTransaction(sender: UIViewController, user: User, post: Post, isBookmark: Bool) {
         self.firestorePostRepo.updatePostBookmark(userID: user.id, postID: post.postID, isBookmark: isBookmark) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let success):
                 print(success.rawValue)
+                
                 if isBookmark {
                     self.bookmarkedPosts.append(post)
                     self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
@@ -289,6 +309,28 @@ class PostService {
                         self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
                     }
                 }
+                
+                switch sender {
+                case is PostMainViewController:
+                    if self.myPosts.contains(where: { $0.postID == post.postID }) {
+                        self.myPostStore.onNext(self.myPosts)
+                    }
+                    
+                    if self.bookmarkedPosts.contains(where: { $0.postID == post.postID }) {
+                        self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
+                    }
+                case is MyBookmarkViewController:
+                    if self.posts.contains(where: { $0.postID == post.postID }) {
+                        self.postStore.onNext(self.posts)
+                    }
+                    
+                    if self.myPosts.contains(where: { $0.postID == post.postID }) {
+                        self.myPostStore.onNext(self.myPosts)
+                    }
+                default:
+                    break
+                }
+                
             case .failure(let error):
                 print(error.rawValue)
             }

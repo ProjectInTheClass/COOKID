@@ -36,7 +36,7 @@ class HomeCoordinator: CoordinatorType {
         let postNVC = postCoordinator.start()
         childCoordinator.append(postCoordinator)
         
-        let myPageCoordinator = MyPageCoordinator(parentCoordinator: self, userService: userService, mealService: mealService, shoppingService: shoppingService, postService: postService)
+        let myPageCoordinator = MyPageCoordinator(parentCoordinator: self, userService: userService, mealService: mealService, shoppingService: shoppingService, postService: postService, commentService: commentService)
         let myPageNVC = myPageCoordinator.start()
         childCoordinator.append(myPageCoordinator)
         

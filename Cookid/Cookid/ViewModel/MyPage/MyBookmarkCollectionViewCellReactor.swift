@@ -14,16 +14,27 @@ class MyBookmarkCollectionViewCellReactor: Reactor {
     let userService: UserService
     
     enum Action {
-        case heartTapped(Post)
+        case heartButtonTapped(Bool)
+        case bookmarkButtonTapped(Bool)
     }
     
     enum Mutation {
-        case setIsHeart(Bool)
+        case setHeart(Bool)
+        case setHeartCount(Int)
+        case setBookmark(Bool)
+        case setBookmarkCount(Int)
+        case setUser(User)
+        case setComments([Comment])
     }
     
     struct State {
-        let post: Post
+        var post: Post
         var isHeart: Bool
+        var isBookmark: Bool
+        var heartCount: Int
+        var bookmarkCount: Int
+        var user: User = DummyData.shared.singleUser
+        var comments: [Comment] = []
     }
     
     let initialState: State
@@ -31,24 +42,13 @@ class MyBookmarkCollectionViewCellReactor: Reactor {
     init(post: Post, postService: PostService, userService: UserService) {
         self.postService = postService
         self.userService = userService
-        self.initialState = State(post: post, isHeart: post.didLike)
+        self.initialState = State(post: post, isHeart: post.didLike, isBookmark: post.didCollect, heartCount: post.likes, bookmarkCount: post.collections)
     }
     
-    func mutate(action: Action) -> Observable<Mutation> {
-        switch action {
-        case .heartTapped(let post):
-            let isSelect = !self.currentState.isHeart
-//            self.postService.heartTransaction(post: post, isSelect: isSelect)
-            return Observable.just(Mutation.setIsHeart(isSelect))
-        }
+    func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
+//        let comment = commentService.fetchComments(post: self.currentState.post).map { Mutation.setComments($0) }
+        let user = userService.user().map { Mutation.setUser($0) }
+        return Observable.merge(mutation, user)
     }
     
-    func reduce(state: State, mutation: Mutation) -> State {
-        var newState = state
-        switch mutation {
-        case .setIsHeart(let isSelect):
-            newState.isHeart = isSelect
-            return newState
-        }
-    }
 }
