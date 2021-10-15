@@ -8,11 +8,13 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import NSObject_Rx
+import ReactorKit
 import Kingfisher
 import RxKeyboard
+import Then
+import SnapKit
 
-class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBased, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, StoryboardView, StoryboardBased {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -50,26 +52,37 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         return picker
     }()
     
+    let imagePicker = UIImagePickerController()
+    var activityIndicator = UIActivityIndicatorView().then {
+        $0.hidesWhenStopped = true
+    }
+    
     // properties
     
-    var meal: Meal?
-    var newMeal: Meal?
-    var viewModel: AddMealViewModel!
-    let imagePicker = UIImagePickerController()
+    var disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        initialSetting()
+        makeConstraints()
     }
     
     // MARK: - UI
     
+    private func makeConstraints() {
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.width.height.equalTo(50)
+            make.centerX.centerY.equalToSuperview()
+        }
+    }
+    
     private func configureUI() {
         scrollView.layer.cornerRadius = 8
         contentView.layer.cornerRadius = 8
+        addPhotoButton.imageView?.contentMode = .scaleAspectFill
         addPhotoButton.layer.cornerRadius = 8
         addPhotoButton.layer.masksToBounds = true
         dateTF.inputView = datePicker
@@ -77,30 +90,8 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
         mealtimeTF.inputView = mealTimePicker
         settingPickerInTextField(dateTF)
         settingPickerInTextField(mealtimeTF)
-        self.mealtimeTF.text = MealTime.breakfast.rawValue
         dimmingButton.backgroundColor = .black
-    }
-    
-    private func initialSetting() {
-        if let meal = self.meal {
-            announceLabel.text = "이미지를 수정하시려면 사진을 누르세요:)"
-            updateAnnouce.text = "수정이 완료되셨나요?"
-            deleteButton.isHidden = false
-            deleteButton.tintColor = #colorLiteral(red: 0.833554848, green: 0.2205436249, blue: 0.1735619552, alpha: 1)
-            completionButton.setImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
-            completionButton.tintColor = #colorLiteral(red: 0.2396557123, green: 0.7154314493, blue: 0.5069640082, alpha: 1)
-            dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: meal.date)
-            datePicker.setDate(meal.date, animated: false)
-            mealtimeTF.text = meal.mealTime.rawValue
-            mealnameTF.text = meal.name
-            mealpriceTF.text = String(describing: meal.price)
-            isDineInSwitch.isOn = mealTypeToBool(meal.mealType)
-        } else {
-            announceLabel.text = "위의 빈 화면을 눌러 이미지를 넣어보세요:)"
-            updateAnnouce.text = "식사 기록이 완료되셨나요?"
-            deleteButton.isHidden = true
-        }
-        
+        scrollView.delegate = self
     }
     
     private func settingPickerInTextField(_ textfield: UITextField) {
@@ -139,77 +130,106 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.originalImage] as? UIImage else { return }
-        let renderImage = selectedImage.resize(newWidth: self.view.frame.width/2)
-        viewModel.input.mealImage.accept(renderImage)
+        let renderImage = selectedImage.resize(newWidth: self.view.frame.width)
+        reactor?.action.onNext(Reactor.Action.image(renderImage))
         dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Binding
     
-    func bindViewModel() {
+    func bind(reactor: AddMealReactor) {
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] keyboardVisibleHeight in
                 self.scrollView.contentInset.bottom = keyboardVisibleHeight
             })
-            .disposed(by: rx.disposeBag)
+            .disposed(by: disposeBag)
         
-        dimmingButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                if meal != nil {
-                    self.dismiss(animated: true, completion: nil)
+        Observable.of(MealTime.allCases.map { $0.rawValue })
+            .bind(to: mealTimePicker.rx.itemTitles) { _, element in
+                return element
+            }
+            .disposed(by: disposeBag)
+        
+        bindStateWithView(reactor: reactor)
+        bindActionWithButton(reactor: reactor)
+        bindActionWithComponents(reactor: reactor)
+        initialSetting(reactor: reactor)
+    }
+    
+    // MARK: - initialSetting
+    private func initialSetting(reactor: AddMealReactor) {
+        if reactor.initialState.isUpdate {
+            announceLabel.text = "이미지를 수정하시려면 사진을 누르세요:)"
+            updateAnnouce.text = "수정이 완료되셨나요?"
+            deleteButton.isHidden = false
+            deleteButton.tintColor = #colorLiteral(red: 0.833554848, green: 0.2205436249, blue: 0.1735619552, alpha: 1)
+            completionButton.setImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
+            completionButton.tintColor = #colorLiteral(red: 0.2396557123, green: 0.7154314493, blue: 0.5069640082, alpha: 1)
+        } else {
+            announceLabel.text = "위의 빈 화면을 눌러 이미지를 넣어보세요:)"
+            updateAnnouce.text = "식사 기록이 완료되셨나요?"
+            deleteButton.isHidden = true
+        }
+    }
+    
+    // MARK: - bindActionWithComponents
+    private func bindActionWithComponents(reactor: AddMealReactor) {
+        datePicker.rx.date
+            .map { Reactor.Action.date($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        mealTimePicker.rx.itemSelected
+            .map { Reactor.Action.mealTime(MealTime.allCases[$0.0]) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        isDineInSwitch.rx.isOn
+            .do(onNext: { [unowned self] isOn in
+                if isOn {
+                    UIView.animate(withDuration: 0.3) {
+                        self.priceStackView.alpha = 0
+                        self.priceStackView.isHidden = true
+                        self.validationView.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
+                        self.validationView.tintColor = .red
+                    }
+                    reactor.action.onNext(Reactor.Action.price(""))
+                    self.mealpriceTF.text = ""
                 } else {
-                    self.viewModel.mealService.deleteImage(mealID: self.viewModel.input.mealID)
-                    self.dismiss(animated: true, completion: nil)
+                    UIView.animate(withDuration: 0.3) {
+                        self.priceStackView.alpha = 1
+                        self.priceStackView.isHidden = false
+                    }
                 }
             })
-            .disposed(by: rx.disposeBag)
+            .map { isOn -> MealType in
+                isOn ? .dineIn : .dineOut
+            }
+            .map { Reactor.Action.mealType($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
-        addPhotoButton.rx.tap
-            .bind(onNext: { [unowned self] in
-                let alertController = UIAlertController(title: "메뉴 사진 업로드", message: "어디에서 메뉴의 사진을 업로드 할까요?", preferredStyle: .actionSheet)
-                
-                let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-                alertController.addAction(cancelAction)
-                
-                imagePicker.delegate = self
-                
-                if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                    let photoAction = UIAlertAction(title: "사진 라이브러리", style: .default) { _ in
-                        imagePicker.sourceType = .photoLibrary
-                        self.present(imagePicker, animated: true, completion: nil)
-                    }
-                    alertController.addAction(photoAction)
-                }
-                
-                if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                    let cameralAction = UIAlertAction(title: "카메라", style: .default) { _ in
-                        imagePicker.sourceType = .camera
-                        self.present(imagePicker, animated: true, completion: nil)
-                    }
-                    alertController.addAction(cameralAction)
-                }
-                
-                let pictureAction = UIAlertAction(title: "식사 이미지", style: .default) { _ in
-                    var cvc = PictureSelectViewController()
-                    cvc.bind(viewModel: self.viewModel)
-                    cvc.modalTransitionStyle = .crossDissolve
-                    cvc.modalPresentationStyle = .automatic
-                    self.presentPanModal(cvc)
-                }
-                alertController.addAction(pictureAction)
-                
-                present(alertController, animated: true, completion: nil)
-                
-            })
-            .disposed(by: rx.disposeBag)
+        mealpriceTF.rx.text
+            .map { Reactor.Action.price($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        mealnameTF.rx.text.orEmpty
+            .map { Reactor.Action.name($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+    
+    // MARK: - bindActionWithButton
+    private func bindActionWithButton(reactor: AddMealReactor) {
         
         deleteButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
+            .map { Reactor.Action.delete }
+            .bind(onNext: { [unowned self] action in
                 let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "삭제", style: .default) { _ in
-                    guard let meal = self.meal else { return }
-                    self.viewModel.mealService.deleteMeal(meal: meal)
+                    reactor.action.onNext(action)
                     self.dismiss(animated: true, completion: nil)
                 }
                 let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -217,123 +237,143 @@ class AddMealViewController: UIViewController, ViewModelBindable, StoryboardBase
                 alert.addAction(cancelAction)
                 self.present(alert, animated: true)
             })
-            .disposed(by: rx.disposeBag)
+            .disposed(by: disposeBag)
         
-        Observable.of(MealTime.allCases.map { $0.rawValue })
-            .bind(to: mealTimePicker.rx.itemTitles) { _, element in
-                return element
-            }
-            .disposed(by: rx.disposeBag)
-        
-        datePicker.rx.date
-            .subscribe(onNext: { [unowned self] date in
-                self.dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
-                self.viewModel.input.mealDate.accept(date)
-                
+        dimmingButton.rx.tap
+            .bind(onNext: { [unowned self] in
+                self.dismiss(animated: true, completion: nil)
             })
-            .disposed(by: rx.disposeBag)
+            .disposed(by: disposeBag)
         
-        mealTimePicker.rx.itemSelected
-            .subscribe(onNext: { [unowned self] row, _ in
-                self.mealtimeTF.text = MealTime.allCases[row].rawValue
-                self.viewModel.input.mealTime.accept(MealTime.allCases[row])
-            })
-            .disposed(by: rx.disposeBag)
-        
-        isDineInSwitch.rx.isOn
-            .subscribe(onNext: { [unowned self] isOn in
-                if isOn {
-                    UIView.animate(withDuration: 0.3) {
-                        priceStackView.alpha = 0
-                        priceStackView.isHidden = true
-                        self.validationView.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
-                        self.validationView.tintColor = .red
+        addPhotoButton.rx.tap
+            .bind(onNext: { [unowned self] in
+                let alertController = UIAlertController(title: "메뉴 사진 업로드", message: "어디에서 메뉴의 사진을 업로드 할까요?", preferredStyle: .actionSheet)
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+                alertController.addAction(cancelAction)
+                imagePicker.delegate = self
+                if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                    let photoAction = UIAlertAction(title: "사진 라이브러리", style: .default) { _ in
+                        imagePicker.sourceType = .photoLibrary
+                        self.present(imagePicker, animated: true, completion: nil)
                     }
-                    self.viewModel.input.mealType.accept(.dineIn)
-                    self.viewModel.input.mealPrice.accept("")
-                    self.mealpriceTF.text = ""
-                } else {
-                    UIView.animate(withDuration: 0.3) {
-                        priceStackView.alpha = 1
-                        priceStackView.isHidden = false
-                    }
-                    self.viewModel.input.mealType.accept(.dineOut)
-                    scrollView.scrollToBottom()
+                    alertController.addAction(photoAction)
                 }
-            })
-            .disposed(by: rx.disposeBag)
-        
-        mealpriceTF.rx.text.orEmpty
-            .do(onNext: { [unowned self] text in
-                if viewModel.mealService.validationNum(text: text) {
-                    UIView.animate(withDuration: 0.3) {
-                        self.validationView.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
-                        self.validationView.tintColor = .systemGreen
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    let cameralAction = UIAlertAction(title: "카메라", style: .default) { _ in
+                        imagePicker.sourceType = .camera
+                        self.present(imagePicker, animated: true, completion: nil)
                     }
-                } else {
-                    UIView.animate(withDuration: 0.3) {
-                        self.validationView.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
-                        self.validationView.tintColor = .red
-                    }
+                    alertController.addAction(cameralAction)
                 }
+                let pictureAction = UIAlertAction(title: "식사 이미지", style: .default) { _ in
+                    let cvc = PictureSelectViewController()
+                    cvc.reactor = reactor
+                    cvc.modalTransitionStyle = .crossDissolve
+                    cvc.modalPresentationStyle = .automatic
+                    self.presentPanModal(cvc)
+                }
+                alertController.addAction(pictureAction)
+                present(alertController, animated: true, completion: nil)
             })
-            .subscribe(onNext: { [unowned self] text in
-                self.viewModel.input.mealPrice.accept(text)
-            })
-            .disposed(by: rx.disposeBag)
-        
-        mealnameTF.rx.text.orEmpty
-            .subscribe(onNext: { [unowned self] text in
-                self.viewModel.input.mealName.accept(text)
-            })
-            .disposed(by: rx.disposeBag)
-        
-        // MARK: - output
-        
-        viewModel.input.mealImage
-            .bind { [unowned self] image in
-                self.addPhotoButton.setImage(image, for: .normal)
-                self.addPhotoButton.backgroundColor = .systemBackground
-            }
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.validation
-            .drive(completionButton.rx.isEnabled)
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.newMeal
-            .bind { [unowned self] meal in
-                self.newMeal = meal
-            }
-            .disposed(by: rx.disposeBag)
-        
-        // MARK: - initialSetting For Publish
-        
-        if let meal = self.meal {
-            viewModel.input.mealImage.accept(meal.image)
-            viewModel.input.mealTime.accept(meal.mealTime)
-        }
-
-        // MARK: - Completion Button
+            .disposed(by: disposeBag)
         
         completionButton.rx.tap
-            .bind { [unowned self] _ in
-                guard let newMeal = self.newMeal else {
-                    return }
-                if self.meal != nil {
-                    self.viewModel.mealService.update(updateMeal: newMeal) { success in
-                        if success {
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    }
-                } else {
-                    self.viewModel.mealService.create(meal: newMeal) { success in
-                        if success {
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    }
+            .map { Reactor.Action.completion }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+    }
+    
+    // MARK: - bindStateWithView
+    private func bindStateWithView(reactor: AddMealReactor) {
+        
+        reactor.state.map { $0.isError }
+        .bind(onNext: { [unowned self] isError in
+            guard let isError = isError else { return }
+            isError ? errorAlert(selfView: self, errorMessage: "식사를 추가 작업에 실패했습니다ㅠㅠ") {
+                self.dismiss(animated: true, completion: nil)
+            }
+            : self.dismiss(animated: true, completion: nil)
+        })
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isLoading }
+        .bind(onNext: { [unowned self] isLoading in
+            isLoading ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
+        })
+        .disposed(by: disposeBag)
+  
+        reactor.state.map { $0.priceValid }
+        .bind(onNext: { [unowned self] isValid in
+            guard let isValid = isValid else {
+                self.validationView.isHidden = true
+                return }
+            if isValid {
+                UIView.animate(withDuration: 0.3) {
+                    self.validationView.isHidden = false
+                    self.validationView.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
+                    self.validationView.tintColor = .systemGreen
+                }
+            } else {
+                UIView.animate(withDuration: 0.3) {
+                    self.validationView.isHidden = false
+                    self.validationView.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
+                    self.validationView.tintColor = .red
                 }
             }
-            .disposed(by: rx.disposeBag)
+        })
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.image }
+        .bind { [unowned self] image in
+            guard let image = image else { return }
+            self.addPhotoButton.setImage(image, for: .normal)
+            self.addPhotoButton.backgroundColor = .systemBackground
+        }
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.date }
+        .bind { [unowned self] date in
+            self.dateTF.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
+            self.datePicker.setDate(date, animated: false)
+        }
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.mealTime }
+        .bind { [unowned self] mealTime in
+            let mealtimeArr = MealTime.allCases.firstIndex(of: mealTime)!
+            self.mealTimePicker.selectRow(mealtimeArr, inComponent: 0, animated: false)
+            self.mealtimeTF.text = mealTime.rawValue
+        }
+        .disposed(by: disposeBag)
+        
+        self.mealnameTF.text = reactor.currentState.name
+        self.mealpriceTF.text = reactor.currentState.price
+        
+        reactor.state.map { $0.mealType }
+        .bind(onNext: { [unowned self] mealType in
+            self.isDineInSwitch.setOn(mealType == .dineIn ? true : false, animated: false)
+        })
+        .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            reactor.state.map { $0.name },
+            reactor.state.map { $0.priceValid },
+            reactor.state.map { $0.image },
+            reactor.state.map { $0.mealType }) { name, valid, image, type -> Bool in
+            if type == .dineOut {
+                guard name != "",
+                      valid ?? false,
+                      image != nil else { return false }
+            } else {
+                guard reactor.currentState.name != "",
+                      reactor.currentState.image != nil else { return false }
+            }
+            return true
+        }
+        .bind(to: completionButton.rx.isEnabled)
+        .disposed(by: disposeBag)
+        
     }
+    
 }

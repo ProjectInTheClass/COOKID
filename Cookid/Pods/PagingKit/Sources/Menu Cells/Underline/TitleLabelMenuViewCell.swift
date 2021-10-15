@@ -31,7 +31,7 @@ import UIKit
 public class TitleLabelMenuViewCell: PagingMenuViewCell {
 
     ///  The text color when selecred
-    public var focusColor: UIColor = .systemOrange {
+    public var focusColor: UIColor = .black {
         didSet {
             if isSelected {
                 imageView.tintColor = .systemOrange

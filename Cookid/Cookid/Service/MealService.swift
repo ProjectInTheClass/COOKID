@@ -7,27 +7,24 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class MealService {
+    
+    let imageRepo: ImageRepo
+    let realmMealRepo: RealmMealRepo
 
     private var totalBudget: Int = 1
     private var meals: [Meal] = []
     private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
     
-    var initialDineInMeal: Int {
-        return meals.filter { $0.mealType == .dineIn }.count
+    init(imageRepo: ImageRepo, realmMealRepo: RealmMealRepo) {
+        self.imageRepo = imageRepo
+        self.realmMealRepo = realmMealRepo
     }
     
-    // MARK: - Meal Storage
-    
-    @discardableResult
-    func create(meal: Meal, completion: @escaping (Bool) -> Void) -> Observable<Meal> {
-        ImageRepo.instance.saveImage(image: meal.image ?? UIImage(named: "salad")!, id: meal.id) { _ in }
-        RealmMealRepo.instance.createMeal(meal: meal)
-        meals.append(meal)
-        mealStore.onNext(meals)
-        completion(true)
-        return Observable.just(meal)
+    var initialDineInMeal: Int {
+        return meals.filter { $0.mealType == .dineIn }.count
     }
     
     @discardableResult
@@ -35,26 +32,69 @@ class MealService {
         return mealStore
     }
     
-    @discardableResult
-    func update(updateMeal: Meal, completion: @escaping (Bool) -> Void) -> Observable<Meal> {
-        ImageRepo.instance.saveImage(image: updateMeal.image ?? UIImage(named: "salad")!, id: updateMeal.id) { _ in }
-        RealmMealRepo.instance.updateMeal(meal: updateMeal)
-        if let index = meals.firstIndex(where: { $0.id == updateMeal.id }) {
-            meals.remove(at: index)
-            meals.insert(updateMeal, at: index)
+    // MARK: - Meal Storage
+    
+
+    func create(meal: Meal?) -> Observable<Bool> {
+        print("create")
+        guard let meal = meal else {
+            return Observable.just(false)
         }
-        mealStore.onNext(meals)
-        completion(true)
-        return Observable.just(updateMeal)
+        return Observable<Bool>.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            self.imageRepo.saveImage(image: meal.image ?? UIImage(named: "salad")!, id: meal.id) { _ in }
+            self.realmMealRepo.createMeal(meal: meal) {  success in
+                if success {
+                    self.meals.append(meal)
+                    self.mealStore.onNext(self.meals)
+                    observer.onNext(true)
+                } else {
+                    observer.onNext(false)
+                }
+            }
+            return Disposables.create()
+        }
     }
     
-    func deleteMeal(meal: Meal) {
-        ImageRepo.instance.deleteImage(id: meal.id) { _ in }
-        RealmMealRepo.instance.deleteMeal(meal: meal)
-        if let index = meals.firstIndex(where: { $0.id == meal.id }) {
-            meals.remove(at: index)
+
+    func update(updateMeal: Meal) -> Observable<Bool> {
+        print("update")
+        return Observable.create { observer in
+            ImageRepo.instance.saveImage(image: updateMeal.image ?? UIImage(named: "salad")!, id: updateMeal.id) { _ in }
+            RealmMealRepo.instance.updateMeal(meal: updateMeal) { [weak self] success in
+                guard let self = self else { return }
+                if success {
+                    if let index = self.meals.firstIndex(where: { $0.id == updateMeal.id }) {
+                        self.meals.remove(at: index)
+                        self.meals.insert(updateMeal, at: index)
+                    }
+                    self.mealStore.onNext(self.meals)
+                    observer.onNext(true)
+                } else {
+                    observer.onNext(false)
+                }
+            }
+            return Disposables.create()
         }
-        mealStore.onNext(meals)
+    }
+    
+    func deleteMeal(meal: Meal) -> Observable<Bool> {
+        return Observable.create { observer in
+            ImageRepo.instance.deleteImage(id: meal.id) { _ in }
+            RealmMealRepo.instance.deleteMeal(meal: meal) { [weak self] success in
+                guard let self = self else { return }
+                if success {
+                    if let index = self.meals.firstIndex(where: { $0.id == meal.id }) {
+                        self.meals.remove(at: index)
+                    }
+                    self.mealStore.onNext(self.meals)
+                    observer.onNext(true)
+                } else {
+                    observer.onNext(false)
+                }
+            }
+            return Disposables.create()
+        }
     }
     
     func fetchMeals() {
@@ -94,12 +134,28 @@ class MealService {
     }()
     
     func validationNum(text: String) -> Bool {
+        if text.isEmpty && text == "" {
+            return false
+        } else {
+            guard text.rangeOfCharacter(from: charSet) == nil else { return false }
+            return true
+        }
+    }
+    
+    func validationNumOptional(text: String?) -> Bool? {
+        guard let text = text, text != "" else { return nil }
         if text.isEmpty {
             return false
         } else {
             guard text.rangeOfCharacter(from: charSet) == nil else { return false }
             return true
         }
+    }
+    
+    func validationNumForPrice(text: String?) -> Bool? {
+        guard let text = text, text != "" else { return nil }
+        guard text.rangeOfCharacter(from: charSet) == nil else { return false }
+        return true
     }
     
     func validationText(text: String) -> Bool {
@@ -119,10 +175,18 @@ class MealService {
     }
     
     func recentMeals(meals: [Meal]) -> [Meal] {
-        
         guard let aWeekAgo = Calendar.current.date(byAdding: .weekOfMonth, value: -1, to: Date()) else { return [] }
         let recentMeals = meals.filter { $0.date > aWeekAgo }
         let sortedMeals = recentMeals.sorted { $0.date > $1.date }
+        return sortedMeals
+    }
+    
+    func spotMonthMeals(meals: [Meal]) -> [Meal] {
+        let startDay = Date().startOfMonth
+        let endDay = Date().endOfMonth
+        let filteredByStart = meals.filter { $0.date > startDay }
+        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
+        let sortedMeals = filteredByEnd.sorted { $0.date > $1.date }
         return sortedMeals
     }
     
@@ -142,7 +206,6 @@ class MealService {
     }
     
     func fetchAverageSpendPerDay(meals: [Meal]) -> Double {
-        
         let date = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.day], from: date)
@@ -153,14 +216,12 @@ class MealService {
     }
     
     func fetchEatOutSpend(meals: [Meal]) -> Int {
-        
         let eatOutSpends = meals.filter {$0.mealType == .dineOut}.map { $0.price }
         let totalSpend = eatOutSpends.reduce(0, +)
         return totalSpend
     }
     
     func dineInProgressCalc(meals: [Meal]) -> CGFloat {
-        
         let newDineInMeals = meals.filter { $0.mealType == .dineIn }
         let newDineOutMeals = meals.filter { $0.mealType == .dineOut }
         
@@ -177,7 +238,6 @@ class MealService {
     }
     
     func mealTimesCalc(meals: [Meal]) -> [[Meal]] {
-        
         let breakfastNum = meals.filter { $0.mealTime == .breakfast}
         let brunchNum = meals.filter { $0.mealTime == .brunch}
         let lunchNum = meals.filter { $0.mealTime == .lunch}

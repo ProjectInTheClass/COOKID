@@ -17,5 +17,11 @@ class MealTableViewCell: UITableViewCell {
         super.awakeFromNib()
         mealCellImage.makeCircleView()
     }
+    
+    func updateUI(meal: Meal) {
+        mealCellImage.image = meal.image
+        mealCellName.text = meal.name
+        mealCellPrice.text = intToString(meal.price)
+    }
 
 }

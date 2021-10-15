@@ -26,14 +26,14 @@ class AddMealViewModel: ViewModelType, HasDisposeBag {
     }
     
     struct Output {
-        let newMeal: Observable<Meal>
+        let newMeal: Observable<Meal?>
         let validation: Driver<Bool>
     }
     
     var input: Input
     var output: Output
     
-    init(mealService: MealService, userService: UserService, mealID: String? = nil) {
+    init(mealService: MealService, mealID: String? = nil) {
         self.mealService = mealService
         
         let mealImage = PublishRelay<UIImage?>()
@@ -45,7 +45,6 @@ class AddMealViewModel: ViewModelType, HasDisposeBag {
         let menus = BehaviorRelay<[Menu]>(value: MenuService.shared.menus)
         
         let validation = Observable.combineLatest(mealName, mealPrice, mealType) { name, price, type -> Bool in
-       
             if type == .dineOut {
                 guard name != "",
                       mealService.validationNum(text: price) else { return false }
@@ -56,12 +55,11 @@ class AddMealViewModel: ViewModelType, HasDisposeBag {
         }
         .asDriver(onErrorJustReturn: false)
         
-        let newMeal = Observable.combineLatest(mealImage, mealName, mealDate, mealTime, mealType, mealPrice) { image, name, date, mealTime, mealType, price -> Meal in
-            
+        let newMeal = Observable.combineLatest(mealImage, mealName, mealDate, mealTime, mealType, mealPrice) { image, name, date, mealTime, mealType, price -> Meal? in
             let validMealPrice = Int(price) ?? 0
-
-            return Meal(id: mealID ?? "", price: validMealPrice, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-        }
+            guard let mealID = mealID else { return nil }
+            return Meal(id: mealID, price: validMealPrice, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
+            }
         
         self.input = Input(mealID: mealID, mealImage: mealImage, mealName: mealName, mealDate: mealDate, mealTime: mealTime, mealType: mealType, mealPrice: mealPrice, menus: menus)
         

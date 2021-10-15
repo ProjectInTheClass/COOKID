@@ -13,13 +13,13 @@ class RankingViewModel: ViewModelType {
     
     let userService: UserService
     
-    struct Input {
-        
-    }
+    struct Input { }
     
     struct Output {
-        let topRanker: BehaviorSubject<[UserSection]>
-        let allSortedUsers: Observable<[UserForRanking]>
+        let dineInTopRankers: Observable<[User]>
+        let cookidTopRankers: Observable<[User]>
+        let dineInRankers: Observable<[User]>
+        let cookidRankers: Observable<[User]>
     }
     
     var input: Input
@@ -27,31 +27,13 @@ class RankingViewModel: ViewModelType {
     
     init(userService: UserService) {
         self.userService = userService
-        
-        let topRanker = BehaviorSubject<[UserSection]>(value: [])
-        let allSortedUsers = userService.sortedUsers()
-        
-//        userService.makeRanking { users, error in
-//            if let error = error {
-//                print(error)
-//            } else {
-//                guard let users = users else { return }
-//                let userSection = [UserSection(header: UIView(), items: users)]
-//                topRanker.onNext(userSection)
-//            }
-//        }
+        let dineInRankers = userService.fetchDineInRankers().map { $0.sorted(by: { $0.dineInCount > $1.dineInCount })}
+        let cookidRankers = userService.fetchCookidRankers().map { $0.sorted(by: { $0.cookidsCount > $1.cookidsCount })}
+        let dineInTopRankers = dineInRankers.map { userService.filteringTopRankers($0) }
+        let cookidTopRankers = cookidRankers.map { userService.filteringTopRankers($0) }
         
         self.input = Input()
-        self.output = Output(topRanker: topRanker, allSortedUsers: allSortedUsers)
+        self.output = Output(dineInTopRankers: dineInTopRankers, cookidTopRankers: cookidTopRankers, dineInRankers: dineInRankers, cookidRankers: cookidRankers)
     }
     
-    let dataSource: RxTableViewSectionedReloadDataSource<UserSection> = {
-        let ds = RxTableViewSectionedReloadDataSource<UserSection>(configureCell: { _, tableView, indexPath, user -> UITableViewCell in
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CELLIDENTIFIER.rankingCell, for: indexPath) as? RankingTableViewCell else { return UITableViewCell() }
-            cell.updateUI(user: user, ranking: indexPath.row)
-            return cell
-        })
-        return ds
-    }()
 }

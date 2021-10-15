@@ -71,7 +71,7 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
                             }
                         }
                     case .failure(let error):
-                        errorAlert(selfView: self, errorMessage: error.rawValue)
+                        errorAlert(selfView: self, errorMessage: error.rawValue, completion: { })
                     }
                 }
             }
@@ -87,7 +87,7 @@ extension SignInViewController: NaverThirdPartyLoginConnectionDelegate {
             if success {
                 self.dismiss(animated: true, completion: nil)
             } else {
-                errorAlert(selfView: self, errorMessage: "사용자 정보를 가져오지 못했습니다.")
+                errorAlert(selfView: self, errorMessage: "사용자 정보를 가져오지 못했습니다.", completion: { })
             }
         }
     }
@@ -102,7 +102,7 @@ extension SignInViewController: NaverThirdPartyLoginConnectionDelegate {
     
     func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
         print("naver login Error : \(String(describing: error))")
-        errorAlert(selfView: self, errorMessage: "네이버 로그인에 실패했습니다ㅠㅠ")
+        errorAlert(selfView: self, errorMessage: "네이버 로그인에 실패했습니다ㅠㅠ", completion: { })
     }
 }
 
@@ -132,12 +132,12 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
                 }
             }
         } else {
-            errorAlert(selfView: self, errorMessage: "사용자 정보를 가져오지 못했습니다.")
+            errorAlert(selfView: self, errorMessage: "사용자 정보를 가져오지 못했습니다.", completion: { })
         }
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        errorAlert(selfView: self, errorMessage: "애플 로그인에 실패했습니다ㅠㅠ")
+        errorAlert(selfView: self, errorMessage: "애플 로그인에 실패했습니다ㅠㅠ", completion: { })
     }
     
 }

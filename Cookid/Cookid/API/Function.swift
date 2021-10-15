@@ -36,10 +36,6 @@ extension Date {
     }
 }
 
-func hideKeyboard() {
-   UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-}
-
 func intToString(_ value: Int) -> String {
     let numberFormatter = NumberFormatter()
     numberFormatter.numberStyle = .decimal
@@ -63,10 +59,11 @@ func mealTypeToBool(_ mealType: MealType) -> Bool {
     }
 }
 
-func errorAlert(selfView: UIViewController, errorMessage: String?) {
+func errorAlert(selfView: UIViewController, errorMessage: String?, completion: @escaping () -> Void) {
     let alert = UIAlertController(title: "에러 발생 😥", message: errorMessage, preferredStyle: .alert)
     let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
         alert.dismiss(animated: true, completion: nil)
+        completion()
     }
     alert.addAction(okAction)
     selfView.present(alert, animated: true, completion: nil)

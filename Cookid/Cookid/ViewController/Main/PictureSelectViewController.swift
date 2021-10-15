@@ -11,9 +11,9 @@ import SnapKit
 import Then
 import RxSwift
 import RxCocoa
-import NSObject_Rx
+import ReactorKit
 
-class PictureSelectViewController: UIViewController, ViewModelBindable {
+class PictureSelectViewController: UIViewController, View {
     
     private let layout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .vertical
@@ -27,7 +27,7 @@ class PictureSelectViewController: UIViewController, ViewModelBindable {
     
     // Properties
     
-    var viewModel: AddMealViewModel!
+    var disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - View Life Cycle
 
@@ -45,9 +45,9 @@ class PictureSelectViewController: UIViewController, ViewModelBindable {
     // MARK: - Functions
     
     // MARK: - Bind ViewModel
-    func bindViewModel() {
+    func bind(reactor: AddMealReactor) {
         
-        viewModel.input.menus
+        reactor.state.map { $0.menus }
             .bind(to: collectionView.rx.items(cellIdentifier: CELLIDENTIFIER.pictureSelectCell, cellType: PictureSelectCollectionViewCell.self)) { _, item, cell in
                 cell.updateUI(menu: item)
             }
@@ -57,7 +57,7 @@ class PictureSelectViewController: UIViewController, ViewModelBindable {
             .bind(onNext: { [unowned self] menu in
                 guard let menuImage = menu.image else { print("error")
                     return }
-                self.viewModel.input.mealImage.accept(menuImage)
+                reactor.action.onNext(Reactor.Action.image(menuImage))
                 self.dismiss(animated: true, completion: nil)
             })
             .disposed(by: rx.disposeBag)

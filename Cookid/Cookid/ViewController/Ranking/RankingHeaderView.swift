@@ -19,105 +19,86 @@ class RankingHeaderView: UIView, HasDisposeBag {
     
     var viewModel: RankingViewModel!
     
-    let headbackgroundView = UIView().then {
-        $0.backgroundColor = .systemBackground
+    let rankerImage = RankerImageView().then {
+        $0.circleColor = .systemYellow
+        $0.rankImage = UIImage(named: "goldMedal")
     }
     
-    // rank 1
-    
-    let ranker1Image = UIImageView().then {
-        $0.image = UIImage(systemName: "crown.fill")
-        $0.preferredSymbolConfiguration = .init(pointSize: 55)
-        $0.tintColor = #colorLiteral(red: 1, green: 0.7372836668, blue: 0.4183232817, alpha: 1)
+    let secondRankerImage = RankerImageView().then {
+        $0.circleColor = .systemGray5
+        $0.rankImage = UIImage(named: "silverMedal")
     }
     
-    let ranker1Name = UILabel().then {
-        $0.text = "나는짱이다"
+    let thirdRankerImage = RankerImageView().then {
+        $0.circleColor = .systemBrown
+        $0.rankImage = UIImage(named: "bronzeMedal")
+    }
+   
+    let rankerName = UILabel().then {
+        $0.text = "닉네임"
         $0.minimumScaleFactor = 15.0
         $0.textAlignment = .center
         $0.font = UIFont(name: "Apple SD Gothic Neo", size: 17)
     }
     
-    let ranker1Type = UILabel().then {
-        $0.text = "#집밥러"
-        $0.textAlignment  = .center
-        $0.textColor = .systemBlue
-        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 12)
+    let secondRankerName = UILabel().then {
+        $0.text = "닉네임"
+        $0.minimumScaleFactor = 15.0
+        $0.textAlignment = .center
+        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 17)
     }
     
-    let rank1RecordImage = UILabel().then {
-        $0.text = "🍚"
-        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 13)
+    let thirdRankerName = UILabel().then {
+        $0.text = "닉네임"
+        $0.minimumScaleFactor = 15.0
+        $0.textAlignment = .center
+        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 17)
     }
     
-    let ranker1Record = UILabel().then {
-        $0.text = "100"
+    let rankRecordImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+        $0.image = UIImage(named: "Cookid")
+        $0.snp.makeConstraints { make in
+            make.width.height.equalTo(20)
+        }
+        $0.layer.cornerRadius = 10
+        $0.layer.masksToBounds = true
+    }
+    
+    let secondRankRecordImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+        $0.image = UIImage(named: "Cookid")
+        $0.snp.makeConstraints { make in
+            make.width.height.equalTo(20)
+        }
+        $0.layer.cornerRadius = 10
+        $0.layer.masksToBounds = true
+    }
+    
+    let thirdRankRecordImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+        $0.image = UIImage(named: "Cookid")
+        $0.snp.makeConstraints { make in
+            make.width.height.equalTo(20)
+        }
+        $0.layer.cornerRadius = 10
+        $0.layer.masksToBounds = true
+    }
+    
+    let rankerRecord = UILabel().then {
+        $0.text = "0"
         $0.textAlignment  = .natural
         $0.font = UIFont.systemFont(ofSize: 14, weight: .black)
     }
     
-    // rank 2
-    
-    let ranker2Image = UIImageView().then {
-        $0.image = UIImage(systemName: "crown.fill")
-        $0.preferredSymbolConfiguration = .init(pointSize: 50)
-        $0.tintColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-    }
-    
-    let ranker2Name = UILabel().then {
-        $0.text = "집밥킬러"
-        $0.minimumScaleFactor = 15.0
-        $0.textAlignment = .center
-        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 17)
-    }
-    
-    let ranker2Type = UILabel().then {
-        $0.text = "#집밥러"
-        $0.textAlignment  = .center
-        $0.textColor = .systemBlue
-        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 12)
-    }
-    
-    let rank2RecordImage = UILabel().then {
-        $0.text = "🍚"
-        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 13)
-    }
-        
-    let ranker2Record = UILabel().then {
-        $0.text = "90"
+    let secondRankerRecord = UILabel().then {
+        $0.text = "0"
         $0.textAlignment  = .natural
         $0.font = UIFont.systemFont(ofSize: 14, weight: .black)
     }
     
-    // rank 3
-    
-    let ranker3Image = UIImageView().then {
-        $0.image = UIImage(systemName: "crown.fill")
-        $0.preferredSymbolConfiguration = .init(pointSize: 50)
-        $0.tintColor = #colorLiteral(red: 0.8168092758, green: 0.522914351, blue: 0.3501365176, alpha: 1)
-    }
-        
-    let ranker3Name = UILabel().then {
-        $0.text = "천가닥버섯"
-        $0.minimumScaleFactor = 15.0
-        $0.textAlignment = .center
-        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 17)
-    }
-    
-    let ranker3Type = UILabel().then {
-        $0.text = "#집밥러"
-        $0.textAlignment  = .center
-        $0.textColor = .systemBlue
-        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 12)
-    }
-    
-    let rank3RecordImage = UILabel().then {
-        $0.text = "🍚"
-        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 13)
-    }
-    
-    let ranker3Record = UILabel().then {
-        $0.text = "80"
+    let thirdRankerRecord = UILabel().then {
+        $0.text = "0"
         $0.textAlignment  = .natural
         $0.font = UIFont.systemFont(ofSize: 14, weight: .black)
     }
@@ -136,86 +117,114 @@ class RankingHeaderView: UIView, HasDisposeBag {
         self.init(frame: frame)
         self.viewModel = viewModel
         bindViewModel()
-        configureHeadBackgroundView()
-        configureStackView()
+        self.backgroundColor = .systemBackground
+        makeConstraints()
     }
     
     // MARK: - ConfigureUI
-    
-    private func configureHeadBackgroundView() {
-        self.addSubview(headbackgroundView)
-        headbackgroundView.snp.makeConstraints { make in
-            make.top.left.bottom.right.equalToSuperview()
-        }
-    }
-    
-    private func configureStackView() {
+  
+    func makeConstraints() {
         
-        let rank1RecordStack = UIStackView(arrangedSubviews: [rank1RecordImage, ranker1Record])
-        rank1RecordStack.alignment = .bottom
-        rank1RecordStack.distribution = .fillProportionally
-        rank1RecordStack.axis = .horizontal
-        rank1RecordStack.spacing = 5
-        
-        let rank1Stack = UIStackView(arrangedSubviews: [ranker1Image, ranker1Name, ranker1Type, rank1RecordStack])
-        rank1Stack.alignment = .center
-        rank1Stack.distribution = .fillProportionally
-        rank1Stack.axis = .vertical
-        rank1Stack.spacing = 5
-        
-        let rank2RecordStack = UIStackView(arrangedSubviews: [rank2RecordImage, ranker2Record])
-        rank2RecordStack.alignment = .bottom
-        rank2RecordStack.distribution = .fillProportionally
-        rank2RecordStack.axis = .horizontal
-        rank2RecordStack.spacing = 5
-        
-        let rank2Stack = UIStackView(arrangedSubviews: [ranker2Image, ranker2Name, ranker2Type, rank2RecordStack])
-        rank2Stack.alignment = .center
-        rank2Stack.distribution = .fillProportionally
-        rank2Stack.axis = .vertical
-        rank2Stack.spacing = 5
-        
-        let rank3RecordStack = UIStackView(arrangedSubviews: [rank3RecordImage, ranker3Record])
-        rank3RecordStack.alignment = .bottom
-        rank3RecordStack.distribution = .fillProportionally
-        rank3RecordStack.axis = .horizontal
-        rank3RecordStack.spacing = 5
-        
-        let rank3Stack = UIStackView(arrangedSubviews: [ranker3Image, ranker3Name, ranker3Type, rank3RecordStack])
-        rank3Stack.alignment = .center
-        rank3Stack.distribution = .fillProportionally
-        rank3Stack.axis = .vertical
-        rank3Stack.spacing = 5
-        
-        let topRankerStackView = UIStackView(arrangedSubviews: [rank2Stack, rank1Stack, rank3Stack])
-        topRankerStackView.alignment = .center
-        topRankerStackView.distribution = .fillEqually
-        topRankerStackView.axis = .horizontal
-        topRankerStackView.spacing = 5
-        
-        headbackgroundView.addSubview(topRankerStackView)
-        topRankerStackView.snp.makeConstraints { make in
-            make.height.equalTo(headbackgroundView).inset(20)
-            make.width.equalTo(headbackgroundView).inset(20)
-            make.centerX.centerY.equalTo(headbackgroundView)
+        self.addSubview(rankerImage)
+        rankerImage.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(25)
+            make.height.width.equalTo(110)
         }
         
+        self.addSubview(rankerName)
+        rankerName.snp.makeConstraints { make in
+            make.top.equalTo(rankerImage.snp.bottom).offset(10)
+            make.centerX.equalTo(rankerImage)
+        }
+        
+        let recordStackView = UIStackView(arrangedSubviews: [rankRecordImage, rankerRecord]).then {
+            $0.distribution = .fill
+            $0.axis = .horizontal
+            $0.alignment = .fill
+            $0.spacing = 5
+        }
+
+        self.addSubview(recordStackView)
+        recordStackView.snp.makeConstraints { make in
+            make.top.equalTo(rankerName.snp.bottom).offset(5)
+            make.centerX.equalTo(rankerName)
+            make.height.equalTo(20)
+        }
+        
+        self.addSubview(secondRankerImage)
+        secondRankerImage.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(20)
+            make.right.equalTo(rankerImage.snp.left).offset(-20)
+            make.bottom.equalTo(rankerImage.snp.bottom)
+            make.height.equalTo(secondRankerImage.snp.width).multipliedBy(1)
+        }
+        
+        self.addSubview(secondRankerName)
+        secondRankerName.snp.makeConstraints { make in
+            make.top.equalTo(secondRankerImage.snp.bottom).offset(10)
+            make.centerX.equalTo(secondRankerImage)
+        }
+        
+        let secondRecordStackView = UIStackView(arrangedSubviews: [secondRankRecordImage, secondRankerRecord]).then {
+            $0.distribution = .fill
+            $0.axis = .horizontal
+            $0.alignment = .fill
+            $0.spacing = 5
+        }
+
+        self.addSubview(secondRecordStackView)
+        secondRecordStackView.snp.makeConstraints { make in
+            make.top.equalTo(secondRankerName.snp.bottom).offset(5)
+            make.centerX.equalTo(secondRankerName)
+            make.height.equalTo(20)
+        }
+        
+        self.addSubview(thirdRankerImage)
+        thirdRankerImage.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(rankerImage.snp.right).offset(20)
+            make.bottom.equalTo(rankerImage.snp.bottom)
+            make.height.equalTo(thirdRankerImage.snp.width).multipliedBy(1)
+        }
+        
+        self.addSubview(thirdRankerName)
+        thirdRankerName.snp.makeConstraints { make in
+            make.top.equalTo(thirdRankerImage.snp.bottom).offset(10)
+            make.centerX.equalTo(thirdRankerImage)
+        }
+        
+        let thirdRecordStackView = UIStackView(arrangedSubviews: [thirdRankRecordImage, thirdRankerRecord]).then {
+            $0.distribution = .fill
+            $0.axis = .horizontal
+            $0.alignment = .fill
+            $0.spacing = 5
+        }
+
+        self.addSubview(thirdRecordStackView)
+        thirdRecordStackView.snp.makeConstraints { make in
+            make.top.equalTo(thirdRankerName.snp.bottom).offset(5)
+            make.centerX.equalTo(thirdRankerName)
+            make.height.equalTo(20)
+        }
     }
     
     // MARK: - bindViewModel
     
     private func bindViewModel() {
-        viewModel.output.topRanker
-            .bind(onNext: { [weak self] userSection in
-                self?.ranker1Name.text = userSection[0].items[0].nickname
-                self?.ranker1Type.text = "# " + userSection[0].items[0].userType.rawValue
-                self?.ranker1Record.text = "\(userSection[0].items[0].groceryMealSum)"
-                self?.ranker2Name.text = userSection[0].items[1].nickname
-                self?.ranker2Type.text = "# " + userSection[0].items[1].userType.rawValue
-                self?.ranker2Record.text = "\(userSection[0].items[1].groceryMealSum)"
-                self?.ranker3Name.text = userSection[0].items[2].nickname
-                self?.ranker3Type.text = "# " + userSection[0].items[2].userType.rawValue
-                self?.ranker3Record.text = "\(userSection[0].items[2].groceryMealSum)"
+        viewModel.output.cookidTopRankers
+            .bind(onNext: { [weak self] users in
+                self?.rankerImage.userImageView.setImageWithKf(url: users[0].image)
+                self?.rankerName.text = users[0].nickname
+                self?.rankerRecord.text = String(describing: users[0].cookidsCount)
+                
+                self?.secondRankerImage.userImageView.setImageWithKf(url: users[1].image)
+                self?.secondRankerName.text = users[1].nickname
+                self?.secondRankerRecord.text = String(describing: users[1].cookidsCount)
+                
+                self?.thirdRankerImage.userImageView.setImageWithKf(url: users[2].image)
+                self?.thirdRankerName.text = users[2].nickname
+                self?.thirdRankerRecord.text = String(describing: users[2].cookidsCount)
             })
             .disposed(by: disposeBag)
     }

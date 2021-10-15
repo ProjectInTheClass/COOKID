@@ -69,11 +69,25 @@ class FirestoreUserRepo {
 //        }
     }
     
-    func fetchDineInRankers() {
-        
+    func fetchDineInRankers(completion: @escaping (Result<[UserEntity], FirebaseError>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            completion(.success([
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80"), nickname: "제이미", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 12, cookidsCount: 20),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=688&q=80"), nickname: "세라", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 14, cookidsCount: 30),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 15, cookidsCount: 10),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 18, cookidsCount: 17)
+            ]))
+        }
     }
     
-    func fetchCookidsRankers() {
-        
+    func fetchCookidsRankers(completion: @escaping (Result<[UserEntity], FirebaseError>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            completion(.success([
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80"), nickname: "제이미", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 12, cookidsCount: 20),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=688&q=80"), nickname: "세라", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 14, cookidsCount: 30),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 15, cookidsCount: 10),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 18, cookidsCount: 17)
+            ]))
+        }
     }
 }
