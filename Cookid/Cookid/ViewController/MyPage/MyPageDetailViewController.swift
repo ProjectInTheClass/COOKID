@@ -32,7 +32,7 @@ class MyPageDetailViewController: UIViewController, ViewModelBindable {
         myPostVC.coordinator = coordinator
         myPostVC.reactor = MyPostReactor(postService: viewModel.postService, userService: viewModel.userService)
         
-        dataSource = [(menuTitle: "식사들 🍚", vc: myMealsVC), (menuTitle: "내 글 모음 📝", vc: myPostVC), (menuTitle: "북마크 📚", vc: myBookmarkVC)]
+        dataSource = [(menuTitle: "식사들", vc: myMealsVC), (menuTitle: "내 글", vc: myPostVC), (menuTitle: "북마크", vc: myBookmarkVC)]
         
         menuViewController.register(type: TitleLabelMenuViewCell.self, forCellWithReuseIdentifier: CELLIDENTIFIER.menuCell)
         menuViewController.registerFocusView(view: UnderlineFocusView())
@@ -66,7 +66,7 @@ extension MyPageDetailViewController: PagingMenuViewControllerDataSource {
     }
     
     func menuViewController(viewController: PagingMenuViewController, widthForItemAt index: Int) -> CGFloat {
-        return view.frame.width / 2.5
+        return view.frame.width / 5
     }
     
     func menuViewController(viewController: PagingMenuViewController, cellForItemAt index: Int) -> PagingMenuViewCell {

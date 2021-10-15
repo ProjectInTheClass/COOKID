@@ -10,7 +10,7 @@ import SwiftUI
 import RxSwift
 import RxCocoa
 import NSObject_Rx
-//import Firebase
+// import Firebase
 
 class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
@@ -64,8 +64,12 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     @IBOutlet weak var mealName: UILabel!
     @IBOutlet weak var mealPrice: UILabel!
     @IBOutlet weak var mealImage: UIImageView!
+    @IBOutlet weak var mealType: UILabel!
     @IBOutlet weak var mealtimeCollectionBGView: UIView!
     @IBOutlet weak var mealTimeCollectionView: UICollectionView!
+    
+    @IBOutlet weak var recentMealView: UIView!
+    @IBOutlet weak var recentMealTableView: UITableView!
 
     // property
     
@@ -97,6 +101,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         dineStaticView.makeShadow()
         mealtimeCollectionBGView.makeShadow()
         mostExpensiveStaticView.makeShadow()
+        recentMealView.makeShadow()
         dineInCircleView.makeCircleView()
         dineOutCircleView.makeCircleView()
         mealImage.makeCircleView()
@@ -141,7 +146,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         todayMealButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                coordinator?.navigateAddMealVC(meal: nil)
+                coordinator?.navigateAddTodayMeal()
             })
             .disposed(by: rx.disposeBag)
         
@@ -165,6 +170,19 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .disposed(by: rx.disposeBag)
         
         // MARK: - bindViewModel output
+        
+        viewModel.output.recentMeals
+            .drive(recentMealTableView.rx.items(cellIdentifier: "recentMeals", cellType: MealTableViewCell.self)) { _, item, cell in
+                cell.updateUI(meal: item)
+            }
+            .disposed(by: rx.disposeBag)
+        
+        Observable.zip(recentMealTableView.rx.modelSelected(Meal.self), recentMealTableView.rx.itemSelected)
+            .bind(onNext: { [unowned self] meal, indexPath in
+                self.recentMealTableView.deselectRow(at: indexPath, animated: false)
+                self.coordinator?.navigateAddMealVC(meal: meal)
+            })
+            .disposed(by: rx.disposeBag)
         
         viewModel.output.averagePrice
             .drive(onNext: { [unowned self] str in
@@ -216,7 +234,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .disposed(by: rx.disposeBag)
         
         mealDayCollectionView.rx.modelSelected(MainCollectionViewItem.self)
-            .subscribe(onNext: { [unowned self] item in
+            .bind(onNext: { [unowned self] item in
                 switch item {
                 case .meals(meal: let meal):
                     self.coordinator?.navigateAddMealVC(meal: meal)
@@ -241,6 +259,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 self.mealName.text = meal.name
                 self.mealPrice.text = intToString(meal.price)
                 self.mealImage.image = meal.image ?? UIImage(systemName: "circle.fill")
+                self.mealType.text = meal.mealType.rawValue
             })
             .disposed(by: rx.disposeBag)
         

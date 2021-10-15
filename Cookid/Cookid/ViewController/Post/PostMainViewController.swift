@@ -82,16 +82,11 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         viewModel.output.postCellReactors
             .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
+                
                 cell.coordinator = self.coordinator
                 cell.reactor = PostCellReactor(sender: self, post: item, postService: self.viewModel.postService, userService: self.viewModel.userService, commentService: self.viewModel.commentService)
                 
-                if self.expandedIndexSet.contains(index) {
-                    cell.postCaptionLabel.numberOfLines = 0
-                    cell.detailButton.isHidden = false
-                } else {
-                    cell.postCaptionLabel.numberOfLines = 2
-                    cell.detailButton.isHidden = true
-                }
+                self.updateTableViewCell(cell: cell, index: index)
                 
                 cell.detailButton.rx.tap
                     .bind(onNext: {
@@ -100,7 +95,11 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                         } else {
                             self.expandedIndexSet.insert(index)
                         }
-                        self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                        UIView.setAnimationsEnabled(false)
+                        self.tableView.beginUpdates()
+                        self.updateTableViewCell(cell: cell, index: index)
+                        self.tableView.endUpdates()
+                        UIView.setAnimationsEnabled(true)
                     })
                     .disposed(by: cell.disposeBag)
             }
@@ -114,23 +113,42 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         
         addPostBarButton.rx.tap
             .bind { [unowned self] in
-                coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.addPostBarButton.tag)
+                self.coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.addPostBarButton.tag)
+                expandedIndexSet = []
             }
             .disposed(by: rx.disposeBag)
         
         postButtonWithCaption.rx.tap
             .bind { [unowned self] in
-                coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.postButtonWithCaption.tag)
+                self.coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.postButtonWithCaption.tag)
+                expandedIndexSet = []
             }
             .disposed(by: rx.disposeBag)
         
         postButtonWithCamera.rx.tap
             .bind { [unowned self] in
-                coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.postButtonWithCamera.tag)
+                self.coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.postButtonWithCamera.tag)
+                expandedIndexSet = []
             }
             .disposed(by: rx.disposeBag)
         
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+    }
+    
+    func updateTableViewCell(cell: PostTableViewCell, index: Int) {
+        if self.expandedIndexSet.contains(index) {
+            cell.postCaptionLabel.numberOfLines = 0
+        } else {
+            cell.postCaptionLabel.numberOfLines = 2
+        }
+        
+        cell.postCaptionLabel.sizeToFit()
+        
+        if cell.postCaptionLabel.isTruncated {
+            cell.detailButton.isHidden = false
+        } else {
+            cell.detailButton.isHidden = true
+        }
     }
 }
 
@@ -144,5 +162,9 @@ extension PostMainViewController: UIScrollViewDelegate, UITableViewDelegate {
             self.addPostBarButton.tintColor = .clear
             self.addPostBarButton.isEnabled = false
         }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return view.frame.height
     }
 }

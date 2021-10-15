@@ -57,8 +57,10 @@ class RankingMainViewController: UIViewController, ViewModelBindable {
         tableView.rx.setDelegate(self)
             .disposed(by: rx.disposeBag)
         
-        viewModel.output.topRanker
-            .bind(to: tableView.rx.items(dataSource: viewModel.dataSource))
+        viewModel.output.cookidRankers
+            .bind(to: tableView.rx.items(cellIdentifier: CELLIDENTIFIER.rankingCell, cellType: RankingTableViewCell.self)) { index, item, cell in
+                cell.updateUI(user: item, ranking: index)
+            }
             .disposed(by: rx.disposeBag)
         
     }
@@ -69,7 +71,7 @@ extension RankingMainViewController: UITableViewDelegate, UIScrollViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = RankingHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height), viewModel: self.viewModel)
-        headerView.roundCorners(corners: [.topLeft, .topRight], radius: 30)
+        headerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 50)
         return headerView
     }
     

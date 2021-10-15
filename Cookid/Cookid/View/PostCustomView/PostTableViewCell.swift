@@ -46,12 +46,6 @@ class PostTableViewCell: UITableViewCell, View {
     
     func bind(reactor: PostCellReactor) {
         
-        if postCaptionLabel.isTruncated {
-            detailButton.isHidden = false
-        } else {
-            detailButton.isHidden = true
-        }
-        
         // MARK: - Reactor Binding
         
         // 포스트에서 변경되지 않는 값

@@ -45,14 +45,16 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
     }
     
     let heartButton = HeartButton().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .bold, scale: .large)
+        let config = UIImage.SymbolConfiguration(pointSize: 60, weight: .bold, scale: .large)
         let heartImage = UIImage(systemName: "heart", withConfiguration: config)
+        $0.imageView?.contentMode = .scaleToFill
         $0.setImage(heartImage, for: .normal)
     }
     
     let bookmarkButton = BookmarkButton().then {
-        let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .bold, scale: .large)
+        let config = UIImage.SymbolConfiguration(pointSize: 60, weight: .bold, scale: .large)
         let bookmarkImage = UIImage(systemName: "bookmark", withConfiguration: config)
+        $0.imageView?.contentMode = .scaleToFill
         $0.setImage(bookmarkImage, for: .normal)
     }
     
@@ -102,18 +104,18 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
             make.bottom.equalTo(regionLabel.snp.top).offset(-2)
         }
 
-        contentView.addSubview(heartButton)
-        heartButton.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(5)
-            make.right.equalTo(contentView.snp.right).offset(-5)
-            make.width.height.equalTo(30)
-        }
-        
         contentView.addSubview(bookmarkButton)
         bookmarkButton.snp.makeConstraints { make in
-            make.top.equalTo(heartButton.snp.bottom).offset(5)
+            make.top.equalTo(contentView.snp.top).offset(5)
             make.right.equalTo(contentView.snp.right).offset(-5)
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(25)
+        }
+        
+        contentView.addSubview(heartButton)
+        heartButton.snp.makeConstraints { make in
+            make.top.equalTo(bookmarkButton.snp.bottom).offset(5)
+            make.right.equalTo(contentView.snp.right).offset(-5)
+            make.width.height.equalTo(25)
         }
 
     }

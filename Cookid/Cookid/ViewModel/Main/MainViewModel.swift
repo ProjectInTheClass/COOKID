@@ -33,6 +33,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         let dineInProgress: Driver<CGFloat>
         let mostExpensiveMeal: Driver<Meal>
         let mealtimes: Driver<[[Meal]]>
+        let recentMeals: Driver<[Meal]>
     }
     
     var input: Input
@@ -51,7 +52,9 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         // meal & user Storage
         
         let meals = mealService.mealList()
+        let spotMonthMeals = meals.map { mealService.spotMonthMeals(meals: $0) }
         let shoppings = shoppingService.shoppingList()
+        let spotMonthShoppings = shoppings.map { shoppingService.spotMonthShoppings(shoppings: $0) }
         let userInfo = userService.user()
         
         // dataSouce
@@ -63,6 +66,8 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         
         // output
         
+        let recentMeals = spotMonthMeals.map { mealService.recentMeals(meals: $0) }.asDriver(onErrorJustReturn: [])
+        
         let mealDayList = Observable.combineLatest(selectedDate, meals, shoppings) { date, meals, shoppings -> [MainCollectionViewSection] in
             let mealItem = mealService.fetchMealByDay(date, meals: meals).map { MainCollectionViewItem.meals(meal: $0) }
             let shoppingItem = shoppingService.fetchShoppingByDay(date, shoppings: shoppings).map { MainCollectionViewItem.shoppings(shopping: $0) }
@@ -70,7 +75,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         }
         .asDriver(onErrorJustReturn: [])
         
-        let monthlyDetailed = Observable.combineLatest(userInfo.asObservable(), meals, shoppings) { user, meals, shoppings -> ConsumptionDetailed in
+        let monthlyDetailed = Observable.combineLatest(userInfo, spotMonthMeals, spotMonthShoppings) { user, meals, shoppings -> ConsumptionDetailed in
             let shop = shoppingService.fetchShoppingTotalSpend(shoppings: shoppings)
             let dineOutPrice = mealService.fetchEatOutSpend(meals: meals)
             return ConsumptionDetailed(month: Date().convertDateToString(format: "MM월"), priceGoal: user.priceGoal, shoppingPrice: shop, dineOutPrice: dineOutPrice, balance: user.priceGoal - shop - dineOutPrice)
@@ -78,17 +83,17 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         .asDriver(onErrorJustReturn: ConsumptionDetailed(month: "1월", priceGoal: 0, shoppingPrice: 0, dineOutPrice: 0, balance: 0))
         
         let consumeProgressCalc = Observable
-            .combineLatest(userInfo.asObservable(), meals, shoppings) { user, meals, shoppings -> Double in
+            .combineLatest(userInfo, spotMonthMeals, spotMonthShoppings) { user, meals, shoppings -> Double in
                 return mealService.getSpendPercentage(meals: meals, user: user, shoppings: shoppings)
             }
             .asDriver(onErrorJustReturn: 0)
         
-        let adviceString = Observable.combineLatest(meals, userInfo.asObservable(), shoppings) { meals, user, shoppings -> String in
+        let adviceString = Observable.combineLatest(spotMonthMeals, userInfo, spotMonthShoppings) { meals, user, shoppings -> String in
             mealService.checkSpendPace(meals: meals, user: user, shoppings: shoppings)
         }
         .asDriver(onErrorJustReturn: "에러!")
         
-        let averagePrice = Observable.combineLatest(shoppings.map(shoppingService.fetchShoppingTotalSpend), meals.map(mealService.fetchEatOutSpend)) { shoppingPrice, mealPrice -> Double in
+        let averagePrice = Observable.combineLatest(spotMonthShoppings.map(shoppingService.fetchShoppingTotalSpend), spotMonthMeals.map(mealService.fetchEatOutSpend)) { shoppingPrice, mealPrice -> Double in
             let day = Calendar.current.ordinality(of: .day, in: .month, for: Date()) ?? 1
             return Double(shoppingPrice + mealPrice) / Double(day)
         }
@@ -97,17 +102,17 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         })
         .asDriver(onErrorJustReturn: "지출이 없습니다.")
         
-        let dineInProgress = meals.map(mealService.dineInProgressCalc)
+        let dineInProgress = spotMonthMeals.map(mealService.dineInProgressCalc)
             .asDriver(onErrorJustReturn: 0)
 
-        let mostExpensiveMeal = meals.map(mealService.mostExpensiveMeal)
+        let mostExpensiveMeal = spotMonthMeals.map(mealService.mostExpensiveMeal)
             .asDriver(onErrorJustReturn: DummyData.shared.mySingleMeal)
 
-        let mealtimes = meals.map(mealService.mealTimesCalc(meals:))
+        let mealtimes = spotMonthMeals.map(mealService.mealTimesCalc(meals:))
             .asDriver(onErrorJustReturn: [])
         
         self.input = Input(selectedDate: selectedDate)
-        self.output = Output(averagePrice: averagePrice, basicMeal: meals, basicShopping: shoppings, adviceString: adviceString, userInfo: userInfo, mealDayList: mealDayList, consumeProgressCalc: consumeProgressCalc, monthlyDetailed: monthlyDetailed, dineInProgress: dineInProgress, mostExpensiveMeal: mostExpensiveMeal, mealtimes: mealtimes)
+        self.output = Output(averagePrice: averagePrice, basicMeal: meals, basicShopping: shoppings, adviceString: adviceString, userInfo: userInfo, mealDayList: mealDayList, consumeProgressCalc: consumeProgressCalc, monthlyDetailed: monthlyDetailed, dineInProgress: dineInProgress, mostExpensiveMeal: mostExpensiveMeal, mealtimes: mealtimes, recentMeals: recentMeals)
     }
     
     func fetchMealByNavigate(_ day: Int, currentDate: Date) -> Date {

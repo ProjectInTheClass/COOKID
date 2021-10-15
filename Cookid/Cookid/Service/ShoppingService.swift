@@ -61,6 +61,15 @@ class ShoppingService {
             self.shoppingStore.onNext(groceryShoppings)
     }
     
+    func spotMonthShoppings(shoppings: [GroceryShopping]) -> [GroceryShopping] {
+        let startDay = Date().startOfMonth
+        let endDay = Date().endOfMonth
+        let filteredByStart = shoppings.filter { $0.date > startDay }
+        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
+        let sortedshoppings = filteredByEnd.sorted { $0.date > $1.date }
+        return sortedshoppings
+    }
+    
     func fetchShoppingByDay(_ day: Date, shoppings: [GroceryShopping]) -> [GroceryShopping] {
         let dayShoppings = shoppings.filter { $0.date.dateToString() == day.dateToString() }
         return dayShoppings
@@ -80,7 +89,8 @@ class ShoppingService {
         return cs.inverted
     }()
     
-    func validationNum(text: String) -> Bool {
+    func validationNum(text: String?) -> Bool {
+        guard let text = text else { return false }
         if text.isEmpty {
             return false
         } else {

@@ -18,7 +18,9 @@ class OnboardingCoordinator: CoordinatorType {
     }
     
     func start() -> UIViewController {
-        let mealService = MealService()
+        let imageRepo = ImageRepo()
+        let realmMealRepo = RealmMealRepo()
+        let mealService = MealService(imageRepo: imageRepo, realmMealRepo: realmMealRepo)
         let shoppingService = ShoppingService()
         let firestoreUserRepo = FirestoreUserRepo()
         let userService = UserService(firestoreUserRepo: firestoreUserRepo)

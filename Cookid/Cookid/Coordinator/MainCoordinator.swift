@@ -44,11 +44,12 @@ class MainCoordinator: CoordinatorType {
     }
     
     func navigateAddMealVC(meal: Meal?) {
-        let mealID = meal != nil ? meal?.id : UUID().uuidString
-        let addMealViewModel = AddMealViewModel(mealService: mealService, userService: userService, mealID: mealID)
-        var vc = AddMealViewController.instantiate(storyboardID: "Main")
-        vc.meal = meal
-        vc.bind(viewModel: addMealViewModel)
+//        let mealID = meal != nil ? meal?.id : UUID().uuidString
+//        let addMealViewModel = AddMealViewModel(mealService: mealService, mealID: mealID)
+        let vc = AddMealViewController.instantiate(storyboardID: "Main")
+//        vc.meal = meal
+//        vc.bind(viewModel: addMealViewModel)
+        vc.reactor = AddMealReactor(mealService: mealService, meal: meal)
         vc.modalPresentationStyle = .custom
         vc.modalTransitionStyle = .crossDissolve
         vc.view.backgroundColor = .clear
@@ -61,6 +62,14 @@ class MainCoordinator: CoordinatorType {
         var vc = AddShoppingViewController()
         vc.shopping = shopping
         vc.bind(viewModel: addShoppingViewModel)
+        vc.modalTransitionStyle = .crossDissolve
+        vc.modalPresentationStyle = .overFullScreen
+        navigationController?.present(vc, animated: true, completion: nil)
+    }
+    
+    func navigateAddTodayMeal() {
+        let vc = AddTodayMealViewController.instantiate(storyboardID: "Main")
+        vc.reactor = AddTodayReactor(mealService: mealService, userService: userService)
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
         navigationController?.present(vc, animated: true, completion: nil)

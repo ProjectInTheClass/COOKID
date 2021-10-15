@@ -29,13 +29,6 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var starView: UIView!
     
-    //    let loadingView = AnimationView(name: "loadingImage").then {
-    //        $0.snp.makeConstraints { make in
-    //            make.centerX.equalToSuperview()
-    //            make.centerY.equalToSuperview()
-    //        }
-    //    }
-    
     let activityIndicator = UIActivityIndicatorView().then {
         $0.hidesWhenStopped = true
     }
@@ -89,7 +82,7 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
             .bind(onNext: { isError in
                 guard let isError = isError else { return }
                 if isError {
-                    errorAlert(selfView: self, errorMessage: "포스트 업로드에 실패했습니다.")
+                    errorAlert(selfView: self, errorMessage: "포스트 업로드에 실패했습니다.", completion: { })
                 } else {
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -130,11 +123,11 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
                         }
                     }
                 }
-                print(value)
             }
             .disposed(by: rx.disposeBag)
         
         uploadPostButton.rx.tap
+            .take(1)
             .map { AddPostReactor.Action.uploadPostButtonTapped }
             .bind(onNext: { tap in
                 reactor.action.onNext(tap)

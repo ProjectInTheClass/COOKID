@@ -318,17 +318,17 @@
                                                                             <nil key="highlightedColor"/>
                                                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                                                         </label>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="41Z-Iz-mbt">
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="41Z-Iz-mbt">
                                                                             <rect key="frame" x="0.0" y="98.5" width="384" height="28"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3일 전" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeC-wa-vFR">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="33" height="28"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="384" height="28"/>
                                                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
                                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4G3-Mw-bm9">
-                                                                                    <rect key="frame" x="38" y="0.0" width="346" height="28"/>
+                                                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4G3-Mw-bm9">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="28"/>
                                                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="13"/>
                                                                                     <state key="normal" title="자세히 보기">
                                                                                         <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -453,11 +453,11 @@
                     <tabBarItem key="tabBarItem" title="식사추천" image="hand.wave" catalog="system" selectedImage="hand.wave.fill" id="j1f-k2-mdM"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="식사추천 🥘" largeTitleDisplayMode="never" id="Lqv-pk-zoh">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="crown.fill" catalog="system" id="n5Q-94-h7M">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="rank" landscapeImage="rank" id="n5Q-94-h7M">
                             <color key="tintColor" systemColor="systemYellowColor"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="plus.app" catalog="system" id="19P-A7-edz">
-                            <color key="tintColor" systemColor="labelColor"/>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" image="plus.app" catalog="system" id="19P-A7-edz">
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -770,7 +770,6 @@
         <image name="book.circle.fill" catalog="system" width="128" height="121"/>
         <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="crown.fill" catalog="system" width="128" height="92"/>
         <image name="ddaompyo" width="2400" height="2400"/>
         <image name="hand.wave" catalog="system" width="128" height="128"/>
         <image name="hand.wave.fill" catalog="system" width="128" height="128"/>
@@ -778,6 +777,7 @@
         <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
+        <image name="rank" width="22" height="22"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="text.alignright" catalog="system" width="128" height="100"/>
         <systemColor name="labelColor">

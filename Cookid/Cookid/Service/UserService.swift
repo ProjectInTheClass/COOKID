@@ -25,8 +25,9 @@ class UserService {
     
     private lazy var userInfo = BehaviorSubject<User>(value: defaultUserInfo)
     
-    private var userSortedArr = [UserForRanking]()
-    private lazy var userSorted = BehaviorSubject<[UserForRanking]>(value: userSortedArr)
+    func user() -> Observable<User> {
+        return userInfo
+    }
     
     @discardableResult
     func loadMyInfo() -> Observable<User> {
@@ -103,12 +104,46 @@ class UserService {
         completion(true)
     }
     
-    func user() -> Observable<User> {
-        return userInfo
+    func fetchCookidRankers() -> Observable<[User]> {
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            self.firestoreUserRepo.fetchCookidsRankers { result in
+                switch result {
+                case .success(let userEntities):
+                    let users = userEntities.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
+                    observer.onNext(users)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            return Disposables.create()
+        }
     }
     
-    func sortedUsers() -> Observable<[UserForRanking]> {
-        return userSorted
+    func fetchDineInRankers() -> Observable<[User]> {
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            self.firestoreUserRepo.fetchDineInRankers { result in
+                switch result {
+                case .success(let userEntities):
+                    let users = userEntities.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
+                    observer.onNext(users)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func filteringTopRankers(_ users: [User]) -> [User] {
+        var topRankers = [User]()
+        for (index, user) in users.enumerated() {
+            if index < 3 {
+                topRankers.append(user)
+            }
+        }
+        return topRankers
     }
     
     
