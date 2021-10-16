@@ -72,10 +72,10 @@ class PostTableViewCell: UITableViewCell, View {
         })
         .disposed(by: disposeBag)
         
-        reactor.state.map { $0.comments }
+        reactor.state.map { $0.commentsCount }
         .withUnretained(self)
-        .bind(onNext: { owner, comments in
-            owner.makeUpComments(commentCount: comments.count)
+        .bind(onNext: { owner, commentsCount in
+            owner.makeUpComments(commentCount: commentsCount)
         })
         .disposed(by: disposeBag)
         
@@ -122,8 +122,8 @@ class PostTableViewCell: UITableViewCell, View {
         
         commentListButton.rx.tap
             .withUnretained(self)
-            .bind(onNext: { owner, _ in
-                owner.coordinator?.navigateCommentVC()
+            .bind(onNext: { owner, comments in
+                owner.coordinator?.navigateCommentVC(post: reactor.currentState.post, commentService: reactor.commentService)
             })
             .disposed(by: disposeBag)
         

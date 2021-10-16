@@ -17,5 +17,4 @@ struct Comment {
     var didLike: Bool
     var subComments: [Comment]?
     var likes: Int
-    var isReported: Bool
 }

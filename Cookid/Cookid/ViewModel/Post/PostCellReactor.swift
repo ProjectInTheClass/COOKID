@@ -28,7 +28,7 @@ class PostCellReactor: Reactor {
         case setBookmark(Bool)
         case setBookmarkCount(Int)
         case setUser(User)
-        case setComments([Comment])
+        case setCommentsCount(Int)
     }
     
     struct State {
@@ -38,7 +38,7 @@ class PostCellReactor: Reactor {
         var heartCount: Int
         var bookmarkCount: Int
         var user: User = DummyData.shared.singleUser
-        var comments: [Comment] = []
+        var commentsCount: Int = 0
     }
     
     let initialState: State
@@ -53,7 +53,7 @@ class PostCellReactor: Reactor {
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        let comment = commentService.fetchComments(post: self.currentState.post).map { Mutation.setComments($0) }
+        let comment = commentService.fetchCommentsCount(post: self.currentState.post).map { Mutation.setCommentsCount($0) }
         let user = userService.user().map { Mutation.setUser($0) }
         return Observable.merge(mutation, comment, user)
     }
@@ -93,8 +93,8 @@ class PostCellReactor: Reactor {
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case .setComments(let comments):
-            newState.comments = comments
+        case .setCommentsCount(let commentsCount):
+            newState.commentsCount = commentsCount
             return newState
         case .setUser(let user):
             newState.user = user
