@@ -31,6 +31,7 @@
 		0331A9CF2711C3EA005EF05B /* PostCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */; };
 		0339575126A2C96100594515 /* boardingImage in Resources */ = {isa = PBXBuildFile; fileRef = 0339575026A2C96100594515 /* boardingImage */; };
 		0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E263271977FA001FD6A7 /* RankerImageView.swift */; };
+		0339E266271AC5C9001FD6A7 /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E265271AC5C9001FD6A7 /* CommentHeaderView.swift */; };
 		033D3C212709FF49009B29B9 /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C202709FF49009B29B9 /* CookidTests.swift */; };
 		033D3C28270A0CC8009B29B9 /* ReactorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C27270A0CC8009B29B9 /* ReactorTest.swift */; };
 		033D3C2A270A780E009B29B9 /* MyPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C29270A780E009B29B9 /* MyPostCollectionViewCell.swift */; };
@@ -53,7 +54,6 @@
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
 		0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */; };
 		0398E16B26FB3E6000E98F77 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0398E16A26FB3E6000E98F77 /* CommentViewController.swift */; };
-		0398E16D26FB3EA500E98F77 /* CommentSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0398E16C26FB3EA500E98F77 /* CommentSectionView.swift */; };
 		03A943662705FC03009B5F09 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03AF306227166474005D53D0 /* AddMealReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF306127166474005D53D0 /* AddMealReactor.swift */; };
 		03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */; };
@@ -184,6 +184,7 @@
 		0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellReactor.swift; sourceTree = "<group>"; };
 		0339575026A2C96100594515 /* boardingImage */ = {isa = PBXFileReference; lastKnownFileType = file; path = boardingImage; sourceTree = "<group>"; };
 		0339E263271977FA001FD6A7 /* RankerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankerImageView.swift; sourceTree = "<group>"; };
+		0339E265271AC5C9001FD6A7 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		033D3C1E2709FF49009B29B9 /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		033D3C202709FF49009B29B9 /* CookidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidTests.swift; sourceTree = "<group>"; };
 		033D3C27270A0CC8009B29B9 /* ReactorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactorTest.swift; sourceTree = "<group>"; };
@@ -206,7 +207,6 @@
 		0395F6EC26B805360091BB29 /* AddMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewController.swift; sourceTree = "<group>"; };
 		0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewModel.swift; sourceTree = "<group>"; };
 		0398E16A26FB3E6000E98F77 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
-		0398E16C26FB3EA500E98F77 /* CommentSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionView.swift; sourceTree = "<group>"; };
 		03AF306127166474005D53D0 /* AddMealReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealReactor.swift; sourceTree = "<group>"; };
 		03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShoppingViewController.swift; sourceTree = "<group>"; };
 		03B2048C26D5D9440099C269 /* AddShoppingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShoppingViewModel.swift; sourceTree = "<group>"; };
@@ -488,7 +488,7 @@
 		033D3C192709FA5E009B29B9 /* CommentCustomView */ = {
 			isa = PBXGroup;
 			children = (
-				0398E16C26FB3EA500E98F77 /* CommentSectionView.swift */,
+				0339E265271AC5C9001FD6A7 /* CommentHeaderView.swift */,
 				24BA287626F8E85F005D344E /* CommentTableViewCell.swift */,
 			);
 			path = CommentCustomView;
@@ -994,7 +994,6 @@
 				03D3046826FDFA7D00042CB7 /* AddPostCollectionReusableView.swift in Sources */,
 				03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
-				0398E16D26FB3EA500E98F77 /* CommentSectionView.swift in Sources */,
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
 				03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */,
 				241523B0269D093E0077941A /* ShoppingService.swift in Sources */,
@@ -1002,6 +1001,7 @@
 				03AF306227166474005D53D0 /* AddMealReactor.swift in Sources */,
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
 				03250E0E2712654900425036 /* CommentCellReactor.swift in Sources */,
+				0339E266271AC5C9001FD6A7 /* CommentHeaderView.swift in Sources */,
 				03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */,
 				2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */,
 				03D660D0270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift in Sources */,
