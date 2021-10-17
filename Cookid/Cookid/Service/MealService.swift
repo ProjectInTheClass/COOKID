@@ -34,7 +34,6 @@ class MealService {
     
     // MARK: - Meal Storage
     
-
     func create(meal: Meal?) -> Observable<Bool> {
         print("create")
         guard let meal = meal else {
@@ -56,7 +55,6 @@ class MealService {
         }
     }
     
-
     func update(updateMeal: Meal) -> Observable<Bool> {
         print("update")
         return Observable.create { observer in

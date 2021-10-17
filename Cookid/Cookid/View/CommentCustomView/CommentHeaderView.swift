@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class CommentHeaderView: UITableViewHeaderFooterView {
+class CommentHeaderView: UIView {
     
     let postImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
@@ -24,14 +24,19 @@ class CommentHeaderView: UITableViewHeaderFooterView {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .bold)
     }
     
+    let postDate = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+        $0.textColor = .systemGray
+    }
+    
     let captionLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .light)
         $0.numberOfLines = 0
         $0.sizeToFit()
     }
     
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         makeConstraints()
         configureUI()
     }
@@ -43,7 +48,7 @@ class CommentHeaderView: UITableViewHeaderFooterView {
     }
     
     private func configureUI() {
-        contentView.backgroundColor = .systemBackground
+        self.backgroundColor = .systemBackground
     }
     
     private func makeConstraints() {
@@ -51,9 +56,8 @@ class CommentHeaderView: UITableViewHeaderFooterView {
         self.addSubview(postImageView)
         postImageView.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(15)
-            make.height.equalTo(80)
+            make.width.height.equalTo(80)
             make.bottom.lessThanOrEqualToSuperview().offset(-15)
-            make.width.equalTo(postImageView.snp.height).multipliedBy(1)
         }
         
         self.addSubview(postUserImageView)
@@ -70,11 +74,17 @@ class CommentHeaderView: UITableViewHeaderFooterView {
             make.left.equalTo(postUserImageView.snp.right).offset(5)
         }
         
+        self.addSubview(postDate)
         self.addSubview(captionLabel)
         captionLabel.snp.makeConstraints { make in
-            make.top.equalTo(postUserImageView.snp.bottom).offset(5)
+            make.top.equalTo(postUserImageView.snp.bottom).offset(7)
+            make.left.equalTo(postUserImageView.snp.left).offset(2)
+            make.right.lessThanOrEqualToSuperview().offset(-15)
+            make.bottom.lessThanOrEqualTo(postDate.snp.top).offset(-7)
+        }
+        
+        postDate.snp.makeConstraints { make in
             make.left.equalTo(postUserImageView.snp.left)
-            make.right.equalToSuperview().offset(-15)
             make.bottom.equalToSuperview().offset(-15)
         }
     }
@@ -92,5 +102,6 @@ class CommentHeaderView: UITableViewHeaderFooterView {
         postUserImageView.setImageWithKf(url: post.user.image)
         postUserNickname.text = post.user.nickname
         captionLabel.text = post.caption
+        postDate.text = convertDateToString(format: "yy년 MM월 dd일", date: post.timeStamp)
     }
 }

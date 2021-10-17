@@ -16,11 +16,12 @@ import Then
 class CommentViewController: UIViewController, View {
     static let headerviewIdentifier = "commentHeaderView"
     
-    private let commentHeaderView = CommentHeaderView(reuseIdentifier: headerviewIdentifier)
+    private let commentHeaderView = CommentHeaderView(frame: .zero)
     
-    private let tableView = UITableView(frame: .zero, style: .grouped).then {
+    private let tableView = UITableView(frame: .zero, style: .plain).then {
         $0.register(CommentTableViewCell.self, forCellReuseIdentifier: CELLIDENTIFIER.commentCell)
         $0.separatorStyle = .none
+        $0.allowsSelection = false
     }
 
     var disposeBag = DisposeBag()
@@ -33,7 +34,6 @@ class CommentViewController: UIViewController, View {
     
     private func configureUI() {
         navigationItem.title = "댓글 보기"
-        tableView.contentInsetAdjustmentBehavior = .always
     }
     
     private func makeConstraints() {
@@ -47,26 +47,27 @@ class CommentViewController: UIViewController, View {
         
         reactor.state.map { $0.comments }
         .bind(to: tableView.rx.items(cellIdentifier: CELLIDENTIFIER.commentCell, cellType: CommentTableViewCell.self)) { _, item, cell in
-            print("✅ \(item)")
             cell.reactor = CommentCellReactor(post: reactor.post, comment: item, commentService: reactor.commentService, userService: reactor.userService)
         }
         .disposed(by: disposeBag)
         
         commentHeaderView.updateUI(post: reactor.post)
         
-        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        tableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
     }
 
 }
 
 extension CommentViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return commentHeaderView
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return commentHeaderView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50

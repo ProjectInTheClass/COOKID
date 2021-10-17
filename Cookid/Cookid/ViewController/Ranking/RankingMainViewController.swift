@@ -28,13 +28,13 @@ class RankingMainViewController: UIViewController, ViewModelBindable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureConstraints()
+        makeConstraints()
         configureUI()
     }
     
     // MARK: - Functions
     
-    private func configureConstraints() {
+    private func makeConstraints() {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
@@ -46,8 +46,6 @@ class RankingMainViewController: UIViewController, ViewModelBindable {
     
     private func configureUI() {
         title = "Cookid Rank"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.backgroundColor = .systemBackground
     }
     
     // MARK: - Bind ViewModel
@@ -75,18 +73,8 @@ extension RankingMainViewController: UITableViewDelegate, UIScrollViewDelegate {
         return headerView
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
-        footerView.backgroundColor = .systemBackground
-        return footerView
-    }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 200
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 25
     }
     
 }

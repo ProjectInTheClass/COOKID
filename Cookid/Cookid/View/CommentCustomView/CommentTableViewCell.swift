@@ -35,27 +35,25 @@ class CommentTableViewCell: UITableViewCell, View {
     }
     
     private let reportButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "pencil.tip.crop.circle"), for: .normal)
-        $0.tintColor = .gray
-        $0.snp.makeConstraints { make in
-            make.width.height.equalTo(15)
-        }
+        $0.imageView?.contentMode = .scaleAspectFill
+        let config = UIImage.SymbolConfiguration(pointSize: 13)
+        $0.setImage(UIImage(systemName: "exclamationmark.circle.fill", withConfiguration: config), for: .normal)
+        $0.tintColor = .systemGray4
     }
     
     private let deleteButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "trash.circle"), for: .normal)
-        $0.tintColor = .gray
-        $0.snp.makeConstraints { make in
-            make.width.height.equalTo(15)
-        }
+        $0.imageView?.contentMode = .scaleAspectFill
+        $0.setImage(UIImage(systemName: "trash.circle.fill"), for: .normal)
+        $0.tintColor = .systemGray
     }
     
-    private let subCommentButton = UIButton().then {
-        $0.setTitleColor(.gray, for: .normal)
-        $0.setTitle("답글 달기", for: .normal)
-        $0.snp.makeConstraints { make in
-            make.height.equalTo(15)
-        }
+    private let subCommentButton = CookidButton().then {
+        $0.buttonTitleColor = .systemGray
+        $0.buttonTitle = "답글 달기"
+        $0.buttonFontWeight = .regular
+        $0.buttonFontSize = 13
+        $0.isAnimate = true
+        $0.sizeToFit()
     }
     
     var disposeBag: DisposeBag =  DisposeBag()
@@ -77,19 +75,26 @@ class CommentTableViewCell: UITableViewCell, View {
     
     private func makeConstraints() {
         
+        let userInfoStackView = UIStackView(arrangedSubviews: [userType, userNickname]).then {
+            $0.distribution = .fill
+            $0.axis = .horizontal
+            $0.alignment = .leading
+            $0.spacing = 5
+        }
+        
+        let buttonStackView = UIStackView(arrangedSubviews: [subCommentButton, reportButton, deleteButton]).then {
+            $0.distribution = .fill
+            $0.axis = .horizontal
+            $0.alignment = .center
+            $0.spacing = 10
+        }
+        
         contentView.addSubview(userImage)
         userImage.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(15)
             make.height.equalTo(35)
             make.bottom.lessThanOrEqualToSuperview().offset(-15)
             make.width.equalTo(userImage.snp.height).multipliedBy(1)
-        }
-        
-        let userInfoStackView = UIStackView(arrangedSubviews: [userType, userNickname]).then {
-            $0.distribution = .fill
-            $0.axis = .horizontal
-            $0.alignment = .leading
-            $0.spacing = 5
         }
         
         contentView.addSubview(userInfoStackView)
@@ -99,24 +104,19 @@ class CommentTableViewCell: UITableViewCell, View {
         }
         
         contentView.addSubview(content)
+        contentView.addSubview(buttonStackView)
+        
         content.snp.makeConstraints { make in
             make.left.equalTo(userInfoStackView.snp.left)
-            make.top.equalTo(userInfoStackView.snp.bottom)
-            make.bottom.greaterThanOrEqualToSuperview().offset(-10)
-            make.right.equalToSuperview().offset(-20)
+            make.top.equalTo(userInfoStackView.snp.bottom).offset(3)
+            make.right.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualTo(buttonStackView.snp.top).offset(-10)
         }
-        
-        let buttonStackView = UIStackView(arrangedSubviews: [subCommentButton, reportButton, deleteButton]).then {
-            $0.distribution = .fillEqually
-            $0.axis = .horizontal
-            $0.alignment = .center
-            $0.spacing = 10
-        }
-        
-        contentView.addSubview(buttonStackView)
+
         buttonStackView.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(-10)
-            make.bottom.equalToSuperview().offset(-10)
+            make.left.equalTo(content.snp.left)
+            make.bottom.equalToSuperview().offset(-5)
+            make.height.equalTo(15)
         }
     }
     
@@ -151,6 +151,4 @@ class CommentTableViewCell: UITableViewCell, View {
             .disposed(by: disposeBag)
         
     }
-  
-    
 }
