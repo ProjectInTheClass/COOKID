@@ -28,6 +28,8 @@ class FirestoreCommentRepo {
     
     func createComment(comment: Comment, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
+            let commentEntity = CommentEntity(commentID: comment.commentID, postID: comment.postID, parentID: nil, userID: comment.user.id, content: comment.content, timestamp: comment.timestamp, didLike: [:], isReported: [:])
+            self.commentDB.append(commentEntity)
             completion(.success(.createCommentSuccess))
         }
     }
