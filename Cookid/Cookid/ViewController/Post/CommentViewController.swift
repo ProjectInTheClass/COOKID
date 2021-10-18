@@ -15,19 +15,23 @@ import Then
 import RxKeyboard
 
 class CommentViewController: UIViewController, View {
-    static let headerviewIdentifier = "commentHeaderView"
-    
-    private let commentHeaderView = CommentHeaderView(frame: .zero)
+    static let commentCell = "commentCell"
     
     private let commentInputTextFieldView = CommentInputTextField(frame: .zero)
     
-    private let tableView = UITableView(frame: .zero, style: .plain).then {
-        $0.register(CommentTableViewCell.self, forCellReuseIdentifier: CELLIDENTIFIER.commentCell)
+    private let tableView = UITableView(frame: .zero, style: .grouped).then {
+        $0.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentViewController.commentCell)
         $0.separatorStyle = .none
         $0.allowsSelection = false
     }
 
     var disposeBag = DisposeBag()
+    
+    var commentHeaderViews = [CommentHeaderView]() {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +41,7 @@ class CommentViewController: UIViewController, View {
     
     private func configureUI() {
         navigationItem.title = "댓글 보기"
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
     
     private func makeConstraints() {
@@ -69,13 +74,24 @@ class CommentViewController: UIViewController, View {
             })
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.comments }
-        .bind(to: tableView.rx.items(cellIdentifier: CELLIDENTIFIER.commentCell, cellType: CommentTableViewCell.self)) { _, item, cell in
-            cell.reactor = CommentCellReactor(post: reactor.post, comment: item, commentService: reactor.commentService, userService: reactor.userService)
-        }
+        reactor.state.map { $0.commentSections }
+        .bind(to: tableView.rx.items(dataSource: reactor.dataSource))
         .disposed(by: disposeBag)
         
-        commentHeaderView.updateUI(post: reactor.post)
+        reactor.state.map { $0.commentSections }
+        .withUnretained(self)
+        .bind(onNext: { owner, section in
+            let headerViews = section
+                .map { $0.header }
+                .map { CommentCellReactor(post: reactor.post, comment: $0, commentService: reactor.commentService, userService: reactor.userService) }
+                .map { reactor -> CommentHeaderView in
+                    let commentHeaderView = CommentHeaderView(frame: .zero)
+                    commentHeaderView.reactor = reactor
+                    return commentHeaderView
+                }
+            owner.commentHeaderViews += headerViews
+        })
+        .disposed(by: disposeBag)
         
         tableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
@@ -86,14 +102,23 @@ class CommentViewController: UIViewController, View {
 extension CommentViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return commentHeaderView
+        return commentHeaderViews[section]
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
+    }
+    
+    // 테이블뷰의 스타일이 그룹드 일 때, 섹션 사이의 갭이 생긴다. 그걸 없애주는 코드
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
     }
 }

@@ -24,13 +24,13 @@ final class CommentReactor: Reactor {
     
     enum Mutation {
         case setCommentContent(String)
-        case setComments([Comment])
+        case setComments([CommentSection])
         case setUser(User)
     }
     
     struct State {
         var commentContent: String = ""
-        var comments: [Comment] = []
+        var commentSections: [CommentSection] = []
         var user: User = DummyData.shared.singleUser
     }
     
@@ -56,16 +56,31 @@ final class CommentReactor: Reactor {
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        let comments = commentService.fetchParentComments(post: post).map { Mutation.setComments($0) }
         let user = userService.user().map { Mutation.setUser($0) }
+        let comments = commentService.fetchComments(post: post).map { comments -> Mutation in
+            var commentSections = [CommentSection]()
+            for i in comments {
+                if i.parentID == nil {
+                    var subComments = [Comment]()
+                    for j in comments {
+                        if j.parentID == i.commentID {
+                            subComments.append(j)
+                        }
+                    }
+                    let commentSection = CommentSection(header: i, items: subComments.sorted(by: { $0.timestamp > $1.timestamp }))
+                    commentSections.append(commentSection)
+                }
+            }
+            return Mutation.setComments(commentSections.sorted(by: { $0.header.timestamp > $1.header.timestamp }))
+        }
         return Observable.merge(mutation, comments, user)
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case .setComments(let comments):
-            newState.comments = comments
+        case .setComments(let commentSections):
+            newState.commentSections = commentSections
             return newState
         case .setUser(let user):
             newState.user = user
@@ -75,5 +90,15 @@ final class CommentReactor: Reactor {
             return newState
         }
     }
+    
+    typealias DataSource = RxTableViewSectionedReloadDataSource
+    lazy var dataSource : DataSource<CommentSection> = {
+        let datasource = DataSource<CommentSection> { _, tableView, indexPath, comment -> UITableViewCell in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentViewController.commentCell, for: indexPath) as? CommentTableViewCell else { return UITableViewCell() }
+            cell.reactor = CommentCellReactor(post: self.post, comment: comment, commentService: self.commentService, userService: self.userService)
+            return cell
+        }
+        return datasource
+    }()
    
 }
