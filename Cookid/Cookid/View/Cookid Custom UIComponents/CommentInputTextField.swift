@@ -63,6 +63,8 @@ class CommentInputTextField: UIView, View {
             make.right.equalToSuperview().offset(-15)
         }
         
+        self.backgroundColor = .systemBackground
+        
     }
     
     override func layoutSubviews() {
@@ -87,6 +89,7 @@ class CommentInputTextField: UIView, View {
             .disposed(by: disposeBag)
         
         uploadButton.rx.tap
+            .take(1)
             .map { Reactor.Action.addComment }
             .do(onNext: { [unowned self] _ in
                 self.commentTextField.resignFirstResponder()

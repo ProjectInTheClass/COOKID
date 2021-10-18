@@ -91,7 +91,8 @@ class CommentTableViewCell: UITableViewCell, View {
         
         contentView.addSubview(userImage)
         userImage.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(15)
+            make.left.equalToSuperview().offset(45)
+            make.top.equalToSuperview().offset(15)
             make.height.equalTo(35)
             make.bottom.lessThanOrEqualToSuperview().offset(-15)
             make.width.equalTo(userImage.snp.height).multipliedBy(1)

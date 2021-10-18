@@ -8,100 +8,143 @@
 import UIKit
 import SnapKit
 import Then
+import ReactorKit
 
-class CommentHeaderView: UIView {
+class CommentHeaderView: UIView, View {
     
-    let postImageView = UIImageView().then {
+    private let userImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
+        $0.layer.cornerRadius = 35 / 2
+        $0.layer.masksToBounds = true
     }
     
-    let postUserImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
+    private let userNickname = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
     }
     
-    let postUserNickname = UILabel().then {
-        $0.textAlignment = .natural
-        $0.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+    private let userType = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        $0.textColor = .systemYellow
     }
     
-    let postDate = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 11, weight: .regular)
-        $0.textColor = .systemGray
-    }
-    
-    let captionLabel = UILabel().then {
+    private let content = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .light)
         $0.numberOfLines = 0
         $0.sizeToFit()
     }
     
+    private let reportButton = UIButton().then {
+        $0.imageView?.contentMode = .scaleAspectFill
+        let config = UIImage.SymbolConfiguration(pointSize: 13)
+        $0.setImage(UIImage(systemName: "exclamationmark.circle.fill", withConfiguration: config), for: .normal)
+        $0.tintColor = .systemGray4
+    }
+    
+    private let deleteButton = UIButton().then {
+        $0.imageView?.contentMode = .scaleAspectFill
+        $0.setImage(UIImage(systemName: "trash.circle.fill"), for: .normal)
+        $0.tintColor = .systemGray
+    }
+    
+    private let subCommentButton = CookidButton().then {
+        $0.buttonTitleColor = .systemGray
+        $0.buttonTitle = "답글 달기"
+        $0.buttonFontWeight = .regular
+        $0.buttonFontSize = 13
+        $0.isAnimate = true
+        $0.sizeToFit()
+    }
+    
+    var disposeBag: DisposeBag =  DisposeBag()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         makeConstraints()
-        configureUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         makeConstraints()
-        configureUI()
-    }
-    
-    private func configureUI() {
-        self.backgroundColor = .systemBackground
     }
     
     private func makeConstraints() {
         
-        self.addSubview(postImageView)
-        postImageView.snp.makeConstraints { make in
+        let userInfoStackView = UIStackView(arrangedSubviews: [userType, userNickname]).then {
+            $0.distribution = .fill
+            $0.axis = .horizontal
+            $0.alignment = .leading
+            $0.spacing = 5
+        }
+        
+        let buttonStackView = UIStackView(arrangedSubviews: [subCommentButton, reportButton, deleteButton]).then {
+            $0.distribution = .fill
+            $0.axis = .horizontal
+            $0.alignment = .center
+            $0.spacing = 10
+        }
+        
+        self.addSubview(userImage)
+        userImage.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(15)
-            make.width.height.equalTo(80)
+            make.height.equalTo(35)
             make.bottom.lessThanOrEqualToSuperview().offset(-15)
+            make.width.equalTo(userImage.snp.height).multipliedBy(1)
         }
         
-        self.addSubview(postUserImageView)
-        postUserImageView.snp.makeConstraints { make in
-            make.top.equalTo(postImageView.snp.top)
-            make.left.equalTo(postImageView.snp.right).offset(15)
-            make.height.equalTo(postImageView.snp.height).multipliedBy(0.33)
-            make.width.equalTo(postUserImageView.snp.height).multipliedBy(1)
+        self.addSubview(userInfoStackView)
+        userInfoStackView.snp.makeConstraints { make in
+            make.top.equalTo(userImage.snp.top).offset(2)
+            make.left.equalTo(userImage.snp.right).offset(10)
         }
         
-        self.addSubview(postUserNickname)
-        postUserNickname.snp.makeConstraints { make in
-            make.centerY.equalTo(postUserImageView.snp.centerY)
-            make.left.equalTo(postUserImageView.snp.right).offset(5)
-        }
+        self.addSubview(content)
+        self.addSubview(buttonStackView)
         
-        self.addSubview(postDate)
-        self.addSubview(captionLabel)
-        captionLabel.snp.makeConstraints { make in
-            make.top.equalTo(postUserImageView.snp.bottom).offset(7)
-            make.left.equalTo(postUserImageView.snp.left).offset(2)
-            make.right.lessThanOrEqualToSuperview().offset(-15)
-            make.bottom.lessThanOrEqualTo(postDate.snp.top).offset(-7)
+        content.snp.makeConstraints { make in
+            make.left.equalTo(userInfoStackView.snp.left)
+            make.top.equalTo(userInfoStackView.snp.bottom).offset(3)
+            make.right.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualTo(buttonStackView.snp.top).offset(-10)
         }
-        
-        postDate.snp.makeConstraints { make in
-            make.left.equalTo(postUserImageView.snp.left)
-            make.bottom.equalToSuperview().offset(-15)
+
+        buttonStackView.snp.makeConstraints { make in
+            make.left.equalTo(content.snp.left)
+            make.bottom.equalToSuperview().offset(-5)
+            make.height.equalTo(15)
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        postImageView.layer.cornerRadius = 15
-        postImageView.layer.masksToBounds = true
-        postUserImageView.layer.cornerRadius = postUserImageView.frame.height / 2
-        postUserImageView.layer.masksToBounds = true
-    }
-    
-    func updateUI(post: Post) {
-        postImageView.setImageWithKf(url: post.images.first!)
-        postUserImageView.setImageWithKf(url: post.user.image)
-        postUserNickname.text = post.user.nickname
-        captionLabel.text = post.caption
-        postDate.text = convertDateToString(format: "yy년 MM월 dd일", date: post.timeStamp)
+    func bind(reactor: CommentCellReactor) {
+        let comment = reactor.currentState.comment
+        self.userImage.setImageWithKf(url: comment.user.image)
+        self.userNickname.text = comment.user.nickname
+        self.userType.text = comment.user.userType.rawValue
+        self.content.text = comment.content
+        
+        if comment.user.id == reactor.currentState.user.id {
+            self.reportButton.isHidden = true
+            self.deleteButton.isHidden = false
+        } else {
+            self.reportButton.isHidden = false
+            self.deleteButton.isHidden = true
+        }
+        
+        reportButton.rx.tap
+            .map { Reactor.Action.report }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        deleteButton.rx.tap
+            .map { Reactor.Action.delete }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        subCommentButton.rx.tap
+            .map { Reactor.Action.reply }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        self.backgroundColor = .systemBackground
+        
     }
 }
