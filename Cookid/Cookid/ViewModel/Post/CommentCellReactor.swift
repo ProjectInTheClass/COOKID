@@ -17,7 +17,6 @@ final class CommentCellReactor: Reactor {
     enum Action {
         case delete
         case report
-        case reply
     }
     
     enum Mutation {
@@ -50,9 +49,6 @@ final class CommentCellReactor: Reactor {
         case .report:
             commentService.reportComment(comment: self.currentState.comment)
             return Observable.just(Mutation.reportComment)
-        case .reply:
-            let subComments = commentService.fetchSubComment(postID: self.currentState.post.postID, commentID: self.currentState.comment.commentID)
-            return subComments.map { Mutation.subComments($0) }
         }
     }
     

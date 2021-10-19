@@ -15,7 +15,7 @@ class CommentTableViewCell: UITableViewCell, View {
     
     private let userImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
-        $0.layer.cornerRadius = 35 / 2
+        $0.layer.cornerRadius = 25 / 2
         $0.layer.masksToBounds = true
     }
     
@@ -47,13 +47,9 @@ class CommentTableViewCell: UITableViewCell, View {
         $0.tintColor = .systemGray
     }
     
-    private let subCommentButton = CookidButton().then {
-        $0.buttonTitleColor = .systemGray
-        $0.buttonTitle = "답글 달기"
-        $0.buttonFontWeight = .regular
-        $0.buttonFontSize = 13
-        $0.isAnimate = true
-        $0.sizeToFit()
+    private let dateLabel = UILabel().then {
+        $0.textColor = .systemGray
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
     }
     
     var disposeBag: DisposeBag =  DisposeBag()
@@ -82,7 +78,7 @@ class CommentTableViewCell: UITableViewCell, View {
             $0.spacing = 5
         }
         
-        let buttonStackView = UIStackView(arrangedSubviews: [subCommentButton, reportButton, deleteButton]).then {
+        let buttonStackView = UIStackView(arrangedSubviews: [dateLabel, reportButton, deleteButton]).then {
             $0.distribution = .fill
             $0.axis = .horizontal
             $0.alignment = .center
@@ -91,9 +87,9 @@ class CommentTableViewCell: UITableViewCell, View {
         
         contentView.addSubview(userImage)
         userImage.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(45)
+            make.left.equalToSuperview().offset(60)
             make.top.equalToSuperview().offset(15)
-            make.height.equalTo(35)
+            make.height.equalTo(25)
             make.bottom.lessThanOrEqualToSuperview().offset(-15)
             make.width.equalTo(userImage.snp.height).multipliedBy(1)
         }
@@ -111,12 +107,12 @@ class CommentTableViewCell: UITableViewCell, View {
             make.left.equalTo(userInfoStackView.snp.left)
             make.top.equalTo(userInfoStackView.snp.bottom).offset(3)
             make.right.lessThanOrEqualToSuperview().offset(-10)
-            make.bottom.lessThanOrEqualTo(buttonStackView.snp.top).offset(-10)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
 
         buttonStackView.snp.makeConstraints { make in
-            make.left.equalTo(content.snp.left)
-            make.bottom.equalToSuperview().offset(-5)
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-20)
             make.height.equalTo(15)
         }
     }
@@ -127,6 +123,7 @@ class CommentTableViewCell: UITableViewCell, View {
         self.userNickname.text = comment.user.nickname
         self.userType.text = comment.user.userType.rawValue
         self.content.text = comment.content
+        self.dateLabel.text = convertDateToString(format: "MM월 dd일", date: comment.timestamp)
         
         if comment.user.id == reactor.currentState.user.id {
             self.reportButton.isHidden = true
@@ -143,11 +140,6 @@ class CommentTableViewCell: UITableViewCell, View {
         
         deleteButton.rx.tap
             .map { Reactor.Action.delete }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        subCommentButton.rx.tap
-            .map { Reactor.Action.reply }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
