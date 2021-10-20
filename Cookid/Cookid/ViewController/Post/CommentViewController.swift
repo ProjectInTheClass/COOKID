@@ -23,6 +23,7 @@ class CommentViewController: UIViewController, View {
         $0.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentViewController.commentCell)
         $0.separatorStyle = .none
         $0.allowsSelection = false
+        $0.backgroundColor = .systemBackground
     }
 
     var disposeBag = DisposeBag()

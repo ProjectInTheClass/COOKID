@@ -75,9 +75,9 @@ class PostCoordinator: CoordinatorType {
         }
     }
     
-    func navigateCommentVC(post: Post, commentService: CommentService) {
+    func navigateCommentVC(post: Post, comments: [Comment], commentService: CommentService) {
         let commentVC = CommentViewController()
-        commentVC.reactor = CommentReactor(post: post, commentService: commentService, userService: userService)
+        commentVC.reactor = CommentReactor(post: post, comments: comments, commentService: commentService, userService: userService)
         commentVC.modalPresentationStyle = .overFullScreen
         navigationController?.pushViewController(commentVC, animated: true)
     }

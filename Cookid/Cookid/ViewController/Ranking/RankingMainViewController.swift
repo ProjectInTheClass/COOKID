@@ -21,6 +21,7 @@ class RankingMainViewController: UIViewController, ViewModelBindable {
         let tv = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), style: .grouped)
         tv.register(RankingTableViewCell.self, forCellReuseIdentifier: CELLIDENTIFIER.rankingCell)
         tv.separatorStyle = .none
+        tv.backgroundColor = .systemBackground
         return tv
     }()
     

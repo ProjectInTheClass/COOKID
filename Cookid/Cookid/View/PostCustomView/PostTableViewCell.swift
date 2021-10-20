@@ -58,6 +58,7 @@ class PostTableViewCell: UITableViewCell, View {
             owner.postCaptionLabel.text = post.caption
             owner.makeUpStarPoint(post: post)
             owner.setPageControl(post: post)
+            owner.makeUpComments(commentCount: post.comments.count)
         })
         .disposed(by: disposeBag)
         
@@ -69,13 +70,6 @@ class PostTableViewCell: UITableViewCell, View {
         .withUnretained(self)
         .bind(onNext: { owner, info in
             owner.makeUpBudgetCheck(post: info.0, user: info.1)
-        })
-        .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.commentsCount }
-        .withUnretained(self)
-        .bind(onNext: { owner, commentsCount in
-            owner.makeUpComments(commentCount: commentsCount)
         })
         .disposed(by: disposeBag)
         
@@ -122,8 +116,10 @@ class PostTableViewCell: UITableViewCell, View {
         
         commentListButton.rx.tap
             .withUnretained(self)
-            .bind(onNext: { owner, comments in
-                owner.coordinator?.navigateCommentVC(post: reactor.currentState.post, commentService: reactor.commentService)
+            .bind(onNext: { owner, _ in
+                owner.coordinator?.navigateCommentVC(post: reactor.currentState.post,
+                                                     comments: reactor.currentState.post.comments,
+                                                     commentService: reactor.commentService)
             })
             .disposed(by: disposeBag)
         
@@ -131,7 +127,8 @@ class PostTableViewCell: UITableViewCell, View {
         imageCollectionView.dataSource = nil
         
         Observable.just(reactor.currentState.post.images)
-            .bind(to: imageCollectionView.rx.items(cellIdentifier: "imageCell", cellType: PostImageCollectionViewCell.self)) { _, item, cell in
+            .bind(to: imageCollectionView.rx.items(cellIdentifier: "imageCell",
+                                                   cellType: PostImageCollectionViewCell.self)) { _, item, cell in
                 cell.updateUI(imageURL: item)
             }
             .disposed(by: disposeBag)

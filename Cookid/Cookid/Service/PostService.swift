@@ -14,11 +14,16 @@ class PostService {
     let firestorePostRepo: FirestorePostRepo
     let firebaseStorageRepo: FirebaseStorageRepo
     let firestoreUserRepo: FirestoreUserRepo
+    let commentService: CommentService
     
-    init(firestoreRepo: FirestorePostRepo, firebaseStorageRepo: FirebaseStorageRepo, firestoreUserRepo: FirestoreUserRepo) {
+    init(firestoreRepo: FirestorePostRepo,
+         firebaseStorageRepo: FirebaseStorageRepo,
+         firestoreUserRepo: FirestoreUserRepo,
+         commentService: CommentService) {
         self.firestorePostRepo = firestoreRepo
         self.firebaseStorageRepo = firebaseStorageRepo
         self.firestoreUserRepo = firestoreUserRepo
+        self.commentService = commentService
     }
     
     private var posts = [Post]()
@@ -77,38 +82,38 @@ class PostService {
         }
     }
     
-    @discardableResult
-    func fetchLatestPosts(currentUser: User) -> Observable<[Post]> {
-        return Observable.create { [weak self] observer in
-            guard let self = self else { return Disposables.create() }
-            self.firestorePostRepo.fetchLatestPosts(userID: currentUser.id) {  result in
-                switch result {
-                case .success(let entities):
-                    var fetchedPosts = [Post]()
-                    for entity in entities {
-                        let didLike = entity.didLike.contains { $0.key == currentUser.id }
-                        let didCollect = entity.didCollect.contains { $0.key == currentUser.id }
-                        self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
-                            switch result {
-                            case .success(let userEntity):
-                                let user = userEntity.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType.init(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
-                                let post = Post(postID: entity.postID, user: user!, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect)
-                                fetchedPosts.append(post)
-                            case .failure(let error):
-                                print(error.rawValue)
-                            }
-                        }
-                    }
-                    self.posts += fetchedPosts
-                    self.postStore.onNext(self.posts)
-                    observer.onNext(self.posts)
-                case .failure(let error):
-                    print("fetchBookmarkedPosts() error - \(error)")
-                }
-            }
-            return Disposables.create()
-        }
-    }
+//    @discardableResult
+//    func fetchLatestPosts(currentUser: User) -> Observable<[Post]> {
+//        return Observable.create { [weak self] observer in
+//            guard let self = self else { return Disposables.create() }
+//            self.firestorePostRepo.fetchLatestPosts(userID: currentUser.id) {  result in
+//                switch result {
+//                case .success(let entities):
+//                    var fetchedPosts = [Post]()
+//                    for entity in entities {
+//                        let didLike = entity.didLike.contains { $0.key == currentUser.id }
+//                        let didCollect = entity.didCollect.contains { $0.key == currentUser.id }
+//                        self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
+//                            switch result {
+//                            case .success(let userEntity):
+//                                let user = userEntity.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType.init(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
+//                                let post = Post(postID: entity.postID, user: user!, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect)
+//                                fetchedPosts.append(post)
+//                            case .failure(let error):
+//                                print(error.rawValue)
+//                            }
+//                        }
+//                    }
+//                    self.posts += fetchedPosts
+//                    self.postStore.onNext(self.posts)
+//                    observer.onNext(self.posts)
+//                case .failure(let error):
+//                    print("fetchBookmarkedPosts() error - \(error)")
+//                }
+//            }
+//            return Disposables.create()
+//        }
+//    }
     
     @discardableResult
     func fetchLastPosts(currentUser: User) -> Observable<[Post]> {
@@ -117,16 +122,16 @@ class PostService {
             self.firestorePostRepo.fetchPastPosts(userID: currentUser.id) {  result in
                 switch result {
                 case .success(let entities):
-                    var fetchedPosts = [Post]()
-                    for entity in entities {
+                    let fetchedPosts = entities.map { entity -> Post in
                         let didLike = entity.didLike.contains { $0.key == currentUser.id }
                         let didCollect = entity.didCollect.contains { $0.key == currentUser.id }
                         self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                             switch result {
                             case .success(let userEntity):
                                 let user = userEntity.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType.init(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
-                                let post = Post(postID: entity.postID, user: user!, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect)
-                                fetchedPosts.append(post)
+                                self.commentService.fetchComments(postID: entity.postID) { comments in
+                                    return Post(postID: entity.postID, user: user!, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, comments: [])
+                                }
                             case .failure(let error):
                                 print(error.rawValue)
                             }

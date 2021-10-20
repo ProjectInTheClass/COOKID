@@ -107,12 +107,12 @@ class CommentTableViewCell: UITableViewCell, View {
             make.left.equalTo(userInfoStackView.snp.left)
             make.top.equalTo(userInfoStackView.snp.bottom).offset(3)
             make.right.lessThanOrEqualToSuperview().offset(-10)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualTo(buttonStackView.snp.top).offset(-10)
         }
 
         buttonStackView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(content.snp.left)
+            make.bottom.equalToSuperview().offset(-5)
             make.height.equalTo(15)
         }
     }

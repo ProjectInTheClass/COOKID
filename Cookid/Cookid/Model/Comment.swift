@@ -20,7 +20,7 @@ struct Comment {
     var likes: Int
 }
 
-struct CommentSection: SectionModelType  {
+struct CommentSection: SectionModelType {
     var header: Comment
     var items: [Comment]
     
