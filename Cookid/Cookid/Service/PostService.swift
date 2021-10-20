@@ -122,7 +122,10 @@ class PostService {
             self.firestorePostRepo.fetchPastPosts(userID: currentUser.id) {  result in
                 switch result {
                 case .success(let entities):
-                    let fetchedPosts = entities.map { entity -> Post in
+                    var fetchedPosts = [Post]()
+                    let dispathGroup = DispatchGroup()
+                    entities.forEach { entity in
+                        dispathGroup.enter()
                         let didLike = entity.didLike.contains { $0.key == currentUser.id }
                         let didCollect = entity.didCollect.contains { $0.key == currentUser.id }
                         self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
@@ -130,16 +133,22 @@ class PostService {
                             case .success(let userEntity):
                                 let user = userEntity.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType.init(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
                                 self.commentService.fetchComments(postID: entity.postID) { comments in
-                                    return Post(postID: entity.postID, user: user!, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, comments: [])
+                                    let post = Post(postID: entity.postID, user: user!, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, comments: comments)
+                                    fetchedPosts.append(post)
+                                    dispathGroup.leave()
                                 }
                             case .failure(let error):
+                                dispathGroup.leave()
                                 print(error.rawValue)
                             }
                         }
                     }
-                    self.posts += fetchedPosts
-                    self.postStore.onNext(self.posts)
-                    observer.onNext(self.posts)
+                    dispathGroup.notify(queue: .global()) {
+                        self.posts += fetchedPosts
+                        let sortedPosts = self.posts.sorted(by: { $0.timeStamp > $1.timeStamp })
+                        self.postStore.onNext(sortedPosts)
+                        observer.onNext(sortedPosts)
+                    }
                 case .failure(let error):
                     print("fetchBookmarkedPosts() error - \(error)")
                 }

@@ -39,8 +39,6 @@ class PostViewModel: ViewModelType, HasDisposeBag {
         
         let user = userService.user()
         
-        
-        
         let fetchPost = Observable.of(postService.totalPosts, user.flatMap(postService.fetchLastPosts(currentUser:))).merge()
  
 //        let naverLogin = BehaviorRelay<Bool>(value: false)
