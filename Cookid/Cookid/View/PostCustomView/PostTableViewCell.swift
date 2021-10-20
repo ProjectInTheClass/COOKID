@@ -59,6 +59,7 @@ class PostTableViewCell: UITableViewCell, View {
             owner.makeUpStarPoint(post: post)
             owner.setPageControl(post: post)
             owner.makeUpComments(commentCount: post.comments.count)
+            print(post.comments.count)
         })
         .disposed(by: disposeBag)
         

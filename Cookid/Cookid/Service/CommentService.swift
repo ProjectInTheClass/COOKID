@@ -62,7 +62,9 @@ class CommentService {
             switch result {
             case .success(let entities):
                 var newComments = [Comment]()
+                let dispatchGroup = DispatchGroup()
                 entities.forEach { entity in
+                    dispatchGroup.enter()
                     guard entity.isReported[entity.userID] == nil else { return }
                     self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                         switch result {
@@ -72,12 +74,16 @@ class CommentService {
                             let didLike = entity.didLike[entity.userID] == nil
                             let newComment = Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: user, content: entity.content, timestamp: entity.timestamp, didLike: didLike, likes: entity.didLike.count)
                             newComments.append(newComment)
+                            dispatchGroup.leave()
                         case .failure(let error):
+                            dispatchGroup.leave()
                             print(error)
                         }
                     }
                 }
-                completion(newComments)
+                dispatchGroup.notify(queue: .global()) {
+                    completion(newComments)
+                }
             case .failure(let error):
                 print(error)
             }
