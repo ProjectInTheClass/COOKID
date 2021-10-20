@@ -47,22 +47,4 @@ class FirestoreCommentRepo {
             completion(.success(self.commentDB.filter({ $0.postID == postID})))
         }
     }
-    
-    func fetchParentComments(postID: String, completion: @escaping (Result<[CommentEntity], FirebaseError>) -> Void) {
-        // 파이어베이스 comments db에서 postID이고 parentID가 nil인 댓글을 최신순으로 불러온다.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            print("CommentRepo fetchParentComments call")
-            completion(.success(self.commentDB.filter({ $0.postID == postID && $0.parentID == nil })))
-        }
-    }
-    
-    func fetchSubComments(postID: String, commentID: String, completion: @escaping (Result<[CommentEntity], FirebaseError>) -> Void) {
-        // 파이어베이스 comments db에서 postID와 parentID에 일치하는 댓글을 최신순으로 5개씩 불러온다.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            print("CommentRepo fetchSubComments call")
-            completion(.success(self.commentDB.filter({ $0.postID == postID && $0.parentID == commentID })))
-        }
-    }
-    
-    
 }

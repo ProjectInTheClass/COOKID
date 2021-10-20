@@ -1,5 +1,5 @@
 //
-//  CommentInputTextField.swift
+//  CommentInputView.swift
 //  Cookid
 //
 //  Created by 박형석 on 2021/10/17.
@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import ReactorKit
 
-class CommentInputTextField: UIView, View {
+class CommentInputView: UIView, View {
     
     var disposeBag: DisposeBag = DisposeBag()
     
@@ -89,7 +89,6 @@ class CommentInputTextField: UIView, View {
             .disposed(by: disposeBag)
         
         uploadButton.rx.tap
-            .take(1)
             .map { Reactor.Action.addComment }
             .do(onNext: { [unowned self] _ in
                 self.commentTextField.resignFirstResponder()
