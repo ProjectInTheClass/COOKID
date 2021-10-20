@@ -17,7 +17,7 @@ import RxKeyboard
 class CommentViewController: UIViewController, View {
     static let commentCell = "commentCell"
     
-    private let commentInputTextFieldView = CommentInputTextField(frame: .zero)
+    private let commentInputTextFieldView = CommentInputView(frame: .zero)
     
     private let tableView = UITableView(frame: .zero, style: .grouped).then {
         $0.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentViewController.commentCell)
@@ -42,7 +42,6 @@ class CommentViewController: UIViewController, View {
     
     private func configureUI() {
         navigationItem.title = "댓글 보기"
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
     
     private func makeConstraints() {
@@ -76,12 +75,7 @@ class CommentViewController: UIViewController, View {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.commentSections }
-        .bind(to: tableView.rx.items(dataSource: reactor.dataSource))
-        .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.commentSections }
-        .withUnretained(self)
-        .bind(onNext: { owner, section in
+        .do(onNext: { [unowned self] section in
             let headerViews = section
                 .map { $0.header }
                 .map { CommentCellReactor(post: reactor.post, comment: $0, commentService: reactor.commentService, userService: reactor.userService) }
@@ -90,8 +84,9 @@ class CommentViewController: UIViewController, View {
                     commentHeaderView.reactor = reactor
                     return commentHeaderView
                 }
-            owner.commentHeaderViews += headerViews
+            self.commentHeaderViews += headerViews
         })
+        .bind(to: tableView.rx.items(dataSource: reactor.dataSource))
         .disposed(by: disposeBag)
         
         tableView.rx.setDelegate(self)

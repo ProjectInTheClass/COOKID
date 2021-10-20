@@ -63,8 +63,7 @@ class FirestoreUserRepo {
     }
     
     func updateUser(updateUser: User) {
-        // 업데이트시에 localUser의 정보도 건드린다면 함께 업데이트 해야 한다.
-        
+//        업데이트시에 localUser의 정보도 건드린다면 함께 업데이트 해야 한다.
 //        do {
 //            try userDB.document(updateUser.id).setData(from: updateUser, merge: true)
 //        } catch {

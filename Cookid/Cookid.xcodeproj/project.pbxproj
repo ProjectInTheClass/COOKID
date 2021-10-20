@@ -33,7 +33,7 @@
 		0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E263271977FA001FD6A7 /* RankerImageView.swift */; };
 		0339E266271AC5C9001FD6A7 /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E265271AC5C9001FD6A7 /* CommentHeaderView.swift */; };
 		0339E269271B81D3001FD6A7 /* CookidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E268271B81D3001FD6A7 /* CookidButton.swift */; };
-		0339E26B271BB32A001FD6A7 /* CommentInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E26A271BB32A001FD6A7 /* CommentInputTextField.swift */; };
+		0339E26B271BB32A001FD6A7 /* CommentInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E26A271BB32A001FD6A7 /* CommentInputView.swift */; };
 		033D3C212709FF49009B29B9 /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C202709FF49009B29B9 /* CookidTests.swift */; };
 		033D3C28270A0CC8009B29B9 /* ReactorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C27270A0CC8009B29B9 /* ReactorTest.swift */; };
 		033D3C2A270A780E009B29B9 /* MyPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C29270A780E009B29B9 /* MyPostCollectionViewCell.swift */; };
@@ -188,7 +188,7 @@
 		0339E263271977FA001FD6A7 /* RankerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankerImageView.swift; sourceTree = "<group>"; };
 		0339E265271AC5C9001FD6A7 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		0339E268271B81D3001FD6A7 /* CookidButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidButton.swift; sourceTree = "<group>"; };
-		0339E26A271BB32A001FD6A7 /* CommentInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputTextField.swift; sourceTree = "<group>"; };
+		0339E26A271BB32A001FD6A7 /* CommentInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputView.swift; sourceTree = "<group>"; };
 		033D3C1E2709FF49009B29B9 /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		033D3C202709FF49009B29B9 /* CookidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidTests.swift; sourceTree = "<group>"; };
 		033D3C27270A0CC8009B29B9 /* ReactorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactorTest.swift; sourceTree = "<group>"; };
@@ -494,7 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				0339E268271B81D3001FD6A7 /* CookidButton.swift */,
-				0339E26A271BB32A001FD6A7 /* CommentInputTextField.swift */,
+				0339E26A271BB32A001FD6A7 /* CommentInputView.swift */,
 			);
 			path = "Cookid Custom UIComponents";
 			sourceTree = "<group>";
@@ -1100,7 +1100,7 @@
 				03D8C1F326EB7E0500238CB6 /* Comment.swift in Sources */,
 				031DDF6027099C23001F12C3 /* KeyChainAuthRepo.swift in Sources */,
 				03250E1827146D3C00425036 /* AddTodayReactor.swift in Sources */,
-				0339E26B271BB32A001FD6A7 /* CommentInputTextField.swift in Sources */,
+				0339E26B271BB32A001FD6A7 /* CommentInputView.swift in Sources */,
 				03B2049726D75E7E0099C269 /* PictureSelectCollectionViewCell.swift in Sources */,
 				035E4923269681A0002CC084 /* CustomProgressCircleView.swift in Sources */,
 				0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */,

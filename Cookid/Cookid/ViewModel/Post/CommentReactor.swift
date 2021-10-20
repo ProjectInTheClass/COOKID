@@ -14,7 +14,6 @@ import RxDataSources
 final class CommentReactor: Reactor {
     
     let post: Post
-    let comments: [Comment]
     let commentService: CommentService
     let userService: UserService
     
@@ -25,7 +24,7 @@ final class CommentReactor: Reactor {
     
     enum Mutation {
         case setCommentContent(String)
-        case setComments([CommentSection])
+        case setCommentSections([CommentSection])
         case setUser(User)
     }
     
@@ -37,9 +36,8 @@ final class CommentReactor: Reactor {
     
     let initialState: State
     
-    init(post: Post, comments: [Comment], commentService: CommentService, userService: UserService) {
+    init(post: Post, commentService: CommentService, userService: UserService) {
         self.post = post
-        self.comments = comments
         self.commentService = commentService
         self.userService = userService
         
@@ -50,8 +48,10 @@ final class CommentReactor: Reactor {
         switch action {
         case .addComment:
             let newComment = Comment(commentID: UUID().uuidString, postID: post.postID, parentID: nil, user: self.currentState.user, content: self.currentState.commentContent, timestamp: Date(), didLike: false, subComments: nil, likes: 0)
-            self.commentService.createComment(comment: newComment)
-            return Observable.empty()
+//            _ = self.commentService.createComment(comment: newComment)
+            self.post.comments.append(newComment)
+            let newSections = fetchCommentSection(comments: post.comments)
+            return Observable.just(Mutation.setCommentSections(newSections))
         case .commentContent(let content):
             return Observable.just(Mutation.setCommentContent(content))
         }
@@ -59,23 +59,14 @@ final class CommentReactor: Reactor {
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
         let user = userService.user().map { Mutation.setUser($0) }
-        var commentSections = [CommentSection]()
-        for i in comments where i.parentID == nil {
-            var subComments = [Comment]()
-            for j in comments where j.parentID == i.commentID {
-                subComments.append(j)
-            }
-            let commentSection = CommentSection(header: i, items: subComments.sorted(by: { $0.timestamp > $1.timestamp }))
-            commentSections.append(commentSection)
-        }
-        let commentsAction = Observable.just(Mutation.setComments(commentSections.sorted(by: { $0.header.timestamp > $1.header.timestamp })))
-        return Observable.merge(mutation, commentsAction, user)
+        let commentsMutation = Observable.just(Mutation.setCommentSections(fetchCommentSection(comments: post.comments)))
+        return Observable.merge(mutation, commentsMutation, user)
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case .setComments(let commentSections):
+        case .setCommentSections(let commentSections):
             newState.commentSections = commentSections
             return newState
         case .setUser(let user):
@@ -96,5 +87,18 @@ final class CommentReactor: Reactor {
         }
         return datasource
     }()
+    
+    func fetchCommentSection(comments: [Comment]) -> [CommentSection] {
+        var commentSections = [CommentSection]()
+        for i in comments where i.parentID == nil {
+            var subComments = [Comment]()
+            for j in comments where j.parentID == i.commentID {
+                subComments.append(j)
+            }
+            let commentSection = CommentSection(header: i, items: subComments.sorted(by: { $0.timestamp < $1.timestamp }))
+            commentSections.append(commentSection)
+        }
+        return commentSections.sorted(by: { $0.header.timestamp < $1.header.timestamp })
+    }
    
 }
