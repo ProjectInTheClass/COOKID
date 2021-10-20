@@ -28,9 +28,8 @@ class HomeCoordinator: CoordinatorType {
         let mealService = MealService(imageRepo: imageRepo, realmMealRepo: realmMealRepo)
         let userService = UserService(firestoreUserRepo: firestoreUserRepo)
         let shoppingService = ShoppingService()
-        let postService = PostService(firestoreRepo: firestorePostRepo, firebaseStorageRepo: firebaseStorageRepo, firestoreUserRepo: firestoreUserRepo)
         let commentService = CommentService(firestoreCommentRepo: firestoreCommentRepo, firestoreUserRepo: firestoreUserRepo)
-        
+        let postService = PostService(firestoreRepo: firestorePostRepo, firebaseStorageRepo: firebaseStorageRepo, firestoreUserRepo: firestoreUserRepo, commentService: commentService)
         let mainCoordinator = MainCoordinator(parentCoordinator: self, userService: userService, mealService: mealService, shoppingService: shoppingService)
         let mainNVC = mainCoordinator.start()
         childCoordinator.append(mainCoordinator)

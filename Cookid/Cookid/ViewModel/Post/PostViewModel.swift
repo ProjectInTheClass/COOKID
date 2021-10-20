@@ -19,11 +19,11 @@ class PostViewModel: ViewModelType, HasDisposeBag {
     let userService: UserService
     
     struct Input {
-        let naverLogin: BehaviorRelay<Bool>
+//        let naverLogin: BehaviorRelay<Bool>
     }
     
     struct Output {
-        let postCellReactors: Observable<[Post]>
+        let posts: Observable<[Post]>
         let user: Observable<User>
     }
     
@@ -39,17 +39,14 @@ class PostViewModel: ViewModelType, HasDisposeBag {
         
         let user = userService.user()
         
+        
+        
         let fetchPost = Observable.of(postService.totalPosts, user.flatMap(postService.fetchLastPosts(currentUser:))).merge()
+ 
+//        let naverLogin = BehaviorRelay<Bool>(value: false)
         
-//        let postCellReactors = postService.totalPosts.map { posts -> [PostCellReactor] in
-//            return posts.map { post -> PostCellReactor in
-//                return PostCellReactor(post: post, postService: postService, userService: userService, commentService: commentService) }
-//        }
-        
-        let naverLogin = BehaviorRelay<Bool>(value: false)
-        
-        self.input = Input(naverLogin: naverLogin)
-        self.output = Output(postCellReactors: fetchPost, user: user)
+        self.input = Input()
+        self.output = Output(posts: fetchPost, user: user)
     }
     
 }

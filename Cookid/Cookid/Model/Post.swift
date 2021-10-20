@@ -21,8 +21,9 @@ class Post {
     var timeStamp: Date
     var didLike: Bool
     var didCollect: Bool
+    var comments: [Comment]
     
-    init(postID: String, user: User, images: [URL?], likes: Int, collections: Int, star: Int, caption: String, mealBudget: Int, location: String, timeStamp: Date, didLike: Bool, didCollect: Bool) {
+    init(postID: String, user: User, images: [URL?], likes: Int, collections: Int, star: Int, caption: String, mealBudget: Int, location: String, timeStamp: Date, didLike: Bool, didCollect: Bool, comments: [Comment] = []) {
         self.postID = postID
         self.user = user
         self.images = images
@@ -35,6 +36,7 @@ class Post {
         self.timeStamp = timeStamp
         self.didLike = didLike
         self.didCollect = didCollect
+        self.comments = comments
     }
 }
 

@@ -79,7 +79,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             }
             .disposed(by: rx.disposeBag)
         
-        viewModel.output.postCellReactors
+        viewModel.output.posts
             .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
                 
