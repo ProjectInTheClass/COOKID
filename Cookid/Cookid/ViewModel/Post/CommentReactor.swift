@@ -37,6 +37,7 @@ final class CommentReactor: Reactor {
     let initialState: State
     
     init(post: Post, commentService: CommentService, userService: UserService) {
+        print("Comment init")
         self.post = post
         self.commentService = commentService
         self.userService = userService
@@ -45,25 +46,28 @@ final class CommentReactor: Reactor {
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
+        print("Comment mutate")
         switch action {
         case .addComment:
             let newComment = Comment(commentID: UUID().uuidString, postID: post.postID, parentID: nil, user: self.currentState.user, content: self.currentState.commentContent, timestamp: Date(), didLike: false, subComments: nil, likes: 0)
 //            _ = self.commentService.createComment(comment: newComment)
             self.post.comments.append(newComment)
-            let newSections = fetchCommentSection(comments: post.comments)
-            return Observable.just(Mutation.setCommentSections(newSections))
+//            let newSections = fetchCommentSection(comments: post.comments)
+            return Observable.empty()
         case .commentContent(let content):
             return Observable.just(Mutation.setCommentContent(content))
         }
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
+        print("Comment transform")
         let user = userService.user().map { Mutation.setUser($0) }
         let commentsMutation = Observable.just(Mutation.setCommentSections(fetchCommentSection(comments: post.comments)))
         return Observable.merge(mutation, commentsMutation, user)
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
+        print("Comment reduce")
         var newState = state
         switch mutation {
         case .setCommentSections(let commentSections):

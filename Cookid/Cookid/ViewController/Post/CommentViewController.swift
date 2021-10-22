@@ -19,7 +19,7 @@ class CommentViewController: UIViewController, View {
     
     private let commentInputTextFieldView = CommentInputView(frame: .zero)
     
-    private let tableView = UITableView(frame: .zero, style: .grouped).then {
+    private let tableView = UITableView(frame: .zero, style: .plain).then {
         $0.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentViewController.commentCell)
         $0.separatorStyle = .none
         $0.allowsSelection = false
