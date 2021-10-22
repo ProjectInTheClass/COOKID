@@ -18,6 +18,13 @@ class CommentService {
         self.firestoreUserRepo = firestoreUserRepo
     }
     
+    private var comments = [Comment]()
+    private lazy var commentStore = BehaviorSubject(value: comments)
+    
+    var currentPostComments: Observable<[Comment]> {
+        return commentStore
+    }
+    
     func createComment(comment: Comment) -> Observable<Bool> {
         return Observable.create { observer in
             self.firestoreCommentRepo.createComment(comment: comment) { [weak self] result in
@@ -25,6 +32,8 @@ class CommentService {
                 switch result {
                 case .success(let success) :
                     print(success)
+                    self.comments.append(comment)
+                    self.commentStore.onNext(self.comments)
                     observer.onNext(true)
                 case .failure(let error) :
                     print(error)
