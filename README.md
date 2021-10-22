@@ -49,13 +49,14 @@
 * Then, SnapKit
 
 ### 반응형 프로그래밍 및 커뮤니티 기술
-* RxSwift, RxCocoa, RxDataSource, RxKeyboard, NSObject+Rx, ReactorKit
+* RxSwift, RxCocoa, RxDataSource, RxKeyboard, NSObject+Rx
+* ReactorKit
 
 ### 백앤드
 * Kakao, Naver, Apple Auth
 * Firebase Firestore
 * Firebase Storage
-* Local DB: Realm
+* Local DB: Realm, KeyChain, FileManager, UserDefault
 
 ### CI/CD, Test
 
