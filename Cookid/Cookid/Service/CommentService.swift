@@ -25,27 +25,22 @@ class CommentService {
         return commentStore
     }
     
-    func createComment(comment: Comment) -> Observable<Bool> {
-        return Observable.create { observer in
-            self.firestoreCommentRepo.createComment(comment: comment) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let success) :
-                    print(success)
-                    self.comments.append(comment)
-                    self.commentStore.onNext(self.comments)
-                    observer.onNext(true)
-                case .failure(let error) :
-                    print(error)
-                    observer.onNext(false)
-                }
+    func createComment(comment: Comment) {
+        self.comments.append(comment)
+        self.commentStore.onNext(self.comments)
+        self.firestoreCommentRepo.createComment(comment: comment) { result in
+            switch result {
+            case .success(let success) :
+                print(success)
+            case .failure(let error) :
+                print(error)
             }
-            return Disposables.create()
         }
     }
     
     func deleteComment(comment: Comment) {
-        self.firestoreCommentRepo.deleteComment(comment: comment) { result in
+        self.firestoreCommentRepo.deleteComment(comment: comment) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let success) :
                 print(success)
@@ -56,7 +51,8 @@ class CommentService {
     }
     
     func reportComment(comment: Comment) {
-        self.firestoreCommentRepo.deleteComment(comment: comment) { result in
+        self.firestoreCommentRepo.deleteComment(comment: comment) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let success) :
                 print(success)
@@ -66,37 +62,57 @@ class CommentService {
         }
     }
     
-    func fetchComments(postID: String, completion: @escaping ([Comment]) -> Void) {
-        self.firestoreCommentRepo.fetchComments(postID: postID) { result in
-            switch result {
-            case .success(let entities):
-                var newComments = [Comment]()
-                let dispatchGroup = DispatchGroup()
-                entities.forEach { entity in
-                    dispatchGroup.enter()
-                    guard entity.isReported[entity.userID] == nil else { return }
-                    self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
-                        switch result {
-                        case .success(let userEntity):
-                            guard let userEntity = userEntity else { return }
-                            let user = User(id: userEntity.id, image: userEntity.imageURL, nickname: userEntity.nickname, determination: userEntity.determination, priceGoal: userEntity.priceGoal, userType: UserType(rawValue: userEntity.userType) ?? .preferDineIn, dineInCount: userEntity.dineInCount, cookidsCount: userEntity.cookidsCount)
-                            let didLike = entity.didLike[entity.userID] == nil
-                            let newComment = Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: user, content: entity.content, timestamp: entity.timestamp, didLike: didLike, likes: entity.didLike.count)
-                            newComments.append(newComment)
-                            dispatchGroup.leave()
-                        case .failure(let error):
-                            dispatchGroup.leave()
-                            print(error)
-                        }
-                    }
+    // 백앤드에서 count만 가져올 수 있는지 찾아보자.
+    func fetchCommentsCount(post: Post) -> Observable<Int> {
+        return Observable.create { observer in
+            self.firestoreCommentRepo.fetchComments(postID: post.postID) { result in
+                switch result {
+                case .success(let commentsE):
+                    observer.onNext(commentsE.count)
+                case .failure(let error):
+                    print(error)
                 }
-                dispatchGroup.notify(queue: .global()) {
-                    completion(newComments)
-                }
-            case .failure(let error):
-                print(error)
             }
+            return Disposables.create()
         }
     }
     
+    func fetchComments(post: Post) -> Observable<[Comment]> {
+        return Observable.create { observer in
+            self.firestoreCommentRepo.fetchComments(postID: post.postID) { result in
+                switch result {
+                case .success(let entities):
+                    var newComments = [Comment]()
+                    let dispatchGroup = DispatchGroup()
+                    entities.forEach { entity in
+                        dispatchGroup.enter()
+                        guard entity.isReported[entity.userID] == nil else { return }
+                        self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
+                            switch result {
+                            case .success(let userEntity):
+                                guard let userEntity = userEntity else { return }
+                                let user = User(id: userEntity.id, image: userEntity.imageURL, nickname: userEntity.nickname, determination: userEntity.determination, priceGoal: userEntity.priceGoal, userType: UserType(rawValue: userEntity.userType) ?? .preferDineIn, dineInCount: userEntity.dineInCount, cookidsCount: userEntity.cookidsCount)
+                                let didLike = entity.didLike[entity.userID] == nil
+                                let newComment = Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: user, content: entity.content, timestamp: entity.timestamp, didLike: didLike, likes: entity.didLike.count)
+                                newComments.append(newComment)
+                                dispatchGroup.leave()
+                            case .failure(let error):
+                                dispatchGroup.leave()
+                                print(error)
+                            }
+                        }
+                    }
+                    dispatchGroup.notify(queue: .main) {
+                        self.comments = newComments
+                        self.commentStore.onNext(self.comments)
+                        print("CommentRepo fetchComments call")
+                        observer.onNext(self.comments)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }
