@@ -30,20 +30,20 @@ class FirestoreCommentRepo {
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
             let commentEntity = CommentEntity(commentID: comment.commentID, postID: comment.postID, parentID: nil, userID: comment.user.id, content: comment.content, timestamp: comment.timestamp, didLike: [:], isReported: [:])
             self.commentDB.append(commentEntity)
+            print(self.commentDB.count)
             completion(.success(.createCommentSuccess))
         }
     }
     
     func deleteComment(comment: Comment, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
             print("CommentRepo deleteComment call")
             completion(.success(.deleteCommentSuccess))
         }
     }
     
     func fetchComments(postID: String, completion: @escaping (Result<[CommentEntity], FirebaseError>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            print("CommentRepo fetchComments call")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             completion(.success(self.commentDB.filter({ $0.postID == postID})))
         }
     }

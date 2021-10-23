@@ -19,11 +19,15 @@ class CommentViewController: UIViewController, View {
     
     private let commentInputTextFieldView = CommentInputView(frame: .zero)
     
-    private let tableView = UITableView(frame: .zero, style: .plain).then {
+    private let tableView = UITableView(frame: .zero, style: .grouped).then {
         $0.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentViewController.commentCell)
         $0.separatorStyle = .none
         $0.allowsSelection = false
         $0.backgroundColor = .systemBackground
+    }
+    
+    private var activityIndicator = UIActivityIndicatorView().then {
+        $0.hidesWhenStopped = true
     }
 
     var disposeBag = DisposeBag()
@@ -31,6 +35,7 @@ class CommentViewController: UIViewController, View {
     var commentHeaderViews = [CommentHeaderView]() {
         didSet {
             self.tableView.reloadData()
+            commentHeaderViews.isEmpty ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
         }
     }
 
@@ -42,19 +47,28 @@ class CommentViewController: UIViewController, View {
     
     private func configureUI() {
         navigationItem.title = "댓글 보기"
+        view.backgroundColor = .systemBackground
     }
     
     private func makeConstraints() {
         view.addSubview(tableView)
+        view.addSubview(commentInputTextFieldView)
+        view.addSubview(activityIndicator)
+        
         tableView.snp.makeConstraints { make in
-            make.top.bottom.right.left.equalToSuperview()
+            make.top.right.left.equalToSuperview()
+            make.bottom.equalTo(commentInputTextFieldView.snp.top)
         }
         
-        view.addSubview(commentInputTextFieldView)
         commentInputTextFieldView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.bottom.equalTo(view.snp.bottomMargin)
             make.height.equalTo(55)
+        }
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.width.height.equalTo(50)
         }
         
         commentInputTextFieldView.reactor = reactor
@@ -75,6 +89,7 @@ class CommentViewController: UIViewController, View {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.commentSections }
+        .observe(on: MainScheduler.instance)
         .do(onNext: { [unowned self] section in
             let headerViews = section
                 .map { $0.header }
@@ -84,7 +99,7 @@ class CommentViewController: UIViewController, View {
                     commentHeaderView.reactor = reactor
                     return commentHeaderView
                 }
-            self.commentHeaderViews += headerViews
+            self.commentHeaderViews = headerViews
         })
         .bind(to: tableView.rx.items(dataSource: reactor.dataSource))
         .disposed(by: disposeBag)

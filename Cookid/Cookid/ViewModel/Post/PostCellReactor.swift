@@ -27,6 +27,7 @@ class PostCellReactor: Reactor {
         case setHeartCount(Int)
         case setBookmark(Bool)
         case setBookmarkCount(Int)
+        case setCommentsCount(Int)
         case setUser(User)
     }
     
@@ -36,6 +37,7 @@ class PostCellReactor: Reactor {
         var isBookmark: Bool
         var heartCount: Int
         var bookmarkCount: Int
+        var commentsCount: Int = 0
         var user: User = DummyData.shared.singleUser
     }
     
@@ -51,8 +53,9 @@ class PostCellReactor: Reactor {
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
+        let commentsCount = commentService.fetchCommentsCount(post: self.currentState.post).map { Mutation.setCommentsCount($0) }
         let user = userService.user().map { Mutation.setUser($0) }
-        return Observable.merge(mutation, user)
+        return Observable.merge(mutation, user, commentsCount)
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -61,25 +64,13 @@ class PostCellReactor: Reactor {
         
         switch action {
         case .heartbuttonTapped(let isHeart):
-            if isHeart {
-                post.likes += 1
-                post.didLike = isHeart
-            } else {
-                post.likes -= 1
-                post.didLike = isHeart
-            }
+            self.postUpdateByHeart(post: post, isHeart: isHeart)
             self.postService.heartTransaction(sender: self.sender, user: user, post: post, isHeart: isHeart)
             return Observable.concat([
                 Observable.just(Mutation.setHeart(isHeart)),
                 Observable.just(Mutation.setHeartCount(self.currentState.post.likes))])
         case .bookmarkButtonTapped(let isBookmark):
-            if isBookmark {
-                post.collections += 1
-                post.didCollect = isBookmark
-            } else {
-                post.collections -= 1
-                post.didCollect = isBookmark
-            }
+            self.postUpdateByBookmark(post: post, isBookmark: isBookmark)
             self.postService.bookmarkTransaction(sender: self.sender, user: user, post: post, isBookmark: isBookmark)
             return Observable.concat([
                 Observable.just(Mutation.setBookmark(isBookmark)),
@@ -105,7 +96,29 @@ class PostCellReactor: Reactor {
         case .setBookmarkCount(let bookmarkCount):
             newState.bookmarkCount = bookmarkCount
             return newState
+        case .setCommentsCount(let commentsCount):
+            newState.commentsCount = commentsCount
+            return newState
         }
     }
     
+    func postUpdateByHeart(post: Post, isHeart: Bool) {
+        if isHeart {
+            post.likes += 1
+            post.didLike = isHeart
+        } else {
+            post.likes -= 1
+            post.didLike = isHeart
+        }
+    }
+    
+    func postUpdateByBookmark(post: Post, isBookmark: Bool) {
+        if isBookmark {
+            post.collections += 1
+            post.didCollect = isBookmark
+        } else {
+            post.collections -= 1
+            post.didCollect = isBookmark
+        }
+    }
 }
