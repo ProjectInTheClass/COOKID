@@ -31,7 +31,6 @@
 		0331A9CF2711C3EA005EF05B /* PostCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */; };
 		0339575126A2C96100594515 /* boardingImage in Resources */ = {isa = PBXBuildFile; fileRef = 0339575026A2C96100594515 /* boardingImage */; };
 		0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E263271977FA001FD6A7 /* RankerImageView.swift */; };
-		0339E266271AC5C9001FD6A7 /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E265271AC5C9001FD6A7 /* CommentHeaderView.swift */; };
 		0339E269271B81D3001FD6A7 /* CookidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E268271B81D3001FD6A7 /* CookidButton.swift */; };
 		0339E26B271BB32A001FD6A7 /* CommentInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E26A271BB32A001FD6A7 /* CommentInputView.swift */; };
 		033D3C212709FF49009B29B9 /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C202709FF49009B29B9 /* CookidTests.swift */; };
@@ -67,6 +66,7 @@
 		03B2049B26D7BA830099C269 /* MenuService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049A26D7BA830099C269 /* MenuService.swift */; };
 		03C04C8A2709C38300F72DB1 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C04C892709C38300F72DB1 /* Realm.framework */; };
 		03C04C8C2709C38700F72DB1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C04C8B2709C38700F72DB1 /* RealmSwift.framework */; };
+		03CCC4F72725696B00647B5C /* ParentCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */; };
 		03CFDA9127073C2F008F99C0 /* AppleAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFDA9027073C2F008F99C0 /* AppleAuthRepo.swift */; };
 		03D3045D26FDE2F300042CB7 /* AddPostReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */; };
 		03D3046426FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */; };
@@ -186,7 +186,6 @@
 		0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellReactor.swift; sourceTree = "<group>"; };
 		0339575026A2C96100594515 /* boardingImage */ = {isa = PBXFileReference; lastKnownFileType = file; path = boardingImage; sourceTree = "<group>"; };
 		0339E263271977FA001FD6A7 /* RankerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankerImageView.swift; sourceTree = "<group>"; };
-		0339E265271AC5C9001FD6A7 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		0339E268271B81D3001FD6A7 /* CookidButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidButton.swift; sourceTree = "<group>"; };
 		0339E26A271BB32A001FD6A7 /* CommentInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputView.swift; sourceTree = "<group>"; };
 		033D3C1E2709FF49009B29B9 /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,6 +219,7 @@
 		03B2049A26D7BA830099C269 /* MenuService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuService.swift; sourceTree = "<group>"; };
 		03C04C892709C38300F72DB1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		03C04C8B2709C38700F72DB1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCommentTableViewCell.swift; sourceTree = "<group>"; };
 		03CFDA9027073C2F008F99C0 /* AppleAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRepo.swift; sourceTree = "<group>"; };
 		03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostReactor.swift; sourceTree = "<group>"; };
 		03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostImageCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -502,7 +502,7 @@
 		033D3C192709FA5E009B29B9 /* CommentCustomView */ = {
 			isa = PBXGroup;
 			children = (
-				0339E265271AC5C9001FD6A7 /* CommentHeaderView.swift */,
+				03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */,
 				24BA287626F8E85F005D344E /* CommentTableViewCell.swift */,
 			);
 			path = CommentCustomView;
@@ -1014,9 +1014,9 @@
 				241523B0269D093E0077941A /* ShoppingService.swift in Sources */,
 				03D8C1E126E852CD00238CB6 /* MyMealsViewController.swift in Sources */,
 				03AF306227166474005D53D0 /* AddMealReactor.swift in Sources */,
+				03CCC4F72725696B00647B5C /* ParentCommentTableViewCell.swift in Sources */,
 				035E492726975815002CC084 /* MainViewModel.swift in Sources */,
 				03250E0E2712654900425036 /* CommentCellReactor.swift in Sources */,
-				0339E266271AC5C9001FD6A7 /* CommentHeaderView.swift in Sources */,
 				03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */,
 				2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */,
 				03D660D0270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift in Sources */,
