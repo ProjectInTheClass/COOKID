@@ -1,8 +1,8 @@
 //
-//  CommentHeaderView.swift
+//  ParentCommentTableViewCell.swift
 //  Cookid
 //
-//  Created by 박형석 on 2021/10/16.
+//  Created by 박형석 on 2021/10/24.
 //
 
 import UIKit
@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import ReactorKit
 
-class CommentHeaderView: UIView, View {
+class ParentCommentTableViewCell: UITableViewCell, View {
     
     private let userImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
@@ -46,7 +46,7 @@ class CommentHeaderView: UIView, View {
         $0.tintColor = .systemGray
     }
     
-    private let detailSubCommentButton = CookidButton().then {
+    let detailSubCommentButton = CookidButton().then {
         $0.buttonTitleColor = .systemGray
         $0.buttonTitle = "답글 보기"
         $0.buttonFontWeight = .regular
@@ -55,7 +55,7 @@ class CommentHeaderView: UIView, View {
         $0.sizeToFit()
     }
     
-    private let subCommentButton = CookidButton().then {
+    let subCommentButton = CookidButton().then {
         $0.buttonTitleColor = .systemGray
         $0.buttonTitle = "답글 달기"
         $0.buttonFontWeight = .regular
@@ -70,9 +70,14 @@ class CommentHeaderView: UIView, View {
     }
     
     var disposeBag: DisposeBag =  DisposeBag()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         makeConstraints()
     }
     
@@ -97,7 +102,7 @@ class CommentHeaderView: UIView, View {
             $0.spacing = 10
         }
         
-        self.addSubview(userImage)
+        contentView.addSubview(userImage)
         userImage.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(15)
             make.height.equalTo(35)
@@ -105,14 +110,14 @@ class CommentHeaderView: UIView, View {
             make.width.equalTo(userImage.snp.height).multipliedBy(1)
         }
         
-        self.addSubview(userInfoStackView)
+        contentView.addSubview(userInfoStackView)
         userInfoStackView.snp.makeConstraints { make in
             make.top.equalTo(userImage.snp.top).offset(2)
             make.left.equalTo(userImage.snp.right).offset(10)
         }
         
-        self.addSubview(content)
-        self.addSubview(buttonStackView)
+        contentView.addSubview(content)
+        contentView.addSubview(buttonStackView)
         
         content.snp.makeConstraints { make in
             make.left.equalTo(userInfoStackView.snp.left)
@@ -154,7 +159,8 @@ class CommentHeaderView: UIView, View {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        self.backgroundColor = .systemBackground
+        contentView.backgroundColor = .systemBackground
         
     }
+
 }

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RxDataSources
 
 struct Comment {
     var commentID: String
@@ -20,17 +19,14 @@ struct Comment {
     var likes: Int
 }
 
-struct CommentSection: SectionModelType {
+struct CommentSection {
     var header: Comment
     var items: [Comment]
-    
-    init(original: Self, items: [Comment]) {
-        self = original
-        self.items = items
-    }
-    
-    init(header: Comment, items: [Comment]) {
+    var isOpened: Bool
+
+    init(header: Comment, items: [Comment], isOpened: Bool = false) {
         self.header = header
         self.items = items
+        self.isOpened = isOpened
     }
 }

@@ -75,16 +75,6 @@ final class CommentReactor: Reactor {
         }
     }
     
-    typealias DataSource = RxTableViewSectionedReloadDataSource
-    lazy var dataSource : DataSource<CommentSection> = {
-        let datasource = DataSource<CommentSection> { _, tableView, indexPath, comment -> UITableViewCell in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentViewController.commentCell, for: indexPath) as? CommentTableViewCell else { return UITableViewCell() }
-            cell.reactor = CommentCellReactor(post: self.post, comment: comment, commentService: self.commentService, userService: self.userService)
-            return cell
-        }
-        return datasource
-    }()
-    
     func fetchCommentSection(comments: [Comment]) -> [CommentSection] {
         var commentSections = [CommentSection]()
         for i in comments where i.parentID == nil {
