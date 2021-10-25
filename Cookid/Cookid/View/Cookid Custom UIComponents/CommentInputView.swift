@@ -10,9 +10,10 @@ import SnapKit
 import Then
 import ReactorKit
 
-class CommentInputView: UIView, View {
+class CommentInputView: UIView, View, ViewModelBindable {
     
     var disposeBag: DisposeBag = DisposeBag()
+    var viewModel: CommentViewModel!
     
     private let userImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
@@ -72,6 +73,10 @@ class CommentInputView: UIView, View {
         userImage.layer.cornerRadius = userImage.frame.height / 2
         userImage.layer.masksToBounds = true
         commentTextField.layer.cornerRadius = 15
+    }
+    
+    func bindViewModel() {
+        
     }
     
     func bind(reactor: CommentReactor) {

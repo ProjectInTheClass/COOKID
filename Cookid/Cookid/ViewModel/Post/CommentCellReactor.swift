@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import ReactorKit
 
-final class CommentCellReactor: Reactor {
+class CommentCellReactor: Reactor {
     
     let commentService: CommentService
     let userService: UserService
@@ -17,6 +17,7 @@ final class CommentCellReactor: Reactor {
     enum Action {
         case delete
         case report
+        case addSubComment
     }
     
     enum Mutation {
@@ -49,6 +50,8 @@ final class CommentCellReactor: Reactor {
         case .report:
             commentService.reportComment(comment: self.currentState.comment)
             return Observable.just(Mutation.reportComment)
+        case .addSubComment:
+            return Observable.empty()
         }
     }
     

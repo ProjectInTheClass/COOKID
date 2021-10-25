@@ -8,10 +8,8 @@
 import Foundation
 import RxSwift
 import ReactorKit
-import RxDataSources
 
-// 다시 짜기
-final class CommentReactor: Reactor {
+class CommentReactor: Reactor {
     
     let post: Post
     let commentService: CommentService
@@ -56,8 +54,7 @@ final class CommentReactor: Reactor {
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
         let user = userService.user().map { Mutation.setUser($0) }
-        let comments = commentService.fetchComments(post: post).map { Mutation.setCommentSections(self.fetchCommentSection(comments: $0)) }
-        return Observable.merge(mutation, comments, user)
+        return Observable.merge(mutation, user)
     }
     
     func reduce(state: State, mutation: Mutation) -> State {

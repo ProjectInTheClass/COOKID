@@ -79,11 +79,17 @@ class ParentCommentTableViewCell: UITableViewCell, View {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         makeConstraints()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         makeConstraints()
+        configureUI()
+    }
+    
+    private func configureUI() {
+        contentView.backgroundColor = .systemBackground
     }
     
     private func makeConstraints() {
@@ -158,8 +164,6 @@ class ParentCommentTableViewCell: UITableViewCell, View {
             .map { Reactor.Action.delete }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        
-        contentView.backgroundColor = .systemBackground
         
     }
 
