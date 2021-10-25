@@ -25,14 +25,38 @@ class CommentViewController: UIViewController, ViewModelBindable {
         $0.backgroundColor = .systemBackground
     }
     
-    private let commentInputTextFieldView = CommentInputView(frame: .zero)
-    
     private var activityIndicator = UIActivityIndicatorView().then {
         $0.hidesWhenStopped = true
     }
     
+    private let commentInputTextFieldView = UIView().then {
+        $0.backgroundColor = .systemBackground
+    }
+    
+    private let userImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+    }
+    
+    private let uploadButton = CookidButton().then {
+        let image = UIImage(systemName: "arrow.up.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24))
+        $0.imageView?.contentMode = .scaleAspectFill
+        $0.tintColor = .darkGray
+        $0.buttonImage = image
+    }
+    
+    lazy var commentTextField = UITextField().then {
+        $0.borderStyle = .none
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: commentInputTextFieldView.frame.height))
+        $0.leftViewMode = .always
+        $0.rightView = uploadButton
+        $0.rightViewMode = .whileEditing
+        $0.backgroundColor = .systemGray6
+        $0.placeholder = "댓글 쓰기..."
+        $0.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+    }
+    
     var viewModel: CommentViewModel!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         makeConstraints()
@@ -43,6 +67,11 @@ class CommentViewController: UIViewController, ViewModelBindable {
         navigationItem.title = "댓글 보기"
         view.backgroundColor = .systemBackground
         activityIndicator.startAnimating()
+        
+        userImage.layer.cornerRadius = userImage.frame.height / 2
+        userImage.layer.masksToBounds = true
+        commentTextField.layer.cornerRadius = 15
+        
         tableView.delegate = self
         tableView.dataSource = self
         viewModel.output.onUpdated = { [weak self] in
@@ -55,9 +84,12 @@ class CommentViewController: UIViewController, ViewModelBindable {
     }
     
     private func makeConstraints() {
+        
         view.addSubview(tableView)
         view.addSubview(commentInputTextFieldView)
         view.addSubview(activityIndicator)
+        commentInputTextFieldView.addSubview(userImage)
+        commentInputTextFieldView.addSubview(commentTextField)
         
         tableView.snp.makeConstraints { make in
             make.top.right.left.equalToSuperview()
@@ -70,13 +102,28 @@ class CommentViewController: UIViewController, ViewModelBindable {
             make.height.equalTo(55)
         }
         
+        userImage.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(7)
+            make.bottom.equalToSuperview().offset(-7)
+            make.width.equalTo(userImage.snp.height).multipliedBy(1)
+        }
+        
+        commentTextField.snp.makeConstraints { make in
+            make.left.equalTo(userImage.snp.right).offset(10)
+            make.top.equalToSuperview().offset(10)
+            make.bottom.equalToSuperview().offset(-10)
+            make.right.equalToSuperview().offset(-15)
+        }
+        
         activityIndicator.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
             make.width.height.equalTo(50)
         }
+
     }
     
-    func bindViewModel() {
+    func bindViewModel() {m
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] height in
@@ -90,9 +137,28 @@ class CommentViewController: UIViewController, ViewModelBindable {
             })
             .disposed(by: rx.disposeBag)
         
+        commentTextField.rx.text.orEmpty
+            .bind(to: viewModel.input.commentContent)
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.commentValidation
+            .bind(to: uploadButton.rx.isEnabled)
+            .disposed(by: rx.disposeBag)
+        
+        uploadButton.rx.tap
+            .bind(to: viewModel.input.uploadButtonTapped)
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.user
+            .withUnretained(self)
+            .bind(onNext: { owner, user in
+                owner.userImage.setImageWithKf(url: user.image)
+            })
+            .disposed(by: rx.disposeBag)
+        
         viewModel.fetchComments()
     }
-
+    
 }
 
 extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
@@ -116,13 +182,9 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         
         if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentViewController.parentCommentCell, for: indexPath) as? ParentCommentTableViewCell else { return UITableViewCell() }
-            
             let headerComment = viewModel.output.commentSections[indexPath.section].header
-            
-            cell.reactor = CommentCellReactor(post: viewModel.output.post, comment: headerComment, commentService: viewModel.commentService, userService: viewModel.userService)
-            
+            cell.reactor = CommentCellReactor(post: viewModel.post, comment: headerComment, commentService: viewModel.commentService, userService: viewModel.userService)
             self.cellStateUpdate(cell: cell, target: viewModel.output.commentSections[indexPath.section])
-            
             cell.detailSubCommentButton.rx.tap
                 .withUnretained(self)
                 .bind(onNext: { owner, _ in
@@ -133,17 +195,17 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 })
                 .disposed(by: cell.disposeBag)
             
-//            cell.subCommentButton.rx.tap
-//                .map { Reactor.Action.addSubComment }
-//                .bind(to: reactor.action)
-//                .disposed(by: disposeBag)
+            //            cell.subCommentButton.rx.tap
+            //                .map { Reactor.Action.addSubComment }
+            //                .bind(to: reactor.action)
+            //                .disposed(by: disposeBag)
             
             return cell
         } else {
             // indexPath.row에 -1을 해야 out of range가 안뜬다. 헤더 때문에 row는 +1을 했지만, item는 실제로 그만큼의 데이터가 없다.
             let subComment = viewModel.output.commentSections[indexPath.section].items[indexPath.row - 1]
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentViewController.subCommentCell, for: indexPath) as? CommentTableViewCell else { return UITableViewCell() }
-            cell.reactor = CommentCellReactor(post: viewModel.output.post, comment: subComment, commentService: viewModel.commentService, userService: viewModel.userService)
+            cell.reactor = CommentCellReactor(post: viewModel.post, comment: subComment, commentService: viewModel.commentService, userService: viewModel.userService)
             return cell
         }
     }
