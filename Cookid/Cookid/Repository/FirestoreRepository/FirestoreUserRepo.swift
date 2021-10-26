@@ -30,8 +30,15 @@ class FirestoreUserRepo {
 //        }
     }
     
-    func loadUser(user: User, completion: @escaping (Result<UserEntity?, FirebaseError>) -> Void) {
-        completion(.success(UserEntity(id: user.id, imageURL: user.image, nickname: user.nickname, determination: user.determination, priceGoal: user.priceGoal, userType: user.userType, dineInCount: 0, cookidsCount: 0)))
+    func loadUser(userID: String, completion: @escaping (Result<UserEntity?, FirebaseError>) -> Void) {
+        completion(.success(UserEntity(id: userID,
+                                       imageURL: URL(string: "https://images.unsplash.com/photo-1555952517-2e8e729e0b44?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=764&q=80"),
+                                       nickname: "Paul",
+                                       determination: "I can do it!",
+                                       priceGoal: 400000,
+                                       userType: "집밥러",
+                                       dineInCount: 20,
+                                       cookidsCount: 30)))
     }
     
     func fetchUser(userID: String, completion: @escaping (Result<UserEntity?, FirebaseError>) -> Void) {
@@ -57,7 +64,7 @@ class FirestoreUserRepo {
         
         // 유저ID 쿼리에 일치하는 유저를 DB에서 불러온다.
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            completion(.success(UserEntity(id: userID, imageURL: URL(string: "https://images.unsplash.com/photo-1504593811423-6dd665756598?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"), nickname: "테스터", determination: "화이또오!", priceGoal: 372920, userType: .preferDineOut, dineInCount: 40, cookidsCount: 34)))
+            completion(.success(UserEntity(id: userID, imageURL: URL(string: "https://images.unsplash.com/photo-1504593811423-6dd665756598?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"), nickname: "테스터", determination: "화이또오!", priceGoal: 372920, userType: "집밥러", dineInCount: 40, cookidsCount: 34)))
         }
         
     }
@@ -74,10 +81,10 @@ class FirestoreUserRepo {
     func fetchDineInRankers(completion: @escaping (Result<[UserEntity], FirebaseError>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             completion(.success([
-                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80"), nickname: "제이미", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 12, cookidsCount: 20),
-                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=688&q=80"), nickname: "세라", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 14, cookidsCount: 30),
-                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 15, cookidsCount: 10),
-                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 18, cookidsCount: 17)
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80"), nickname: "제이미", determination: "화이팅!", priceGoal: 400000, userType: "집밥러", dineInCount: 12, cookidsCount: 20),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=688&q=80"), nickname: "세라", determination: "화이팅!", priceGoal: 400000, userType: "집밥러", dineInCount: 14, cookidsCount: 30),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: "집밥러", dineInCount: 15, cookidsCount: 10),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: "집밥러", dineInCount: 18, cookidsCount: 17)
             ]))
         }
     }
@@ -85,10 +92,10 @@ class FirestoreUserRepo {
     func fetchCookidsRankers(completion: @escaping (Result<[UserEntity], FirebaseError>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             completion(.success([
-                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80"), nickname: "제이미", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 12, cookidsCount: 20),
-                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=688&q=80"), nickname: "세라", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 14, cookidsCount: 30),
-                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 15, cookidsCount: 10),
-                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: .preferDineIn, dineInCount: 18, cookidsCount: 17)
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80"), nickname: "제이미", determination: "화이팅!", priceGoal: 400000, userType: "집밥러", dineInCount: 12, cookidsCount: 20),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=688&q=80"), nickname: "세라", determination: "화이팅!", priceGoal: 400000, userType: "집밥러", dineInCount: 14, cookidsCount: 30),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: "집밥러", dineInCount: 15, cookidsCount: 10),
+                UserEntity(id: "", imageURL: URL(string: "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"), nickname: "제이콥", determination: "화이팅!", priceGoal: 400000, userType: "집밥러", dineInCount: 18, cookidsCount: 17)
             ]))
         }
     }

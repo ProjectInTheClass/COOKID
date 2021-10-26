@@ -19,6 +19,7 @@ class MyPageHeaderViewController: UIViewController, ViewModelBindable, HasDispos
         $0.snp.makeConstraints { make in
             make.height.width.equalTo(100)
         }
+        $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 20
         $0.layer.masksToBounds = true
     }

@@ -20,8 +20,15 @@ class UserService {
     
     /// Fetch from Realm
     private var defaultUserInfo = RealmUserRepo.instance.fetchUser().map { userentity -> User in
-        return User(id: userentity.id.stringValue, image: URL(string: "https://www.vippng.com/png/detail/171-1717034_png-file-blank-person.png"), nickname: userentity.nickName, determination: userentity.determination, priceGoal: userentity.goal, userType: UserType(rawValue: userentity.type) ?? .preferDineIn, dineInCount: 0, cookidsCount: 0)
-    } ?? DummyData.shared.singleUser
+        return User(id: userentity.id.stringValue,
+                    image: URL(string: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1931&q=80"),
+                    nickname: userentity.nickName,
+                    determination: userentity.determination,
+                    priceGoal: userentity.goal,
+                    userType: UserType(rawValue: userentity.type) ?? .preferDineIn,
+                    dineInCount: 0,
+                    cookidsCount: 0)
+    }!
     
     private lazy var userInfo = BehaviorSubject<User>(value: defaultUserInfo)
     
@@ -33,7 +40,7 @@ class UserService {
     func loadMyInfo() -> Observable<User> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.firestoreUserRepo.loadUser(user: self.defaultUserInfo) { result in
+            self.firestoreUserRepo.loadUser(userID: self.defaultUserInfo.id) { result in
                 switch result {
                 case .success(let entity):
                     guard let entity = entity else { return }

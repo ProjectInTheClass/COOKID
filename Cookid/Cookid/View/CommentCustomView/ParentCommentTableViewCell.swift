@@ -33,17 +33,18 @@ class ParentCommentTableViewCell: UITableViewCell, View {
         $0.sizeToFit()
     }
     
-    private let reportButton = UIButton().then {
+    let reportButton = UIButton().then {
         $0.imageView?.contentMode = .scaleAspectFill
         let config = UIImage.SymbolConfiguration(pointSize: 13)
         $0.setImage(UIImage(systemName: "exclamationmark.circle.fill", withConfiguration: config), for: .normal)
         $0.tintColor = .systemGray4
     }
     
-    private let deleteButton = UIButton().then {
+    let deleteButton = UIButton().then {
         $0.imageView?.contentMode = .scaleAspectFill
-        $0.setImage(UIImage(systemName: "trash.circle.fill"), for: .normal)
-        $0.tintColor = .systemGray
+        let config = UIImage.SymbolConfiguration(pointSize: 13)
+        $0.setImage(UIImage(systemName: "trash.circle.fill", withConfiguration: config), for: .normal)
+        $0.tintColor = .systemGray4
     }
     
     let detailSubCommentButton = CookidButton().then {
@@ -147,24 +148,19 @@ class ParentCommentTableViewCell: UITableViewCell, View {
         self.content.text = comment.content
         self.dateLabel.text = convertDateToString(format: "MM월 dd일", date: comment.timestamp)
         
-        if comment.user.id == reactor.currentState.user.id {
-            self.reportButton.isHidden = true
-            self.deleteButton.isHidden = false
-        } else {
-            self.reportButton.isHidden = false
-            self.deleteButton.isHidden = true
+        reactor.state.map { $0.user }
+        .withUnretained(self)
+        .bind { owner, user in
+            if comment.user.id == user.id {
+                owner.reportButton.isHidden = true
+                owner.deleteButton.isHidden = false
+            } else {
+                owner.reportButton.isHidden = false
+                owner.deleteButton.isHidden = true
+            }
         }
-        
-        reportButton.rx.tap
-            .map { Reactor.Action.report }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        deleteButton.rx.tap
-            .map { Reactor.Action.delete }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
+        .disposed(by: disposeBag)
+         
     }
 
 }

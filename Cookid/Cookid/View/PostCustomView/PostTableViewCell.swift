@@ -58,15 +58,7 @@ class PostTableViewCell: UITableViewCell, View {
             owner.postCaptionLabel.text = post.caption
             owner.makeUpStarPoint(post: post)
             owner.setPageControl(post: post)
-        })
-        .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.commentsCount }
-        .subscribe(on: MainScheduler.instance)
-        .withUnretained(self)
-        .bind(onNext: { owner, count in
-            // 백앤드에서 갯수만 불러오는 방법을 고민해보자.
-            owner.makeUpComments(commentCount: count)
+            owner.makeUpComments(commentCount: post.commentCount)
         })
         .disposed(by: disposeBag)
         

@@ -37,14 +37,28 @@ class FirestoreCommentRepo {
     
     func deleteComment(comment: Comment, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-            print("CommentRepo deleteComment call")
+            guard let index = self.commentDB.firstIndex(where: { $0.commentID == comment.commentID }) else { return }
+            self.commentDB.remove(at: index)
             completion(.success(.deleteCommentSuccess))
+        }
+    }
+    
+    func reportComment(comment: Comment, user: User, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+            guard let index = self.commentDB.firstIndex(where: { $0.commentID == comment.commentID }) else { return }
+            self.commentDB[index].isReported[user.id] = true
         }
     }
     
     func fetchComments(postID: String, completion: @escaping (Result<[CommentEntity], FirebaseError>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             completion(.success(self.commentDB.filter({ $0.postID == postID})))
+        }
+    }
+    
+    func fetchCommentsCount(postID: String, completion: @escaping (Result<Int, FirebaseError>) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            completion(.success(self.commentDB.filter({ $0.postID == postID }).count))
         }
     }
 }

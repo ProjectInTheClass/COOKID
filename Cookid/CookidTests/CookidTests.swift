@@ -10,7 +10,5 @@ import Kingfisher
 @testable import Cookid
 
 class CookidTests: XCTestCase {
-    
-    
-    
+
 }

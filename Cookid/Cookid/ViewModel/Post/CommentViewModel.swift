@@ -10,13 +10,6 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 
-// section -> Rx : rxdatasources -> header string = title
-// section -> reactorKit : header / items -> rxdatasources
-// Rx -> MV VM (멘붕) ?
-// Repo -> entity 서버 통신 모델 commentEntity
-// Service -> 로직 '모델' comment
-// ViewModel -> 뷰 '모델' CommentSection
-
 class CommentViewModel: ViewModelType, HasDisposeBag {
     
     let post: Post
@@ -28,6 +21,8 @@ class CommentViewModel: ViewModelType, HasDisposeBag {
         let commentContent = PublishSubject<String>()
         let uploadButtonTapped = PublishSubject<Void>()
         let subCommentButtonTapped = BehaviorSubject<Comment?>(value: nil)
+        let deleteButtonTapped = PublishSubject<Comment>()
+        let reportButtonTapped = PublishSubject<Comment>()
     }
     
     struct Output {
@@ -75,14 +70,70 @@ class CommentViewModel: ViewModelType, HasDisposeBag {
             }
             .disposed(by: disposeBag)
         
+        input.deleteButtonTapped
+            .withUnretained(self)
+            .bind(onNext: { owner, comment in
+                owner.deleteComment(comment)
+            })
+            .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            input.reportButtonTapped,
+            userService.user())
+            .bind(onNext: { [weak self] comment, user in
+                guard let self = self else { return }
+                self.reportComment(comment, user)
+            })
+            .disposed(by: disposeBag)
+        
     }
     
     private func commentValidationCheck(_ text: String) -> Bool {
         return !text.isEmpty && text != "" && text.count > 1
     }
     
+    func deleteComment(_ comment: Comment) {
+        if let parentID = comment.parentID {
+            guard let index = output.commentSections.firstIndex(where: { section in
+                return section.header.commentID == parentID }) else { return }
+            guard let subIndex = output.commentSections[index].items.firstIndex(where: { subComment in
+                return subComment.commentID == comment.commentID }) else { return }
+            
+            output.commentSections[index].items.remove(at: subIndex)
+            commentService.deleteComment(comment: comment)
+        } else {
+            guard let index = output.commentSections.firstIndex(where: { section in
+                return section.header.commentID == comment.commentID
+            }) else { return }
+            
+            output.commentSections[index].items.removeAll()
+            output.commentSections.remove(at: index)
+            commentService.deleteComment(comment: comment)
+        }
+    }
+    
+    func reportComment(_ comment: Comment, _ user: User) {
+        if let parentID = comment.parentID {
+            guard let index = output.commentSections.firstIndex(where: { section in
+                return section.header.commentID == parentID }) else { return }
+            guard let subIndex = output.commentSections[index].items.firstIndex(where: { subComment in
+                return subComment.commentID == comment.commentID }) else { return }
+            
+            output.commentSections[index].items.remove(at: subIndex)
+            commentService.reportComment(comment: comment, user: user)
+        } else {
+            guard let index = output.commentSections.firstIndex(where: { section in
+                return section.header.commentID == comment.commentID
+            }) else { return }
+            
+            output.commentSections[index].items.removeAll()
+            output.commentSections.remove(at: index)
+            commentService.reportComment(comment: comment, user: user)
+        }
+    }
+    
     func uploadSubComment(user: User, content: String, parentComment: Comment) {
-        let newComment = Comment(commentID: UUID().uuidString,
+                let newComment = Comment(commentID: UUID().uuidString,
                                  postID: post.postID,
                                  parentID: parentComment.commentID,
                                  user: user,
@@ -95,6 +146,7 @@ class CommentViewModel: ViewModelType, HasDisposeBag {
             return section.header.commentID == parentComment.commentID
         }) {
             commentService.createComment(comment: newComment)
+            output.commentSections[index].isOpened = true
             output.commentSections[index].items.append(newComment)
         }
     }
@@ -114,8 +166,8 @@ class CommentViewModel: ViewModelType, HasDisposeBag {
         commentService.createComment(comment: newComment)
     }
     
-    func fetchComments() {
-        commentService.fetchComments(post: post) { [weak self] comments in
+    func fetchComments(user: User) {
+        commentService.fetchComments(post: post, user: user) { [weak self] comments in
             guard let self = self else { return }
             self.output.commentSections = self.fetchCommentSection(comments: comments)
         }

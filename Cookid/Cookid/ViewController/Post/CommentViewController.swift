@@ -29,7 +29,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
         $0.hidesWhenStopped = true
     }
     
-    private let commentTextFieldRightView = UIView().then {
+    private let commentTextFieldView = UIView().then {
         $0.backgroundColor = .systemBackground
     }
     
@@ -47,7 +47,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
     
     private lazy var commentTextField = UITextField().then {
         $0.borderStyle = .none
-        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: commentTextFieldRightView.frame.height))
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: commentTextFieldView.frame.height))
         $0.leftViewMode = .always
         $0.rightView = uploadButton
         $0.rightViewMode = .whileEditing
@@ -81,14 +81,15 @@ class CommentViewController: UIViewController, ViewModelBindable {
         configureUI()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        configureSubviewUI()
+    }
+    
     private func configureUI() {
         navigationItem.title = "댓글 보기"
         view.backgroundColor = .systemBackground
         activityIndicator.startAnimating()
-        
-        userImage.layer.cornerRadius = userImage.frame.height / 2
-        userImage.layer.masksToBounds = true
-        commentTextField.layer.cornerRadius = 15
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -101,22 +102,29 @@ class CommentViewController: UIViewController, ViewModelBindable {
         }
     }
     
+    private func configureSubviewUI() {
+        userImage.layoutIfNeeded()
+        userImage.layer.cornerRadius = userImage.frame.height / 2
+        userImage.layer.masksToBounds = true
+        commentTextField.layer.cornerRadius = 15
+    }
+    
     private func makeConstraints() {
         
         view.addSubview(tableView)
-        view.addSubview(commentTextFieldRightView)
+        view.addSubview(commentTextFieldView)
         view.addSubview(activityIndicator)
-        commentTextFieldRightView.addSubview(userImage)
-        commentTextFieldRightView.addSubview(commentTextField)
+        commentTextFieldView.addSubview(userImage)
+        commentTextFieldView.addSubview(commentTextField)
         commentTextFieldLeftView.addSubview(leftViewUserNamaLabel)
         commentTextFieldLeftView.addSubview(subCommentCancelButton)
         
         tableView.snp.makeConstraints { make in
             make.top.right.left.equalToSuperview()
-            make.bottom.equalTo(commentTextFieldRightView.snp.top)
+            make.bottom.equalTo(commentTextFieldView.snp.top)
         }
         
-        commentTextFieldRightView.snp.makeConstraints { make in
+        commentTextFieldView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.bottom.equalTo(view.snp.bottomMargin)
             make.height.equalTo(55)
@@ -159,7 +167,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] height in
                 let margin = height != 0 ? -height + view.safeAreaInsets.bottom : 0
-                self.commentTextFieldRightView.snp.remakeConstraints { make in
+                self.commentTextFieldView.snp.remakeConstraints { make in
                     make.height.equalTo(55)
                     make.left.equalTo(view.snp.left)
                     make.right.equalTo(view.snp.right)
@@ -182,8 +190,6 @@ class CommentViewController: UIViewController, ViewModelBindable {
                 owner.viewModel.input.uploadButtonTapped.onNext(action)
                 owner.commentTextField.resignFirstResponder()
                 owner.commentTextField.text = ""
-                owner.tableView.scrollToBottom()
-                
             })
             .disposed(by: rx.disposeBag)
         
@@ -191,7 +197,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
             .withUnretained(self)
             .bind(onNext: { owner, _ in
                 owner.commentTextField.resignFirstResponder()
-                owner.commentTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: owner.commentTextFieldRightView.frame.height))
+                owner.commentTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: owner.commentTextFieldView.frame.height))
                 owner.viewModel.input.subCommentButtonTapped.onNext(nil)
             })
             .disposed(by: rx.disposeBag)
@@ -200,10 +206,9 @@ class CommentViewController: UIViewController, ViewModelBindable {
             .withUnretained(self)
             .bind(onNext: { owner, user in
                 owner.userImage.setImageWithKf(url: user.image)
+                owner.viewModel.fetchComments(user: user)
             })
             .disposed(by: rx.disposeBag)
-        
-        viewModel.fetchComments()
     }
     
 }
@@ -232,7 +237,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
             
             let headerComment = viewModel.output.commentSections[indexPath.section].header
             
-            cell.reactor = CommentCellReactor(post: viewModel.post, comment: headerComment, commentService: viewModel.commentService, userService: viewModel.userService)
+            cell.reactor = CommentCellReactor(comment: headerComment, userService: viewModel.userService)
             
             self.cellStateUpdate(cell: cell, target: viewModel.output.commentSections[indexPath.section])
             
@@ -257,12 +262,75 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 })
                 .disposed(by: cell.disposeBag)
             
+            cell.deleteButton.rx.tap
+                .withLatestFrom(Observable.just(headerComment))
+                .bind(onNext: { [weak self] comment in
+                    guard let self = self else { return }
+                    let alertVC = UIAlertController(title: "댓글 삭제하기", message: "댓글을 삭제하시겠습니까?", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+                        self.viewModel.input.deleteButtonTapped.onNext(comment)
+                    }
+                    let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                    alertVC.addAction(okAction)
+                    alertVC.addAction(cancelAction)
+                    self.present(alertVC, animated: true, completion: nil)
+                })
+                .disposed(by: cell.disposeBag)
+            
+            cell.reportButton.rx.tap
+                .withLatestFrom(Observable.just(headerComment))
+                .bind(onNext: { [weak self] comment in
+                    guard let self = self else { return }
+                    let alertVC = UIAlertController(title: "댓글 신고하기", message: "댓글을 신고하시겠습니까?", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "신고", style: .destructive) { _ in
+                        self.viewModel.input.reportButtonTapped.onNext(comment)
+                    }
+                    let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                    alertVC.addAction(okAction)
+                    alertVC.addAction(cancelAction)
+                    self.present(alertVC, animated: true, completion: nil)
+                })
+                .disposed(by: cell.disposeBag)
+            
             return cell
         } else {
             // indexPath.row에 -1을 해야 out of range가 안뜬다. 헤더 때문에 row는 +1을 했지만, item는 실제로 그만큼의 데이터가 없다.
-            let subComment = viewModel.output.commentSections[indexPath.section].items[indexPath.row - 1]
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentViewController.subCommentCell, for: indexPath) as? CommentTableViewCell else { return UITableViewCell() }
-            cell.reactor = CommentCellReactor(post: viewModel.post, comment: subComment, commentService: viewModel.commentService, userService: viewModel.userService)
+            
+            let subComment = viewModel.output.commentSections[indexPath.section].items[indexPath.row - 1]
+            
+            cell.reactor = CommentCellReactor(comment: subComment, userService: viewModel.userService)
+            
+            cell.deleteButton.rx.tap
+                .withLatestFrom(Observable.just(subComment))
+                .bind(onNext: { [weak self] comment in
+                    guard let self = self else { return }
+                    let alertVC = UIAlertController(title: "댓글 삭제하기", message: "댓글을 삭제하시겠습니까?", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+                        self.viewModel.input.deleteButtonTapped.onNext(comment)
+                    }
+                    let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                    alertVC.addAction(okAction)
+                    alertVC.addAction(cancelAction)
+                    self.present(alertVC, animated: true, completion: nil)
+                })
+                .disposed(by: cell.disposeBag)
+            
+            cell.reportButton.rx.tap
+                .withLatestFrom(Observable.just(subComment))
+                .bind(onNext: { [weak self] comment in
+                    guard let self = self else { return }
+                    let alertVC = UIAlertController(title: "댓글 신고하기", message: "댓글을 신고하시겠습니까?", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "신고", style: .destructive) { _ in
+                        self.viewModel.input.reportButtonTapped.onNext(comment)
+                    }
+                    let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                    alertVC.addAction(okAction)
+                    alertVC.addAction(cancelAction)
+                    self.present(alertVC, animated: true, completion: nil)
+                })
+                .disposed(by: cell.disposeBag)
+            
             return cell
         }
     }
