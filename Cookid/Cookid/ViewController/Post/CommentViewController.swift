@@ -177,7 +177,14 @@ class CommentViewController: UIViewController, ViewModelBindable {
             .disposed(by: rx.disposeBag)
         
         uploadButton.rx.tap
-            .bind(to: viewModel.input.uploadButtonTapped)
+            .withUnretained(self)
+            .bind(onNext: { owner, action in
+                owner.viewModel.input.uploadButtonTapped.onNext(action)
+                owner.commentTextField.resignFirstResponder()
+                owner.commentTextField.text = ""
+                owner.tableView.scrollToBottom()
+                
+            })
             .disposed(by: rx.disposeBag)
         
         subCommentCancelButton.rx.tap
@@ -185,6 +192,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
             .bind(onNext: { owner, _ in
                 owner.commentTextField.resignFirstResponder()
                 owner.commentTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: owner.commentTextFieldRightView.frame.height))
+                owner.viewModel.input.subCommentButtonTapped.onNext(nil)
             })
             .disposed(by: rx.disposeBag)
         
@@ -239,18 +247,15 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 .disposed(by: cell.disposeBag)
             
             cell.subCommentButton.rx.tap
+                .withLatestFrom(Observable.just(headerComment))
                 .withUnretained(self)
-                .bind(onNext: { owner, _ in
+                .bind(onNext: { owner, comment in
+                    owner.viewModel.input.subCommentButtonTapped.onNext(comment)
                     owner.commentTextField.becomeFirstResponder()
                     owner.leftViewUserNamaLabel.text = headerComment.user.nickname
                     owner.commentTextField.leftView = owner.commentTextFieldLeftView
                 })
                 .disposed(by: cell.disposeBag)
-            
-            // subComment upload 바인딩
-//                .withLatestFrom(Observable.just(headerComment))
-//                .bind(to: viewModel.input.subCommentButtonTapped)
-//                .disposed(by: cell.disposeBag)
             
             return cell
         } else {

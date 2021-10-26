@@ -27,7 +27,7 @@ class CommentViewModel: ViewModelType, HasDisposeBag {
         // 일단 PublishRelay로 해보자.
         let commentContent = PublishSubject<String>()
         let uploadButtonTapped = PublishSubject<Void>()
-        let subCommentButtonTapped = PublishSubject<Comment>()
+        let subCommentButtonTapped = BehaviorSubject<Comment?>(value: nil)
     }
     
     struct Output {
@@ -62,24 +62,16 @@ class CommentViewModel: ViewModelType, HasDisposeBag {
         input.uploadButtonTapped
             .withLatestFrom(
                 Observable.combineLatest(
-                    userService.user(),
-                    input.commentContent))
-            .bind(onNext: { [weak self] user, content in
-                guard let self = self else { return }
-                self.uploadComment(user: user, content: content)
-            })
-            .disposed(by: disposeBag)
-        
-        input.subCommentButtonTapped
-            .withLatestFrom(
-                Observable.combineLatest(
+                    input.subCommentButtonTapped,
                 userService.user(),
-                input.commentContent,
-                resultSelector: { ($0, $1) }),
-                resultSelector: { ($0, $1) })
-            .bind { [weak self] comment, tuple in
+                input.commentContent))
+            .bind { [weak self] comment, user, content in
                 guard let self = self else { return }
-                self.uploadSubComment(user: tuple.0, content: tuple.1, parentComment: comment)
+                if let comment = comment {
+                    self.uploadSubComment(user: user, content: content, parentComment: comment)
+                } else {
+                    self.uploadComment(user: user, content: content)
+                }
             }
             .disposed(by: disposeBag)
         
