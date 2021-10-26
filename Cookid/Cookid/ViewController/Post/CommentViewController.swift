@@ -29,7 +29,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
         $0.hidesWhenStopped = true
     }
     
-    private let commentInputTextFieldView = UIView().then {
+    private let commentTextFieldRightView = UIView().then {
         $0.backgroundColor = .systemBackground
     }
     
@@ -42,17 +42,35 @@ class CommentViewController: UIViewController, ViewModelBindable {
         $0.imageView?.contentMode = .scaleAspectFill
         $0.tintColor = .darkGray
         $0.buttonImage = image
+        $0.isEnabled = false
     }
     
-    lazy var commentTextField = UITextField().then {
+    private lazy var commentTextField = UITextField().then {
         $0.borderStyle = .none
-        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: commentInputTextFieldView.frame.height))
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: commentTextFieldRightView.frame.height))
         $0.leftViewMode = .always
         $0.rightView = uploadButton
         $0.rightViewMode = .whileEditing
         $0.backgroundColor = .systemGray6
         $0.placeholder = "댓글 쓰기..."
         $0.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+    }
+    
+    private lazy var commentTextFieldLeftView = UIView().then {
+        $0.layer.cornerRadius = 15
+        $0.backgroundColor = .clear
+    }
+    
+    private lazy var leftViewUserNamaLabel = UILabel().then {
+        $0.textColor = .darkGray
+        $0.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+    }
+    
+    private let subCommentCancelButton = CookidButton().then {
+        let image = UIImage(systemName: "x.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15))
+        $0.imageView?.contentMode = .scaleAspectFill
+        $0.tintColor = .darkGray
+        $0.buttonImage = image
     }
     
     var viewModel: CommentViewModel!
@@ -86,17 +104,19 @@ class CommentViewController: UIViewController, ViewModelBindable {
     private func makeConstraints() {
         
         view.addSubview(tableView)
-        view.addSubview(commentInputTextFieldView)
+        view.addSubview(commentTextFieldRightView)
         view.addSubview(activityIndicator)
-        commentInputTextFieldView.addSubview(userImage)
-        commentInputTextFieldView.addSubview(commentTextField)
+        commentTextFieldRightView.addSubview(userImage)
+        commentTextFieldRightView.addSubview(commentTextField)
+        commentTextFieldLeftView.addSubview(leftViewUserNamaLabel)
+        commentTextFieldLeftView.addSubview(subCommentCancelButton)
         
         tableView.snp.makeConstraints { make in
             make.top.right.left.equalToSuperview()
-            make.bottom.equalTo(commentInputTextFieldView.snp.top)
+            make.bottom.equalTo(commentTextFieldRightView.snp.top)
         }
         
-        commentInputTextFieldView.snp.makeConstraints { make in
+        commentTextFieldRightView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.bottom.equalTo(view.snp.bottomMargin)
             make.height.equalTo(55)
@@ -116,6 +136,17 @@ class CommentViewController: UIViewController, ViewModelBindable {
             make.right.equalToSuperview().offset(-15)
         }
         
+        leftViewUserNamaLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(10)
+            make.centerY.equalToSuperview()
+        }
+        
+        subCommentCancelButton.snp.makeConstraints { make in
+            make.left.equalTo(leftViewUserNamaLabel.snp.right).offset(5)
+            make.right.equalToSuperview().offset(-5)
+            make.centerY.equalToSuperview()
+        }
+        
         activityIndicator.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
             make.width.height.equalTo(50)
@@ -123,12 +154,12 @@ class CommentViewController: UIViewController, ViewModelBindable {
 
     }
     
-    func bindViewModel() {m
+    func bindViewModel() {
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] height in
                 let margin = height != 0 ? -height + view.safeAreaInsets.bottom : 0
-                self.commentInputTextFieldView.snp.remakeConstraints { make in
+                self.commentTextFieldRightView.snp.remakeConstraints { make in
                     make.height.equalTo(55)
                     make.left.equalTo(view.snp.left)
                     make.right.equalTo(view.snp.right)
@@ -147,6 +178,14 @@ class CommentViewController: UIViewController, ViewModelBindable {
         
         uploadButton.rx.tap
             .bind(to: viewModel.input.uploadButtonTapped)
+            .disposed(by: rx.disposeBag)
+        
+        subCommentCancelButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.commentTextField.resignFirstResponder()
+                owner.commentTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: owner.commentTextFieldRightView.frame.height))
+            })
             .disposed(by: rx.disposeBag)
         
         viewModel.output.user
@@ -182,9 +221,13 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         
         if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentViewController.parentCommentCell, for: indexPath) as? ParentCommentTableViewCell else { return UITableViewCell() }
+            
             let headerComment = viewModel.output.commentSections[indexPath.section].header
+            
             cell.reactor = CommentCellReactor(post: viewModel.post, comment: headerComment, commentService: viewModel.commentService, userService: viewModel.userService)
+            
             self.cellStateUpdate(cell: cell, target: viewModel.output.commentSections[indexPath.section])
+            
             cell.detailSubCommentButton.rx.tap
                 .withUnretained(self)
                 .bind(onNext: { owner, _ in
@@ -195,10 +238,19 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 })
                 .disposed(by: cell.disposeBag)
             
-            //            cell.subCommentButton.rx.tap
-            //                .map { Reactor.Action.addSubComment }
-            //                .bind(to: reactor.action)
-            //                .disposed(by: disposeBag)
+            cell.subCommentButton.rx.tap
+                .withUnretained(self)
+                .bind(onNext: { owner, _ in
+                    owner.commentTextField.becomeFirstResponder()
+                    owner.leftViewUserNamaLabel.text = headerComment.user.nickname
+                    owner.commentTextField.leftView = owner.commentTextFieldLeftView
+                })
+                .disposed(by: cell.disposeBag)
+            
+            // subComment upload 바인딩
+//                .withLatestFrom(Observable.just(headerComment))
+//                .bind(to: viewModel.input.subCommentButtonTapped)
+//                .disposed(by: cell.disposeBag)
             
             return cell
         } else {
