@@ -55,14 +55,14 @@ class CommentService {
         }
     }
     
-    func reportComment(comment: Comment) {
+    func reportComment(comment: Comment, user: User) {
         
         if let index = comments.firstIndex(where: { $0.commentID == comment.commentID }) {
             self.comments.remove(at: index)
             self.commentStore.onNext(self.comments)
         }
         
-        self.firestoreCommentRepo.deleteComment(comment: comment) { result in
+        self.firestoreCommentRepo.reportComment(comment: comment, user: user) { result in
             switch result {
             case .success(let success) :
                 print(success)
@@ -87,7 +87,7 @@ class CommentService {
         }
     }
     
-    func fetchComments(post: Post, completion: @escaping ([Comment]) -> Void) {
+    func fetchComments(post: Post, user: User, completion: @escaping ([Comment]) -> Void) {
         
         self.firestoreCommentRepo.fetchComments(postID: post.postID) { result in
             switch result {
@@ -96,11 +96,16 @@ class CommentService {
                 let dispatchGroup = DispatchGroup()
                 entities.forEach { entity in
                     dispatchGroup.enter()
-                    guard entity.isReported[entity.userID] == nil else { return }
+                    
+                    // 엔티티의 리포트 딕셔너리에 현재 이용자의 id가 있는지를 확인해야 한다.
+                    guard entity.isReported[user.id] == nil else { dispatchGroup.leave()
+                        return }
+                    
                     self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                         switch result {
                         case .success(let userEntity):
-                            guard let userEntity = userEntity else { return }
+                            guard let userEntity = userEntity else { dispatchGroup.leave()
+                                return }
                             let user = User(id: userEntity.id, image: userEntity.imageURL, nickname: userEntity.nickname, determination: userEntity.determination, priceGoal: userEntity.priceGoal, userType: UserType(rawValue: userEntity.userType) ?? .preferDineIn, dineInCount: userEntity.dineInCount, cookidsCount: userEntity.cookidsCount)
                             let didLike = entity.didLike[entity.userID] == nil
                             let newComment = Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: user, content: entity.content, timestamp: entity.timestamp, didLike: didLike, likes: entity.didLike.count)

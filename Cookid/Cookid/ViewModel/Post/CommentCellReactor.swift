@@ -11,53 +11,30 @@ import ReactorKit
 
 class CommentCellReactor: Reactor {
     
-    let commentService: CommentService
     let userService: UserService
-    
+
     enum Action {
-        case delete
-        case report
-        case addSubComment
     }
     
     enum Mutation {
-        case deleteComment
-        case reportComment
         case setUser(User)
-        case subComments([Comment])
     }
     
     struct State {
-        var post: Post
-        var comment: Comment
         var user: User = DummyData.shared.singleUser
-        var subComments: [Comment] = []
+        var comment: Comment
     }
     
     let initialState: State
     
-    init(post: Post, comment: Comment, commentService: CommentService, userService: UserService) {
-        self.commentService = commentService
+    init(comment: Comment, userService: UserService) {
         self.userService = userService
-        self.initialState = State(post: post, comment: comment)
-    }
-    
-    func mutate(action: Action) -> Observable<Mutation> {
-        switch action {
-        case .delete:
-            commentService.deleteComment(comment: self.currentState.comment)
-            return Observable.just(Mutation.deleteComment)
-        case .report:
-            commentService.reportComment(comment: self.currentState.comment)
-            return Observable.just(Mutation.reportComment)
-        case .addSubComment:
-            return Observable.empty()
-        }
+        self.initialState = State(comment: comment)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
         let user = userService.user().map { Mutation.setUser($0) }
-        return Observable.merge(mutation, user)
+        return .merge(mutation, user)
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
@@ -66,13 +43,7 @@ class CommentCellReactor: Reactor {
         case .setUser(let user):
             newState.user = user
             return newState
-        case .deleteComment:
-            return newState
-        case .reportComment:
-            return newState
-        case .subComments(let subComments):
-            newState.subComments = subComments
-            return newState
         }
     }
+    
 }

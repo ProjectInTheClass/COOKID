@@ -37,7 +37,7 @@ class PostViewModel: ViewModelType, HasDisposeBag {
         self.userService = userService
         self.commentService = commentService
         
-        let user = userService.user()
+        let user = userService.loadMyInfo()
         
         let fetchPost = Observable.of(postService.totalPosts, user.flatMap(postService.fetchLastPosts(currentUser:))).merge()
  
