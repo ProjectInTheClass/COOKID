@@ -27,6 +27,7 @@ class CommentViewModel: ViewModelType, HasDisposeBag {
         // 일단 PublishRelay로 해보자.
         let commentContent = PublishSubject<String>()
         let uploadButtonTapped = PublishSubject<Void>()
+        let subCommentButtonTapped = PublishSubject<Comment>()
     }
     
     struct Output {
@@ -50,22 +51,36 @@ class CommentViewModel: ViewModelType, HasDisposeBag {
         self.post = post
         self.commentService = commentService
         self.userService = userService
-       
+        
         // 모든 저장 프로퍼티가 초기화가 되어 있어야 함수도 사용할 수 있다.
-        _ = input.commentContent
+        input.commentContent
             .distinctUntilChanged()
             .map(commentValidationCheck)
             .bind(to: output.commentValidation)
             .disposed(by: disposeBag)
         
-        _ = input.uploadButtonTapped
+        input.uploadButtonTapped
             .withLatestFrom(
                 Observable.combineLatest(
                     userService.user(),
                     input.commentContent))
-            .bind(onNext: { user, content in
+            .bind(onNext: { [weak self] user, content in
+                guard let self = self else { return }
                 self.uploadComment(user: user, content: content)
             })
+            .disposed(by: disposeBag)
+        
+        input.subCommentButtonTapped
+            .withLatestFrom(
+                Observable.combineLatest(
+                userService.user(),
+                input.commentContent,
+                resultSelector: { ($0, $1) }),
+                resultSelector: { ($0, $1) })
+            .bind { [weak self] comment, tuple in
+                guard let self = self else { return }
+                self.uploadSubComment(user: tuple.0, content: tuple.1, parentComment: comment)
+            }
             .disposed(by: disposeBag)
         
     }
@@ -74,14 +89,37 @@ class CommentViewModel: ViewModelType, HasDisposeBag {
         return !text.isEmpty && text != "" && text.count > 1
     }
     
+    func uploadSubComment(user: User, content: String, parentComment: Comment) {
+        let newComment = Comment(commentID: UUID().uuidString,
+                                 postID: post.postID,
+                                 parentID: parentComment.commentID,
+                                 user: user,
+                                 content: content,
+                                 timestamp: Date(),
+                                 didLike: false,
+                                 subComments: nil,
+                                 likes: 0)
+        if let index = output.commentSections.firstIndex(where: { section in
+            return section.header.commentID == parentComment.commentID
+        }) {
+            commentService.createComment(comment: newComment)
+            output.commentSections[index].items.append(newComment)
+        }
+    }
+    
     func uploadComment(user: User, content: String) {
         let newComment = Comment(commentID: UUID().uuidString,
-                                 postID: post.postID, parentID: nil,
-                                 user: user, content: content, timestamp: Date(),
-                                 didLike: false, subComments: nil, likes: 0)
-        commentService.createComment(comment: newComment)
+                                 postID: post.postID,
+                                 parentID: nil,
+                                 user: user,
+                                 content: content,
+                                 timestamp: Date(),
+                                 didLike: false,
+                                 subComments: nil,
+                                 likes: 0)
         let newSection = CommentSection(header: newComment, items: [])
         output.commentSections.append(newSection)
+        commentService.createComment(comment: newComment)
     }
     
     func fetchComments() {
