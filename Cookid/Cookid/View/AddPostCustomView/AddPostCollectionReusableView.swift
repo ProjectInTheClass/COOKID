@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 import Then
-import YPImagePicker
 
 class AddPostCollectionReusableView: UICollectionReusableView {
     
@@ -42,5 +41,5 @@ class AddPostCollectionReusableView: UICollectionReusableView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
 }
