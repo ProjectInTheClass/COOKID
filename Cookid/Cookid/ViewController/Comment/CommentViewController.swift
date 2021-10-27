@@ -74,6 +74,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
     }
     
     var viewModel: CommentViewModel!
+    var coordinator: PostCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -266,14 +267,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 .withLatestFrom(Observable.just(headerComment))
                 .bind(onNext: { [weak self] comment in
                     guard let self = self else { return }
-                    let alertVC = UIAlertController(title: "댓글 삭제하기", message: "댓글을 삭제하시겠습니까?", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-                        self.viewModel.input.deleteButtonTapped.onNext(comment)
-                    }
-                    let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-                    alertVC.addAction(okAction)
-                    alertVC.addAction(cancelAction)
-                    self.present(alertVC, animated: true, completion: nil)
+                    self.coordinator?.presentAlertVCForDelete(viewModel: self.viewModel, comment: headerComment)
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -281,14 +275,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 .withLatestFrom(Observable.just(headerComment))
                 .bind(onNext: { [weak self] comment in
                     guard let self = self else { return }
-                    let alertVC = UIAlertController(title: "댓글 신고하기", message: "댓글을 신고하시겠습니까?", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "신고", style: .destructive) { _ in
-                        self.viewModel.input.reportButtonTapped.onNext(comment)
-                    }
-                    let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-                    alertVC.addAction(okAction)
-                    alertVC.addAction(cancelAction)
-                    self.present(alertVC, animated: true, completion: nil)
+                    self.coordinator?.presentAlertVCForReport(viewModel: self.viewModel, comment: headerComment)
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -305,14 +292,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 .withLatestFrom(Observable.just(subComment))
                 .bind(onNext: { [weak self] comment in
                     guard let self = self else { return }
-                    let alertVC = UIAlertController(title: "댓글 삭제하기", message: "댓글을 삭제하시겠습니까?", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-                        self.viewModel.input.deleteButtonTapped.onNext(comment)
-                    }
-                    let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-                    alertVC.addAction(okAction)
-                    alertVC.addAction(cancelAction)
-                    self.present(alertVC, animated: true, completion: nil)
+                    self.coordinator?.presentAlertVCForDelete(viewModel: self.viewModel, comment: subComment)
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -320,14 +300,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 .withLatestFrom(Observable.just(subComment))
                 .bind(onNext: { [weak self] comment in
                     guard let self = self else { return }
-                    let alertVC = UIAlertController(title: "댓글 신고하기", message: "댓글을 신고하시겠습니까?", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "신고", style: .destructive) { _ in
-                        self.viewModel.input.reportButtonTapped.onNext(comment)
-                    }
-                    let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-                    alertVC.addAction(okAction)
-                    alertVC.addAction(cancelAction)
-                    self.present(alertVC, animated: true, completion: nil)
+                    self.coordinator?.presentAlertVCForReport(viewModel: self.viewModel, comment: subComment)
                 })
                 .disposed(by: cell.disposeBag)
             

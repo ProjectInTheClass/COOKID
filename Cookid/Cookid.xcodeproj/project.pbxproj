@@ -50,6 +50,7 @@
 		0363F1F82706C7CD0017680D /* NaverAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */; };
 		0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E3EB27045A00007F8AA5 /* RemoteUser.swift */; };
 		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
+		0390F53E2728EF4E00677651 /* YPImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53D2728EF4E00677651 /* YPImagePickerController.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
 		0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */; };
@@ -108,7 +109,6 @@
 		03F2ED9026F3886700CFE87C /* PostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED8F26F3886700CFE87C /* PostCoordinator.swift */; };
 		03F2ED9226F38D7C00CFE87C /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED9126F38D7C00CFE87C /* MainCoordinator.swift */; };
 		03F2ED9426F3916500CFE87C /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED9326F3916500CFE87C /* MyPageCoordinator.swift */; };
-		03F2ED9626FA20A900CFE87C /* CommentReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED9526FA20A800CFE87C /* CommentReactor.swift */; };
 		163C7CE736B3B3B05C1C5545 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92784250C9969CCBA901BA20 /* Pods_Cookid.framework */; };
 		241523B0269D093E0077941A /* ShoppingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523AF269D093E0077941A /* ShoppingService.swift */; };
 		241523B4269D24860077941A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523B3269D24860077941A /* Function.swift */; };
@@ -205,6 +205,7 @@
 		035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarViewController.swift; sourceTree = "<group>"; };
 		0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthRepo.swift; sourceTree = "<group>"; };
 		0380E3EB27045A00007F8AA5 /* RemoteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteUser.swift; sourceTree = "<group>"; };
+		0390F53D2728EF4E00677651 /* YPImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePickerController.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
 		0395F6EC26B805360091BB29 /* AddMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewController.swift; sourceTree = "<group>"; };
 		0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewModel.swift; sourceTree = "<group>"; };
@@ -261,7 +262,6 @@
 		03F2ED8F26F3886700CFE87C /* PostCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCoordinator.swift; sourceTree = "<group>"; };
 		03F2ED9126F38D7C00CFE87C /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		03F2ED9326F3916500CFE87C /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
-		03F2ED9526FA20A800CFE87C /* CommentReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentReactor.swift; sourceTree = "<group>"; };
 		1E6CBAD80279B45E67A6BDDE /* Pods-Cookid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.debug.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.debug.xcconfig"; sourceTree = "<group>"; };
 		241523AF269D093E0077941A /* ShoppingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingService.swift; sourceTree = "<group>"; };
 		241523B3269D24860077941A /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
@@ -397,6 +397,7 @@
 				2417EAB226E58CDD006F2785 /* Onboarding */,
 				03B2048B26D5D9270099C269 /* Main */,
 				03F2ED7126ED92C900CFE87C /* Post */,
+				0390F53B2728EB8E00677651 /* Comment */,
 				2417EAB426E58CF7006F2785 /* MyPage */,
 			);
 			path = ViewModel;
@@ -409,6 +410,7 @@
 				03586EAD26E4FD52002A56C6 /* SignIn */,
 				03E42EDB26C4F6A7005D7B5E /* Main */,
 				03F2ED6526ED90A300CFE87C /* Post */,
+				0390F53C2728EBA200677651 /* Comment */,
 				03E42ED426C4DBB0005D7B5E /* Ranking */,
 				2417EAA626E58C7C006F2785 /* MyPage */,
 			);
@@ -486,6 +488,7 @@
 				C6BFF46126949AA7006295F5 /* Constant.swift */,
 				241523B3269D24860077941A /* Function.swift */,
 				DB61715126C9577B008F497C /* NotificationManager.swift */,
+				0390F53D2728EF4E00677651 /* YPImagePickerController.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -523,6 +526,23 @@
 				03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */,
 			);
 			path = SignIn;
+			sourceTree = "<group>";
+		};
+		0390F53B2728EB8E00677651 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				03CCC4F92726185D00647B5C /* CommentViewModel.swift */,
+				03250E0D2712654900425036 /* CommentCellReactor.swift */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		0390F53C2728EBA200677651 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				0398E16A26FB3E6000E98F77 /* CommentViewController.swift */,
+			);
+			path = Comment;
 			sourceTree = "<group>";
 		};
 		0395B61626943B1F009289B7 /* MainCustomView */ = {
@@ -633,7 +653,6 @@
 				03F2ED6F26ED929300CFE87C /* PostMainViewController.swift */,
 				03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */,
 				24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */,
-				0398E16A26FB3E6000E98F77 /* CommentViewController.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -656,9 +675,6 @@
 				03F2ED7226ED92D500CFE87C /* PostViewModel.swift */,
 				03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */,
 				0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */,
-				03F2ED9526FA20A800CFE87C /* CommentReactor.swift */,
-				03CCC4F92726185D00647B5C /* CommentViewModel.swift */,
-				03250E0D2712654900425036 /* CommentCellReactor.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -1001,6 +1017,7 @@
 				035E4921269597D4002CC084 /* MealTimeCollectionViewCell.swift in Sources */,
 				032233BA269277520092DD6D /* Meal.swift in Sources */,
 				0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */,
+				0390F53E2728EF4E00677651 /* YPImagePickerController.swift in Sources */,
 				033D3C2A270A780E009B29B9 /* MyPostCollectionViewCell.swift in Sources */,
 				DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */,
 				0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */,
@@ -1090,7 +1107,6 @@
 				0331A9CF2711C3EA005EF05B /* PostCellReactor.swift in Sources */,
 				03525F742707E72D006C8B40 /* KakaoAuthRepo.swift in Sources */,
 				24B081BA26DFD23500379087 /* LocalUser.swift in Sources */,
-				03F2ED9626FA20A900CFE87C /* CommentReactor.swift in Sources */,
 				033D3C2C270A7C96009B29B9 /* MyPostReactor.swift in Sources */,
 				03D8C1F126EB6FD600238CB6 /* Post.swift in Sources */,
 				03B2048D26D5D9440099C269 /* AddShoppingViewModel.swift in Sources */,

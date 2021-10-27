@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ReactorKit
 
 class PostCoordinator: CoordinatorType {
     
@@ -60,7 +61,8 @@ class PostCoordinator: CoordinatorType {
     
     func navigateAddPostVC(viewModel: PostViewModel, senderTag: Int) {
         let addPostVC = AddPostViewController.instantiate(storyboardID: "Post")
-        addPostVC.reactor = AddPostReactor(postService: postService, userService: userService)
+        let reactor = AddPostReactor(postService: postService, userService: userService)
+        addPostVC.reactor = reactor
         navigationController?.pushViewController(addPostVC, animated: true)
         
         switch senderTag {
@@ -69,7 +71,9 @@ class PostCoordinator: CoordinatorType {
         case 2:
             print("글 올리기")
         case 3:
-            print("사진 올리기")
+            YPImagePickerController.shared.pickingImages(viewController: addPostVC) { images in
+                reactor.action.onNext(.imageUpload(images))
+            }
         default:
             break
         }
@@ -79,7 +83,31 @@ class PostCoordinator: CoordinatorType {
         var commentVC = CommentViewController()
         let viewModel = CommentViewModel(post: post, commentService: commentService, userService: userService)
         commentVC.bind(viewModel: viewModel)
+        commentVC.coordinator = self
         commentVC.modalPresentationStyle = .overFullScreen
         navigationController?.pushViewController(commentVC, animated: true)
     }
+    
+    func presentAlertVCForDelete(viewModel: CommentViewModel, comment: Comment) {
+        let alertVC = UIAlertController(title: "삭제하기", message: "댓글을 삭제하시겠습니까?\n한 번 삭제한 글을 복구가 불가능 합니다\n답글이 있는 경우 답글도 모두 삭제됩니다", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+            viewModel.input.reportButtonTapped.onNext(comment)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alertVC.addAction(okAction)
+        alertVC.addAction(cancelAction)
+        navigationController?.present(alertVC, animated: true, completion: nil)
+    }
+    
+    func presentAlertVCForReport(viewModel: CommentViewModel, comment: Comment) {
+        let alertVC = UIAlertController(title: "신고하기", message: "댓글을 신고하시겠습니까?\n적극적인 신고로 깨끗한 환경을 만들어 주세요:)", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "신고", style: .destructive) { _ in
+            viewModel.input.reportButtonTapped.onNext(comment)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alertVC.addAction(okAction)
+        alertVC.addAction(cancelAction)
+        navigationController?.present(alertVC, animated: true, completion: nil)
+    }
+    
 }
