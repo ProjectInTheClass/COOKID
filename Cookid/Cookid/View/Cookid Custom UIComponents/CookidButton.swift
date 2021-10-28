@@ -9,7 +9,7 @@ import UIKit
 
 class CookidButton: UIButton {
     
-    ///버튼의 색깔
+    /// 버튼의 색깔
     public var buttonColor: UIColor = .gray {
         didSet {
             self.tintColor = buttonColor

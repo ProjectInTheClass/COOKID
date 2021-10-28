@@ -58,9 +58,10 @@ class MyBookmarkViewController: UIViewController, View {
         .disposed(by: disposeBag)
         
         collectionView.rx.modelSelected(Post.self)
-            .bind { post in
-                // 해당 포스트가 있는 디테일뷰, 댓글뷰로 가기
-                print(post.caption)
+            .withUnretained(self)
+            .bind { owner, post in
+                guard let postCoordinator = owner.coordinator?.parentCoordinator.childCoordinator[1] as? PostCoordinator else { return }
+                postCoordinator.navigateCommentVC(rootNaviVC: owner.coordinator?.navigationController, post: post)
             }
             .disposed(by: disposeBag)
         

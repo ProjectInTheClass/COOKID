@@ -117,8 +117,7 @@ class PostTableViewCell: UITableViewCell, View {
         commentListButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { owner, _ in
-                owner.coordinator?.navigateCommentVC(post: reactor.currentState.post,
-                                                     commentService: reactor.commentService)
+                owner.coordinator?.navigateCommentVC(rootNaviVC: nil, post: reactor.currentState.post)
             })
             .disposed(by: disposeBag)
         
