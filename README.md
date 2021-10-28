@@ -60,6 +60,10 @@
 
 ### CI/CD, Test
 
+### 앱어트리뷰션
+* Firebase Analytics
+* Firebase Crashlytics
+
 ### 개발 아키텍처
 * Rx + MVVM + Coordinator Pattern 
 * Singletone Pattern
