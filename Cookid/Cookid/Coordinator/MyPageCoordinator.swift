@@ -26,7 +26,6 @@ class MyPageCoordinator: CoordinatorType {
         self.shoppingService = shoppingService
         self.commentService = commentService
         self.postService = postService
-        
     }
     
     func start() -> UIViewController {
@@ -34,9 +33,13 @@ class MyPageCoordinator: CoordinatorType {
         myPageVC.coordinator = self
         myPageVC.bind(viewModel: MyPageViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService, postService: postService, commentService: commentService))
         navigationController = UINavigationController(rootViewController: myPageVC)
-        myPageVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
-        myPageVC.navigationController?.navigationBar.barTintColor = .systemBackground
+        navigationBarConfigure()
         return navigationController!
+    }
+    
+    private func navigationBarConfigure() {
+        navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
+        navigationController?.navigationBar.barTintColor = .systemBackground
     }
     
     func navigateUserInfoVC(viewModel: MyPageViewModel) {

@@ -11,6 +11,8 @@ import RxCocoa
 import NSObject_Rx
 import Kingfisher
 import NaverThirdPartyLogin
+import Then
+import SnapKit
 
 class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBased {
 
@@ -21,6 +23,10 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     @IBOutlet weak var postButtonWithCaption: UIButton!
     @IBOutlet weak var postButtonWithCamera: UIButton!
     @IBOutlet weak var addPostBarButton: UIBarButtonItem!
+    
+    private var activityIndicator = UIActivityIndicatorView().then {
+        $0.hidesWhenStopped = true
+    }
     
     // MARK: - Properties
     var viewModel: PostViewModel!
@@ -34,9 +40,8 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     // MARK: - View LC
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.naverAuthRepo.viewModel = viewModel
-        self.kakaoAuthRepo.viewModel = viewModel
-        self.appleAuthRepo.viewModel = viewModel
+        settingViewModel()
+        makeConstraints()
         configureUI()
     }
     
@@ -61,6 +66,13 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     }
     
     // MARK: - Functions
+    
+    private func settingViewModel() {
+        self.naverAuthRepo.viewModel = viewModel
+        self.kakaoAuthRepo.viewModel = viewModel
+        self.appleAuthRepo.viewModel = viewModel
+    }
+    
     private func configureUI() {
         userImage.makeCircleView()
         postButtonWithCaption.layer.cornerRadius = 10
@@ -68,6 +80,15 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         addPostBarButton.tag = 1
         postButtonWithCaption.tag = 2
         postButtonWithCamera.tag = 3
+        activityIndicator.startAnimating()
+    }
+    
+    private func makeConstraints() {
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.width.height.equalTo(50)
+        }
     }
 
     // MARK: - bindViewModel
@@ -80,11 +101,15 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             .disposed(by: rx.disposeBag)
         
         viewModel.output.posts
-            .bind(to: tableView.rx.items(cellIdentifier: "postCell", cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: "postCell",
+                                         cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
-                
                 cell.coordinator = self.coordinator
-                cell.reactor = PostCellReactor(sender: self, post: item, postService: self.viewModel.postService, userService: self.viewModel.userService, commentService: self.viewModel.commentService)
+                cell.reactor = PostCellReactor(sender: self,
+                                               post: item,
+                                               postService: self.viewModel.postService,
+                                               userService: self.viewModel.userService,
+                                               commentService: self.viewModel.commentService)
                 
                 self.updateTableViewCell(cell: cell, index: index)
                 
@@ -102,6 +127,8 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                         UIView.setAnimationsEnabled(true)
                     })
                     .disposed(by: cell.disposeBag)
+                
+                self.activityIndicator.stopAnimating()
             }
             .disposed(by: rx.disposeBag)
         

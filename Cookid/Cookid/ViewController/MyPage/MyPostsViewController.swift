@@ -39,8 +39,10 @@ class MyPostsViewController: UIViewController, View {
             .disposed(by: rx.disposeBag)
         
         collectionView.rx.modelSelected(Post.self)
-            .bind { [unowned self] post in
-                print(post.caption)
+            .withUnretained(self)
+            .bind { owner, post in
+                guard let postCoordinator = owner.coordinator?.parentCoordinator.childCoordinator[1] as? PostCoordinator else { return }
+                postCoordinator.navigateCommentVC(rootNaviVC: owner.coordinator?.navigationController, post: post)
             }
             .disposed(by: disposeBag)
     }

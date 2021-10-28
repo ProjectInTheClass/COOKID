@@ -73,6 +73,8 @@ class CommentViewController: UIViewController, ViewModelBindable {
         $0.buttonImage = image
     }
     
+    private let commentHeaderView = CommentHeaderView(frame: .zero)
+    
     var viewModel: CommentViewModel!
     var coordinator: PostCoordinator?
     
@@ -91,7 +93,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
         navigationItem.title = "댓글 보기"
         view.backgroundColor = .systemBackground
         activityIndicator.startAnimating()
-        
+        commentHeaderView.updateUI(viewModel.post)
         tableView.delegate = self
         tableView.dataSource = self
         viewModel.output.onUpdated = { [weak self] in
@@ -112,6 +114,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
     
     private func makeConstraints() {
         
+        view.addSubview(commentHeaderView)
         view.addSubview(tableView)
         view.addSubview(commentTextFieldView)
         view.addSubview(activityIndicator)
@@ -120,8 +123,14 @@ class CommentViewController: UIViewController, ViewModelBindable {
         commentTextFieldLeftView.addSubview(leftViewUserNamaLabel)
         commentTextFieldLeftView.addSubview(subCommentCancelButton)
         
+        commentHeaderView.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.topMargin)
+            make.left.right.equalToSuperview()
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.top.right.left.equalToSuperview()
+            make.top.equalTo(commentHeaderView.snp.bottom)
+            make.right.left.equalToSuperview()
             make.bottom.equalTo(commentTextFieldView.snp.top)
         }
         
@@ -238,7 +247,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
             
             let headerComment = viewModel.output.commentSections[indexPath.section].header
             
-            cell.reactor = CommentCellReactor(comment: headerComment, userService: viewModel.userService)
+            cell.reactor = CommentCellReactor(post: viewModel.post, comment: headerComment, userService: viewModel.userService)
             
             self.cellStateUpdate(cell: cell, target: viewModel.output.commentSections[indexPath.section])
             
@@ -286,7 +295,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
             
             let subComment = viewModel.output.commentSections[indexPath.section].items[indexPath.row - 1]
             
-            cell.reactor = CommentCellReactor(comment: subComment, userService: viewModel.userService)
+            cell.reactor = CommentCellReactor(post: viewModel.post, comment: subComment, userService: viewModel.userService)
             
             cell.deleteButton.rx.tap
                 .withLatestFrom(Observable.just(subComment))

@@ -13,7 +13,6 @@ import ReactorKit
 class AddPostImageCollectionViewController: UICollectionViewController, View {
     
     var disposeBag: DisposeBag = DisposeBag()
-    var coordinator: PostCoordinator?
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +43,14 @@ extension AddPostImageCollectionViewController: UICollectionViewDelegateFlowLayo
               let reactor = reactor else { return UICollectionViewCell() }
         // viewModel로 따로 wrapping하지 않음.
         cell.updateUI(image: reactor.currentState.images[indexPath.item])
+        // rx로 구현시 동작 안됨
         cell.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footer", for: indexPath) as? AddPostCollectionReusableView else { return UICollectionReusableView() }
+        // rx로 구현시 동작 안됨
         footer.plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         return footer
     }

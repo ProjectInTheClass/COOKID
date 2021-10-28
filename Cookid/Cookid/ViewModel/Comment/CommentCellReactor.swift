@@ -23,13 +23,14 @@ class CommentCellReactor: Reactor {
     struct State {
         var user: User = DummyData.shared.singleUser
         var comment: Comment
+        var post: Post
     }
     
     let initialState: State
     
-    init(comment: Comment, userService: UserService) {
+    init(post: Post, comment: Comment, userService: UserService) {
         self.userService = userService
-        self.initialState = State(comment: comment)
+        self.initialState = State(comment: comment, post: post)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {

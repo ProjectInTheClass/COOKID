@@ -29,10 +29,14 @@ class MainCoordinator: CoordinatorType {
         mainVC.bind(viewModel: MainViewModel(mealService: mealService, userService: userService, shoppingService: shoppingService))
         mainVC.coordinator = self
         navigationController = UINavigationController(rootViewController: mainVC)
-        mainVC.navigationController?.navigationBar.prefersLargeTitles = true
-        mainVC.navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
-        mainVC.navigationController?.navigationBar.barTintColor = .systemBackground
+        navigationBarConfigure()
         return navigationController!
+    }
+    
+    private func navigationBarConfigure() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
+        navigationController?.navigationBar.barTintColor = .systemBackground
     }
     
     func navigateSelectCalendarVC(viewModel: MainViewModel) {
@@ -44,11 +48,7 @@ class MainCoordinator: CoordinatorType {
     }
     
     func navigateAddMealVC(meal: Meal?) {
-//        let mealID = meal != nil ? meal?.id : UUID().uuidString
-//        let addMealViewModel = AddMealViewModel(mealService: mealService, mealID: mealID)
         let vc = AddMealViewController.instantiate(storyboardID: "Main")
-//        vc.meal = meal
-//        vc.bind(viewModel: addMealViewModel)
         vc.reactor = AddMealReactor(mealService: mealService, meal: meal)
         vc.modalPresentationStyle = .custom
         vc.modalTransitionStyle = .crossDissolve

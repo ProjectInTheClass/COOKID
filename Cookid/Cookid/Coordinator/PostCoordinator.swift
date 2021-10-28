@@ -39,7 +39,6 @@ class PostCoordinator: CoordinatorType {
     }
     
     private func navigationBarConfigure() {
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         navigationController?.navigationBar.barTintColor = .systemBackground
     }
@@ -79,13 +78,17 @@ class PostCoordinator: CoordinatorType {
         }
     }
     
-    func navigateCommentVC(post: Post, commentService: CommentService) {
+    func navigateCommentVC(rootNaviVC: UINavigationController?, post: Post) {
         var commentVC = CommentViewController()
         let viewModel = CommentViewModel(post: post, commentService: commentService, userService: userService)
         commentVC.bind(viewModel: viewModel)
         commentVC.coordinator = self
         commentVC.modalPresentationStyle = .overFullScreen
-        navigationController?.pushViewController(commentVC, animated: true)
+        if let rootNaviVC = rootNaviVC {
+            rootNaviVC.pushViewController(commentVC, animated: true)
+        } else {
+            navigationController?.pushViewController(commentVC, animated: true)
+        }
     }
     
     func presentAlertVCForDelete(viewModel: CommentViewModel, comment: Comment) {

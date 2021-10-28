@@ -51,6 +51,7 @@
 		0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E3EB27045A00007F8AA5 /* RemoteUser.swift */; };
 		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
 		0390F53E2728EF4E00677651 /* YPImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53D2728EF4E00677651 /* YPImagePickerController.swift */; };
+		0390F54027299B7900677651 /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53F27299B7900677651 /* CommentHeaderView.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
 		0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */; };
@@ -206,6 +207,7 @@
 		0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthRepo.swift; sourceTree = "<group>"; };
 		0380E3EB27045A00007F8AA5 /* RemoteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteUser.swift; sourceTree = "<group>"; };
 		0390F53D2728EF4E00677651 /* YPImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePickerController.swift; sourceTree = "<group>"; };
+		0390F53F27299B7900677651 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
 		0395F6EC26B805360091BB29 /* AddMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewController.swift; sourceTree = "<group>"; };
 		0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewModel.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 			children = (
 				032233D42692D52A0092DD6D /* Font */,
 				032233A4269212870092DD6D /* Assets.xcassets */,
+				032233A6269212870092DD6D /* Launch.storyboard */,
 				0339575026A2C96100594515 /* boardingImage */,
 			);
 			path = Resources;
@@ -452,7 +455,6 @@
 		032233C8269280640092DD6D /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				032233A6269212870092DD6D /* Launch.storyboard */,
 				032233A1269212860092DD6D /* Main.storyboard */,
 				03F2ED6326ED906C00CFE87C /* Post.storyboard */,
 				DB1982EE269BF7D30055742B /* UserInfo.storyboard */,
@@ -497,6 +499,9 @@
 			isa = PBXGroup;
 			children = (
 				0339E268271B81D3001FD6A7 /* CookidButton.swift */,
+				0395B61726943B30009289B7 /* CustomProgressBar.swift */,
+				035E4922269681A0002CC084 /* CustomProgressCircleView.swift */,
+				03F2ED8B26F17D2C00CFE87C /* PostCustomButton.swift */,
 			);
 			path = "Cookid Custom UIComponents";
 			sourceTree = "<group>";
@@ -504,6 +509,7 @@
 		033D3C192709FA5E009B29B9 /* CommentCustomView */ = {
 			isa = PBXGroup;
 			children = (
+				0390F53F27299B7900677651 /* CommentHeaderView.swift */,
 				03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */,
 				24BA287626F8E85F005D344E /* CommentTableViewCell.swift */,
 			);
@@ -548,8 +554,6 @@
 		0395B61626943B1F009289B7 /* MainCustomView */ = {
 			isa = PBXGroup;
 			children = (
-				0395B61726943B30009289B7 /* CustomProgressBar.swift */,
-				035E4922269681A0002CC084 /* CustomProgressCircleView.swift */,
 				035E491C26956F92002CC084 /* MealTableViewCell.swift */,
 				035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */,
 				035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */,
@@ -664,7 +668,6 @@
 				03F2ED7426EDD23A00CFE87C /* PostUserView.swift */,
 				03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */,
 				03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */,
-				03F2ED8B26F17D2C00CFE87C /* PostCustomButton.swift */,
 			);
 			path = PostCustomView;
 			sourceTree = "<group>";
@@ -1025,6 +1028,7 @@
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
 				03D3046826FDFA7D00042CB7 /* AddPostCollectionReusableView.swift in Sources */,
 				03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */,
+				0390F54027299B7900677651 /* CommentHeaderView.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
 				03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */,
