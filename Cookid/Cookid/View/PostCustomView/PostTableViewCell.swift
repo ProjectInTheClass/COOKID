@@ -35,7 +35,7 @@ class PostTableViewCell: UITableViewCell, View {
     @IBOutlet weak var userType: UILabel!
     @IBOutlet weak var userNickname: UILabel!
     @IBOutlet weak var location: UILabel!
-    @IBOutlet weak var reportButton: UIImageView!
+    @IBOutlet weak var reportButton: UIButton!
     
     var coordinator: PostCoordinator?
     var disposeBag = DisposeBag()
@@ -123,6 +123,13 @@ class PostTableViewCell: UITableViewCell, View {
             })
             .disposed(by: disposeBag)
         
+        reportButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.coordinator?.presentReportActionVC(reactor: reactor, post: reactor.currentState.post, currentUser: reactor.currentState.user)
+            })
+            .disposed(by: disposeBag)
+        
         imageCollectionView.delegate = nil
         imageCollectionView.dataSource = nil
         
@@ -137,6 +144,7 @@ class PostTableViewCell: UITableViewCell, View {
             
     }
     
+    // 아래 있는 메소드들 리액터로 옮겨야 하나 고민해보자. -> 옮겨야 하는 것들이 있다.
     private func makeUpUserView(post: Post) {
         userImage.setImageWithKf(url: post.user.image)
         userImage.makeCircleView()
@@ -165,6 +173,7 @@ class PostTableViewCell: UITableViewCell, View {
         bookmarkCountLabel.text = "북마크 \(bookmarkCount)개"
     }
     
+    // 이런거?
     private func makeUpComments(commentCount: Int) {
         if commentCount == 0 {
             commentListButton.setTitle("아직 댓글이 없어요", for: .normal)
