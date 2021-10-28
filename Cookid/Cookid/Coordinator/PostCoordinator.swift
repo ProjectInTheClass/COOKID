@@ -113,4 +113,21 @@ class PostCoordinator: CoordinatorType {
         navigationController?.present(alertVC, animated: true, completion: nil)
     }
     
+    func presentReportActionVC(reactor: PostCellReactor, post: Post, currentUser: User) {
+        let alertVC = UIAlertController(title: "포스팅 관리", message: "신고나 삭제된 게시물은 복구할 수 없습니다.\n깨끗한 공유문화를 위해서 함께 해주세요!", preferredStyle: .actionSheet)
+        let reportAction = UIAlertAction(title: "신고하기", style: .destructive) { _ in
+            print("신고")
+        }
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+            print("삭제")
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alertVC.addAction(reportAction)
+        if post.user.id == currentUser.id {
+            alertVC.addAction(deleteAction)
+        }
+        alertVC.addAction(cancelAction)
+        navigationController?.present(alertVC, animated: true, completion: nil)
+    }
+    
 }

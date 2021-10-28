@@ -149,19 +149,20 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text.alignright" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1Wq-Tv-zqh">
-                                                                    <rect key="frame" x="384" y="18" width="20" height="18.5"/>
-                                                                    <color key="tintColor" systemColor="labelColor"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g89-Qs-xll">
+                                                                    <rect key="frame" x="387" y="19" width="17" height="17"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="22" id="2PI-6T-I3Y"/>
-                                                                        <constraint firstAttribute="width" constant="20" id="Gc0-4y-mVy"/>
+                                                                        <constraint firstAttribute="height" constant="17" id="A4y-87-2up"/>
+                                                                        <constraint firstAttribute="width" constant="17" id="mun-Td-4ec"/>
                                                                     </constraints>
-                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17"/>
-                                                                </imageView>
+                                                                    <color key="tintColor" systemColor="labelColor"/>
+                                                                    <state key="normal" title="Button"/>
+                                                                    <buttonConfiguration key="configuration" style="plain" image="text.alignright" catalog="system"/>
+                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="trailing" secondItem="1Wq-Tv-zqh" secondAttribute="trailing" constant="10" id="141-Lu-i6v"/>
+                                                                <constraint firstItem="g89-Qs-xll" firstAttribute="centerY" secondItem="Niu-AO-XfM" secondAttribute="centerY" id="103-EQ-pvd"/>
                                                                 <constraint firstItem="MTm-bI-sJT" firstAttribute="leading" secondItem="Niu-AO-XfM" secondAttribute="leading" constant="10" id="AH0-gM-O0T"/>
                                                                 <constraint firstItem="oKK-Ej-lVY" firstAttribute="centerY" secondItem="mCm-63-5rr" secondAttribute="centerY" id="Blj-fA-9Ct"/>
                                                                 <constraint firstAttribute="bottom" secondItem="MTm-bI-sJT" secondAttribute="bottom" constant="10" id="D6P-bP-jKs"/>
@@ -169,7 +170,7 @@
                                                                 <constraint firstItem="mCm-63-5rr" firstAttribute="centerY" secondItem="Gou-eJ-1qS" secondAttribute="centerY" id="IXF-0T-K14"/>
                                                                 <constraint firstItem="MTm-bI-sJT" firstAttribute="top" secondItem="Niu-AO-XfM" secondAttribute="top" constant="10" id="L9a-Ih-WUT"/>
                                                                 <constraint firstItem="Gou-eJ-1qS" firstAttribute="leading" secondItem="MTm-bI-sJT" secondAttribute="trailing" constant="10" id="LS6-Je-1JE"/>
-                                                                <constraint firstItem="1Wq-Tv-zqh" firstAttribute="centerY" secondItem="Niu-AO-XfM" secondAttribute="centerY" id="aR1-Zd-Ind"/>
+                                                                <constraint firstAttribute="trailing" secondItem="g89-Qs-xll" secondAttribute="trailing" constant="10" id="WNj-T4-ihj"/>
                                                                 <constraint firstItem="mCm-63-5rr" firstAttribute="leading" secondItem="Gou-eJ-1qS" secondAttribute="trailing" constant="5" id="fTT-SC-HOg"/>
                                                                 <constraint firstAttribute="height" constant="55" id="lGM-5l-fn3"/>
                                                                 <constraint firstItem="oKK-Ej-lVY" firstAttribute="leading" secondItem="mCm-63-5rr" secondAttribute="trailing" constant="5" id="o7k-dD-Eao"/>
@@ -409,7 +410,7 @@
                                             <outlet property="imagePageControl" destination="L4n-by-AGg" id="fXQ-8U-upA"/>
                                             <outlet property="location" destination="oKK-Ej-lVY" id="b3R-Gq-lQs"/>
                                             <outlet property="postCaptionLabel" destination="9ff-H4-pG0" id="MYM-aS-nMV"/>
-                                            <outlet property="reportButton" destination="1Wq-Tv-zqh" id="Yrs-hY-aly"/>
+                                            <outlet property="reportButton" destination="g89-Qs-xll" id="6AC-uI-st5"/>
                                             <outlet property="starSlider" destination="aQx-tq-FMz" id="s9J-eR-nNu"/>
                                             <outlet property="userCountLabel" destination="Anz-Ed-V4c" id="CHX-1T-Xum"/>
                                             <outlet property="userImage" destination="MTm-bI-sJT" id="QiN-5w-U3E"/>
@@ -591,16 +592,16 @@
                                                         <rect key="frame" x="0.0" y="749" width="394" height="100"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ql6-tX-Bvj">
-                                                                <rect key="frame" x="126" y="21" width="142" height="58"/>
+                                                                <rect key="frame" x="122" y="21" width="150" height="58"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="몇 점짜리 식사였나요?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n65-K3-6Ib">
-                                                                        <rect key="frame" x="5.5" y="0.0" width="131.5" height="18"/>
+                                                                        <rect key="frame" x="9.5" y="0.0" width="131.5" height="18"/>
                                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dkw-24-8wH" customClass="StarSlider" customModule="Cookid" customModuleProvider="target">
-                                                                        <rect key="frame" x="-2" y="28" width="146" height="31"/>
+                                                                        <rect key="frame" x="-2" y="28" width="154" height="31"/>
                                                                         <color key="minimumTrackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

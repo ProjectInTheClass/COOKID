@@ -125,6 +125,7 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
             })
             .disposed(by: self.disposeBag)
         
+        // reactor 안으로 옮기자
         Observable.combineLatest(
             reactor.state.map { $0.images }
                 .distinctUntilChanged(),
@@ -148,6 +149,7 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         
     }
     
+    // reactor 안으로 옮기자
     func buttonValidation(images: [UIImage], caption: String, region: String, price: String) -> Bool {
         guard caption.isEmpty || caption == "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)" || images.isEmpty || region.isEmpty || price.isEmpty else { return true }
         return false
