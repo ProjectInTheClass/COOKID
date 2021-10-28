@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aZO-F3-Zym">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aZO-F3-Zym">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -359,35 +359,14 @@
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="BE3-fC-eZU">
-                                                                    <rect key="frame" x="275" y="15" width="124" height="24"/>
-                                                                    <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4Ru-ac-gkh">
-                                                                            <rect key="frame" x="0.0" y="-0.5" width="24" height="24"/>
-                                                                            <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="24" id="mFt-4m-tgk"/>
-                                                                                <constraint firstAttribute="height" constant="24" id="zPp-rz-nLO"/>
-                                                                            </constraints>
-                                                                        </imageView>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="IY1-RI-tKh">
-                                                                            <rect key="frame" x="25" y="-0.5" width="24" height="24"/>
-                                                                            <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                        </imageView>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="iic-uz-Ndh">
-                                                                            <rect key="frame" x="50" y="-0.5" width="24" height="24"/>
-                                                                            <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                        </imageView>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wpv-Kp-RcF">
-                                                                            <rect key="frame" x="75" y="-0.5" width="24" height="24"/>
-                                                                            <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                        </imageView>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OW4-E7-dj8">
-                                                                            <rect key="frame" x="100" y="-0.5" width="24" height="24"/>
-                                                                            <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                        </imageView>
-                                                                    </subviews>
-                                                                </stackView>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aQx-tq-FMz" customClass="StarSlider" customModule="Cookid" customModuleProvider="target">
+                                                                    <rect key="frame" x="299" y="15" width="100" height="24"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="100" id="5EP-gN-mL4"/>
+                                                                        <constraint firstAttribute="height" constant="24" id="bai-Te-y2w"/>
+                                                                    </constraints>
+                                                                </view>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
@@ -396,15 +375,15 @@
                                                                 <constraint firstAttribute="bottom" secondItem="kyi-LB-8vl" secondAttribute="bottom" constant="10" id="1fI-gM-qwj"/>
                                                                 <constraint firstItem="kyi-LB-8vl" firstAttribute="top" secondItem="BJk-fu-7Bz" secondAttribute="bottom" constant="10" id="5WI-rX-aKo"/>
                                                                 <constraint firstItem="RhE-Ex-icd" firstAttribute="leading" secondItem="P12-Gy-7cF" secondAttribute="leading" constant="15" id="6gG-k2-7NC"/>
+                                                                <constraint firstAttribute="trailing" secondItem="aQx-tq-FMz" secondAttribute="trailing" constant="15" id="BFg-Dy-PRh"/>
                                                                 <constraint firstItem="BJk-fu-7Bz" firstAttribute="leading" secondItem="P12-Gy-7cF" secondAttribute="leading" constant="15" id="EdL-ZG-1IV"/>
                                                                 <constraint firstItem="RhE-Ex-icd" firstAttribute="top" secondItem="P12-Gy-7cF" secondAttribute="top" constant="15" id="KdH-5g-HCa"/>
                                                                 <constraint firstItem="YEC-Xu-XcU" firstAttribute="leading" secondItem="P12-Gy-7cF" secondAttribute="leading" constant="15" id="MEa-nH-VRc"/>
-                                                                <constraint firstItem="BE3-fC-eZU" firstAttribute="centerY" secondItem="L4n-by-AGg" secondAttribute="centerY" id="PKO-pm-OHf"/>
+                                                                <constraint firstItem="aQx-tq-FMz" firstAttribute="centerY" secondItem="L4n-by-AGg" secondAttribute="centerY" id="QmX-pc-Oa7"/>
                                                                 <constraint firstItem="L4n-by-AGg" firstAttribute="centerY" secondItem="RhE-Ex-icd" secondAttribute="centerY" id="XYJ-ZD-v8s"/>
                                                                 <constraint firstItem="L4n-by-AGg" firstAttribute="centerX" secondItem="P12-Gy-7cF" secondAttribute="centerX" id="Zse-sy-jJs"/>
                                                                 <constraint firstAttribute="trailing" secondItem="BJk-fu-7Bz" secondAttribute="trailing" constant="15" id="bpx-IA-6GJ"/>
                                                                 <constraint firstItem="YEC-Xu-XcU" firstAttribute="top" secondItem="RhE-Ex-icd" secondAttribute="bottom" constant="15" id="eKE-sK-8tc"/>
-                                                                <constraint firstAttribute="trailing" secondItem="BE3-fC-eZU" secondAttribute="trailing" constant="15" id="ob9-j8-ls6"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -431,6 +410,7 @@
                                             <outlet property="location" destination="oKK-Ej-lVY" id="b3R-Gq-lQs"/>
                                             <outlet property="postCaptionLabel" destination="9ff-H4-pG0" id="MYM-aS-nMV"/>
                                             <outlet property="reportButton" destination="1Wq-Tv-zqh" id="Yrs-hY-aly"/>
+                                            <outlet property="starSlider" destination="aQx-tq-FMz" id="s9J-eR-nNu"/>
                                             <outlet property="userCountLabel" destination="Anz-Ed-V4c" id="CHX-1T-Xum"/>
                                             <outlet property="userImage" destination="MTm-bI-sJT" id="QiN-5w-U3E"/>
                                             <outlet property="userNickname" destination="mCm-63-5rr" id="3Sf-Oy-Dy2"/>
@@ -611,60 +591,28 @@
                                                         <rect key="frame" x="0.0" y="749" width="394" height="100"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ql6-tX-Bvj">
-                                                                <rect key="frame" x="112" y="21" width="170" height="58"/>
+                                                                <rect key="frame" x="126" y="21" width="142" height="58"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="몇 점짜리 식사였나요?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n65-K3-6Ib">
-                                                                        <rect key="frame" x="19.5" y="0.0" width="131.5" height="18"/>
+                                                                        <rect key="frame" x="5.5" y="0.0" width="131.5" height="18"/>
                                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="R8h-9h-W7x">
-                                                                        <rect key="frame" x="0.0" y="28" width="170" height="30"/>
-                                                                        <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DYp-iN-65m">
-                                                                                <rect key="frame" x="0.0" y="-0.5" width="30" height="30"/>
-                                                                                <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="width" constant="30" id="WEe-qr-Pfj"/>
-                                                                                    <constraint firstAttribute="height" constant="30" id="ZGe-EK-H8P"/>
-                                                                                </constraints>
-                                                                            </imageView>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="i2B-Kz-COc">
-                                                                                <rect key="frame" x="35" y="-0.5" width="30" height="30"/>
-                                                                                <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                            </imageView>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9lQ-rF-ifO">
-                                                                                <rect key="frame" x="70" y="-0.5" width="30" height="30"/>
-                                                                                <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                            </imageView>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CBN-vh-KfP">
-                                                                                <rect key="frame" x="105" y="-0.5" width="30" height="30"/>
-                                                                                <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                            </imageView>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xIx-OE-Ach">
-                                                                                <rect key="frame" x="140" y="-0.5" width="30" height="30"/>
-                                                                                <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                            </imageView>
-                                                                        </subviews>
-                                                                    </stackView>
+                                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dkw-24-8wH" customClass="StarSlider" customModule="Cookid" customModuleProvider="target">
+                                                                        <rect key="frame" x="-2" y="28" width="146" height="31"/>
+                                                                        <color key="minimumTrackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </slider>
                                                                 </subviews>
                                                             </stackView>
-                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="ain-ys-Vez">
-                                                                <rect key="frame" x="110" y="49" width="174" height="31"/>
-                                                                <color key="minimumTrackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </slider>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="ql6-tX-Bvj" firstAttribute="centerX" secondItem="y4o-z8-ptV" secondAttribute="centerX" id="702-OL-mOd"/>
                                                             <constraint firstAttribute="height" constant="100" id="GSv-UF-k4P"/>
-                                                            <constraint firstItem="ain-ys-Vez" firstAttribute="centerY" secondItem="R8h-9h-W7x" secondAttribute="centerY" id="U8f-wr-RKI"/>
-                                                            <constraint firstItem="ain-ys-Vez" firstAttribute="leading" secondItem="ql6-tX-Bvj" secondAttribute="leading" id="eVm-g2-dEy"/>
                                                             <constraint firstItem="ql6-tX-Bvj" firstAttribute="centerY" secondItem="y4o-z8-ptV" secondAttribute="centerY" id="nzz-X8-RYd"/>
-                                                            <constraint firstItem="ain-ys-Vez" firstAttribute="trailing" secondItem="ql6-tX-Bvj" secondAttribute="trailing" id="oRY-dj-a7e"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVG-UC-x6e">
@@ -721,7 +669,7 @@
                         <outlet property="priceView" destination="Fs0-lx-R2v" id="WQ5-Y6-6Mu"/>
                         <outlet property="regionTextField" destination="mZW-w7-t1D" id="8NU-k4-pv2"/>
                         <outlet property="regionView" destination="9W1-Wp-ldQ" id="sYs-6G-5kR"/>
-                        <outlet property="starSlider" destination="ain-ys-Vez" id="JwL-pk-Njx"/>
+                        <outlet property="starSlider" destination="dkw-24-8wH" id="Z7G-Ks-W8s"/>
                         <outlet property="starView" destination="y4o-z8-ptV" id="PEM-Sa-wzL"/>
                         <outlet property="uploadPostButton" destination="HVG-UC-x6e" id="1iW-AP-hVd"/>
                     </connections>
@@ -778,7 +726,6 @@
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
         <image name="rank" width="22" height="22"/>
-        <image name="star" catalog="system" width="128" height="116"/>
         <image name="text.alignright" catalog="system" width="128" height="100"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

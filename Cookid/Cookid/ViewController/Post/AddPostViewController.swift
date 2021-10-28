@@ -20,7 +20,6 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
     
     @IBOutlet weak var addScrollView: UIScrollView!
     @IBOutlet weak var uploadPostButton: UIButton!
-    @IBOutlet weak var starSlider: UISlider!
     @IBOutlet weak var captionView: UIView!
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var regionView: UIView!
@@ -28,6 +27,7 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var starView: UIView!
+    @IBOutlet weak var starSlider: StarSlider!
     
     let activityIndicator = UIActivityIndicatorView().then {
         $0.hidesWhenStopped = true
@@ -56,6 +56,7 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         regionView.makeShadow()
         priceView.makeShadow()
         starView.makeShadow()
+        starSlider.starMaxSize = 24
         captionTextView.layer.cornerRadius = 15
         captionTextView.contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         captionTextView.delegate = self
@@ -112,19 +113,9 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         starSlider.rx.value
             .map { Int(round($0)) }
             .distinctUntilChanged()
-            .do(onNext: { reactor.action.onNext(.inputStar($0)) })
-            .bind { [unowned self] value in
-                for index in 0...5 {
-                    if let tagView = self.view.viewWithTag(index) as? UIImageView {
-                        if index <= value {
-                            tagView.image = UIImage(systemName: "star.fill")
-                        } else {
-                            tagView.image = UIImage(systemName: "star")
-                        }
-                    }
-                }
-            }
-            .disposed(by: rx.disposeBag)
+            .map { Reactor.Action.inputStar($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
         uploadPostButton.rx.tap
             .take(1)
