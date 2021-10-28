@@ -21,6 +21,7 @@ class PostTableViewCell: UITableViewCell, View {
     @IBOutlet weak var userCountLabel: UILabel!
     @IBOutlet weak var bookmarkCountLabel: UILabel!
     
+    @IBOutlet weak var starSlider: StarSlider!
     @IBOutlet weak var userNicknameLabel: UILabel!
     @IBOutlet weak var postCaptionLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -62,9 +63,10 @@ class PostTableViewCell: UITableViewCell, View {
         })
         .disposed(by: disposeBag)
         
-        Observable.combineLatest(reactor.state.map { $0.post },
-                                 reactor.state.map { $0.user },
-                                 resultSelector: { user, post in
+        Observable.combineLatest(
+            reactor.state.map { $0.post },
+            reactor.state.map { $0.user },
+            resultSelector: { user, post in
             return (user, post)
         })
         .withUnretained(self)
@@ -144,11 +146,9 @@ class PostTableViewCell: UITableViewCell, View {
     }
     
     private func makeUpStarPoint(post: Post) {
-        for index in 0...post.star {
-            if let tagView = self.contentView.viewWithTag(index) as? UIImageView {
-                tagView.image = UIImage(systemName: "star.fill")
-            }
-        }
+        starSlider.starPoint = post.star
+        starSlider.starColor = .systemYellow
+        starSlider.isEnabled = false
     }
     
     private func setPageControl(post: Post) {
