@@ -20,6 +20,8 @@ class PostCellReactor: Reactor {
     enum Action {
         case heartbuttonTapped(Bool)
         case bookmarkButtonTapped(Bool)
+        case deleteButtonTapped(Post)
+        case reportButtonTapped(Post)
     }
     
     enum Mutation {
@@ -28,6 +30,8 @@ class PostCellReactor: Reactor {
         case setBookmark(Bool)
         case setBookmarkCount(Int)
         case setUser(User)
+        case deletePost(Bool)
+        case reportPost(Bool)
     }
     
     struct State {
@@ -37,6 +41,7 @@ class PostCellReactor: Reactor {
         var heartCount: Int
         var bookmarkCount: Int
         var user: User = DummyData.shared.singleUser
+        var isError: Bool = false
     }
     
     let initialState: State
@@ -72,6 +77,10 @@ class PostCellReactor: Reactor {
             return Observable.concat([
                 Observable.just(Mutation.setBookmark(isBookmark)),
                 Observable.just(Mutation.setBookmarkCount(self.currentState.post.collections))])
+        case .deleteButtonTapped(let post):
+            return self.postService.deletePost(post: post).map { Mutation.deletePost(!$0) }
+        case .reportButtonTapped(let post):
+            return self.postService.reportPost(post: post).map { Mutation.reportPost(!$0) }
         }
     }
     
@@ -92,6 +101,12 @@ class PostCellReactor: Reactor {
             return newState
         case .setBookmarkCount(let bookmarkCount):
             newState.bookmarkCount = bookmarkCount
+            return newState
+        case .deletePost(let isError):
+            newState.isError = isError
+            return newState
+        case .reportPost(let isError):
+            newState.isError = isError
             return newState
         }
     }

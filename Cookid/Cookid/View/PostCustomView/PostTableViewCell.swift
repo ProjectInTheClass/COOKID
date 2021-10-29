@@ -182,6 +182,7 @@ class PostTableViewCell: UITableViewCell, View {
         }
     }
     
+    // 이 함수 구현하기
     private func makeUpBudgetCheck(post: Post, user: User) {
         if Double(post.mealBudget) / Double(user.priceGoal) * 100 > 66 {
             let image = UIImage(systemName: "xmark.circle.fill")

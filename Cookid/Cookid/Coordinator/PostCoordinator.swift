@@ -58,9 +58,9 @@ class PostCoordinator: CoordinatorType {
         navigationController?.present(signInVC, animated: true)
     }
     
-    func navigateAddPostVC(viewModel: PostViewModel, senderTag: Int) {
+    func navigateAddPostVC(post: Post?, senderTag: Int) {
         let addPostVC = AddPostViewController.instantiate(storyboardID: "Post")
-        let reactor = AddPostReactor(postService: postService, userService: userService)
+        let reactor = AddPostReactor(post: post, postService: postService, userService: userService)
         addPostVC.reactor = reactor
         navigationController?.pushViewController(addPostVC, animated: true)
         
@@ -94,7 +94,7 @@ class PostCoordinator: CoordinatorType {
     func presentAlertVCForDelete(viewModel: CommentViewModel, comment: Comment) {
         let alertVC = UIAlertController(title: "삭제하기", message: "댓글을 삭제하시겠습니까?\n한 번 삭제한 글을 복구가 불가능 합니다\n답글이 있는 경우 답글도 모두 삭제됩니다", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            viewModel.input.reportButtonTapped.onNext(comment)
+            viewModel.input.deleteButtonTapped.onNext(comment)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         alertVC.addAction(okAction)
@@ -116,15 +116,20 @@ class PostCoordinator: CoordinatorType {
     func presentReportActionVC(reactor: PostCellReactor, post: Post, currentUser: User) {
         let alertVC = UIAlertController(title: "포스팅 관리", message: "신고나 삭제된 게시물은 복구할 수 없습니다.\n깨끗한 공유문화를 위해서 함께 해주세요!", preferredStyle: .actionSheet)
         let reportAction = UIAlertAction(title: "신고하기", style: .destructive) { _ in
-            print("신고")
+            reactor.action.onNext(.reportButtonTapped(post))
         }
         let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
-            print("삭제")
+            reactor.action.onNext(.deleteButtonTapped(post))
+        }
+        let updateAction = UIAlertAction(title: "수정하기", style: .default) { _ in
+            self.navigateAddPostVC(post: post, senderTag: 1)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-        alertVC.addAction(reportAction)
         if post.user.id == currentUser.id {
             alertVC.addAction(deleteAction)
+            alertVC.addAction(updateAction)
+        } else {
+            alertVC.addAction(reportAction)
         }
         alertVC.addAction(cancelAction)
         navigationController?.present(alertVC, animated: true, completion: nil)
