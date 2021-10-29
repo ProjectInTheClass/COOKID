@@ -92,4 +92,7 @@ enum FirebaseSuccess: String {
     case fetchRankerSuccess = "✅ 랭킹을 가져오는데 성공했습니다."
     case createCommentSuccess = "✅ 댓글을 업로드하는데 성공했습니다."
     case deleteCommentSuccess = "✅ 댓글을 삭제하는데 성공했습니다."
+    case reportCommentSuceess = "✅ 댓글을 신고하는데 성공했습니다."
+    case deletePostSuccess = "✅ 포스트를 삭제하는데 성공했습니다."
+    case reportPostSuceess = "✅ 포스트를 신고하는데 성공했습니다."
 }

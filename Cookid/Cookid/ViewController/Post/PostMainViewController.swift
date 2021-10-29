@@ -105,11 +105,12 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                                          cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
                 cell.coordinator = self.coordinator
-                cell.reactor = PostCellReactor(sender: self,
+                let cellReactor = PostCellReactor(sender: self,
                                                post: item,
                                                postService: self.viewModel.postService,
                                                userService: self.viewModel.userService,
                                                commentService: self.viewModel.commentService)
+                cell.reactor = cellReactor
                 
                 self.updateTableViewCell(cell: cell, index: index)
                 
@@ -128,6 +129,14 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                     })
                     .disposed(by: cell.disposeBag)
                 
+                cellReactor.state.map { $0.isError }
+                .bind { isError in
+                    if isError {
+                        errorAlert(selfView: self, errorMessage: "네트워크 작업에 실패했습니다\n다시 시도해 주세요", completion: {})
+                    }
+                }
+                .disposed(by: cell.disposeBag)
+                
                 self.activityIndicator.stopAnimating()
             }
             .disposed(by: rx.disposeBag)
@@ -140,21 +149,21 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         
         addPostBarButton.rx.tap
             .bind { [unowned self] in
-                self.coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.addPostBarButton.tag)
+                self.coordinator?.navigateAddPostVC(post: nil, senderTag: self.addPostBarButton.tag)
                 expandedIndexSet = []
             }
             .disposed(by: rx.disposeBag)
         
         postButtonWithCaption.rx.tap
             .bind { [unowned self] in
-                self.coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.postButtonWithCaption.tag)
+                self.coordinator?.navigateAddPostVC(post: nil, senderTag: self.postButtonWithCaption.tag)
                 expandedIndexSet = []
             }
             .disposed(by: rx.disposeBag)
         
         postButtonWithCamera.rx.tap
             .bind { [unowned self] in
-                self.coordinator?.navigateAddPostVC(viewModel: self.viewModel, senderTag: self.postButtonWithCamera.tag)
+                self.coordinator?.navigateAddPostVC(post: nil, senderTag: self.postButtonWithCamera.tag)
                 expandedIndexSet = []
             }
             .disposed(by: rx.disposeBag)

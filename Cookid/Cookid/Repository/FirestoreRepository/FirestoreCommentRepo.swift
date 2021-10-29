@@ -47,6 +47,7 @@ class FirestoreCommentRepo {
         DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
             guard let index = self.commentDB.firstIndex(where: { $0.commentID == comment.commentID }) else { return }
             self.commentDB[index].isReported[user.id] = true
+            completion(.success(.reportCommentSuceess))
         }
     }
     

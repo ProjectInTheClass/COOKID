@@ -27,27 +27,42 @@ class AddPostReactor: Reactor {
     }
     
     enum Mutation {
-        case setPostValues(PostValue)
+        case setRegion(String)
+        case setCaption(String)
+        case setPrice(Int)
+        case setStar(Int)
         case setImages([UIImage])
         case setUser(User)
         case setLoading(Bool)
         case sendErrorMessage(Bool?)
+        case setValidation(Bool)
     }
     
     struct State {
-        var images: [UIImage] = []
-        var postValue = PostValue()
+        var post: Post?
+        var images: [UIImage]
+        var caption: String
+        var region: String
+        var price: Int
+        var star: Int
         var user: User = DummyData.shared.singleUser
         var isLoading: Bool = false
         var isError: Bool?
+        var isValid: Bool = false
     }
     
     let initialState: State
     
-    init(postService: PostService, userService: UserService) {
+    init(post: Post?, postService: PostService, userService: UserService) {
         self.userService = userService
         self.postService = postService
-        self.initialState = State()
+        print("⛔️ \(post == nil)")
+        if let post = post {
+            // 이미지 받아오는거 킹피셔로 해야 하나?....
+            self.initialState = State(post: post, images: [], caption: post.caption, region: post.location, price: post.mealBudget, star: post.star)
+        } else {
+            self.initialState = State(images: [], caption: "", region: "", price: 0, star: 0)
+        }
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -56,30 +71,25 @@ class AddPostReactor: Reactor {
         case .imageUpload(let images):
             return Observable.just(Mutation.setImages(images))
         case .inputRegion(let region):
-            let currentPostValue = self.currentState.postValue
-            currentPostValue.region = region
-            return Observable.just(Mutation.setPostValues(currentPostValue))
+            return Observable.just(Mutation.setRegion(region))
         case .inputCaption(let caption):
-            let currentPostValue = self.currentState.postValue
-            currentPostValue.caption = caption
-            return Observable.just(Mutation.setPostValues(currentPostValue))
+            return Observable.just(Mutation.setCaption(caption))
         case .inputPrice(let price):
-            let currentPostValue = self.currentState.postValue
-            currentPostValue.price = price
-            return Observable.just(Mutation.setPostValues(currentPostValue))
+            return Observable.just(Mutation.setPrice(price))
         case .inputStar(let star):
-            let currentPostValue = self.currentState.postValue
-            currentPostValue.star = star
-            return Observable.just(Mutation.setPostValues(currentPostValue))
+            return Observable.just(Mutation.setStar(star))
         case .userSetting:
             return userService.user().map { Mutation.setUser($0) }
         case .uploadPostButtonTapped:
-            let postValue = self.currentState.postValue
-            let user = self.currentState.user
-            let images = self.currentState.images
             return Observable.concat([
                 Observable.just(Mutation.setLoading(true)),
-                self.makePost(user: user, postValue: postValue, images: images),
+                self.uploadPost(user: self.currentState.user,
+                                images: self.currentState.images,
+                                region: self.currentState.region,
+                                price: self.currentState.price,
+                                star: self.currentState.star,
+                                caption: self.currentState.caption)
+                    .map { Mutation.sendErrorMessage(!$0) },
                 Observable.just(Mutation.setLoading(false))
             ])
         }
@@ -92,19 +102,45 @@ class AddPostReactor: Reactor {
             newState.images = images
         case .setLoading(let isLoading):
             newState.isLoading = isLoading
-        case .setPostValues(let postValue):
-            newState.postValue = postValue
         case .setUser(let user):
             newState.user = user
         case .sendErrorMessage(let isError):
             newState.isError = isError
+        case .setRegion(let region):
+            newState.region = region
+        case .setCaption(let caption):
+            newState.caption = caption
+        case .setPrice(let price):
+            newState.price = price
+        case .setStar(let star):
+            newState.star = star
+        case .setValidation(let isValid):
+            newState.isValid = isValid
         }
         return newState
     }
     
-    func makePost(user: User, postValue: PostValue, images: [UIImage]) -> Observable<Mutation> {
-        return self.postService.createPost(user: user, images: images, postValue: postValue)
-            .map { Mutation.sendErrorMessage(!$0) }
+    func uploadPost(user: User, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool> {
+        if let post = self.initialState.post {
+            return self.postService.updatePost(post: post,
+                                        images: images,
+                                        region: region,
+                                        price: price,
+                                        star: star,
+                                        caption: caption)
+        } else {
+            return self.postService.createPost(user: user,
+                                        images: images,
+                                        region: region,
+                                        price: price,
+                                        star: star,
+                                        caption: caption)
+        }
+    }
+    
+    func buttonValidation(images: [UIImage], caption: String, region: String, price: String) -> Bool {
+        guard caption.isEmpty || caption == "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)" || images.isEmpty || region.isEmpty || price.isEmpty else { return true }
+        return false
     }
     
 }

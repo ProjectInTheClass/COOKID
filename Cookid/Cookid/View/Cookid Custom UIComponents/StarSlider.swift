@@ -24,6 +24,7 @@ class StarSlider: UISlider {
         didSet {
             setState(starPoint: starPoint)
             self.value = Float(starPoint)
+            layoutIfNeeded()
         }
     }
     

@@ -60,7 +60,6 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         captionTextView.layer.cornerRadius = 15
         captionTextView.contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         captionTextView.delegate = self
-        captionTextView.text = "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)"
         captionTextView.textColor = UIColor.darkGray
         priceTextField.delegate = self
         regionTextField.delegate = self
@@ -125,21 +124,21 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
             })
             .disposed(by: self.disposeBag)
         
-        // reactor 안으로 옮기자
         Observable.combineLatest(
             reactor.state.map { $0.images }
                 .distinctUntilChanged(),
-            regionTextField.rx.text.orEmpty
+            reactor.state.map { $0.region }
                 .distinctUntilChanged(),
-            captionTextView.rx.text.orEmpty
+            reactor.state.map { $0.caption }
                 .distinctUntilChanged(),
-            priceTextField.rx.text.orEmpty
+            reactor.state.map { $0.price }
+                .map { "\($0)"}
                 .distinctUntilChanged()) { images, region, caption, price -> Bool in
-            return self.buttonValidation(images: images, caption: caption, region: region, price: price)
-        }
-        .distinctUntilChanged()
-        .bind(to: uploadPostButton.rx.isEnabled)
-        .disposed(by: disposeBag)
+                    return reactor.buttonValidation(images: images, caption: caption, region: region, price: price)
+                }
+                .distinctUntilChanged()
+                .bind(to: uploadPostButton.rx.isEnabled)
+                .disposed(by: disposeBag)
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] keyboardVisibleHeight in
@@ -147,12 +146,15 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
-    }
-    
-    // reactor 안으로 옮기자
-    func buttonValidation(images: [UIImage], caption: String, region: String, price: String) -> Bool {
-        guard caption.isEmpty || caption == "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)" || images.isEmpty || region.isEmpty || price.isEmpty else { return true }
-        return false
+        if let post = reactor.initialState.post {
+            regionTextField.text = post.location
+            captionTextView.text = post.caption
+            priceTextField.text = "\(post.mealBudget)"
+            starSlider.starPoint = post.star
+        } else {
+            captionTextView.text = "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)"
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -168,7 +170,9 @@ extension AddPostViewController: UITextViewDelegate, UITextFieldDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.darkGray {
-            textView.text = nil
+            if reactor?.initialState.post == nil {
+                textView.text = nil
+            }
             textView.textColor = UIColor.black
         }
         addScrollView.scrollToBottom()

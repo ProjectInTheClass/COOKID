@@ -39,10 +39,3 @@ class Post {
         self.commentCount = commentCount
     }
 }
-
-class PostValue {
-    var caption: String = ""
-    var region: String = ""
-    var price: Int = 0
-    var star: Int = 0
-}

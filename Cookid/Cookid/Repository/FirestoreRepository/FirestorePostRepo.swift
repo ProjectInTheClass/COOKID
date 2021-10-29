@@ -12,8 +12,8 @@ import Foundation
 class FirestorePostRepo {
     static let instance = FirestorePostRepo()
 
-    ///upload new post
-    ///by this method, collect all the posts in one place.
+    /// upload new post
+    /// by this method, collect all the posts in one place.
     func createPost(post: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
         // 포스트를 받아서 entity로 변환한 뒤 업로드
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -21,7 +21,7 @@ class FirestorePostRepo {
         }
     }
     
-    ///update specific post's contents
+    /// update specific post's contents
     func updatePost(updatedPost: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
         // 기존 내용 덮어쓰기
         // 포스트를 받아서 entity로 변환한 뒤 업데이트
@@ -30,23 +30,31 @@ class FirestorePostRepo {
         }
     }
     
-    ///delete specific post
+    /// delete specific post
     func deletePost(deletePost: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
         // 해당 포스트를 찾아서 삭제하는 API 구현
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            completion(.success(.postUploadSuccess))
+            completion(.success(.deletePostSuccess))
         }
     }
     
-    ///fetch new posts when tableView was scrolled top of it
-    ///userID: this parameter is used to filtering user's isReport list
+    ///report specific post
+    func reportPost(reportedPost: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
+        // 해당 포스트를 찾아서 리포트에 해당 유저 ID를 넣는 API 구현
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            completion(.success(.reportPostSuceess))
+        }
+    }
+    
+    /// fetch new posts when tableView was scrolled top of it
+    /// userID: this parameter is used to filtering user's isReport list
     func fetchLatestPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
         // userID로 isReported 검수 후에 보내기
         // firebase에서 솔팅해서 받기
     }
     
-    ///fetch 10 past posts at once when tableview was scrolled until bottom point
-    ///userID: this parameter is used to filtering user's isReport list
+    /// fetch 10 past posts at once when tableview was scrolled until bottom point
+    /// userID: this parameter is used to filtering user's isReport list
     func fetchPastPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
         // userID로 isReported 검수 후에 보내기
         // firebase에서 솔팅해서 받기
@@ -86,8 +94,8 @@ class FirestorePostRepo {
         completion(.success(postEntities))
     }
     
-    ///fetch specific user post from firebase
-    ///this method use userID both query user's posts and filtering user's isReport list
+    /// fetch specific user post from firebase
+    /// this method use userID both query user's posts and filtering user's isReport list
     func fetchMyPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
         completion(.success([
             PostEntity(postID: UUID().uuidString, userID: userID,
@@ -100,8 +108,8 @@ class FirestorePostRepo {
         ]))
     }
     
-    ///fetch bookmarked posts from firebase
-    ///this method use userID both query user's posts and filtering user's isReport list
+    /// fetch bookmarked posts from firebase
+    /// this method use userID both query user's posts and filtering user's isReport list
     func fetchBookmarkedPosts(user: User, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
         
         // 리포트 여부, userID 일치 여부, 북마크 여부 -> 모두 가능한 녀석을 fetch

@@ -51,14 +51,14 @@ class PostService {
         return bookmarkedPostStore
     }
     
-    func createPost(user: User, images: [UIImage], postValue: PostValue) -> Observable<Bool> {
+    func createPost(user: User, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool> {
         return Observable<Bool>.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
             let newPostID = UUID().uuidString
             self.firebaseStorageRepo.uploadImages(postID: newPostID, images: images) { result in
                 switch result {
                 case .success(let urls):
-                    let newPost = Post(postID: newPostID, user: user, images: urls, likes: 0, collections: 0, star: postValue.star, caption: postValue.caption, mealBudget: postValue.price, location: postValue.region, timeStamp: Date(), didLike: false, didCollect: false)
+                    let newPost = Post(postID: newPostID, user: user, images: urls, likes: 0, collections: 0, star: star, caption: caption, mealBudget: price, location: region, timeStamp: Date(), didLike: false, didCollect: false)
                     self.firestorePostRepo.createPost(post: newPost) { result in
                         switch result {
                         case .success(let success):
@@ -163,20 +163,20 @@ class PostService {
         }
     }
     
-    func updatePost(post: Post, images: [UIImage], postValue: PostValue) -> Observable<Bool> {
+    func updatePost(post: Post, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool> {
         return Observable<Bool>.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
             self.firebaseStorageRepo.updateImages(postID: post.postID, images: images) { result in
                 switch result {
                 case .success(let urls):
-                    let updatedPost = Post(postID: post.postID, user: post.user, images: urls, likes: post.likes, collections: post.collections, star: postValue.star, caption: postValue.caption, mealBudget: postValue.price, location: postValue.region, timeStamp: Date(), didLike: post.didLike, didCollect: post.didCollect)
+                    let updatedPost = Post(postID: post.postID, user: post.user, images: urls, likes: post.likes, collections: post.collections, star: star, caption: caption, mealBudget: price, location: region, timeStamp: Date(), didLike: post.didLike, didCollect: post.didCollect)
                     self.firestorePostRepo.updatePost(updatedPost: updatedPost) { result in
                         switch result {
                         case .success(let success):
                             print(success.rawValue)
                             if let index = self.posts.firstIndex(where: { $0.postID == post.postID }) {
                                 self.posts.remove(at: index)
-                                self.posts.insert(post, at: index)
+                                self.posts.insert(updatedPost, at: index)
                                 self.postStore.onNext(self.posts)
                             }
                             observer.onNext(true)
@@ -197,6 +197,10 @@ class PostService {
     func deletePost(post: Post) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
+            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }) {
+                self.posts.remove(at: index)
+                self.postStore.onNext(self.posts)
+            }
             self.firebaseStorageRepo.deleteImages(postID: post.postID) { result in
                 switch result {
                 case .success(let success):
@@ -205,11 +209,7 @@ class PostService {
                         switch result {
                         case .success(let success):
                             print(success.rawValue)
-                            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }) {
-                                self.posts.remove(at: index)
-                                self.postStore.onNext(self.posts)
-                                observer.onNext(true)
-                            }
+                            observer.onNext(true)
                         case .failure(let error):
                             print(error.rawValue)
                             observer.onNext(false)
@@ -217,6 +217,27 @@ class PostService {
                     }
                 case .failure(let error):
                     print("delete Post Error : \(error)")
+                    observer.onNext(false)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func reportPost(post: Post) -> Observable<Bool> {
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }) {
+                self.posts.remove(at: index)
+                self.postStore.onNext(self.posts)
+            }
+            self.firestorePostRepo.reportPost(reportedPost: post) { result in
+                switch result {
+                case .success(let success):
+                    print(success.rawValue)
+                    observer.onNext(true)
+                case .failure(let error):
+                    print(error.rawValue)
                     observer.onNext(false)
                 }
             }
