@@ -72,7 +72,6 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
             .distinctUntilChanged()
             .withUnretained(self)
             .bind(onNext: { owner, isLoading in
-                // 업로드 이미지 뷰 하나 만들자
                 isLoading ? owner.activityIndicator.startAnimating() : owner.activityIndicator.stopAnimating()
             })
             .disposed(by: disposeBag)
@@ -146,15 +145,19 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
+        initialSetting(reactor: reactor)
+    }
+    
+    private func initialSetting(reactor: AddPostReactor) {
         if let post = reactor.initialState.post {
             regionTextField.text = post.location
             captionTextView.text = post.caption
             priceTextField.text = "\(post.mealBudget)"
             starSlider.starPoint = post.star
+            starSlider.setState(starPoint: post.star)
         } else {
             captionTextView.text = "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)"
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

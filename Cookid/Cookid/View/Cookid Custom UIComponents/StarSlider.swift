@@ -129,7 +129,7 @@ class StarSlider: UISlider {
         setState(starPoint: value)
     }
     
-    private func setState(starPoint: Int) {
+    func setState(starPoint: Int) {
         for index in 0...5 {
             if let tagView = self.viewWithTag(index) as? UIImageView {
                 if index <= starPoint {

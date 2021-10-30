@@ -11,10 +11,12 @@ import RxCocoa
 import ReactorKit
 import YPImagePicker
 
+enum PostEditViewMode {
+    case new
+    case edit(Post)
+}
+
 class AddPostReactor: Reactor {
-    
-    let postService: PostService
-    let userService: UserService
     
     enum Action {
         case imageUpload([UIImage])
@@ -22,7 +24,6 @@ class AddPostReactor: Reactor {
         case inputCaption(String)
         case inputPrice(Int)
         case inputStar(Int)
-        case userSetting
         case uploadPostButtonTapped
     }
     
@@ -51,18 +52,28 @@ class AddPostReactor: Reactor {
         var isValid: Bool = false
     }
     
+    let postService: PostService
+    let userService: UserService
+    let mode: PostEditViewMode
     let initialState: State
     
-    init(post: Post?, postService: PostService, userService: UserService) {
+    init(mode: PostEditViewMode, postService: PostService, userService: UserService) {
         self.userService = userService
         self.postService = postService
-        print("⛔️ \(post == nil)")
-        if let post = post {
-            // 이미지 받아오는거 킹피셔로 해야 하나?....
-            self.initialState = State(post: post, images: [], caption: post.caption, region: post.location, price: post.mealBudget, star: post.star)
-        } else {
+        self.mode = mode
+        
+        switch mode {
+        case .new:
             self.initialState = State(images: [], caption: "", region: "", price: 0, star: 0)
+        case .edit(let post):
+            // 이미지 받아오는거 킹피셔로 해야 하나?....
+            self.initialState = State(images: [], caption: post.caption, region: post.location, price: post.mealBudget, star: post.star)
         }
+    }
+    
+    func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
+        let user = self.userService.user().map { Mutation.setUser($0) }
+        return .merge(mutation, user)
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -78,12 +89,10 @@ class AddPostReactor: Reactor {
             return Observable.just(Mutation.setPrice(price))
         case .inputStar(let star):
             return Observable.just(Mutation.setStar(star))
-        case .userSetting:
-            return userService.user().map { Mutation.setUser($0) }
         case .uploadPostButtonTapped:
             return Observable.concat([
                 Observable.just(Mutation.setLoading(true)),
-                self.uploadPost(user: self.currentState.user,
+                self.uploadPost(mode: self.mode, user: self.currentState.user,
                                 images: self.currentState.images,
                                 region: self.currentState.region,
                                 price: self.currentState.price,
@@ -120,21 +129,22 @@ class AddPostReactor: Reactor {
         return newState
     }
     
-    func uploadPost(user: User, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool> {
-        if let post = self.initialState.post {
-            return self.postService.updatePost(post: post,
-                                        images: images,
-                                        region: region,
-                                        price: price,
-                                        star: star,
-                                        caption: caption)
-        } else {
+    func uploadPost(mode: PostEditViewMode, user: User, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool> {
+        switch self.mode {
+        case .new:
             return self.postService.createPost(user: user,
-                                        images: images,
-                                        region: region,
-                                        price: price,
-                                        star: star,
-                                        caption: caption)
+                                               images: images,
+                                               region: region,
+                                               price: price,
+                                               star: star,
+                                               caption: caption)
+        case .edit(let post):
+            return self.postService.updatePost(post: post,
+                                               images: images,
+                                               region: region,
+                                               price: price,
+                                               star: star,
+                                               caption: caption)
         }
     }
     
