@@ -20,11 +20,12 @@ class StarSlider: UISlider {
         }
     }
 
-    public var starPoint: Int = 0 {
+    public var starPoint: Int = 3 {
         didSet {
+            print("⛔️ \(starPoint)")
             setState(starPoint: starPoint)
             self.value = Float(starPoint)
-            layoutIfNeeded()
+            self.layoutSubviews()
         }
     }
     
@@ -40,35 +41,30 @@ class StarSlider: UISlider {
     
     private var star1 = UIImageView().then {
         $0.tintColor = .systemYellow
-        $0.image = UIImage(systemName: "star")
         $0.tag = 1
         $0.contentMode = .scaleAspectFit
     }
     
     private var star2 = UIImageView().then {
         $0.tintColor = .systemYellow
-        $0.image = UIImage(systemName: "star")
         $0.tag = 2
         $0.contentMode = .scaleAspectFit
     }
     
     private var star3 = UIImageView().then {
         $0.tintColor = .systemYellow
-        $0.image = UIImage(systemName: "star")
         $0.tag = 3
         $0.contentMode = .scaleAspectFit
     }
     
     private var star4 = UIImageView().then {
         $0.tintColor = .systemYellow
-        $0.image = UIImage(systemName: "star")
         $0.tag = 4
         $0.contentMode = .scaleAspectFit
     }
     
     private var star5 = UIImageView().then {
         $0.tintColor = .systemYellow
-        $0.image = UIImage(systemName: "star")
         $0.tag = 5
         $0.contentMode = .scaleAspectFit
     }
@@ -94,7 +90,7 @@ class StarSlider: UISlider {
         self.minimumTrackTintColor = .clear
         self.maximumTrackTintColor = .clear
         self.thumbTintColor = .clear
-        self.value = 0
+        self.value = 3
         self.minimumValue = 0
         self.maximumValue = 5
         stars.append(star1)

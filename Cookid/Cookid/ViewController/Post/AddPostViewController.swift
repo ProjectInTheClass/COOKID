@@ -43,7 +43,6 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         regionView.makeShadow()
         priceView.makeShadow()
         starView.makeShadow()
-        starSlider.starMaxSize = 24
         captionTextView.layer.cornerRadius = 15
         captionTextView.contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         captionTextView.delegate = self

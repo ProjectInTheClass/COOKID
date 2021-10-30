@@ -122,7 +122,7 @@ class PostCoordinator: CoordinatorType {
             reactor.action.onNext(.deleteButtonTapped(post))
         }
         let updateAction = UIAlertAction(title: "수정하기", style: .default) { _ in
-            self.navigateAddPostVC(mode: .edit(post), senderTag: 1)
+            self.navigateAddPostVC(mode: .edit(post), senderTag: 3)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         if post.user.id == currentUser.id {
