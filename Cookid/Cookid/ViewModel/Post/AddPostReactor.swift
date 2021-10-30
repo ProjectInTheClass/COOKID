@@ -40,11 +40,10 @@ class AddPostReactor: Reactor {
     }
     
     struct State {
-        var post: Post?
         var images: [UIImage]
-        var caption: String
+        var caption: String = "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)"
         var region: String
-        var price: Int
+        var price: Int = 0
         var star: Int
         var user: User = DummyData.shared.singleUser
         var isLoading: Bool = false
@@ -64,9 +63,11 @@ class AddPostReactor: Reactor {
         
         switch mode {
         case .new:
-            self.initialState = State(images: [], caption: "", region: "", price: 0, star: 0)
+            print(".new.rawValue")
+            self.initialState = State(images: [], region: "", star: 3)
         case .edit(let post):
             // 이미지 받아오는거 킹피셔로 해야 하나?....
+            print(".post.rawValue")
             self.initialState = State(images: [], caption: post.caption, region: post.location, price: post.mealBudget, star: post.star)
         }
     }
