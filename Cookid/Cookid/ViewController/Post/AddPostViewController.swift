@@ -37,19 +37,6 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        makeConstraints()
-    }
-    
-    private func makeConstraints() {
-        view.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.width.height.equalTo(100)
-            make.centerX.centerY.equalToSuperview()
-        }
-    }
-    
-    private func configureUI() {
         navigationItem.title = "포스트 작성"
         uploadPostButton.makeShadow()
         captionView.makeShadow()
@@ -63,8 +50,17 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         captionTextView.textColor = UIColor.darkGray
         priceTextField.delegate = self
         regionTextField.delegate = self
+        setupConstraints()
     }
     
+    func setupConstraints() {
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.width.height.equalTo(100)
+            make.centerX.centerY.equalToSuperview()
+        }
+    }
+ 
     func bind(reactor: AddPostReactor) {
         
         reactor.state
@@ -88,7 +84,26 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
             })
             .disposed(by: disposeBag)
         
-        reactor.action.onNext(.userSetting)
+        reactor.state.map { $0.caption }
+        .distinctUntilChanged()
+        .bind(to: self.captionTextView.rx.text)
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.region }
+        .distinctUntilChanged()
+        .bind(to: self.regionTextField.rx.text)
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.star }
+        .distinctUntilChanged()
+        .bind(to: self.starSlider.rx.starPoint)
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.price }
+        .map { $0 == 0 ? "": "\($0)" }
+        .distinctUntilChanged()
+        .bind(to: self.priceTextField.rx.text)
+        .disposed(by: disposeBag)
         
         regionTextField.rx.text.orEmpty
             .distinctUntilChanged()
@@ -144,20 +159,7 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
                 self.addScrollView.contentInset.bottom = keyboardVisibleHeight
             })
             .disposed(by: rx.disposeBag)
-        
-        initialSetting(reactor: reactor)
-    }
-    
-    private func initialSetting(reactor: AddPostReactor) {
-        if let post = reactor.initialState.post {
-            regionTextField.text = post.location
-            captionTextView.text = post.caption
-            priceTextField.text = "\(post.mealBudget)"
-            starSlider.starPoint = post.star
-            starSlider.setState(starPoint: post.star)
-        } else {
-            captionTextView.text = "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)"
-        }
+       
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -173,9 +175,7 @@ extension AddPostViewController: UITextViewDelegate, UITextFieldDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.darkGray {
-            if reactor?.initialState.post == nil {
-                textView.text = nil
-            }
+            textView.text = nil
             textView.textColor = UIColor.black
         }
         addScrollView.scrollToBottom()

@@ -149,21 +149,21 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         
         addPostBarButton.rx.tap
             .bind { [unowned self] in
-                self.coordinator?.navigateAddPostVC(post: nil, senderTag: self.addPostBarButton.tag)
+                self.coordinator?.navigateAddPostVC(mode: .new, senderTag: self.addPostBarButton.tag)
                 expandedIndexSet = []
             }
             .disposed(by: rx.disposeBag)
         
         postButtonWithCaption.rx.tap
             .bind { [unowned self] in
-                self.coordinator?.navigateAddPostVC(post: nil, senderTag: self.postButtonWithCaption.tag)
+                self.coordinator?.navigateAddPostVC(mode: .new, senderTag: self.postButtonWithCaption.tag)
                 expandedIndexSet = []
             }
             .disposed(by: rx.disposeBag)
         
         postButtonWithCamera.rx.tap
             .bind { [unowned self] in
-                self.coordinator?.navigateAddPostVC(post: nil, senderTag: self.postButtonWithCamera.tag)
+                self.coordinator?.navigateAddPostVC(mode: .new, senderTag: self.postButtonWithCamera.tag)
                 expandedIndexSet = []
             }
             .disposed(by: rx.disposeBag)

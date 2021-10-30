@@ -58,9 +58,9 @@ class PostCoordinator: CoordinatorType {
         navigationController?.present(signInVC, animated: true)
     }
     
-    func navigateAddPostVC(post: Post?, senderTag: Int) {
+    func navigateAddPostVC(mode: PostEditViewMode, senderTag: Int) {
         let addPostVC = AddPostViewController.instantiate(storyboardID: "Post")
-        let reactor = AddPostReactor(post: post, postService: postService, userService: userService)
+        let reactor = AddPostReactor(mode: mode, postService: postService, userService: userService)
         addPostVC.reactor = reactor
         navigationController?.pushViewController(addPostVC, animated: true)
         
@@ -122,7 +122,7 @@ class PostCoordinator: CoordinatorType {
             reactor.action.onNext(.deleteButtonTapped(post))
         }
         let updateAction = UIAlertAction(title: "수정하기", style: .default) { _ in
-            self.navigateAddPostVC(post: post, senderTag: 1)
+            self.navigateAddPostVC(mode: .edit(post), senderTag: 1)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         if post.user.id == currentUser.id {
