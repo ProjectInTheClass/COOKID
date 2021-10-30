@@ -592,16 +592,16 @@
                                                         <rect key="frame" x="0.0" y="749" width="394" height="100"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ql6-tX-Bvj">
-                                                                <rect key="frame" x="122" y="21" width="150" height="58"/>
+                                                                <rect key="frame" x="98" y="21" width="198" height="58"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="몇 점짜리 식사였나요?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n65-K3-6Ib">
-                                                                        <rect key="frame" x="9.5" y="0.0" width="131.5" height="18"/>
+                                                                        <rect key="frame" x="33.5" y="0.0" width="131.5" height="18"/>
                                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dkw-24-8wH" customClass="StarSlider" customModule="Cookid" customModuleProvider="target">
-                                                                        <rect key="frame" x="-2" y="28" width="154" height="31"/>
+                                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="dkw-24-8wH" customClass="StarSlider" customModule="Cookid" customModuleProvider="target">
+                                                                        <rect key="frame" x="-2" y="28" width="202" height="31"/>
                                                                         <color key="minimumTrackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
