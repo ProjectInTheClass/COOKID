@@ -7,12 +7,10 @@
 
 import Foundation
 
-class BaseService {
-    unowned let repoProvider: RepositoryProviderType
-    unowned let serviceProvider : ServiceProviderType
-    init(repoProvider: RepositoryProviderType,
-         serviceProvider : ServiceProviderType) {
-        self.repoProvider = repoProvider
+class BaseService: BaseRepository {
+    unowned let serviceProvider: ServiceProviderType
+    init(serviceProvider: ServiceProviderType, repoProvider: RepositoryProviderType) {
         self.serviceProvider = serviceProvider
+        super.init(repoProvider: repoProvider)
     }
 }

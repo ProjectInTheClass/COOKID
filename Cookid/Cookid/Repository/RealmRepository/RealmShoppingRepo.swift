@@ -8,8 +8,14 @@
 import Foundation
 import RealmSwift
 
-class RealmShoppingRepo {
-    static let instance = RealmShoppingRepo()
+protocol RealmShoppingRepoType {
+    func createShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void)
+    func fetchShoppings() -> [LocalShopping]?
+    func updateShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void)
+    func deleteShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void)
+}
+
+class RealmShoppingRepo: BaseRepository, RealmShoppingRepoType {
     
     func fetchShoppings() -> [LocalShopping]? {
         do {
@@ -22,46 +28,54 @@ class RealmShoppingRepo {
         }
     }
     
-    func createShopping(shopping: GroceryShopping) {
+    func createShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) {
         do {
             let realm = try Realm()
             let localShopping = LocalShopping(id: shopping.id, date: shopping.date, price: shopping.totalPrice)
             try realm.write {
                 realm.add(localShopping)
+                completion(true)
             }
         } catch let error {
             print(error)
+            completion(false)
         }
     }
     
-    func deleteShopping(shopping: GroceryShopping) {
+    func deleteShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) {
         do {
             let realm = try Realm()
             if let deleteShopping = realm.objects(LocalShopping.self).filter(NSPredicate(format: "id = %@", shopping.id)).first {
                 try realm.write {
                     realm.delete(deleteShopping)
+                    completion(true)
                 }
             } else {
                 print("shopping이 없습니다!")
+                completion(false)
             }
         } catch let error {
             print(error)
+            completion(false)
         }
     }
     
-    func updateShopping(shopping: GroceryShopping) {
+    func updateShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) {
         do {
             let realm = try Realm()
             if let updateShopping = realm.objects(LocalShopping.self).filter(NSPredicate(format: "id = %@", shopping.id)).first {
                 try realm.write {
                     updateShopping.date = shopping.date
                     updateShopping.price = shopping.totalPrice
+                    completion(true)
                 }
             } else {
                 print("shopping이 없습니다!")
+                completion(false)
             }
         } catch let error {
             print(error)
+            completion(false)
         }
     }
 }

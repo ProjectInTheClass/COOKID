@@ -34,11 +34,6 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
             self.determineStackView.alpha = 1
             self.finishPageButton.alpha = 1
         })
-        if coordinator != nil {
-            print("no nil!!!!!!!!!")
-        } else {
-            print("nil!!!!!!!!!")
-        }
     }
     
     deinit {
@@ -81,16 +76,14 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
     
     // forced unwrapping
     func setRootViewController(user: User) {
-        
         guard let appCoordinator = coordinator?.parentCoordinator as? AppCoordinator else { return }
-        
         guard let tabBarController = appCoordinator.navigateHomeCoordinator() as? UITabBarController else { return }
         guard let nvc = tabBarController.viewControllers?[0] as? UINavigationController else { return }
         guard let vc = nvc.topViewController as? MainViewController else { return }
         let vm = vc.viewModel!
         let window = UIApplication.shared.windows.first!
         window.rootViewController = tabBarController
-        vm.userService.uploadUserInfo(user: user)
+        vm.userService.creatUser(user: user, completion: { _ in })
     }
 
 }

@@ -9,11 +9,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MealService {
-    
-    let imageRepo = ImageRepo.instance
-    let realmMealRepo = RealmMealRepo.instance
+protocol MealServiceType {
+    func create(meal: Meal?) -> Observable<Bool>
+    func fetchMeals()
+    func update(updateMeal: Meal) -> Observable<Bool>
+    func deleteMeal(meal: Meal) -> Observable<Bool>
+}
 
+class MealService: BaseService, MealServiceType {
+  
     private var totalBudget: Int = 1
     private var meals: [Meal] = []
     private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
@@ -30,7 +34,6 @@ class MealService {
     // MARK: - Meal Storage
     
     func create(meal: Meal?) -> Observable<Bool> {
-        print("create")
         guard let meal = meal else {
             return Observable.just(false)
         }
@@ -109,14 +112,6 @@ class MealService {
     func fetchMealByDay(_ day: Date, meals: [Meal]) -> [Meal] {
         let dayMeals = meals.filter { $0.date.dateToString() == day.dateToString() }
         return dayMeals
-    }
-    
-    func deleteImage(mealID: String?) {
-        ImageRepo.instance.deleteImage(id: mealID!) { success in
-            if success {
-                print("success")
-            }
-        }
     }
     
     // MARK: - Validation

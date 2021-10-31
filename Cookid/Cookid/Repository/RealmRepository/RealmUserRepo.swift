@@ -8,10 +8,13 @@
 import Foundation
 import RealmSwift
 
-class RealmUserRepo {
-    static let instance = RealmUserRepo()
-    
-    // local의 속도니 completion을 안쓰지만 문제가 생길시 변경
+protocol RealmUserRepoType {
+    func createUser(user: User, completion: @escaping (Bool) -> Void)
+    func fetchUser() -> LocalUser?
+    func updateUser(user: User)
+}
+
+class RealmUserRepo: BaseRepository, RealmUserRepoType {
     
     func fetchUser() -> LocalUser? {
         do {

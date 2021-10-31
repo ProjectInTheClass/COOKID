@@ -8,8 +8,15 @@
 import UIKit
 import RealmSwift
 
-class RealmMealRepo {
-    static let instance = RealmMealRepo()
+protocol RealmMealRepoType {
+    func createMeal(meal: Meal, completion: @escaping (Bool) -> Void)
+    func fetchMeals() -> [LocalMeal]?
+    func updateMeal(meal: Meal, completion: @escaping (Bool) -> Void)
+    func deleteMeal(meal: Meal, completion: @escaping (Bool) -> Void)
+}
+
+
+class RealmMealRepo: BaseRepository, RealmMealRepoType {
     
     func fetchMeals() -> [LocalMeal]? {
         print(Realm.Configuration.defaultConfiguration.fileURL!)
@@ -75,14 +82,6 @@ class RealmMealRepo {
             print(error)
             completion(false)
         }
-    }
-    
-    func saveImage(image: UIImage) -> URL? {
-        return nil
-    }
-    
-    func deleteImage(url: URL?) {
-        
     }
     
 }

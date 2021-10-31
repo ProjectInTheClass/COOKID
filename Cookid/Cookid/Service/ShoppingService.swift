@@ -8,9 +8,14 @@
 import Foundation
 import RxSwift
 
-class ShoppingService {
-    
-    let realmShoppingRepo = RealmShoppingRepo.instance
+protocol ShoppingServiceType {
+    func create(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping>
+    func update(updateShopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping>
+    func deleteShopping(shopping: GroceryShopping)
+    func fetchShoppings()
+}
+
+class ShoppingService: BaseService, ShoppingServiceType {
    
     private var groceryShoppings: [GroceryShopping] = []
     
