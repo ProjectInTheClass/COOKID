@@ -23,7 +23,7 @@ class StarSlider: UISlider {
     public var starPoint: Int = 3 {
         didSet {
             print("⛔️ \(starPoint)")
-            setState(starPoint: starPoint)
+            setState(starPoint: starPoint, starMaxSize: starMaxSize)
             self.value = Float(starPoint)
             self.layoutSubviews()
         }
@@ -31,11 +31,7 @@ class StarSlider: UISlider {
     
     public var starMaxSize: CGFloat = 24 {
         didSet {
-            stars.forEach {
-                let config = UIImage.SymbolConfiguration(pointSize: starMaxSize)
-                $0.image = UIImage(systemName: "star", withConfiguration: config)
-            }
-            setNeedsLayout()
+            setState(starPoint: starPoint, starMaxSize: starMaxSize)
         }
     }
     
@@ -90,7 +86,6 @@ class StarSlider: UISlider {
         self.minimumTrackTintColor = .clear
         self.maximumTrackTintColor = .clear
         self.thumbTintColor = .clear
-        self.value = 3
         self.minimumValue = 0
         self.maximumValue = 5
         stars.append(star1)
@@ -122,10 +117,10 @@ class StarSlider: UISlider {
     
     @objc func didChangeSliderValue(_ sender: UISlider) {
         let value = Int(round(sender.value))
-        setState(starPoint: value)
+        setState(starPoint: value, starMaxSize: starMaxSize)
     }
     
-    func setState(starPoint: Int) {
+    private func setState(starPoint: Int, starMaxSize: CGFloat) {
         for index in 0...5 {
             if let tagView = self.viewWithTag(index) as? UIImageView {
                 if index <= starPoint {

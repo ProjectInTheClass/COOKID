@@ -8,8 +8,15 @@
 import Foundation
 //import Firebase
 
-class FirestoreCommentRepo {
-    static let instance = FirestoreCommentRepo()
+protocol CommentRepoType {
+    func createComment(comment: Comment, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void)
+    func fetchComments(postID: String, completion: @escaping (Result<[CommentEntity], FirebaseError>) -> Void)
+    func fetchCommentsCount(postID: String, completion: @escaping (Result<Int, FirebaseError>) -> Void)
+    func deleteComment(comment: Comment, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void)
+    func reportComment(comment: Comment, user: User, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void)
+}
+
+class FirestoreCommentRepo: BaseRepository, CommentRepoType {
     
     //    private let commentDB = Firestore.firestore().collection("comment")
     

@@ -57,6 +57,8 @@
 		037B7A12272D7B32004E9320 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A11272D7B32004E9320 /* BaseCell.swift */; };
 		037B7A15272D7C30004E9320 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A14272D7C30004E9320 /* ServiceProvider.swift */; };
 		037B7A17272D7CB3004E9320 /* RepositoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */; };
+		037B7A19272D9F1A004E9320 /* BaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A18272D9F1A004E9320 /* BaseService.swift */; };
+		037B7A22272ECCE0004E9320 /* BaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A21272ECCE0004E9320 /* BaseRepository.swift */; };
 		0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E3EB27045A00007F8AA5 /* RemoteUser.swift */; };
 		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
 		0390F53E2728EF4E00677651 /* YPImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53D2728EF4E00677651 /* YPImagePickerController.swift */; };
@@ -222,6 +224,8 @@
 		037B7A11272D7B32004E9320 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		037B7A14272D7C30004E9320 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProvider.swift; sourceTree = "<group>"; };
+		037B7A18272D9F1A004E9320 /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
+		037B7A21272ECCE0004E9320 /* BaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRepository.swift; sourceTree = "<group>"; };
 		0380E3EB27045A00007F8AA5 /* RemoteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteUser.swift; sourceTree = "<group>"; };
 		0390F53D2728EF4E00677651 /* YPImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePickerController.swift; sourceTree = "<group>"; };
 		0390F53F27299B7900677651 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
@@ -358,6 +362,7 @@
 			children = (
 				031DDF5E27093D7A001F12C3 /* Cookid.entitlements */,
 				032233B6269276920092DD6D /* Resources */,
+				032233C526927EF90092DD6D /* DummyData */,
 				032233D52692F00B0092DD6D /* API */,
 				03E42ECD26C4172E005D7B5E /* Coordinator */,
 				032233AF2692764F0092DD6D /* Repository */,
@@ -377,6 +382,7 @@
 		032233AF2692764F0092DD6D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */,
 				244B2B0F26E4A0BF001226F0 /* FirebaseRepository */,
 				03F2ED6026ED046700CFE87C /* AuthRepository */,
 				244B2B0626E24044001226F0 /* ImageRepository */,
@@ -500,12 +506,8 @@
 			isa = PBXGroup;
 			children = (
 				037B7A0A272D7AE1004E9320 /* Base */,
-				032233C526927EF90092DD6D /* DummyData */,
-				032233D62692F0160092DD6D /* Extension.swift */,
-				C6BFF46126949AA7006295F5 /* Constant.swift */,
-				241523B3269D24860077941A /* Function.swift */,
-				DB61715126C9577B008F497C /* NotificationManager.swift */,
-				0390F53D2728EF4E00677651 /* YPImagePickerController.swift */,
+				037B7A13272D7BF1004E9320 /* Protocol */,
+				037B7A1E272EC8D5004E9320 /* Extension */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -554,7 +556,8 @@
 		037B7A0A272D7AE1004E9320 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				037B7A13272D7BF1004E9320 /* Protocol */,
+				037B7A21272ECCE0004E9320 /* BaseRepository.swift */,
+				037B7A18272D9F1A004E9320 /* BaseService.swift */,
 				037B7A0B272D7AEF004E9320 /* BaseViewController.swift */,
 				037B7A0D272D7AF9004E9320 /* BaseNavigationController.swift */,
 				037B7A0F272D7B0F004E9320 /* BaseView.swift */,
@@ -569,6 +572,18 @@
 				032233E826934F180092DD6D /* Protocol.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		037B7A1E272EC8D5004E9320 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				032233D62692F0160092DD6D /* Extension.swift */,
+				C6BFF46126949AA7006295F5 /* Constant.swift */,
+				241523B3269D24860077941A /* Function.swift */,
+				DB61715126C9577B008F497C /* NotificationManager.swift */,
+				0390F53D2728EF4E00677651 /* YPImagePickerController.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		0390F53B2728EB8E00677651 /* Comment */ = {
@@ -766,7 +781,6 @@
 		244B2B0F26E4A0BF001226F0 /* FirebaseRepository */ = {
 			isa = PBXGroup;
 			children = (
-				037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */,
 				03D8C1FA26EBB92A00238CB6 /* FirebaseStorageRepo.swift */,
 				244B2B1026E4A0DB001226F0 /* FirestoreUserRepo.swift */,
 				03D8C1EE26EB6D8C00238CB6 /* FirestorePostRepo.swift */,
@@ -822,11 +836,11 @@
 			children = (
 				037B7A14272D7C30004E9320 /* ServiceProvider.swift */,
 				DBDA046726969A6500B5C1D6 /* UserService.swift */,
+				03D8C1FC26EBBC9800238CB6 /* PostService.swift */,
+				03F2ED8526F0343E00CFE87C /* CommentService.swift */,
 				DB0D7D7326949818009B2D51 /* MealService.swift */,
 				241523AF269D093E0077941A /* ShoppingService.swift */,
 				03B2049A26D7BA830099C269 /* MenuService.swift */,
-				03D8C1FC26EBBC9800238CB6 /* PostService.swift */,
-				03F2ED8526F0343E00CFE87C /* CommentService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1055,6 +1069,7 @@
 				0390F53E2728EF4E00677651 /* YPImagePickerController.swift in Sources */,
 				033D3C2A270A780E009B29B9 /* MyPostCollectionViewCell.swift in Sources */,
 				DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */,
+				037B7A19272D9F1A004E9320 /* BaseService.swift in Sources */,
 				0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */,
 				0339E269271B81D3001FD6A7 /* CookidButton.swift in Sources */,
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
@@ -1085,6 +1100,7 @@
 				DB61715226C9577B008F497C /* NotificationManager.swift in Sources */,
 				03F2ED6C26ED916900CFE87C /* PostHeaderView.swift in Sources */,
 				03B2049526D75DD50099C269 /* PictureSelectViewController.swift in Sources */,
+				037B7A22272ECCE0004E9320 /* BaseRepository.swift in Sources */,
 				03D8C1E726E8927700238CB6 /* MyMealsCollectionViewCell.swift in Sources */,
 				035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */,
 				241523B4269D24860077941A /* Function.swift in Sources */,

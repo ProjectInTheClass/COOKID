@@ -9,22 +9,20 @@ import UIKit
 import RxSwift
 import Kingfisher
 
-class PostService {
-    
-    let firestorePostRepo: FirestorePostRepo
-    let firebaseStorageRepo: FirebaseStorageRepo
-    let firestoreUserRepo: FirestoreUserRepo
-    let firestoreCommentRepo: FirestoreCommentRepo
-    
-    init(firestoreRepo: FirestorePostRepo,
-         firebaseStorageRepo: FirebaseStorageRepo,
-         firestoreUserRepo: FirestoreUserRepo,
-         firestoreCommentRepo: FirestoreCommentRepo) {
-        self.firestorePostRepo = firestoreRepo
-        self.firebaseStorageRepo = firebaseStorageRepo
-        self.firestoreUserRepo = firestoreUserRepo
-        self.firestoreCommentRepo = firestoreCommentRepo
-    }
+protocol PostServiceType {
+    func createPost(user: User, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool>
+    func fetchLatestPosts(currentUser: User) -> Observable<[Post]>
+    func fetchLastPosts(currentUser: User) -> Observable<[Post]>
+    func updatePost(post: Post, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool>
+    func deletePost(post: Post) -> Observable<Bool>
+    func reportPost(post: Post) -> Observable<Bool>
+    func fetchMyPosts(user: User) -> Observable<[Post]>
+    func fetchBookmarkedPosts(user: User) -> Observable<[Post]>
+    func heartTransaction(sender: UIViewController, user: User, post: Post, isHeart: Bool)
+    func bookmarkTransaction(sender: UIViewController, user: User, post: Post, isBookmark: Bool)
+}
+
+class PostService: BaseService, PostServiceType {
     
     private var posts = [Post]()
     private lazy var postStore = BehaviorSubject<[Post]>(value: posts)
@@ -55,11 +53,11 @@ class PostService {
         return Observable<Bool>.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
             let newPostID = UUID().uuidString
-            self.firebaseStorageRepo.uploadImages(postID: newPostID, images: images) { result in
+            self.repoProvider.firestorageImageRepo.uploadImages(postID: newPostID, images: images) { result in
                 switch result {
                 case .success(let urls):
                     let newPost = Post(postID: newPostID, user: user, images: urls, likes: 0, collections: 0, star: star, caption: caption, mealBudget: price, location: region, timeStamp: Date(), didLike: false, didCollect: false)
-                    self.firestorePostRepo.createPost(post: newPost) { result in
+                    self.repoProvider.firestorePostRepo.createPost(post: newPost) { result in
                         switch result {
                         case .success(let success):
                             print(success.rawValue)
@@ -82,9 +80,9 @@ class PostService {
         }
     }
     
-//    @discardableResult
-//    func fetchLatestPosts(currentUser: User) -> Observable<[Post]> {
-//        return Observable.create { [weak self] observer in
+    @discardableResult
+    func fetchLatestPosts(currentUser: User) -> Observable<[Post]> {
+        return Observable.create { [weak self] observer in
 //            guard let self = self else { return Disposables.create() }
 //            self.firestorePostRepo.fetchLatestPosts(userID: currentUser.id) {  result in
 //                switch result {
@@ -111,15 +109,15 @@ class PostService {
 //                    print("fetchBookmarkedPosts() error - \(error)")
 //                }
 //            }
-//            return Disposables.create()
-//        }
-//    }
+            return Disposables.create()
+        }
+    }
     
     @discardableResult
     func fetchLastPosts(currentUser: User) -> Observable<[Post]> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.firestorePostRepo.fetchPastPosts(userID: currentUser.id) {  result in
+            self.repoProvider.firestorePostRepo.fetchPastPosts(userID: currentUser.id) {  result in
                 switch result {
                 case .success(let entities):
                     var fetchedPosts = [Post]()
@@ -128,7 +126,7 @@ class PostService {
                         dispathGroup.enter()
                         let didLike = entity.didLike.contains { $0.key == currentUser.id }
                         let didCollect = entity.didCollect.contains { $0.key == currentUser.id }
-                        self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
+                        self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                             switch result {
                             case .success(let userEntity):
                                 let user = userEntity.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType.init(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
@@ -166,11 +164,11 @@ class PostService {
     func updatePost(post: Post, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool> {
         return Observable<Bool>.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.firebaseStorageRepo.updateImages(postID: post.postID, images: images) { result in
+            self.repoProvider.firestorageImageRepo.updateImages(postID: post.postID, images: images) { result in
                 switch result {
                 case .success(let urls):
                     let updatedPost = Post(postID: post.postID, user: post.user, images: urls, likes: post.likes, collections: post.collections, star: star, caption: caption, mealBudget: price, location: region, timeStamp: Date(), didLike: post.didLike, didCollect: post.didCollect)
-                    self.firestorePostRepo.updatePost(updatedPost: updatedPost) { result in
+                    self.repoProvider.firestorePostRepo.updatePost(updatedPost: updatedPost) { result in
                         switch result {
                         case .success(let success):
                             print(success.rawValue)
@@ -201,11 +199,11 @@ class PostService {
                 self.posts.remove(at: index)
                 self.postStore.onNext(self.posts)
             }
-            self.firebaseStorageRepo.deleteImages(postID: post.postID) { result in
+            self.repoProvider.firestorageImageRepo.deleteImages(postID: post.postID) { result in
                 switch result {
                 case .success(let success):
                     print(success.rawValue)
-                    self.firestorePostRepo.deletePost(deletePost: post) { result in
+                    self.repoProvider.firestorePostRepo.deletePost(deletePost: post) { result in
                         switch result {
                         case .success(let success):
                             print(success.rawValue)
@@ -231,7 +229,7 @@ class PostService {
                 self.posts.remove(at: index)
                 self.postStore.onNext(self.posts)
             }
-            self.firestorePostRepo.reportPost(reportedPost: post) { result in
+            self.repoProvider.firestorePostRepo.reportPost(reportedPost: post) { result in
                 switch result {
                 case .success(let success):
                     print(success.rawValue)
@@ -249,13 +247,13 @@ class PostService {
     func fetchBookmarkedPosts(user: User) -> Observable<[Post]> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.firestorePostRepo.fetchBookmarkedPosts(user: user) { result in
+            self.repoProvider.firestorePostRepo.fetchBookmarkedPosts(userID: user.id) { result in
                 switch result {
                 case .success(let entities):
                     var fetchedPosts = [Post]()
                     for entity in entities {
                         let didLike = entity.didLike.contains { $0.key == user.id }
-                        self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
+                        self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                             switch result {
                             case .success(let userEntity):
                                 let user = userEntity.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType.init(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
@@ -282,7 +280,7 @@ class PostService {
     func fetchMyPosts(user: User) -> Observable<[Post]> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.firestorePostRepo.fetchMyPosts(userID: user.id) { result in
+            self.repoProvider.firestorePostRepo.fetchMyPosts(userID: user.id) { result in
                 switch result {
                 case .success(let postEntities):
                     let fetchedPosts = postEntities.map { entity -> Post in
@@ -302,7 +300,7 @@ class PostService {
     }
     
     func heartTransaction(sender: UIViewController, user: User, post: Post, isHeart: Bool) {
-        self.firestorePostRepo.updatePostHeart(userID: user.id, postID: post.postID, isHeart: isHeart) { result in
+        self.repoProvider.firestorePostRepo.updatePostHeart(userID: user.id, postID: post.postID, isHeart: isHeart) { result in
             switch result {
             case .success(let success):
                 print(success.rawValue)
@@ -335,7 +333,7 @@ class PostService {
     }
     
     func bookmarkTransaction(sender: UIViewController, user: User, post: Post, isBookmark: Bool) {
-        self.firestorePostRepo.updatePostBookmark(userID: user.id, postID: post.postID, isBookmark: isBookmark) { [weak self] result in
+        self.repoProvider.firestorePostRepo.updatePostBookmark(userID: user.id, postID: post.postID, isBookmark: isBookmark) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let success):

@@ -9,7 +9,7 @@ import UIKit
 import RxDataSources
 import RxSwift
 
-class GroceryShopping {
+class Shopping {
     let id: String
     var date: Date
     var totalPrice: Int
@@ -23,7 +23,7 @@ class GroceryShopping {
 }
 
 struct ShoppingSection {
-   typealias Item = GroceryShopping
+   typealias Item = Shopping
     var header: String
     var items: [Item]
     

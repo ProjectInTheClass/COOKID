@@ -19,10 +19,6 @@ class HomeCoordinator: CoordinatorType {
     }
     
     func start() -> UIViewController {
-        let firestorePostRepo = FirestorePostRepo()
-        let firebaseStorageRepo = FirebaseStorageRepo()
-        let firestoreUserRepo = FirestoreUserRepo()
-        let firestoreCommentRepo = FirestoreCommentRepo()
         let imageRepo = ImageRepo()
         let realmMealRepo = RealmMealRepo()
         let mealService = MealService(imageRepo: imageRepo, realmMealRepo: realmMealRepo)

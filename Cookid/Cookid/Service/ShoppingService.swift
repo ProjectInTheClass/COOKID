@@ -8,7 +8,14 @@
 import Foundation
 import RxSwift
 
-class ShoppingService {
+protocol ShoppingServiceType {
+    func create(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping>
+    func update(updateShopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping>
+    func deleteShopping(shopping: GroceryShopping)
+    func fetchShoppings()
+}
+
+class ShoppingService: BaseService, ShoppingServiceType {
    
     private var groceryShoppings: [GroceryShopping] = []
     
@@ -20,7 +27,7 @@ class ShoppingService {
     
     @discardableResult
     func create(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping> {
-        RealmShoppingRepo.instance.createShopping(shopping: shopping)
+        realmShoppingRepo.createShopping(shopping: shopping)
         groceryShoppings.append(shopping)
         shoppingStore.onNext(groceryShoppings)
         completion(true)
@@ -34,7 +41,7 @@ class ShoppingService {
     
     @discardableResult
     func update(updateShopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping> {
-        RealmShoppingRepo.instance.updateShopping(shopping: updateShopping)
+        realmShoppingRepo.updateShopping(shopping: updateShopping)
         if let index = groceryShoppings.firstIndex(where: { $0.id == updateShopping.id }) {
             groceryShoppings.remove(at: index)
             groceryShoppings.insert(updateShopping, at: index)
@@ -45,7 +52,7 @@ class ShoppingService {
     }
     
     func deleteShopping(shopping: GroceryShopping) {
-        RealmShoppingRepo.instance.deleteShopping(shopping: shopping)
+        realmShoppingRepo.deleteShopping(shopping: shopping)
         if let index = groceryShoppings.firstIndex(where: { $0.id == shopping.id }) {
             groceryShoppings.remove(at: index)
         }
@@ -53,7 +60,7 @@ class ShoppingService {
     }
     
     func fetchShoppings() {
-        guard let shoppings = RealmShoppingRepo.instance.fetchShoppings() else { return }
+        guard let shoppings = realmShoppingRepo.fetchShoppings() else { return }
             let groceryShoppings = shoppings.map { shoppingModel -> GroceryShopping in
                 return GroceryShopping(id: shoppingModel.id, date: shoppingModel.date, totalPrice: shoppingModel.price)
             }

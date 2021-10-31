@@ -10,7 +10,7 @@ import RxCocoa
 
 class OnboardingViewModel: ViewModelType {
     
-    let userService: UserService
+    let userService: UserServiceType
     let mealService: MealService
     let shoppingService: ShoppingService
     
@@ -29,7 +29,7 @@ class OnboardingViewModel: ViewModelType {
     
     var output: Output
     
-    init(userService: UserService, mealService: MealService, shoppingService: ShoppingService) {
+    init(userService: UserServiceType, mealService: MealService, shoppingService: ShoppingService) {
         self.userService = userService
         self.mealService = mealService
         self.shoppingService = shoppingService

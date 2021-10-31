@@ -10,16 +10,21 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 
-class UserService {
+protocol UserServiceType {
+    func creatUser(user: User, completion: @escaping (Bool) -> Void)
+    func connectUser(localUser: LocalUser, imageURL: URL?, dineInCount: Int, cookidsCount: Int, completion: @escaping (Bool) -> Void)
+    func loadMyInfo() -> Observable<User>
+    func fetchUserInfo(user: User) -> Observable<User>
+    func updateUserInfo(user: User, completion: @escaping (Bool) -> Void)
+    func fetchCookidRankers() -> Observable<[User]>
+}
+
+class UserService: BaseService, UserServiceType {
     
-    let firestoreUserRepo: FirestoreUserRepo
-    
-    init(firestoreUserRepo: FirestoreUserRepo) {
-        self.firestoreUserRepo = firestoreUserRepo
-    }
+    let realmUserRepo = RealmUserRepo.instance
     
     /// Fetch from Realm
-    private var defaultUserInfo = RealmUserRepo.instance.fetchUser().map { userentity -> User in
+    private var defaultUserInfo = realmUserRepo.fetchUser().map { userentity -> User in
         return User(id: userentity.id.stringValue,
                     image: URL(string: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1931&q=80"),
                     nickname: userentity.nickName,
@@ -32,15 +37,46 @@ class UserService {
     
     private lazy var userInfo = BehaviorSubject<User>(value: defaultUserInfo)
     
-    func user() -> Observable<User> {
+    var currentUser: Observable<User> {
         return userInfo
+    }
+    
+    /// Create in Realm
+    func creatUser(user: User, completion: @escaping (Bool) -> Void) {
+        self.realmUserRepo.createUser(user: user) { [weak self] success in
+            guard let self = self else { return }
+            if success {
+                self.defaultUserInfo = user
+                self.userInfo.onNext(self.defaultUserInfo)
+            }
+        }
+    }
+    
+    /// Upload at Firebase with Local User
+    func connectUser(localUser: LocalUser, imageURL: URL?, dineInCount: Int, cookidsCount: Int, completion: @escaping (Bool) -> Void) {
+        let connectedUser = User(id: localUser.id.stringValue, image: imageURL, nickname: localUser.nickName, determination: localUser.determination, priceGoal: localUser.goal, userType: UserType(rawValue: localUser.type) ?? .preferDineIn, dineInCount: dineInCount, cookidsCount: cookidsCount)
+        self.defaultUserInfo = connectedUser
+        self.userInfo.onNext(connectedUser)
+        
+        DispatchQueue.global(qos: .background).async {
+            self.repoProvider.firestoreUserRepo.createUser(user: connectedUser) { result in
+                switch result {
+                case .success(let success):
+                    print(success)
+                    completion(true)
+                case .failure(let error):
+                    print(error)
+                    completion(false)
+                }
+            }
+        }
     }
     
     @discardableResult
     func loadMyInfo() -> Observable<User> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.firestoreUserRepo.loadUser(userID: self.defaultUserInfo.id) { result in
+            self.repoProvider.firestoreUserRepo.loadUser(userID: self.defaultUserInfo.id) { result in
                 switch result {
                 case .success(let entity):
                     guard let entity = entity else { return }
@@ -58,10 +94,10 @@ class UserService {
     
     /// Fetch from Firebase
     @discardableResult
-    func loadUserInfo(user: User) -> Observable<User> {
+    func fetchUserInfo(user: User) -> Observable<User> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.firestoreUserRepo.fetchUser(userID: user.id) { result in
+            self.repoProvider.firestoreUserRepo.fetchUser(userID: user.id) { result in
                 switch result {
                 case .success(let entity):
                     guard let entity = entity else { return }
@@ -75,46 +111,30 @@ class UserService {
         }
     }
     
-    /// Create in Realm
-    func uploadUserInfo(user: User) {
-        RealmUserRepo.instance.createUser(user: user) { [weak self] success in
+    func updateUserInfo(user: User, completion: @escaping (Bool) -> Void) {
+        // Firebase에서 업데이트하기
+        self.repoProvider.firestoreUserRepo.updateUser(user: user, completion: { [weak self] result in
             guard let self = self else { return }
-            if success {
+            switch result {
+            case .success(let success):
+                print(success)
+                // Realm에서 업데이트하기
+                self.realmUserRepo.updateUser(user: user)
+                // Service에서 업데이트하기
                 self.defaultUserInfo = user
-                self.userInfo.onNext(self.defaultUserInfo)
+                self.userInfo.onNext(user)
+                completion(true)
+            case .failure(let error):
+                print(error)
+                completion(false)
             }
-        }
-    }
-    
-    /// Upload at Firebase
-    func connectUserInfo(localUser: LocalUser, imageURL: URL?, dineInCount: Int, cookidsCount: Int, completion: @escaping (Bool) -> Void) {
-        let connectedUser = User(id: localUser.id.stringValue, image: imageURL, nickname: localUser.nickName, determination: localUser.determination, priceGoal: localUser.goal, userType: UserType(rawValue: localUser.type) ?? .preferDineIn, dineInCount: dineInCount, cookidsCount: cookidsCount)
-        self.defaultUserInfo = connectedUser
-        self.userInfo.onNext(self.defaultUserInfo)
-        completion(true)
-        
-        DispatchQueue.global(qos: .background).async {
-            self.firestoreUserRepo.createUser(user: connectedUser) { _ in }
-        }
-    }
-    
-    // update
-    func updateUserInfo(user: User, completion: @escaping ((Bool) -> Void)) {
-        if user.image != nil,
-           user.cookidsCount != nil,
-           user.dineInCount != nil {
-//            FireStoreUserRepo.instance.updateUser(updateUser: user)
-        }
-        RealmUserRepo.instance.updateUser(user: user)
-        defaultUserInfo = user
-        userInfo.onNext(user)
-        completion(true)
+        })
     }
     
     func fetchCookidRankers() -> Observable<[User]> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.firestoreUserRepo.fetchCookidsRankers { result in
+            self.repoProvider.firestoreUserRepo.fetchCookidsRankers { result in
                 switch result {
                 case .success(let userEntities):
                     let users = userEntities.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
@@ -126,32 +146,5 @@ class UserService {
             return Disposables.create()
         }
     }
-    
-    func fetchDineInRankers() -> Observable<[User]> {
-        return Observable.create { [weak self] observer in
-            guard let self = self else { return Disposables.create() }
-            self.firestoreUserRepo.fetchDineInRankers { result in
-                switch result {
-                case .success(let userEntities):
-                    let users = userEntities.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
-                    observer.onNext(users)
-                case .failure(let error):
-                    print(error)
-                }
-            }
-            return Disposables.create()
-        }
-    }
-    
-    func filteringTopRankers(_ users: [User]) -> [User] {
-        var topRankers = [User]()
-        for (index, user) in users.enumerated() {
-            if index < 3 {
-                topRankers.append(user)
-            }
-        }
-        return topRankers
-    }
-    
     
 }

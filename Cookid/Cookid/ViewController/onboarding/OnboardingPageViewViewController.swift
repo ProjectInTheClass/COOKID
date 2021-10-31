@@ -9,12 +9,9 @@ import UIKit
 
 class OnboardingPageViewViewController: UIPageViewController {
     
-    var coordinator: OnboardingCoordinator
-    
+    let coordinator: OnboardingCoordinator
     var pages = [UIViewController]()
-    
     let pagesControl = UIPageControl()
-    
     let initialPage = 0
 
     override func viewDidLoad() {
@@ -23,13 +20,13 @@ class OnboardingPageViewViewController: UIPageViewController {
         setupPageControl()
     }
     
-    let userService: UserService
+    let serviceProvider: ServiceProviderType
     let mealService: MealService
     let shoppingService: ShoppingService
     
-    init(coordinator: OnboardingCoordinator, userService: UserService, mealService: MealService, shoppingService: ShoppingService) {
+    init(coordinator: OnboardingCoordinator, serviceProvider: ServiceProviderType, mealService: MealService, shoppingService: ShoppingService) {
         self.coordinator = coordinator
-        self.userService = userService
+        self.serviceProvider = serviceProvider
         self.mealService = mealService
         self.shoppingService = shoppingService
         
@@ -45,7 +42,7 @@ class OnboardingPageViewViewController: UIPageViewController {
         self.dataSource = self
         self.delegate = self
         
-        let viewModel = OnboardingViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService)
+        let viewModel = OnboardingViewModel(userService: serviceProvider.userService, mealService: mealService, shoppingService: shoppingService)
         
         var firstPage = FirstPageViewController.instantiate(storyboardID: "Main")
         firstPage.bind(viewModel: viewModel)
