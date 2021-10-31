@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+protocol ServiceProviderType: AnyObject {
+    
+}
+
+final class ServiceProvider: ServiceProviderType {
+    
+}

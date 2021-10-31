@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import Kingfisher
 
-class PostService {
+class PostService: BaseService {
     
     let firestorePostRepo: FirestorePostRepo
     let firebaseStorageRepo: FirebaseStorageRepo

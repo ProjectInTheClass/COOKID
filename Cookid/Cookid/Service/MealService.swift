@@ -11,17 +11,12 @@ import RxCocoa
 
 class MealService {
     
-    let imageRepo: ImageRepo
-    let realmMealRepo: RealmMealRepo
+    let imageRepo = ImageRepo.instance
+    let realmMealRepo = RealmMealRepo.instance
 
     private var totalBudget: Int = 1
     private var meals: [Meal] = []
     private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
-    
-    init(imageRepo: ImageRepo, realmMealRepo: RealmMealRepo) {
-        self.imageRepo = imageRepo
-        self.realmMealRepo = realmMealRepo
-    }
     
     var initialDineInMeal: Int {
         return meals.filter { $0.mealType == .dineIn }.count

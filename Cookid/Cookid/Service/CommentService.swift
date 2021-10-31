@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class CommentService {
+class CommentService: BaseService {
     
     let firestoreCommentRepo: FirestoreCommentRepo
     let firestoreUserRepo: FirestoreUserRepo
