@@ -1,0 +1,128 @@
+//
+//  PostCoordinator.swift
+//  Cookid
+//
+//  Created by 박형석 on 2021/09/16.
+//
+
+import UIKit
+import ReactorKit
+
+class PostCoordinator: CoordinatorType {
+    
+    var childCoordinator: [CoordinatorType] = []
+    var parentCoordinator: CoordinatorType
+    var navigationController: UINavigationController?
+    var serviceProvider: ServiceProviderType
+    
+    init(parentCoordinator : CoordinatorType, serviceProvider: ServiceProviderType) {
+        self.parentCoordinator = parentCoordinator
+        self.serviceProvider = serviceProvider
+    }
+    
+    func start() -> UIViewController {
+        var postMainVC = PostMainViewController.instantiate(storyboardID: "Post")
+        postMainVC.bind(viewModel: PostViewModel(serviceProvider: serviceProvider))
+        postMainVC.coordinator = self
+        navigationController = UINavigationController(rootViewController: postMainVC)
+        navigationBarConfigure()
+        return navigationController!
+    }
+    
+    private func navigationBarConfigure() {
+        navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
+        navigationController?.navigationBar.barTintColor = .systemBackground
+    }
+    
+    func navigateRankingVC(viewModel: PostViewModel) {
+        let rankingViewModel = RankingViewModel(serviceProvider: serviceProvider)
+        var vc = RankingMainViewController()
+        vc.bind(viewModel: rankingViewModel)
+        vc.modalPresentationStyle = .automatic
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func navigateSignInVC(viewModel: PostViewModel) {
+        let signInVC = SignInViewController.instantiate(storyboardID: "UserInfo")
+        signInVC.modalPresentationStyle = .overFullScreen
+        navigationController?.present(signInVC, animated: true)
+    }
+    
+    func navigateAddPostVC(mode: PostEditViewMode, senderTag: Int) {
+        let addPostVC = AddPostViewController.instantiate(storyboardID: "Post")
+        let reactor = AddPostReactor(mode: mode, serviceProvider: serviceProvider)
+        addPostVC.reactor = reactor
+        navigationController?.pushViewController(addPostVC, animated: true)
+        
+        switch senderTag {
+        case 1:
+            print("바버튼 누르기")
+        case 2:
+            print("글 올리기")
+        case 3:
+            YPImagePickerManager.shared.pickingImages(viewController: addPostVC) { images in
+                reactor.action.onNext(.imageUpload(images))
+            }
+        default:
+            break
+        }
+    }
+    
+    func navigateCommentVC(rootNaviVC: UINavigationController?, post: Post) {
+        var commentVC = CommentViewController()
+        let viewModel = CommentViewModel(post: post, serviceProvider: serviceProvider)
+        commentVC.bind(viewModel: viewModel)
+        commentVC.coordinator = self
+        commentVC.modalPresentationStyle = .overFullScreen
+        if let rootNaviVC = rootNaviVC {
+            rootNaviVC.pushViewController(commentVC, animated: true)
+        } else {
+            navigationController?.pushViewController(commentVC, animated: true)
+        }
+    }
+    
+    func presentAlertVCForDelete(viewModel: CommentViewModel, comment: Comment) {
+        let alertVC = UIAlertController(title: "삭제하기", message: "댓글을 삭제하시겠습니까?\n한 번 삭제한 글을 복구가 불가능 합니다\n답글이 있는 경우 답글도 모두 삭제됩니다", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+            viewModel.input.deleteButtonTapped.onNext(comment)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alertVC.addAction(okAction)
+        alertVC.addAction(cancelAction)
+        navigationController?.present(alertVC, animated: true, completion: nil)
+    }
+    
+    func presentAlertVCForReport(viewModel: CommentViewModel, comment: Comment) {
+        let alertVC = UIAlertController(title: "신고하기", message: "댓글을 신고하시겠습니까?\n적극적인 신고로 깨끗한 환경을 만들어 주세요:)", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "신고", style: .destructive) { _ in
+            viewModel.input.reportButtonTapped.onNext(comment)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alertVC.addAction(okAction)
+        alertVC.addAction(cancelAction)
+        navigationController?.present(alertVC, animated: true, completion: nil)
+    }
+    
+    func presentReportActionVC(reactor: PostCellReactor, post: Post, currentUser: User) {
+        let alertVC = UIAlertController(title: "포스팅 관리", message: "신고나 삭제된 게시물은 복구할 수 없습니다.\n깨끗한 공유문화를 위해서 함께 해주세요!", preferredStyle: .actionSheet)
+        let reportAction = UIAlertAction(title: "신고하기", style: .destructive) { _ in
+            reactor.action.onNext(.reportButtonTapped(post))
+        }
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+            reactor.action.onNext(.deleteButtonTapped(post))
+        }
+        let updateAction = UIAlertAction(title: "수정하기", style: .default) { _ in
+            self.navigateAddPostVC(mode: .edit(post), senderTag: 3)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        if post.user.id == currentUser.id {
+            alertVC.addAction(deleteAction)
+            alertVC.addAction(updateAction)
+        } else {
+            alertVC.addAction(reportAction)
+        }
+        alertVC.addAction(cancelAction)
+        navigationController?.present(alertVC, animated: true, completion: nil)
+    }
+    
+}

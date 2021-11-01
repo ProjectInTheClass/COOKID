@@ -12,6 +12,10 @@
 		030C4AD1272A721F00630F08 /* StarSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030C4AD0272A721F00630F08 /* StarSlider.swift */; };
 		030D4AD2272F797C005C0FFF /* AddShoppingReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AD1272F797C005C0FFF /* AddShoppingReactor.swift */; };
 		030D4AD4272FA076005C0FFF /* AddShoppingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AD3272FA076005C0FFF /* AddShoppingViewModel.swift */; };
+		030D4AE027300BF9005C0FFF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4ADF27300BF9005C0FFF /* BaseViewModel.swift */; };
+		030D4AE227300D99005C0FFF /* CoodinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE127300D99005C0FFF /* CoodinatorProtocol.swift */; };
+		030D4AE6273010BD005C0FFF /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE5273010BD005C0FFF /* UserService.swift */; };
+		030D4AE8273010C9005C0FFF /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE7273010C9005C0FFF /* MealService.swift */; };
 		031DDF6027099C23001F12C3 /* KeyChainAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */; };
 		0322339C269212860092DD6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339B269212860092DD6D /* AppDelegate.swift */; };
 		0322339E269212860092DD6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339D269212860092DD6D /* SceneDelegate.swift */; };
@@ -53,7 +57,6 @@
 		035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */; };
 		0363F1F82706C7CD0017680D /* NaverAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */; };
 		037B7A0C272D7AEF004E9320 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A0B272D7AEF004E9320 /* BaseViewController.swift */; };
-		037B7A0E272D7AF9004E9320 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A0D272D7AF9004E9320 /* BaseNavigationController.swift */; };
 		037B7A10272D7B0F004E9320 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A0F272D7B0F004E9320 /* BaseView.swift */; };
 		037B7A12272D7B32004E9320 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A11272D7B32004E9320 /* BaseCell.swift */; };
 		037B7A15272D7C30004E9320 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A14272D7C30004E9320 /* ServiceProvider.swift */; };
@@ -64,7 +67,7 @@
 		037B7A26272EDFD0004E9320 /* StoryboardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A25272EDFD0004E9320 /* StoryboardProtocol.swift */; };
 		0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E3EB27045A00007F8AA5 /* RemoteUser.swift */; };
 		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
-		0390F53E2728EF4E00677651 /* YPImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53D2728EF4E00677651 /* YPImagePickerController.swift */; };
+		0390F53E2728EF4E00677651 /* YPImagePickerManaget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */; };
 		0390F54027299B7900677651 /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53F27299B7900677651 /* CommentHeaderView.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
@@ -139,11 +142,9 @@
 		24BA287726F8E85F005D344E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BA287626F8E85F005D344E /* CommentTableViewCell.swift */; };
 		24C86C6C26FF6F8000E84477 /* AddPostImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */; };
 		4255C87D6C8D5A6C8AAFDBA1 /* Pods_CookidTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C02D874ED96A95A539EEFD /* Pods_CookidTests.framework */; };
-		C67441D62696FA530086CBAD /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0D7D7326949818009B2D51 /* MealService.swift */; };
 		C6BFF46226949AA7006295F5 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF46126949AA7006295F5 /* Constant.swift */; };
 		DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1982EE269BF7D30055742B /* UserInfo.storyboard */; };
 		DB61715226C9577B008F497C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61715126C9577B008F497C /* NotificationManager.swift */; };
-		DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDA046726969A6500B5C1D6 /* UserService.swift */; };
 		DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +178,10 @@
 		030C4AD0272A721F00630F08 /* StarSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarSlider.swift; sourceTree = "<group>"; };
 		030D4AD1272F797C005C0FFF /* AddShoppingReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShoppingReactor.swift; sourceTree = "<group>"; };
 		030D4AD3272FA076005C0FFF /* AddShoppingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddShoppingViewModel.swift; sourceTree = "<group>"; };
+		030D4ADF27300BF9005C0FFF /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		030D4AE127300D99005C0FFF /* CoodinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoodinatorProtocol.swift; sourceTree = "<group>"; };
+		030D4AE5273010BD005C0FFF /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		030D4AE7273010C9005C0FFF /* MealService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealService.swift; sourceTree = "<group>"; };
 		031DDF5E27093D7A001F12C3 /* Cookid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cookid.entitlements; sourceTree = "<group>"; };
 		031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainAuthRepo.swift; sourceTree = "<group>"; };
 		03223398269212860092DD6D /* Cookid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookid.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,7 +227,6 @@
 		035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarViewController.swift; sourceTree = "<group>"; };
 		0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthRepo.swift; sourceTree = "<group>"; };
 		037B7A0B272D7AEF004E9320 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		037B7A0D272D7AF9004E9320 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		037B7A0F272D7B0F004E9320 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		037B7A11272D7B32004E9320 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		037B7A14272D7C30004E9320 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
@@ -232,7 +236,7 @@
 		037B7A23272EDF9F004E9320 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		037B7A25272EDFD0004E9320 /* StoryboardProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardProtocol.swift; sourceTree = "<group>"; };
 		0380E3EB27045A00007F8AA5 /* RemoteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteUser.swift; sourceTree = "<group>"; };
-		0390F53D2728EF4E00677651 /* YPImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePickerController.swift; sourceTree = "<group>"; };
+		0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePickerManaget.swift; sourceTree = "<group>"; };
 		0390F53F27299B7900677651 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
 		0395F6EC26B805360091BB29 /* AddMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewController.swift; sourceTree = "<group>"; };
@@ -308,11 +312,9 @@
 		46C02D874ED96A95A539EEFD /* Pods_CookidTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookidTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92784250C9969CCBA901BA20 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6BFF46126949AA7006295F5 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
-		DB0D7D7326949818009B2D51 /* MealService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MealService.swift; path = COOKID/Service/MealService.swift; sourceTree = SOURCE_ROOT; };
 		DB1982EC269BF3660055742B /* UserInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationViewController.swift; sourceTree = "<group>"; };
 		DB1982EE269BF7D30055742B /* UserInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UserInfo.storyboard; path = ../../../COOKID/View/Storyboard/UserInfo.storyboard; sourceTree = "<group>"; };
 		DB61715126C9577B008F497C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
-		DBDA046726969A6500B5C1D6 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = COOKID/Service/UserService.swift; sourceTree = SOURCE_ROOT; };
 		DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateViewModel.swift; sourceTree = "<group>"; };
 		F431FF06FC6CBE03E157E905 /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
 		F9537FA5A2A0EEC2493683E1 /* Pods-CookidTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookidTests.release.xcconfig"; path = "Target Support Files/Pods-CookidTests/Pods-CookidTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -350,6 +352,145 @@
 			path = Deprecated;
 			sourceTree = "<group>";
 		};
+		030D4AD5273004E2005C0FFF /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				035E492626975815002CC084 /* MainViewModel.swift */,
+				032233B7269276DB0092DD6D /* MainViewController.swift */,
+				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
+				03B2049426D75DD50099C269 /* PictureSelectViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		030D4AD627300675005C0FFF /* AddMeal */ = {
+			isa = PBXGroup;
+			children = (
+				03AF306127166474005D53D0 /* AddMealReactor.swift */,
+				0395F6EC26B805360091BB29 /* AddMealViewController.swift */,
+				03250E1727146D3C00425036 /* AddTodayReactor.swift */,
+				03250E152714359A00425036 /* AddTodayMealViewController.swift */,
+			);
+			path = AddMeal;
+			sourceTree = "<group>";
+		};
+		030D4AD7273006B0005C0FFF /* AddShopping */ = {
+			isa = PBXGroup;
+			children = (
+				030D4AD1272F797C005C0FFF /* AddShoppingReactor.swift */,
+				03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */,
+			);
+			path = AddShopping;
+			sourceTree = "<group>";
+		};
+		030D4AD8273006E8005C0FFF /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				03F2ED7226ED92D500CFE87C /* PostViewModel.swift */,
+				03F2ED6F26ED929300CFE87C /* PostMainViewController.swift */,
+				0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */,
+				03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		030D4AD92730071C005C0FFF /* AddPost */ = {
+			isa = PBXGroup;
+			children = (
+				03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */,
+				03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */,
+				24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */,
+			);
+			path = AddPost;
+			sourceTree = "<group>";
+		};
+		030D4ADA273009CC005C0FFF /* MyPost */ = {
+			isa = PBXGroup;
+			children = (
+				033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */,
+				03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */,
+				033D3C29270A780E009B29B9 /* MyPostCollectionViewCell.swift */,
+			);
+			path = MyPost;
+			sourceTree = "<group>";
+		};
+		030D4ADB273009D3005C0FFF /* MyMeal */ = {
+			isa = PBXGroup;
+			children = (
+				03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */,
+				03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */,
+			);
+			path = MyMeal;
+			sourceTree = "<group>";
+		};
+		030D4ADC273009D8005C0FFF /* MyBookmark */ = {
+			isa = PBXGroup;
+			children = (
+				03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */,
+				03D660C3270B4C6B0044FE1E /* MyBookmarkViewController.swift */,
+				03D660CF270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift */,
+				03D660C6270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift */,
+			);
+			path = MyBookmark;
+			sourceTree = "<group>";
+		};
+		030D4ADD273009E4005C0FFF /* MyRecipe */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MyRecipe;
+			sourceTree = "<group>";
+		};
+		030D4ADE27300A2C005C0FFF /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				2417EAB526E58D0C006F2785 /* MyPageViewModel.swift */,
+				2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */,
+				2417EABB26E5A562006F2785 /* MyPageHeaderViewController.swift */,
+				03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */,
+				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
+				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		030D4AE327300E66005C0FFF /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				032233A9269212870092DD6D /* Info.plist */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		030D4AE427300EB3005C0FFF /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				0322339B269212860092DD6D /* AppDelegate.swift */,
+				0322339D269212860092DD6D /* SceneDelegate.swift */,
+				032233C526927EF90092DD6D /* DummyData */,
+				032233D52692F00B0092DD6D /* API */,
+				03E42ECD26C4172E005D7B5E /* Coordinator */,
+				032233AF2692764F0092DD6D /* Repository */,
+				032233B02692765C0092DD6D /* Entity */,
+				032233B1269276680092DD6D /* Model */,
+				DB0D7D722694980B009B2D51 /* Service */,
+				2417EAB226E58CDD006F2785 /* Onboarding */,
+				03B2048B26D5D9270099C269 /* CookidStats */,
+				03F2ED7126ED92C900CFE87C /* CookidCommunity */,
+				2417EAB426E58CF7006F2785 /* CookidProfile */,
+				032233B4269276840092DD6D /* View */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		030D4AE927302E9A005C0FFF /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
 		0322338F269212860092DD6D = {
 			isa = PBXGroup;
 			children = (
@@ -374,21 +515,11 @@
 			isa = PBXGroup;
 			children = (
 				031DDF5E27093D7A001F12C3 /* Cookid.entitlements */,
-				032233B6269276920092DD6D /* Resources */,
 				030D4AD0272F7273005C0FFF /* Deprecated */,
-				032233C526927EF90092DD6D /* DummyData */,
-				032233D52692F00B0092DD6D /* API */,
-				03E42ECD26C4172E005D7B5E /* Coordinator */,
-				032233AF2692764F0092DD6D /* Repository */,
-				032233B02692765C0092DD6D /* Entity */,
-				032233B1269276680092DD6D /* Model */,
-				DB0D7D722694980B009B2D51 /* Service */,
-				032233B2269276720092DD6D /* ViewModel */,
-				032233B32692767E0092DD6D /* ViewController */,
-				032233B4269276840092DD6D /* View */,
-				0322339B269212860092DD6D /* AppDelegate.swift */,
-				0322339D269212860092DD6D /* SceneDelegate.swift */,
-				032233A9269212870092DD6D /* Info.plist */,
+				030D4AE427300EB3005C0FFF /* Source */,
+				032233C8269280640092DD6D /* Storyboard */,
+				030D4AE327300E66005C0FFF /* Support */,
+				032233B6269276920092DD6D /* Resources */,
 			);
 			path = Cookid;
 			sourceTree = "<group>";
@@ -427,42 +558,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		032233B2269276720092DD6D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				2417EAB226E58CDD006F2785 /* Onboarding */,
-				03B2048B26D5D9270099C269 /* Main */,
-				03F2ED7126ED92C900CFE87C /* Post */,
-				0390F53B2728EB8E00677651 /* Comment */,
-				2417EAB426E58CF7006F2785 /* MyPage */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		032233B32692767E0092DD6D /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				032233C92692A8310092DD6D /* onboarding */,
-				03586EAD26E4FD52002A56C6 /* SignIn */,
-				03E42EDB26C4F6A7005D7B5E /* Main */,
-				03F2ED6526ED90A300CFE87C /* Post */,
-				0390F53C2728EBA200677651 /* Comment */,
-				03E42ED426C4DBB0005D7B5E /* Ranking */,
-				2417EAA626E58C7C006F2785 /* MyPage */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
 		032233B4269276840092DD6D /* View */ = {
 			isa = PBXGroup;
 			children = (
 				0339E267271B81AB001FD6A7 /* Cookid Custom UIComponents */,
 				0395B61626943B1F009289B7 /* MainCustomView */,
 				03F2ED6826ED913800CFE87C /* PostCustomView */,
-				03D3045E26FDE41200042CB7 /* AddPostCustomView */,
-				033D3C192709FA5E009B29B9 /* CommentCustomView */,
-				2417EABA26E5A549006F2785 /* MyPageCustomView */,
-				032233C8269280640092DD6D /* Storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -470,7 +571,6 @@
 		032233B6269276920092DD6D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				032233D42692D52A0092DD6D /* Font */,
 				032233A4269212870092DD6D /* Assets.xcassets */,
 				032233A6269212870092DD6D /* Launch.storyboard */,
 				0339575026A2C96100594515 /* boardingImage */,
@@ -496,32 +596,13 @@
 			path = Storyboard;
 			sourceTree = "<group>";
 		};
-		032233C92692A8310092DD6D /* onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				032233CA2692A8630092DD6D /* OnboardingPageViewViewController.swift */,
-				032233CC2692A8F70092DD6D /* FirstPageViewController.swift */,
-				032233CE2692A90B0092DD6D /* SecondPageViewController.swift */,
-				032233D02692A91A0092DD6D /* ThirdPageViewController.swift */,
-				032233D22692A94D0092DD6D /* FourthPageViewController.swift */,
-			);
-			path = onboarding;
-			sourceTree = "<group>";
-		};
-		032233D42692D52A0092DD6D /* Font */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Font;
-			sourceTree = "<group>";
-		};
 		032233D52692F00B0092DD6D /* API */ = {
 			isa = PBXGroup;
 			children = (
 				037B7A0A272D7AE1004E9320 /* Base */,
 				037B7A13272D7BF1004E9320 /* Protocol */,
 				037B7A1E272EC8D5004E9320 /* Extension */,
-				037B7A27272EE06D004E9320 /* Etc */,
+				037B7A27272EE06D004E9320 /* Manager */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -539,16 +620,6 @@
 			path = "Cookid Custom UIComponents";
 			sourceTree = "<group>";
 		};
-		033D3C192709FA5E009B29B9 /* CommentCustomView */ = {
-			isa = PBXGroup;
-			children = (
-				0390F53F27299B7900677651 /* CommentHeaderView.swift */,
-				03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */,
-				24BA287626F8E85F005D344E /* CommentTableViewCell.swift */,
-			);
-			path = CommentCustomView;
-			sourceTree = "<group>";
-		};
 		033D3C1F2709FF49009B29B9 /* CookidTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -559,21 +630,13 @@
 			path = CookidTests;
 			sourceTree = "<group>";
 		};
-		03586EAD26E4FD52002A56C6 /* SignIn */ = {
-			isa = PBXGroup;
-			children = (
-				03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */,
-			);
-			path = SignIn;
-			sourceTree = "<group>";
-		};
 		037B7A0A272D7AE1004E9320 /* Base */ = {
 			isa = PBXGroup;
 			children = (
 				037B7A21272ECCE0004E9320 /* BaseRepository.swift */,
 				037B7A18272D9F1A004E9320 /* BaseService.swift */,
+				030D4ADF27300BF9005C0FFF /* BaseViewModel.swift */,
 				037B7A0B272D7AEF004E9320 /* BaseViewController.swift */,
-				037B7A0D272D7AF9004E9320 /* BaseNavigationController.swift */,
 				037B7A0F272D7B0F004E9320 /* BaseView.swift */,
 				037B7A11272D7B32004E9320 /* BaseCell.swift */,
 			);
@@ -585,6 +648,7 @@
 			children = (
 				037B7A25272EDFD0004E9320 /* StoryboardProtocol.swift */,
 				037B7A23272EDF9F004E9320 /* ViewModelProtocol.swift */,
+				030D4AE127300D99005C0FFF /* CoodinatorProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -599,28 +663,23 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		037B7A27272EE06D004E9320 /* Etc */ = {
+		037B7A27272EE06D004E9320 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				DB61715126C9577B008F497C /* NotificationManager.swift */,
-				0390F53D2728EF4E00677651 /* YPImagePickerController.swift */,
+				0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */,
 			);
-			path = Etc;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		0390F53B2728EB8E00677651 /* Comment */ = {
 			isa = PBXGroup;
 			children = (
 				03CCC4F92726185D00647B5C /* CommentViewModel.swift */,
-				03250E0D2712654900425036 /* CommentCellReactor.swift */,
-			);
-			path = Comment;
-			sourceTree = "<group>";
-		};
-		0390F53C2728EBA200677651 /* Comment */ = {
-			isa = PBXGroup;
-			children = (
 				0398E16A26FB3E6000E98F77 /* CommentViewController.swift */,
+				03250E0D2712654900425036 /* CommentCellReactor.swift */,
+				03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */,
+				24BA287626F8E85F005D344E /* CommentTableViewCell.swift */,
 			);
 			path = Comment;
 			sourceTree = "<group>";
@@ -637,24 +696,14 @@
 			path = MainCustomView;
 			sourceTree = "<group>";
 		};
-		03B2048B26D5D9270099C269 /* Main */ = {
+		03B2048B26D5D9270099C269 /* CookidStats */ = {
 			isa = PBXGroup;
 			children = (
-				035E492626975815002CC084 /* MainViewModel.swift */,
-				03AF306127166474005D53D0 /* AddMealReactor.swift */,
-				03250E1727146D3C00425036 /* AddTodayReactor.swift */,
-				030D4AD1272F797C005C0FFF /* AddShoppingReactor.swift */,
+				030D4AD5273004E2005C0FFF /* Main */,
+				030D4AD627300675005C0FFF /* AddMeal */,
+				030D4AD7273006B0005C0FFF /* AddShopping */,
 			);
-			path = Main;
-			sourceTree = "<group>";
-		};
-		03D3045E26FDE41200042CB7 /* AddPostCustomView */ = {
-			isa = PBXGroup;
-			children = (
-				03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */,
-				03D3046726FDFA7D00042CB7 /* AddPostCollectionReusableView.swift */,
-			);
-			path = AddPostCustomView;
+			path = CookidStats;
 			sourceTree = "<group>";
 		};
 		03D8C1F426EBB7E500238CB6 /* RemoteEntity */ = {
@@ -686,23 +735,9 @@
 				03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */,
 				03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */,
 				03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */,
-				0339E263271977FA001FD6A7 /* RankerImageView.swift */,
 				03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */,
 			);
 			path = Ranking;
-			sourceTree = "<group>";
-		};
-		03E42EDB26C4F6A7005D7B5E /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				032233B7269276DB0092DD6D /* MainViewController.swift */,
-				0395F6EC26B805360091BB29 /* AddMealViewController.swift */,
-				03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */,
-				03250E152714359A00425036 /* AddTodayMealViewController.swift */,
-				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
-				03B2049426D75DD50099C269 /* PictureSelectViewController.swift */,
-			);
-			path = Main;
 			sourceTree = "<group>";
 		};
 		03F2ED6026ED046700CFE87C /* AuthRepository */ = {
@@ -716,79 +751,55 @@
 			path = AuthRepository;
 			sourceTree = "<group>";
 		};
-		03F2ED6526ED90A300CFE87C /* Post */ = {
-			isa = PBXGroup;
-			children = (
-				03F2ED6F26ED929300CFE87C /* PostMainViewController.swift */,
-				03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */,
-				24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */,
-			);
-			path = Post;
-			sourceTree = "<group>";
-		};
 		03F2ED6826ED913800CFE87C /* PostCustomView */ = {
 			isa = PBXGroup;
 			children = (
 				03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */,
 				03F2ED7426EDD23A00CFE87C /* PostUserView.swift */,
-				03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */,
 				03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */,
+				03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */,
+				03D3046726FDFA7D00042CB7 /* AddPostCollectionReusableView.swift */,
+				0390F53F27299B7900677651 /* CommentHeaderView.swift */,
+				0339E263271977FA001FD6A7 /* RankerImageView.swift */,
 			);
 			path = PostCustomView;
 			sourceTree = "<group>";
 		};
-		03F2ED7126ED92C900CFE87C /* Post */ = {
+		03F2ED7126ED92C900CFE87C /* CookidCommunity */ = {
 			isa = PBXGroup;
 			children = (
-				03F2ED7226ED92D500CFE87C /* PostViewModel.swift */,
-				03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */,
-				0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */,
+				030D4AE927302E9A005C0FFF /* SignIn */,
+				030D4AD8273006E8005C0FFF /* Post */,
+				030D4AD92730071C005C0FFF /* AddPost */,
+				0390F53B2728EB8E00677651 /* Comment */,
+				03E42ED426C4DBB0005D7B5E /* Ranking */,
 			);
-			path = Post;
-			sourceTree = "<group>";
-		};
-		2417EAA626E58C7C006F2785 /* MyPage */ = {
-			isa = PBXGroup;
-			children = (
-				DB1982EC269BF3660055742B /* UserInformationViewController.swift */,
-				2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */,
-				2417EABB26E5A562006F2785 /* MyPageHeaderViewController.swift */,
-				03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */,
-				03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */,
-				03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */,
-				03D660C3270B4C6B0044FE1E /* MyBookmarkViewController.swift */,
-			);
-			path = MyPage;
+			path = CookidCommunity;
 			sourceTree = "<group>";
 		};
 		2417EAB226E58CDD006F2785 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
 				032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */,
+				032233CA2692A8630092DD6D /* OnboardingPageViewViewController.swift */,
+				032233CC2692A8F70092DD6D /* FirstPageViewController.swift */,
+				032233CE2692A90B0092DD6D /* SecondPageViewController.swift */,
+				032233D02692A91A0092DD6D /* ThirdPageViewController.swift */,
+				032233D22692A94D0092DD6D /* FourthPageViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		2417EAB426E58CF7006F2785 /* MyPage */ = {
+		2417EAB426E58CF7006F2785 /* CookidProfile */ = {
 			isa = PBXGroup;
 			children = (
-				2417EAB526E58D0C006F2785 /* MyPageViewModel.swift */,
-				DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */,
-				033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */,
-				03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */,
-				03D660CF270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift */,
+				030D4ADE27300A2C005C0FFF /* MyPage */,
+				030D4ADB273009D3005C0FFF /* MyMeal */,
+				030D4ADA273009CC005C0FFF /* MyPost */,
+				030D4ADC273009D8005C0FFF /* MyBookmark */,
+				030D4ADD273009E4005C0FFF /* MyRecipe */,
 			);
-			path = MyPage;
-			sourceTree = "<group>";
-		};
-		2417EABA26E5A549006F2785 /* MyPageCustomView */ = {
-			isa = PBXGroup;
-			children = (
-				03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */,
-				033D3C29270A780E009B29B9 /* MyPostCollectionViewCell.swift */,
-				03D660C6270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift */,
-			);
-			path = MyPageCustomView;
+			path = CookidProfile;
 			sourceTree = "<group>";
 		};
 		244B2B0F26E4A0BF001226F0 /* FirebaseRepository */ = {
@@ -849,10 +860,10 @@
 			isa = PBXGroup;
 			children = (
 				037B7A14272D7C30004E9320 /* ServiceProvider.swift */,
-				DBDA046726969A6500B5C1D6 /* UserService.swift */,
+				030D4AE5273010BD005C0FFF /* UserService.swift */,
 				03D8C1FC26EBBC9800238CB6 /* PostService.swift */,
 				03F2ED8526F0343E00CFE87C /* CommentService.swift */,
-				DB0D7D7326949818009B2D51 /* MealService.swift */,
+				030D4AE7273010C9005C0FFF /* MealService.swift */,
 				241523AF269D093E0077941A /* ShoppingService.swift */,
 				03B2049A26D7BA830099C269 /* MenuService.swift */,
 			);
@@ -1080,14 +1091,14 @@
 				035E4921269597D4002CC084 /* MealTimeCollectionViewCell.swift in Sources */,
 				032233BA269277520092DD6D /* Meal.swift in Sources */,
 				0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */,
-				0390F53E2728EF4E00677651 /* YPImagePickerController.swift in Sources */,
+				0390F53E2728EF4E00677651 /* YPImagePickerManaget.swift in Sources */,
 				033D3C2A270A780E009B29B9 /* MyPostCollectionViewCell.swift in Sources */,
-				DBDA046826969A6500B5C1D6 /* UserService.swift in Sources */,
 				037B7A19272D9F1A004E9320 /* BaseService.swift in Sources */,
 				0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */,
 				0339E269271B81D3001FD6A7 /* CookidButton.swift in Sources */,
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
 				03D3046826FDFA7D00042CB7 /* AddPostCollectionReusableView.swift in Sources */,
+				030D4AE027300BF9005C0FFF /* BaseViewModel.swift in Sources */,
 				03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */,
 				0390F54027299B7900677651 /* CommentHeaderView.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
@@ -1149,15 +1160,15 @@
 				0322339E269212860092DD6D /* SceneDelegate.swift in Sources */,
 				03D3046426FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift in Sources */,
 				03F2ED9226F38D7C00CFE87C /* MainCoordinator.swift in Sources */,
+				030D4AE227300D99005C0FFF /* CoodinatorProtocol.swift in Sources */,
+				030D4AE6273010BD005C0FFF /* UserService.swift in Sources */,
 				03D8C1FB26EBB92A00238CB6 /* FirebaseStorageRepo.swift in Sources */,
 				0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */,
-				C67441D62696FA530086CBAD /* MealService.swift in Sources */,
 				03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */,
 				03D8C1F626EBB85200238CB6 /* RemotePost.swift in Sources */,
 				03D8C1EF26EB6D8C00238CB6 /* FirestorePostRepo.swift in Sources */,
 				03D660C4270B4C6B0044FE1E /* MyBookmarkViewController.swift in Sources */,
 				24BA287726F8E85F005D344E /* CommentTableViewCell.swift in Sources */,
-				037B7A0E272D7AF9004E9320 /* BaseNavigationController.swift in Sources */,
 				030C4ACD272A720D00630F08 /* HeartButton.swift in Sources */,
 				24B081BF26E0473500379087 /* LocalMeal.swift in Sources */,
 				24C86C6C26FF6F8000E84477 /* AddPostImageCollectionViewController.swift in Sources */,
@@ -1167,6 +1178,7 @@
 				2417EABC26E5A562006F2785 /* MyPageHeaderViewController.swift in Sources */,
 				037B7A26272EDFD0004E9320 /* StoryboardProtocol.swift in Sources */,
 				037B7A17272D7CB3004E9320 /* RepositoryProvider.swift in Sources */,
+				030D4AE8273010C9005C0FFF /* MealService.swift in Sources */,
 				03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */,
 				24B081C426E0473F00379087 /* LocalShopping.swift in Sources */,
 				03F2ED9426F3916500CFE87C /* MyPageCoordinator.swift in Sources */,
