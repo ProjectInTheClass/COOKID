@@ -191,7 +191,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .disposed(by: rx.disposeBag)
         
         viewModel.output.userInfo
-            .bind(onNext: { user in
+            .drive(onNext: { user in
                 self.userNickname.text = user.nickname
                 self.userDetermination.text = user.determination
                 self.userType.text = user.userType.rawValue

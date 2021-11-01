@@ -17,7 +17,6 @@ class CommentViewModel: ViewModelType, HasDisposeBag {
     let userService: UserService
     
     struct Input {
-        // 일단 PublishRelay로 해보자.
         let commentContent = PublishSubject<String>()
         let uploadButtonTapped = PublishSubject<Void>()
         let subCommentButtonTapped = BehaviorSubject<Comment?>(value: nil)

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import KakaoSDKAuth
 
 public enum DefaultStyle {
    

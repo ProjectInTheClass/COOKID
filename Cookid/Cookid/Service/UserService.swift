@@ -11,6 +11,7 @@ import RxCocoa
 import Kingfisher
 
 protocol UserServiceType {
+    var currentUser: Observable<User> { get }
     func creatUser(user: User, completion: @escaping (Bool) -> Void)
     func connectUser(localUser: LocalUser, imageURL: URL?, dineInCount: Int, cookidsCount: Int, completion: @escaping (Bool) -> Void)
     func loadMyInfo() -> Observable<User>
@@ -21,10 +22,8 @@ protocol UserServiceType {
 
 class UserService: BaseService, UserServiceType {
     
-    let realmUserRepo = RealmUserRepo.instance
-    
     /// Fetch from Realm
-    private var defaultUserInfo = realmUserRepo.fetchUser().map { userentity -> User in
+    private var defaultUserInfo = self.repoProvider.realmUserRepo.fetchUser().map { userentity -> User in
         return User(id: userentity.id.stringValue,
                     image: URL(string: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1931&q=80"),
                     nickname: userentity.nickName,

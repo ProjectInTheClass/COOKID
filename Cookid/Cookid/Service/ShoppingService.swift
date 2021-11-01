@@ -9,101 +9,87 @@ import Foundation
 import RxSwift
 
 protocol ShoppingServiceType {
-    func create(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping>
-    func update(updateShopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping>
-    func deleteShopping(shopping: GroceryShopping)
+    var initialShoppingCount: Int { get }
+    var shoppingList: Observable<[Shopping]> { get }
+    func create(shopping: Shopping) -> Observable<Bool>
     func fetchShoppings()
+    func update(updateShopping: Shopping) -> Observable<Bool>
+    func deleteShopping(deleteShopping: Shopping) -> Observable<Bool>
 }
 
 class ShoppingService: BaseService, ShoppingServiceType {
    
-    private var groceryShoppings: [GroceryShopping] = []
+    private var shoppings: [Shopping] = []
     
-    private lazy var shoppingStore = BehaviorSubject<[GroceryShopping]>(value: groceryShoppings)
+    private lazy var shoppingStore = BehaviorSubject<[Shopping]>(value: shoppings)
     
     var initialShoppingCount: Int {
-        return groceryShoppings.count
+        return shoppings.count
     }
     
-    @discardableResult
-    func create(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping> {
-        realmShoppingRepo.createShopping(shopping: shopping)
-        groceryShoppings.append(shopping)
-        shoppingStore.onNext(groceryShoppings)
-        completion(true)
-        return Observable.just(shopping)
-    }
-    
-    @discardableResult
-    func shoppingList() -> Observable<[GroceryShopping]> {
+    var shoppingList: Observable<[Shopping]> {
         return shoppingStore
     }
     
-    @discardableResult
-    func update(updateShopping: GroceryShopping, completion: @escaping (Bool) -> Void) -> Observable<GroceryShopping> {
-        realmShoppingRepo.updateShopping(shopping: updateShopping)
-        if let index = groceryShoppings.firstIndex(where: { $0.id == updateShopping.id }) {
-            groceryShoppings.remove(at: index)
-            groceryShoppings.insert(updateShopping, at: index)
+    func create(shopping: Shopping) -> Observable<Bool> {
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            self.repoProvider.realmShoppingRepo.createShopping(shopping: shopping) { success in
+                if success {
+                    self.shoppings.append(shopping)
+                    self.shoppingStore.onNext(self.shoppings)
+                    observer.onNext(true)
+                } else {
+                    observer.onNext(false)
+                }
+            }
+            return Disposables.create()
         }
-        shoppingStore.onNext(groceryShoppings)
-        completion(true)
-        return Observable.just(updateShopping)
-    }
-    
-    func deleteShopping(shopping: GroceryShopping) {
-        realmShoppingRepo.deleteShopping(shopping: shopping)
-        if let index = groceryShoppings.firstIndex(where: { $0.id == shopping.id }) {
-            groceryShoppings.remove(at: index)
-        }
-        shoppingStore.onNext(groceryShoppings)
     }
     
     func fetchShoppings() {
-        guard let shoppings = realmShoppingRepo.fetchShoppings() else { return }
-            let groceryShoppings = shoppings.map { shoppingModel -> GroceryShopping in
-                return GroceryShopping(id: shoppingModel.id, date: shoppingModel.date, totalPrice: shoppingModel.price)
+        guard let LocalShoppings = self.repoProvider.realmShoppingRepo.fetchShoppings() else { return }
+        let shoppings = LocalShoppings.map { localShopping -> Shopping in
+            return Shopping(id: localShopping.id, date: localShopping.date, totalPrice: localShopping.price)
+        }
+        self.shoppings = shoppings
+        self.shoppingStore.onNext(self.shoppings)
+    }
+    
+    func update(updateShopping: Shopping) -> Observable<Bool> {
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            self.repoProvider.realmShoppingRepo.updateShopping(shopping: updateShopping) { success in
+                if success {
+                    if let index = self.shoppings.firstIndex(where: { $0.id == updateShopping.id }) {
+                        self.shoppings.remove(at: index)
+                        self.shoppings.insert(updateShopping, at: index)
+                    }
+                    self.shoppingStore.onNext(self.shoppings)
+                    observer.onNext(true)
+                } else {
+                    observer.onNext(false)
+                }
             }
-            self.groceryShoppings = groceryShoppings
-            self.shoppingStore.onNext(groceryShoppings)
-    }
-    
-    func spotMonthShoppings(shoppings: [GroceryShopping]) -> [GroceryShopping] {
-        let startDay = Date().startOfMonth
-        let endDay = Date().endOfMonth
-        let filteredByStart = shoppings.filter { $0.date > startDay }
-        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
-        let sortedshoppings = filteredByEnd.sorted { $0.date > $1.date }
-        return sortedshoppings
-    }
-    
-    func fetchShoppingByDay(_ day: Date, shoppings: [GroceryShopping]) -> [GroceryShopping] {
-        let dayShoppings = shoppings.filter { $0.date.dateToString() == day.dateToString() }
-        return dayShoppings
-    }
-    
-    func fetchShoppingTotalSpend(shoppings: [GroceryShopping]) -> Int {
-        let shoppingSpends = shoppings.map { $0.totalPrice }.reduce(0, +)
-        return shoppingSpends
-    }
-    
-    func todayShoppings(shoppings: [GroceryShopping]) -> [GroceryShopping] {
-        return shoppings.filter { $0.date.dateToString() == Date().dateToString() }
-    }
-    
-    private let charSet: CharacterSet = {
-        var cs = CharacterSet(charactersIn: "0123456789")
-        return cs.inverted
-    }()
-    
-    func validationNum(text: String?) -> Bool {
-        guard let text = text else { return false }
-        if text.isEmpty {
-            return false
-        } else {
-            guard text.rangeOfCharacter(from: charSet) == nil else { return false }
-            return true
+            return Disposables.create()
         }
     }
-
+    
+    func deleteShopping(deleteShopping: Shopping) -> Observable<Bool> {
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            self.repoProvider.realmShoppingRepo.deleteShopping(shopping: deleteShopping) { success in
+                if success {
+                    if let index = self.shoppings.firstIndex(where: { $0.id == deleteShopping.id }) {
+                        self.shoppings.remove(at: index)
+                    }
+                    self.shoppingStore.onNext(self.shoppings)
+                } else {
+                    
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
 }
