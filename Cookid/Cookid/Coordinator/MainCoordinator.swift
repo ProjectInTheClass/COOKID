@@ -13,15 +13,11 @@ class MainCoordinator: CoordinatorType {
     var parentCoordinator: CoordinatorType
     var navigationController: UINavigationController?
     
-    let userService: UserService
-    let mealService: MealService
-    let shoppingService: ShoppingService
+    let serviceProvider: ServiceProviderType
     
-    init(parentCoordinator : CoordinatorType, userService: UserService, mealService: MealService, shoppingService: ShoppingService) {
+    init(parentCoordinator : CoordinatorType, serviceProvider: ServiceProviderType) {
         self.parentCoordinator = parentCoordinator
-        self.userService = userService
-        self.mealService = mealService
-        self.shoppingService = shoppingService
+        self.serviceProvider = serviceProvider
     }
     
     func start() -> UIViewController {
@@ -47,7 +43,7 @@ class MainCoordinator: CoordinatorType {
         navigationController?.present(vc, animated: true, completion: nil)
     }
     
-    func navigateAddMealVC(meal: Meal?) {
+    func navigateAddMealVC(mode: MealEditMode, meal: Meal?) {
         let vc = AddMealViewController.instantiate(storyboardID: "Main")
         vc.reactor = AddMealReactor(mealService: mealService, meal: meal)
         vc.modalPresentationStyle = .custom
@@ -56,12 +52,9 @@ class MainCoordinator: CoordinatorType {
         navigationController?.present(vc, animated: true, completion: nil)
     }
     
-    func navigateAddShoppingVC(shopping: GroceryShopping?) {
-        let shoppingID = shopping != nil ? shopping?.id : UUID().uuidString
-        let addShoppingViewModel = AddShoppingViewModel(shoppingService: shoppingService, userService: userService, shoppingID: shoppingID)
+    func navigateAddShoppingVC(mode: ShoppingEditMode) {
         var vc = AddShoppingViewController()
-        vc.shopping = shopping
-        vc.bind(viewModel: addShoppingViewModel)
+        vc.reactor = AddShoppingReactor(mode: mode, serviceProvider: serviceProvider)
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
         navigationController?.present(vc, animated: true, completion: nil)

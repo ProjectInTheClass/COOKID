@@ -10,6 +10,11 @@ import ReactorKit
 import RxSwift
 import RxCocoa
 
+enum MealEditMode {
+    case new
+    case edit(Meal)
+}
+
 class AddMealReactor: Reactor {
     
     let mealService: MealService

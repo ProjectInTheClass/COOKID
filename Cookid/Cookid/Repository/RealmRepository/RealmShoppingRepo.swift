@@ -9,10 +9,10 @@ import Foundation
 import RealmSwift
 
 protocol RealmShoppingRepoType {
-    func createShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void)
+    func createShopping(shopping: Shopping, completion: @escaping (Bool) -> Void)
     func fetchShoppings() -> [LocalShopping]?
-    func updateShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void)
-    func deleteShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void)
+    func updateShopping(shopping: Shopping, completion: @escaping (Bool) -> Void)
+    func deleteShopping(shopping: Shopping, completion: @escaping (Bool) -> Void)
 }
 
 class RealmShoppingRepo: BaseRepository, RealmShoppingRepoType {
@@ -28,7 +28,7 @@ class RealmShoppingRepo: BaseRepository, RealmShoppingRepoType {
         }
     }
     
-    func createShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) {
+    func createShopping(shopping: Shopping, completion: @escaping (Bool) -> Void) {
         do {
             let realm = try Realm()
             let localShopping = LocalShopping(id: shopping.id, date: shopping.date, price: shopping.totalPrice)
@@ -42,7 +42,7 @@ class RealmShoppingRepo: BaseRepository, RealmShoppingRepoType {
         }
     }
     
-    func deleteShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) {
+    func deleteShopping(shopping: Shopping, completion: @escaping (Bool) -> Void) {
         do {
             let realm = try Realm()
             if let deleteShopping = realm.objects(LocalShopping.self).filter(NSPredicate(format: "id = %@", shopping.id)).first {
@@ -60,7 +60,7 @@ class RealmShoppingRepo: BaseRepository, RealmShoppingRepoType {
         }
     }
     
-    func updateShopping(shopping: GroceryShopping, completion: @escaping (Bool) -> Void) {
+    func updateShopping(shopping: Shopping, completion: @escaping (Bool) -> Void) {
         do {
             let realm = try Realm()
             if let updateShopping = realm.objects(LocalShopping.self).filter(NSPredicate(format: "id = %@", shopping.id)).first {

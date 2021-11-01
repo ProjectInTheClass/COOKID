@@ -10,8 +10,9 @@ import SnapKit
 import Then
 import RxKeyboard
 import RxSwift
+import ReactorKit
 
-class AddShoppingViewController: UIViewController, ViewModelBindable {
+class AddShoppingViewController: UIViewController, View {
     
     // MARK: - UI
     
@@ -148,9 +149,7 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     
     // MARK: - Property
     
-    var viewModel: AddShoppingViewModel!
-    var newShopping: GroceryShopping?
-    var shopping: GroceryShopping?
+    var disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - View Life Cycle
     
@@ -233,7 +232,7 @@ class AddShoppingViewController: UIViewController, ViewModelBindable {
     }
     
     // MARK: - Binding ViewModel
-    func bindViewModel() {
+    func bind(reactor: AddShoppingReactor) {
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] frame in
