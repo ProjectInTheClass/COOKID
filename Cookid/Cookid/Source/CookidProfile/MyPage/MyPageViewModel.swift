@@ -9,14 +9,8 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class MyPageViewModel: ViewModelType {
-    
-    let userService: UserService
-    let mealService: MealService
-    let shoppingService: ShoppingService
-    let postService: PostService
-    let commentService: CommentService
-    
+class MyPageViewModel: BaseViewModel, ViewModelType {
+   
     struct Input {
         
     }
@@ -33,13 +27,7 @@ class MyPageViewModel: ViewModelType {
     var input: Input
     var output: Output
     
-    init(userService: UserService, mealService: MealService, shoppingService: ShoppingService, postService: PostService, commentService: CommentService) {
-        self.userService = userService
-        self.mealService = mealService
-        self.shoppingService = shoppingService
-        self.postService = postService
-        self.commentService = commentService
-        
+    override init(serviceProvider: ServiceProviderType) {
         let userInfo = userService.user()
         let meals = mealService.mealList()
         let shoppings = shoppingService.shoppingList()
@@ -60,5 +48,6 @@ class MyPageViewModel: ViewModelType {
         
         self.input = Input()
         self.output = Output(userInfo: userInfo, meals: meals, dineInCount: dineInCount, cookidsCount: cookidsCount, postCount: postCount, myPosts: myPosts)
+        super.init(serviceProvider: serviceProvider)
     }
 }

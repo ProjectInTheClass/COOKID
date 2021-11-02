@@ -10,10 +10,7 @@ import RxSwift
 import RxCocoa
 import ReactorKit
 
-class MyPostReactor: Reactor {
-    
-    let postService: PostService
-    let userService: UserService
+class MyPostReactor: BaseViewModel, Reactor {
     
     enum Action {
         
@@ -31,11 +28,9 @@ class MyPostReactor: Reactor {
     
     let initialState: State
     
-    init(postService: PostService, userService: UserService) {
-        self.postService = postService
-        self.userService = userService
-        
+    override init(serviceProvider: ServiceProviderType) {
         self.initialState = State()
+        super.init(serviceProvider: serviceProvider)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {

@@ -9,9 +9,8 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class UserInfoUpdateViewModel: ViewModelType {
+class UserInfoUpdateViewModel: BaseViewModel, ViewModelType {
     
-    let userService: UserService
     let disposeBag = DisposeBag()
     
     struct Input {
@@ -29,8 +28,7 @@ class UserInfoUpdateViewModel: ViewModelType {
     var input: Input
     var output: Output
     
-    init(userService: UserService) {
-        self.userService = userService
+    override init(serviceProvider: ServiceProviderType) {
        
         let userInfo = userService.user()
         
@@ -54,6 +52,7 @@ class UserInfoUpdateViewModel: ViewModelType {
         self.input = Input(nickNameText: nickNameText, budgetText: budgetText, determinationText: determinationText)
         
         self.output = Output(userInfo: userInfo, newUserInfo: newUserInfo)
+        super.init(serviceProvider: serviceProvider)
     }
     
 }

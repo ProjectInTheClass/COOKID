@@ -16,6 +16,7 @@
 		030D4AE227300D99005C0FFF /* CoodinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE127300D99005C0FFF /* CoodinatorProtocol.swift */; };
 		030D4AE6273010BD005C0FFF /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE5273010BD005C0FFF /* UserService.swift */; };
 		030D4AE8273010C9005C0FFF /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE7273010C9005C0FFF /* MealService.swift */; };
+		030D4AEB273040D8005C0FFF /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 030D4AEA273040D8005C0FFF /* UserInfo.storyboard */; };
 		031DDF6027099C23001F12C3 /* KeyChainAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */; };
 		0322339C269212860092DD6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339B269212860092DD6D /* AppDelegate.swift */; };
 		0322339E269212860092DD6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339D269212860092DD6D /* SceneDelegate.swift */; };
@@ -143,7 +144,6 @@
 		24C86C6C26FF6F8000E84477 /* AddPostImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */; };
 		4255C87D6C8D5A6C8AAFDBA1 /* Pods_CookidTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C02D874ED96A95A539EEFD /* Pods_CookidTests.framework */; };
 		C6BFF46226949AA7006295F5 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF46126949AA7006295F5 /* Constant.swift */; };
-		DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB1982EE269BF7D30055742B /* UserInfo.storyboard */; };
 		DB61715226C9577B008F497C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61715126C9577B008F497C /* NotificationManager.swift */; };
 		DBED6A3A269E7B4B0020A774 /* UserInfoUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -182,6 +182,7 @@
 		030D4AE127300D99005C0FFF /* CoodinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoodinatorProtocol.swift; sourceTree = "<group>"; };
 		030D4AE5273010BD005C0FFF /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		030D4AE7273010C9005C0FFF /* MealService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealService.swift; sourceTree = "<group>"; };
+		030D4AEA273040D8005C0FFF /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
 		031DDF5E27093D7A001F12C3 /* Cookid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cookid.entitlements; sourceTree = "<group>"; };
 		031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainAuthRepo.swift; sourceTree = "<group>"; };
 		03223398269212860092DD6D /* Cookid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookid.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -313,7 +314,6 @@
 		92784250C9969CCBA901BA20 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6BFF46126949AA7006295F5 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		DB1982EC269BF3660055742B /* UserInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationViewController.swift; sourceTree = "<group>"; };
-		DB1982EE269BF7D30055742B /* UserInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = UserInfo.storyboard; path = ../../../COOKID/View/Storyboard/UserInfo.storyboard; sourceTree = "<group>"; };
 		DB61715126C9577B008F497C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		DBED6A39269E7B4B0020A774 /* UserInfoUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUpdateViewModel.swift; sourceTree = "<group>"; };
 		F431FF06FC6CBE03E157E905 /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
@@ -591,7 +591,7 @@
 			children = (
 				032233A1269212860092DD6D /* Main.storyboard */,
 				03F2ED6326ED906C00CFE87C /* Post.storyboard */,
-				DB1982EE269BF7D30055742B /* UserInfo.storyboard */,
+				030D4AEA273040D8005C0FFF /* UserInfo.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -965,8 +965,8 @@
 				032233A8269212870092DD6D /* Launch.storyboard in Resources */,
 				032233A5269212870092DD6D /* Assets.xcassets in Resources */,
 				03F2ED6426ED906C00CFE87C /* Post.storyboard in Resources */,
+				030D4AEB273040D8005C0FFF /* UserInfo.storyboard in Resources */,
 				0339575126A2C96100594515 /* boardingImage in Resources */,
-				DB1982EF269BF7D30055742B /* UserInfo.storyboard in Resources */,
 				032233A3269212860092DD6D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
