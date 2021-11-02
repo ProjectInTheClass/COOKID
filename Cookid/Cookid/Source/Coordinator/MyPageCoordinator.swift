@@ -22,7 +22,7 @@ class MyPageCoordinator: CoordinatorType {
     func start() -> UIViewController {
         var myPageVC = MyPageViewController.instantiate(storyboardID: "UserInfo")
         myPageVC.coordinator = self
-        myPageVC.bind(viewModel: MyPageViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService, postService: postService, commentService: commentService))
+        myPageVC.bind(viewModel: MyPageViewModel(serviceProvider: serviceProvider))
         navigationController = UINavigationController(rootViewController: myPageVC)
         navigationBarConfigure()
         return navigationController!
@@ -34,7 +34,7 @@ class MyPageCoordinator: CoordinatorType {
     }
     
     func navigateUserInfoVC(viewModel: MyPageViewModel) {
-        let userUpdateViewModel = UserInfoUpdateViewModel(userService: viewModel.userService)
+        let userUpdateViewModel = UserInfoUpdateViewModel(serviceProvider: serviceProvider)
         var userInfoVC = UserInformationViewController.instantiate(storyboardID: "UserInfo")
         userInfoVC.bind(viewModel: userUpdateViewModel)
         userInfoVC.modalPresentationStyle = .custom

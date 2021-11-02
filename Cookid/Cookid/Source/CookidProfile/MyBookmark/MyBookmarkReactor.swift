@@ -12,11 +12,6 @@ import RxSwift
 
 class MyBookmarkReactor: Reactor {
     
-    let postService: PostService
-    let userService: UserService
-    let commentService: CommentService
-    let initialState: State
-    
     enum Action {
         
     }
@@ -31,12 +26,11 @@ class MyBookmarkReactor: Reactor {
         var user: User = DummyData.shared.singleUser
     }
     
-    init(postService: PostService, userService: UserService, commentService: CommentService) {
-        self.postService = postService
-        self.userService = userService
-        self.commentService = commentService
-        
+    let initialState: State
+    
+    override init(serviceProvider: ServiceProviderType) {
         self.initialState = State()
+        super.init(serviceProvider: serviceProvider)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
