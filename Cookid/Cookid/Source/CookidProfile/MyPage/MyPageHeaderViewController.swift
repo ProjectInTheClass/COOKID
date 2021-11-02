@@ -57,49 +57,10 @@ class MyPageHeaderViewController: UIViewController, ViewModelBindable, HasDispos
     var viewModel: MyPageViewModel!
     var coordinator: MyPageCoordinator?
     
-    // MARK: - Initializer
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        self.makeConstraints()
-    }
-    
-    // MARK: - ConfigureUI
-    
-    func bindViewModel() {
-        
-        viewModel.output.userInfo
-            .withUnretained(self)
-            .bind(onNext: { (owner, user) in
-                owner.userImage.setImageWithKf(url: user.image)
-                owner.userNickname.text = user.nickname
-                owner.userType.text = user.userType.rawValue
-                owner.userDetermination.text = user.determination
-            })
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.dineInCount
-            .withUnretained(self)
-            .bind { (owner, count) in
-                owner.userDinInCount.text = "🍚  " + String(count)
-            }
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.cookidsCount
-            .withUnretained(self)
-            .bind { (owner, count) in
-                owner.userCookidCount.text = "💸  " + String(count)
-            }
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.postCount
-            .withUnretained(self)
-            .bind { (owner, count) in
-                owner.userRecipeCount.text = "📝  " + String(count)
-            }
-            .disposed(by: rx.disposeBag)
-        
+        makeConstraints()
     }
     
     private func makeConstraints() {
@@ -148,5 +109,43 @@ class MyPageHeaderViewController: UIViewController, ViewModelBindable, HasDispos
         }
         
     }
+    
+    // MARK: - binding
+    
+    func bindViewModel() {
+        
+        viewModel.output.userInfo
+            .withUnretained(self)
+            .bind(onNext: { (owner, user) in
+                owner.userImage.setImageWithKf(url: user.image)
+                owner.userNickname.text = user.nickname
+                owner.userType.text = user.userType.rawValue
+                owner.userDetermination.text = user.determination
+            })
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.dineInCount
+            .withUnretained(self)
+            .bind { (owner, count) in
+                owner.userDinInCount.text = "🍚  " + String(count)
+            }
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.cookidsCount
+            .withUnretained(self)
+            .bind { (owner, count) in
+                owner.userCookidCount.text = "💸  " + String(count)
+            }
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.postCount
+            .withUnretained(self)
+            .bind { (owner, count) in
+                owner.userRecipeCount.text = "📝  " + String(count)
+            }
+            .disposed(by: rx.disposeBag)
+        
+    }
+    
     
 }

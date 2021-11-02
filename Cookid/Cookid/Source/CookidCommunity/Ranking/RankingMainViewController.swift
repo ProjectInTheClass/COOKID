@@ -57,11 +57,10 @@ class RankingMainViewController: UIViewController, ViewModelBindable {
             .disposed(by: rx.disposeBag)
         
         viewModel.output.cookidRankers
-            .bind(to: tableView.rx.items(cellIdentifier: CELLIDENTIFIER.rankingCell, cellType: RankingTableViewCell.self)) { index, item, cell in
+            .drive(tableView.rx.items(cellIdentifier: CELLIDENTIFIER.rankingCell, cellType: RankingTableViewCell.self)) { index, item, cell in
                 cell.updateUI(user: item, ranking: index)
             }
             .disposed(by: rx.disposeBag)
-        
     }
     
 }

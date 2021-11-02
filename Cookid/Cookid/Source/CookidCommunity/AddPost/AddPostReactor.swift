@@ -16,7 +16,7 @@ enum PostEditViewMode {
     case edit(Post)
 }
 
-class AddPostReactor: BaseViewModel, Reactor {
+class AddPostReactor: Reactor {
     
     enum Action {
         case imageUpload([UIImage])
@@ -52,24 +52,23 @@ class AddPostReactor: BaseViewModel, Reactor {
     }
 
     let mode: PostEditViewMode
+    let serviceProvider: ServiceProviderType
     let initialState: State
     
     init(mode: PostEditViewMode, serviceProvider: ServiceProviderType) {
         self.mode = mode
+        self.serviceProvider = serviceProvider
         switch mode {
         case .new:
-            print(".new.rawValue")
             self.initialState = State(images: [], region: "")
         case .edit(let post):
-            // 이미지 받아오는거 킹피셔로 해야 하나?....
-            print(".post.rawValue")
             self.initialState = State(images: [], caption: post.caption, region: post.location, price: post.mealBudget, star: post.star)
         }
-        super.init(serviceProvider: serviceProvider)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        let user = self.userService.user().map { Mutation.setUser($0) }
+        let user = serviceProvider.userService.currentUser
+            .map { Mutation.setUser($0) }
         return .merge(mutation, user)
     }
     
@@ -129,14 +128,14 @@ class AddPostReactor: BaseViewModel, Reactor {
     func uploadPost(mode: PostEditViewMode, user: User, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool> {
         switch self.mode {
         case .new:
-            return self.postService.createPost(user: user,
+            return serviceProvider.postService.createPost(user: user,
                                                images: images,
                                                region: region,
                                                price: price,
                                                star: star,
                                                caption: caption)
         case .edit(let post):
-            return self.postService.updatePost(post: post,
+            return serviceProvider.postService.updatePost(post: post,
                                                images: images,
                                                region: region,
                                                price: price,

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ReactorKit
 
 class MainCoordinator: CoordinatorType {
     
@@ -42,9 +43,10 @@ class MainCoordinator: CoordinatorType {
         navigationController?.present(vc, animated: true, completion: nil)
     }
     
-    func navigateAddMealVC(mode: MealEditMode, meal: Meal?) {
+    func navigateAddMealVC(mode: MealEditMode) {
         let vc = AddMealViewController.instantiate(storyboardID: "Main")
         vc.reactor = AddMealReactor(mode: mode, serviceProvider: serviceProvider)
+        vc.coordinator = self
         vc.modalPresentationStyle = .custom
         vc.modalTransitionStyle = .crossDissolve
         vc.view.backgroundColor = .clear
@@ -54,6 +56,7 @@ class MainCoordinator: CoordinatorType {
     func navigateAddShoppingVC(mode: ShoppingEditMode) {
         let vc = AddShoppingViewController()
         vc.reactor = AddShoppingReactor(mode: mode, serviceProvider: serviceProvider)
+        vc.coordinator = self
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
         navigationController?.present(vc, animated: true, completion: nil)
@@ -65,6 +68,22 @@ class MainCoordinator: CoordinatorType {
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
         navigationController?.present(vc, animated: true, completion: nil)
+    }
+    
+    func presentDeleteAlert(reactor: AddShoppingReactor) {
+        let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "삭제", style: .default) { _ in
+            switch reactor.mode {
+            case .edit(_):
+                reactor.action.onNext(.deleteButtonTapped)
+            default:
+                break
+            }
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        navigationController?.present(alert, animated: true)
     }
     
 }

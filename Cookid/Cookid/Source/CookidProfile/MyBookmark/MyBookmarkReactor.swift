@@ -10,7 +10,7 @@ import ReactorKit
 import RxCocoa
 import RxSwift
 
-class MyBookmarkReactor: Reactor {
+class MyBookmarkReactor: BaseViewModel, Reactor {
     
     enum Action {
         
@@ -35,9 +35,12 @@ class MyBookmarkReactor: Reactor {
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
         
-        let user = userService.user()
+        let user = serviceProvider.userService.currentUser
         let userMutation = user.map { Mutation.setUser($0) }
-        let fetchedPosts = Observable.merge(postService.bookmaredTotalPosts, user.flatMap(postService.fetchBookmarkedPosts(user:))).map { Mutation.setPosts($0) }
+        let fetchedPosts = Observable.merge(
+            serviceProvider.postService.bookmaredTotalPosts,
+            user.flatMap(serviceProvider.postService.fetchBookmarkedPosts(user:)))
+            .map { Mutation.setPosts($0) }
         return Observable.merge(mutation, userMutation, fetchedPosts)
     }
     

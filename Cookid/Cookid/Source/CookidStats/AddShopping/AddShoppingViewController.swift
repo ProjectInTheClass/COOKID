@@ -150,6 +150,7 @@ class AddShoppingViewController: UIViewController, View {
     // MARK: - Property
     
     var disposeBag: DisposeBag = DisposeBag()
+    var coordinator: MainCoordinator?
     
     // MARK: - View Life Cycle
     
@@ -157,7 +158,6 @@ class AddShoppingViewController: UIViewController, View {
         super.viewDidLoad()
         configureUI()
         settingPickerInTextField(dateTextField)
-        initialSetting()
     }
     
     // MARK: - Function
@@ -182,23 +182,6 @@ class AddShoppingViewController: UIViewController, View {
             make.left.equalTo(30)
             make.bottom.equalTo(-30)
             make.right.equalTo(-30)
-        }
-    }
-    
-    private func initialSetting() {
-        if let shopping = self.shopping {
-            updateAnnouce.text = "수정이 완료되셨나요?"
-            let config = UIImage.SymbolConfiguration(pointSize: 35, weight: .regular, scale: .default)
-            let image = UIImage(systemName: "pencil.circle.fill", withConfiguration: config)
-            saveButton.setImage(image, for: .normal)
-            saveButton.tintColor = .systemGreen
-            deleteButton.isHidden = false
-            dateTextField.text = convertDateToString(format: "yyyy년 MM월 dd일", date: shopping.date)
-            datePicker.setDate(shopping.date, animated: false)
-            priceTextField.text = String(describing: shopping.totalPrice)
-        } else {
-            updateAnnouce.text = "쇼핑 기록이 완료되셨나요?"
-            deleteButton.isHidden = true
         }
     }
     
@@ -252,77 +235,82 @@ class AddShoppingViewController: UIViewController, View {
             .disposed(by: rx.disposeBag)
         
         datePicker.rx.date
-            .subscribe(onNext: { [unowned self] date in
-                self.dateTextField.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
-                self.viewModel.input.shoppingDate.accept(date)
-            })
-            .disposed(by: rx.disposeBag)
+            .map { .inputDate($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.date }
+        .withUnretained(self)
+        .bind(onNext: { owner, date in
+            owner.dateTextField.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
+            owner.datePicker.setDate(date, animated: false)
+        })
+        .disposed(by: disposeBag)
         
         priceTextField.rx.text.orEmpty
-            .do(onNext: { [unowned self] text in
-                if viewModel.shoppingService.validationNum(text: text) {
-                    UIView.animate(withDuration: 0.3) {
-                        self.validationView.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
-                        self.validationView.tintColor = .systemGreen
-                    }
-                } else {
-                    UIView.animate(withDuration: 0.3) {
-                        self.validationView.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
-                        self.validationView.tintColor = .red
-                    }
-                }
-            })
-            .bind { [unowned self] text in
-                self.viewModel.input.shoppingPrice.accept(text)
-            }
+            .map { .inputTotalPrice($0) }
+            .bind(to: reactor.action)
             .disposed(by: rx.disposeBag)
+        
+        reactor.state.map { $0.isPriceValid }
+        .withUnretained(self)
+        .bind(onNext: { owner, isValid in
+            guard let isValid = isValid else { return }
+            if isValid {
+                UIView.animate(withDuration: 0.3) {
+                    owner.validationView.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
+                    owner.validationView.tintColor = .systemGreen
+                }
+            } else {
+                UIView.animate(withDuration: 0.3) {
+                    owner.validationView.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
+                    owner.validationView.tintColor = .red
+                }
+            }
+        })
+        .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.totalPrice }
+        .map { String(describing: $0) }
+        .bind(to: priceTextField.rx.text)
+        .disposed(by: disposeBag)
         
         deleteButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "삭제", style: .default) { _ in
-                    guard let shopping = self.shopping else { return }
-                    self.viewModel.shoppingService.deleteShopping(shopping: shopping)
-                    self.dismiss(animated: true, completion: nil)
-                }
-                let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-                alert.addAction(okAction)
-                alert.addAction(cancelAction)
-                self.present(alert, animated: true)
-            })
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.validation
-            .drive(onNext: { [unowned self] validation in
-                self.saveButton.isEnabled = validation
-            })
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.newShopping
-            .bind(onNext: { [unowned self] newShopping in
-                self.newShopping = newShopping
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.coordinator?.presentDeleteAlert(reactor: reactor)
             })
             .disposed(by: rx.disposeBag)
         
         saveButton.rx.tap
-            .bind(onNext: { [unowned self] _ in
-                guard let newShopping = self.newShopping else { return }
-                if self.shopping != nil {
-                    self.viewModel.shoppingService.update(updateShopping: newShopping) { success in
-                        if success {
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    }
-                } else {
-                    self.viewModel.shoppingService.create(shopping: newShopping) { success in
-                        if success {
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    }
-                }
-            })
+            .map { .uploadButtonTapped }
+            .bind(to: reactor.action)
             .disposed(by: rx.disposeBag)
         
+        reactor.state.map { $0.isError }
+        .withUnretained(self)
+        .bind(onNext: { owner, isError in
+            guard let isError = isError else { return }
+            isError ? errorAlert(selfView: owner, errorMessage: "작업에 실패했습니다.", completion: {  }) :
+            owner.dismiss(animated: true, completion: nil)
+        })
+        .disposed(by: disposeBag)
+        
+        initialSetting(reactor: reactor)
     }
     
+    private func initialSetting(reactor: AddShoppingReactor) {
+        switch reactor.mode {
+        case .new:
+            updateAnnouce.text = "쇼핑 기록이 완료되셨나요?"
+            deleteButton.isHidden = true
+        case .edit(_):
+            updateAnnouce.text = "수정이 완료되셨나요?"
+            let config = UIImage.SymbolConfiguration(pointSize: 35, weight: .regular, scale: .default)
+            let image = UIImage(systemName: "pencil.circle.fill", withConfiguration: config)
+            saveButton.setImage(image, for: .normal)
+            saveButton.tintColor = .systemGreen
+            deleteButton.isHidden = false
+        }
+    }
 }

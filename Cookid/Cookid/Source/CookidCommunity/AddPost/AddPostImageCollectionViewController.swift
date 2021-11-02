@@ -79,7 +79,7 @@ extension AddPostImageCollectionViewController: UICollectionViewDelegateFlowLayo
     
     @objc func plusButtonTapped() {
         guard let reactor = reactor else { return }
-        YPImagePickerController.shared.pickingImages(viewController: self) { images in
+        YPImagePickerManager.shared.pickingImages(viewController: self) { images in
             reactor.action.onNext(.imageUpload(images))
         }
     }

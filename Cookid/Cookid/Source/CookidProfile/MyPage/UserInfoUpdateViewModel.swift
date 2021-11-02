@@ -20,7 +20,6 @@ class UserInfoUpdateViewModel: BaseViewModel, ViewModelType {
     }
     
     struct Output {
-        
         let userInfo: Observable<User>
         let newUserInfo: Observable<User>
     }
@@ -30,7 +29,7 @@ class UserInfoUpdateViewModel: BaseViewModel, ViewModelType {
     
     override init(serviceProvider: ServiceProviderType) {
        
-        let userInfo = userService.user()
+        let userInfo = serviceProvider.userService.currentUser
         
         let nickNameText = BehaviorSubject<String>(value:"")
         

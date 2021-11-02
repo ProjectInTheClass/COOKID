@@ -28,23 +28,24 @@ class MyPageViewModel: BaseViewModel, ViewModelType {
     var output: Output
     
     override init(serviceProvider: ServiceProviderType) {
-        let userInfo = userService.user()
-        let meals = mealService.mealList()
-        let shoppings = shoppingService.shoppingList()
+        let userInfo = serviceProvider.userService.currentUser
+        let meals = serviceProvider.mealService.mealList
+        let shoppings = serviceProvider.shoppingService.shoppingList
         
-        _ = userInfo.flatMap({ postService.fetchMyPosts(user: $0) })
+        _ = userInfo
+            .flatMap({ serviceProvider.postService.fetchMyPosts(user: $0) })
         
-        let dineInCount = meals.map { meals -> Int in
-            return meals.filter { $0.mealType == .dineIn }.count
-        }
+        let dineInCount =
+        meals.map { $0.filter { $0.mealType == .dineIn }.count }
         
-        let cookidsCount = Observable.combineLatest(meals, shoppings) { meals, shoppings -> Int in
-            return meals.count + shoppings.count
-        }
+        let cookidsCount =
+        Observable.combineLatest(meals, shoppings) { $0.count + $1.count }
         
-        let postCount = postService.myTotalPosts.map { $0.count }
+        let postCount =
+        serviceProvider.postService.myTotalPosts.map { $0.count }
         
-        let myPosts = postService.myTotalPosts
+        let myPosts =
+        serviceProvider.postService.myTotalPosts
         
         self.input = Input()
         self.output = Output(userInfo: userInfo, meals: meals, dineInCount: dineInCount, cookidsCount: cookidsCount, postCount: postCount, myPosts: myPosts)

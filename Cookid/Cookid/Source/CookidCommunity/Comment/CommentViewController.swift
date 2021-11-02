@@ -247,7 +247,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
             
             let headerComment = viewModel.output.commentSections[indexPath.section].header
             
-            cell.reactor = CommentCellReactor(post: viewModel.post, comment: headerComment, userService: viewModel.userService)
+            cell.reactor = CommentCellReactor(post: viewModel.post, comment: headerComment, serviceProvider: viewModel.serviceProvider)
             
             self.cellStateUpdate(cell: cell, target: viewModel.output.commentSections[indexPath.section])
             
@@ -295,7 +295,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
             
             let subComment = viewModel.output.commentSections[indexPath.section].items[indexPath.row - 1]
             
-            cell.reactor = CommentCellReactor(post: viewModel.post, comment: subComment, userService: viewModel.userService)
+            cell.reactor = CommentCellReactor(post: viewModel.post, comment: subComment, serviceProvider: viewModel.serviceProvider)
             
             cell.deleteButton.rx.tap
                 .withLatestFrom(Observable.just(subComment))
