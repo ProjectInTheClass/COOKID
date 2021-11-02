@@ -51,10 +51,12 @@ class AddMealReactor: Reactor {
         var priceValid: Bool?
     }
     
+    let mode: MealEditMode
     let initialState: State
     let serviceProvider: ServiceProviderType
     
     init(mode: MealEditMode, serviceProvider: ServiceProviderType) {
+        self.mode = mode
         self.serviceProvider = serviceProvider
         switch mode {
         case .new:
@@ -77,27 +79,36 @@ class AddMealReactor: Reactor {
         case .mealType(let mealType):
             return Observable.just(Mutate.setMealType(mealType))
         case .price(let price):
-            let validation = mealService.validationNumForPrice(text: price)
-            return Observable.merge(Observable.just(Mutate.setPrice(price ?? "")),
-                                    Observable.just(Mutate.setPriceValidation(validation)))
-        case .completion:
-            let mealID = meal != nil ? meal?.id : UUID().uuidString
+            let validation = self.validationNumForPrice(text: price)
+            return Observable.merge(
+                Observable.just(Mutate.setPrice(price ?? "")),
+                Observable.just(Mutate.setPriceValidation(validation)))
+        case .upload:
             let price = Int(self.currentState.price) ?? 0
             let date = self.currentState.date
             let name = self.currentState.name
             let mealType = self.currentState.mealType
             let mealTime = self.currentState.mealTime
             let image = self.currentState.image
-            let newMeal = Meal(id: mealID!, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-            let completeMeal = meal != nil ? mealService.update(updateMeal: newMeal) : mealService.create(meal: newMeal)
-            return Observable.concat([
-                Observable.just(Mutate.setLoading(true)),
-                completeMeal.map { Mutate.setError(!$0) },
-                Observable.just(Mutate.setLoading(false))
-            ])
+            switch mode {
+            case .new:
+                let newMeal = Meal(id: UUID().uuidString, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
+                return serviceProvider.mealService.create(meal: newMeal)
+                    .map { Mutate.setError(!$0) }
+            case .edit(let meal):
+                let newMeal = Meal(id: meal.id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
+                return serviceProvider.mealService.update(updateMeal: newMeal)
+                    .map { Mutate.setError(!$0) }
+            }
         case .delete:
-            guard let meal = meal else { return Observable.empty() }
-            return mealService.deleteMeal(meal: meal).map { Mutate.setError(!$0) }
+            switch mode {
+            case .edit(let meal):
+                return serviceProvider.mealService.deleteMeal(meal: meal)
+                    .map { Mutate.setError(!$0) }
+            default:
+                return Observable.empty()
+            }
+            
         }
     }
     
@@ -125,16 +136,21 @@ class AddMealReactor: Reactor {
         case .setError(let isError):
             newState.isError = isError
             return newState
-        case .setLoading(let isLoding):
-            newState.isLoading = isLoding
-            return newState
-        case .setMenus(let menus):
-            newState.menus = menus
-            return newState
         case .setPriceValidation(let priceValid):
             newState.priceValid = priceValid
             return newState
         }
+    }
+    
+    private let charSet: CharacterSet = {
+        var cs = CharacterSet(charactersIn: "0123456789")
+        return cs.inverted
+    }()
+    
+    func validationNumForPrice(text: String?) -> Bool? {
+        guard let text = text, text != "" else { return nil }
+        guard text.rangeOfCharacter(from: charSet) == nil else { return false }
+        return true
     }
     
 }

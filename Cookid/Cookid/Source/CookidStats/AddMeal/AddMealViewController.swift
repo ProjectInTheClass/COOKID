@@ -60,6 +60,7 @@ class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePick
     // properties
     
     var disposeBag: DisposeBag = DisposeBag()
+    var coordinator: MainCoordinator?
     
     // MARK: - View Life Cycle
     
@@ -159,14 +160,16 @@ class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePick
     
     // MARK: - initialSetting
     private func initialSetting(reactor: AddMealReactor) {
-        if reactor.initialState.isUpdate {
+        
+        switch reactor.mode {
+        case .new:
             announceLabel.text = "이미지를 수정하시려면 사진을 누르세요:)"
             updateAnnouce.text = "수정이 완료되셨나요?"
             deleteButton.isHidden = false
             deleteButton.tintColor = #colorLiteral(red: 0.833554848, green: 0.2205436249, blue: 0.1735619552, alpha: 1)
             completionButton.setImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
             completionButton.tintColor = #colorLiteral(red: 0.2396557123, green: 0.7154314493, blue: 0.5069640082, alpha: 1)
-        } else {
+        case .edit(_):
             announceLabel.text = "위의 빈 화면을 눌러 이미지를 넣어보세요:)"
             updateAnnouce.text = "식사 기록이 완료되셨나요?"
             deleteButton.isHidden = true
@@ -175,6 +178,7 @@ class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePick
     
     // MARK: - bindActionWithComponents
     private func bindActionWithComponents(reactor: AddMealReactor) {
+        
         datePicker.rx.date
             .map { Reactor.Action.date($0) }
             .bind(to: reactor.action)
@@ -278,7 +282,7 @@ class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePick
             .disposed(by: disposeBag)
         
         completionButton.rx.tap
-            .map { Reactor.Action.completion }
+            .map { Reactor.Action.upload }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -294,12 +298,6 @@ class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePick
                 self.dismiss(animated: true, completion: nil)
             }
             : self.dismiss(animated: true, completion: nil)
-        })
-        .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.isLoading }
-        .bind(onNext: { [unowned self] isLoading in
-            isLoading ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
         })
         .disposed(by: disposeBag)
   

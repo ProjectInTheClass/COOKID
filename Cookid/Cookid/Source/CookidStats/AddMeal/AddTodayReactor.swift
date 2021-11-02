@@ -53,15 +53,15 @@ class AddTodayReactor: Reactor {
         switch action {
         case .breakfastPrice(let price):
             let breakfastMutate = Observable.just(Mutation.setBreakfastPrice(price))
-            let validMutate = Observable.just(Mutate.setbreakfastValidation(mealService.validationNumOptional(text: price)))
+            let validMutate = Observable.just(Mutate.setbreakfastValidation(self.validationNumOptional(text: price)))
             return Observable.merge(validMutate, breakfastMutate)
         case .lunchPrice(let price):
             let lunchMutate = Observable.just(Mutation.setLunchMealPrice(price))
-            let validMutate = Observable.just(Mutate.setlunchValidation(mealService.validationNumOptional(text: price)))
+            let validMutate = Observable.just(Mutate.setlunchValidation(self.validationNumOptional(text: price)))
             return Observable.merge(validMutate, lunchMutate)
         case .dinnerPrice(let price):
             let dinnerMutate = Observable.just(Mutation.setDinnerMealPrice(price))
-            let validMutate = Observable.just(Mutate.setdinnerValidation(mealService.validationNumOptional(text: price)))
+            let validMutate = Observable.just(Mutate.setdinnerValidation(self.validationNumOptional(text: price)))
             return Observable.merge(validMutate, dinnerMutate)
         case .completeButtonTapped:
             let breakfastMeal = makeTodayMeal(action: .breakfastPrice("아침식사"), price: self.currentState.breakfastPrice)
@@ -69,9 +69,9 @@ class AddTodayReactor: Reactor {
             let dinnerMeal = makeTodayMeal(action: .dinnerPrice("저녁식사"), price: self.currentState.dinnerMealPrice)
             
             let createMeals = Observable<Bool>.combineLatest(
-                mealService.create(meal: breakfastMeal),
-                mealService.create(meal: lunchMeal),
-                mealService.create(meal: dinnerMeal)
+                serviceProvider.mealService.create(meal: breakfastMeal),
+                serviceProvider.mealService.create(meal: lunchMeal),
+                serviceProvider.mealService.create(meal: dinnerMeal)
             ) { b1, b2, b3 in return b1 || b2 || b3 }
             
             return Observable.concat([
@@ -134,5 +134,20 @@ class AddTodayReactor: Reactor {
         }
         
         return Meal(id: UUID().uuidString, price: value, date: Date(), name: mealName!, image: UIImage(named: "today"), mealType: .dineOut, mealTime: mealtime!)
+    }
+    
+    private let charSet: CharacterSet = {
+        var cs = CharacterSet(charactersIn: "0123456789")
+        return cs.inverted
+    }()
+    
+    func validationNumOptional(text: String?) -> Bool? {
+        guard let text = text, text != "" else { return nil }
+        if text.isEmpty {
+            return false
+        } else {
+            guard text.rangeOfCharacter(from: charSet) == nil else { return false }
+            return true
+        }
     }
 }

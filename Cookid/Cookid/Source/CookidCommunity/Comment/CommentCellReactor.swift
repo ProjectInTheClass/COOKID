@@ -10,9 +10,7 @@ import RxSwift
 import ReactorKit
 
 class CommentCellReactor: Reactor {
-    
-    let userService: UserService
-
+  
     enum Action {
     }
     
@@ -27,14 +25,16 @@ class CommentCellReactor: Reactor {
     }
     
     let initialState: State
+    let serviceProvider: ServiceProviderType
     
-    init(post: Post, comment: Comment, userService: UserService) {
-        self.userService = userService
+    init(post: Post, comment: Comment, serviceProvider: ServiceProviderType) {
+        self.serviceProvider = serviceProvider
         self.initialState = State(comment: comment, post: post)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        let user = userService.user().map { Mutation.setUser($0) }
+        let user = serviceProvider.userService.currentUser
+            .map { Mutation.setUser($0) }
         return .merge(mutation, user)
     }
     

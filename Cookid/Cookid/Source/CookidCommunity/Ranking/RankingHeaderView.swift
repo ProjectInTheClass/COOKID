@@ -213,7 +213,7 @@ class RankingHeaderView: UIView, HasDisposeBag {
     
     private func bindViewModel() {
         viewModel.output.cookidTopRankers
-            .bind(onNext: { [weak self] users in
+            .drive(onNext: { [weak self] users in
                 self?.rankerImage.userImageView.setImageWithKf(url: users[0].image)
                 self?.rankerName.text = users[0].nickname
                 self?.rankerRecord.text = String(describing: users[0].cookidsCount)

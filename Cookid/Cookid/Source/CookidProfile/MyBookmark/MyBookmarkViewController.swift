@@ -53,7 +53,7 @@ class MyBookmarkViewController: UIViewController, View {
         
         reactor.state.map { $0.bookmarkPosts }
         .bind(to: collectionView.rx.items(cellIdentifier: CELLIDENTIFIER.myBookmarkCollectionViewCell, cellType: MyBookmarkCollectionViewCell.self)) { _, item, cell in
-            cell.reactor = PostCellReactor(sender: self, post: item, postService: reactor.postService, userService: reactor.userService, commentService: reactor.commentService)
+            cell.reactor = PostCellReactor(sender: self, post: item, serviceProvider: reactor.serviceProvider)
         }
         .disposed(by: disposeBag)
         

@@ -9,10 +9,7 @@ import Foundation
 import ReactorKit
 
 class MyBookmarkCollectionViewCellReactor: Reactor {
-    
-    let postService: PostService
-    let userService: UserService
-    
+   
     enum Action {
         case heartButtonTapped(Bool)
         case bookmarkButtonTapped(Bool)
@@ -20,35 +17,30 @@ class MyBookmarkCollectionViewCellReactor: Reactor {
     
     enum Mutation {
         case setHeart(Bool)
-        case setHeartCount(Int)
         case setBookmark(Bool)
-        case setBookmarkCount(Int)
         case setUser(User)
-        case setComments([Comment])
     }
     
     struct State {
         var post: Post
         var isHeart: Bool
         var isBookmark: Bool
-        var heartCount: Int
-        var bookmarkCount: Int
         var user: User = DummyData.shared.singleUser
-        var comments: [Comment] = []
     }
     
     let initialState: State
+    let serviceProvider: ServiceProviderType
     
-    init(post: Post, postService: PostService, userService: UserService) {
-        self.postService = postService
-        self.userService = userService
-        self.initialState = State(post: post, isHeart: post.didLike, isBookmark: post.didCollect, heartCount: post.likes, bookmarkCount: post.collections)
+    init(post: Post, serviceProvider: ServiceProviderType) {
+        self.serviceProvider = serviceProvider
+        self.initialState = State(post: post, isHeart: post.didLike, isBookmark: post.didCollect)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-//        let comment = commentService.fetchComments(post: self.currentState.post).map { Mutation.setComments($0) }
-        let user = userService.user().map { Mutation.setUser($0) }
+        let user = serviceProvider.userService.currentUser
+            .map { Mutation.setUser($0) }
         return Observable.merge(mutation, user)
     }
+    
     
 }

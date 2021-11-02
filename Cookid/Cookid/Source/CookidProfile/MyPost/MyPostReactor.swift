@@ -34,9 +34,13 @@ class MyPostReactor: BaseViewModel, Reactor {
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        let user = userService.user()
+        let user = serviceProvider.userService.currentUser
         let userMutation = user.map { Mutation.setUser($0) }
-        let fetchMyPosts = Observable.merge(postService.myTotalPosts, user.flatMap(postService.fetchMyPosts(user:))).map { Mutation.setMyPosts($0) }
+        let fetchMyPosts =
+        Observable.merge(
+            serviceProvider.postService.myTotalPosts,
+            user.flatMap(serviceProvider.postService.fetchMyPosts(user:)))
+            .map { Mutation.setMyPosts($0) }
         return Observable.merge(mutation, userMutation, fetchMyPosts)
     }
     
