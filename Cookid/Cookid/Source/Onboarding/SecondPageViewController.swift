@@ -40,7 +40,7 @@ class SecondPageViewController: UIViewController, ViewModelBindable, StoryboardB
                 if isValid {
                     UIView.animate(withDuration: 0.5) {
                         owner.nextPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
-                        owner.nextPageButton.tintColor = .systemGree
+                        owner.nextPageButton.tintColor = .systemGray
                     }
                 } else {
                     UIView.animate(withDuration: 0.5) {

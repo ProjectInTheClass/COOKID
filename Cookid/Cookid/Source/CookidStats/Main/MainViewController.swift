@@ -54,7 +54,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var monthSelectButton: UIButton!
     @IBOutlet weak var mealDayCollectionView: UICollectionView!
-
+    
     // My Meal
     @IBOutlet weak var dineStaticView: UIView!
     @IBOutlet weak var mostExpensiveStaticView: UIView!
@@ -70,7 +70,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     @IBOutlet weak var recentMealView: UIView!
     @IBOutlet weak var recentMealTableView: UITableView!
-
+    
     // property
     
     var viewModel: MainViewModel!
@@ -152,13 +152,13 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         addMealButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                coordinator?.navigateAddMealVC(meal: nil)
+                coordinator?.navigateAddMealVC(mode: .new)
             })
             .disposed(by: rx.disposeBag)
         
         addShoppingButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                coordinator?.navigateAddShoppingVC(shopping: nil)
+                coordinator?.navigateAddShoppingVC(mode: .new)
             })
             .disposed(by: rx.disposeBag)
         
@@ -172,7 +172,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         // MARK: - bindViewModel output
         
         viewModel.output.recentMeals
-            .drive(recentMealTableView.rx.items(cellIdentifier: "recentMeals", cellType: MealTableViewCell.self)) { _, item, cell in
+            .bind(to: recentMealTableView.rx.items(cellIdentifier: "recentMeals", cellType: MealTableViewCell.self)) { _, item, cell in
                 cell.updateUI(meal: item)
             }
             .disposed(by: rx.disposeBag)
@@ -180,18 +180,18 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         Observable.zip(recentMealTableView.rx.modelSelected(Meal.self), recentMealTableView.rx.itemSelected)
             .bind(onNext: { [unowned self] meal, indexPath in
                 self.recentMealTableView.deselectRow(at: indexPath, animated: false)
-                self.coordinator?.navigateAddMealVC(meal: meal)
+                self.coordinator?.navigateAddMealVC(mode: .edit(meal))
             })
             .disposed(by: rx.disposeBag)
         
         viewModel.output.averagePrice
-            .drive(onNext: { [unowned self] str in
+            .bind(onNext: { [unowned self] str in
                 self.averageLabel.text = str
             })
             .disposed(by: rx.disposeBag)
         
         viewModel.output.userInfo
-            .drive(onNext: { user in
+            .bind(onNext: { user in
                 self.userNickname.text = user.nickname
                 self.userDetermination.text = user.determination
                 self.userType.text = user.userType.rawValue
@@ -205,11 +205,11 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .disposed(by: rx.disposeBag)
         
         viewModel.output.adviceString
-            .drive(adviseLabel.rx.text)
+            .bind(to: adviseLabel.rx.text)
             .disposed(by: rx.disposeBag)
         
         viewModel.output.monthlyDetailed
-            .drive(onNext: { [unowned self] detail in
+            .bind(onNext: { [unowned self] detail in
                 self.monthLabel.text = detail.month
                 self.priceGoalLabel.text = intToStringRemoveVer(detail.priceGoal)
                 self.shoppingPrice.text = intToString(detail.shoppingPrice)
@@ -222,66 +222,66 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .do(onNext: { [unowned self] _ in
                 self.consumeProgressBar.progress = 0
             })
-            .delay(.milliseconds(500))
-            .drive(onNext: { [unowned self] value in
+            .delay(.milliseconds(500), scheduler: MainScheduler.instance)
+            .bind(onNext: { [unowned self] value in
                 self.chartPercentLabel.text = String(format: "%.0f", value) + "%"
                 self.consumeProgressBar.progress = CGFloat(value) / CGFloat(100)
             })
             .disposed(by: rx.disposeBag)
         
         viewModel.output.mealDayList
-            .drive(mealDayCollectionView.rx.items(dataSource: viewModel.dataSource))
+            .bind(to: mealDayCollectionView.rx.items(dataSource: viewModel.dataSource))
             .disposed(by: rx.disposeBag)
         
-        mealDayCollectionView.rx.modelSelected(MainCollectionViewItem.self)
-            .bind(onNext: { [unowned self] item in
-                switch item {
-                case .meals(meal: let meal):
-                    self.coordinator?.navigateAddMealVC(meal: meal)
-                case .shoppings(shopping: let shopping):
-                    self.coordinator?.navigateAddShoppingVC(shopping: shopping)
-                }
-            })
-            .disposed(by: rx.disposeBag)
-        
-        // rx delegate
-        mealDayCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
-        
-        viewModel.output.dineInProgress
-            .delay(.microseconds(500))
-            .drive(onNext: { [unowned self] progress in
-                self.dineInProgressBar.progress = progress
-            })
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.mostExpensiveMeal
-            .drive(onNext: { [unowned self] meal in
-                self.mealName.text = meal.name
-                self.mealPrice.text = intToString(meal.price)
-                self.mealImage.image = meal.image ?? UIImage(systemName: "circle.fill")
-                self.mealType.text = meal.mealType.rawValue
-            })
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.mealtimes
-            .do(onNext: { [weak self] mealses in
-                let numArr = mealses.map { $0.count }
-                self?.maxValue = numArr.max()
-            })
-            .drive(mealTimeCollectionView.rx.items(cellIdentifier: "timeCell", cellType: MealTimeCollectionViewCell.self)) { _, meals, cell in
-                if let maxValue = self.maxValue,
-                   maxValue != 0 {
-                    let ratio = CGFloat(meals.count) / CGFloat(maxValue)
-                    let arrString = meals.first?.mealTime.rawValue ?? ""
-                    cell.updateUI(ratio: ratio, name: arrString)
-                    cell.backgroundColor = .white
-                } else {
-                    let arrString = meals.first?.mealTime.rawValue ?? ""
-                    cell.updateUI(ratio: 0.5, name: arrString)
-                    cell.backgroundColor = .white
-                }
-            }
-            .disposed(by: rx.disposeBag)
+                mealDayCollectionView.rx.modelSelected(MainCollectionViewItem.self)
+                .bind(onNext: { [unowned self] item in
+                    switch item {
+                    case .meals(meal: let meal):
+                        self.coordinator?.navigateAddMealVC(mode: .edit(meal))
+                    case .shoppings(shopping: let shopping):
+                        self.coordinator?.navigateAddShoppingVC(mode: .edit(shopping))
+                    }
+                })
+                .disposed(by: rx.disposeBag)
+                
+                // rx delegate
+                mealDayCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+                
+                viewModel.output.dineInProgress
+                .delay(.microseconds(500), scheduler: MainScheduler.instance)
+                .bind(onNext: { [unowned self] progress in
+                    self.dineInProgressBar.progress = progress
+                })
+                .disposed(by: rx.disposeBag)
+                
+                viewModel.output.mostExpensiveMeal
+                .bind(onNext: { [unowned self] meal in
+                    self.mealName.text = meal.name
+                    self.mealPrice.text = intToString(meal.price)
+                    self.mealImage.image = meal.image ?? UIImage(systemName: "circle.fill")
+                    self.mealType.text = meal.mealType.rawValue
+                })
+                .disposed(by: rx.disposeBag)
+                
+                viewModel.output.mealtimes
+                .do(onNext: { [weak self] mealses in
+                    let numArr = mealses.map { $0.count }
+                    self?.maxValue = numArr.max()
+                })
+                    .bind(to: mealTimeCollectionView.rx.items(cellIdentifier: "timeCell", cellType: MealTimeCollectionViewCell.self)) { _, meals, cell in
+                        if let maxValue = self.maxValue,
+                           maxValue != 0 {
+                            let ratio = CGFloat(meals.count) / CGFloat(maxValue)
+                            let arrString = meals.first?.mealTime.rawValue ?? ""
+                            cell.updateUI(ratio: ratio, name: arrString)
+                            cell.backgroundColor = .white
+                        } else {
+                            let arrString = meals.first?.mealTime.rawValue ?? ""
+                            cell.updateUI(ratio: 0.5, name: arrString)
+                            cell.backgroundColor = .white
+                        }
+                    }
+                    .disposed(by: rx.disposeBag)
         
         mealTimeCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
         
