@@ -43,7 +43,8 @@ class PostCoordinator: CoordinatorType {
     }
     
     func navigateSignInVC(viewModel: PostViewModel) {
-        let signInVC = SignInViewController.instantiate(storyboardID: "UserInfo")
+        var signInVC = SignInViewController.instantiate(storyboardID: "UserInfo")
+        signInVC.bind(viewModel: viewModel)
         signInVC.modalPresentationStyle = .overFullScreen
         navigationController?.present(signInVC, animated: true)
     }

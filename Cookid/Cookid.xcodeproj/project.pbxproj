@@ -17,6 +17,7 @@
 		030D4AE6273010BD005C0FFF /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE5273010BD005C0FFF /* UserService.swift */; };
 		030D4AE8273010C9005C0FFF /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE7273010C9005C0FFF /* MealService.swift */; };
 		030D4AEB273040D8005C0FFF /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 030D4AEA273040D8005C0FFF /* UserInfo.storyboard */; };
+		030D4AED27317577005C0FFF /* ConsumptionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AEC27317577005C0FFF /* ConsumptionDetail.swift */; };
 		031DDF6027099C23001F12C3 /* KeyChainAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */; };
 		0322339C269212860092DD6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339B269212860092DD6D /* AppDelegate.swift */; };
 		0322339E269212860092DD6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339D269212860092DD6D /* SceneDelegate.swift */; };
@@ -183,6 +184,7 @@
 		030D4AE5273010BD005C0FFF /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		030D4AE7273010C9005C0FFF /* MealService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealService.swift; sourceTree = "<group>"; };
 		030D4AEA273040D8005C0FFF /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
+		030D4AEC27317577005C0FFF /* ConsumptionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumptionDetail.swift; sourceTree = "<group>"; };
 		031DDF5E27093D7A001F12C3 /* Cookid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cookid.entitlements; sourceTree = "<group>"; };
 		031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainAuthRepo.swift; sourceTree = "<group>"; };
 		03223398269212860092DD6D /* Cookid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookid.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -547,11 +549,12 @@
 		032233B1269276680092DD6D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				032233B9269277520092DD6D /* Meal.swift */,
 				032233DD2693057C0092DD6D /* User.swift */,
+				032233B9269277520092DD6D /* Meal.swift */,
 				0348B8FB26D34463001BF3B7 /* Shopping.swift */,
-				03B2049826D7B8AC0099C269 /* Menu.swift */,
 				0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */,
+				030D4AEC27317577005C0FFF /* ConsumptionDetail.swift */,
+				03B2049826D7B8AC0099C269 /* Menu.swift */,
 				03D8C1F226EB7E0500238CB6 /* Comment.swift */,
 				03D8C1F026EB6FD600238CB6 /* Post.swift */,
 			);
@@ -1154,6 +1157,7 @@
 				03D8C1FD26EBBC9800238CB6 /* PostService.swift in Sources */,
 				244B2B0826E24062001226F0 /* ImageRepo.swift in Sources */,
 				03B2049926D7B8AC0099C269 /* Menu.swift in Sources */,
+				030D4AED27317577005C0FFF /* ConsumptionDetail.swift in Sources */,
 				03F2ED9026F3886700CFE87C /* PostCoordinator.swift in Sources */,
 				0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */,
 				03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */,

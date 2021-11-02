@@ -8,6 +8,7 @@
 import Foundation
 
 protocol ServiceProviderType: AnyObject {
+    var repoProvider: RepositoryProvider { get set }
     var userService: UserServiceType { get }
     var postService: PostServiceType { get }
     var commentService: CommentServiceType { get }
@@ -16,7 +17,7 @@ protocol ServiceProviderType: AnyObject {
 }
 
 final class ServiceProvider: ServiceProviderType {
-    let repoProvider: RepositoryProvider
+    var repoProvider: RepositoryProvider
     init(repoProvider: RepositoryProvider) {
         self.repoProvider = repoProvider
     }

@@ -12,7 +12,7 @@ import NaverThirdPartyLogin
 import Alamofire
 import AuthenticationServices
 
-class SignInViewController: UIViewController, StoryboardBased {
+class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     // MARK: - UI Components
     
@@ -22,7 +22,8 @@ class SignInViewController: UIViewController, StoryboardBased {
     @IBOutlet weak var kakaoSignInButton: UIButton!
 
     // MARK: - Properties
-
+    
+    var viewModel: PostViewModel!
     var localUser: LocalUser?
     lazy var naverAuthRepo = NaverAutoRepo.shared
     lazy var kakaoAuthRepo = KakaoAuthRepo.shared
@@ -32,12 +33,12 @@ class SignInViewController: UIViewController, StoryboardBased {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
+       
     }
     
     // MARK: - bindViewModel
     
-    func bind() {
+    func bindViewModel() {
         
         appleSignInButton.rx.tap
             .bind { [unowned self] in

@@ -51,15 +51,13 @@ class NaverAutoRepo {
             
             switch response.result {
             case .success(let object as [String:Any]):
-                
-                guard let localUser = RealmUserRepo.instance.fetchUser() else { return }
-                let initialDineInCount = self.viewModel.mealService.initialDineInMeal
-                let initialCookidsCount = initialDineInCount + self.viewModel.shoppingService.initialShoppingCount
-                
+                guard let localUser = self.viewModel.serviceProvider.repoProvider.realmUserRepo.fetchUser() else { return }
+                let initialDineInCount = self.viewModel.serviceProvider.mealService.initialDineInMeal
+                let initialCookidsCount = initialDineInCount + self.viewModel.serviceProvider.shoppingService.initialShoppingCount
                 guard let newResponse = object["response"] as? [String:Any] else { return }
                 if let imageURLString = newResponse["profile_image"] as? String {
                     let imageURL = URL(string: imageURLString)!
-                    self.viewModel.userService.connectUserInfo(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
+                    self.viewModel.serviceProvider.userService.connectUser(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
                         if success {
                             completion(true)
                         } else {
@@ -68,20 +66,27 @@ class NaverAutoRepo {
                     }
                 } else {
                     let image = UIImage(systemName: "person.circle.fill")
-                    FirebaseStorageRepo.instance.uploadUserImage(userID: localUser.id.stringValue, image: image) { imageURL in
-                        self.viewModel.userService.connectUserInfo(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
-                            if success {
-                                completion(true)
-                            } else {
-                                completion(false)
+                    self.viewModel.serviceProvider.repoProvider.firestorageImageRepo.uploadUserImage(userID: localUser.id.stringValue, image: image) { result in
+                        switch result {
+                        case .success(let imageURL):
+                            self.viewModel.serviceProvider.userService.connectUser(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
+                                if success {
+                                    completion(true)
+                                } else {
+                                    completion(false)
+                                }
                             }
+                        case .failure(let error):
+                            print("upload image error \(error)")
+                            completion(false)
                         }
                     }
                 }
             case .failure(let error):
-                print("Naver User fetch errro \(error)")
+                print("naver User fetch error \(error)")
+                completion(false)
             default:
-                break
+                completion(false)
             }
         }
     }

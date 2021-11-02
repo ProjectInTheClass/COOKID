@@ -10,7 +10,7 @@ import RxDataSources
 
 enum MainCollectionViewItem {
     case meals(meal: Meal)
-    case shoppings(shopping: GroceryShopping)
+    case shoppings(shopping: Shopping)
 }
 
 enum MainCollectionViewSection {

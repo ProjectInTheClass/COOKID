@@ -76,13 +76,11 @@ class KakaoAuthRepo {
                 print("fetch user error \(error)")
                 completion(.failure(.fetchError))
             } else {
-                
-                let initialDineInCount = self.viewModel.mealService.initialDineInMeal
-                let initialCookidsCount = initialDineInCount + self.viewModel.shoppingService.initialShoppingCount
-                guard let localUser = RealmUserRepo.instance.fetchUser() else { return }
+                guard let localUser = self.viewModel.serviceProvider.repoProvider.realmUserRepo.fetchUser() else { return }
+                let initialDineInCount = self.viewModel.serviceProvider.mealService.initialDineInMeal
+                let initialCookidsCount = initialDineInCount + self.viewModel.serviceProvider.shoppingService.initialShoppingCount
                 let url = user?.kakaoAccount?.profile?.profileImageUrl
-                
-                self.viewModel.userService.connectUserInfo(localUser: localUser, imageURL: url, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
+                self.viewModel.serviceProvider.userService.connectUser(localUser: localUser, imageURL: url, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
                     if success {
                         completion(.success(.successSignIn))
                     } else {

@@ -13,6 +13,9 @@ import NSObject_Rx
 
 class SelectCalendarViewController: UIViewController, StoryboardBased, ViewModelBindable {
    
+    // 현재 뷰모델이 너무 방대하니,
+    // 새로운 viewModel을 만들어서 데이터 및 로직을 옮기자.
+    
     var viewModel: MainViewModel!
     var dineInMeals = [Meal]()
     var dineOutMeals = [Meal]()
@@ -65,14 +68,14 @@ class SelectCalendarViewController: UIViewController, StoryboardBased, ViewModel
             })
             .disposed(by: rx.disposeBag)
         
-        viewModel.output.basicMeal
+        viewModel.output.basicMeals
             .bind(onNext: { [unowned self] meals in
                 self.dineOutMeals = meals.filter { $0.mealType == .dineOut }
                 self.dineInMeals = meals.filter { $0.mealType == .dineIn }
             })
             .disposed(by: rx.disposeBag)
         
-        viewModel.output.basicShopping
+        viewModel.output.basicShoppings
             .bind(onNext: { [unowned self] shoppings in
                 self.shoppings = shoppings
             })
