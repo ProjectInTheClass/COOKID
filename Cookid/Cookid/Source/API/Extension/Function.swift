@@ -68,3 +68,37 @@ func errorAlert(selfView: UIViewController, errorMessage: String?, completion: @
     alert.addAction(okAction)
     selfView.present(alert, animated: true, completion: nil)
 }
+
+
+// MARK: - Validation
+
+private let charSet: CharacterSet = {
+    var cs = CharacterSet(charactersIn: "0123456789")
+    return cs.inverted
+}()
+
+func validationNum(text: String) -> Bool {
+    if text.isEmpty && text == "" {
+        return false
+    } else {
+        guard text.rangeOfCharacter(from: charSet) == nil else { return false }
+        return true
+    }
+}
+
+func validationNumOptional(text: String?) -> Bool? {
+    guard let text = text, text != "" else { return nil }
+    if text.isEmpty {
+        return false
+    } else {
+        guard text.rangeOfCharacter(from: charSet) == nil else { return false }
+        return true
+    }
+}
+
+func validationNumForPrice(text: String?) -> Bool? {
+    guard let text = text, text != "" else { return nil }
+    guard text.rangeOfCharacter(from: charSet) == nil else { return false }
+    return true
+}
+

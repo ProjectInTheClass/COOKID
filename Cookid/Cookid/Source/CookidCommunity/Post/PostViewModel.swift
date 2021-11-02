@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 
-class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
+class PostViewModel: ViewModelType, HasDisposeBag {
     
     struct Input {
 
@@ -24,7 +24,9 @@ class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     var input: Input
     var output: Output
     
-    override init(serviceProvider: ServiceProviderType) {
+    let serviceProvider: ServiceProviderType
+    init(serviceProvider: ServiceProviderType) {
+        self.serviceProvider = serviceProvider
         let user = serviceProvider.userService.currentUser
         let posts =
         Observable.merge(
@@ -32,7 +34,6 @@ class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             user.flatMap(serviceProvider.postService.fetchLastPosts))
         self.input = Input()
         self.output = Output(posts: posts, user: user)
-        super.init(serviceProvider: serviceProvider)
     }
     
 }
