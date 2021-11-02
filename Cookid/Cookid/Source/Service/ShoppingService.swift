@@ -48,8 +48,8 @@ class ShoppingService: BaseService, ShoppingServiceType {
     }
     
     func fetchShoppings() {
-        guard let LocalShoppings = self.repoProvider.realmShoppingRepo.fetchShoppings() else { return }
-        let shoppings = LocalShoppings.map { localShopping -> Shopping in
+        guard let localShoppings = self.repoProvider.realmShoppingRepo.fetchShoppings() else { return }
+        let shoppings = localShoppings.map { localShopping -> Shopping in
             return Shopping(id: localShopping.id, date: localShopping.date, totalPrice: localShopping.price)
         }
         self.shoppings = shoppings

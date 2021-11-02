@@ -26,7 +26,8 @@ class OnboardingCoordinator: CoordinatorType {
     }
     
     func navigateHomeCoordinator() {
-        let homeCoordinator = HomeCoordinator(parentCoordinator: parentCoordinator as! AppCoordinator, serviceProvider: serviceProvider)
+        guard let appCoordinator = parentCoordinator as? AppCoordinator else { return }
+        let homeCoordinator = HomeCoordinator(parentCoordinator: appCoordinator, serviceProvider: serviceProvider)
         parentCoordinator?.childCoordinator.append(homeCoordinator)
         guard let tabBarController = homeCoordinator.start() as? UITabBarController else { return }
         let window = UIApplication.shared.windows.first!

@@ -40,8 +40,8 @@ class MealService: BaseService, MealServiceType {
         }
         return Observable<Bool>.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.imageRepo.saveImage(image: meal.image ?? UIImage(named: "salad")!, id: meal.id) { _ in }
-            self.realmMealRepo.createMeal(meal: meal) {  success in
+            self.repoProvider.imageRepo.saveImage(image: meal.image ?? UIImage(named: "salad")!, id: meal.id) { _ in }
+            self.repoProvider.realmMealRepo.createMeal(meal: meal) {  success in
                 if success {
                     self.meals.append(meal)
                     self.mealStore.onNext(self.meals)
@@ -57,8 +57,8 @@ class MealService: BaseService, MealServiceType {
     func update(updateMeal: Meal) -> Observable<Bool> {
         print("update")
         return Observable.create { observer in
-            ImageRepo.instance.saveImage(image: updateMeal.image ?? UIImage(named: "salad")!, id: updateMeal.id) { _ in }
-            RealmMealRepo.instance.updateMeal(meal: updateMeal) { [weak self] success in
+            self.repoProvider.imageRepo.saveImage(image: updateMeal.image ?? UIImage(named: "salad")!, id: updateMeal.id) { _ in }
+            self.repoProvider.realmMealRepo.updateMeal(meal: updateMeal) { [weak self] success in
                 guard let self = self else { return }
                 if success {
                     if let index = self.meals.firstIndex(where: { $0.id == updateMeal.id }) {
@@ -77,8 +77,8 @@ class MealService: BaseService, MealServiceType {
     
     func deleteMeal(meal: Meal) -> Observable<Bool> {
         return Observable.create { observer in
-            ImageRepo.instance.deleteImage(id: meal.id) { _ in }
-            RealmMealRepo.instance.deleteMeal(meal: meal) { [weak self] success in
+            self.repoProvider.imageRepo.deleteImage(id: meal.id) { _ in }
+            self.repoProvider.realmMealRepo.deleteMeal(meal: meal) { [weak self] success in
                 guard let self = self else { return }
                 if success {
                     if let index = self.meals.firstIndex(where: { $0.id == meal.id }) {
@@ -95,13 +95,13 @@ class MealService: BaseService, MealServiceType {
     }
     
     func fetchMeals() {
-        guard let meals = RealmMealRepo.instance.fetchMeals() else { return }
+        guard let meals = self.repoProvider.realmMealRepo.fetchMeals() else { return }
         let mealModels = meals.map {  model -> Meal in
             let id = model.id
             let price = model.price
             let date = model.date
             let name = model.name
-            let image = ImageRepo.instance.loadImage(id: model.id)
+            let image = self.repoProvider.imageRepo.loadImage(id: model.id)
             let mealType = MealType(rawValue: model.mealType) ?? .dineIn
             let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
             return Meal(id: id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
