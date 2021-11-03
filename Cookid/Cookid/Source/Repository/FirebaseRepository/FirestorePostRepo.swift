@@ -41,13 +41,13 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
                     URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                    ], star: 4, caption: "최고의 식사였다.", mealBudget: 10000,
                    timestamp: date1, location: "제주도", didLike: [:], didCollect: [:], isReported: [:]),
-        PostEntity(postID: "post2", userID: DummyData.shared.secondUser.id,
+        PostEntity(postID: "post2", userID: "6159a7b35941dd2993e89114",
                    images: [
                     URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                     URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                    ], star: 2, caption: "덜 최고의 식사였다.", mealBudget: 3000,
                    timestamp: date2, location: "경북 구미", didLike: [:], didCollect: [:], isReported: [:]),
-        PostEntity(postID: "post3", userID: DummyData.shared.singleUser.id,
+        PostEntity(postID: "post3", userID: "6159a7b35941dd2993e89114",
                    images: [
                     URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                    ], star: 0, caption: "보통의 식사였다.", mealBudget: 12000,
@@ -58,15 +58,15 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
                     URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                     URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                    ], star: 8, caption: "별로였다.", mealBudget: 50000,
-                   timestamp: date4, location: "서울", didLike: [:], didCollect: [:], isReported: [:]),
+                   timestamp: date4, location: "서울", didLike: [:], didCollect: [:], isReported: ["6159a7b35941dd2993e89114":true]),
         PostEntity(postID: "post5", userID: "wfawefawfawef",
                    images: [
                     URL(string: "https://images.unsplash.com/photo-1632917374642-1a9020c5eb43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                     URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                     URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                    ], star: 4, caption: "최고의 식사였다.", mealBudget: 10000,
-                   timestamp: Date(), location: "제주도", didLike: [:], didCollect: [:], isReported: [:]),
-        PostEntity(postID: "post6", userID: "sdf",
+                   timestamp: Date(), location: "제주도", didLike: [:], didCollect: [:], isReported: ["6159a7b35941dd2993e89114":true]),
+        PostEntity(postID: "post6", userID: "6159a7b35941dd2993e89114",
                    images: [
                     URL(string: "https://images.unsplash.com/photo-1632917374642-1a9020c5eb43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                     URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
@@ -78,19 +78,19 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
                     URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                     URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                    ], star: 2, caption: "덜 최고의 식사였다.", mealBudget: 3000,
-                   timestamp: date6, location: "경북 구미", didLike: [:], didCollect: [:], isReported: [:]),
+                   timestamp: date6, location: "경북 구미", didLike: [:], didCollect: ["6159a7b35941dd2993e89114":true], isReported: [:]),
         PostEntity(postID: "post8", userID: "user.id",
                    images: [
                     URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                    ], star: 0, caption: "보통의 식사였다.", mealBudget: 12000,
                    timestamp: date7, location: "부산", didLike: [:], didCollect: [:], isReported: [:]),
-        PostEntity(postID: "post9", userID: "user.id",
+        PostEntity(postID: "post9", userID: "6159a7b35941dd2993e89114",
                    images: [
                     URL(string: "https://images.unsplash.com/photo-1632917374642-1a9020c5eb43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                     URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
                     URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
                    ], star: 8, caption: "별로였다.", mealBudget: 50000,
-                   timestamp: date8, location: "서울", didLike: [:], didCollect: [:], isReported: [:])
+                   timestamp: date8, location: "서울", didLike: [:], didCollect: ["6159a7b35941dd2993e89114":true], isReported: [:])
     ]
 
     /// upload new post
@@ -119,7 +119,7 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
         }
     }
     
-    ///report specific post
+    /// report specific post
     func reportPost(reportedPost: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
         // 해당 포스트를 찾아서 리포트에 해당 유저 ID를 넣는 API 구현
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -137,21 +137,22 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
     /// fetch 10 past posts at once when tableview was scrolled until bottom point
     /// userID: this parameter is used to filtering user's isReport list
     func fetchPastPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
-        // userID로 isReported 검수 후에 보내기
-        // firebase에서 솔팅해서 받기
-        let postEntities = [PostEntity]()
+        // firebase에서 시간 순서 대로 10개씩 받기
+        var postEntities = [PostEntity]()
+        wholePostDB.sorted(by: { $0.timestamp > $1.timestamp }).enumerated().forEach({ index, item in
+            if index < 10 {
+                postEntities.append(item)
+            }
+        })
         completion(.success(postEntities))
     }
     
     /// fetch specific user post from firebase
     /// this method use userID both query user's posts and filtering user's isReport list
     func fetchMyPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
-        
-        print("🍟" + userID)
-        
         // 쿼리와 받아오기가 완료된 엔티티
-        let postEntities = [PostEntity]()
-        let sortedPostEntities = postEntities.sorted { $0.timestamp < $1.timestamp }
+        
+        let sortedPostEntities = wholePostDB.filter({ $0.userID == userID }).sorted { $0.timestamp < $1.timestamp }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             completion(.success(sortedPostEntities))
@@ -162,14 +163,12 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
     /// this method use userID both query user's posts and filtering user's isReport list
     func fetchBookmarkedPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
         
-        
         // 리포트 여부, userID 일치 여부, 북마크 여부 -> 모두 가능한 녀석을 fetch
         // firebase 쿼리 최대한 적용
         // 10개만 가져오도록 -> 테이블뷰 인피니티에 걸리면 다시 로드하는 방식으로 할거야
         
         // 쿼리와 받아오기가 완료된 엔티티
-        let postEntities = [PostEntity]()
-        let sortedPostEntities = postEntities.sorted { $0.timestamp > $1.timestamp }
+        let sortedPostEntities = wholePostDB.sorted { $0.timestamp > $1.timestamp }.filter({ $0.didCollect.keys.contains(where: { $0 == userID }) })
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             completion(.success(sortedPostEntities))

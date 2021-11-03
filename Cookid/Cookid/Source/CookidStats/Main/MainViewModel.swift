@@ -32,27 +32,37 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         let mealtimes = PublishRelay<[[Meal]]>()
     }
     
-    var input: Input = Input()
-    var output: Output = Output()
+    var input: Input
+    var output: Output
     let dataSource: RxCollectionViewSectionedReloadDataSource<MainCollectionViewSection>
     
     override init(serviceProvider: ServiceProviderType) {
+        self.input = Input()
+        self.output = Output()
         self.dataSource = MainDataSource.dataSouce
         super.init(serviceProvider: serviceProvider)
         
         // fetch data
-        _ = serviceProvider.userService.loadMyInfo()
         serviceProvider.mealService.fetchMeals()
         serviceProvider.shoppingService.fetchShoppings()
-        
-        // meal & user Storage
+   
         let currentUser = serviceProvider.userService.currentUser
         let basicMeals = serviceProvider.mealService.mealList
         let basicShoppings = serviceProvider.shoppingService.shoppingList
-        let spotMonthMeals = basicMeals
-            .map { self.spotMonthMeals(meals: $0) }
-        let spotMonthShoppings = basicShoppings
-            .map { self.spotMonthShoppings(shoppings: $0) }
+        
+        let spotMonthMeals =
+        basicMeals
+            .map(self.spotMonthMeals)
+        
+        let spotMonthShoppings =
+        basicShoppings
+            .map(self.spotMonthShoppings)
+        
+        // user information output
+        currentUser
+            .debug()
+            .bind(to: output.userInfo)
+            .disposed(by: disposeBag)
         
         // calendar output
         basicMeals
@@ -61,11 +71,6 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         
         basicShoppings
             .bind(to: output.basicShoppings)
-            .disposed(by: disposeBag)
-        
-        // user information output
-        currentUser
-            .bind(to: output.userInfo)
             .disposed(by: disposeBag)
         
         // recentMeals
@@ -355,5 +360,5 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         }
     }
     // swiftlint:enable cyclomatic_complexity
-}
 
+}

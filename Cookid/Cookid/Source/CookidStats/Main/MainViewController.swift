@@ -233,7 +233,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .bind(to: mealDayCollectionView.rx.items(dataSource: viewModel.dataSource))
             .disposed(by: rx.disposeBag)
         
-                mealDayCollectionView.rx.modelSelected(MainCollectionViewItem.self)
+        mealDayCollectionView.rx.modelSelected(MainCollectionViewItem.self)
                 .bind(onNext: { [unowned self] item in
                     switch item {
                     case .meals(meal: let meal):

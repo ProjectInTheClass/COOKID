@@ -156,13 +156,13 @@ class AddShoppingViewController: UIViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+        makeConstraints()
         settingPickerInTextField(dateTextField)
     }
     
     // MARK: - Function
     
-    private func configureUI() {
+    private func makeConstraints() {
         view.addSubview(dimmingButton)
         dimmingButton.snp.makeConstraints { make in
             make.top.bottom.left.right.equalToSuperview()
@@ -172,10 +172,9 @@ class AddShoppingViewController: UIViewController, View {
             make.centerY.equalToSuperview()
             make.centerX.equalToSuperview()
             make.width.equalTo(view).multipliedBy(0.7)
-            make.height.equalTo(backgroundView.snp.width)
+            make.height.equalTo(backgroundView.snp.width).multipliedBy(1.5)
         }
         backgroundView.makeShadow()
-        
         backgroundView.addSubview(wholeStackView)
         wholeStackView.snp.makeConstraints { make in
             make.top.equalTo(40)
@@ -219,12 +218,12 @@ class AddShoppingViewController: UIViewController, View {
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] frame in
-                backgroundView.snp.remakeConstraints { make in
-                    make.centerY.equalToSuperview().offset(-frame/4)
-                    make.centerX.equalToSuperview()
-                    make.width.equalTo(view).multipliedBy(0.8)
-                    make.height.equalTo(backgroundView.snp.width).multipliedBy(1.1 / 1.0)
-                }
+//                backgroundView.snp.remakeConstraints { make in
+//                    make.centerY.equalToSuperview().offset(-frame/4)
+//                    make.centerX.equalToSuperview()
+//                    make.width.equalTo(view).multipliedBy(0.8)
+//                    make.height.equalTo(backgroundView.snp.width).multipliedBy(1.1 / 1.0)
+//                }
             })
             .disposed(by: rx.disposeBag)
         
