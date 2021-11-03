@@ -27,7 +27,7 @@ class PostViewModel: ViewModelType, HasDisposeBag {
     let serviceProvider: ServiceProviderType
     init(serviceProvider: ServiceProviderType) {
         self.serviceProvider = serviceProvider
-        let user = serviceProvider.userService.currentUser
+        let user = serviceProvider.userService.loadMyInfo()
         let posts =
         Observable.merge(
             serviceProvider.postService.totalPosts,
