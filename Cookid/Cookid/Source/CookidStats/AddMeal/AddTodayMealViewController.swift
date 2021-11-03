@@ -17,18 +17,13 @@ class AddTodayMealViewController: UIViewController, StoryboardBased, StoryboardV
     
     @IBOutlet weak var breakfastTextField: UITextField!
     @IBOutlet weak var breakfastValidation: UIImageView!
-    
     @IBOutlet weak var lunchTextField: UITextField!
     @IBOutlet weak var lunchValidation: UIImageView!
-    
     @IBOutlet weak var dinnerTextField: UITextField!
     @IBOutlet weak var dinnerValidation: UIImageView!
-    
     @IBOutlet weak var dimmingButton: UIButton!
-    
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var backgroundViewCenterY: NSLayoutConstraint!
-     
     @IBOutlet weak var completeButton: UIButton!
     
     var activityIndicator = UIActivityIndicatorView().then {
