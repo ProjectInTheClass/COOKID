@@ -33,7 +33,7 @@ class AddShoppingReactor: Reactor {
     
     struct State {
         var date: Date = Date()
-        var totalPrice: Int = 0
+        var totalPrice: Int?
         var isPriceValid: Bool?
         var isError: Bool?
     }
@@ -67,12 +67,12 @@ class AddShoppingReactor: Reactor {
             case .new:
                 let newShopping = Shopping(id: UUID().uuidString,
                                            date: self.currentState.date,
-                                           totalPrice: self.currentState.totalPrice)
+                                           totalPrice: self.currentState.totalPrice ?? 0)
                 return self.serviceProvider.shoppingService.create(shopping: newShopping).map { Mutate.sendErrorMessage(!$0) }
             case .edit(let shopping):
                 let updateShopping = Shopping(id: shopping.id,
                                            date: self.currentState.date,
-                                           totalPrice: self.currentState.totalPrice)
+                                           totalPrice: self.currentState.totalPrice ?? 0)
                 return self.serviceProvider.shoppingService.update(updateShopping: updateShopping).map { Mutate.sendErrorMessage(!$0) }
             }
         case .deleteButtonTapped:
@@ -91,7 +91,7 @@ class AddShoppingReactor: Reactor {
         case .setDate(let date):
             newState.date = date
         case .setTotalPrice(let totalPriceStr):
-            let totalPrice = Int(totalPriceStr) ?? 0
+            let totalPrice = Int(totalPriceStr)
             newState.totalPrice = totalPrice
         case .setPriceValidation(let isValid):
             newState.isPriceValid = isValid

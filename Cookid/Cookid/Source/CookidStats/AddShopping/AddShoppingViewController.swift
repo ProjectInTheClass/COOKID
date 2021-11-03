@@ -172,7 +172,7 @@ class AddShoppingViewController: UIViewController, View {
             make.centerY.equalToSuperview()
             make.centerX.equalToSuperview()
             make.width.equalTo(view).multipliedBy(0.7)
-            make.height.equalTo(backgroundView.snp.width).multipliedBy(1.5)
+            make.height.equalTo(backgroundView.snp.width).multipliedBy(1.3)
         }
         backgroundView.makeShadow()
         backgroundView.addSubview(wholeStackView)
@@ -216,14 +216,20 @@ class AddShoppingViewController: UIViewController, View {
     // MARK: - Binding ViewModel
     func bind(reactor: AddShoppingReactor) {
         
+        var shouldMoveViewUp: Bool = false
+        
         RxKeyboard.instance.visibleHeight
-            .drive(onNext: { [unowned self] frame in
-//                backgroundView.snp.remakeConstraints { make in
-//                    make.centerY.equalToSuperview().offset(-frame/4)
-//                    make.centerX.equalToSuperview()
-//                    make.width.equalTo(view).multipliedBy(0.8)
-//                    make.height.equalTo(backgroundView.snp.width).multipliedBy(1.1 / 1.0)
-//                }
+            .drive(onNext: { [unowned self] height in
+                let visibleRange = view.frame.height - height
+                let bottomOfView = backgroundView.frame.maxY
+                if bottomOfView > visibleRange {
+                    shouldMoveViewUp = true
+                }
+                if shouldMoveViewUp {
+                    backgroundView.snp.updateConstraints { make in
+                        make.centerY.equalToSuperview().offset(visibleRange - bottomOfView - 10)
+                    }
+                }
             })
             .disposed(by: rx.disposeBag)
         
@@ -270,8 +276,11 @@ class AddShoppingViewController: UIViewController, View {
         .disposed(by: disposeBag)
         
         reactor.state.map { $0.totalPrice }
-        .map { String(describing: $0) }
-        .bind(to: priceTextField.rx.text)
+        .withUnretained(self)
+        .bind(onNext: { owner, value in
+            guard let value = value else { return }
+            owner.priceTextField.rx.text.onNext("\(value)")
+        })
         .disposed(by: disposeBag)
         
         deleteButton.rx.tap
