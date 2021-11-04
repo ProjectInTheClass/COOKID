@@ -160,19 +160,18 @@ class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePick
     
     // MARK: - initialSetting
     private func initialSetting(reactor: AddMealReactor) {
-        
         switch reactor.mode {
         case .new:
+            announceLabel.text = "위의 빈 화면을 눌러 이미지를 넣어보세요:)"
+            updateAnnouce.text = "식사 기록이 완료되셨나요?"
+            deleteButton.isHidden = true
+        case .edit(_):
             announceLabel.text = "이미지를 수정하시려면 사진을 누르세요:)"
             updateAnnouce.text = "수정이 완료되셨나요?"
             deleteButton.isHidden = false
             deleteButton.tintColor = #colorLiteral(red: 0.833554848, green: 0.2205436249, blue: 0.1735619552, alpha: 1)
             completionButton.setImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
             completionButton.tintColor = #colorLiteral(red: 0.2396557123, green: 0.7154314493, blue: 0.5069640082, alpha: 1)
-        case .edit(_):
-            announceLabel.text = "위의 빈 화면을 눌러 이미지를 넣어보세요:)"
-            updateAnnouce.text = "식사 기록이 완료되셨나요?"
-            deleteButton.isHidden = true
         }
     }
     
