@@ -68,41 +68,47 @@ class SelectCalendarViewController: UIViewController, StoryboardBased, ViewModel
             })
             .disposed(by: rx.disposeBag)
         
-        viewModel.output.basicMeals
-            .bind(onNext: { [unowned self] meals in
-                self.dineOutMeals = meals.filter { $0.mealType == .dineOut }
-                self.dineInMeals = meals.filter { $0.mealType == .dineIn }
-            })
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.output.basicShoppings
-            .bind(onNext: { [unowned self] shoppings in
-                self.shoppings = shoppings
-            })
-            .disposed(by: rx.disposeBag)
-        
-        viewModel.input.selectedDate
+//        viewModel.output.basicMeals
+//            .bind(onNext: { [unowned self] meals in
+//                self.dineOutMeals = meals
+//                self.dineInMeals = meals.filter { $0.mealType == .dineIn }
+//            })
+//            .disposed(by: rx.disposeBag)
+//
+//        viewModel.output.basicMeals
+//            .bind(onNext: { [unowned self] meals in
+//                self.dineOutMeals = meals
+//                self.dineInMeals = meals.filter { $0.mealType == .dineIn }
+//            })
+//            .disposed(by: rx.disposeBag)
+//
+//        viewModel.output.wholeShoppings
+//            .bind(onNext: { [unowned self] shoppings in
+//                self.shoppings = shoppings
+//            })
+//            .disposed(by: rx.disposeBag)
+//
+        viewModel.output.selectedDate
             .bind(onNext: { [unowned self] date in
-                updateCalendar.select(date)
+                self.updateCalendar.select(date)
             })
             .disposed(by: rx.disposeBag)
-        
     }
 }
 
 extension SelectCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        viewModel.input.selectedDate.accept(date)
+        viewModel.input.selectDate.accept(date)
         self.dismiss(animated: true, completion: nil)
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         
-        let isOut = dineOutMeals.map({$0.date.dateToString()}).contains(date.dateToString())
-        let isIn = dineInMeals.map({$0.date.dateToString()}).contains(date.dateToString())
-        let isShop = shoppings.map({$0.date.dateToString()}).contains(date.dateToString())
-        
+        let isOut = viewModel.dineOutMeals.map({$0.date.dateToString()}).contains(date.dateToString())
+        let isIn = viewModel.dineInMeals.map({$0.date.dateToString()}).contains(date.dateToString())
+        let isShop = viewModel.wholeShoppings.map({$0.date.dateToString()}).contains(date.dateToString())
+ 
         if isOut && isIn && isShop {
             return #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
         } else if (isOut || isIn) && !isShop {

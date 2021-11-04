@@ -137,13 +137,13 @@ class AddShoppingViewController: UIViewController, View {
         $0.axis = .horizontal
         $0.alignment = .center
         $0.spacing = 10.0
-        $0.distribution = .fill
+        $0.distribution = .fillProportionally
     }
     
     lazy var wholeStackView = UIStackView(arrangedSubviews: [titleStackView, dateStackView, priceStackView, buttonStack]).then {
         $0.axis = .vertical
         $0.alignment = .fill
-        $0.spacing = 30.0
+        $0.spacing = 20.0
         $0.distribution = .fillEqually
     }
     
@@ -160,6 +160,22 @@ class AddShoppingViewController: UIViewController, View {
         settingPickerInTextField(dateTextField)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let bottomOfView = backgroundView.frame.origin.y + backgroundView.frame.height
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [unowned self] height in
+                let visibleRange = view.frame.height - height
+                if bottomOfView > visibleRange {
+                    let value = visibleRange - bottomOfView - 20
+                    backgroundView.snp.updateConstraints { make in
+                        make.centerY.equalToSuperview().offset(value)
+                    }
+                }
+            })
+            .disposed(by: rx.disposeBag)
+    }
+    
     // MARK: - Function
     
     private func makeConstraints() {
@@ -171,16 +187,16 @@ class AddShoppingViewController: UIViewController, View {
         backgroundView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.width.equalTo(view).multipliedBy(0.7)
-            make.height.equalTo(backgroundView.snp.width).multipliedBy(1.3)
+            make.width.equalTo(view).multipliedBy(0.75)
+            make.height.equalTo(backgroundView.snp.width).multipliedBy(1.1)
         }
         backgroundView.makeShadow()
         backgroundView.addSubview(wholeStackView)
         wholeStackView.snp.makeConstraints { make in
-            make.top.equalTo(40)
-            make.left.equalTo(30)
-            make.bottom.equalTo(-30)
-            make.right.equalTo(-30)
+            make.top.equalTo(30)
+            make.left.equalTo(25)
+            make.bottom.equalTo(-25)
+            make.right.equalTo(-25)
         }
     }
     
@@ -215,23 +231,6 @@ class AddShoppingViewController: UIViewController, View {
     
     // MARK: - Binding ViewModel
     func bind(reactor: AddShoppingReactor) {
-        
-        var shouldMoveViewUp: Bool = false
-        
-        RxKeyboard.instance.visibleHeight
-            .drive(onNext: { [unowned self] height in
-                let visibleRange = view.frame.height - height
-                let bottomOfView = backgroundView.frame.maxY
-                if bottomOfView > visibleRange {
-                    shouldMoveViewUp = true
-                }
-                if shouldMoveViewUp {
-                    backgroundView.snp.updateConstraints { make in
-                        make.centerY.equalToSuperview().offset(visibleRange - bottomOfView - 10)
-                    }
-                }
-            })
-            .disposed(by: rx.disposeBag)
         
         dimmingButton.rx.tap
             .bind { [unowned self] in

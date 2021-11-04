@@ -54,6 +54,22 @@ class MealService: BaseService, MealServiceType {
         }
     }
     
+    func fetchMeals() {
+        guard let meals = self.repoProvider.realmMealRepo.fetchMeals() else { return }
+        let mealModels = meals.map {  model -> Meal in
+            let id = model.id
+            let price = model.price
+            let date = model.date
+            let name = model.name
+            let image = self.repoProvider.imageRepo.loadImage(id: model.id)
+            let mealType = MealType(rawValue: model.mealType) ?? .dineIn
+            let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
+            return Meal(id: id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
+        }
+        self.meals = mealModels
+        self.mealStore.onNext(self.meals)
+    }
+    
     func update(updateMeal: Meal) -> Observable<Bool> {
         print("update")
         return Observable.create { observer in
@@ -93,21 +109,4 @@ class MealService: BaseService, MealServiceType {
             return Disposables.create()
         }
     }
-    
-    func fetchMeals() {
-        guard let meals = self.repoProvider.realmMealRepo.fetchMeals() else { return }
-        let mealModels = meals.map {  model -> Meal in
-            let id = model.id
-            let price = model.price
-            let date = model.date
-            let name = model.name
-            let image = self.repoProvider.imageRepo.loadImage(id: model.id)
-            let mealType = MealType(rawValue: model.mealType) ?? .dineIn
-            let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
-            return Meal(id: id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-        }
-        self.meals = mealModels
-        self.mealStore.onNext(mealModels)
-    }
-    
 }

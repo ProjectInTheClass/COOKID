@@ -75,7 +75,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
     var viewModel: MainViewModel!
     var coordinator: MainCoordinator?
-    var currentDay = Date()
     var maxValue: Int? = 1
     
     // MARK: - View LifeCycle
@@ -125,17 +124,11 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         // MARK: - bindViewModel input
         
         leftButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                let date = self.viewModel.fetchMealByNavigate(-1, currentDate: self.currentDay)
-                self.viewModel.input.selectedDate.accept(date)
-            })
+            .bind(to: viewModel.input.leftButtonTapped)
             .disposed(by: rx.disposeBag)
         
         rightButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                let date = self.viewModel.fetchMealByNavigate(1, currentDate: self.currentDay)
-                self.viewModel.input.selectedDate.accept(date)
-            })
+            .bind(to: viewModel.input.rightButtonTapped)
             .disposed(by: rx.disposeBag)
         
         monthSelectButton.rx.tap
@@ -162,15 +155,16 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
-        viewModel.input.selectedDate
-            .bind(onNext: { [unowned self] date in
-                self.currentDay = date
-                self.monthSelectButton.setTitle(convertDateToString(format: "YYYY년 M월 d일", date: date), for: .normal)
+        // MARK: - bindViewModel output
+        
+        viewModel.output.selectedDate
+            .withUnretained(self)
+            .bind(onNext: { owner, date in
+                owner.monthSelectButton.setTitle(convertDateToString(format: "YYYY년 M월 d일", date: date), for: .normal)
             })
             .disposed(by: rx.disposeBag)
         
-        // MARK: - bindViewModel output
-        
+        // X
         viewModel.output.recentMeals
             .bind(to: recentMealTableView.rx.items(cellIdentifier: "recentMeals", cellType: MealTableViewCell.self)) { _, item, cell in
                 cell.updateUI(meal: item)
@@ -184,12 +178,14 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
+        // X
         viewModel.output.averagePrice
             .bind(onNext: { [unowned self] str in
                 self.averageLabel.text = str
             })
             .disposed(by: rx.disposeBag)
         
+        // O
         viewModel.output.userInfo
             .bind(onNext: { user in
                 self.userNickname.text = user.nickname
@@ -204,10 +200,12 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
+        // O
         viewModel.output.adviceString
             .bind(to: adviseLabel.rx.text)
             .disposed(by: rx.disposeBag)
         
+        // O
         viewModel.output.monthlyDetailed
             .bind(onNext: { [unowned self] detail in
                 self.monthLabel.text = detail.month
@@ -218,6 +216,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
+        // O
         viewModel.output.consumeProgressCalc
             .do(onNext: { [unowned self] _ in
                 self.consumeProgressBar.progress = 0
@@ -229,23 +228,26 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
+        // X
         viewModel.output.mealDayList
-            .bind(to: mealDayCollectionView.rx.items(dataSource: viewModel.dataSource))
-            .disposed(by: rx.disposeBag)
-        
-        mealDayCollectionView.rx.modelSelected(MainCollectionViewItem.self)
-                .bind(onNext: { [unowned self] item in
+                .bind(to: mealDayCollectionView.rx.items(dataSource: viewModel.dataSource))
+                .disposed(by: rx.disposeBag)
+                
+                mealDayCollectionView.rx.modelSelected(MainCollectionViewItem.self)
+                .withUnretained(self)
+                .bind(onNext: { owner, item in
                     switch item {
                     case .meals(meal: let meal):
-                        self.coordinator?.navigateAddMealVC(mode: .edit(meal))
+                        owner.coordinator?.navigateAddMealVC(mode: .edit(meal))
                     case .shoppings(shopping: let shopping):
-                        self.coordinator?.navigateAddShoppingVC(mode: .edit(shopping))
+                        owner.coordinator?.navigateAddShoppingVC(mode: .edit(shopping))
                     }
                 })
                 .disposed(by: rx.disposeBag)
                 
                 // rx delegate
-                mealDayCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+                mealDayCollectionView.rx.setDelegate(self)
+                .disposed(by: rx.disposeBag)
                 
                 viewModel.output.dineInProgress
                 .delay(.microseconds(500), scheduler: MainScheduler.instance)
@@ -268,22 +270,24 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                     let numArr = mealses.map { $0.count }
                     self?.maxValue = numArr.max()
                 })
-                    .bind(to: mealTimeCollectionView.rx.items(cellIdentifier: "timeCell", cellType: MealTimeCollectionViewCell.self)) { _, meals, cell in
-                        if let maxValue = self.maxValue,
-                           maxValue != 0 {
-                            let ratio = CGFloat(meals.count) / CGFloat(maxValue)
-                            let arrString = meals.first?.mealTime.rawValue ?? ""
-                            cell.updateUI(ratio: ratio, name: arrString)
-                            cell.backgroundColor = .white
-                        } else {
-                            let arrString = meals.first?.mealTime.rawValue ?? ""
-                            cell.updateUI(ratio: 0.5, name: arrString)
-                            cell.backgroundColor = .white
-                        }
+                .bind(to: mealTimeCollectionView.rx.items(cellIdentifier: "timeCell", cellType: MealTimeCollectionViewCell.self)) { _, meals, cell in
+                    if let maxValue = self.maxValue,
+                       maxValue != 0 {
+                        let ratio = CGFloat(meals.count) / CGFloat(maxValue)
+                        let arrString = meals.first?.mealTime.rawValue ?? ""
+                        cell.updateUI(ratio: ratio, name: arrString)
+                        cell.backgroundColor = .white
+                    } else {
+                        let arrString = meals.first?.mealTime.rawValue ?? ""
+                        cell.updateUI(ratio: 0.5, name: arrString)
+                        cell.backgroundColor = .white
                     }
-                    .disposed(by: rx.disposeBag)
+                }
+                .disposed(by: rx.disposeBag)
         
         mealTimeCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+        
+        viewModel.fetchDataForMain()
         
     }
     

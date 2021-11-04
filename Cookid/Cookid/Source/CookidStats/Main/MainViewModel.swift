@@ -14,12 +14,13 @@ import RxDataSources
 class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     
     struct Input {
-        let selectedDate = BehaviorRelay<Date>(value: Date())
+        let selectDate = BehaviorRelay<Date>(value: Date())
+        let leftButtonTapped = PublishRelay<Void>()
+        let rightButtonTapped = PublishRelay<Void>()
     }
     
     struct Output {
-        let basicMeals = PublishRelay<[Meal]>()
-        let basicShoppings = PublishRelay<[Shopping]>()
+        let selectedDate = BehaviorRelay<Date>(value: Date())
         let userInfo = PublishRelay<User>()
         let recentMeals = PublishRelay<[Meal]>()
         let adviceString = PublishRelay<String>()
@@ -32,6 +33,13 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         let mealtimes = PublishRelay<[[Meal]]>()
     }
     
+    // for calendar viewModel
+    var currentDay = Date()
+    var dineInMeals = [Meal]()
+    var dineOutMeals = [Meal]()
+    var wholeShoppings = [Shopping]()
+    
+    // inoutput
     var input: Input
     var output: Output
     let dataSource: RxCollectionViewSectionedReloadDataSource<MainCollectionViewSection>
@@ -42,40 +50,53 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         self.dataSource = MainDataSource.dataSouce
         super.init(serviceProvider: serviceProvider)
         
-        // fetch data
-        serviceProvider.mealService.fetchMeals()
-        serviceProvider.shoppingService.fetchShoppings()
-   
+        bindActionForOutput(serviceProvider: serviceProvider, input: input, output: output)
+        
         let currentUser = serviceProvider.userService.currentUser
-        let basicMeals = serviceProvider.mealService.mealList
-        let basicShoppings = serviceProvider.shoppingService.shoppingList
+        let meals = serviceProvider.mealService.mealList
+        let shoppings = serviceProvider.shoppingService.shoppingList
         
         let spotMonthMeals =
-        basicMeals
-            .map(self.spotMonthMeals)
+        meals
+            .map(sortSpotMonthMeals)
         
         let spotMonthShoppings =
-        basicShoppings
-            .map(self.spotMonthShoppings)
+        shoppings
+            .map(sortSpotMonthShoppings)
         
         // user information output
         currentUser
-            .debug()
             .bind(to: output.userInfo)
             .disposed(by: disposeBag)
         
         // calendar output
-        basicMeals
-            .bind(to: output.basicMeals)
+        meals
+            .map { $0.filter { $0.mealType == .dineOut } }
+            .withUnretained(self)
+            .bind(onNext: { owner, meals in
+                owner.dineOutMeals = meals
+            })
             .disposed(by: disposeBag)
         
-        basicShoppings
-            .bind(to: output.basicShoppings)
+        meals
+            .map { $0.filter { $0.mealType == .dineIn } }
+            .withUnretained(self)
+            .bind(onNext: { owner, meals in
+                owner.dineInMeals = meals
+            })
+            .disposed(by: disposeBag)
+        
+        shoppings
+            .withUnretained(self)
+            .bind(onNext: { owner, shoppings in
+                owner.wholeShoppings = shoppings
+            })
             .disposed(by: disposeBag)
         
         // recentMeals
         spotMonthMeals
-            .map { self.recentMeals(meals: $0) }
+            .debug()
+            .map(recentMeals)
             .bind(to: output.recentMeals)
             .disposed(by: disposeBag)
         
@@ -84,16 +105,16 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             spotMonthMeals,
             currentUser,
             spotMonthShoppings,
-            resultSelector: self.checkSpendPace)
+            resultSelector: checkSpendPace)
             .bind(to: output.adviceString)
             .disposed(by: disposeBag)
         
         // monthlyDetailed
         Observable.combineLatest(
             currentUser,
-            spotMonthMeals.map(self.fetchEatOutSpend),
-            spotMonthShoppings.map(self.fetchShoppingTotalSpend),
-            resultSelector: self.makeConsumptionDetail)
+            spotMonthMeals.map(fetchEatOutSpend),
+            spotMonthShoppings.map(fetchShoppingTotalSpend),
+            resultSelector: makeConsumptionDetail)
             .bind(to: output.monthlyDetailed)
             .disposed(by: disposeBag)
         
@@ -102,43 +123,78 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             spotMonthMeals,
             currentUser,
             spotMonthShoppings,
-            resultSelector: self.getSpendPercentage)
+            resultSelector: getSpendPercentage)
             .bind(to: output.consumeProgressCalc)
             .disposed(by: disposeBag)
         
         // averagePrice
         Observable.combineLatest(
-            spotMonthShoppings.map(self.fetchShoppingTotalSpend),
-            spotMonthMeals.map(self.fetchEatOutSpend),
-            resultSelector: self.averagePriceToString)
+            spotMonthShoppings.map(fetchShoppingTotalSpend),
+            spotMonthMeals.map(fetchEatOutSpend),
+            resultSelector: averagePriceToString)
             .bind(to: output.averagePrice)
             .disposed(by: disposeBag)
         
         // dineInProgress
         spotMonthMeals
-            .map(self.dineInProgressCalc)
+            .map(dineInProgressCalc)
             .bind(to: output.dineInProgress)
             .disposed(by: disposeBag)
         
         // mostExpensiveMeal
         spotMonthMeals
-            .map(self.mostExpensiveMeal)
+            .map(mostExpensiveMeal)
             .bind(to: output.mostExpensiveMeal)
             .disposed(by: disposeBag)
         
         // mealDayList
         Observable.combineLatest(
-            input.selectedDate,
-            basicMeals,
-            basicShoppings,
-            resultSelector: self.makeMainCollectionViewSection)
+            input.selectDate,
+            meals,
+            shoppings,
+            resultSelector: makeMainCollectionViewSection)
             .bind(to: output.mealDayList)
             .disposed(by: disposeBag)
         
         // mealtimes
         spotMonthMeals
-            .map(self.mealTimesCalc)
+            .map(mealTimesCalc)
             .bind(to: output.mealtimes)
+            .disposed(by: disposeBag)
+        
+    }
+    
+    // 이니셜 라이저 안에서는 실행되지 않는다. 기본적으로 가져와야 하는 데이터이기 때문에 따로 불러온다.
+    func fetchDataForMain() {
+        serviceProvider.userService.loadMyInfo()
+        serviceProvider.mealService.fetchMeals()
+        serviceProvider.shoppingService.fetchShoppings()
+    }
+    
+    func bindActionForOutput(serviceProvider: ServiceProviderType, input: Input, output: Output) {
+        
+        input.leftButtonTapped
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                let date = owner.fetchMealByNavigate(-1, currentDate: owner.currentDay)
+                input.selectDate.accept(date)
+            })
+            .disposed(by: disposeBag)
+        
+        input.rightButtonTapped
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                let date = owner.fetchMealByNavigate(1, currentDate: owner.currentDay)
+                input.selectDate.accept(date)
+            })
+            .disposed(by: disposeBag)
+        
+        input.selectDate
+            .withUnretained(self)
+            .bind(onNext: { owner, date in
+                owner.currentDay = date
+                output.selectedDate.accept(date)
+            })
             .disposed(by: disposeBag)
     }
     
@@ -148,7 +204,7 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         return "현재까지 하루 평균 지출은 '\(String(format: "%.0f", value))원' 입니다."
     }
     
-    func spotMonthShoppings(shoppings: [Shopping]) -> [Shopping] {
+    func sortSpotMonthShoppings(shoppings: [Shopping]) -> [Shopping] {
         let startDay = Date().startOfMonth
         let endDay = Date().endOfMonth
         let filteredByStart = shoppings.filter { $0.date > startDay }
@@ -198,7 +254,7 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         return sortedMeals
     }
     
-    func spotMonthMeals(meals: [Meal]) -> [Meal] {
+    func sortSpotMonthMeals(meals: [Meal]) -> [Meal] {
         let startDay = Date().startOfMonth
         let endDay = Date().endOfMonth
         let filteredByStart = meals.filter { $0.date > startDay }

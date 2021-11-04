@@ -14,7 +14,7 @@ protocol UserServiceType {
     var currentUser: Observable<User> { get }
     func creatUser(user: User, completion: @escaping (Bool) -> Void)
     func connectUser(localUser: LocalUser, imageURL: URL?, dineInCount: Int, cookidsCount: Int, completion: @escaping (Bool) -> Void)
-    func loadMyInfo() -> Observable<User>
+    func loadMyInfo()
     func fetchUserInfo(user: User) -> Observable<User>
     func updateUserInfo(user: User, completion: @escaping (Bool) -> Void)
     func fetchCookidRankers() -> Observable<[User]>
@@ -71,10 +71,9 @@ class UserService: BaseService, UserServiceType {
         }
     }
     
-    @discardableResult
-    func loadMyInfo() -> Observable<User> {
-        return Observable.create { [weak self] observer in
-            guard let self = self else { return Disposables.create() }
+    func loadMyInfo() {
+//        return Observable.create { [weak self] observer in
+//            guard let self = self else { return Disposables.create() }
             self.repoProvider.firestoreUserRepo.loadUser(userID: self.defaultUserInfo.id) { result in
                 switch result {
                 case .success(let entity):
@@ -82,13 +81,13 @@ class UserService: BaseService, UserServiceType {
                     let user = User(id: entity.id, image: entity.imageURL, nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
                     self.defaultUserInfo = user
                     self.userInfo.onNext(user)
-                    observer.onNext(user)
+//                    observer.onNext(user)
                 case .failure(let error):
                     print(error.rawValue)
                 }
             }
-            return Disposables.create()
-        }
+//            return Disposables.create()
+//        }
     }
     
     /// Fetch from Firebase
