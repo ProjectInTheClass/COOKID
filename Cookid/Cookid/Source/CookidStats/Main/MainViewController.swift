@@ -216,7 +216,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
-        // O
         viewModel.output.consumeProgressCalc
             .do(onNext: { [unowned self] _ in
                 self.consumeProgressBar.progress = 0
@@ -228,18 +227,17 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             })
             .disposed(by: rx.disposeBag)
         
-        // X
         viewModel.output.mealDayList
                 .bind(to: mealDayCollectionView.rx.items(dataSource: viewModel.dataSource))
                 .disposed(by: rx.disposeBag)
                 
-                mealDayCollectionView.rx.modelSelected(MainCollectionViewItem.self)
+        mealDayCollectionView.rx.modelSelected(MainCollectionViewItem.self)
                 .withUnretained(self)
                 .bind(onNext: { owner, item in
                     switch item {
-                    case .meals(meal: let meal):
+                    case .meals(let meal):
                         owner.coordinator?.navigateAddMealVC(mode: .edit(meal))
-                    case .shoppings(shopping: let shopping):
+                    case .shoppings(let shopping):
                         owner.coordinator?.navigateAddShoppingVC(mode: .edit(shopping))
                     }
                 })
@@ -249,14 +247,14 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 mealDayCollectionView.rx.setDelegate(self)
                 .disposed(by: rx.disposeBag)
                 
-                viewModel.output.dineInProgress
+        viewModel.output.dineInProgress
                 .delay(.microseconds(500), scheduler: MainScheduler.instance)
                 .bind(onNext: { [unowned self] progress in
                     self.dineInProgressBar.progress = progress
                 })
                 .disposed(by: rx.disposeBag)
                 
-                viewModel.output.mostExpensiveMeal
+        viewModel.output.mostExpensiveMeal
                 .bind(onNext: { [unowned self] meal in
                     self.mealName.text = meal.name
                     self.mealPrice.text = intToString(meal.price)
@@ -265,7 +263,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 })
                 .disposed(by: rx.disposeBag)
                 
-                viewModel.output.mealtimes
+        viewModel.output.mealtimes
                 .do(onNext: { [weak self] mealses in
                     let numArr = mealses.map { $0.count }
                     self?.maxValue = numArr.max()

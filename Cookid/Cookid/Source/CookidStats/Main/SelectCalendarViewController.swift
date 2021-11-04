@@ -12,18 +12,12 @@ import RxCocoa
 import NSObject_Rx
 
 class SelectCalendarViewController: UIViewController, StoryboardBased, ViewModelBindable {
-   
-    // 현재 뷰모델이 너무 방대하니,
-    // 새로운 viewModel을 만들어서 데이터 및 로직을 옮기자.
-    
-    var viewModel: MainViewModel!
-    var dineInMeals = [Meal]()
-    var dineOutMeals = [Meal]()
-    var shoppings = [Shopping]()
-    
+
     @IBOutlet weak var updateCalendar: FSCalendar!
     @IBOutlet weak var dimmingButton: UIButton!
     @IBOutlet weak var calendarBackground: UIView!
+    
+    var viewModel: MainViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,32 +61,8 @@ class SelectCalendarViewController: UIViewController, StoryboardBased, ViewModel
                 self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: rx.disposeBag)
-        
-//        viewModel.output.basicMeals
-//            .bind(onNext: { [unowned self] meals in
-//                self.dineOutMeals = meals
-//                self.dineInMeals = meals.filter { $0.mealType == .dineIn }
-//            })
-//            .disposed(by: rx.disposeBag)
-//
-//        viewModel.output.basicMeals
-//            .bind(onNext: { [unowned self] meals in
-//                self.dineOutMeals = meals
-//                self.dineInMeals = meals.filter { $0.mealType == .dineIn }
-//            })
-//            .disposed(by: rx.disposeBag)
-//
-//        viewModel.output.wholeShoppings
-//            .bind(onNext: { [unowned self] shoppings in
-//                self.shoppings = shoppings
-//            })
-//            .disposed(by: rx.disposeBag)
-//
-        viewModel.output.selectedDate
-            .bind(onNext: { [unowned self] date in
-                self.updateCalendar.select(date)
-            })
-            .disposed(by: rx.disposeBag)
+       
+        self.updateCalendar.select(viewModel.currentDay)
     }
 }
 

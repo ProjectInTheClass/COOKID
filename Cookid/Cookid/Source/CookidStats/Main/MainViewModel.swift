@@ -112,8 +112,8 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         // monthlyDetailed
         Observable.combineLatest(
             currentUser,
-            spotMonthMeals.map(fetchEatOutSpend),
             spotMonthShoppings.map(fetchShoppingTotalSpend),
+            spotMonthMeals.map(fetchEatOutSpend),
             resultSelector: makeConsumptionDetail)
             .bind(to: output.monthlyDetailed)
             .disposed(by: disposeBag)
