@@ -84,8 +84,9 @@ class ShoppingService: BaseService, ShoppingServiceType {
                         self.shoppings.remove(at: index)
                     }
                     self.shoppingStore.onNext(self.shoppings)
+                    observer.onNext(true)
                 } else {
-                    
+                    observer.onNext(false)
                 }
             }
             return Disposables.create()

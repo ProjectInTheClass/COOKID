@@ -12,7 +12,7 @@ import RxKeyboard
 import RxSwift
 import ReactorKit
 
-class AddShoppingViewController: UIViewController, View {
+class AddShoppingViewController: UIViewController, StoryboardView {
     
     // MARK: - UI
     
@@ -158,11 +158,14 @@ class AddShoppingViewController: UIViewController, View {
         super.viewDidLoad()
         makeConstraints()
         settingPickerInTextField(dateTextField)
+      
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         let bottomOfView = backgroundView.frame.origin.y + backgroundView.frame.height
+        
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [unowned self] height in
                 let visibleRange = view.frame.height - height
@@ -232,67 +235,45 @@ class AddShoppingViewController: UIViewController, View {
     // MARK: - Binding ViewModel
     func bind(reactor: AddShoppingReactor) {
         
-        dimmingButton.rx.tap
-            .bind { [unowned self] in
-                self.dismiss(animated: true)
-            }
-            .disposed(by: rx.disposeBag)
+        // initial Setting 할 때는 binding 하는 타이밍이 중요하다.
+        // reactor.state를 먼저 바인드 한 후에
+        // 아래 action이 전달되도록 하자.그렇지 않으면 최소의 값이 들어오는게 아니라
+        // action으로 전달된 값이 들어간다.
         
-        datePicker.rx.date
-            .map { .inputDate($0) }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
+        initialSetting(reactor: reactor)
         
         reactor.state.map { $0.date }
-        .withUnretained(self)
-        .bind(onNext: { owner, date in
-            owner.dateTextField.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
-            owner.datePicker.setDate(date, animated: false)
+        .bind(onNext: { [unowned self] date in
+            self.dateTextField.text = convertDateToString(format: "yyyy년 MM월 dd일", date: date)
+            self.datePicker.setDate(date, animated: false)
         })
         .disposed(by: disposeBag)
-        
-        priceTextField.rx.text.orEmpty
-            .map { .inputTotalPrice($0) }
-            .bind(to: reactor.action)
-            .disposed(by: rx.disposeBag)
         
         reactor.state.map { $0.isPriceValid }
         .withUnretained(self)
         .bind(onNext: { owner, isValid in
-            guard let isValid = isValid else { return }
+            guard let isValid = isValid else {
+                self.validationView.isHidden = true
+                return }
             if isValid {
                 UIView.animate(withDuration: 0.3) {
                     owner.validationView.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
                     owner.validationView.tintColor = .systemGreen
+                    self.validationView.isHidden = false
                 }
             } else {
                 UIView.animate(withDuration: 0.3) {
                     owner.validationView.setImage(UIImage(systemName: "minus.circle")!, for: .normal)
                     owner.validationView.tintColor = .red
+                    self.validationView.isHidden = false
                 }
             }
         })
         .disposed(by: disposeBag)
         
         reactor.state.map { $0.totalPrice }
-        .withUnretained(self)
-        .bind(onNext: { owner, value in
-            guard let value = value else { return }
-            owner.priceTextField.rx.text.onNext("\(value)")
-        })
+        .bind(to: priceTextField.rx.text)
         .disposed(by: disposeBag)
-        
-        deleteButton.rx.tap
-            .withUnretained(self)
-            .bind(onNext: { owner, _ in
-                owner.coordinator?.presentDeleteAlert(reactor: reactor)
-            })
-            .disposed(by: rx.disposeBag)
-        
-        saveButton.rx.tap
-            .map { .uploadButtonTapped }
-            .bind(to: reactor.action)
-            .disposed(by: rx.disposeBag)
         
         reactor.state.map { $0.isError }
         .withUnretained(self)
@@ -303,7 +284,40 @@ class AddShoppingViewController: UIViewController, View {
         })
         .disposed(by: disposeBag)
         
-        initialSetting(reactor: reactor)
+        // reactorKit 문제인 것 같은데, datePicker가 그냥 View를 상속하면 제대로 작동하지 않는다.
+        // StoryboardView를 상속하니 제대로 작동. 관련한거 수정 하도록 요청해보자?
+        // 아니면 다른 뷰들이 스토리보드 베이스여서 그럴 수도 있다...
+        datePicker.rx.date
+            .map { Reactor.Action.inputDate($0) }
+            .bind(onNext: { item in
+                guard let reactor = self.reactor else { return }
+                reactor.action.onNext(item)
+            })
+            .disposed(by: disposeBag)
+        
+        deleteButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.coordinator?.presentDeleteAlert(root: self, reactor: reactor)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        saveButton.rx.tap
+            .map { .uploadButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: rx.disposeBag)
+        
+        priceTextField.rx.text.orEmpty
+            .map { Reactor.Action.inputTotalPrice($0) }
+            .bind(to: reactor.action)
+            .disposed(by: rx.disposeBag)
+        
+        dimmingButton.rx.tap
+            .bind { [unowned self] in
+                self.dismiss(animated: true)
+            }
+            .disposed(by: rx.disposeBag)
+
     }
     
     private func initialSetting(reactor: AddShoppingReactor) {

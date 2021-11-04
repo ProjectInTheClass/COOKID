@@ -5,7 +5,7 @@
 //  Created by 박형석 on 2021/11/01.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 import RxCocoa
 import ReactorKit
@@ -33,7 +33,7 @@ class AddShoppingReactor: Reactor {
     
     struct State {
         var date: Date = Date()
-        var totalPrice: Int?
+        var totalPrice: String = ""
         var isPriceValid: Bool?
         var isError: Bool?
     }
@@ -49,7 +49,7 @@ class AddShoppingReactor: Reactor {
         case .new:
             self.initialState = State()
         case .edit(let shopping):
-            self.initialState = State(date: shopping.date, totalPrice: shopping.totalPrice, isPriceValid: true)
+            self.initialState = State(date: shopping.date, totalPrice: String(describing: shopping.totalPrice), isPriceValid: true)
         }
     }
     
@@ -63,16 +63,18 @@ class AddShoppingReactor: Reactor {
                 .just(Mutate.setTotalPrice(totalPrice ?? ""))
             )
         case .uploadButtonTapped:
+            let date = self.currentState.date
+            let price = Int(self.currentState.totalPrice) ?? 0
             switch mode {
             case .new:
                 let newShopping = Shopping(id: UUID().uuidString,
-                                           date: self.currentState.date,
-                                           totalPrice: self.currentState.totalPrice ?? 0)
+                                           date: date,
+                                           totalPrice: price)
                 return self.serviceProvider.shoppingService.create(shopping: newShopping).map { Mutate.sendErrorMessage(!$0) }
             case .edit(let shopping):
                 let updateShopping = Shopping(id: shopping.id,
-                                           date: self.currentState.date,
-                                           totalPrice: self.currentState.totalPrice ?? 0)
+                                           date: date,
+                                           totalPrice: price)
                 return self.serviceProvider.shoppingService.update(updateShopping: updateShopping).map { Mutate.sendErrorMessage(!$0) }
             }
         case .deleteButtonTapped:
@@ -90,15 +92,17 @@ class AddShoppingReactor: Reactor {
         switch mutation {
         case .setDate(let date):
             newState.date = date
-        case .setTotalPrice(let totalPriceStr):
-            let totalPrice = Int(totalPriceStr)
+            return newState
+        case .setTotalPrice(let totalPrice):
             newState.totalPrice = totalPrice
+            return newState
         case .setPriceValidation(let isValid):
             newState.isPriceValid = isValid
+            return newState
         case .sendErrorMessage(let isError):
             newState.isError = isError
+            return newState
         }
-        return newState
     }
     
     private let charSet: CharacterSet = {

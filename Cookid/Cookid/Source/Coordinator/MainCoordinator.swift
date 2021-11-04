@@ -70,7 +70,7 @@ class MainCoordinator: CoordinatorType {
         navigationController?.present(vc, animated: true, completion: nil)
     }
     
-    func presentDeleteAlert(reactor: AddShoppingReactor) {
+    func presentDeleteAlert(root: UIViewController, reactor: AddShoppingReactor) {
         let alert = UIAlertController(title: "삭제하기", message: "식사를 삭제하시겠어요? 삭제 후에는 복구가 불가능합니다.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "삭제", style: .default) { _ in
             switch reactor.mode {
@@ -80,10 +80,10 @@ class MainCoordinator: CoordinatorType {
                 break
             }
         }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         alert.addAction(okAction)
         alert.addAction(cancelAction)
-        navigationController?.present(alert, animated: true)
+        root.present(alert, animated: true)
     }
     
 }
