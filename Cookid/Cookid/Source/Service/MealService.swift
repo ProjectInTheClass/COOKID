@@ -10,8 +10,9 @@ import RxSwift
 import RxCocoa
 
 protocol MealServiceType {
-    var mealList: Observable<[Meal]> { get }
     var initialDineInMeal: Int { get }
+    var mealList: Observable<[Meal]> { get }
+    var spotMonthMeals: Observable<[Meal]> { get }
     func create(meal: Meal?) -> Observable<Bool>
     func fetchMeals()
     func update(updateMeal: Meal) -> Observable<Bool>
@@ -30,6 +31,10 @@ class MealService: BaseService, MealServiceType {
     
     var mealList: Observable<[Meal]> {
         return mealStore
+    }
+    
+    var spotMonthMeals: Observable<[Meal]> {
+        return mealStore.map(sortSpotMonthMeals)
     }
     
     // MARK: - Meal Storage
@@ -108,5 +113,14 @@ class MealService: BaseService, MealServiceType {
             }
             return Disposables.create()
         }
+    }
+    
+    private func sortSpotMonthMeals(meals: [Meal]) -> [Meal] {
+        let startDay = Date().startOfMonth
+        let endDay = Date().endOfMonth
+        let filteredByStart = meals.filter { $0.date > startDay }
+        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
+        let sortedMeals = filteredByEnd.sorted { $0.date > $1.date }
+        return sortedMeals
     }
 }

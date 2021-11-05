@@ -63,15 +63,10 @@ class PostTableViewCell: UITableViewCell, View {
         })
         .disposed(by: disposeBag)
         
-        Observable.combineLatest(
-            reactor.state.map { $0.post },
-            reactor.state.map { $0.user },
-            resultSelector: { user, post in
-            return (user, post)
-        })
+        reactor.state.map { $0.currentPercent }
         .withUnretained(self)
-        .bind(onNext: { owner, info in
-            owner.makeUpBudgetCheck(post: info.0, user: info.1)
+        .bind(onNext: { owner, value in
+            owner.makeUpBudgetCheck(currentPercent: value)
         })
         .disposed(by: disposeBag)
         
@@ -144,7 +139,6 @@ class PostTableViewCell: UITableViewCell, View {
             
     }
     
-    // 아래 있는 메소드들 리액터로 옮겨야 하나 고민해보자. -> 옮겨야 하는 것들이 있다.
     private func makeUpUserView(post: Post) {
         userImage.setImageWithKf(url: post.user.image)
         userImage.makeCircleView()
@@ -173,7 +167,6 @@ class PostTableViewCell: UITableViewCell, View {
         bookmarkCountLabel.text = "북마크 \(bookmarkCount)개"
     }
     
-    // 이런거?
     private func makeUpComments(commentCount: Int) {
         if commentCount == 0 {
             commentListButton.setTitle("아직 댓글이 없어요", for: .normal)
@@ -183,13 +176,13 @@ class PostTableViewCell: UITableViewCell, View {
     }
     
     // 이 함수 구현하기
-    private func makeUpBudgetCheck(post: Post, user: User) {
-        if Double(post.mealBudget) / Double(user.priceGoal) * 100 > 66 {
+    private func makeUpBudgetCheck(currentPercent: Double) {
+        if  currentPercent > 66 {
             let image = UIImage(systemName: "xmark.circle.fill")
             budgetCheckImage.image = image
             budgetCheckImage.tintColor = .systemRed
             budgetCheckLabel.text = "예산에 위험한 식사에요"
-        } else if Double(post.mealBudget) / Double(user.priceGoal) * 100 > 33 {
+        } else if currentPercent > 33 {
             let image = UIImage(systemName: "minus.circle.fill")
             budgetCheckImage.image = image
             budgetCheckImage.tintColor = .systemYellow

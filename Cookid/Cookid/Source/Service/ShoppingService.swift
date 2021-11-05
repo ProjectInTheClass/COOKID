@@ -11,6 +11,7 @@ import RxSwift
 protocol ShoppingServiceType {
     var initialShoppingCount: Int { get }
     var shoppingList: Observable<[Shopping]> { get }
+    var spotMonthShoppings: Observable<[Shopping]> { get }
     func create(shopping: Shopping) -> Observable<Bool>
     func fetchShoppings()
     func update(updateShopping: Shopping) -> Observable<Bool>
@@ -29,6 +30,10 @@ class ShoppingService: BaseService, ShoppingServiceType {
     
     var shoppingList: Observable<[Shopping]> {
         return shoppingStore
+    }
+    
+    var spotMonthShoppings: Observable<[Shopping]> {
+        return shoppingStore.map(sortSpotMonthShoppings)
     }
     
     func create(shopping: Shopping) -> Observable<Bool> {
@@ -91,6 +96,15 @@ class ShoppingService: BaseService, ShoppingServiceType {
             }
             return Disposables.create()
         }
+    }
+    
+    private func sortSpotMonthShoppings(shoppings: [Shopping]) -> [Shopping] {
+        let startDay = Date().startOfMonth
+        let endDay = Date().endOfMonth
+        let filteredByStart = shoppings.filter { $0.date > startDay }
+        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
+        let sortedshoppings = filteredByEnd.sorted { $0.date > $1.date }
+        return sortedshoppings
     }
     
 }
