@@ -25,12 +25,14 @@ class PostCellReactor: Reactor {
         case setBookmark(Bool)
         case setBookmarkCount(Int)
         case setUser(User)
+        case setCurrentPercent(Double)
         case deletePost(Bool)
         case reportPost(Bool)
     }
     
     struct State {
         var post: Post
+        var currentPercent: Double
         var isHeart: Bool
         var isBookmark: Bool
         var heartCount: Int
@@ -47,13 +49,21 @@ class PostCellReactor: Reactor {
          serviceProvider: ServiceProviderType) {
         self.serviceProvider = serviceProvider
         self.sender = sender
-        self.initialState = State(post: post, isHeart: post.didLike, isBookmark: post.didCollect, heartCount: post.likes, bookmarkCount: post.collections)
+        self.initialState = State(post: post, currentPercent: 0, isHeart: post.didLike, isBookmark: post.didCollect, heartCount: post.likes, bookmarkCount: post.collections)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
+        let currentPercent =
+        Observable.combineLatest(
+            serviceProvider.mealService.spotMonthMeals,
+            serviceProvider.userService.currentUser,
+            serviceProvider.shoppingService.spotMonthShoppings,
+            Observable.just(self.currentState.post),
+            resultSelector: calculateCurrentPercent)
+            .map { Mutation.setCurrentPercent($0) }
         let user = serviceProvider.userService.currentUser
             .map { Mutation.setUser($0) }
-        return Observable.merge(mutation, user)
+        return Observable.merge(mutation, user, currentPercent)
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -104,6 +114,9 @@ class PostCellReactor: Reactor {
         case .reportPost(let isError):
             newState.isError = isError
             return newState
+        case .setCurrentPercent(let percent):
+            newState.currentPercent = percent
+            return newState
         }
     }
     
@@ -126,4 +139,17 @@ class PostCellReactor: Reactor {
             post.didCollect = isBookmark
         }
     }
+    
+    func calculateCurrentPercent(_ meals: [Meal], _ user: User, _ shoppings: [Shopping], _ post: Post) -> Double {
+        let postMealBudget = Double(post.mealBudget)
+        let shoppingSpends = shoppings.map { Double($0.totalPrice) }.reduce(0, +)
+        let mealSpend = meals.map { Double($0.price) }.reduce(0, +)
+        let totalSpend = (shoppingSpends + mealSpend + postMealBudget) / Double(user.priceGoal) * 100
+        if totalSpend.isNaN {
+            return 0
+        } else {
+            return totalSpend
+        }
+    }
+    
 }

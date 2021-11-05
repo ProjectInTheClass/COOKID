@@ -55,14 +55,8 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         let currentUser = serviceProvider.userService.currentUser
         let meals = serviceProvider.mealService.mealList
         let shoppings = serviceProvider.shoppingService.shoppingList
-        
-        let spotMonthMeals =
-        meals
-            .map(sortSpotMonthMeals)
-        
-        let spotMonthShoppings =
-        shoppings
-            .map(sortSpotMonthShoppings)
+        let spotMonthMeals = serviceProvider.mealService.spotMonthMeals
+        let spotMonthShoppings = serviceProvider.shoppingService.spotMonthShoppings
         
         // user information output
         currentUser
@@ -203,16 +197,7 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         let value = Double(shoppingPrice + mealPrice) / Double(day)
         return "현재까지 하루 평균 지출은 '\(String(format: "%.0f", value))원' 입니다."
     }
-    
-    func sortSpotMonthShoppings(shoppings: [Shopping]) -> [Shopping] {
-        let startDay = Date().startOfMonth
-        let endDay = Date().endOfMonth
-        let filteredByStart = shoppings.filter { $0.date > startDay }
-        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
-        let sortedshoppings = filteredByEnd.sorted { $0.date > $1.date }
-        return sortedshoppings
-    }
-    
+
     func fetchShoppingByDay(_ day: Date, shoppings: [Shopping]) -> [Shopping] {
         let dayShoppings = shoppings.filter { $0.date.dateToString() == day.dateToString() }
         return dayShoppings
@@ -253,16 +238,7 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         let sortedMeals = recentMeals.sorted { $0.date > $1.date }
         return sortedMeals
     }
-    
-    func sortSpotMonthMeals(meals: [Meal]) -> [Meal] {
-        let startDay = Date().startOfMonth
-        let endDay = Date().endOfMonth
-        let filteredByStart = meals.filter { $0.date > startDay }
-        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
-        let sortedMeals = filteredByEnd.sorted { $0.date > $1.date }
-        return sortedMeals
-    }
-    
+
     // MARK: - Calculate for View
     
     func getSpendPercentage(meals: [Meal], user: User, shoppings: [Shopping]) -> Double {
