@@ -13,6 +13,7 @@ import Kingfisher
 import NaverThirdPartyLogin
 import Then
 import SnapKit
+import ReactorKit
 
 class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBased {
 
@@ -43,6 +44,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         settingViewModel()
         makeConstraints()
         configureUI()
+        setRefresh()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,15 +92,46 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             make.width.height.equalTo(50)
         }
     }
+    
+    private func setRefresh() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.attributedTitle = NSAttributedString(string: "최신 글 가져오기")
+        tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+        
+        tableView.rx.contentOffset
+            .withUnretained(self)
+            .filter { owner, offset in
+                // frame이 0으로 세팅되는 초기값 filtering
+                guard offset.y > 0 else { return false }
+                guard owner.tableView.frame.height > 0 else { return false }
+                // 1: 테이블뷰의 크기 + offset(아래로 탐색하는 거리)
+                // 2: 테이블뷰 내부 셀들의 합
+                // 전체 컨텐츠 탐색을 완료하기 100 전에 로딩하기
+                return offset.y + owner.tableView.frame.height >= owner.tableView.contentSize.height - 200
+            }
+            .map { _ in }
+            .bind(to: viewModel.input.fetchPastPosts)
+            .disposed(by: rx.disposeBag)
+        
+    }
+    
+    @objc func handleRefreshControl() {
+        viewModel.input.fetchFreshPosts.accept(())
+        tableView.refreshControl?.endRefreshing()
+    }
+    
+    func footerIndicator() -> UIView {
+        let indicator = UIActivityIndicatorView()
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 50))
+        footerView.backgroundColor = .systemBackground
+        indicator.startAnimating()
+        footerView.addSubview(indicator)
+        indicator.center = footerView.center
+        return footerView
+    }
 
     // MARK: - bindViewModel
     func bindViewModel() {
-        
-        viewModel.output.user
-            .bind { [unowned self] user in
-                self.userImage.setImageWithKf(url: user.image)
-            }
-            .disposed(by: rx.disposeBag)
         
         viewModel.output.posts
             .bind(to: tableView.rx.items(cellIdentifier: "postCell",
@@ -165,6 +198,28 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             .disposed(by: rx.disposeBag)
         
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+        
+        viewModel.output.user
+            .withUnretained(self)
+            .bind { owner, user in
+                owner.userImage.setImageWithKf(url: user.image)
+                owner.viewModel.serviceProvider.postService.fetchLastPosts(currentUser: user, completion: { _ in })
+            }
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.output.isLoading
+            .withUnretained(self)
+            .observe(on: MainScheduler.instance)
+            .bind(onNext: { owner, isLoading in
+                if isLoading {
+                    owner.tableView.tableFooterView = owner.footerIndicator()
+                } else {
+                    owner.tableView.tableFooterView = nil
+                }
+            })
+            .disposed(by: rx.disposeBag)
+        
+        viewModel.fetchInitialDate()
     }
     
     func updateTableViewCell(cell: PostTableViewCell, index: Int) {
