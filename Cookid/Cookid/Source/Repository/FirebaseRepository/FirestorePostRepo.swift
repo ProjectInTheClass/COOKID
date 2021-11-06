@@ -130,8 +130,14 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
     /// fetch new posts when tableView was scrolled top of it
     /// userID: this parameter is used to filtering user's isReport list
     func fetchLatestPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
-        // userID로 isReported 검수 후에 보내기
-        // firebase에서 솔팅해서 받기
+        // 최신 10개의 데이터 받기
+        var postEntities = [PostEntity]()
+        wholePostDB.sorted(by: { $0.timestamp > $1.timestamp }).enumerated().forEach({ index, item in
+            if index < 5 {
+                postEntities.append(item)
+            }
+        })
+        completion(.success(postEntities))
     }
     
     /// fetch 10 past posts at once when tableview was scrolled until bottom point
@@ -140,7 +146,7 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
         // firebase에서 시간 순서 대로 10개씩 받기
         var postEntities = [PostEntity]()
         wholePostDB.sorted(by: { $0.timestamp > $1.timestamp }).enumerated().forEach({ index, item in
-            if index < 10 {
+            if index < 5 {
                 postEntities.append(item)
             }
         })

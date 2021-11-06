@@ -10,30 +10,65 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 
-class PostViewModel: ViewModelType, HasDisposeBag {
+class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     
     struct Input {
-
+        let fetchPastPosts = PublishRelay<Void>()
+        let fetchFreshPosts = PublishRelay<Void>()
     }
     
     struct Output {
-        let posts: Observable<[Post]>
-        let user: Observable<User>
+        let posts = PublishRelay<[Post]>()
+        let user = PublishRelay<User>()
+        let isLoading = BehaviorRelay<Bool>(value: false)
     }
     
     var input: Input
     var output: Output
+    var isLoading = false
     
-    let serviceProvider: ServiceProviderType
-    init(serviceProvider: ServiceProviderType) {
-        self.serviceProvider = serviceProvider
-        let user = serviceProvider.userService.currentUser
-        let posts =
-        Observable.merge(
-            serviceProvider.postService.totalPosts,
-            user.flatMap(serviceProvider.postService.fetchLastPosts))
+    override init(serviceProvider: ServiceProviderType) {
         self.input = Input()
-        self.output = Output(posts: posts, user: user)
+        self.output = Output()
+        super.init(serviceProvider: serviceProvider)
+        
+        let currentUser = serviceProvider.userService.currentUser
+        
+        currentUser
+            .bind(to: output.user)
+            .disposed(by: disposeBag)
+        
+        serviceProvider.postService.totalPosts
+            .bind(to: output.posts)
+            .disposed(by: disposeBag)
+        
+        input.fetchPastPosts
+            .withLatestFrom(currentUser)
+            .filter({ _ in return !self.isLoading })
+            .withUnretained(self)
+            .bind(onNext: { owner, user in
+                print("after")
+                owner.isLoading = true
+                owner.output.isLoading.accept(true)
+                owner.serviceProvider.postService.fetchLastPosts(currentUser: user) { success in
+                    owner.isLoading = !success
+                    owner.output.isLoading.accept(!success)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        input.fetchFreshPosts
+            .withLatestFrom(currentUser)
+            .withUnretained(self)
+            .bind(onNext: { owner, user in
+                owner.serviceProvider.postService.fetchLatestPosts(currentUser: user)
+            })
+            .disposed(by: disposeBag)
+                
+    }
+    
+    func fetchInitialDate() {
+        serviceProvider.userService.loadMyInfo()
     }
     
 }
