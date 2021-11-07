@@ -31,7 +31,6 @@ class MyPageCoordinator: CoordinatorType {
     private func navigationBarConfigure() {
         navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
         navigationController?.navigationBar.barTintColor = .systemBackground
-        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     func navigateUserInfoVC(viewModel: MyPageViewModel) {
