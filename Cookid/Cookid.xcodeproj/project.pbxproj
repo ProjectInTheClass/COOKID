@@ -83,6 +83,9 @@
 		03B2049726D75E7E0099C269 /* PictureSelectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049626D75E7E0099C269 /* PictureSelectCollectionViewCell.swift */; };
 		03B2049926D7B8AC0099C269 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049826D7B8AC0099C269 /* Menu.swift */; };
 		03B2049B26D7BA830099C269 /* MenuService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049A26D7BA830099C269 /* MenuService.swift */; };
+		03B3EB6B273744BB004CACF4 /* MyRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB6A273744BB004CACF4 /* MyRecipeViewController.swift */; };
+		03B3EB6D273744CE004CACF4 /* MyRecipeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB6C273744CE004CACF4 /* MyRecipeReactor.swift */; };
+		03B3EB6F2737B575004CACF4 /* UserPhotoEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB6E2737B575004CACF4 /* UserPhotoEditButton.swift */; };
 		03C04C8A2709C38300F72DB1 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C04C892709C38300F72DB1 /* Realm.framework */; };
 		03C04C8C2709C38700F72DB1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C04C8B2709C38700F72DB1 /* RealmSwift.framework */; };
 		03CCC4F72725696B00647B5C /* ParentCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */; };
@@ -251,6 +254,9 @@
 		03B2049626D75E7E0099C269 /* PictureSelectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureSelectCollectionViewCell.swift; sourceTree = "<group>"; };
 		03B2049826D7B8AC0099C269 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		03B2049A26D7BA830099C269 /* MenuService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuService.swift; sourceTree = "<group>"; };
+		03B3EB6A273744BB004CACF4 /* MyRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecipeViewController.swift; sourceTree = "<group>"; };
+		03B3EB6C273744CE004CACF4 /* MyRecipeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecipeReactor.swift; sourceTree = "<group>"; };
+		03B3EB6E2737B575004CACF4 /* UserPhotoEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotoEditButton.swift; sourceTree = "<group>"; };
 		03C04C892709C38300F72DB1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		03C04C8B2709C38700F72DB1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -439,6 +445,8 @@
 		030D4ADD273009E4005C0FFF /* MyRecipe */ = {
 			isa = PBXGroup;
 			children = (
+				03B3EB6C273744CE004CACF4 /* MyRecipeReactor.swift */,
+				03B3EB6A273744BB004CACF4 /* MyRecipeViewController.swift */,
 			);
 			path = MyRecipe;
 			sourceTree = "<group>";
@@ -613,6 +621,8 @@
 		0339E267271B81AB001FD6A7 /* Cookid Custom UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				0339E263271977FA001FD6A7 /* RankerImageView.swift */,
+				03B3EB6E2737B575004CACF4 /* UserPhotoEditButton.swift */,
 				0339E268271B81D3001FD6A7 /* CookidButton.swift */,
 				030C4ACC272A720D00630F08 /* HeartButton.swift */,
 				030C4ACE272A721600630F08 /* BookmarkButton.swift */,
@@ -763,7 +773,6 @@
 				03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */,
 				03D3046726FDFA7D00042CB7 /* AddPostCollectionReusableView.swift */,
 				0390F53F27299B7900677651 /* CommentHeaderView.swift */,
-				0339E263271977FA001FD6A7 /* RankerImageView.swift */,
 			);
 			path = PostCustomView;
 			sourceTree = "<group>";
@@ -1120,6 +1129,7 @@
 				03D660D0270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift in Sources */,
 				03CCC4FA2726185D00647B5C /* CommentViewModel.swift in Sources */,
 				03F2ED8626F0343E00CFE87C /* CommentService.swift in Sources */,
+				03B3EB6F2737B575004CACF4 /* UserPhotoEditButton.swift in Sources */,
 				03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
 				03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */,
@@ -1133,6 +1143,7 @@
 				037B7A22272ECCE0004E9320 /* BaseRepository.swift in Sources */,
 				03D8C1E726E8927700238CB6 /* MyMealsCollectionViewCell.swift in Sources */,
 				030D4AD4272FA076005C0FFF /* AddShoppingViewModel.swift in Sources */,
+				03B3EB6B273744BB004CACF4 /* MyRecipeViewController.swift in Sources */,
 				035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */,
 				241523B4269D24860077941A /* Function.swift in Sources */,
 				035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */,
@@ -1175,6 +1186,7 @@
 				24BA287726F8E85F005D344E /* CommentTableViewCell.swift in Sources */,
 				030C4ACD272A720D00630F08 /* HeartButton.swift in Sources */,
 				24B081BF26E0473500379087 /* LocalMeal.swift in Sources */,
+				03B3EB6D273744CE004CACF4 /* MyRecipeReactor.swift in Sources */,
 				24C86C6C26FF6F8000E84477 /* AddPostImageCollectionViewController.swift in Sources */,
 				030C4ACF272A721600630F08 /* BookmarkButton.swift in Sources */,
 				03CFDA9127073C2F008F99C0 /* AppleAuthRepo.swift in Sources */,

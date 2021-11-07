@@ -8,7 +8,6 @@
 import UIKit
 
 func convertDateToString(format: String, date: Date) -> String {
-    
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = format
     let dateString = dateFormatter.string(from: date)
@@ -69,7 +68,6 @@ func errorAlert(selfView: UIViewController, errorMessage: String?, completion: @
     selfView.present(alert, animated: true, completion: nil)
 }
 
-
 // MARK: - Validation
 
 private let charSet: CharacterSet = {
@@ -101,4 +99,3 @@ func validationNumForPrice(text: String?) -> Bool? {
     guard text.rangeOfCharacter(from: charSet) == nil else { return false }
     return true
 }
-
