@@ -8,47 +8,74 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import NSObject_Rx
 
-class MyPageViewModel: BaseViewModel, ViewModelType {
+class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
    
     struct Input {
-        
+        let userImageSelect = PublishRelay<UIImage>()
     }
     
     struct Output {
-        let userInfo: Observable<User>
-        let meals: Observable<[Meal]>
-        let dineInCount: Observable<Int>
-        let cookidsCount: Observable<Int>
-        let postCount: Observable<Int>
-        let myPosts: Observable<[Post]>
+        let userInfo = BehaviorRelay<User>(value: DummyData.shared.singleUser)
+        let meals = PublishRelay<[Meal]>()
+        let dineInCount = PublishRelay<Int>()
+        let cookidsCount = PublishRelay<Int>()
+        let myPostCount = PublishRelay<Int>()
+        let myPosts = PublishRelay<[Post]>()
     }
     
     var input: Input
     var output: Output
     
     override init(serviceProvider: ServiceProviderType) {
-        let userInfo = serviceProvider.userService.currentUser
+        self.input = Input()
+        self.output = Output()
+        super.init(serviceProvider: serviceProvider)
+        
+        let currentUser = serviceProvider.userService.currentUser
         let meals = serviceProvider.mealService.mealList
         let shoppings = serviceProvider.shoppingService.shoppingList
+        let myPosts = serviceProvider.postService.myTotalPosts
         
-        _ = userInfo
-            .flatMap({ serviceProvider.postService.fetchMyPosts(user: $0) })
+        meals
+            .bind(to: output.meals)
+            .disposed(by: disposeBag)
         
-        let dineInCount =
-        meals.map { $0.filter { $0.mealType == .dineIn }.count }
+        meals
+            .map { $0.filter { $0.mealType == .dineIn }.count }
+            .bind(to: output.dineInCount)
+            .disposed(by: disposeBag)
         
-        let cookidsCount =
-        Observable.combineLatest(meals, shoppings) { $0.count + $1.count }
+        Observable
+            .combineLatest(meals, shoppings) { $0.count + $1.count }
+            .bind(to: output.cookidsCount)
+            .disposed(by: disposeBag)
         
-        let postCount =
-        serviceProvider.postService.myTotalPosts.map { $0.count }
+        myPosts
+            .map { $0.count }
+            .bind(to: output.myPostCount)
+            .disposed(by: disposeBag)
         
-        let myPosts =
-        serviceProvider.postService.myTotalPosts
+        myPosts
+            .bind(to: output.myPosts)
+            .disposed(by: disposeBag)
         
-        self.input = Input()
-        self.output = Output(userInfo: userInfo, meals: meals, dineInCount: dineInCount, cookidsCount: cookidsCount, postCount: postCount, myPosts: myPosts)
-        super.init(serviceProvider: serviceProvider)
+        currentUser
+            .bind(to: output.userInfo)
+            .disposed(by: disposeBag)
+        
+        input.userImageSelect
+            .withLatestFrom(currentUser,
+                            resultSelector: { ($0, $1) })
+            .bind(onNext: { (image, user) in
+                serviceProvider.userService.updateUserImage(user: user, profileImage: image, completion: { _ in })
+            })
+            .disposed(by: disposeBag)
     }
+    
+    func fetchInitialData(user: User) {
+        serviceProvider.postService.fetchMyPosts(user: user)
+    }
+    
 }

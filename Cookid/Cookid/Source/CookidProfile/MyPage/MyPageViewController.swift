@@ -30,7 +30,7 @@ class MyPageViewController: UIViewController, ViewModelBindable, StoryboardBased
         view.backgroundColor = .systemBackground
         tabBarItem.image = UIImage(systemName: "person.crop.circle")
         tabBarItem.selectedImage = UIImage(systemName: "person.crop.circle.fill")
-        navigationItem.title = "내 정보 ⚙️"
+        navigationItem.title = "마이페이지"
         self.headerView.isHidden = true
     }
     

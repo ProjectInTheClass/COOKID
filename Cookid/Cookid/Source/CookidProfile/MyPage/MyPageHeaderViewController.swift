@@ -9,19 +9,18 @@ import UIKit
 import SnapKit
 import Then
 import Kingfisher
-import NSObject_Rx
+import RxSwift
+import RxCocoa
 
-class MyPageHeaderViewController: UIViewController, ViewModelBindable, HasDisposeBag {
+class MyPageHeaderViewController: BaseViewController, ViewModelBindable {
     
     // MARK: - UIComponents
     
-    let userImage = UIImageView().then {
+    let userImage = UserPhotoEditButton().then {
         $0.snp.makeConstraints { make in
             make.height.width.equalTo(100)
         }
-        $0.contentMode = .scaleAspectFill
-        $0.layer.cornerRadius = 20
-        $0.layer.masksToBounds = true
+        $0.circleColor = .systemYellow
     }
     
     let userNickname = UILabel().then {
@@ -59,11 +58,16 @@ class MyPageHeaderViewController: UIViewController, ViewModelBindable, HasDispos
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        makeConstraints()
+        configureUI()
     }
     
-    private func makeConstraints() {
+    private func configureUI() {
+        view.backgroundColor = .systemBackground
+        title = "내 정보 ⚙️"
+    }
+  
+    override func setupConstraints () {
+        super.setupConstraints()
         
         let userNT = UIStackView(arrangedSubviews: [userType, userNickname]).then {
             $0.alignment = .leading
@@ -114,38 +118,47 @@ class MyPageHeaderViewController: UIViewController, ViewModelBindable, HasDispos
     
     func bindViewModel() {
         
-        viewModel.output.userInfo
-            .withUnretained(self)
-            .bind(onNext: { (owner, user) in
-                owner.userImage.setImageWithKf(url: user.image)
-                owner.userNickname.text = user.nickname
-                owner.userType.text = user.userType.rawValue
-                owner.userDetermination.text = user.determination
-            })
-            .disposed(by: rx.disposeBag)
-        
         viewModel.output.dineInCount
             .withUnretained(self)
             .bind { (owner, count) in
                 owner.userDinInCount.text = "🍚  " + String(count)
             }
-            .disposed(by: rx.disposeBag)
+            .disposed(by: disposeBag)
         
         viewModel.output.cookidsCount
             .withUnretained(self)
             .bind { (owner, count) in
                 owner.userCookidCount.text = "💸  " + String(count)
             }
-            .disposed(by: rx.disposeBag)
+            .disposed(by: disposeBag)
         
-        viewModel.output.postCount
+        viewModel.output.myPostCount
             .withUnretained(self)
             .bind { (owner, count) in
                 owner.userRecipeCount.text = "📝  " + String(count)
             }
-            .disposed(by: rx.disposeBag)
+            .disposed(by: disposeBag)
         
+        userImage.cameraButton.rx.tap
+            .withUnretained(self)
+            .bind { owner, _ in
+                YPImagePickerManager.shared.pickingImages(viewController: self) { images in
+                    if let image = images.first {
+                        owner.viewModel.input.userImageSelect.accept(image)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.output.userInfo
+            .withUnretained(self)
+            .bind(onNext: { (owner, user) in
+                owner.userImage.userImageView.setImageWithKf(url: user.image)
+                owner.userNickname.text = user.nickname
+                owner.userType.text = user.userType.rawValue
+                owner.userDetermination.text = user.determination
+            })
+            .disposed(by: disposeBag)
     }
-    
     
 }

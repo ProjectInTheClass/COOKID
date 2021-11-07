@@ -32,7 +32,11 @@ class MyPageDetailViewController: UIViewController, ViewModelBindable {
         myPostVC.coordinator = coordinator
         myPostVC.reactor = MyPostReactor(serviceProvider: viewModel.serviceProvider)
         
-        dataSource = [(menuTitle: "식사들", vc: myMealsVC), (menuTitle: "내 글", vc: myPostVC), (menuTitle: "북마크", vc: myBookmarkVC)]
+        let myRecipeVC = MyRecipeViewController()
+        myRecipeVC.coordinator = coordinator
+        myRecipeVC.reactor = MyRecipeReactor(serviceProvider: viewModel.serviceProvider)
+        
+        dataSource = [(menuTitle: "식사들", vc: myMealsVC), (menuTitle: "내 글", vc: myPostVC), (menuTitle: "북마크", vc: myBookmarkVC), (menuTitle: "레시피", vc: myRecipeVC)]
         
         menuViewController.register(type: TitleLabelMenuViewCell.self, forCellWithReuseIdentifier: CELLIDENTIFIER.menuCell)
         menuViewController.registerFocusView(view: UnderlineFocusView())
@@ -66,12 +70,14 @@ extension MyPageDetailViewController: PagingMenuViewControllerDataSource {
     }
     
     func menuViewController(viewController: PagingMenuViewController, widthForItemAt index: Int) -> CGFloat {
-        return view.frame.width / 5
+        return view.frame.width / 4 - 10
     }
     
     func menuViewController(viewController: PagingMenuViewController, cellForItemAt index: Int) -> PagingMenuViewCell {
         guard let cell = viewController.dequeueReusableCell(withReuseIdentifier: CELLIDENTIFIER.menuCell, for: index) as? TitleLabelMenuViewCell else { return PagingMenuViewCell() }
         cell.titleLabel.text = dataSource?[index].0
+        cell.focusColor = DefaultStyle.Color.labelTint
+        cell.normalColor = DefaultStyle.Color.labelTint
         return cell
     }
 }

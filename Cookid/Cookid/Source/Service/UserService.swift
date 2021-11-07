@@ -17,6 +17,7 @@ protocol UserServiceType {
     func loadMyInfo()
     func fetchUserInfo(user: User) -> Observable<User>
     func updateUserInfo(user: User, completion: @escaping (Bool) -> Void)
+    func updateUserImage(user: User, profileImage: UIImage?, completion: @escaping (Bool) -> Void)
     func fetchCookidRankers() -> Observable<[User]>
 }
 
@@ -127,6 +128,18 @@ class UserService: BaseService, UserServiceType {
                 completion(false)
             }
         })
+    }
+    
+    func updateUserImage(user: User, profileImage: UIImage?, completion: @escaping (Bool) -> Void) {
+        self.serviceProvider.repoProvider.firestorageImageRepo.updateUserImage(userID: user.id, image: profileImage) { result in
+            switch result {
+            case .success(let url):
+                self.defaultUserInfo.image = url
+                self.userInfo.onNext(self.defaultUserInfo)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func fetchCookidRankers() -> Observable<[User]> {

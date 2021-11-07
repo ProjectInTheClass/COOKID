@@ -64,7 +64,7 @@ class FirebaseStorageRepo: BaseRepository, StorageImageRepo {
     }
     
     func updateUserImage(userID: String, image: UIImage?, completion: @escaping (Result<URL?, FirebaseError>) -> Void) {
-        completion(.success(nil))
+        completion(.success(URL(string: "https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")))
     }
     
 }
