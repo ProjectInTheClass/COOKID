@@ -18,11 +18,11 @@ class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     
     struct Output {
         let userInfo = BehaviorRelay<User>(value: DummyData.shared.singleUser)
-        let meals = PublishRelay<[Meal]>()
-        let dineInCount = PublishRelay<Int>()
-        let cookidsCount = PublishRelay<Int>()
-        let myPostCount = PublishRelay<Int>()
-        let myPosts = PublishRelay<[Post]>()
+        let meals = BehaviorRelay<[Meal]>(value: [])
+        let dineInCount = BehaviorRelay<Int>(value: 0)
+        let cookidsCount = BehaviorRelay<Int>(value: 0)
+        let myPostCount = BehaviorRelay<Int>(value: 0)
+        let myPosts = BehaviorRelay<[Post]>(value: [])
     }
     
     var input: Input

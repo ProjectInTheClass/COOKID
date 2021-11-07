@@ -53,6 +53,17 @@ class MyPageHeaderViewController: BaseViewController, ViewModelBindable {
         $0.font = UIFont.systemFont(ofSize: 15, weight: .black)
     }
     
+    private let tableView = UITableView(frame: .zero, style: .plain).then {
+        $0.register(UITableViewCell.self, forCellReuseIdentifier: "appVersion")
+        $0.register(UITableViewCell.self, forCellReuseIdentifier: "email")
+        $0.register(UITableViewCell.self, forCellReuseIdentifier: "privacy")
+        $0.register(UITableViewCell.self, forCellReuseIdentifier: "policy")
+        $0.register(UITableViewCell.self, forCellReuseIdentifier: "openSource")
+        $0.backgroundColor = .systemBackground
+        $0.separatorStyle = .none
+        $0.separatorColor = .clear
+    }
+    
     var viewModel: MyPageViewModel!
     var coordinator: MyPageCoordinator?
     
@@ -62,8 +73,15 @@ class MyPageHeaderViewController: BaseViewController, ViewModelBindable {
     }
     
     private func configureUI() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(updateUserInfomation))
         view.backgroundColor = .systemBackground
-        title = "내 정보 ⚙️"
+        title = "내 정보"
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    @objc func updateUserInfomation() {
+        coordinator?.navigateUserInfoVC(viewModel: viewModel)
     }
   
     override func setupConstraints () {
@@ -106,14 +124,19 @@ class MyPageHeaderViewController: BaseViewController, ViewModelBindable {
         
         self.view.addSubview(wholeStackView)
         wholeStackView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
+            make.top.equalTo(view.snp.topMargin).offset(20)
             make.left.equalTo(20)
             make.right.equalTo(-20)
-            make.bottom.equalToSuperview()
+        }
+        
+        self.view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(wholeStackView.snp.bottom).offset(20)
+            make.left.right.bottom.equalToSuperview()
         }
         
     }
-    
+
     // MARK: - binding
     
     func bindViewModel() {
@@ -159,6 +182,69 @@ class MyPageHeaderViewController: BaseViewController, ViewModelBindable {
                 owner.userDetermination.text = user.determination
             })
             .disposed(by: disposeBag)
+
     }
     
+}
+
+extension MyPageHeaderViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "appVersion", for: indexPath)
+            cell.textLabel?.text = "공지사항"
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "email", for: indexPath)
+            cell.textLabel?.text = "이메일"
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "privacy", for: indexPath)
+            cell.textLabel?.text = "개인정보정책"
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "policy", for: indexPath)
+            cell.textLabel?.text = "운영정책"
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "openSource", for: indexPath)
+            cell.textLabel?.text = "오픈소스"
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        switch indexPath.row {
+        case 0:
+            print("first")
+        case 1:
+            print("secont")
+        case 2:
+            print("third")
+        case 3:
+            print("fourth")
+        case 4:
+            print("fifth")
+        default:
+            break
+        }
+    }
+   
 }
