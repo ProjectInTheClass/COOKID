@@ -214,15 +214,18 @@ class RankingHeaderView: UIView, HasDisposeBag {
     private func bindViewModel() {
         viewModel.output.cookidTopRankers
             .drive(onNext: { [weak self] users in
-                self?.rankerImage.userImageView.setImageWithKf(url: users[0].image)
-                self?.rankerName.text = users[0].nickname
-                self?.rankerRecord.text = String(describing: users[0].cookidsCount)
+                guard let firstUser = users.first else { return }
+                self?.rankerImage.userImageView.setImageWithKf(url: firstUser.image)
+                self?.rankerName.text = firstUser.nickname
+                self?.rankerRecord.text = String(describing: firstUser.cookidsCount)
                 
-                self?.secondRankerImage.userImageView.setImageWithKf(url: users[1].image)
+                guard let image = users[1].image else { return }
+                self?.secondRankerImage.userImageView.setImageWithKf(url: image)
                 self?.secondRankerName.text = users[1].nickname
                 self?.secondRankerRecord.text = String(describing: users[1].cookidsCount)
                 
-                self?.thirdRankerImage.userImageView.setImageWithKf(url: users[2].image)
+                guard let image = users[2].image else { return }
+                self?.thirdRankerImage.userImageView.setImageWithKf(url: image)
                 self?.thirdRankerName.text = users[2].nickname
                 self?.thirdRankerRecord.text = String(describing: users[2].cookidsCount)
             })

@@ -121,7 +121,7 @@ class UserService: BaseService, UserServiceType {
                 self.repoProvider.realmUserRepo.updateUser(user: user)
                 // Service에서 업데이트하기
                 self.defaultUserInfo = user
-                self.userInfo.onNext(user)
+                self.userInfo.onNext(self.defaultUserInfo)
                 completion(true)
             case .failure(let error):
                 print(error)

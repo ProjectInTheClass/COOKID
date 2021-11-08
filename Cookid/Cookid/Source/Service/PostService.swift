@@ -275,7 +275,7 @@ class PostService: BaseService, PostServiceType {
                             }
                         }
                     }
-                    self.bookmarkedPosts += fetchedPosts
+                    self.bookmarkedPosts = fetchedPosts
                     self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
                     observer.onNext(fetchedPosts)
                 case .failure(let error):
@@ -298,7 +298,7 @@ class PostService: BaseService, PostServiceType {
                         let didCollect = entity.didCollect.contains { $0.key == user.id }
                         return Post(postID: entity.postID, user: user, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect)
                     }
-                    self.myPosts += fetchedPosts
+                    self.myPosts = fetchedPosts
                     self.myPostStore.onNext(self.myPosts)
                     observer.onNext(fetchedPosts)
                 case .failure(let error):

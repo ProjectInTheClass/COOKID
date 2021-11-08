@@ -37,7 +37,7 @@ class HomeCoordinator: CoordinatorType {
         let tabBarController = UITabBarController()
         tabBarController.setViewControllers([mainNVC, postNVC, myPageNVC], animated: false)
         tabBarController.tabBar.tintColor = DefaultStyle.Color.tint
-        tabBarController.tabBar.items?[2].title = "내 정보"
+        tabBarController.tabBar.items?[2].title = "마이페이지"
         tabBarController.modalPresentationStyle = .fullScreen
         tabBarController.modalTransitionStyle = .crossDissolve
         return tabBarController

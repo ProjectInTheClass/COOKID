@@ -85,12 +85,9 @@ class FirestoreUserRepo: BaseRepository, UserRepoType {
     func updateUser(user: User, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
         // 유저의 정보 전체를 Entity로 파싱 후에 업로드 한다.
         // 업데이트시에 localUser의 정보도 건드린다면 함께 업데이트 해야 한다.
-        
-//        do {
-//            try userDB.document(updateUser.id).setData(from: updateUser, merge: true)
-//        } catch {
-//            print("Error writing user to Firestore: \(error)")
-//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            completion(.success(.updateUserSuceess))
+        }
     }
     
     func fetchCookidsRankers(completion: @escaping (Result<[UserEntity], FirebaseError>) -> Void) {
