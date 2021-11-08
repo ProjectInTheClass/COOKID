@@ -34,9 +34,8 @@ class MyPageCoordinator: CoordinatorType {
     }
     
     func navigateUserInfoVC(viewModel: MyPageViewModel) {
-        let userUpdateViewModel = UserInfoUpdateViewModel(serviceProvider: serviceProvider)
-        var userInfoVC = UserInformationViewController.instantiate(storyboardID: "UserInfo")
-        userInfoVC.bind(viewModel: userUpdateViewModel)
+        var userInfoVC = UpdateUserInfoViewController.instantiate(storyboardID: "UserInfo")
+        userInfoVC.bind(viewModel: viewModel)
         userInfoVC.modalPresentationStyle = .custom
         userInfoVC.modalTransitionStyle = .crossDissolve
         navigationController?.present(userInfoVC, animated: true, completion: nil)

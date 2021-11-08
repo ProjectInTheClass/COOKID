@@ -14,6 +14,10 @@ class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
    
     struct Input {
         let userImageSelect = PublishRelay<UIImage>()
+        let userNickname = PublishRelay<String>()
+        let userDetermination = PublishRelay<String>()
+        let userBudget = PublishRelay<String>()
+        let updateButtonTapped = PublishRelay<Void>()
     }
     
     struct Output {
@@ -23,6 +27,7 @@ class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         let cookidsCount = BehaviorRelay<Int>(value: 0)
         let myPostCount = BehaviorRelay<Int>(value: 0)
         let myPosts = BehaviorRelay<[Post]>(value: [])
+        let completionUpdate = BehaviorRelay<Bool>(value: false)
     }
     
     var input: Input
@@ -72,10 +77,40 @@ class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                 serviceProvider.userService.updateUserImage(user: user, profileImage: image, completion: { _ in })
             })
             .disposed(by: disposeBag)
+        
+        input.updateButtonTapped
+            .withLatestFrom(
+                Observable.combineLatest(
+                    currentUser,
+                    input.userNickname,
+                    input.userDetermination,
+                    input.userBudget,
+                    resultSelector: { user, name, deter, budget -> [String:Any?] in
+                        return [
+                        "currentUser": user,
+                        "nickName": name,
+                        "determination": deter,
+                        "budget": budget
+                    ]}))
+            .bind(onNext: { userInfo in
+                guard let currentUser = userInfo["currentUser"] as? User else { return }
+                guard let nickName = userInfo["nickName"] as? String,
+                      nickName != "" else { return }
+                let determination = userInfo["determination"] as? String ?? currentUser.determination
+                let budget = userInfo["budget"] as? String ?? "\(currentUser.priceGoal)"
+                let newUser = User(id: currentUser.id, image: currentUser.image, nickname: nickName, determination: determination, priceGoal: Int(budget) ?? currentUser.priceGoal, userType: currentUser.userType, dineInCount: currentUser.dineInCount, cookidsCount: currentUser.cookidsCount)
+                serviceProvider.userService.updateUserInfo(user: newUser, completion: { success in
+                    if success {
+                        self.output.completionUpdate.accept(true)
+                    }
+                })
+            })
+            .disposed(by: disposeBag)
     }
     
     func fetchInitialData(user: User) {
-        serviceProvider.postService.fetchMyPosts(user: user)
+        _ = serviceProvider.postService.fetchMyPosts(user: user)
+        _ = serviceProvider.postService.fetchBookmarkedPosts(user: user)
     }
     
 }

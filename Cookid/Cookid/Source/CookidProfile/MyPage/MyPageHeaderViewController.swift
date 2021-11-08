@@ -11,6 +11,8 @@ import Then
 import Kingfisher
 import RxSwift
 import RxCocoa
+import SafariServices
+import MessageUI
 
 class MyPageHeaderViewController: BaseViewController, ViewModelBindable {
     
@@ -54,14 +56,11 @@ class MyPageHeaderViewController: BaseViewController, ViewModelBindable {
     }
     
     private let tableView = UITableView(frame: .zero, style: .plain).then {
-        $0.register(UITableViewCell.self, forCellReuseIdentifier: "appVersion")
-        $0.register(UITableViewCell.self, forCellReuseIdentifier: "email")
-        $0.register(UITableViewCell.self, forCellReuseIdentifier: "privacy")
-        $0.register(UITableViewCell.self, forCellReuseIdentifier: "policy")
-        $0.register(UITableViewCell.self, forCellReuseIdentifier: "openSource")
-        $0.backgroundColor = .systemBackground
-        $0.separatorStyle = .none
-        $0.separatorColor = .clear
+        $0.register(MyPageHeaderTableViewCell.self, forCellReuseIdentifier: "appVersion")
+        $0.register(MyPageHeaderTableViewCell.self, forCellReuseIdentifier: "email")
+        $0.register(MyPageHeaderTableViewCell.self, forCellReuseIdentifier: "privacy")
+        $0.register(MyPageHeaderTableViewCell.self, forCellReuseIdentifier: "policy")
+        $0.register(MyPageHeaderTableViewCell.self, forCellReuseIdentifier: "openSource")
     }
     
     var viewModel: MyPageViewModel!
@@ -73,15 +72,13 @@ class MyPageHeaderViewController: BaseViewController, ViewModelBindable {
     }
     
     private func configureUI() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(updateUserInfomation))
         view.backgroundColor = .systemBackground
         title = "내 정보"
         tableView.delegate = self
         tableView.dataSource = self
-    }
-    
-    @objc func updateUserInfomation() {
-        coordinator?.navigateUserInfoVC(viewModel: viewModel)
+        tableView.backgroundColor = .systemBackground
+        tableView.separatorStyle = .none
+        tableView.separatorColor = .clear
     }
   
     override func setupConstraints () {
@@ -187,11 +184,7 @@ class MyPageHeaderViewController: BaseViewController, ViewModelBindable {
     
 }
 
-extension MyPageHeaderViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
+extension MyPageHeaderViewController: UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
@@ -200,29 +193,24 @@ extension MyPageHeaderViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "appVersion", for: indexPath)
-            cell.textLabel?.text = "공지사항"
-            cell.accessoryType = .disclosureIndicator
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "appVersion", for: indexPath) as? MyPageHeaderTableViewCell else { return UITableViewCell() }
+            cell.updateUI(title: "소통 페이지")
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "email", for: indexPath)
-            cell.textLabel?.text = "이메일"
-            cell.accessoryType = .disclosureIndicator
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "email", for: indexPath) as? MyPageHeaderTableViewCell else { return UITableViewCell() }
+            cell.updateUI(title: "이메일로 문의하기")
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "privacy", for: indexPath)
-            cell.textLabel?.text = "개인정보정책"
-            cell.accessoryType = .disclosureIndicator
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "privacy", for: indexPath) as? MyPageHeaderTableViewCell else { return UITableViewCell() }
+            cell.updateUI(title: "개인 정보 정책")
             return cell
         case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "policy", for: indexPath)
-            cell.textLabel?.text = "운영정책"
-            cell.accessoryType = .disclosureIndicator
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "policy", for: indexPath) as? MyPageHeaderTableViewCell else { return UITableViewCell() }
+            cell.updateUI(title: "운영 정책")
             return cell
         case 4:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "openSource", for: indexPath)
-            cell.textLabel?.text = "오픈소스"
-            cell.accessoryType = .disclosureIndicator
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "openSource", for: indexPath) as? MyPageHeaderTableViewCell else { return UITableViewCell() }
+            cell.updateUI(title: "내 정보 수정하기")
             return cell
         default:
             return UITableViewCell()
@@ -233,15 +221,31 @@ extension MyPageHeaderViewController: UITableViewDataSource, UITableViewDelegate
         tableView.deselectRow(at: indexPath, animated: false)
         switch indexPath.row {
         case 0:
-            print("first")
+            if let url = URL(string: "https://github.com/ProjectInTheClass/COOKID/discussions") {
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
         case 1:
-            print("secont")
+            if !MFMailComposeViewController.canSendMail() {
+                print("Cannot send Email")
+                return
+            }
+            let mailComposeViewController = MFMailComposeViewController()
+            mailComposeViewController.delegate = self
+            mailComposeViewController.setToRecipients(["phs880623@gmail.com"])
+            mailComposeViewController.setSubject("문의할게 있습니다!")
+            mailComposeViewController.setMessageBody("문의사항을 기록해 주세요.", isHTML: false)
+            present(mailComposeViewController, animated: true, completion: nil)
         case 2:
-            print("third")
+            let vc = NoticeDetailViewController()
+            vc.notice = NoticeManager.notices[1]
+            self.navigationController?.pushViewController(vc, animated: true)
         case 3:
-            print("fourth")
+            let vc = NoticeDetailViewController()
+            vc.notice = NoticeManager.notices[0]
+            self.navigationController?.pushViewController(vc, animated: true)
         case 4:
-            print("fifth")
+            coordinator?.navigateUserInfoVC(viewModel: viewModel)
         default:
             break
         }
