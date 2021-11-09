@@ -42,7 +42,7 @@ class MyPageCoordinator: CoordinatorType {
     }
     
     func presentEditActionSheet(reactor: MyPostReactor, post: Post) {
-        let alertVC = UIAlertController(title: "내 포스팅 관리", message: "해당 게시물을 수정하거나 삭제하고 싶으시면 아래 버튼을 눌러주세요.\n삭제시 복구가 불가능합니다. 유념해 주세요:)", preferredStyle: .actionSheet)
+        let alertVC = UIAlertController(title: "내 포스팅 관리", message: "내 글 수정 혹은 삭제하기\n삭제시 복구가 불가능합니다.", preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
             reactor.action.onNext(.deletePost(post))
         }
@@ -51,9 +51,6 @@ class MyPageCoordinator: CoordinatorType {
             let reactor = AddPostReactor(mode: .edit(post), serviceProvider: self.serviceProvider)
             addPostVC.reactor = reactor
             self.navigationController?.pushViewController(addPostVC, animated: true)
-            YPImagePickerManager.shared.pickingImages(viewController: addPostVC) { images in
-                reactor.action.onNext(.imageUpload(images))
-            }
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         alertVC.addAction(deleteAction)

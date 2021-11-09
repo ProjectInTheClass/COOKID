@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import ReactorKit
 import YPImagePicker
+import Kingfisher
 
 enum PostEditViewMode {
     case new
@@ -53,7 +54,7 @@ class AddPostReactor: Reactor {
 
     let mode: PostEditViewMode
     let serviceProvider: ServiceProviderType
-    let initialState: State
+    var initialState: State
     
     init(mode: PostEditViewMode, serviceProvider: ServiceProviderType) {
         self.mode = mode
@@ -69,7 +70,13 @@ class AddPostReactor: Reactor {
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
         let user = serviceProvider.userService.currentUser
             .map { Mutation.setUser($0) }
-        return .merge(mutation, user)
+        switch mode {
+        case .new:
+            return .merge(mutation, user)
+        case .edit(let post):
+            let images = self.urlToImageWithkf(urls: post.images).map { Mutation.setImages($0) }
+            return .merge(mutation, user, images)
+        }
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -147,6 +154,36 @@ class AddPostReactor: Reactor {
     func buttonValidation(images: [UIImage], caption: String, region: String, price: String) -> Bool {
         guard caption.isEmpty || caption == "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)" || images.isEmpty || region.isEmpty || price.isEmpty else { return true }
         return false
+    }
+    
+    func urlToImageWithkf(urls: [URL?]) -> Observable<[UIImage]> {
+        return Observable.create { observer in
+            var images = [UIImage]()
+            let dispatchGroup = DispatchGroup()
+            urls.forEach { url in
+                guard let url = url else { return }
+                dispatchGroup.enter()
+                KingfisherManager.shared.retrieveImage(with: url, options: .none) { result in
+                    switch result {
+                    case .success(let imageResult):
+                        let image = imageResult.image
+                        images.append(image)
+                        dispatchGroup.leave()
+                    case .failure(let error):
+                        print(error)
+                        dispatchGroup.leave()
+                    }
+                }
+            }
+            dispatchGroup.notify(queue: .global()) {
+                observer.onNext(images)
+            }
+            return Disposables.create()
+        }
+        
+        
+        
+        
     }
     
 }

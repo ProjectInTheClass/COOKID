@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import ReactorKit
 
-class MyPostReactor: BaseViewModel, Reactor {
+class MyPostReactor: Reactor {
     
     enum Action {
         case deletePost(Post)
@@ -29,10 +29,10 @@ class MyPostReactor: BaseViewModel, Reactor {
     }
     
     let initialState: State
-    
-    override init(serviceProvider: ServiceProviderType) {
+    let serviceProvider: ServiceProviderType
+    init(serviceProvider: ServiceProviderType) {
+        self.serviceProvider = serviceProvider
         self.initialState = State()
-        super.init(serviceProvider: serviceProvider)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
