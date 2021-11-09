@@ -31,20 +31,39 @@ class MyPostsViewController: UIViewController, View {
     
     private func configureUI() {
         view.backgroundColor = .systemBackground
+        tableView.separatorStyle = .none
     }
     
     func bind(reactor: MyPostReactor) {
+        
+        reactor.state.map { $0.isError }
+        .bind(onNext: { isError in
+            guard let isError = isError else { return }
+            if isError {
+                errorAlert(selfView: self, errorMessage: "내 글을 삭제하지 못했습니다.\n다시 시도해 주세요", completion: { })
+            }
+        })
+        .disposed(by: disposeBag)
+        
         reactor.state.map { $0.myPosts }
         .bind(to: tableView.rx.items(cellIdentifier: MyPostsViewController.myPostCellIdentifier, cellType: MyPostTableViewCell.self)) { _, item, cell in
-                    cell.updateUI(post: item)
-            }
-            .disposed(by: rx.disposeBag)
+            cell.reactor = MyPostTableViewCellReactor(post: item, serviceProvider: reactor.serviceProvider)
+            cell.settingButton.rx.tap
+                .bind {
+                    self.coordinator?.presentEditActionSheet(reactor: reactor, post: item)
+                }
+                .disposed(by: cell.disposeBag)
+        }
+        .disposed(by: rx.disposeBag)
         
-        tableView.rx.modelSelected(Post.self)
-            .withUnretained(self)
-            .bind { owner, post in
-                guard let postCoordinator = owner.coordinator?.parentCoordinator.childCoordinator[1] as? PostCoordinator else { return }
-                postCoordinator.navigateCommentVC(rootNaviVC: owner.coordinator?.navigationController, post: post)
+        Observable.zip(
+            tableView.rx.modelSelected(Post.self),
+            tableView.rx.itemSelected,
+            resultSelector: { ($0, $1)})
+            .bind { [unowned self] (post, indexPath) in
+                self.tableView.deselectRow(at: indexPath, animated: false)
+                guard let postCoordinator = self.coordinator?.parentCoordinator.childCoordinator[1] as? PostCoordinator else { return }
+                postCoordinator.navigateCommentVC(rootNaviVC: self.coordinator?.navigationController, post: post)
             }
             .disposed(by: disposeBag)
     }

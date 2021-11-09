@@ -18,6 +18,7 @@ final class MyPageHeaderTableViewCell: UITableViewCell {
     
     private let noticeTitle = UILabel().then {
         $0.font = UIFont(name: "Apple SD Gothic Neo", size: 14)
+        $0.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
