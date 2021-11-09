@@ -22,6 +22,7 @@ class AddPostImageCollectionViewController: UICollectionViewController, View {
     
     func bind(reactor: AddPostReactor) {
         reactor.state.map { $0.images }
+        .observe(on: MainScheduler.instance)
         .withUnretained(self)
         .bind(onNext: { owner, _ in
             owner.collectionView.reloadData()

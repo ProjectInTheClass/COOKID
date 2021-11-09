@@ -26,6 +26,10 @@ protocol PostServiceType {
     func bookmarkTransaction(sender: UIViewController, user: User, post: Post, isBookmark: Bool)
 }
 
+enum LocalUpdateMode {
+    case create, update, delete
+}
+
 class PostService: BaseService, PostServiceType {
     
     private var posts = [Post]()
@@ -65,10 +69,7 @@ class PostService: BaseService, PostServiceType {
                         switch result {
                         case .success(let success):
                             print(success.rawValue)
-                            self.posts.append(newPost)
-                            self.myPosts.append(newPost)
-                            self.postStore.onNext(self.posts)
-                            self.myPostStore.onNext(self.myPosts)
+                            self.updateLocalPosts(mode: .create, post: newPost)
                             observer.onNext(true)
                         case .failure(let error):
                             print(error.rawValue)
@@ -182,20 +183,7 @@ class PostService: BaseService, PostServiceType {
                         switch result {
                         case .success(let success):
                             print(success.rawValue)
-                            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }),
-                               let myIndex = self.myPosts.firstIndex(where: { $0.postID == post.postID }),
-                               let bookmarkIndex = self.bookmarkedPosts.firstIndex(where: { $0.postID == post.postID }) {
-                                self.posts.remove(at: index)
-                                self.posts.insert(updatedPost, at: index)
-                                self.myPosts.remove(at: myIndex)
-                                self.myPosts.insert(updatedPost, at: index)
-                                self.bookmarkedPosts.remove(at: bookmarkIndex)
-                                self.bookmarkedPosts.insert(updatedPost, at: index)
-                                self.postStore.onNext(self.posts)
-                                self.myPostStore.onNext(self.myPosts)
-                                self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
-                            }
-                            
+                            self.updateLocalPosts(mode: .update, post: updatedPost)
                             observer.onNext(true)
                         case .failure(let error):
                             print(error.rawValue)
@@ -214,16 +202,7 @@ class PostService: BaseService, PostServiceType {
     func deletePost(post: Post) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }),
-               let myIndex = self.myPosts.firstIndex(where: { $0.postID == post.postID }),
-               let bookmarkIndex = self.bookmarkedPosts.firstIndex(where: { $0.postID == post.postID }) {
-                self.posts.remove(at: index)
-                self.myPosts.remove(at: myIndex)
-                self.bookmarkedPosts.remove(at: bookmarkIndex)
-                self.postStore.onNext(self.posts)
-                self.myPostStore.onNext(self.myPosts)
-                self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
-            }
+            self.updateLocalPosts(mode: .delete, post: post)
             self.repoProvider.firestorageImageRepo.deleteImages(postID: post.postID) { result in
                 switch result {
                 case .success(let success):
@@ -250,10 +229,7 @@ class PostService: BaseService, PostServiceType {
     func reportPost(post: Post) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }) {
-                self.posts.remove(at: index)
-                self.postStore.onNext(self.posts)
-            }
+            self.updateLocalPosts(mode: .delete, post: post)
             self.repoProvider.firestorePostRepo.reportPost(reportedPost: post) { result in
                 switch result {
                 case .success(let success):
@@ -308,14 +284,29 @@ class PostService: BaseService, PostServiceType {
             self.repoProvider.firestorePostRepo.fetchMyPosts(userID: user.id) { result in
                 switch result {
                 case .success(let postEntities):
-                    let fetchedPosts = postEntities.map { entity -> Post in
+                    let dispathGroup = DispatchGroup()
+                    var fetchedPosts = [Post]()
+                    postEntities.forEach { entity in
+                        dispathGroup.enter()
                         let didLike = entity.didLike.contains { $0.key == user.id }
                         let didCollect = entity.didCollect.contains { $0.key == user.id }
-                        return Post(postID: entity.postID, user: user, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect)
+                        self.repoProvider.firestoreCommentRepo.fetchCommentsCount(postID: entity.postID) { result in
+                            switch result {
+                            case .success(let count):
+                                let post = Post(postID: entity.postID, user: user, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: count)
+                                fetchedPosts.append(post)
+                                dispathGroup.leave()
+                            case .failure(let error):
+                                dispathGroup.leave()
+                                print(error.rawValue)
+                            }
+                        }
                     }
-                    self.myPosts = fetchedPosts
-                    self.myPostStore.onNext(self.myPosts)
-                    observer.onNext(fetchedPosts)
+                    dispathGroup.notify(queue: .global()) {
+                        self.myPosts = fetchedPosts
+                        self.myPostStore.onNext(self.myPosts)
+                        observer.onNext(fetchedPosts)
+                    }
                 case .failure(let error):
                     print("fetchMyPosts() error" + error.rawValue)
                 }
@@ -399,6 +390,44 @@ class PostService: BaseService, PostServiceType {
                 print(error.rawValue)
             }
         }
+    }
+    
+    private func updateLocalPosts(mode: LocalUpdateMode, post: Post) {
+        switch mode {
+        case .create:
+            self.posts.append(post)
+            self.myPosts.append(post)
+        case .update:
+            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }) {
+                self.posts.remove(at: index)
+                self.posts.insert(post, at: index)
+            }
+            
+            if let myIndex = self.myPosts.firstIndex(where: { $0.postID == post.postID }) {
+                self.myPosts.remove(at: myIndex)
+                self.myPosts.insert(post, at: myIndex)
+            }
+            
+            if let bookmarkIndex = self.bookmarkedPosts.firstIndex(where: { $0.postID == post.postID }) {
+                self.bookmarkedPosts.remove(at: bookmarkIndex)
+                self.bookmarkedPosts.insert(post, at: bookmarkIndex)
+            }
+        case .delete:
+            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }) {
+                self.posts.remove(at: index)
+            }
+            
+            if let myIndex = self.myPosts.firstIndex(where: { $0.postID == post.postID }) {
+                self.myPosts.remove(at: myIndex)
+            }
+            
+            if let bookmarkIndex = self.bookmarkedPosts.firstIndex(where: { $0.postID == post.postID }) {
+                self.bookmarkedPosts.remove(at: bookmarkIndex)
+            }
+        }
+        self.postStore.onNext(self.posts)
+        self.myPostStore.onNext(self.myPosts)
+        self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
     }
     
 }

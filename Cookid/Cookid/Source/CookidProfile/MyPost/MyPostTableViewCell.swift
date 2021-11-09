@@ -120,7 +120,7 @@ class MyPostTableViewCell: UITableViewCell, View {
             make.top.equalTo(postImage.snp.top)
             make.right.equalToSuperview().offset(-10)
             make.height.equalTo(20)
-            make.width.equalTo(15)
+            make.width.equalTo(20)
         }
         
         postRegionLabel.snp.makeConstraints { make in
@@ -187,8 +187,9 @@ class MyPostTableViewCell: UITableViewCell, View {
     }
     
     func updateUI(post: Post) {
-        let postFirstImageUrl = post.images.first ?? URL(string: "https://images.unsplash.com/photo-1636298961986-4fa5d2aba98c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80")
-        postImage.setImageWithKf(url: postFirstImageUrl)
+        if let postFirstImageUrl = post.images.first {
+            postImage.setImageWithKf(url: postFirstImageUrl)
+        }
         postImage.makeShadow()
         postCommentCount.text = "\(post.commentCount)개"
         postHeartCount.text = "\(post.likes)개"
@@ -196,7 +197,7 @@ class MyPostTableViewCell: UITableViewCell, View {
         postContentLabel.text = post.caption
         postDateLabel.text = convertDateToString(format: "MM월 dd일", date: post.timeStamp)
         postRegionLabel.text = post.location
-        postPriceLabel.text = "#가격\(intToString(post.mealBudget))"
+        postPriceLabel.text = "#\(intToString(post.mealBudget))"
         postStarCount.text = "#별점\(post.star)점"
     }
 

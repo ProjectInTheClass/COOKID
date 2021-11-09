@@ -125,8 +125,10 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
         reactor.state.map { $0.post }
         .withUnretained(self)
         .bind(onNext: { owner, post in
+            if let url = post.images.first {
+                owner.postImage.setImageWithKf(url: url)
+            }
             owner.heartButton.setState(post.didLike)
-            owner.postImage.setImageWithKf(url: post.images.first!)
             owner.dateLabel.text = post.timeStamp.convertDateToString(format: "MM월 dd일")
             owner.priceLabel.text = intToString(post.mealBudget)
             owner.regionLabel.text = post.location

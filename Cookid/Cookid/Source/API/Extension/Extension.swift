@@ -49,6 +49,10 @@ extension Date {
         return Calendar.current.date(byAdding: components, to: startOfMonth)!
     }
     
+    func dateToInt() -> Int {
+        return Int(self.timeIntervalSince1970)
+    }
+    
 }
 
 extension String {

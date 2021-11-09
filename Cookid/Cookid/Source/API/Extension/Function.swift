@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 func convertDateToString(format: String, date: Date) -> String {
     let dateFormatter = DateFormatter()
@@ -20,19 +21,6 @@ func stringToDate(date: String) -> Date {
     dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
     let date = dateFormatter.date(from: date)!
     return date
-}
-
-func stringToDateKr(string: String) -> Date {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy년 MM월 dd일"
-    let date = dateFormatter.date(from: string)!
-    return date
-}
-
-extension Date {
-    func dateToInt() -> Int {
-        return Int(self.timeIntervalSince1970)
-    }
 }
 
 func intToString(_ value: Int) -> String {
@@ -58,11 +46,13 @@ func mealTypeToBool(_ mealType: MealType) -> Bool {
     }
 }
 
-func errorAlert(selfView: UIViewController, errorMessage: String?, completion: @escaping () -> Void) {
+func errorAlert(selfView: UIViewController, errorMessage: String?, completion: (() -> Void)? = nil) {
     let alert = UIAlertController(title: "에러 발생 😥", message: errorMessage, preferredStyle: .alert)
     let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
         alert.dismiss(animated: true, completion: nil)
-        completion()
+        if let completion = completion {
+            completion()
+        }
     }
     alert.addAction(okAction)
     selfView.present(alert, animated: true, completion: nil)

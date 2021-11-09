@@ -40,12 +40,13 @@ class MyPostsViewController: UIViewController, View {
         .bind(onNext: { isError in
             guard let isError = isError else { return }
             if isError {
-                errorAlert(selfView: self, errorMessage: "내 글을 삭제하지 못했습니다.\n다시 시도해 주세요", completion: { })
+                errorAlert(selfView: self, errorMessage: "내 글을 삭제하지 못했습니다.\n다시 시도해 주세요", completion: {})
             }
         })
         .disposed(by: disposeBag)
         
         reactor.state.map { $0.myPosts }
+        .observe(on: MainScheduler.instance)
         .bind(to: tableView.rx.items(cellIdentifier: MyPostsViewController.myPostCellIdentifier, cellType: MyPostTableViewCell.self)) { _, item, cell in
             cell.reactor = MyPostTableViewCellReactor(post: item, serviceProvider: reactor.serviceProvider)
             cell.settingButton.rx.tap
