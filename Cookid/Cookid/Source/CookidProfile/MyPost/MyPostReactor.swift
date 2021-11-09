@@ -13,17 +13,19 @@ import ReactorKit
 class MyPostReactor: BaseViewModel, Reactor {
     
     enum Action {
-        
+        case deletePost(Post)
     }
     
     enum Mutation {
         case setMyPosts([Post])
         case setUser(User)
+        case setIsError(Bool)
     }
     
     struct State {
         var user: User = DummyData.shared.singleUser
         var myPosts: [Post] = []
+        var isError: Bool?
     }
     
     let initialState: State
@@ -36,12 +38,20 @@ class MyPostReactor: BaseViewModel, Reactor {
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
         let user = serviceProvider.userService.currentUser
         let userMutation = user.map { Mutation.setUser($0) }
-        let fetchMyPosts =
-        Observable.merge(
-            serviceProvider.postService.myTotalPosts,
-            user.flatMap(serviceProvider.postService.fetchMyPosts(user:)))
+        let totalMyPosts = serviceProvider.postService.myTotalPosts
             .map { Mutation.setMyPosts($0) }
-        return Observable.merge(mutation, userMutation, fetchMyPosts)
+        let fetchMyPosts =
+            user.flatMap(serviceProvider.postService.fetchMyPosts)
+            .map { Mutation.setMyPosts($0) }
+        return Observable.merge(mutation, totalMyPosts, userMutation, fetchMyPosts)
+    }
+    
+    func mutate(action: Action) -> Observable<Mutation> {
+        switch action {
+        case .deletePost(let post):
+            return self.serviceProvider.postService.deletePost(post: post)
+                .map { Mutation.setIsError(!$0) }
+        }
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
@@ -52,6 +62,9 @@ class MyPostReactor: BaseViewModel, Reactor {
             return newState
         case .setMyPosts(let myPosts):
             newState.myPosts = myPosts
+            return newState
+        case .setIsError(let isError):
+            newState.isError = isError
             return newState
         }
     }

@@ -182,11 +182,20 @@ class PostService: BaseService, PostServiceType {
                         switch result {
                         case .success(let success):
                             print(success.rawValue)
-                            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }) {
+                            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }),
+                               let myIndex = self.myPosts.firstIndex(where: { $0.postID == post.postID }),
+                               let bookmarkIndex = self.bookmarkedPosts.firstIndex(where: { $0.postID == post.postID }) {
                                 self.posts.remove(at: index)
                                 self.posts.insert(updatedPost, at: index)
+                                self.myPosts.remove(at: myIndex)
+                                self.myPosts.insert(updatedPost, at: index)
+                                self.bookmarkedPosts.remove(at: bookmarkIndex)
+                                self.bookmarkedPosts.insert(updatedPost, at: index)
                                 self.postStore.onNext(self.posts)
+                                self.myPostStore.onNext(self.myPosts)
+                                self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
                             }
+                            
                             observer.onNext(true)
                         case .failure(let error):
                             print(error.rawValue)
@@ -205,9 +214,15 @@ class PostService: BaseService, PostServiceType {
     func deletePost(post: Post) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }) {
+            if let index = self.posts.firstIndex(where: { $0.postID == post.postID }),
+               let myIndex = self.myPosts.firstIndex(where: { $0.postID == post.postID }),
+               let bookmarkIndex = self.bookmarkedPosts.firstIndex(where: { $0.postID == post.postID }) {
                 self.posts.remove(at: index)
+                self.myPosts.remove(at: myIndex)
+                self.bookmarkedPosts.remove(at: bookmarkIndex)
                 self.postStore.onNext(self.posts)
+                self.myPostStore.onNext(self.myPosts)
+                self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
             }
             self.repoProvider.firestorageImageRepo.deleteImages(postID: post.postID) { result in
                 switch result {

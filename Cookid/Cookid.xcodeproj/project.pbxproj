@@ -58,8 +58,6 @@
 		035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */; };
 		0363F1F82706C7CD0017680D /* NaverAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */; };
 		037B7A0C272D7AEF004E9320 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A0B272D7AEF004E9320 /* BaseViewController.swift */; };
-		037B7A10272D7B0F004E9320 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A0F272D7B0F004E9320 /* BaseView.swift */; };
-		037B7A12272D7B32004E9320 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A11272D7B32004E9320 /* BaseCell.swift */; };
 		037B7A15272D7C30004E9320 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A14272D7C30004E9320 /* ServiceProvider.swift */; };
 		037B7A17272D7CB3004E9320 /* RepositoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */; };
 		037B7A19272D9F1A004E9320 /* BaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A18272D9F1A004E9320 /* BaseService.swift */; };
@@ -89,6 +87,7 @@
 		03B3EB7627390D88004CACF4 /* MyPageHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB7527390D88004CACF4 /* MyPageHeaderTableViewCell.swift */; };
 		03B3EB782739173C004CACF4 /* UpdateUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB772739173C004CACF4 /* UpdateUserInfoViewController.swift */; };
 		03B3EB7A27395E69004CACF4 /* MyPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB7927395E69004CACF4 /* MyPostTableViewCell.swift */; };
+		03B3EB7C2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB7B2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift */; };
 		03C04C8A2709C38300F72DB1 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C04C892709C38300F72DB1 /* Realm.framework */; };
 		03C04C8C2709C38700F72DB1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C04C8B2709C38700F72DB1 /* RealmSwift.framework */; };
 		03CCC4F72725696B00647B5C /* ParentCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */; };
@@ -234,8 +233,6 @@
 		035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarViewController.swift; sourceTree = "<group>"; };
 		0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthRepo.swift; sourceTree = "<group>"; };
 		037B7A0B272D7AEF004E9320 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		037B7A0F272D7B0F004E9320 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
-		037B7A11272D7B32004E9320 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		037B7A14272D7C30004E9320 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProvider.swift; sourceTree = "<group>"; };
 		037B7A18272D9F1A004E9320 /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
@@ -263,6 +260,7 @@
 		03B3EB7527390D88004CACF4 /* MyPageHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		03B3EB772739173C004CACF4 /* UpdateUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserInfoViewController.swift; sourceTree = "<group>"; };
 		03B3EB7927395E69004CACF4 /* MyPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostTableViewCell.swift; sourceTree = "<group>"; };
+		03B3EB7B2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostTableViewCellReactor.swift; sourceTree = "<group>"; };
 		03C04C892709C38300F72DB1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		03C04C8B2709C38700F72DB1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -421,6 +419,7 @@
 			children = (
 				033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */,
 				03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */,
+				03B3EB7B2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift */,
 				03B3EB7927395E69004CACF4 /* MyPostTableViewCell.swift */,
 			);
 			path = MyPost;
@@ -655,8 +654,6 @@
 				037B7A18272D9F1A004E9320 /* BaseService.swift */,
 				030D4ADF27300BF9005C0FFF /* BaseViewModel.swift */,
 				037B7A0B272D7AEF004E9320 /* BaseViewController.swift */,
-				037B7A0F272D7B0F004E9320 /* BaseView.swift */,
-				037B7A11272D7B32004E9320 /* BaseCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1184,6 +1181,7 @@
 				03D8C1FD26EBBC9800238CB6 /* PostService.swift in Sources */,
 				244B2B0826E24062001226F0 /* ImageRepo.swift in Sources */,
 				03B2049926D7B8AC0099C269 /* Menu.swift in Sources */,
+				03B3EB7C2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift in Sources */,
 				030D4AED27317577005C0FFF /* ConsumptionDetail.swift in Sources */,
 				03F2ED9026F3886700CFE87C /* PostCoordinator.swift in Sources */,
 				0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */,
@@ -1228,12 +1226,10 @@
 				033D3C2C270A7C96009B29B9 /* MyPostReactor.swift in Sources */,
 				03D8C1F126EB6FD600238CB6 /* Post.swift in Sources */,
 				03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */,
-				037B7A10272D7B0F004E9320 /* BaseView.swift in Sources */,
 				03250E162714359A00425036 /* AddTodayMealViewController.swift in Sources */,
 				0348B8FC26D34463001BF3B7 /* Shopping.swift in Sources */,
 				03E42ED126C41766005D7B5E /* AppCoordinator.swift in Sources */,
 				03D8C1F326EB7E0500238CB6 /* Comment.swift in Sources */,
-				037B7A12272D7B32004E9320 /* BaseCell.swift in Sources */,
 				031DDF6027099C23001F12C3 /* KeyChainAuthRepo.swift in Sources */,
 				03250E1827146D3C00425036 /* AddTodayReactor.swift in Sources */,
 				03B3EB712738A85D004CACF4 /* NoticeDetailViewController.swift in Sources */,
