@@ -42,8 +42,6 @@
 		0339575126A2C96100594515 /* boardingImage in Resources */ = {isa = PBXBuildFile; fileRef = 0339575026A2C96100594515 /* boardingImage */; };
 		0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E263271977FA001FD6A7 /* RankerImageView.swift */; };
 		0339E269271B81D3001FD6A7 /* CookidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E268271B81D3001FD6A7 /* CookidButton.swift */; };
-		033D3C212709FF49009B29B9 /* CookidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C202709FF49009B29B9 /* CookidTests.swift */; };
-		033D3C28270A0CC8009B29B9 /* ReactorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C27270A0CC8009B29B9 /* ReactorTest.swift */; };
 		033D3C2C270A7C96009B29B9 /* MyPostReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */; };
 		0348B8FC26D34463001BF3B7 /* Shopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B8FB26D34463001BF3B7 /* Shopping.swift */; };
 		0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */; };
@@ -88,6 +86,9 @@
 		03B3EB782739173C004CACF4 /* UpdateUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB772739173C004CACF4 /* UpdateUserInfoViewController.swift */; };
 		03B3EB7A27395E69004CACF4 /* MyPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB7927395E69004CACF4 /* MyPostTableViewCell.swift */; };
 		03B3EB7C2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB7B2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift */; };
+		03B3EB84273C02BB004CACF4 /* CookidUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB83273C02BB004CACF4 /* CookidUITests.swift */; };
+		03B3EB86273C02BB004CACF4 /* CookidUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB85273C02BB004CACF4 /* CookidUITestsLaunchTests.swift */; };
+		03B3EB8D273C0436004CACF4 /* FirebaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB8C273C0436004CACF4 /* FirebaseTest.swift */; };
 		03C04C8A2709C38300F72DB1 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C04C892709C38300F72DB1 /* Realm.framework */; };
 		03C04C8C2709C38700F72DB1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C04C8B2709C38700F72DB1 /* RealmSwift.framework */; };
 		03CCC4F72725696B00647B5C /* ParentCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */; };
@@ -99,7 +100,6 @@
 		03D660C4270B4C6B0044FE1E /* MyBookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660C3270B4C6B0044FE1E /* MyBookmarkViewController.swift */; };
 		03D660C7270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660C6270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift */; };
 		03D660C9270B57B30044FE1E /* MyBookmarkReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */; };
-		03D660CE270CAD740044FE1E /* RepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660CD270CAD740044FE1E /* RepoTests.swift */; };
 		03D660D0270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660CF270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift */; };
 		03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */; };
 		03D8C1E126E852CD00238CB6 /* MyMealsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */; };
@@ -155,6 +155,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		033D3C222709FF49009B29B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03223390269212860092DD6D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03223397269212860092DD6D;
+			remoteInfo = Cookid;
+		};
+		03B3EB87273C02BB004CACF4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 03223390269212860092DD6D /* Project object */;
 			proxyType = 1;
@@ -217,8 +224,6 @@
 		0339E263271977FA001FD6A7 /* RankerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankerImageView.swift; sourceTree = "<group>"; };
 		0339E268271B81D3001FD6A7 /* CookidButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidButton.swift; sourceTree = "<group>"; };
 		033D3C1E2709FF49009B29B9 /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		033D3C202709FF49009B29B9 /* CookidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidTests.swift; sourceTree = "<group>"; };
-		033D3C27270A0CC8009B29B9 /* ReactorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactorTest.swift; sourceTree = "<group>"; };
 		033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostReactor.swift; sourceTree = "<group>"; };
 		0348B8FB26D34463001BF3B7 /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
 		0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSectionModel.swift; sourceTree = "<group>"; };
@@ -261,6 +266,10 @@
 		03B3EB772739173C004CACF4 /* UpdateUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserInfoViewController.swift; sourceTree = "<group>"; };
 		03B3EB7927395E69004CACF4 /* MyPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostTableViewCell.swift; sourceTree = "<group>"; };
 		03B3EB7B2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostTableViewCellReactor.swift; sourceTree = "<group>"; };
+		03B3EB81273C02BB004CACF4 /* CookidUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03B3EB83273C02BB004CACF4 /* CookidUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidUITests.swift; sourceTree = "<group>"; };
+		03B3EB85273C02BB004CACF4 /* CookidUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		03B3EB8C273C0436004CACF4 /* FirebaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTest.swift; sourceTree = "<group>"; };
 		03C04C892709C38300F72DB1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		03C04C8B2709C38700F72DB1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -272,7 +281,6 @@
 		03D660C3270B4C6B0044FE1E /* MyBookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkViewController.swift; sourceTree = "<group>"; };
 		03D660C6270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkCollectionViewCell.swift; sourceTree = "<group>"; };
 		03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkReactor.swift; sourceTree = "<group>"; };
-		03D660CD270CAD740044FE1E /* RepoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoTests.swift; sourceTree = "<group>"; };
 		03D660CF270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkCollectionViewCellReactor.swift; sourceTree = "<group>"; };
 		03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDetailViewController.swift; sourceTree = "<group>"; };
 		03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealsViewController.swift; sourceTree = "<group>"; };
@@ -347,6 +355,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4255C87D6C8D5A6C8AAFDBA1 /* Pods_CookidTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03B3EB7E273C02BB004CACF4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +525,7 @@
 			children = (
 				0322339A269212860092DD6D /* Cookid */,
 				033D3C1F2709FF49009B29B9 /* CookidTests */,
+				03B3EB82273C02BB004CACF4 /* CookidUITests */,
 				03223399269212860092DD6D /* Products */,
 				B008BFB8DB5CE687429BC064 /* Pods */,
 				5F40398FDBCA67CFF34A99D9 /* Frameworks */,
@@ -521,6 +537,7 @@
 			children = (
 				03223398269212860092DD6D /* Cookid.app */,
 				033D3C1E2709FF49009B29B9 /* CookidTests.xctest */,
+				03B3EB81273C02BB004CACF4 /* CookidUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -640,9 +657,7 @@
 		033D3C1F2709FF49009B29B9 /* CookidTests */ = {
 			isa = PBXGroup;
 			children = (
-				033D3C202709FF49009B29B9 /* CookidTests.swift */,
-				03D660CD270CAD740044FE1E /* RepoTests.swift */,
-				033D3C27270A0CC8009B29B9 /* ReactorTest.swift */,
+				03B3EB8C273C0436004CACF4 /* FirebaseTest.swift */,
 			);
 			path = CookidTests;
 			sourceTree = "<group>";
@@ -728,6 +743,15 @@
 				03B3EB702738A85D004CACF4 /* NoticeDetailViewController.swift */,
 			);
 			path = Notice;
+			sourceTree = "<group>";
+		};
+		03B3EB82273C02BB004CACF4 /* CookidUITests */ = {
+			isa = PBXGroup;
+			children = (
+				03B3EB83273C02BB004CACF4 /* CookidUITests.swift */,
+				03B3EB85273C02BB004CACF4 /* CookidUITestsLaunchTests.swift */,
+			);
+			path = CookidUITests;
 			sourceTree = "<group>";
 		};
 		03D8C1F426EBB7E500238CB6 /* RemoteEntity */ = {
@@ -940,13 +964,31 @@
 			productReference = 033D3C1E2709FF49009B29B9 /* CookidTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		03B3EB80273C02BB004CACF4 /* CookidUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03B3EB8B273C02BB004CACF4 /* Build configuration list for PBXNativeTarget "CookidUITests" */;
+			buildPhases = (
+				03B3EB7D273C02BB004CACF4 /* Sources */,
+				03B3EB7E273C02BB004CACF4 /* Frameworks */,
+				03B3EB7F273C02BB004CACF4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03B3EB88273C02BB004CACF4 /* PBXTargetDependency */,
+			);
+			name = CookidUITests;
+			productName = CookidUITests;
+			productReference = 03B3EB81273C02BB004CACF4 /* CookidUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		03223390269212860092DD6D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1300;
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					03223397269212860092DD6D = {
@@ -954,6 +996,10 @@
 					};
 					033D3C1D2709FF49009B29B9 = {
 						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 03223397269212860092DD6D;
+					};
+					03B3EB80273C02BB004CACF4 = {
+						CreatedOnToolsVersion = 13.1;
 						TestTargetID = 03223397269212860092DD6D;
 					};
 				};
@@ -976,6 +1022,7 @@
 			targets = (
 				03223397269212860092DD6D /* Cookid */,
 				033D3C1D2709FF49009B29B9 /* CookidTests */,
+				03B3EB80273C02BB004CACF4 /* CookidUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -995,6 +1042,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		033D3C1C2709FF49009B29B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03B3EB7F273C02BB004CACF4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1245,9 +1299,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				033D3C28270A0CC8009B29B9 /* ReactorTest.swift in Sources */,
-				03D660CE270CAD740044FE1E /* RepoTests.swift in Sources */,
-				033D3C212709FF49009B29B9 /* CookidTests.swift in Sources */,
+				03B3EB8D273C0436004CACF4 /* FirebaseTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03B3EB7D273C02BB004CACF4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03B3EB84273C02BB004CACF4 /* CookidUITests.swift in Sources */,
+				03B3EB86273C02BB004CACF4 /* CookidUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1258,6 +1319,11 @@
 			isa = PBXTargetDependency;
 			target = 03223397269212860092DD6D /* Cookid */;
 			targetProxy = 033D3C222709FF49009B29B9 /* PBXContainerItemProxy */;
+		};
+		03B3EB88273C02BB004CACF4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03223397269212860092DD6D /* Cookid */;
+			targetProxy = 03B3EB87273C02BB004CACF4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1515,6 +1581,54 @@
 			};
 			name = Release;
 		};
+		03B3EB89273C02BB004CACF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MBAJ2NCPU9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cookid;
+			};
+			name = Debug;
+		};
+		03B3EB8A273C02BB004CACF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MBAJ2NCPU9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Cookid;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1541,6 +1655,15 @@
 			buildConfigurations = (
 				033D3C252709FF49009B29B9 /* Debug */,
 				033D3C262709FF49009B29B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03B3EB8B273C02BB004CACF4 /* Build configuration list for PBXNativeTarget "CookidUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03B3EB89273C02BB004CACF4 /* Debug */,
+				03B3EB8A273C02BB004CACF4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
