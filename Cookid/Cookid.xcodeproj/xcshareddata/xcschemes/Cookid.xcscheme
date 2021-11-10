@@ -41,6 +41,9 @@
                <Test
                   Identifier = "CookidFakeTest">
                </Test>
+               <Test
+                  Identifier = "Reactor">
+               </Test>
             </SkippedTests>
          </TestableReference>
          <TestableReference
@@ -50,6 +53,16 @@
                BlueprintIdentifier = "03D8C20126EC404200238CB6"
                BuildableName = "NewCookidTests.xctest"
                BlueprintName = "NewCookidTests"
+               ReferencedContainer = "container:Cookid.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "03B3EB80273C02BB004CACF4"
+               BuildableName = "CookidUITests.xctest"
+               BlueprintName = "CookidUITests"
                ReferencedContainer = "container:Cookid.xcodeproj">
             </BuildableReference>
          </TestableReference>
