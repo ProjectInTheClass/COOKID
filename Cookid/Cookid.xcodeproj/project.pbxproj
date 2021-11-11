@@ -119,6 +119,7 @@
 		03D8C1F826EBB85F00238CB6 /* RemoteComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1F726EBB85F00238CB6 /* RemoteComment.swift */; };
 		03D8C1FB26EBB92A00238CB6 /* FirebaseStorageRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1FA26EBB92A00238CB6 /* FirebaseStorageRepo.swift */; };
 		03D8C1FD26EBBC9800238CB6 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1FC26EBBC9800238CB6 /* PostService.swift */; };
+		03DB84C0273D70170069276F /* FirebaseConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DB84BF273D70170069276F /* FirebaseConvertable.swift */; };
 		03E42ED126C41766005D7B5E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED026C41766005D7B5E /* AppCoordinator.swift */; };
 		03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */; };
 		03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */; };
@@ -289,6 +290,7 @@
 		03D8C1FA26EBB92A00238CB6 /* FirebaseStorageRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageRepo.swift; sourceTree = "<group>"; };
 		03D8C1FC26EBBC9800238CB6 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		03DB84BA273D4AD30069276F /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		03DB84BF273D70170069276F /* FirebaseConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConvertable.swift; sourceTree = "<group>"; };
 		03E42ED026C41766005D7B5E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingMainViewController.swift; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 		032233B02692765C0092DD6D /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				03DB84BF273D70170069276F /* FirebaseConvertable.swift */,
 				03D8C1F426EBB7E500238CB6 /* RemoteEntity */,
 				24B081B526DFD22100379087 /* LocalEntity */,
 			);
@@ -1208,6 +1211,7 @@
 				030D4AD4272FA076005C0FFF /* AddShoppingViewModel.swift in Sources */,
 				03B3EB6B273744BB004CACF4 /* MyRecipeViewController.swift in Sources */,
 				035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */,
+				03DB84C0273D70170069276F /* FirebaseConvertable.swift in Sources */,
 				241523B4269D24860077941A /* Function.swift in Sources */,
 				035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */,
 				2417EAB626E58D0C006F2785 /* MyPageViewModel.swift in Sources */,
