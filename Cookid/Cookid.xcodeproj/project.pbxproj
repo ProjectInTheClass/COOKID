@@ -70,7 +70,6 @@
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
 		0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */; };
 		0398E16B26FB3E6000E98F77 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0398E16A26FB3E6000E98F77 /* CommentViewController.swift */; };
-		03A943662705FC03009B5F09 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03AF306227166474005D53D0 /* AddMealReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF306127166474005D53D0 /* AddMealReactor.swift */; };
 		03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */; };
 		03B2049526D75DD50099C269 /* PictureSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049426D75DD50099C269 /* PictureSelectViewController.swift */; };
@@ -89,8 +88,16 @@
 		03B3EB84273C02BB004CACF4 /* CookidUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB83273C02BB004CACF4 /* CookidUITests.swift */; };
 		03B3EB86273C02BB004CACF4 /* CookidUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB85273C02BB004CACF4 /* CookidUITestsLaunchTests.swift */; };
 		03B3EB8D273C0436004CACF4 /* FirebaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB8C273C0436004CACF4 /* FirebaseTest.swift */; };
-		03C04C8A2709C38300F72DB1 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C04C892709C38300F72DB1 /* Realm.framework */; };
-		03C04C8C2709C38700F72DB1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C04C8B2709C38700F72DB1 /* RealmSwift.framework */; };
+		03B3EB90273D2D2C004CACF4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB8F273D2D2C004CACF4 /* FirebaseAnalytics */; };
+		03B3EB92273D2D2D004CACF4 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB91273D2D2D004CACF4 /* FirebaseCrashlytics */; };
+		03B3EB94273D2D2D004CACF4 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB93273D2D2D004CACF4 /* FirebaseFirestoreSwift-Beta */; };
+		03B3EB96273D2D2D004CACF4 /* FirebaseInAppMessagingSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB95273D2D2D004CACF4 /* FirebaseInAppMessagingSwift-Beta */; };
+		03B3EB98273D2D2D004CACF4 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB97273D2D2D004CACF4 /* FirebaseMessaging */; };
+		03B3EB9A273D2D2D004CACF4 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB99273D2D2D004CACF4 /* FirebasePerformance */; };
+		03B3EB9C273D2D2D004CACF4 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB9B273D2D2D004CACF4 /* FirebaseStorageSwift-Beta */; };
+		03B55AEE273D39B3008F7151 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03B55AED273D39B3008F7151 /* GoogleService-Info.plist */; };
+		03B55AF8273D40DC008F7151 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 03B55AF7273D40DC008F7151 /* Realm */; };
+		03B55AFA273D40DC008F7151 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03B55AF9273D40DC008F7151 /* RealmSwift */; };
 		03CCC4F72725696B00647B5C /* ParentCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */; };
 		03CCC4FA2726185D00647B5C /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCC4F92726185D00647B5C /* CommentViewModel.swift */; };
 		03CFDA9127073C2F008F99C0 /* AppleAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFDA9027073C2F008F99C0 /* AppleAuthRepo.swift */; };
@@ -132,7 +139,7 @@
 		03F2ED9026F3886700CFE87C /* PostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED8F26F3886700CFE87C /* PostCoordinator.swift */; };
 		03F2ED9226F38D7C00CFE87C /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED9126F38D7C00CFE87C /* MainCoordinator.swift */; };
 		03F2ED9426F3916500CFE87C /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED9326F3916500CFE87C /* MyPageCoordinator.swift */; };
-		163C7CE736B3B3B05C1C5545 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92784250C9969CCBA901BA20 /* Pods_Cookid.framework */; };
+		163C7CE736B3B3B05C1C5545 /* Pods_Cookid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92784250C9969CCBA901BA20 /* Pods_Cookid.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		241523B0269D093E0077941A /* ShoppingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523AF269D093E0077941A /* ShoppingService.swift */; };
 		241523B4269D24860077941A /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241523B3269D24860077941A /* Function.swift */; };
 		2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */; };
@@ -169,20 +176,6 @@
 			remoteInfo = Cookid;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		03A943672705FC03009B5F09 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				03A943662705FC03009B5F09 /* (null) in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		030C4ACC272A720D00630F08 /* HeartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartButton.swift; sourceTree = "<group>"; };
@@ -270,6 +263,8 @@
 		03B3EB83273C02BB004CACF4 /* CookidUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidUITests.swift; sourceTree = "<group>"; };
 		03B3EB85273C02BB004CACF4 /* CookidUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		03B3EB8C273C0436004CACF4 /* FirebaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTest.swift; sourceTree = "<group>"; };
+		03B3EB9D273D3136004CACF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		03B55AED273D39B3008F7151 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		03C04C892709C38300F72DB1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		03C04C8B2709C38700F72DB1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -293,6 +288,7 @@
 		03D8C1F726EBB85F00238CB6 /* RemoteComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteComment.swift; sourceTree = "<group>"; };
 		03D8C1FA26EBB92A00238CB6 /* FirebaseStorageRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageRepo.swift; sourceTree = "<group>"; };
 		03D8C1FC26EBBC9800238CB6 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		03DB84BA273D4AD30069276F /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E42ED026C41766005D7B5E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingMainViewController.swift; sourceTree = "<group>"; };
@@ -343,10 +339,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03B3EB98273D2D2D004CACF4 /* FirebaseMessaging in Frameworks */,
 				03250E1127126A5600425036 /* Kingfisher in Frameworks */,
-				03C04C8C2709C38700F72DB1 /* RealmSwift.framework in Frameworks */,
+				03B3EB9A273D2D2D004CACF4 /* FirebasePerformance in Frameworks */,
+				03B3EB96273D2D2D004CACF4 /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
+				03B55AF8273D40DC008F7151 /* Realm in Frameworks */,
+				03B3EB94273D2D2D004CACF4 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				163C7CE736B3B3B05C1C5545 /* Pods_Cookid.framework in Frameworks */,
-				03C04C8A2709C38300F72DB1 /* Realm.framework in Frameworks */,
+				03B3EB92273D2D2D004CACF4 /* FirebaseCrashlytics in Frameworks */,
+				03B55AFA273D40DC008F7151 /* RealmSwift in Frameworks */,
+				03B3EB90273D2D2C004CACF4 /* FirebaseAnalytics in Frameworks */,
+				03B3EB9C273D2D2D004CACF4 /* FirebaseStorageSwift-Beta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,6 +548,7 @@
 		0322339A269212860092DD6D /* Cookid */ = {
 			isa = PBXGroup;
 			children = (
+				03B55AED273D39B3008F7151 /* GoogleService-Info.plist */,
 				031DDF5E27093D7A001F12C3 /* Cookid.entitlements */,
 				030D4AD0272F7273005C0FFF /* Deprecated */,
 				030D4AE427300EB3005C0FFF /* Source */,
@@ -884,6 +888,8 @@
 		5F40398FDBCA67CFF34A99D9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				03DB84BA273D4AD30069276F /* Alamofire.framework */,
+				03B3EB9D273D3136004CACF4 /* GoogleService-Info.plist */,
 				03C04C8B2709C38700F72DB1 /* RealmSwift.framework */,
 				03C04C892709C38300F72DB1 /* Realm.framework */,
 				92784250C9969CCBA901BA20 /* Pods_Cookid.framework */,
@@ -929,9 +935,7 @@
 				03223395269212860092DD6D /* Frameworks */,
 				03223396269212860092DD6D /* Resources */,
 				03B2049226D712BC0099C269 /* ShellScript */,
-				03A943672705FC03009B5F09 /* Embed Frameworks */,
 				BA5A9C8F3F7EAC49A2D59923 /* [CP] Embed Pods Frameworks */,
-				03C04C8D2709C39600F72DB1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -940,6 +944,15 @@
 			name = Cookid;
 			packageProductDependencies = (
 				03250E1027126A5600425036 /* Kingfisher */,
+				03B3EB8F273D2D2C004CACF4 /* FirebaseAnalytics */,
+				03B3EB91273D2D2D004CACF4 /* FirebaseCrashlytics */,
+				03B3EB93273D2D2D004CACF4 /* FirebaseFirestoreSwift-Beta */,
+				03B3EB95273D2D2D004CACF4 /* FirebaseInAppMessagingSwift-Beta */,
+				03B3EB97273D2D2D004CACF4 /* FirebaseMessaging */,
+				03B3EB99273D2D2D004CACF4 /* FirebasePerformance */,
+				03B3EB9B273D2D2D004CACF4 /* FirebaseStorageSwift-Beta */,
+				03B55AF7273D40DC008F7151 /* Realm */,
+				03B55AF9273D40DC008F7151 /* RealmSwift */,
 			);
 			productName = Cookid;
 			productReference = 03223398269212860092DD6D /* Cookid.app */;
@@ -1015,6 +1028,8 @@
 			mainGroup = 0322338F269212860092DD6D;
 			packageReferences = (
 				03250E0F27126A5600425036 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				03B55AF6273D40DB008F7151 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = 03223399269212860092DD6D /* Products */;
 			projectDirPath = "";
@@ -1038,6 +1053,7 @@
 				030D4AEB273040D8005C0FFF /* UserInfo.storyboard in Resources */,
 				0339575126A2C96100594515 /* boardingImage in Resources */,
 				032233A3269212860092DD6D /* Main.storyboard in Resources */,
+				03B55AEE273D39B3008F7151 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1076,25 +1092,6 @@
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/SwiftLint/swiftlint\n";
 			showEnvVarsInLog = 0;
 		};
-		03C04C8D2709C39600F72DB1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
 		768FB75FCABB842D5DDB9092 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1119,7 +1116,7 @@
 		};
 		BA5A9C8F3F7EAC49A2D59923 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -1476,10 +1473,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Cookid/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1487,7 +1481,7 @@
 				);
 				MARKETING_VERSION = 1.0.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.Cookid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hyungseokPark.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -1508,10 +1502,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Cookid/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1519,7 +1510,7 @@
 				);
 				MARKETING_VERSION = 1.0.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.Cookid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hyungseokPark.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -1679,6 +1670,22 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+		03B55AF6273D40DB008F7151 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.19.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1686,6 +1693,51 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 03250E0F27126A5600425036 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		03B3EB8F273D2D2C004CACF4 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		03B3EB91273D2D2D004CACF4 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		03B3EB93273D2D2D004CACF4 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
+		};
+		03B3EB95273D2D2D004CACF4 /* FirebaseInAppMessagingSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseInAppMessagingSwift-Beta";
+		};
+		03B3EB97273D2D2D004CACF4 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		03B3EB99273D2D2D004CACF4 /* FirebasePerformance */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebasePerformance;
+		};
+		03B3EB9B273D2D2D004CACF4 /* FirebaseStorageSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseStorageSwift-Beta";
+		};
+		03B55AF7273D40DC008F7151 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03B55AF6273D40DB008F7151 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		03B55AF9273D40DC008F7151 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03B55AF6273D40DB008F7151 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-//import Firebase
+import Firebase
 import RealmSwift
 import KakaoSDKCommon
 import NaverThirdPartyLogin
@@ -18,16 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
         // Firebase
-//        FirebaseApp.configure()
+        FirebaseApp.configure()
         
         // Realm
         let config = Realm.Configuration(
-            schemaVersion: 4,
+            schemaVersion: 5,
             migrationBlock: { _, _ in }
         )
         
         Realm.Configuration.defaultConfiguration = config
-        
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         // Kakao
         KakaoSDKCommon.initSDK(appKey: "b80501f14838bee643dab9d0e68e786d")
         
