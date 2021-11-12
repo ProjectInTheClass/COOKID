@@ -40,7 +40,7 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
         let postEntity = PostEntity(postID: post.postID, userID: post.user.id, images: images, star: 0, caption: post.caption, mealBudget: post.mealBudget, timestamp: post.timeStamp, location: post.location, didLike: [:], didCollect: [:], isReported: [:])
         
         do {
-            try postDB.document(post.postID).setData(from: postEntity, completion: { error in
+            try postDB.document(post.postID).setData(from: postEntity, merge: false, completion: { error in
                 
                 if let error = error {
                     print(error.localizedDescription)
@@ -61,8 +61,28 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
     func updatePost(updatedPost: Post, completion: @escaping FirebaseResult) {
         // 기존 내용 덮어쓰기
         // 포스트를 받아서 entity로 변환한 뒤 업데이트
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            completion(.success(.postUploadSuccess))
+        
+        let images = updatedPost.images.map { url -> String in
+            guard let urlString = url?.absoluteString else { return "" }
+            return urlString
+        }
+        let postEntity = PostEntity(postID: updatedPost.postID, userID: updatedPost.user.id, images: images, star: updatedPost.star, caption: updatedPost.caption, mealBudget: updatedPost.mealBudget, timestamp: updatedPost.timeStamp, location: updatedPost.location, didLike: updatedPost.didLike, didCollect: updatedPost.didCollect, isReported: [:])
+        
+        do {
+            try postDB.document(post.postID).setData(from: postEntity, merge: false, completion: { error in
+                
+                if let error = error {
+                    print(error.localizedDescription)
+                    completion(.failure(.postUploadError))
+                    return
+                }
+                
+                // Adding the document was successful
+                completion(.success(.postUploadSuccess))
+            })
+        } catch let error {
+            print("Error writing postEntity to Firestore: \(error)")
+            completion(.failure(.postUploadError))
         }
     }
     
@@ -105,26 +125,13 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
                 print(error.localizedDescription)
                 completion(.failure(.postFetchError))
             } else if let querySnapshot = querySnapshot {
-                
-                let result = Result {
-                    try querySnapshot.documents
+                do {
+                    let postEntity = try querySnapshot.documents.compactMap { try $0.data(as: PostEntity.self) }
+                    completion(.success(postEntity))
+                } catch let error {
+                    print(error.localizedDescription)
+                    completion(.failure(.postFetchError))
                 }
-                
-                switch result {
-                    case .success(let city):
-                        if let city = city {
-                            // A `City` value was successfully initialized from the DocumentSnapshot.
-                            print("City: \(city)")
-                        } else {
-                            // A nil value was successfully initialized from the DocumentSnapshot,
-                            // or the DocumentSnapshot was nil.
-                            print("Document does not exist")
-                        }
-                    case .failure(let error):
-                        // A `City` value could not be initialized from the DocumentSnapshot.
-                        print("Error decoding city: \(error)")
-                    }
-                
             }
         }
     }

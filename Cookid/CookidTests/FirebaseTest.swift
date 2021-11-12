@@ -48,10 +48,8 @@ class FirebaseTest: XCTestCase {
         self.waitForExpectations(timeout: 15, handler: nil)
     }
     
-    func testDeletePost() {
-        
+    func test_FirestoreDeletePost() {
         let exp = self.expectation(description: "Waiting for async operation")
-        
         repoProvider.firestorePostRepo.deletePost(deletePost: newPost) { result in
             switch result {
             case .success(let success):
@@ -64,21 +62,46 @@ class FirebaseTest: XCTestCase {
         self.waitForExpectations(timeout: 15, handler: nil)
     }
     
-    func testFetchAllPosts() {
-        
+    func test_FirestoreFetchPosts() {
         let exp = self.expectation(description: "Waiting for async operation")
-        
         repoProvider.firestorePostRepo.fetchPastPosts(userID: newPost.user.id) { result in
             switch result {
             case .success(let postEntity):
                 if let entity = postEntity.first {
                     XCTAssertEqual(entity.postID, self.newPost.postID)
                     XCTAssertEqual(entity.userID, self.newPost.user.id)
-                    XCTAssertEqual(entity.timestamp, self.newPost.timeStamp)
                     exp.fulfill()
                 } else {
                     XCTFail("create error")
                 }
+            default:
+                XCTFail("create error")
+            }
+        }
+        self.waitForExpectations(timeout: 15, handler: nil)
+    }
+    
+    func test_FirestoreUpdatePost() {
+        let exp = self.expectation(description: "Waiting for async operation")
+        repoProvider.firestorePostRepo.updatePost(updatedPost: newPost) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+                exp.fulfill()
+            default:
+                XCTFail("create error")
+            }
+        }
+        self.waitForExpectations(timeout: 15, handler: nil)
+    }
+    
+    func test_FirestoreReportPost() {
+        let exp = self.expectation(description: "Waiting for async operation")
+        repoProvider.firestorePostRepo.reportPost(reportedPost: newPost) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+                exp.fulfill()
             default:
                 XCTFail("create error")
             }
