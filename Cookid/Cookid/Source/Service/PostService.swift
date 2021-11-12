@@ -96,6 +96,7 @@ class PostService: BaseService, PostServiceType {
                     dispathGroup.enter()
                     let didLike = entity.didLike.contains { $0.key == currentUser.id }
                     let didCollect = entity.didCollect.contains { $0.key == currentUser.id }
+                    let images = entity.images.map { URL(string: $0) }
                     self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                         switch result {
                         case .success(let userEntity):
@@ -103,7 +104,7 @@ class PostService: BaseService, PostServiceType {
                             self.repoProvider.firestoreCommentRepo.fetchCommentsCount(postID: entity.postID) { result in
                                 switch result {
                                 case .success(let count):
-                                    let post = Post(postID: entity.postID, user: user!, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: count)
+                                    let post = Post(postID: entity.postID, user: user!, images: images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: count)
                                     fetchedPosts.append(post)
                                     dispathGroup.leave()
                                 case .failure(let error):
@@ -139,6 +140,7 @@ class PostService: BaseService, PostServiceType {
                     dispathGroup.enter()
                     let didLike = entity.didLike.contains { $0.key == currentUser.id }
                     let didCollect = entity.didCollect.contains { $0.key == currentUser.id }
+                    let images = entity.images.map { URL(string: $0) }
                     self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                         switch result {
                         case .success(let userEntity):
@@ -146,7 +148,7 @@ class PostService: BaseService, PostServiceType {
                             self.repoProvider.firestoreCommentRepo.fetchCommentsCount(postID: entity.postID) { result in
                                 switch result {
                                 case .success(let count):
-                                    let post = Post(postID: entity.postID, user: user!, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: count)
+                                    let post = Post(postID: entity.postID, user: user!, images: images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: count)
                                     fetchedPosts.append(post)
                                     dispathGroup.leave()
                                 case .failure(let error):
@@ -254,11 +256,12 @@ class PostService: BaseService, PostServiceType {
                     var fetchedPosts = [Post]()
                     for entity in entities {
                         let didLike = entity.didLike.contains { $0.key == user.id }
+                        let images = entity.images.map { URL(string: $0) }
                         self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                             switch result {
                             case .success(let userEntity):
                                 let user = userEntity.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType.init(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
-                                let post = Post(postID: entity.postID, user: user!, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: true)
+                                let post = Post(postID: entity.postID, user: user!, images: images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: true)
                                 fetchedPosts.append(post)
                             case .failure(let error):
                                 print(error.rawValue)
@@ -290,10 +293,11 @@ class PostService: BaseService, PostServiceType {
                         dispathGroup.enter()
                         let didLike = entity.didLike.contains { $0.key == user.id }
                         let didCollect = entity.didCollect.contains { $0.key == user.id }
+                        let images = entity.images.map { URL(string: $0) }
                         self.repoProvider.firestoreCommentRepo.fetchCommentsCount(postID: entity.postID) { result in
                             switch result {
                             case .success(let count):
-                                let post = Post(postID: entity.postID, user: user, images: entity.images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: count)
+                                let post = Post(postID: entity.postID, user: user, images: images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: count)
                                 fetchedPosts.append(post)
                                 dispathGroup.leave()
                             case .failure(let error):

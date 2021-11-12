@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct PostEntity {
+struct PostEntity: Codable {
+    
     let postID: String
     let userID: String
-    var images: [URL?]
+    var images: [String]
     var star: Int
     var caption: String
     var mealBudget: Int
@@ -19,18 +20,19 @@ struct PostEntity {
     var didLike: [String:Bool]
     var didCollect: [String:Bool]
     var isReported: [String:Bool]
-}
-
-extension PostEntity: FirebaseConvertable {
-    func toDocument() -> [String : Any] {
-        return [
-            "postID" : self.postID,
-            "userID" : self.userID,
-            "images" : self.images,
-            "star" : self.star,
-            "caption" : self.caption,
-            "mealBudget" : self.mealBudget,
-            "timeStamp" : self.timestamp
-        ]
+    
+    enum CodingKeys: String, CodingKey {
+        case postID
+        case userID
+        case images
+        case star
+        case caption
+        case mealBudget
+        case timestamp
+        case location
+        case didLike
+        case didCollect
+        case isReported
     }
+    
 }

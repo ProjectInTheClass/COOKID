@@ -6,104 +6,59 @@
 //
 
 import Foundation
-//import FirebaseFirestore
-//import FirebaseStorage
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+
+typealias FirebaseResult = (Result<FirebaseSuccess, FirebaseError>) -> Void
+typealias PostResult =  (Result<[PostEntity], FirebaseError>) -> Void
 
 protocol PostRepoType {
-    func createPost(post: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void)
-    func fetchLatestPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void)
-    func fetchPastPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void)
-    func fetchMyPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void)
-    func fetchBookmarkedPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void)
-    func updatePost(updatedPost: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void)
-    func deletePost(deletePost: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void)
-    func reportPost(reportedPost: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void)
-    func updatePostHeart(userID: String, postID: String, isHeart: Bool, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void)
-    func updatePostBookmark(userID: String, postID: String, isBookmark: Bool, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void)
+    func createPost(post: Post, completion: @escaping FirebaseResult)
+    func fetchLatestPosts(userID: String, completion: @escaping PostResult)
+    func fetchPastPosts(userID: String, completion: @escaping PostResult)
+    func fetchMyPosts(userID: String, completion: @escaping PostResult)
+    func fetchBookmarkedPosts(userID: String, completion: @escaping PostResult)
+    func updatePost(updatedPost: Post, completion: @escaping FirebaseResult)
+    func deletePost(deletePost: Post, completion: @escaping FirebaseResult)
+    func reportPost(reportedPost: Post, completion: @escaping FirebaseResult)
+    func updatePostHeart(userID: String, postID: String, isHeart: Bool, completion: @escaping FirebaseResult)
+    func updatePostBookmark(userID: String, postID: String, isBookmark: Bool, completion: @escaping FirebaseResult)
 }
 
 final class FirestorePostRepo: BaseRepository, PostRepoType {
     
-    let date1 = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
-    let date2 = Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date()
-    let date3 = Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date()
-    let date4 = Calendar.current.date(byAdding: .day, value: -4, to: Date()) ?? Date()
-    let date5 = Calendar.current.date(byAdding: .day, value: -5, to: Date()) ?? Date()
-    let date6 = Calendar.current.date(byAdding: .day, value: -6, to: Date()) ?? Date()
-    let date7 = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
-    let date8 = Calendar.current.date(byAdding: .day, value: -8, to: Date()) ?? Date()
-    
-    lazy var wholePostDB = [
-        PostEntity(postID: "post1", userID: DummyData.shared.singleUser.id,
-                   images: [
-                    URL(string: "https://images.unsplash.com/photo-1632917374642-1a9020c5eb43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
-                   ], star: 4, caption: "최고의 식사였다.", mealBudget: 10000,
-                   timestamp: date1, location: "제주도", didLike: [:], didCollect: [:], isReported: [:]),
-        PostEntity(postID: "post2", userID: "6159a7b35941dd2993e89114",
-                   images: [
-                    URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
-                   ], star: 2, caption: "덜 최고의 식사였다.", mealBudget: 3000,
-                   timestamp: date2, location: "경북 구미", didLike: [:], didCollect: [:], isReported: [:]),
-        PostEntity(postID: "post3", userID: "6159a7b35941dd2993e89114",
-                   images: [
-                    URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
-                   ], star: 0, caption: "보통의 식사였다.", mealBudget: 12000,
-                   timestamp: date3, location: "부산", didLike: [:], didCollect: [:], isReported: [:]),
-        PostEntity(postID: "post4", userID: DummyData.shared.secondUser.id,
-                   images: [
-                    URL(string: "https://images.unsplash.com/photo-1632917374642-1a9020c5eb43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
-                   ], star: 8, caption: "별로였다.", mealBudget: 50000,
-                   timestamp: date4, location: "서울", didLike: [:], didCollect: [:], isReported: ["6159a7b35941dd2993e89114":true]),
-        PostEntity(postID: "post5", userID: "wfawefawfawef",
-                   images: [
-                    URL(string: "https://images.unsplash.com/photo-1632917374642-1a9020c5eb43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
-                   ], star: 4, caption: "최고의 식사였다.", mealBudget: 10000,
-                   timestamp: Date(), location: "제주도", didLike: [:], didCollect: [:], isReported: ["6159a7b35941dd2993e89114":true]),
-        PostEntity(postID: "post6", userID: "6159a7b35941dd2993e89114",
-                   images: [
-                    URL(string: "https://images.unsplash.com/photo-1632917374642-1a9020c5eb43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
-                   ], star: 4, caption: "최고의 식사였다.", mealBudget: 10000,
-                   timestamp: date5, location: "제주도", didLike: [:], didCollect: [:], isReported: [:]),
-        PostEntity(postID: "post7", userID: "user.id",
-                   images: [
-                    URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
-                   ], star: 2, caption: "덜 최고의 식사였다.", mealBudget: 3000,
-                   timestamp: date6, location: "경북 구미", didLike: [:], didCollect: ["6159a7b35941dd2993e89114":true], isReported: [:]),
-        PostEntity(postID: "post8", userID: "user.id",
-                   images: [
-                    URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
-                   ], star: 0, caption: "보통의 식사였다.", mealBudget: 12000,
-                   timestamp: date7, location: "부산", didLike: [:], didCollect: [:], isReported: [:]),
-        PostEntity(postID: "post9", userID: "6159a7b35941dd2993e89114",
-                   images: [
-                    URL(string: "https://images.unsplash.com/photo-1632917374642-1a9020c5eb43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1632917463901-6d6a97f1fb5e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"),
-                    URL(string: "https://images.unsplash.com/photo-1633327760690-d9bb0513f942?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80")
-                   ], star: 8, caption: "별로였다.", mealBudget: 50000,
-                   timestamp: date8, location: "서울", didLike: [:], didCollect: ["6159a7b35941dd2993e89114":true], isReported: [:])
-    ]
+    let postDB = Firestore.firestore().collection("post")
 
     /// upload new post
     /// by this method, collect all the posts in one place.
-    func createPost(post: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
+    func createPost(post: Post, completion: @escaping FirebaseResult) {
         // 포스트를 받아서 entity로 변환한 뒤 업로드
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            completion(.success(.postUploadSuccess))
+        let images = post.images.map { url -> String in
+            guard let urlString = url?.absoluteString else { return "" }
+            return urlString
+        }
+        let postEntity = PostEntity(postID: post.postID, userID: post.user.id, images: images, star: 0, caption: post.caption, mealBudget: post.mealBudget, timestamp: post.timeStamp, location: post.location, didLike: [:], didCollect: [:], isReported: [:])
+        
+        do {
+            try postDB.document(post.postID).setData(from: postEntity, completion: { error in
+                
+                if let error = error {
+                    print(error.localizedDescription)
+                    completion(.failure(.postUploadError))
+                    return
+                }
+                
+                // Adding the document was successful
+                completion(.success(.postUploadSuccess))
+            })
+        } catch let error {
+            print("Error writing postEntity to Firestore: \(error)")
+            completion(.failure(.postUploadError))
         }
     }
     
     /// update specific post's contents
-    func updatePost(updatedPost: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
+    func updatePost(updatedPost: Post, completion: @escaping FirebaseResult) {
         // 기존 내용 덮어쓰기
         // 포스트를 받아서 entity로 변환한 뒤 업데이트
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -112,15 +67,21 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
     }
     
     /// delete specific post
-    func deletePost(deletePost: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
+    func deletePost(deletePost: Post, completion: @escaping FirebaseResult) {
         // 해당 포스트를 찾아서 삭제하는 API 구현
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            completion(.success(.deletePostSuccess))
+        postDB.document(deletePost.postID).delete { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+                completion(.failure(.deletePostError))
+            } else {
+                print("Document successfully removed!")
+                completion(.success(.deletePostSuccess))
+            }
         }
     }
     
     /// report specific post
-    func reportPost(reportedPost: Post, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
+    func reportPost(reportedPost: Post, completion: @escaping FirebaseResult) {
         // 해당 포스트를 찾아서 리포트에 해당 유저 ID를 넣는 API 구현
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             completion(.success(.reportPostSuceess))
@@ -129,64 +90,68 @@ final class FirestorePostRepo: BaseRepository, PostRepoType {
     
     /// fetch new posts when tableView was scrolled top of it
     /// userID: this parameter is used to filtering user's isReport list
-    func fetchLatestPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
-        // 최신 10개의 데이터 받기
-        var postEntities = [PostEntity]()
-        wholePostDB.sorted(by: { $0.timestamp > $1.timestamp }).enumerated().forEach({ index, item in
-            if index < 5 {
-                postEntities.append(item)
-            }
-        })
-        completion(.success(postEntities))
+    func fetchLatestPosts(userID: String, completion: @escaping PostResult) {
+        // 최신 10개의 정렬된 데이터 받기
+      
     }
     
     /// fetch 10 past posts at once when tableview was scrolled until bottom point
     /// userID: this parameter is used to filtering user's isReport list
-    func fetchPastPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
+    func fetchPastPosts(userID: String, completion: @escaping PostResult) {
         // firebase에서 시간 순서 대로 10개씩 받기
-        var postEntities = [PostEntity]()
-        wholePostDB.sorted(by: { $0.timestamp > $1.timestamp }).enumerated().forEach({ index, item in
-            if index < 5 {
-                postEntities.append(item)
+        postDB.order(by: "timestamp", descending: true).limit(to: 10)
+            .getDocuments { querySnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(.failure(.postFetchError))
+            } else if let querySnapshot = querySnapshot {
+                
+                let result = Result {
+                    try querySnapshot.documents
+                }
+                
+                switch result {
+                    case .success(let city):
+                        if let city = city {
+                            // A `City` value was successfully initialized from the DocumentSnapshot.
+                            print("City: \(city)")
+                        } else {
+                            // A nil value was successfully initialized from the DocumentSnapshot,
+                            // or the DocumentSnapshot was nil.
+                            print("Document does not exist")
+                        }
+                    case .failure(let error):
+                        // A `City` value could not be initialized from the DocumentSnapshot.
+                        print("Error decoding city: \(error)")
+                    }
+                
             }
-        })
-        completion(.success(postEntities))
+        }
     }
     
     /// fetch specific user post from firebase
     /// this method use userID both query user's posts and filtering user's isReport list
-    func fetchMyPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
+    func fetchMyPosts(userID: String, completion: @escaping PostResult) {
         // 쿼리와 받아오기가 완료된 엔티티
-        
-        let sortedPostEntities = wholePostDB.filter({ $0.userID == userID }).sorted { $0.timestamp < $1.timestamp }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            completion(.success(sortedPostEntities))
-        }
     }
     
     /// fetch bookmarked posts from firebase
     /// this method use userID both query user's posts and filtering user's isReport list
-    func fetchBookmarkedPosts(userID: String, completion: @escaping (Result<[PostEntity], FirebaseError>) -> Void) {
+    func fetchBookmarkedPosts(userID: String, completion: @escaping PostResult) {
         
         // 리포트 여부, userID 일치 여부, 북마크 여부 -> 모두 가능한 녀석을 fetch
         // firebase 쿼리 최대한 적용
         // 10개만 가져오도록 -> 테이블뷰 인피니티에 걸리면 다시 로드하는 방식으로 할거야
         
         // 쿼리와 받아오기가 완료된 엔티티
-        let sortedPostEntities = wholePostDB.sorted { $0.timestamp > $1.timestamp }.filter({ $0.didCollect.keys.contains(where: { $0 == userID }) })
+    }
+    
+    func updatePostHeart(userID: String, postID: String, isHeart: Bool, completion: @escaping FirebaseResult) {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            completion(.success(sortedPostEntities))
-        }
     }
     
-    func updatePostHeart(userID: String, postID: String, isHeart: Bool, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
-        completion(.success(.buttonTransactionSuccess))
-    }
-    
-    func updatePostBookmark(userID: String, postID: String, isBookmark: Bool, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
-        completion(.success(.buttonTransactionSuccess))
+    func updatePostBookmark(userID: String, postID: String, isBookmark: Bool, completion: @escaping FirebaseResult) {
+        
     }
   
 }
