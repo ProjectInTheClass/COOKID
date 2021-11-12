@@ -91,9 +91,6 @@
 		03B3EB90273D2D2C004CACF4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB8F273D2D2C004CACF4 /* FirebaseAnalytics */; };
 		03B3EB92273D2D2D004CACF4 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB91273D2D2D004CACF4 /* FirebaseCrashlytics */; };
 		03B3EB94273D2D2D004CACF4 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB93273D2D2D004CACF4 /* FirebaseFirestoreSwift-Beta */; };
-		03B3EB96273D2D2D004CACF4 /* FirebaseInAppMessagingSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB95273D2D2D004CACF4 /* FirebaseInAppMessagingSwift-Beta */; };
-		03B3EB98273D2D2D004CACF4 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB97273D2D2D004CACF4 /* FirebaseMessaging */; };
-		03B3EB9A273D2D2D004CACF4 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB99273D2D2D004CACF4 /* FirebasePerformance */; };
 		03B3EB9C273D2D2D004CACF4 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 03B3EB9B273D2D2D004CACF4 /* FirebaseStorageSwift-Beta */; };
 		03B55AEE273D39B3008F7151 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03B55AED273D39B3008F7151 /* GoogleService-Info.plist */; };
 		03B55AF8273D40DC008F7151 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 03B55AF7273D40DC008F7151 /* Realm */; };
@@ -341,10 +338,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03B3EB98273D2D2D004CACF4 /* FirebaseMessaging in Frameworks */,
 				03250E1127126A5600425036 /* Kingfisher in Frameworks */,
-				03B3EB9A273D2D2D004CACF4 /* FirebasePerformance in Frameworks */,
-				03B3EB96273D2D2D004CACF4 /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
 				03B55AF8273D40DC008F7151 /* Realm in Frameworks */,
 				03B3EB94273D2D2D004CACF4 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				163C7CE736B3B3B05C1C5545 /* Pods_Cookid.framework in Frameworks */,
@@ -950,9 +944,6 @@
 				03B3EB8F273D2D2C004CACF4 /* FirebaseAnalytics */,
 				03B3EB91273D2D2D004CACF4 /* FirebaseCrashlytics */,
 				03B3EB93273D2D2D004CACF4 /* FirebaseFirestoreSwift-Beta */,
-				03B3EB95273D2D2D004CACF4 /* FirebaseInAppMessagingSwift-Beta */,
-				03B3EB97273D2D2D004CACF4 /* FirebaseMessaging */,
-				03B3EB99273D2D2D004CACF4 /* FirebasePerformance */,
 				03B3EB9B273D2D2D004CACF4 /* FirebaseStorageSwift-Beta */,
 				03B55AF7273D40DC008F7151 /* Realm */,
 				03B55AF9273D40DC008F7151 /* RealmSwift */,
@@ -1712,21 +1703,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
-		};
-		03B3EB95273D2D2D004CACF4 /* FirebaseInAppMessagingSwift-Beta */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseInAppMessagingSwift-Beta";
-		};
-		03B3EB97273D2D2D004CACF4 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-		03B3EB99273D2D2D004CACF4 /* FirebasePerformance */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 03B3EB8E273D2D2C004CACF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebasePerformance;
 		};
 		03B3EB9B273D2D2D004CACF4 /* FirebaseStorageSwift-Beta */ = {
 			isa = XCSwiftPackageProductDependency;
