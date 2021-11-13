@@ -98,7 +98,7 @@ class CommentService: BaseService, CommentServiceType {
                     dispatchGroup.enter()
                     
                     // 엔티티의 리포트 딕셔너리에 현재 이용자의 id가 있는지를 확인해야 한다.
-                    guard entity.isReported[user.id] == nil else { dispatchGroup.leave()
+                    guard entity.isReported.contains(user.id) else { dispatchGroup.leave()
                         return }
                     
                     self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
@@ -107,7 +107,7 @@ class CommentService: BaseService, CommentServiceType {
                             guard let userEntity = userEntity else { dispatchGroup.leave()
                                 return }
                             let user = User(id: userEntity.id, image: userEntity.imageURL, nickname: userEntity.nickname, determination: userEntity.determination, priceGoal: userEntity.priceGoal, userType: UserType(rawValue: userEntity.userType) ?? .preferDineIn, dineInCount: userEntity.dineInCount, cookidsCount: userEntity.cookidsCount)
-                            let didLike = entity.didLike[entity.userID] == nil
+                            let didLike = entity.didLike.contains(entity.userID)
                             let newComment = Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: user, content: entity.content, timestamp: entity.timestamp, didLike: didLike, likes: entity.didLike.count)
                             newComments.append(newComment)
                             dispatchGroup.leave()

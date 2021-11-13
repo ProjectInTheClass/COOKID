@@ -20,14 +20,15 @@ protocol PostRepoType {
     func fetchBookmarkedPosts(userID: String, completion: @escaping PostResult)
     func updatePost(updatedPost: Post, completion: @escaping FirebaseResult)
     func deletePost(deletePost: Post, completion: @escaping FirebaseResult)
-    func reportPost(userID: String, postID: String, isReport: Bool, completion: @escaping FirebaseResult)
+    func reportPost(userID: String, postID: String, completion: @escaping FirebaseResult)
     func heartPost(userID: String, postID: String, isHeart: Bool, completion: @escaping FirebaseResult)
     func bookmarkPost(userID: String, postID: String, isBookmark: Bool, completion: @escaping FirebaseResult)
 }
 
 class FirestorePostRepo: BaseRepository, PostRepoType {
     
-    let postDB = Firestore.firestore().collection("post")
+    private var currentDate = Date()
+    private let postDB = Firestore.firestore().collection("post")
 
     /// upload new post
     /// by this method, collect all the posts in one place.
@@ -37,7 +38,7 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
             guard let urlString = url?.absoluteString else { return "" }
             return urlString
         }
-        let postEntity = PostEntity(postID: post.postID, userID: post.user.id, images: images, star: 0, caption: post.caption, mealBudget: post.mealBudget, timestamp: post.timeStamp, location: post.location, didLike: [:], didCollect: [:], isReported: [:])
+        let postEntity = PostEntity(postID: post.postID, userID: post.user.id, images: images, star: 0, caption: post.caption, mealBudget: post.mealBudget, timestamp: post.timeStamp, location: post.location, didLike: [], didCollect: [], isReported: [])
         
         do {
             try postDB.document(post.postID).setData(from: postEntity, merge: false, completion: { error in
@@ -112,12 +113,6 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
     /// userID: this parameter is used to filtering user's isReport list
     func fetchLatestPosts(userID: String, completion: @escaping PostResult) {
         // 최신 10개의 정렬된 데이터 받기
-    }
-    
-    /// fetch 10 past posts at once when tableview was scrolled until bottom point
-    /// userID: this parameter is used to filtering user's isReport list
-    func fetchPastPosts(userID: String, completion: @escaping PostResult) {
-        // firebase에서 시간 순서 대로 10개씩 받기
         postDB.order(by: "timestamp", descending: true).limit(to: 10)
             .getDocuments { querySnapshot, error in
             if let error = error {
@@ -135,10 +130,55 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
         }
     }
     
+    /// fetch 10 past posts at once when tableview was scrolled until bottom point
+    /// userID: this parameter is used to filtering user's isReport list
+    func fetchPastPosts(userID: String, completion: @escaping PostResult) {
+        // firebase에서 시간 순서 대로 10개씩 받기
+        postDB
+            .whereField("timestamp", isLessThanOrEqualTo: currentDate)
+            .order(by: "timestamp", descending: true).limit(to: 10)
+            .getDocuments { [weak self] querySnapshot, error in
+                guard let self = self else { return }
+            if let error = error {
+                print(error.localizedDescription)
+                completion(.failure(.postFetchError))
+            } else if let querySnapshot = querySnapshot {
+                do {
+                    let postEntity = try querySnapshot.documents.compactMap { try $0.data(as: PostEntity.self) }
+                    if let lastPostEntity = postEntity.last {
+                        guard let testPateDate = Calendar.current.date(byAdding: .second, value: -1, to: lastPostEntity.timestamp) else { return }
+                        self.currentDate = testPateDate
+                        completion(.success(postEntity))
+                    } else {
+                        completion(.success([]))
+                    }
+                } catch let error {
+                    print(error.localizedDescription)
+                    completion(.failure(.postFetchError))
+                }
+            }
+        }
+    }
+    
     /// fetch specific user post from firebase
     /// this method use userID both query user's posts and filtering user's isReport list
     func fetchMyPosts(userID: String, completion: @escaping PostResult) {
         // 쿼리와 받아오기가 완료된 엔티티
+        postDB.whereField("userID", isEqualTo: userID)
+            .getDocuments { querySnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(.failure(.postFetchError))
+            } else if let querySnapshot = querySnapshot {
+                do {
+                    let postEntity = try querySnapshot.documents.compactMap { try $0.data(as: PostEntity.self) }
+                    completion(.success(postEntity))
+                } catch let error {
+                    print(error.localizedDescription)
+                    completion(.failure(.postFetchError))
+                }
+            }
+        }
     }
     
     /// fetch bookmarked posts from firebase
@@ -146,8 +186,22 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
     func fetchBookmarkedPosts(userID: String, completion: @escaping PostResult) {
         // 리포트 여부, userID 일치 여부, 북마크 여부 -> 모두 가능한 녀석을 fetch
         // firebase 쿼리 최대한 적용
-        // 10개만 가져오도록 -> 테이블뷰 인피니티에 걸리면 다시 로드하는 방식으로 할거야
-        // 쿼리와 받아오기가 완료된 엔티티
+        postDB
+            .whereField("didCollect", arrayContains: userID)
+            .getDocuments { querySnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(.failure(.postFetchError))
+            } else if let querySnapshot = querySnapshot {
+                do {
+                    let postEntity = try querySnapshot.documents.compactMap { try $0.data(as: PostEntity.self) }
+                    completion(.success(postEntity))
+                } catch let error {
+                    print(error.localizedDescription)
+                    completion(.failure(.postFetchError))
+                }
+            }
+        }
     }
     
     /// heart specific post with Firestore transaction
@@ -157,8 +211,16 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
             let postDocument: DocumentSnapshot
             do {
                 try postDocument = transaction.getDocument(self.postDB.document(postID))
-                guard var postEntity = try postDocument.data(as: PostEntity.self) else { return nil }
-                postEntity.didLike[userID] = isHeart
+                guard var postEntity = try postDocument.data(as: PostEntity.self) else {
+                    completion(.failure(.buttonTransactionError))
+                    return nil }
+                if isHeart {
+                    postEntity.didCollect.append(userID)
+                } else {
+                    if let firstIndex = postEntity.didCollect.firstIndex(of: userID) {
+                        postEntity.didCollect.remove(at: firstIndex)
+                    }
+                }
                 transaction.updateData([
                     "didLike": postEntity.didLike
                 ], forDocument: self.postDB.document(postID))
@@ -185,8 +247,16 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
             let postDocument: DocumentSnapshot
             do {
                 try postDocument = transaction.getDocument(self.postDB.document(postID))
-                guard var postEntity = try postDocument.data(as: PostEntity.self) else { return nil }
-                postEntity.didCollect[userID] = isBookmark
+                guard var postEntity = try postDocument.data(as: PostEntity.self) else {
+                    completion(.failure(.buttonTransactionError))
+                    return nil }
+                if isBookmark {
+                    postEntity.didCollect.append(userID)
+                } else {
+                    if let firstIndex = postEntity.didCollect.firstIndex(of: userID) {
+                        postEntity.didCollect.remove(at: firstIndex)
+                    }
+                }
                 transaction.updateData([
                     "didCollect": postEntity.didCollect
                 ], forDocument: self.postDB.document(postID))
@@ -207,14 +277,14 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
     }
     
     /// report specific post with Firestore transaction
-    func reportPost(userID: String, postID: String, isReport: Bool, completion: @escaping FirebaseResult) {
+    func reportPost(userID: String, postID: String, completion: @escaping FirebaseResult) {
         postDB.document(postID).firestore.runTransaction { [weak self] transaction, errorPointer in
             guard let self = self else { return nil }
             let postDocument: DocumentSnapshot
             do {
                 try postDocument = transaction.getDocument(self.postDB.document(postID))
                 guard var postEntity = try postDocument.data(as: PostEntity.self) else { return nil }
-                postEntity.isReported[userID] = isReport
+                postEntity.isReported.append(userID)
                 transaction.updateData([
                     "isReported": postEntity.isReported
                 ], forDocument: self.postDB.document(postID))

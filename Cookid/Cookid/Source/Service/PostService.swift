@@ -94,8 +94,8 @@ class PostService: BaseService, PostServiceType {
                 let dispathGroup = DispatchGroup()
                 for entity in entities {
                     dispathGroup.enter()
-                    let didLike = entity.didLike.contains { $0.key == currentUser.id }
-                    let didCollect = entity.didCollect.contains { $0.key == currentUser.id }
+                    let didLike = entity.didLike.contains(currentUser.id)
+                    let didCollect = entity.didCollect.contains(currentUser.id)
                     let images = entity.images.map { URL(string: $0) }
                     self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                         switch result {
@@ -138,8 +138,8 @@ class PostService: BaseService, PostServiceType {
                 let dispathGroup = DispatchGroup()
                 entities.forEach { entity in
                     dispathGroup.enter()
-                    let didLike = entity.didLike.contains { $0.key == currentUser.id }
-                    let didCollect = entity.didCollect.contains { $0.key == currentUser.id }
+                    let didLike = entity.didLike.contains(currentUser.id)
+                    let didCollect = entity.didCollect.contains(currentUser.id)
                     let images = entity.images.map { URL(string: $0) }
                     self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                         switch result {
@@ -237,7 +237,7 @@ class PostService: BaseService, PostServiceType {
                 case .success(let entities):
                     var fetchedPosts = [Post]()
                     for entity in entities {
-                        let didLike = entity.didLike.contains { $0.key == user.id }
+                        let didLike = entity.didLike.contains(user.id)
                         let images = entity.images.map { URL(string: $0) }
                         self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                             switch result {
@@ -273,8 +273,8 @@ class PostService: BaseService, PostServiceType {
                     var fetchedPosts = [Post]()
                     postEntities.forEach { entity in
                         dispathGroup.enter()
-                        let didLike = entity.didLike.contains { $0.key == user.id }
-                        let didCollect = entity.didCollect.contains { $0.key == user.id }
+                        let didLike = entity.didLike.contains(user.id)
+                        let didCollect = entity.didCollect.contains(user.id)
                         let images = entity.images.map { URL(string: $0) }
                         self.repoProvider.firestoreCommentRepo.fetchCommentsCount(postID: entity.postID) { result in
                             switch result {
@@ -303,7 +303,7 @@ class PostService: BaseService, PostServiceType {
     
     func reportTransaction(currentUser: User, post: Post, isReport: Bool) {
         self.updateLocalPosts(mode: .delete, post: post)
-        self.repoProvider.firestorePostRepo.reportPost(userID: currentUser.id, postID: post.postID, isReport: isReport) { result in
+        self.repoProvider.firestorePostRepo.reportPost(userID: currentUser.id, postID: post.postID) { result in
             switch result {
             case .success(let success):
                 print(success.rawValue)

@@ -17,9 +17,9 @@ struct PostEntity: Codable {
     var mealBudget: Int
     var timestamp: Date
     var location: String
-    var didLike: [String:Bool]
-    var didCollect: [String:Bool]
-    var isReported: [String:Bool]
+    var didLike: [String]
+    var didCollect: [String]
+    var isReported: [String]
     
     enum CodingKeys: String, CodingKey {
         case postID

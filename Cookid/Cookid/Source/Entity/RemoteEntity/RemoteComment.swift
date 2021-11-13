@@ -14,6 +14,6 @@ struct CommentEntity: Codable {
     var userID: String
     var content: String
     var timestamp: Date
-    var didLike: [String:Bool]
-    var isReported: [String:Bool]
+    var didLike: [String]
+    var isReported: [String]
 }
