@@ -27,7 +27,6 @@ class PostCellReactor: Reactor {
         case setUser(User)
         case setCurrentPercent(Double)
         case deletePost(Bool)
-        case reportPost(Bool)
     }
     
     struct State {
@@ -73,20 +72,21 @@ class PostCellReactor: Reactor {
         switch action {
         case .heartbuttonTapped(let isHeart):
             self.postUpdateByHeart(post: post, isHeart: isHeart)
-            serviceProvider.postService.heartTransaction(sender: self.sender, user: user, post: post, isHeart: isHeart)
+            serviceProvider.postService.heartTransaction(sender: self.sender, currentUser: user, post: post, isHeart: isHeart)
             return Observable.concat([
                 Observable.just(Mutation.setHeart(isHeart)),
                 Observable.just(Mutation.setHeartCount(self.currentState.post.likes))])
         case .bookmarkButtonTapped(let isBookmark):
             self.postUpdateByBookmark(post: post, isBookmark: isBookmark)
-            serviceProvider.postService.bookmarkTransaction(sender: self.sender, user: user, post: post, isBookmark: isBookmark)
+            serviceProvider.postService.bookmarkTransaction(sender: self.sender, currentUser: user, post: post, isBookmark: isBookmark)
             return Observable.concat([
                 Observable.just(Mutation.setBookmark(isBookmark)),
                 Observable.just(Mutation.setBookmarkCount(self.currentState.post.collections))])
         case .deleteButtonTapped(let post):
             return serviceProvider.postService.deletePost(post: post).map { Mutation.deletePost(!$0) }
         case .reportButtonTapped(let post):
-            return serviceProvider.postService.reportPost(post: post).map { Mutation.reportPost(!$0) }
+            serviceProvider.postService.reportTransaction(currentUser: user, post: post, isReport: true)
+            return Observable.empty()
         }
     }
     
@@ -109,9 +109,6 @@ class PostCellReactor: Reactor {
             newState.bookmarkCount = bookmarkCount
             return newState
         case .deletePost(let isError):
-            newState.isError = isError
-            return newState
-        case .reportPost(let isError):
             newState.isError = isError
             return newState
         case .setCurrentPercent(let percent):

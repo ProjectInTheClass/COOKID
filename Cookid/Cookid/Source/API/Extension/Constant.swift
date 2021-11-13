@@ -83,6 +83,9 @@ enum FirebaseError: String, Error {
     case imagesUploadError = "⚠️ 이미지 배열을 업로드하는데 실패했습니다."
     case commentFetchError = "⚠️ 댓글을 가져오는데 실패했습니다."
     case deletePostError = "⚠️ 포스트를 삭제하는데 실패했습니다."
+    case postUpdateError = "⚠️ 포스트를 업데이트하는데 실패했습니다."
+    case reportPostError = "⚠️ 포스트를 신고하는데 실패했습니다."
+    case buttonTransactionError = "⚠️ 해당 버튼의 업데이트에 실패했습니다."
 }
 
 enum FirebaseSuccess: String {
@@ -96,4 +99,5 @@ enum FirebaseSuccess: String {
     case deletePostSuccess = "✅ 포스트를 삭제하는데 성공했습니다."
     case reportPostSuceess = "✅ 포스트를 신고하는데 성공했습니다."
     case updateUserSuceess = "✅ 유저 데이터를 업로드하는데 성공했습니다."
+    case postUpdateSuceess = "✅ 포스트를 업데이트하는데 성공했습니다."
 }
