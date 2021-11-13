@@ -59,6 +59,7 @@
 * Local DB: Realm, KeyChain, FileManager, UserDefault
 
 ### CI/CD, Test
+* Unit Test, XCTest
 
 ### 앱어트리뷰션
 * Firebase Analytics
