@@ -19,11 +19,11 @@ protocol PostServiceType {
     func fetchLastPosts(currentUser: User, completion: @escaping (Bool) -> Void)
     func updatePost(post: Post, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool>
     func deletePost(post: Post) -> Observable<Bool>
-    func reportPost(post: Post) -> Observable<Bool>
     func fetchMyPosts(user: User) -> Observable<[Post]>
     func fetchBookmarkedPosts(user: User) -> Observable<[Post]>
-    func heartTransaction(sender: UIViewController, user: User, post: Post, isHeart: Bool)
-    func bookmarkTransaction(sender: UIViewController, user: User, post: Post, isBookmark: Bool)
+    func reportTransaction(currentUser: User, post: Post, isReport: Bool)
+    func heartTransaction(sender: UIViewController, currentUser: User, post: Post, isHeart: Bool)
+    func bookmarkTransaction(sender: UIViewController, currentUser: User, post: Post, isBookmark: Bool)
 }
 
 enum LocalUpdateMode {
@@ -228,24 +228,6 @@ class PostService: BaseService, PostServiceType {
         }
     }
     
-    func reportPost(post: Post) -> Observable<Bool> {
-        return Observable.create { [weak self] observer in
-            guard let self = self else { return Disposables.create() }
-            self.updateLocalPosts(mode: .delete, post: post)
-            self.repoProvider.firestorePostRepo.reportPost(reportedPost: post) { result in
-                switch result {
-                case .success(let success):
-                    print(success.rawValue)
-                    observer.onNext(true)
-                case .failure(let error):
-                    print(error.rawValue)
-                    observer.onNext(false)
-                }
-            }
-            return Disposables.create()
-        }
-    }
-    
     @discardableResult
     func fetchBookmarkedPosts(user: User) -> Observable<[Post]> {
         return Observable.create { [weak self] observer in
@@ -319,46 +301,35 @@ class PostService: BaseService, PostServiceType {
         }
     }
     
-    func heartTransaction(sender: UIViewController, user: User, post: Post, isHeart: Bool) {
-        self.repoProvider.firestorePostRepo.updatePostHeart(userID: user.id, postID: post.postID, isHeart: isHeart) { result in
+    func reportTransaction(currentUser: User, post: Post, isReport: Bool) {
+        self.updateLocalPosts(mode: .delete, post: post)
+        self.repoProvider.firestorePostRepo.reportPost(userID: currentUser.id, postID: post.postID, isReport: isReport) { result in
             switch result {
             case .success(let success):
                 print(success.rawValue)
-                
-                switch sender {
-                case is PostMainViewController:
-                    if self.myPosts.contains(where: { $0.postID == post.postID }) {
-                        self.myPostStore.onNext(self.myPosts)
-                    }
-                    
-                    if self.bookmarkedPosts.contains(where: { $0.postID == post.postID }) {
-                        self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
-                    }
-                case is MyBookmarkViewController:
-                    if self.posts.contains(where: { $0.postID == post.postID }) {
-                        self.postStore.onNext(self.posts)
-                    }
-                    
-                    if self.myPosts.contains(where: { $0.postID == post.postID }) {
-                        self.myPostStore.onNext(self.myPosts)
-                    }
-                default:
-                    break
-                }
-                
             case .failure(let error):
                 print(error.rawValue)
             }
         }
     }
     
-    func bookmarkTransaction(sender: UIViewController, user: User, post: Post, isBookmark: Bool) {
-        self.repoProvider.firestorePostRepo.updatePostBookmark(userID: user.id, postID: post.postID, isBookmark: isBookmark) { [weak self] result in
+    func heartTransaction(sender: UIViewController, currentUser: User, post: Post, isHeart: Bool) {
+        self.repoProvider.firestorePostRepo.heartPost(userID: currentUser.id, postID: post.postID, isHeart: isHeart) { result in
+            switch result {
+            case .success(let success):
+                self.synchronizeAllStore(sender: sender, post: post)
+                print(success.rawValue)
+            case .failure(let error):
+                print(error.rawValue)
+            }
+        }
+    }
+    
+    func bookmarkTransaction(sender: UIViewController, currentUser: User, post: Post, isBookmark: Bool) {
+        self.repoProvider.firestorePostRepo.bookmarkPost(userID: currentUser.id, postID: post.postID, isBookmark: isBookmark) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let success):
-                print(success.rawValue)
-                
                 if isBookmark {
                     self.bookmarkedPosts.append(post)
                     self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
@@ -368,31 +339,34 @@ class PostService: BaseService, PostServiceType {
                         self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
                     }
                 }
-                
-                switch sender {
-                case is PostMainViewController:
-                    if self.myPosts.contains(where: { $0.postID == post.postID }) {
-                        self.myPostStore.onNext(self.myPosts)
-                    }
-                    
-                    if self.bookmarkedPosts.contains(where: { $0.postID == post.postID }) {
-                        self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
-                    }
-                case is MyBookmarkViewController:
-                    if self.posts.contains(where: { $0.postID == post.postID }) {
-                        self.postStore.onNext(self.posts)
-                    }
-                    
-                    if self.myPosts.contains(where: { $0.postID == post.postID }) {
-                        self.myPostStore.onNext(self.myPosts)
-                    }
-                default:
-                    break
-                }
-                
+                self.synchronizeAllStore(sender: sender, post: post)
+                print(success.rawValue)
             case .failure(let error):
                 print(error.rawValue)
             }
+        }
+    }
+    
+    func synchronizeAllStore(sender: UIViewController, post: Post) {
+        switch sender {
+        case is PostMainViewController:
+            if self.myPosts.contains(where: { $0.postID == post.postID }) {
+                self.myPostStore.onNext(self.myPosts)
+            }
+            
+            if self.bookmarkedPosts.contains(where: { $0.postID == post.postID }) {
+                self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
+            }
+        case is MyBookmarkViewController:
+            if self.posts.contains(where: { $0.postID == post.postID }) {
+                self.postStore.onNext(self.posts)
+            }
+            
+            if self.myPosts.contains(where: { $0.postID == post.postID }) {
+                self.myPostStore.onNext(self.myPosts)
+            }
+        default:
+            break
         }
     }
     
