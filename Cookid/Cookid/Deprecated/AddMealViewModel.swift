@@ -5,12 +5,12 @@
 ////  Created by 박형석 on 2021/08/02.
 ////
 //
-//import UIKit
-//import RxSwift
-//import RxCocoa
-//import NSObject_Rx
+// import UIKit
+// import RxSwift
+// import RxCocoa
+// import NSObject_Rx
 //
-//class AddMealViewModel: ViewModelType, HasDisposeBag {
+// class AddMealViewModel: ViewModelType, HasDisposeBag {
 //
 //    let mealService: MealService
 //
@@ -65,4 +65,4 @@
 //
 //        self.output = Output(newMeal: newMeal, validation: validation)
 //    }
-//}
+// }

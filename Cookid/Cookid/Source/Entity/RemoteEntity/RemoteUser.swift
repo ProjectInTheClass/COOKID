@@ -7,26 +7,15 @@
 
 import Foundation
 
-class UserEntity: Codable {
+struct UserEntity: Codable {
     let id: String
-    var imageURL: URL?
+    var imageURL: String
     var nickname: String
     var determination: String
     var priceGoal: Int
     var userType: String
     var dineInCount: Int
     var cookidsCount: Int
-    
-    init(id: String, imageURL: URL?, nickname: String, determination: String, priceGoal: Int, userType: String, dineInCount: Int, cookidsCount: Int) {
-        self.id = id
-        self.imageURL = imageURL
-        self.nickname = nickname
-        self.determination = determination
-        self.priceGoal = priceGoal
-        self.userType = userType
-        self.dineInCount = dineInCount
-        self.cookidsCount = cookidsCount
-    }
     
     enum CodingKeys: String, CodingKey {
         case id
