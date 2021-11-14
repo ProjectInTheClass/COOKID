@@ -1,5 +1,5 @@
 //
-//  FirebaseTest.swift
+//  FirestorePostTest.swift
 //  CookidTests
 //
 //  Created by 박형석 on 2021/11/10.
@@ -10,7 +10,7 @@ import XCTest
 @testable import FirebaseFirestoreSwift
 @testable import Cookid
 
-class FirebaseTest: XCTestCase {
+class FirestorePostTest: XCTestCase {
     
     var repoProvider: RepositoryProvider!
     var currentUser: User!

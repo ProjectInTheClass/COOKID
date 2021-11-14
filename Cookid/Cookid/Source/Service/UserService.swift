@@ -79,7 +79,8 @@ class UserService: BaseService, UserServiceType {
                 switch result {
                 case .success(let entity):
                     guard let entity = entity else { return }
-                    let user = User(id: entity.id, image: entity.imageURL, nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
+                    let imageURL = URL(string: entity.imageURL)
+                    let user = User(id: entity.id, image: imageURL, nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
                     self.defaultUserInfo = user
                     self.userInfo.onNext(user)
 //                    observer.onNext(user)
@@ -100,7 +101,8 @@ class UserService: BaseService, UserServiceType {
                 switch result {
                 case .success(let entity):
                     guard let entity = entity else { return }
-                    let user = User(id: entity.id, image: entity.imageURL, nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
+                    let imageURL = URL(string: entity.imageURL)
+                    let user = User(id: entity.id, image: imageURL, nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
                     observer.onNext(user)
                 case .failure(let error):
                     print(error.rawValue)
@@ -148,7 +150,7 @@ class UserService: BaseService, UserServiceType {
             self.repoProvider.firestoreUserRepo.fetchCookidsRankers { result in
                 switch result {
                 case .success(let userEntities):
-                    let users = userEntities.map { User(id: $0.id, image: $0.imageURL, nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
+                    let users = userEntities.map { User(id: $0.id, image: URL(string: $0.imageURL), nickname: $0.nickname, determination: $0.determination, priceGoal: $0.priceGoal, userType: UserType(rawValue: $0.userType) ?? .preferDineIn, dineInCount: $0.dineInCount, cookidsCount: $0.cookidsCount) }
                     observer.onNext(users)
                 case .failure(let error):
                     print(error)

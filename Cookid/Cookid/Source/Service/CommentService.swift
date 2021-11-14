@@ -106,7 +106,8 @@ class CommentService: BaseService, CommentServiceType {
                         case .success(let userEntity):
                             guard let userEntity = userEntity else { dispatchGroup.leave()
                                 return }
-                            let user = User(id: userEntity.id, image: userEntity.imageURL, nickname: userEntity.nickname, determination: userEntity.determination, priceGoal: userEntity.priceGoal, userType: UserType(rawValue: userEntity.userType) ?? .preferDineIn, dineInCount: userEntity.dineInCount, cookidsCount: userEntity.cookidsCount)
+                            let imagURL = URL(string: userEntity.imageURL)
+                            let user = User(id: userEntity.id, image: imagURL, nickname: userEntity.nickname, determination: userEntity.determination, priceGoal: userEntity.priceGoal, userType: UserType(rawValue: userEntity.userType) ?? .preferDineIn, dineInCount: userEntity.dineInCount, cookidsCount: userEntity.cookidsCount)
                             let didLike = entity.didLike.contains(entity.userID)
                             let newComment = Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: user, content: entity.content, timestamp: entity.timestamp, didLike: didLike, likes: entity.didLike.count)
                             newComments.append(newComment)
