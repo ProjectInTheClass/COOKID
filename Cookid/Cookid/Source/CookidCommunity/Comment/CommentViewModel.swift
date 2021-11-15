@@ -137,7 +137,6 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                                  content: content,
                                  timestamp: Date(),
                                  didLike: false,
-                                 subComments: nil,
                                  likes: 0)
         if let index = output.commentSections.firstIndex(where: { section in
             return section.header.commentID == parentComment.commentID
@@ -156,7 +155,6 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                                  content: content,
                                  timestamp: Date(),
                                  didLike: false,
-                                 subComments: nil,
                                  likes: 0)
         let newSection = CommentSection(header: newComment, items: [])
         output.commentSections.append(newSection)

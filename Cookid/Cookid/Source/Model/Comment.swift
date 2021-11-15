@@ -15,7 +15,6 @@ struct Comment {
     var content: String
     var timestamp: Date
     var didLike: Bool
-    var subComments: [Comment]?
     var likes: Int
 }
 

@@ -46,5 +46,21 @@ class StorageTest: XCTestCase {
         }
         self.waitForExpectations(timeout: 15, handler: nil)
     }
+    
+    func test_updateUserImage() {
+        
+    }
+    
+    func test_updatePostImages() {
+        
+    }
+    
+    func test_uploadPostImages() {
+        
+    }
+    
+    func test_deletePostImages() {
+        
+    }
 
 }
