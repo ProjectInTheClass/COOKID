@@ -12,4 +12,11 @@ class BaseRepository {
     init(repoProvider: RepositoryProviderType) {
         self.repoProvider = repoProvider
     }
+    
+    func convertCommentToEntity(_ comment: Comment) -> CommentEntity {
+        return CommentEntity(commentID: comment.commentID, postID: comment.postID, parentID: comment.parentID, userID: comment.user.id, content: comment.content, timestamp: comment.timestamp, didLike: [], isReported: [])
+    }
+    
+    
+    
 }

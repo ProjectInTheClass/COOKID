@@ -6,7 +6,8 @@
 //
 
 import Foundation
-//import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 protocol CommentRepoType {
     func createComment(comment: Comment, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void)
@@ -18,16 +19,33 @@ protocol CommentRepoType {
 
 class FirestoreCommentRepo: BaseRepository, CommentRepoType {
     
-    //    private let commentDB = Firestore.firestore().collection("comment")
-    
-    var commentDB = [CommentEntity]()
-    
+    private let commentDB = Firestore.firestore().collection("comment")
+   
     func createComment(comment: Comment, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
-        
+        do {
+            try commentDB.document(comment.commentID).setData(from: convertCommentToEntity(comment), merge: false) { error in
+                if let error = error {
+                    completion(.failure(.commentCreateError))
+                    print("cannot create comment \(error)")
+                } else {
+                    completion(.success(.createCommentSuccess))
+                }
+            }
+        } catch {
+            completion(.failure(.commentCreateError))
+        }
     }
     
     func deleteComment(comment: Comment, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
-        
+        commentDB.document(comment.commentID).delete { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+                completion(.failure(.commentDeleteError))
+            } else {
+                print("Document successfully removed!")
+                completion(.success(.deleteCommentSuccess))
+            }
+        }
     }
     
     func reportComment(comment: Comment, user: User, completion: @escaping (Result<FirebaseSuccess, FirebaseError>) -> Void) {
