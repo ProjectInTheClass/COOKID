@@ -102,8 +102,8 @@ class FirestoreCommentTest: XCTestCase {
                 XCTFail("delete Fail")
             } else if let querySnapshot = querySnapshot {
                 do {
-                    let postEntity = try querySnapshot.documents.compactMap { try $0.data(as: PostEntity.self) }
-                    XCTAssertEqual(postEntity.count, 1)
+                    let commentEntity = try querySnapshot.documents.compactMap { try $0.data(as: CommentEntity.self) }
+                    XCTAssertEqual(commentEntity.count, 1)
                     exp.fulfill()
                 } catch let error {
                     print(error.localizedDescription)
