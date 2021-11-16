@@ -18,4 +18,9 @@ class BaseService: BaseRepository {
         guard let entity = entity else { return nil }
         return Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: currentUser, content: entity.content, timestamp: entity.timestamp, didLike: false, likes: 0)
     }
+    
+    func convertEntityToUser(entity: UserEntity?) -> User? {
+        guard let entity = entity else { return nil }
+        return User(id: entity.id, image: URL(string: entity.imageURL), nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
+    }
 }
