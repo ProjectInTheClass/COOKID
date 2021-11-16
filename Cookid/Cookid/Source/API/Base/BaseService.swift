@@ -13,4 +13,9 @@ class BaseService: BaseRepository {
         self.serviceProvider = serviceProvider
         super.init(repoProvider: repoProvider)
     }
+    
+    func convertEntityToComment(currentUser: User, entity: CommentEntity?) -> Comment? {
+        guard let entity = entity else { return nil }
+        return Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: currentUser, content: entity.content, timestamp: entity.timestamp, didLike: false, likes: 0)
+    }
 }
