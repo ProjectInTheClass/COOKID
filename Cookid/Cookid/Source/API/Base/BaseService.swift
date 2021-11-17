@@ -14,13 +14,19 @@ class BaseService: BaseRepository {
         super.init(repoProvider: repoProvider)
     }
     
-    func convertEntityToComment(currentUser: User, entity: CommentEntity?) -> Comment? {
+    func convertEntityToPost(entity: PostEntity?, currentUser: User, postUser: User, commentsCount: Int) -> Post? {
         guard let entity = entity else { return nil }
-        return Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: currentUser, content: entity.content, timestamp: entity.timestamp, didLike: false, likes: 0)
+        let didLike = entity.didLike.contains(currentUser.id)
+        let didCollect = entity.didCollect.contains(currentUser.id)
+        let imageURL = entity.images.map { URL(string: $0) }
+        return Post(postID: entity.postID, user: postUser, images: imageURL, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: commentsCount)
     }
     
-    func convertEntityToUser(entity: UserEntity?) -> User? {
-        guard let entity = entity else { return nil }
+    func convertEntityToUser(entity: UserEntity) -> User {
         return User(id: entity.id, image: URL(string: entity.imageURL), nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
+    }
+    
+    func convertEntityToComment(commentUser: User, entity: CommentEntity) -> Comment {
+        return Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: commentUser, content: entity.content, timestamp: entity.timestamp)
     }
 }

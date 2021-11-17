@@ -27,8 +27,7 @@ class RankerImageView: UIView {
         $0.contentMode = .scaleAspectFill
         $0.backgroundColor = .systemGray6
         $0.tintColor = .systemGray4
-        let config = UIImage.SymbolConfiguration.init(pointSize: 17)
-        $0.image = UIImage(systemName: "person.fill", withConfiguration: config)
+        $0.image = UIImage(named: "personPlaceholder")
     }
  
     private let rankImageView = UIImageView().then {

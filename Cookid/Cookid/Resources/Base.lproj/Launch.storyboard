@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,41 +13,19 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boardingImage" translatesAutoresizingMaskIntoConstraints="NO" id="gXv-zQ-wS0">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="Ipz-02-VqK">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="K7f-vQ-GSA">
-                                <rect key="frame" x="93" y="390" width="228" height="116"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나만의 식비관리앱" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Epx-LQ-533">
-                                        <rect key="frame" x="6.5" y="0.0" width="215.5" height="36"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="30"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                        <size key="shadowOffset" width="1" height="1"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COOKID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLa-lf-Age" userLabel="COOKID">
-                                        <rect key="frame" x="0.0" y="26" width="228" height="90"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="75"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="highlightedColor" systemColor="opaqueSeparatorColor"/>
-                                        <size key="shadowOffset" width="5" height="5"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <constraints>
-                            <constraint firstItem="gXv-zQ-wS0" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="BhN-Y2-t2Q"/>
-                            <constraint firstItem="gXv-zQ-wS0" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="GSO-x7-GID"/>
-                            <constraint firstAttribute="bottom" secondItem="gXv-zQ-wS0" secondAttribute="bottom" id="Tr1-O3-Xz5"/>
-                            <constraint firstItem="K7f-vQ-GSA" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="UFW-i5-3g7"/>
-                            <constraint firstItem="gXv-zQ-wS0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pRI-HC-Sgi"/>
-                            <constraint firstItem="K7f-vQ-GSA" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="trV-6C-RZS"/>
+                            <constraint firstItem="Ipz-02-VqK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ATX-bF-49P"/>
+                            <constraint firstAttribute="bottom" secondItem="Ipz-02-VqK" secondAttribute="bottom" id="AbS-Uh-oOT"/>
+                            <constraint firstItem="Ipz-02-VqK" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="EwJ-Ar-0TE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ipz-02-VqK" secondAttribute="trailing" id="Vcl-pz-ak0"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -58,9 +35,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="boardingImage" width="640" height="960"/>
-        <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="LaunchImage" width="360" height="760"/>
     </resources>
 </document>

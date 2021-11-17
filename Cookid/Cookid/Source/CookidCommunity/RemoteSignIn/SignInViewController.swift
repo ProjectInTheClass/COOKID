@@ -20,7 +20,12 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
     @IBOutlet weak var appleSignInButton: UIButton!
     @IBOutlet weak var naverSignInButton: UIButton!
     @IBOutlet weak var kakaoSignInButton: UIButton!
-
+    @IBOutlet weak var testOnlineButton: UIButton!
+    
+    private var activityIndicator = UIActivityIndicatorView().then {
+        $0.hidesWhenStopped = true
+    }
+    
     // MARK: - Properties
     
     var viewModel: PostViewModel!
@@ -33,7 +38,22 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        configureUI()
+        makeConstraints()
+    }
+    
+    private func configureUI() {
+        appleSignInButton.layer.cornerRadius = 10
+        naverSignInButton.layer.cornerRadius = 10
+        kakaoSignInButton.layer.cornerRadius = 10
+    }
+    
+    private func makeConstraints() {
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.width.height.equalTo(50)
+        }
     }
     
     // MARK: - bindViewModel
@@ -42,13 +62,14 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
         
         appleSignInButton.rx.tap
             .bind { [unowned self] in
-                appleLogin()
+                self.activityIndicator.startAnimating()
+                self.appleLogin()
             }
             .disposed(by: rx.disposeBag)
         
         naverSignInButton.rx.tap
             .bind { [unowned self] in
-                print("naver login")
+                self.activityIndicator.startAnimating()
                 self.naverAuthRepo.setDelegate(newValue: self)
                 self.naverAuthRepo.naverLogin()
             }
@@ -56,7 +77,7 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
         
         kakaoSignInButton.rx.tap
             .bind { [unowned self] in
-                print("kakao login")
+                self.activityIndicator.startAnimating()
                 self.kakaoAuthRepo.kakaoLogin { result in
                     switch result {
                     case .success(let str) :
@@ -65,6 +86,7 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
                             switch result {
                             case .success(let success):
                                 print(success.rawValue)
+                                self.activityIndicator.stopAnimating()
                                 self.dismiss(animated: true, completion: nil)
                             case .failure(let error):
                                 print(error.rawValue)
@@ -76,6 +98,13 @@ class SignInViewController: UIViewController, ViewModelBindable, StoryboardBased
                 }
             }
             .disposed(by: rx.disposeBag)
+        
+        testOnlineButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.dismiss(animated: true, completion: nil)
+            })
+            .disposed(by: rx.disposeBag)
     }
 }
 
@@ -85,6 +114,7 @@ extension SignInViewController: NaverThirdPartyLoginConnectionDelegate {
         print("naver Login Success")
         naverAuthRepo.fetchNaverUserInfo { success in
             if success {
+                self.activityIndicator.stopAnimating()
                 self.dismiss(animated: true, completion: nil)
             } else {
                 errorAlert(selfView: self, errorMessage: "사용자 정보를 가져오지 못했습니다.", completion: { })
@@ -122,12 +152,12 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        print("----------> success")
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             appleAuthRepo.fetchAppleUserInfo { success in
                 if success {
                     let userIdentifier = appleIDCredential.user
                     KeyChainAuthRepo.shared.create(account: "userIdentifier", value: userIdentifier)
+                    self.activityIndicator.stopAnimating()
                     self.dismiss(animated: true, completion: nil)
                 }
             }

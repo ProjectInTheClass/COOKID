@@ -21,7 +21,6 @@ protocol MealServiceType {
 
 class MealService: BaseService, MealServiceType {
   
-    private var totalBudget: Int = 1
     private var meals: [Meal] = []
     private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
     

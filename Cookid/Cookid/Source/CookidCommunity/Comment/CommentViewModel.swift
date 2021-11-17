@@ -117,7 +117,7 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                 return subComment.commentID == comment.commentID }) else { return }
             
             output.commentSections[index].items.remove(at: subIndex)
-            serviceProvider.commentService.reportComment(comment: comment, user: user)
+            serviceProvider.commentService.reportComment(comment: comment, currentUser: user)
         } else {
             guard let index = output.commentSections.firstIndex(where: { section in
                 return section.header.commentID == comment.commentID
@@ -125,7 +125,7 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             
             output.commentSections[index].items.removeAll()
             output.commentSections.remove(at: index)
-            serviceProvider.commentService.reportComment(comment: comment, user: user)
+            serviceProvider.commentService.reportComment(comment: comment, currentUser: user)
         }
     }
     
@@ -162,7 +162,7 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     }
     
     func fetchComments(user: User) {
-        serviceProvider.commentService.fetchComments(post: post, user: user) { [weak self] comments in
+        serviceProvider.commentService.fetchComments(post: post, currentUser: user) { [weak self] comments in
             guard let self = self else { return }
             self.output.commentSections = self.fetchCommentSection(comments: comments)
         }

@@ -49,25 +49,36 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        kakaoAuthRepo.isSignIn { [weak self] success in
-            guard let self = self else { return }
-            if success {
-                print("Kakao Login success")
-            } else if self.naverAuthRepo.isSignIn {
-                print("Naver Login success")
-            } else {
-                self.appleAuthRepo.isSignIn { success in
-                    if success {
-                        print("Apple Login success")
-                    } else {
-                        self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
-                    }
-                }
+        checkSignIn { success in
+            if !success {
+                self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
             }
         }
     }
     
     // MARK: - Functions
+    
+    private func checkSignIn(completion: @escaping (Bool) -> Void) {
+        kakaoAuthRepo.isSignIn { [weak self] success in
+            guard let self = self else { return }
+            if success {
+                print("Kakao Login success")
+                completion(true)
+            } else if self.naverAuthRepo.isSignIn {
+                print("Naver Login success")
+                completion(true)
+            } else {
+                self.appleAuthRepo.isSignIn { success in
+                    if success {
+                        print("Apple Login success")
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
+                }
+            }
+        }
+    }
     
     private func settingViewModel() {
         self.naverAuthRepo.viewModel = viewModel
@@ -118,6 +129,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     func bindViewModel() {
         
         viewModel.output.posts
+            .observe(on: MainScheduler.instance)
             .bind(to: tableView.rx.items(cellIdentifier: "postCell",
                                          cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
@@ -158,6 +170,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             .withUnretained(self)
             .filter { owner, offset in
                 // 첫 filtering
+                guard owner.tableView.visibleCells.count > 2 else { return false }
                 guard offset.y > 0 else { return false }
                 guard owner.tableView.frame.height > 0 else { return false }
                 // 1: 테이블뷰의 크기 + offset(아래로 탐색하는 거리)
@@ -176,23 +189,49 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             .disposed(by: rx.disposeBag)
         
         addPostBarButton.rx.tap
+            .observe(on: MainScheduler.asyncInstance)
             .bind { [unowned self] in
-                self.coordinator?.navigateAddPostVC(mode: .new, senderTag: self.addPostBarButton.tag)
-                expandedIndexSet = []
+                self.checkSignIn { success in
+                    DispatchQueue.main.async {
+                        if success {
+                            self.coordinator?.navigateAddPostVC(mode: .new, senderTag: self.addPostBarButton.tag)
+                            expandedIndexSet = []
+                        } else {
+                            self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
+                        }
+                    }
+                }
             }
             .disposed(by: rx.disposeBag)
         
         postButtonWithCaption.rx.tap
+            .observe(on: MainScheduler.asyncInstance)
             .bind { [unowned self] in
-                self.coordinator?.navigateAddPostVC(mode: .new, senderTag: self.postButtonWithCaption.tag)
-                expandedIndexSet = []
+                self.checkSignIn { success in
+                    DispatchQueue.main.async {
+                        if success {
+                            self.coordinator?.navigateAddPostVC(mode: .new, senderTag: self.postButtonWithCaption.tag)
+                            expandedIndexSet = []
+                        } else {
+                            self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
+                        }
+                    }
+                }
             }
             .disposed(by: rx.disposeBag)
         
         postButtonWithCamera.rx.tap
             .bind { [unowned self] in
-                self.coordinator?.navigateAddPostVC(mode: .new, senderTag: self.postButtonWithCamera.tag)
-                expandedIndexSet = []
+                self.checkSignIn { success in
+                    DispatchQueue.main.async {
+                        if success {
+                            self.coordinator?.navigateAddPostVC(mode: .new, senderTag: self.postButtonWithCamera.tag)
+                            expandedIndexSet = []
+                        } else {
+                            self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
+                        }
+                    }
+                }
             }
             .disposed(by: rx.disposeBag)
         
@@ -201,8 +240,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         viewModel.output.user
             .withUnretained(self)
             .bind { owner, user in
-                owner.userImage.setImageWithKf(url: user.image)
-                owner.viewModel.serviceProvider.postService.fetchLastPosts(currentUser: user, completion: { _ in })
+                owner.userImage.setUserImageWithKf(url: user.image)
             }
             .disposed(by: rx.disposeBag)
         

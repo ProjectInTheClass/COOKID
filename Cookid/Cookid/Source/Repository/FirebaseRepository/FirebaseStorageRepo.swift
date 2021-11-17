@@ -30,7 +30,7 @@ class FirebaseStorageRepo: BaseRepository, StorageImageRepo {
         var urls = [URL?]()
         for (index, image) in images.enumerated() {
             dispatchGroup.enter()
-            let fileName = "postID" + "\(index)"
+            let fileName = postID + "\(index)"
             guard let imageData = image.jpegData(compressionQuality: 0.25) else { return }
             postImageStorage.child(fileName).putData(imageData, metadata: nil) { _, error in
                 if let error = error {
@@ -54,7 +54,7 @@ class FirebaseStorageRepo: BaseRepository, StorageImageRepo {
         let dispatchGroup = DispatchGroup()
         for index in 0...2 {
             dispatchGroup.enter()
-            let fileName = "postID" + "\(index)"
+            let fileName = postID + "\(index)"
             postImageStorage.child(fileName).delete { error in
                 if let error = error {
                     // 이미지를 발견하지 못하는 경우의 에러 + @
@@ -77,6 +77,7 @@ class FirebaseStorageRepo: BaseRepository, StorageImageRepo {
             guard let self = self else { return }
             switch result {
             case .success(let success):
+                    print("delete post Images \(success)")
                 self.uploadImages(postID: postID, images: images) { result in
                     switch result {
                     case .success(let urls):

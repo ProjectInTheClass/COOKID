@@ -9,7 +9,7 @@ import UIKit
 
 class ThirdPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
-    var viewModel: OnboardingViewModel!
+    var viewModel: LocalSignInViewModel!
     
     @IBOutlet weak var mealTypeStackView: UIStackView!
     @IBOutlet weak var usertypeSegment: UISegmentedControl!

@@ -12,7 +12,7 @@ import NSObject_Rx
 
 class SecondPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
-    var viewModel: OnboardingViewModel!
+    var viewModel: LocalSignInViewModel!
     
     @IBOutlet weak var monthlyGoalStackView: UIStackView!
     @IBOutlet weak var monthlyGoal: UITextField!
@@ -40,7 +40,7 @@ class SecondPageViewController: UIViewController, ViewModelBindable, StoryboardB
                 if isValid {
                     UIView.animate(withDuration: 0.5) {
                         owner.nextPageButton.setImage(UIImage(systemName: "checkmark.circle.fill")!, for: .normal)
-                        owner.nextPageButton.tintColor = .systemGray
+                        owner.nextPageButton.tintColor = .systemGreen
                     }
                 } else {
                     UIView.animate(withDuration: 0.5) {

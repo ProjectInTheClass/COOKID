@@ -26,13 +26,13 @@
 		032233A8269212870092DD6D /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032233A6269212870092DD6D /* Launch.storyboard */; };
 		032233BA269277520092DD6D /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B9269277520092DD6D /* Meal.swift */; };
 		032233C726927F0C0092DD6D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233C626927F0C0092DD6D /* DummyData.swift */; };
-		032233CB2692A8630092DD6D /* OnboardingPageViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233CA2692A8630092DD6D /* OnboardingPageViewViewController.swift */; };
+		032233CB2692A8630092DD6D /* LocalSignInViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233CA2692A8630092DD6D /* LocalSignInViewViewController.swift */; };
 		032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233CC2692A8F70092DD6D /* FirstPageViewController.swift */; };
 		032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233CE2692A90B0092DD6D /* SecondPageViewController.swift */; };
 		032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D02692A91A0092DD6D /* ThirdPageViewController.swift */; };
 		032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D22692A94D0092DD6D /* FourthPageViewController.swift */; };
 		032233D72692F0160092DD6D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D62692F0160092DD6D /* Extension.swift */; };
-		032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */; };
+		032233D92692F8ED0092DD6D /* LocalSignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D82692F8ED0092DD6D /* LocalSignInViewModel.swift */; };
 		032233DE2693057C0092DD6D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233DD2693057C0092DD6D /* User.swift */; };
 		03250E0E2712654900425036 /* CommentCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03250E0D2712654900425036 /* CommentCellReactor.swift */; };
 		03250E1127126A5600425036 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 03250E1027126A5600425036 /* Kingfisher */; };
@@ -48,8 +48,8 @@
 		0330446027400A0E004F7578 /* FirestoreUserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330445F27400A0E004F7578 /* FirestoreUserTest.swift */; };
 		0330446227400A1D004F7578 /* FirestoreCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330446127400A1D004F7578 /* FirestoreCommentTest.swift */; };
 		0330446427400A36004F7578 /* StorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330446327400A36004F7578 /* StorageTest.swift */; };
+		033044662744EC24004F7578 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 033044652744EC23004F7578 /* LaunchImage.png */; };
 		0331A9CF2711C3EA005EF05B /* PostCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */; };
-		0339575126A2C96100594515 /* boardingImage in Resources */ = {isa = PBXBuildFile; fileRef = 0339575026A2C96100594515 /* boardingImage */; };
 		0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E263271977FA001FD6A7 /* RankerImageView.swift */; };
 		0339E269271B81D3001FD6A7 /* CookidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E268271B81D3001FD6A7 /* CookidButton.swift */; };
 		033D3C2C270A7C96009B29B9 /* MyPostReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */; };
@@ -127,7 +127,7 @@
 		03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */; };
 		03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */; };
 		03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */; };
-		03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */; };
+		03E42EDA26C4E22F005D7B5E /* LocalSignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */; };
 		03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */; };
 		03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */; };
 		03F2ED6426ED906C00CFE87C /* Post.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03F2ED6326ED906C00CFE87C /* Post.storyboard */; };
@@ -205,13 +205,13 @@
 		032233B7269276DB0092DD6D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		032233B9269277520092DD6D /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		032233C626927F0C0092DD6D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
-		032233CA2692A8630092DD6D /* OnboardingPageViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewViewController.swift; sourceTree = "<group>"; };
+		032233CA2692A8630092DD6D /* LocalSignInViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSignInViewViewController.swift; sourceTree = "<group>"; };
 		032233CC2692A8F70092DD6D /* FirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageViewController.swift; sourceTree = "<group>"; };
 		032233CE2692A90B0092DD6D /* SecondPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPageViewController.swift; sourceTree = "<group>"; };
 		032233D02692A91A0092DD6D /* ThirdPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPageViewController.swift; sourceTree = "<group>"; };
 		032233D22692A94D0092DD6D /* FourthPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthPageViewController.swift; sourceTree = "<group>"; };
 		032233D62692F0160092DD6D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		032233D82692F8ED0092DD6D /* LocalSignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSignInViewModel.swift; sourceTree = "<group>"; };
 		032233DD2693057C0092DD6D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		03250E0D2712654900425036 /* CommentCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellReactor.swift; sourceTree = "<group>"; };
 		03250E152714359A00425036 /* AddTodayMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodayMealViewController.swift; sourceTree = "<group>"; };
@@ -219,8 +219,8 @@
 		0330445F27400A0E004F7578 /* FirestoreUserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUserTest.swift; sourceTree = "<group>"; };
 		0330446127400A1D004F7578 /* FirestoreCommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCommentTest.swift; sourceTree = "<group>"; };
 		0330446327400A36004F7578 /* StorageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTest.swift; sourceTree = "<group>"; };
+		033044652744EC23004F7578 /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
 		0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellReactor.swift; sourceTree = "<group>"; };
-		0339575026A2C96100594515 /* boardingImage */ = {isa = PBXFileReference; lastKnownFileType = file; path = boardingImage; sourceTree = "<group>"; };
 		0339E263271977FA001FD6A7 /* RankerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankerImageView.swift; sourceTree = "<group>"; };
 		0339E268271B81D3001FD6A7 /* CookidButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidButton.swift; sourceTree = "<group>"; };
 		033D3C1E2709FF49009B29B9 /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -301,7 +301,7 @@
 		03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingMainViewController.swift; sourceTree = "<group>"; };
 		03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewModel.swift; sourceTree = "<group>"; };
-		03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
+		03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSignInCoordinator.swift; sourceTree = "<group>"; };
 		03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHeaderView.swift; sourceTree = "<group>"; };
 		03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingTableViewCell.swift; sourceTree = "<group>"; };
 		03F2ED6326ED906C00CFE87C /* Post.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Post.storyboard; sourceTree = "<group>"; };
@@ -514,7 +514,6 @@
 				032233B02692765C0092DD6D /* Entity */,
 				032233B1269276680092DD6D /* Model */,
 				DB0D7D722694980B009B2D51 /* Service */,
-				2417EAB226E58CDD006F2785 /* Onboarding */,
 				03B2048B26D5D9270099C269 /* CookidStats */,
 				03F2ED7126ED92C900CFE87C /* CookidCommunity */,
 				2417EAB426E58CF7006F2785 /* CookidProfile */,
@@ -523,12 +522,12 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
-		030D4AE927302E9A005C0FFF /* SignIn */ = {
+		030D4AE927302E9A005C0FFF /* RemoteSignIn */ = {
 			isa = PBXGroup;
 			children = (
 				03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */,
 			);
-			path = SignIn;
+			path = RemoteSignIn;
 			sourceTree = "<group>";
 		};
 		0322338F269212860092DD6D = {
@@ -570,7 +569,6 @@
 		032233AF2692764F0092DD6D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */,
 				244B2B0F26E4A0BF001226F0 /* FirebaseRepository */,
 				24B081A926DFD1FA00379087 /* RealmRepository */,
 				03F2ED6026ED046700CFE87C /* AuthRepository */,
@@ -618,7 +616,7 @@
 			children = (
 				032233A4269212870092DD6D /* Assets.xcassets */,
 				032233A6269212870092DD6D /* Launch.storyboard */,
-				0339575026A2C96100594515 /* boardingImage */,
+				033044652744EC23004F7578 /* LaunchImage.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -695,6 +693,8 @@
 				037B7A25272EDFD0004E9320 /* StoryboardProtocol.swift */,
 				037B7A23272EDF9F004E9320 /* ViewModelProtocol.swift */,
 				030D4AE127300D99005C0FFF /* CoodinatorProtocol.swift */,
+				037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */,
+				037B7A14272D7C30004E9320 /* ServiceProvider.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -745,6 +745,7 @@
 		03B2048B26D5D9270099C269 /* CookidStats */ = {
 			isa = PBXGroup;
 			children = (
+				2417EAB226E58CDD006F2785 /* LocalSignIn */,
 				030D4AD5273004E2005C0FFF /* Main */,
 				030D4AD627300675005C0FFF /* AddMeal */,
 				030D4AD7273006B0005C0FFF /* AddShopping */,
@@ -784,7 +785,7 @@
 			isa = PBXGroup;
 			children = (
 				03E42ED026C41766005D7B5E /* AppCoordinator.swift */,
-				03E42ED926C4E22F005D7B5E /* OnboardingCoordinator.swift */,
+				03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */,
 				03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */,
 				03F2ED9126F38D7C00CFE87C /* MainCoordinator.swift */,
 				03F2ED8F26F3886700CFE87C /* PostCoordinator.swift */,
@@ -831,7 +832,7 @@
 		03F2ED7126ED92C900CFE87C /* CookidCommunity */ = {
 			isa = PBXGroup;
 			children = (
-				030D4AE927302E9A005C0FFF /* SignIn */,
+				030D4AE927302E9A005C0FFF /* RemoteSignIn */,
 				030D4AD8273006E8005C0FFF /* Post */,
 				030D4AD92730071C005C0FFF /* AddPost */,
 				0390F53B2728EB8E00677651 /* Comment */,
@@ -840,17 +841,17 @@
 			path = CookidCommunity;
 			sourceTree = "<group>";
 		};
-		2417EAB226E58CDD006F2785 /* Onboarding */ = {
+		2417EAB226E58CDD006F2785 /* LocalSignIn */ = {
 			isa = PBXGroup;
 			children = (
-				032233D82692F8ED0092DD6D /* OnboardingViewModel.swift */,
-				032233CA2692A8630092DD6D /* OnboardingPageViewViewController.swift */,
+				032233D82692F8ED0092DD6D /* LocalSignInViewModel.swift */,
+				032233CA2692A8630092DD6D /* LocalSignInViewViewController.swift */,
 				032233CC2692A8F70092DD6D /* FirstPageViewController.swift */,
 				032233CE2692A90B0092DD6D /* SecondPageViewController.swift */,
 				032233D02692A91A0092DD6D /* ThirdPageViewController.swift */,
 				032233D22692A94D0092DD6D /* FourthPageViewController.swift */,
 			);
-			path = Onboarding;
+			path = LocalSignIn;
 			sourceTree = "<group>";
 		};
 		2417EAB426E58CF7006F2785 /* CookidProfile */ = {
@@ -924,7 +925,6 @@
 		DB0D7D722694980B009B2D51 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				037B7A14272D7C30004E9320 /* ServiceProvider.swift */,
 				030D4AE5273010BD005C0FFF /* UserService.swift */,
 				03D8C1FC26EBBC9800238CB6 /* PostService.swift */,
 				03F2ED8526F0343E00CFE87C /* CommentService.swift */,
@@ -1062,8 +1062,8 @@
 				032233A8269212870092DD6D /* Launch.storyboard in Resources */,
 				032233A5269212870092DD6D /* Assets.xcassets in Resources */,
 				03F2ED6426ED906C00CFE87C /* Post.storyboard in Resources */,
+				033044662744EC24004F7578 /* LaunchImage.png in Resources */,
 				030D4AEB273040D8005C0FFF /* UserInfo.storyboard in Resources */,
-				0339575126A2C96100594515 /* boardingImage in Resources */,
 				032233A3269212860092DD6D /* Main.storyboard in Resources */,
 				03B55AEE273D39B3008F7151 /* GoogleService-Info.plist in Resources */,
 			);
@@ -1209,7 +1209,7 @@
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
 				03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */,
 				03D660C9270B57B30044FE1E /* MyBookmarkReactor.swift in Sources */,
-				032233D92692F8ED0092DD6D /* OnboardingViewModel.swift in Sources */,
+				032233D92692F8ED0092DD6D /* LocalSignInViewModel.swift in Sources */,
 				03F2ED7526EDD23A00CFE87C /* PostUserView.swift in Sources */,
 				DB61715226C9577B008F497C /* NotificationManager.swift in Sources */,
 				03F2ED6C26ED916900CFE87C /* PostHeaderView.swift in Sources */,
@@ -1224,7 +1224,7 @@
 				241523B4269D24860077941A /* Function.swift in Sources */,
 				035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */,
 				2417EAB626E58D0C006F2785 /* MyPageViewModel.swift in Sources */,
-				032233CB2692A8630092DD6D /* OnboardingPageViewViewController.swift in Sources */,
+				032233CB2692A8630092DD6D /* LocalSignInViewViewController.swift in Sources */,
 				037B7A15272D7C30004E9320 /* ServiceProvider.swift in Sources */,
 				03D8C1F826EBB85F00238CB6 /* RemoteComment.swift in Sources */,
 				03B3EB782739173C004CACF4 /* UpdateUserInfoViewController.swift in Sources */,
@@ -1249,7 +1249,7 @@
 				030D4AED27317577005C0FFF /* ConsumptionDetail.swift in Sources */,
 				03F2ED9026F3886700CFE87C /* PostCoordinator.swift in Sources */,
 				0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */,
-				03E42EDA26C4E22F005D7B5E /* OnboardingCoordinator.swift in Sources */,
+				03E42EDA26C4E22F005D7B5E /* LocalSignInCoordinator.swift in Sources */,
 				0322339E269212860092DD6D /* SceneDelegate.swift in Sources */,
 				03D3046426FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift in Sources */,
 				03F2ED9226F38D7C00CFE87C /* MainCoordinator.swift in Sources */,

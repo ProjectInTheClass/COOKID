@@ -1,5 +1,5 @@
 //
-//  OnboardingViewModel.swift
+//  LocalSignInViewModel.swift
 //  Cookid
 //
 //  Created by 박형석 on 2021/07/05.
@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 
-class OnboardingViewModel: ViewModelType, HasDisposeBag {
+class LocalSignInViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
 
     struct Input {
         let nickname = PublishRelay<String>()
@@ -25,13 +25,12 @@ class OnboardingViewModel: ViewModelType, HasDisposeBag {
         let monthlyGoalValidation = PublishRelay<Bool?>()
         let determinationValidation = PublishRelay<Bool?>()
     }
-    
-    let serviceProvider: ServiceProviderType
+
     var input: Input = Input()
     var output: Output = Output()
     
-    init(serviceProvider: ServiceProviderType) {
-        self.serviceProvider = serviceProvider
+    override init(serviceProvider: ServiceProviderType) {
+        super.init(serviceProvider: serviceProvider)
         
         input.determination
             .map(validationText)

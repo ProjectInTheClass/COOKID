@@ -142,7 +142,7 @@ class AddPostReactor: Reactor {
                                                star: star,
                                                caption: caption)
         case .edit(let post):
-            return serviceProvider.postService.updatePost(post: post,
+            return serviceProvider.postService.updatePost(originalPost: post,
                                                images: images,
                                                region: region,
                                                price: price,

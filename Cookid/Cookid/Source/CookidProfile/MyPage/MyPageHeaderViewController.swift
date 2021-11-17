@@ -153,6 +153,7 @@ class MyPageHeaderViewController: BaseViewController, ViewModelBindable {
             .disposed(by: disposeBag)
         
         viewModel.output.myPostCount
+            .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .bind { (owner, count) in
                 owner.userRecipeCount.text = "📝  " + String(count)
@@ -171,12 +172,13 @@ class MyPageHeaderViewController: BaseViewController, ViewModelBindable {
             .disposed(by: disposeBag)
         
         viewModel.output.userInfo
+            .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .bind(onNext: { (owner, user) in
-                owner.userImage.userImageView.setImageWithKf(url: user.image)
                 owner.userNickname.text = user.nickname
                 owner.userType.text = user.userType.rawValue
                 owner.userDetermination.text = user.determination
+                owner.userImage.userImageView.setUserImageWithKf(url: user.image)
             })
             .disposed(by: disposeBag)
 

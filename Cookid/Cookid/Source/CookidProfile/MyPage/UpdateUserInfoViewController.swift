@@ -71,6 +71,7 @@ class UpdateUserInfoViewController: UIViewController, ViewModelBindable, Storybo
             .disposed(by: rx.disposeBag)
         
         viewModel.output.userInfo
+            .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind(onNext: { owner, user in
                 owner.setupUI(user: user)
@@ -78,18 +79,22 @@ class UpdateUserInfoViewController: UIViewController, ViewModelBindable, Storybo
             .disposed(by: rx.disposeBag)
         
         nickNameTextField.rx.text.orEmpty
+            .observe(on: MainScheduler.instance)
             .bind(to: viewModel.input.userNickname)
             .disposed(by: rx.disposeBag)
         
         newDeterminationTextField.rx.text.orEmpty
+            .observe(on: MainScheduler.instance)
             .bind(to: viewModel.input.userDetermination)
             .disposed(by: rx.disposeBag)
         
         budgetTextField.rx.text.orEmpty
+            .observe(on: MainScheduler.instance)
             .bind(to: viewModel.input.userBudget)
             .disposed(by: rx.disposeBag)
         
         completeButton.rx.tap
+            .observe(on: MainScheduler.instance)
             .do(onNext: { [unowned self] in
                 self.activityIndicator.startAnimating()
             })
@@ -97,12 +102,15 @@ class UpdateUserInfoViewController: UIViewController, ViewModelBindable, Storybo
             .disposed(by: rx.disposeBag)
         
         viewModel.output.completionUpdate
+            .observe(on: MainScheduler.instance)
             .withUnretained(self)
-            .bind(onNext: { owner, value in
-                if value {
-                    owner.activityIndicator.stopAnimating()
+            .bind(onNext: { owner, success in
+                if success {
                     owner.dismiss(animated: true, completion: nil)
+                } else {
+                    errorAlert(selfView: owner, errorMessage: "사용자 정보 업데이트에 실패했습니다.", completion: nil)
                 }
+                owner.activityIndicator.stopAnimating()
             })
             .disposed(by: rx.disposeBag)
     }

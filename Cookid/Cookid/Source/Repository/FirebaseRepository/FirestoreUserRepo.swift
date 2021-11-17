@@ -25,7 +25,7 @@ class FirestoreUserRepo: BaseRepository, UserRepoType {
     
     func createUser(user: User, completion: @escaping FirebaseResult) {
         do {
-            try userDB.document(user.id).setData(from: convertUserToEntity(user: user)) { error in
+            try userDB.document(user.id).setData(from: convertUserToEntity(user)) { error in
                 if let error = error {
                     print("Error writing user to Firestore: \(error)")
                     completion(.failure(.createUserError))

@@ -13,17 +13,17 @@ class Post {
     let user: User
     var images: [URL?]
     var caption: String
-    var likes: Int
-    var star: Int
-    var collections: Int
     var mealBudget: Int
     var location: String
+    var star: Int
+    var collections: Int
+    var likes: Int
     var timeStamp: Date
     var didLike: Bool
     var didCollect: Bool
     var commentCount: Int
     
-    init(postID: String, user: User, images: [URL?], likes: Int, collections: Int, star: Int, caption: String, mealBudget: Int, location: String, timeStamp: Date, didLike: Bool, didCollect: Bool, commentCount: Int = 0) {
+    init(postID: String, user: User, images: [URL?], likes: Int = 0, collections: Int = 0, star: Int, caption: String, mealBudget: Int, location: String, timeStamp: Date = Date(), didLike: Bool = false, didCollect: Bool = false, commentCount: Int = 0) {
         self.postID = postID
         self.user = user
         self.images = images

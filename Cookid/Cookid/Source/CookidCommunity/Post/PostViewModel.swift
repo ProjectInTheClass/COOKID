@@ -13,13 +13,14 @@ import NSObject_Rx
 class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     
     struct Input {
+        let fetchInitialPosts = PublishRelay<Void>()
         let fetchPastPosts = PublishRelay<Void>()
         let fetchFreshPosts = PublishRelay<Void>()
     }
     
     struct Output {
         let posts = PublishRelay<[Post]>()
-        let user = PublishRelay<User>()
+        let user = BehaviorRelay<User>(value: DummyData.shared.secondUser)
         let isLoading = BehaviorRelay<Bool>(value: false)
     }
     
@@ -64,11 +65,20 @@ class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                 owner.serviceProvider.postService.fetchLatestPosts(currentUser: user)
             })
             .disposed(by: disposeBag)
+        
+        input.fetchInitialPosts
+            .withLatestFrom(currentUser)
+            .withUnretained(self)
+            .bind(onNext: { owner, user in
+                owner.serviceProvider.postService.fetchLastPosts(currentUser: user, completion: { _ in })
+            })
+            .disposed(by: disposeBag)
                 
     }
     
     func fetchInitialDate() {
         serviceProvider.userService.loadMyInfo()
+        input.fetchInitialPosts.accept(())
     }
     
 }
