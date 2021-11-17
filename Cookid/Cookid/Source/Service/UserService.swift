@@ -75,7 +75,7 @@ class UserService: BaseService, UserServiceType {
     func loadMyInfo() {
 //        return Observable.create { [weak self] observer in
 //            guard let self = self else { return Disposables.create() }
-            self.repoProvider.firestoreUserRepo.loadUser(userID: self.defaultUserInfo.id) { result in
+            self.repoProvider.firestoreUserRepo.fetchUser(userID: self.defaultUserInfo.id) { result in
                 switch result {
                 case .success(let entity):
                     guard let entity = entity else { return }
@@ -133,7 +133,7 @@ class UserService: BaseService, UserServiceType {
     }
     
     func updateUserImage(user: User, profileImage: UIImage?, completion: @escaping (Bool) -> Void) {
-        self.serviceProvider.repoProvider.firestorageImageRepo.updateUserImage(userID: user.id, image: profileImage) { result in
+        self.serviceProvider.repoProvider.firestorageImageRepo.uploadUserImage(userID: user.id, image: profileImage) { result in
             switch result {
             case .success(let url):
                 self.defaultUserInfo.image = url

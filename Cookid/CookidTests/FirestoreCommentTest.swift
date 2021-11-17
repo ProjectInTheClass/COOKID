@@ -95,22 +95,24 @@ class FirestoreCommentTest: XCTestCase {
     func test_FirestoreFetchComments() {
         let exp = expectation(description: "for async")
         commentDB
-            .whereField("isReported", notIn: [currentUser.id])
+            .whereField("postID", isEqualTo: "testPostID4")
             .getDocuments { querySnapshot, error in
-            if let error = error {
-                print(error.localizedDescription)
-                XCTFail("delete Fail")
-            } else if let querySnapshot = querySnapshot {
-                do {
-                    let commentEntity = try querySnapshot.documents.compactMap { try $0.data(as: CommentEntity.self) }
-                    XCTAssertEqual(commentEntity.count, 1)
-                    exp.fulfill()
-                } catch let error {
+                if let error = error {
                     print(error.localizedDescription)
-                    XCTFail("delete Fail")
+                    XCTFail("fetch Fail")
+                } else if let querySnapshot = querySnapshot {
+                    do {
+                        let commentEntity = try querySnapshot.documents.compactMap { try $0.data(as: CommentEntity.self) }
+                        XCTAssertEqual(commentEntity.count, 2)
+                        exp.fulfill()
+                    } catch let error {
+                        print(error.localizedDescription)
+                        XCTFail("fetch Fail")
+                    }
+                } else {
+                    XCTFail("fetch Fail")
                 }
             }
-        }
         waitForExpectations(timeout: 15, handler: nil)
     }
     
@@ -139,10 +141,6 @@ class FirestoreCommentTest: XCTestCase {
         guard let entity = entity else { return nil }
         return Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: currentUser, content: entity.content, timestamp: entity.timestamp, didLike: false, likes: 0)
     }
-    
-    func convertEntityToUser(entity: UserEntity?) -> User? {
-        guard let entity = entity else { return nil }
-        return User(id: entity.id, image: URL(string: entity.imageURL), nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
-    }
+   
 
 }
