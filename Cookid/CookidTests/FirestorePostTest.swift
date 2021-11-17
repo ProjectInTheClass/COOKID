@@ -212,5 +212,4 @@ class FirestorePostTest: XCTestCase {
         }
         self.waitForExpectations(timeout: 15, handler: nil)
     }
-
 }

@@ -16,7 +16,7 @@ class FirestoreUserTest: XCTestCase {
     let userDB = Firestore.firestore().collection("user")
 
     override func setUpWithError() throws {
-        self.user = User(id: "third", image: URL(string: "https://images.unsplash.com/photo-1608265386093-9b242ca91b6e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1096&q=80"), nickname: "디폴트", determination: "열심히 아껴서 M1X사자!", priceGoal: 300000, userType: .preferDineIn, dineInCount: 0, cookidsCount: 0)
+        self.user = User(id: "fourth", image: URL(string: "https://images.unsplash.com/photo-1608265386093-9b242ca91b6e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1096&q=80"), nickname: "디폴트", determination: "열심히 아껴서 M1X사자!", priceGoal: 300000, userType: .preferDineIn, dineInCount: 0, cookidsCount: 0)
     }
 
     override func tearDownWithError() throws {
@@ -25,9 +25,8 @@ class FirestoreUserTest: XCTestCase {
     
     func test_connectLocaUserWithRemoteUser() {
         let exp = expectation(description: "Waiting for async operation")
-        let userEntity = UserEntity(id: user.id, imageURL: user.image!.absoluteString, nickname: user.nickname, determination: user.determination, priceGoal: user.priceGoal, userType: user.userType.rawValue, dineInCount: user.dineInCount, cookidsCount: user.cookidsCount)
         do {
-            try self.userDB.document(user.id).setData(from: userEntity) { error in
+            try self.userDB.document(user.id).setData(from: convertUserToEntity(user: user)) { error in
                 if let error = error {
                     XCTFail("Error writing user to Firestore: \(error)")
                 } else {
@@ -40,7 +39,7 @@ class FirestoreUserTest: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
-    func test_loadCurrentUser() {
+    func test_fetchUser() {
         let exp = expectation(description: "Waiting for async operation")
         userDB.document(user.id).getDocument { [weak self] document, error in
             guard let self = self else { return }
@@ -112,6 +111,15 @@ class FirestoreUserTest: XCTestCase {
             }
         }
         waitForExpectations(timeout: 15, handler: nil)
+    }
+    
+    func convertEntityToUser(entity: UserEntity?) -> User? {
+        guard let entity = entity else { return nil }
+        return User(id: entity.id, image: URL(string: entity.imageURL), nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
+    }
+    
+    func convertUserToEntity(user: User) -> UserEntity {
+        return UserEntity(id: user.id, imageURL: user.image!.absoluteString, nickname: user.nickname, determination: user.determination, priceGoal: user.priceGoal, userType: user.userType.rawValue, dineInCount: user.dineInCount, cookidsCount: user.cookidsCount)
     }
 
 }
