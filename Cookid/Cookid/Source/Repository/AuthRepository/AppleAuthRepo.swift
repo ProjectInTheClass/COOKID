@@ -49,7 +49,7 @@ class AppleAuthRepo {
         guard let localUser = self.viewModel.serviceProvider.repoProvider.realmUserRepo.fetchUser() else { return }
         let initialDineInCount = self.viewModel.serviceProvider.mealService.initialDineInMeal
         let initialCookidsCount = initialDineInCount + self.viewModel.serviceProvider.shoppingService.initialShoppingCount
-        let image = UIImage(systemName: "person.circle.fill")
+        let image = UIImage(named: "personPlaceholder")
         self.viewModel.serviceProvider.repoProvider.firestorageImageRepo.uploadUserImage(userID: localUser.id.stringValue, image: image) { result in
             switch result {
             case .success(let imageURL):

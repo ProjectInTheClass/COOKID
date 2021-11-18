@@ -14,8 +14,8 @@ typealias PostResult = (Result<[PostEntity], FirebaseError>) -> Void
 
 protocol PostRepoType {
     func createPost(post: Post, completion: @escaping FirebaseResult)
-    func fetchLatestPosts(userID: String, completion: @escaping PostResult)
-    func fetchPastPosts(userID: String, completion: @escaping PostResult)
+    func fetchLatestPosts(completion: @escaping PostResult)
+    func fetchPastPosts(completion: @escaping PostResult)
     func fetchMyPosts(userID: String, completion: @escaping PostResult)
     func fetchBookmarkedPosts(userID: String, completion: @escaping PostResult)
     func updatePost(updatedPost: Post, completion: @escaping FirebaseResult)
@@ -34,7 +34,7 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
     /// by this method, collect all the posts in one place.
     func createPost(post: Post, completion: @escaping FirebaseResult) {
         do {
-            try postDB.document(post.postID).setData(from: convertPostToEntity(post: post), merge: false, completion: { error in
+            try postDB.document(post.postID).setData(from: convertPostToEntity(post), merge: false, completion: { error in
                 if let error = error {
                     print("Error writing postEntity to Firestore: \(error)")
                     completion(.failure(.postUploadError))
@@ -91,8 +91,7 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
     }
     
     /// fetch new posts when tableView was scrolled top of it
-    /// userID: this parameter is used to filtering user's isReport list
-    func fetchLatestPosts(userID: String, completion: @escaping PostResult) {
+    func fetchLatestPosts(completion: @escaping PostResult) {
         // 최신 10개의 정렬된 데이터 받기
         postDB.order(by: "timestamp", descending: true).limit(to: 10)
             .getDocuments { querySnapshot, error in
@@ -112,8 +111,7 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
     }
     
     /// fetch 10 past posts at once when tableview was scrolled until bottom point
-    /// userID: this parameter is used to filtering user's isReport list
-    func fetchPastPosts(userID: String, completion: @escaping PostResult) {
+    func fetchPastPosts(completion: @escaping PostResult) {
         // firebase에서 시간 순서 대로 10개씩 받기
         postDB
             .whereField("timestamp", isLessThanOrEqualTo: currentDate)
@@ -196,10 +194,10 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
                     completion(.failure(.buttonTransactionError))
                     return nil }
                 if isHeart {
-                    postEntity.didCollect.append(userID)
+                    postEntity.didLike.append(userID)
                 } else {
-                    if let firstIndex = postEntity.didCollect.firstIndex(of: userID) {
-                        postEntity.didCollect.remove(at: firstIndex)
+                    if let firstIndex = postEntity.didLike.firstIndex(of: userID) {
+                        postEntity.didLike.remove(at: firstIndex)
                     }
                 }
                 transaction.updateData([

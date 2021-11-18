@@ -1,5 +1,5 @@
 //
-//  OnboardingCoordinator.swift
+//  LocalSignInCoordinator.swift
 //  Cookid
 //
 //  Created by 박형석 on 2021/08/12.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OnboardingCoordinator: CoordinatorType {
+class LocalSignInCoordinator: CoordinatorType {
     
     var parentCoordinator : CoordinatorType?
     var childCoordinator: [CoordinatorType] = []
@@ -21,7 +21,7 @@ class OnboardingCoordinator: CoordinatorType {
     }
     
     func start() -> UIViewController {
-        let pageVC = OnboardingPageViewViewController(coordinator: self, serviceProvider: serviceProvider)
+        let pageVC = LocalSignInViewViewController(coordinator: self, serviceProvider: serviceProvider)
         return pageVC
     }
     
@@ -32,5 +32,6 @@ class OnboardingCoordinator: CoordinatorType {
         guard let tabBarController = homeCoordinator.start() as? UITabBarController else { return }
         let window = UIApplication.shared.windows.first!
         window.rootViewController = tabBarController
+        window.makeKeyAndVisible()
     }
 }

@@ -10,9 +10,9 @@ import RxSwift
 
 protocol CommentServiceType {
     func createComment(comment: Comment)
-    func fetchComments(post: Post, user: User, completion: @escaping ([Comment]) -> Void)
+    func fetchComments(post: Post, currentUser: User, completion: @escaping ([Comment]) -> Void)
     func deleteComment(comment: Comment)
-    func reportComment(comment: Comment, user: User)
+    func reportComment(comment: Comment, currentUser: User)
     func fetchCommentsCount(post: Post) -> Observable<Int>
 }
 
@@ -55,14 +55,14 @@ class CommentService: BaseService, CommentServiceType {
         }
     }
     
-    func reportComment(comment: Comment, user: User) {
+    func reportComment(comment: Comment, currentUser: User) {
         
         if let index = comments.firstIndex(where: { $0.commentID == comment.commentID }) {
             self.comments.remove(at: index)
             self.commentStore.onNext(self.comments)
         }
         
-        self.repoProvider.firestoreCommentRepo.reportComment(comment: comment, user: user) { result in
+        self.repoProvider.firestoreCommentRepo.reportComment(comment: comment, user: currentUser) { result in
             switch result {
             case .success(let success) :
                 print(success)
@@ -77,8 +77,8 @@ class CommentService: BaseService, CommentServiceType {
         return Observable.create { observer in
             self.repoProvider.firestoreCommentRepo.fetchComments(postID: post.postID) { result in
                 switch result {
-                case .success(let commentsE):
-                    observer.onNext(commentsE.count)
+                case .success(let commentEntities):
+                    observer.onNext(commentEntities.count)
                 case .failure(let error):
                     print(error)
                 }
@@ -87,9 +87,9 @@ class CommentService: BaseService, CommentServiceType {
         }
     }
     
-    func fetchComments(post: Post, user: User, completion: @escaping ([Comment]) -> Void) {
-        
-        self.repoProvider.firestoreCommentRepo.fetchComments(postID: post.postID) { result in
+    func fetchComments(post: Post, currentUser: User, completion: @escaping ([Comment]) -> Void) {
+        self.repoProvider.firestoreCommentRepo.fetchComments(postID: post.postID) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let entities):
                 var newComments = [Comment]()
@@ -98,23 +98,25 @@ class CommentService: BaseService, CommentServiceType {
                     dispatchGroup.enter()
                     
                     // 엔티티의 리포트 딕셔너리에 현재 이용자의 id가 있는지를 확인해야 한다.
-                    guard entity.isReported.contains(user.id) else { dispatchGroup.leave()
-                        return }
+                    guard !entity.isReported.contains(currentUser.id) else {
+                        dispatchGroup.leave()
+                        return
+                    }
                     
                     self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                         switch result {
                         case .success(let userEntity):
-                            guard let userEntity = userEntity else { dispatchGroup.leave()
-                                return }
-                            let imagURL = URL(string: userEntity.imageURL)
-                            let user = User(id: userEntity.id, image: imagURL, nickname: userEntity.nickname, determination: userEntity.determination, priceGoal: userEntity.priceGoal, userType: UserType(rawValue: userEntity.userType) ?? .preferDineIn, dineInCount: userEntity.dineInCount, cookidsCount: userEntity.cookidsCount)
-                            let didLike = entity.didLike.contains(entity.userID)
-                            let newComment = Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: user, content: entity.content, timestamp: entity.timestamp, didLike: didLike, likes: entity.didLike.count)
+                            guard let userEntity = userEntity else {
+                                dispatchGroup.leave()
+                                return
+                            }
+                            let user = self.convertEntityToUser(entity: userEntity)
+                            let newComment = self.convertEntityToComment(commentUser: user, entity: entity)
                             newComments.append(newComment)
                             dispatchGroup.leave()
                         case .failure(let error):
-                            dispatchGroup.leave()
                             print(error)
+                            dispatchGroup.leave()
                         }
                     }
                 }

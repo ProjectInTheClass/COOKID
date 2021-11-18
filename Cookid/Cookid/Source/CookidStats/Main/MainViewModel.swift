@@ -21,7 +21,7 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     
     struct Output {
         let selectedDate = BehaviorRelay<Date>(value: Date())
-        let userInfo = PublishRelay<User>()
+        let userInfo = BehaviorRelay<User>(value: DummyData.shared.secondUser)
         let recentMeals = PublishRelay<[Meal]>()
         let adviceString = PublishRelay<String>()
         let monthlyDetailed = PublishRelay<ConsumptionDetailed>()
@@ -160,7 +160,6 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     
     // 이니셜 라이저 안에서는 실행되지 않는다. 기본적으로 가져와야 하는 데이터이기 때문에 따로 불러온다.
     func fetchDataForMain() {
-        serviceProvider.userService.loadMyInfo()
         serviceProvider.mealService.fetchMeals()
         serviceProvider.shoppingService.fetchShoppings()
     }

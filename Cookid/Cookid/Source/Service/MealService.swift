@@ -13,7 +13,7 @@ protocol MealServiceType {
     var initialDineInMeal: Int { get }
     var mealList: Observable<[Meal]> { get }
     var spotMonthMeals: Observable<[Meal]> { get }
-    func create(meal: Meal?) -> Observable<Bool>
+    func create(meal: Meal?, currentUser: User) -> Observable<Bool>
     func fetchMeals()
     func update(updateMeal: Meal) -> Observable<Bool>
     func deleteMeal(meal: Meal) -> Observable<Bool>
@@ -21,7 +21,6 @@ protocol MealServiceType {
 
 class MealService: BaseService, MealServiceType {
   
-    private var totalBudget: Int = 1
     private var meals: [Meal] = []
     private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
     
@@ -39,7 +38,7 @@ class MealService: BaseService, MealServiceType {
     
     // MARK: - Meal Storage
     
-    func create(meal: Meal?) -> Observable<Bool> {
+    func create(meal: Meal?, currentUser: User) -> Observable<Bool> {
         guard let meal = meal else {
             return Observable.just(false)
         }
@@ -48,6 +47,7 @@ class MealService: BaseService, MealServiceType {
             self.repoProvider.imageRepo.saveImage(image: meal.image ?? UIImage(named: "salad")!, id: meal.id) { _ in }
             self.repoProvider.realmMealRepo.createMeal(meal: meal) {  success in
                 if success {
+                    self.repoProvider.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id)
                     self.meals.append(meal)
                     self.mealStore.onNext(self.meals)
                     observer.onNext(true)

@@ -12,8 +12,8 @@ import NSObject_Rx
 
 class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
 
-    var coordinator: OnboardingCoordinator?
-    var viewModel: OnboardingViewModel!
+    var coordinator: LocalSignInCoordinator?
+    var viewModel: LocalSignInViewModel!
    
     @IBOutlet weak var determinationTextField: UITextField!
     @IBOutlet weak var finishPageButton: UIButton!
@@ -62,8 +62,9 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
             .bind(onNext: { owner, isError in
                 guard let isError = isError else { return }
                 if isError {
-                    errorAlert(selfView: owner, errorMessage: "등록에 실패했습니다. 다시 시도해 주세요.", completion: {  })
+                    errorAlert(selfView: owner, errorMessage: "등록에 실패했습니다. 다시 시도해 주세요.", completion: { })
                 } else {
+                    print("✅ completion")
                     owner.coordinator?.navigateHomeCoordinator()
                 }
             })

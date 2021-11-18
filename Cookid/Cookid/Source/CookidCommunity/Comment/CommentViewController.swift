@@ -215,7 +215,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
         viewModel.output.user
             .withUnretained(self)
             .bind(onNext: { owner, user in
-                owner.userImage.setImageWithKf(url: user.image)
+                owner.userImage.setUserImageWithKf(url: user.image)
                 owner.viewModel.fetchComments(user: user)
             })
             .disposed(by: rx.disposeBag)

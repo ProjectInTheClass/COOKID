@@ -17,10 +17,10 @@ protocol PostServiceType {
     func createPost(user: User, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool>
     func fetchLatestPosts(currentUser: User)
     func fetchLastPosts(currentUser: User, completion: @escaping (Bool) -> Void)
-    func updatePost(post: Post, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool>
+    func updatePost(originalPost: Post, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool>
     func deletePost(post: Post) -> Observable<Bool>
-    func fetchMyPosts(user: User) -> Observable<[Post]>
-    func fetchBookmarkedPosts(user: User) -> Observable<[Post]>
+    func fetchMyPosts(currentUser: User) -> Observable<[Post]>
+    func fetchBookmarkedPosts(currentUser: User) -> Observable<[Post]>
     func reportTransaction(currentUser: User, post: Post, isReport: Bool)
     func heartTransaction(sender: UIViewController, currentUser: User, post: Post, isHeart: Bool)
     func bookmarkTransaction(sender: UIViewController, currentUser: User, post: Post, isBookmark: Bool)
@@ -64,12 +64,12 @@ class PostService: BaseService, PostServiceType {
             self.repoProvider.firestorageImageRepo.uploadImages(postID: newPostID, images: images) { result in
                 switch result {
                 case .success(let urls):
-                    let newPost = Post(postID: newPostID, user: user, images: urls, likes: 0, collections: 0, star: star, caption: caption, mealBudget: price, location: region, timeStamp: Date(), didLike: false, didCollect: false)
+                    let newPost = Post(postID: newPostID, user: user, images: urls, star: star, caption: caption, mealBudget: price, location: region)
                     self.repoProvider.firestorePostRepo.createPost(post: newPost) { result in
                         switch result {
                         case .success(let success):
                             print(success.rawValue)
-                            self.updateLocalPosts(mode: .create, post: newPost)
+                            self.updateMemoryPosts(mode: .create, post: newPost)
                             observer.onNext(true)
                         case .failure(let error):
                             print(error.rawValue)
@@ -86,110 +86,50 @@ class PostService: BaseService, PostServiceType {
     }
     
     func fetchLatestPosts(currentUser: User) {
-        self.repoProvider.firestorePostRepo.fetchLatestPosts(userID: currentUser.id) { [weak self] result in
+        self.repoProvider.firestorePostRepo.fetchLatestPosts { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let entities):
-                var fetchedPosts = [Post]()
-                let dispathGroup = DispatchGroup()
-                for entity in entities {
-                    dispathGroup.enter()
-                    let didLike = entity.didLike.contains(currentUser.id)
-                    let didCollect = entity.didCollect.contains(currentUser.id)
-                    let images = entity.images.map { URL(string: $0) }
-                    self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
-                        switch result {
-                        case .success(let userEntity):
-                            guard let userEntity = userEntity else { return }
-                            let imageURL = URL(string: userEntity.imageURL)
-                            let user = User(id: userEntity.id, image: imageURL, nickname: userEntity.nickname, determination: userEntity.determination, priceGoal: userEntity.priceGoal, userType: UserType.init(rawValue: userEntity.userType) ?? .preferDineIn, dineInCount: userEntity.dineInCount, cookidsCount: userEntity.cookidsCount)
-                            self.repoProvider.firestoreCommentRepo.fetchCommentsCount(postID: entity.postID) { result in
-                                switch result {
-                                case .success(let count):
-                                    let post = Post(postID: entity.postID, user: user, images: images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: count)
-                                    fetchedPosts.append(post)
-                                    dispathGroup.leave()
-                                case .failure(let error):
-                                    dispathGroup.leave()
-                                    print(error.rawValue)
-                                }
-                            }
-                        case .failure(let error):
-                            print(error.rawValue)
-                            dispathGroup.leave()
-                        }
-                    }
-                }
-                dispathGroup.notify(queue: .global()) {
-                    self.posts = fetchedPosts
+                self.makePostsWithFetchedEntity(postEntities: entities, currentUser: currentUser) { posts in
+                    self.posts = posts
                     self.postStore.onNext(self.posts)
                 }
             case .failure(let error):
-                print("fetchBookmarkedPosts() error - \(error)")
+                print("fetch Latest Posts error \(error)")
             }
         }
     }
     
     func fetchLastPosts(currentUser: User, completion: @escaping (Bool) -> Void) {
-        print("last post")
-        self.repoProvider.firestorePostRepo.fetchPastPosts(userID: currentUser.id) { [weak self] result in
+        self.repoProvider.firestorePostRepo.fetchPastPosts { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let entities):
-                var fetchedPosts = [Post]()
-                let dispathGroup = DispatchGroup()
-                entities.forEach { entity in
-                    dispathGroup.enter()
-                    let didLike = entity.didLike.contains(currentUser.id)
-                    let didCollect = entity.didCollect.contains(currentUser.id)
-                    let images = entity.images.map { URL(string: $0) }
-                    self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
-                        switch result {
-                        case .success(let userEntity):
-                            guard let userEntity = userEntity else { return }
-                            let imageURL = URL(string: userEntity.imageURL)
-                            let user = User(id: userEntity.id, image: imageURL, nickname: userEntity.nickname, determination: userEntity.determination, priceGoal: userEntity.priceGoal, userType: UserType.init(rawValue: userEntity.userType) ?? .preferDineIn, dineInCount: userEntity.dineInCount, cookidsCount: userEntity.cookidsCount)
-                            self.repoProvider.firestoreCommentRepo.fetchCommentsCount(postID: entity.postID) { result in
-                                switch result {
-                                case .success(let count):
-                                    let post = Post(postID: entity.postID, user: user, images: images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: count)
-                                    fetchedPosts.append(post)
-                                    dispathGroup.leave()
-                                case .failure(let error):
-                                    dispathGroup.leave()
-                                    print(error.rawValue)
-                                }
-                            }
-                        case .failure(let error):
-                            dispathGroup.leave()
-                            print(error.rawValue)
-                        }
-                    }
-                }
-                dispathGroup.notify(queue: .global()) {
-                    self.posts += fetchedPosts
+                self.makePostsWithFetchedEntity(postEntities: entities, currentUser: currentUser) { posts in
+                    self.posts += posts
                     let sortedPosts = self.posts.sorted(by: { $0.timeStamp > $1.timeStamp })
                     self.postStore.onNext(sortedPosts)
                     completion(true)
                 }
             case .failure(let error):
-                print("fetchBookmarkedPosts() error - \(error)")
+                print("fetch Last Posts error \(error)")
+                completion(false)
             }
         }
     }
     
-    func updatePost(post: Post, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool> {
+    func updatePost(originalPost: Post, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool> {
         return Observable<Bool>.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.repoProvider.firestorageImageRepo.updateImages(postID: post.postID, images: images) { result in
+            self.repoProvider.firestorageImageRepo.updateImages(postID: originalPost.postID, images: images) { result in
                 switch result {
                 case .success(let urls):
-                    let updatedPost = Post(postID: post.postID, user: post.user, images: urls, likes: post.likes, collections: post.collections, star: star, caption: caption, mealBudget: price, location: region, timeStamp: Date(), didLike: post.didLike, didCollect: post.didCollect)
+                    let updatedPost = Post(postID: originalPost.postID, user: originalPost.user, images: urls, likes: originalPost.likes, collections: originalPost.collections, star: star, caption: caption, mealBudget: price, location: region, timeStamp: originalPost.timeStamp, didLike: originalPost.didLike, didCollect: originalPost.didCollect)
                     self.repoProvider.firestorePostRepo.updatePost(updatedPost: updatedPost) { result in
                         switch result {
                         case .success(let success):
                             print(success.rawValue)
-                            self.updateLocalPosts(mode: .update, post: updatedPost)
+                            self.updateMemoryPosts(mode: .update, post: updatedPost)
                             observer.onNext(true)
                         case .failure(let error):
                             print(error.rawValue)
@@ -208,7 +148,7 @@ class PostService: BaseService, PostServiceType {
     func deletePost(post: Post) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.updateLocalPosts(mode: .delete, post: post)
+            self.updateMemoryPosts(mode: .delete, post: post)
             self.repoProvider.firestorageImageRepo.deleteImages(postID: post.postID) { result in
                 switch result {
                 case .success(let success):
@@ -233,33 +173,17 @@ class PostService: BaseService, PostServiceType {
     }
     
     @discardableResult
-    func fetchBookmarkedPosts(user: User) -> Observable<[Post]> {
+    func fetchBookmarkedPosts(currentUser: User) -> Observable<[Post]> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.repoProvider.firestorePostRepo.fetchBookmarkedPosts(userID: user.id) { result in
+            self.repoProvider.firestorePostRepo.fetchBookmarkedPosts(userID: currentUser.id) { result in
                 switch result {
                 case .success(let entities):
-                    var fetchedPosts = [Post]()
-                    for entity in entities {
-                        let didLike = entity.didLike.contains(user.id)
-                        let images = entity.images.map { URL(string: $0) }
-                        self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
-                            switch result {
-                            case .success(let userEntity):
-                                guard let userEntity = userEntity else { return }
-                                let imageURL = URL(string: userEntity.imageURL)
-                                let user = User(id: userEntity.id, image: imageURL, nickname: userEntity.nickname, determination: userEntity.determination, priceGoal: userEntity.priceGoal, userType: UserType.init(rawValue: userEntity.userType) ?? .preferDineIn, dineInCount: userEntity.dineInCount, cookidsCount: userEntity.cookidsCount)
-                                let post = Post(postID: entity.postID, user: user, images: images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: true)
-                                fetchedPosts.append(post)
-                            case .failure(let error):
-                                print(error.rawValue)
-                                observer.onNext([])
-                            }
-                        }
+                    self.makePostsWithFetchedEntity(postEntities: entities, currentUser: currentUser) { posts in
+                        self.bookmarkedPosts = posts
+                        self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
+                        observer.onNext(posts)
                     }
-                    self.bookmarkedPosts = fetchedPosts
-                    self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
-                    observer.onNext(fetchedPosts)
                 case .failure(let error):
                     print("fetchBookmarkedPosts() error - \(error)")
                 }
@@ -269,28 +193,25 @@ class PostService: BaseService, PostServiceType {
     }
     
     @discardableResult
-    func fetchMyPosts(user: User) -> Observable<[Post]> {
+    func fetchMyPosts(currentUser: User) -> Observable<[Post]> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.repoProvider.firestorePostRepo.fetchMyPosts(userID: user.id) { result in
+            self.repoProvider.firestorePostRepo.fetchMyPosts(userID: currentUser.id) { result in
                 switch result {
                 case .success(let postEntities):
                     let dispathGroup = DispatchGroup()
                     var fetchedPosts = [Post]()
                     postEntities.forEach { entity in
                         dispathGroup.enter()
-                        let didLike = entity.didLike.contains(user.id)
-                        let didCollect = entity.didCollect.contains(user.id)
-                        let images = entity.images.map { URL(string: $0) }
                         self.repoProvider.firestoreCommentRepo.fetchCommentsCount(postID: entity.postID) { result in
                             switch result {
                             case .success(let count):
-                                let post = Post(postID: entity.postID, user: user, images: images, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: count)
+                                guard let post = self.convertEntityToPost(entity: entity, currentUser: currentUser, postUser: currentUser, commentsCount: count) else { return }
                                 fetchedPosts.append(post)
                                 dispathGroup.leave()
                             case .failure(let error):
-                                dispathGroup.leave()
                                 print(error.rawValue)
+                                dispathGroup.leave()
                             }
                         }
                     }
@@ -300,7 +221,7 @@ class PostService: BaseService, PostServiceType {
                         observer.onNext(fetchedPosts)
                     }
                 case .failure(let error):
-                    print("fetchMyPosts() error" + error.rawValue)
+                    print("fetc hMyPosts error" + error.rawValue)
                 }
             }
             return Disposables.create()
@@ -308,7 +229,7 @@ class PostService: BaseService, PostServiceType {
     }
     
     func reportTransaction(currentUser: User, post: Post, isReport: Bool) {
-        self.updateLocalPosts(mode: .delete, post: post)
+        self.updateMemoryPosts(mode: .delete, post: post)
         self.repoProvider.firestorePostRepo.reportPost(userID: currentUser.id, postID: post.postID) { result in
             switch result {
             case .success(let success):
@@ -353,7 +274,7 @@ class PostService: BaseService, PostServiceType {
         }
     }
     
-    func synchronizeAllStore(sender: UIViewController, post: Post) {
+    private func synchronizeAllStore(sender: UIViewController, post: Post) {
         switch sender {
         case is PostMainViewController:
             if self.myPosts.contains(where: { $0.postID == post.postID }) {
@@ -376,7 +297,7 @@ class PostService: BaseService, PostServiceType {
         }
     }
     
-    private func updateLocalPosts(mode: LocalUpdateMode, post: Post) {
+    private func updateMemoryPosts(mode: LocalUpdateMode, post: Post) {
         switch mode {
         case .create:
             self.posts.append(post)
@@ -414,4 +335,36 @@ class PostService: BaseService, PostServiceType {
         self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
     }
     
+    private func makePostsWithFetchedEntity(postEntities: [PostEntity], currentUser: User, completion: @escaping ([Post]) -> Void) {
+        var fetchedPosts = [Post]()
+        let dispathGroup = DispatchGroup()
+        postEntities.forEach { entity in
+            dispathGroup.enter()
+            self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let userEntity):
+                    guard let userEntity = userEntity else { return }
+                    let postUser = self.convertEntityToUser(entity: userEntity)
+                    self.repoProvider.firestoreCommentRepo.fetchCommentsCount(postID: entity.postID) { result in
+                        switch result {
+                        case .success(let count):
+                            guard let post = self.convertEntityToPost(entity: entity, currentUser: currentUser, postUser: postUser, commentsCount: count) else { return }
+                            fetchedPosts.append(post)
+                            dispathGroup.leave()
+                        case .failure(let error):
+                            dispathGroup.leave()
+                            print(error.rawValue)
+                        }
+                    }
+                case .failure(let error):
+                    print(error.rawValue)
+                    dispathGroup.leave()
+                }
+            }
+        }
+        dispathGroup.notify(queue: .global()) {
+            completion(fetchedPosts)
+        }
+    }
 }

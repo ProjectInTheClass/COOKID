@@ -109,8 +109,8 @@ class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     }
     
     func fetchInitialData(user: User) {
-        _ = serviceProvider.postService.fetchMyPosts(user: user)
-        _ = serviceProvider.postService.fetchBookmarkedPosts(user: user)
+        _ = serviceProvider.postService.fetchMyPosts(currentUser: user)
+        _ = serviceProvider.postService.fetchBookmarkedPosts(currentUser: user)
     }
     
 }

@@ -28,7 +28,7 @@ class AppCoordinator: CoordinatorType {
             childCoordinator.append(homeCoordinator)
             return homeCoordinator.start()
         } else {
-            let onBoardingCoordinator = OnboardingCoordinator(parentCoordinator: self, serviceProvider: serviceProvider)
+            let onBoardingCoordinator = LocalSignInCoordinator(parentCoordinator: self, serviceProvider: serviceProvider)
             childCoordinator.append(onBoardingCoordinator)
             return onBoardingCoordinator.start()
         }

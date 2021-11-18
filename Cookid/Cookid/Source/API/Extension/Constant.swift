@@ -119,3 +119,13 @@ enum FirebaseSuccess: String {
     case updateUserSuceess = "✅ 유저 데이터를 업로드하는데 성공했습니다."
     case fetchRankerSuccess = "✅ 랭킹을 가져오는데 성공했습니다."
 }
+
+enum DBError: String, Error {
+    case realmError = "⚠️ 로컬DB 연동에 실패했습니다."
+    case firebaseError = "⚠️ 네트워크DB 연동에 실패했습니다."
+}
+
+enum DBSuceess: String, Error {
+    case realmSuceess = "✅ 로컬DB 연동에 성공했습니다."
+    case firebaseSuceess = "✅ 네트워크DB 연동에 성공했습니다."
+}

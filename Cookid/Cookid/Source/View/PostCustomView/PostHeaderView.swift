@@ -20,6 +20,7 @@ class PostHeaderView: UIView {
     
     private let userImage = UIImageView().then {
         $0.contentMode = .scaleAspectFill
+        $0.image = UIImage(named: "userPlaceholder")
         $0.makeCircleView()
     }
     

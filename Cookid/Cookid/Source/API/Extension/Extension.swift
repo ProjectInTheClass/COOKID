@@ -134,13 +134,23 @@ extension UIImage {
 extension UIImageView {
     
     func setImageWithKf(url: URL?) {
-        guard let url = url else { return }
-        let placeholder = UIImage(systemName: "photo.fill.on.rectangle.fill")?.withTintColor(.darkGray)
+        let placeholder = UIImage(named: "placeholder")
         self.kf.indicatorType = .activity
         self.kf.setImage(with: url, placeholder: placeholder,
                          options: [
                             .transition(.fade(0.2)),
                             .scaleFactor(UIScreen.main.scale)
+                         ])
+    }
+    
+    func setUserImageWithKf(url: URL?) {
+        let placeholder = UIImage(named: "personPlaceholder")
+        self.kf.indicatorType = .activity
+        self.kf.setImage(with: url, placeholder: placeholder,
+                         options: [
+                            .transition(.fade(0.2)),
+                            .scaleFactor(UIScreen.main.scale),
+                            .diskCacheExpiration(.expired)
                          ])
     }
     

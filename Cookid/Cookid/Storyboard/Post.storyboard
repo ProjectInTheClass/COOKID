@@ -44,7 +44,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="7Z5-qw-GgS">
                                             <rect key="frame" x="20" y="15" width="374" height="50"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boardingImage" translatesAutoresizingMaskIntoConstraints="NO" id="ho2-YA-FxQ">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="personPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="ho2-YA-FxQ">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="ho2-YA-FxQ" secondAttribute="height" multiplier="1:1" id="2XG-8J-o8C"/>
@@ -592,16 +592,16 @@
                                                         <rect key="frame" x="0.0" y="749" width="394" height="100"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ql6-tX-Bvj">
-                                                                <rect key="frame" x="98" y="21" width="198" height="58"/>
+                                                                <rect key="frame" x="92" y="21" width="210" height="58"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="몇 점짜리 식사였나요?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n65-K3-6Ib">
-                                                                        <rect key="frame" x="33.5" y="0.0" width="131.5" height="18"/>
+                                                                        <rect key="frame" x="39.5" y="0.0" width="131.5" height="18"/>
                                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="dkw-24-8wH" customClass="StarSlider" customModule="Cookid" customModuleProvider="target">
-                                                                        <rect key="frame" x="-2" y="28" width="202" height="31"/>
+                                                                        <rect key="frame" x="-2" y="28" width="214" height="31"/>
                                                                         <color key="minimumTrackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -715,7 +715,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="boardingImage" width="640" height="960"/>
         <image name="book.circle.fill" catalog="system" width="128" height="121"/>
         <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
@@ -725,6 +724,7 @@
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
         <image name="message" catalog="system" width="128" height="113"/>
+        <image name="personPlaceholder" width="1536" height="1536"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
         <image name="rank" width="22" height="22"/>
         <image name="text.alignright" catalog="system" width="128" height="100"/>

@@ -1,5 +1,5 @@
 //
-//  OnboardingPageViewViewController.swift
+//  LocalSignInViewViewController.swift
 //  Cookid
 //
 //  Created by 박형석 on 2021/07/05.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-class OnboardingPageViewViewController: UIPageViewController {
+class LocalSignInViewViewController: UIPageViewController {
     
     let serviceProvider: ServiceProviderType
-    let coordinator: OnboardingCoordinator
+    let coordinator: LocalSignInCoordinator
     var pages = [UIViewController]()
     let pagesControl = UIPageControl()
     let initialPage = 0
     
-    init(coordinator: OnboardingCoordinator,
+    init(coordinator: LocalSignInCoordinator,
          serviceProvider: ServiceProviderType) {
         self.coordinator = coordinator
         self.serviceProvider = serviceProvider
@@ -37,7 +37,7 @@ class OnboardingPageViewViewController: UIPageViewController {
         self.dataSource = self
         self.delegate = self
         
-        let viewModel = OnboardingViewModel(serviceProvider: serviceProvider)
+        let viewModel = LocalSignInViewModel(serviceProvider: serviceProvider)
         
         var firstPage = FirstPageViewController.instantiate(storyboardID: "Main")
         firstPage.bind(viewModel: viewModel)
@@ -76,7 +76,7 @@ class OnboardingPageViewViewController: UIPageViewController {
     }
 }
 
-extension OnboardingPageViewViewController: UIPageViewControllerDataSource {
+extension LocalSignInViewViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
@@ -104,7 +104,7 @@ extension OnboardingPageViewViewController: UIPageViewControllerDataSource {
 
 }
 
-extension OnboardingPageViewViewController: UIPageViewControllerDelegate {
+extension LocalSignInViewViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         

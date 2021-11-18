@@ -14,8 +14,8 @@ struct Comment {
     var user: User
     var content: String
     var timestamp: Date
-    var didLike: Bool
-    var likes: Int
+    var didLike: Bool = false
+    var likes: Int = 0
 }
 
 struct CommentSection {

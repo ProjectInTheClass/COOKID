@@ -39,7 +39,7 @@ class MyBookmarkReactor: BaseViewModel, Reactor {
         let userMutation = user.map { Mutation.setUser($0) }
         let fetchedPosts = Observable.merge(
             serviceProvider.postService.bookmaredTotalPosts,
-            user.flatMap(serviceProvider.postService.fetchBookmarkedPosts(user:)))
+            user.flatMap(serviceProvider.postService.fetchBookmarkedPosts(currentUser:)))
             .map { Mutation.setPosts($0) }
         return Observable.merge(mutation, userMutation, fetchedPosts)
     }

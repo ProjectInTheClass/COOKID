@@ -12,7 +12,7 @@ import NSObject_Rx
 
 class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
-    var viewModel: OnboardingViewModel!
+    var viewModel: LocalSignInViewModel!
     
     @IBOutlet weak var cooLabel: UILabel!
     @IBOutlet weak var kidLabel: UILabel!

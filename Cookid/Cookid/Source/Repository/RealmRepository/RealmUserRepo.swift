@@ -11,7 +11,7 @@ import RealmSwift
 protocol RealmUserRepoType {
     func createUser(user: User, completion: @escaping (Bool) -> Void)
     func fetchUser() -> LocalUser?
-    func updateUser(user: User)
+    func updateUser(user: User, completion: @escaping (Bool) -> Void)
 }
 
 class RealmUserRepo: BaseRepository, RealmUserRepoType {
@@ -41,7 +41,7 @@ class RealmUserRepo: BaseRepository, RealmUserRepoType {
         }
     }
     
-    func updateUser(user: User) {
+    func updateUser(user: User, completion: @escaping (Bool) -> Void) {
         do {
             let realm = try Realm()
             if let currentUser = realm.objects(LocalUser.self).first {
@@ -50,12 +50,15 @@ class RealmUserRepo: BaseRepository, RealmUserRepoType {
                     currentUser.determination = user.determination
                     currentUser.goal = user.priceGoal
                     currentUser.type = user.userType.rawValue
+                    completion(true)
                 }
             } else {
                 print("currentUser가 없습니다!")
+                completion(false)
             }
         } catch let error {
-            print(error)
+            print("RealmUserRepo updateUser error \(error)")
+            completion(false)
         }
     }
 }

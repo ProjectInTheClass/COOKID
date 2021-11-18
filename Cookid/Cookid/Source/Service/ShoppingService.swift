@@ -12,7 +12,7 @@ protocol ShoppingServiceType {
     var initialShoppingCount: Int { get }
     var shoppingList: Observable<[Shopping]> { get }
     var spotMonthShoppings: Observable<[Shopping]> { get }
-    func create(shopping: Shopping) -> Observable<Bool>
+    func create(shopping: Shopping, currentUser: User) -> Observable<Bool>
     func fetchShoppings()
     func update(updateShopping: Shopping) -> Observable<Bool>
     func deleteShopping(deleteShopping: Shopping) -> Observable<Bool>
@@ -36,11 +36,12 @@ class ShoppingService: BaseService, ShoppingServiceType {
         return shoppingStore.map(sortSpotMonthShoppings)
     }
     
-    func create(shopping: Shopping) -> Observable<Bool> {
+    func create(shopping: Shopping, currentUser: User) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
             self.repoProvider.realmShoppingRepo.createShopping(shopping: shopping) { success in
                 if success {
+                    self.repoProvider.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id)
                     self.shoppings.append(shopping)
                     self.shoppingStore.onNext(self.shoppings)
                     observer.onNext(true)
