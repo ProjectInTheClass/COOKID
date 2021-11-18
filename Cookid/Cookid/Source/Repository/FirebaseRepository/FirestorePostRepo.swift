@@ -118,25 +118,25 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
             .order(by: "timestamp", descending: true).limit(to: 10)
             .getDocuments { [weak self] querySnapshot, error in
                 guard let self = self else { return }
-            if let error = error {
-                print("Error fetching postEntity to Firestore: \(error)")
-                completion(.failure(.postFetchError))
-            } else if let querySnapshot = querySnapshot {
-                do {
-                    let postEntity = try querySnapshot.documents.compactMap { try $0.data(as: PostEntity.self) }
-                    if let lastPostEntity = postEntity.last {
-                        guard let testPateDate = Calendar.current.date(byAdding: .second, value: -1, to: lastPostEntity.timestamp) else { return }
-                        self.currentDate = testPateDate
-                        completion(.success(postEntity))
-                    } else {
-                        completion(.success([]))
-                    }
-                } catch let error {
+                if let error = error {
                     print("Error fetching postEntity to Firestore: \(error)")
                     completion(.failure(.postFetchError))
+                } else if let querySnapshot = querySnapshot {
+                    do {
+                        let postEntity = try querySnapshot.documents.compactMap { try $0.data(as: PostEntity.self) }
+                        if let lastPostEntity = postEntity.last {
+                            guard let testPateDate = Calendar.current.date(byAdding: .second, value: -1, to: lastPostEntity.timestamp) else { return }
+                            self.currentDate = testPateDate
+                            completion(.success(postEntity))
+                        } else {
+                            completion(.success([]))
+                        }
+                    } catch let error {
+                        print("Error fetching postEntity to Firestore: \(error)")
+                        completion(.failure(.postFetchError))
+                    }
                 }
             }
-        }
     }
     
     /// fetch specific user post from firebase

@@ -137,13 +137,44 @@ class FirestoreUserTest: XCTestCase {
             }
         } completion: { _, error in
             if let error = error {
-                XCTFail("cookid transaction fail")
+                XCTFail("cookid transaction fail \(error)")
             } else {
                 exp.fulfill()
             }
         }
         waitForExpectations(timeout: 15, handler: nil)
 
+    }
+    
+    func test_userImageURLChange() {
+        let exp = expectation(description: "test_TransactionCookidCount")
+        
+        // 처음 커넥팅 때는 그 정보가 올라감
+        // 그 이후로는 트랜잭션으로 해당 내용을 업데이트
+        userDB.document("619516377c5585b50f3b3a4c").firestore.runTransaction { [weak self] transaction, errorPointer in
+            guard let self = self else { return nil }
+            let userDocument: DocumentSnapshot
+            do {
+                try userDocument = transaction.getDocument(self.userDB.document("619516377c5585b50f3b3a4c"))
+                guard var userEntity = try userDocument.data(as: UserEntity.self) else { return nil }
+                userEntity.imageURL = "https://images.unsplash.com/photo-1636972677998-d76f527e5576?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1082&q=80"
+                transaction.updateData([
+                    "imageURL": userEntity.imageURL
+                ], forDocument: self.userDB.document("619516377c5585b50f3b3a4c"))
+                return nil
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                XCTFail("cookid transaction fail")
+                return nil
+            }
+        } completion: { _, error in
+            if let error = error {
+                XCTFail("cookid transaction fail \(error)")
+            } else {
+                exp.fulfill()
+            }
+        }
+        waitForExpectations(timeout: 15, handler: nil)
     }
     
     func convertEntityToUser(entity: UserEntity?) -> User? {

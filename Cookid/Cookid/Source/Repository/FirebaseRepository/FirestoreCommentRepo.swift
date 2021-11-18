@@ -115,7 +115,7 @@ class FirestoreCommentRepo: BaseRepository, CommentRepoType {
                     if let querySnapshot = querySnapshot {
                         completion(.success(querySnapshot.count))
                     } else {
-                        completion(.failure(.commentFetchError))
+                        completion(.success(0))
                     }
                 }
             }

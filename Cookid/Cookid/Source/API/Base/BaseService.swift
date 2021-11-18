@@ -14,8 +14,7 @@ class BaseService: BaseRepository {
         super.init(repoProvider: repoProvider)
     }
     
-    func convertEntityToPost(entity: PostEntity?, currentUser: User, postUser: User, commentsCount: Int) -> Post? {
-        guard let entity = entity else { return nil }
+    func convertEntityToPost(entity: PostEntity, currentUser: User, postUser: User, commentsCount: Int) -> Post {
         let didLike = entity.didLike.contains(currentUser.id)
         let didCollect = entity.didCollect.contains(currentUser.id)
         let imageURL = entity.images.map { URL(string: $0) }

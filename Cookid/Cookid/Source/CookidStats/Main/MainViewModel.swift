@@ -89,7 +89,6 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         
         // recentMeals
         spotMonthMeals
-            .debug()
             .map(recentMeals)
             .bind(to: output.recentMeals)
             .disposed(by: disposeBag)

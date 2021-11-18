@@ -22,7 +22,6 @@ class StarSlider: UISlider {
 
     public var starPoint: Int = 3 {
         didSet {
-            print("⛔️ \(starPoint)")
             setState(starPoint: starPoint, starMaxSize: starMaxSize)
             self.value = Float(starPoint)
             self.layoutSubviews()

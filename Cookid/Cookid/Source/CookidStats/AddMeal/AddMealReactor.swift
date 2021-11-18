@@ -111,7 +111,8 @@ class AddMealReactor: Reactor {
         case .delete:
             switch mode {
             case .edit(let meal):
-                return serviceProvider.mealService.deleteMeal(meal: meal)
+                let user = self.currentState.user
+                return serviceProvider.mealService.deleteMeal(meal: meal, currentUser: user)
                     .map { Mutate.setError(!$0) }
             default:
                 return Observable.empty()
