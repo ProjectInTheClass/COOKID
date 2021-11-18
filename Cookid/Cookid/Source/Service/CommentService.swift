@@ -88,7 +88,8 @@ class CommentService: BaseService, CommentServiceType {
     }
     
     func fetchComments(post: Post, currentUser: User, completion: @escaping ([Comment]) -> Void) {
-        self.repoProvider.firestoreCommentRepo.fetchComments(postID: post.postID) { result in
+        self.repoProvider.firestoreCommentRepo.fetchComments(postID: post.postID) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let entities):
                 var newComments = [Comment]()
@@ -97,13 +98,12 @@ class CommentService: BaseService, CommentServiceType {
                     dispatchGroup.enter()
                     
                     // 엔티티의 리포트 딕셔너리에 현재 이용자의 id가 있는지를 확인해야 한다.
-                    guard entity.isReported.contains(currentUser.id) else {
+                    guard !entity.isReported.contains(currentUser.id) else {
                         dispatchGroup.leave()
                         return
                     }
                     
-                    self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { [weak self] result in
-                        guard let self = self else { return }
+                    self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                         switch result {
                         case .success(let userEntity):
                             guard let userEntity = userEntity else {
@@ -120,7 +120,7 @@ class CommentService: BaseService, CommentServiceType {
                         }
                     }
                 }
-                dispatchGroup.notify(queue: .global()) {
+                dispatchGroup.notify(queue: .main) {
                     self.comments = newComments
                     self.commentStore.onNext(self.comments)
                     completion(newComments)

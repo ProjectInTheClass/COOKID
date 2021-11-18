@@ -144,7 +144,7 @@ class PostTableViewCell: UITableViewCell, View {
         userImage.makeCircleView()
         userType.text = post.user.userType.rawValue
         userNickname.text = post.user.nickname
-        location.text = "📮 " + post.location
+        location.text = "📍 " + post.location
     }
     
     private func makeUpStarPoint(post: Post) {

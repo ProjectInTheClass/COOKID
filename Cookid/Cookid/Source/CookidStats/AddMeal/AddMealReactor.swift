@@ -29,6 +29,7 @@ class AddMealReactor: Reactor {
     }
     
     enum Mutate {
+        case setUser(User)
         case setImage(UIImage)
         case setDate(Date)
         case setName(String)
@@ -40,6 +41,7 @@ class AddMealReactor: Reactor {
     }
     
     struct State {
+        var user: User = DummyData.shared.secondUser
         var image: UIImage?
         var date: Date = Date()
         var name: String = ""
@@ -66,6 +68,11 @@ class AddMealReactor: Reactor {
         }
     }
     
+    func transform(mutation: Observable<Mutate>) -> Observable<Mutate> {
+        let user = serviceProvider.userService.currentUser.map { Mutate.setUser($0) }
+        return Observable.merge(mutation, user)
+    }
+    
     func mutate(action: Action) -> Observable<Mutate> {
         switch action {
         case .image(let image):
@@ -90,10 +97,11 @@ class AddMealReactor: Reactor {
             let mealType = self.currentState.mealType
             let mealTime = self.currentState.mealTime
             let image = self.currentState.image
+            let user = self.currentState.user
             switch mode {
             case .new:
                 let newMeal = Meal(id: UUID().uuidString, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-                return serviceProvider.mealService.create(meal: newMeal)
+                return serviceProvider.mealService.create(meal: newMeal, currentUser: user)
                     .map { Mutate.setError(!$0) }
             case .edit(let meal):
                 let newMeal = Meal(id: meal.id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
@@ -138,6 +146,9 @@ class AddMealReactor: Reactor {
             return newState
         case .setPriceValidation(let priceValid):
             newState.priceValid = priceValid
+            return newState
+        case .setUser(let user):
+            newState.user = user
             return newState
         }
     }

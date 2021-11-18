@@ -29,9 +29,11 @@ class AddShoppingReactor: Reactor {
         case setTotalPrice(String)
         case setPriceValidation(Bool?)
         case sendErrorMessage(Bool?)
+        case setUser(User)
     }
     
     struct State {
+        var user: User = DummyData.shared.secondUser
         var date: Date = Date()
         var totalPrice: String = ""
         var isPriceValid: Bool?
@@ -53,6 +55,11 @@ class AddShoppingReactor: Reactor {
         }
     }
     
+    func transform(mutation: Observable<Mutate>) -> Observable<Mutate> {
+        let user = serviceProvider.userService.currentUser.map { Mutate.setUser($0) }
+        return Observable.merge(mutation, user)
+    }
+    
     func mutate(action: Action) -> Observable<Mutate> {
         switch action {
         case .inputDate(let date):
@@ -70,7 +77,8 @@ class AddShoppingReactor: Reactor {
                 let newShopping = Shopping(id: UUID().uuidString,
                                            date: date,
                                            totalPrice: price)
-                return self.serviceProvider.shoppingService.create(shopping: newShopping).map { Mutate.sendErrorMessage(!$0) }
+                let user = self.currentState.user
+                return self.serviceProvider.shoppingService.create(shopping: newShopping, currentUser: user).map { Mutate.sendErrorMessage(!$0) }
             case .edit(let shopping):
                 let updateShopping = Shopping(id: shopping.id,
                                            date: date,
@@ -101,6 +109,9 @@ class AddShoppingReactor: Reactor {
             return newState
         case .sendErrorMessage(let isError):
             newState.isError = isError
+            return newState
+        case .setUser(let user):
+            newState.user = user
             return newState
         }
     }

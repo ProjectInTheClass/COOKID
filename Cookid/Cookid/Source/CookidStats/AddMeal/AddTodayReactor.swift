@@ -26,11 +26,13 @@ class AddTodayReactor: Reactor {
         case setBreakfastPrice(String?)
         case setLunchMealPrice(String?)
         case setDinnerMealPrice(String?)
+        case setUser(User)
         case setIsLoading(Bool)
         case isError(Bool)
     }
     
     struct State {
+        var user: User = DummyData.shared.secondUser
         var isError: Bool?
         var isLoading: Bool = false
         var breakfastValidation: Bool?
@@ -47,6 +49,11 @@ class AddTodayReactor: Reactor {
     init(serviceProvider: ServiceProviderType) {
         self.serviceProvider = serviceProvider
         self.initialState = State()
+    }
+    
+    func transform(mutation: Observable<Mutate>) -> Observable<Mutate> {
+        let user = serviceProvider.userService.currentUser.map { Mutate.setUser($0) }
+        return Observable.merge(mutation, user)
     }
     
     func mutate(action: Action) -> Observable<Mutate> {
@@ -67,11 +74,11 @@ class AddTodayReactor: Reactor {
             let breakfastMeal = makeTodayMeal(action: .breakfastPrice("아침식사"), price: self.currentState.breakfastPrice)
             let lunchMeal = makeTodayMeal(action: .lunchPrice("점심식사"), price: self.currentState.lunchMealPrice)
             let dinnerMeal = makeTodayMeal(action: .dinnerPrice("저녁식사"), price: self.currentState.dinnerMealPrice)
-            
+            let user = self.currentState.user
             let createMeals = Observable<Bool>.combineLatest(
-                serviceProvider.mealService.create(meal: breakfastMeal),
-                serviceProvider.mealService.create(meal: lunchMeal),
-                serviceProvider.mealService.create(meal: dinnerMeal)
+                serviceProvider.mealService.create(meal: breakfastMeal, currentUser: user),
+                serviceProvider.mealService.create(meal: lunchMeal, currentUser: user),
+                serviceProvider.mealService.create(meal: dinnerMeal, currentUser: user)
             ) { b1, b2, b3 in return b1 || b2 || b3 }
             
             return Observable.concat([
@@ -108,6 +115,9 @@ class AddTodayReactor: Reactor {
             return newState
         case .isError(let bool):
             newState.isError = bool
+            return newState
+        case .setUser(let user):
+            newState.user = user
             return newState
         }
     }

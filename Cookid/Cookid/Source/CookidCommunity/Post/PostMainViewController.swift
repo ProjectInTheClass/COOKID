@@ -124,12 +124,12 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         indicator.center = footerView.center
         return footerView
     }
-
+    
     // MARK: - bindViewModel
     func bindViewModel() {
         
         viewModel.output.posts
-            .observe(on: MainScheduler.instance)
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: tableView.rx.items(cellIdentifier: "postCell",
                                          cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
@@ -170,13 +170,13 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             .withUnretained(self)
             .filter { owner, offset in
                 // 첫 filtering
-                guard owner.tableView.visibleCells.count > 2 else { return false }
+                guard owner.tableView.visibleCells.count > 0 else { return false }
                 guard offset.y > 0 else { return false }
                 guard owner.tableView.frame.height > 0 else { return false }
                 // 1: 테이블뷰의 크기 + offset(아래로 탐색하는 거리)
                 // 2: 테이블뷰 내부 셀들의 합
                 // 전체 컨텐츠 탐색을 완료하기 100 전에 로딩하기
-                return offset.y + owner.tableView.frame.height >= owner.tableView.contentSize.height - 200
+                return offset.y + owner.tableView.frame.height >= owner.tableView.contentSize.height - 50
             }
             .map { _ in }
             .bind(to: viewModel.input.fetchPastPosts)
@@ -238,6 +238,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
         
         viewModel.output.user
+            .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .bind { owner, user in
                 owner.userImage.setUserImageWithKf(url: user.image)
@@ -246,7 +247,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         
         viewModel.output.isLoading
             .withUnretained(self)
-            .observe(on: MainScheduler.instance)
+            .observe(on: MainScheduler.asyncInstance)
             .bind(onNext: { owner, isLoading in
                 if isLoading {
                     owner.tableView.tableFooterView = owner.footerIndicator()

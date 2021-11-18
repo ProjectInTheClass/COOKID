@@ -149,7 +149,8 @@ extension UIImageView {
         self.kf.setImage(with: url, placeholder: placeholder,
                          options: [
                             .transition(.fade(0.2)),
-                            .scaleFactor(UIScreen.main.scale)
+                            .scaleFactor(UIScreen.main.scale),
+                            .diskCacheExpiration(.expired)
                          ])
     }
     

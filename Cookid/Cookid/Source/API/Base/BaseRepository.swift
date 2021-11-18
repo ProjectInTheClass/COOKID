@@ -27,7 +27,7 @@ class BaseRepository {
             guard let urlString = url?.absoluteString else { return "" }
             return urlString
         }
-        return PostEntity(postID: post.postID, userID: post.user.id, images: images, star: 0, caption: post.caption, mealBudget: post.mealBudget, timestamp: post.timeStamp, location: post.location, didLike: [], didCollect: [], isReported: [])
+        return PostEntity(postID: post.postID, userID: post.user.id, images: images, star: post.star, caption: post.caption, mealBudget: post.mealBudget, timestamp: post.timeStamp, location: post.location, didLike: [], didCollect: [], isReported: [])
     }
     
 }

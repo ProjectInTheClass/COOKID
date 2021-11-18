@@ -17,6 +17,7 @@ protocol UserRepoType {
     func updateUser(user: User, completion: @escaping FirebaseResult)
     func fetchUser(userID: String, completion: @escaping UserResult)
     func fetchCookidsRankers(completion: @escaping RankersResult)
+    func transactionCookidsCount(userID: String)
 }
 
 class FirestoreUserRepo: BaseRepository, UserRepoType {
@@ -78,6 +79,31 @@ class FirestoreUserRepo: BaseRepository, UserRepoType {
                     completion(.failure(.fetchUserError))
                     
                 }
+            }
+        }
+    }
+    
+    func transactionCookidsCount(userID: String) {
+        userDB.document(userID).firestore.runTransaction { [weak self] transaction, errorPointer in
+            guard let self = self else { return nil }
+            let userDocument: DocumentSnapshot
+            do {
+                try userDocument = transaction.getDocument(self.userDB.document(userID))
+                guard var userEntity = try userDocument.data(as: UserEntity.self) else { return nil }
+                userEntity.cookidsCount += 1
+                transaction.updateData([
+                    "cookidsCount": userEntity.cookidsCount
+                ], forDocument: self.userDB.document(userID))
+                return nil
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+        } completion: { _, error in
+            if let error = error {
+
+            } else {
+
             }
         }
     }
