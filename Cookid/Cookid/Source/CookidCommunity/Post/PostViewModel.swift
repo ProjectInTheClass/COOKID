@@ -39,6 +39,7 @@ class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             .disposed(by: disposeBag)
         
         serviceProvider.postService.totalPosts
+            .debug()
             .bind(to: output.posts)
             .disposed(by: disposeBag)
         
@@ -49,17 +50,18 @@ class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                     output.isLoading,
                     resultSelector: { ($0, $1) }
                 ))
-            .filter({ (user, isLoading) in
+            .filter({ (_, isLoading) in
                 guard !isLoading else { return false }
                 return true
             })
+            .distinctUntilChanged({ $0.1 != $1.1 })
             .withUnretained(self)
-            .throttle(.seconds(3), scheduler: MainScheduler.asyncInstance)
             .bind(onNext: { owner, values in
-                print("after")
                 owner.output.isLoading.accept(true)
                 owner.serviceProvider.postService.fetchLastPosts(currentUser: values.0) { success in
-                    owner.output.isLoading.accept(!success)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        owner.output.isLoading.accept(!success)
+                    }
                 }
             })
             .disposed(by: disposeBag)

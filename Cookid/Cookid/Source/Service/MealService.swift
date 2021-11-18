@@ -16,7 +16,7 @@ protocol MealServiceType {
     func create(meal: Meal?, currentUser: User) -> Observable<Bool>
     func fetchMeals()
     func update(updateMeal: Meal) -> Observable<Bool>
-    func deleteMeal(meal: Meal) -> Observable<Bool>
+    func deleteMeal(meal: Meal, currentUser: User) -> Observable<Bool>
 }
 
 class MealService: BaseService, MealServiceType {
@@ -47,7 +47,7 @@ class MealService: BaseService, MealServiceType {
             self.repoProvider.imageRepo.saveImage(image: meal.image ?? UIImage(named: "salad")!, id: meal.id) { _ in }
             self.repoProvider.realmMealRepo.createMeal(meal: meal) {  success in
                 if success {
-                    self.repoProvider.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id)
+                    self.repoProvider.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: true)
                     self.meals.append(meal)
                     self.mealStore.onNext(self.meals)
                     observer.onNext(true)
@@ -96,7 +96,7 @@ class MealService: BaseService, MealServiceType {
         }
     }
     
-    func deleteMeal(meal: Meal) -> Observable<Bool> {
+    func deleteMeal(meal: Meal, currentUser: User) -> Observable<Bool> {
         return Observable.create { observer in
             self.repoProvider.imageRepo.deleteImage(id: meal.id) { _ in }
             self.repoProvider.realmMealRepo.deleteMeal(meal: meal) { [weak self] success in
@@ -105,6 +105,7 @@ class MealService: BaseService, MealServiceType {
                     if let index = self.meals.firstIndex(where: { $0.id == meal.id }) {
                         self.meals.remove(at: index)
                     }
+                    self.repoProvider.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: false)
                     self.mealStore.onNext(self.meals)
                     observer.onNext(true)
                 } else {

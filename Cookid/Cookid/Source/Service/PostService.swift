@@ -105,12 +105,19 @@ class PostService: BaseService, PostServiceType {
             guard let self = self else { return }
             switch result {
             case .success(let entities):
+                
+                guard entities.count > 0 else {
+                    completion(true)
+                    return
+                }
+                
                 self.makePostsWithFetchedEntity(postEntities: entities, currentUser: currentUser) { posts in
                     self.posts += posts
                     let sortedPosts = self.posts.sorted(by: { $0.timeStamp > $1.timeStamp })
                     self.postStore.onNext(sortedPosts)
                     completion(true)
                 }
+                
             case .failure(let error):
                 print("fetch Last Posts error \(error)")
                 completion(false)
@@ -206,7 +213,7 @@ class PostService: BaseService, PostServiceType {
                         self.repoProvider.firestoreCommentRepo.fetchCommentsCount(postID: entity.postID) { result in
                             switch result {
                             case .success(let count):
-                                guard let post = self.convertEntityToPost(entity: entity, currentUser: currentUser, postUser: currentUser, commentsCount: count) else { return }
+                                let post = self.convertEntityToPost(entity: entity, currentUser: currentUser, postUser: currentUser, commentsCount: count)
                                 fetchedPosts.append(post)
                                 dispathGroup.leave()
                             case .failure(let error):
@@ -340,16 +347,18 @@ class PostService: BaseService, PostServiceType {
         let dispathGroup = DispatchGroup()
         postEntities.forEach { entity in
             dispathGroup.enter()
-            self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { [weak self] result in
-                guard let self = self else { return }
+            self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                 switch result {
                 case .success(let userEntity):
-                    guard let userEntity = userEntity else { return }
+                    guard let userEntity = userEntity else {
+                        dispathGroup.leave()
+                        return
+                    }
                     let postUser = self.convertEntityToUser(entity: userEntity)
                     self.repoProvider.firestoreCommentRepo.fetchCommentsCount(postID: entity.postID) { result in
                         switch result {
                         case .success(let count):
-                            guard let post = self.convertEntityToPost(entity: entity, currentUser: currentUser, postUser: postUser, commentsCount: count) else { return }
+                            let post = self.convertEntityToPost(entity: entity, currentUser: currentUser, postUser: postUser, commentsCount: count)
                             fetchedPosts.append(post)
                             dispathGroup.leave()
                         case .failure(let error):
@@ -363,7 +372,7 @@ class PostService: BaseService, PostServiceType {
                 }
             }
         }
-        dispathGroup.notify(queue: .global()) {
+        dispathGroup.notify(queue: .main) {
             completion(fetchedPosts)
         }
     }

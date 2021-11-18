@@ -15,7 +15,7 @@ protocol ShoppingServiceType {
     func create(shopping: Shopping, currentUser: User) -> Observable<Bool>
     func fetchShoppings()
     func update(updateShopping: Shopping) -> Observable<Bool>
-    func deleteShopping(deleteShopping: Shopping) -> Observable<Bool>
+    func deleteShopping(deleteShopping: Shopping, currentUser: User) -> Observable<Bool>
 }
 
 class ShoppingService: BaseService, ShoppingServiceType {
@@ -41,7 +41,7 @@ class ShoppingService: BaseService, ShoppingServiceType {
             guard let self = self else { return Disposables.create() }
             self.repoProvider.realmShoppingRepo.createShopping(shopping: shopping) { success in
                 if success {
-                    self.repoProvider.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id)
+                    self.repoProvider.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: true)
                     self.shoppings.append(shopping)
                     self.shoppingStore.onNext(self.shoppings)
                     observer.onNext(true)
@@ -81,7 +81,7 @@ class ShoppingService: BaseService, ShoppingServiceType {
         }
     }
     
-    func deleteShopping(deleteShopping: Shopping) -> Observable<Bool> {
+    func deleteShopping(deleteShopping: Shopping, currentUser: User) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
             self.repoProvider.realmShoppingRepo.deleteShopping(shopping: deleteShopping) { success in
@@ -89,6 +89,7 @@ class ShoppingService: BaseService, ShoppingServiceType {
                     if let index = self.shoppings.firstIndex(where: { $0.id == deleteShopping.id }) {
                         self.shoppings.remove(at: index)
                     }
+                    self.repoProvider.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: false)
                     self.shoppingStore.onNext(self.shoppings)
                     observer.onNext(true)
                 } else {

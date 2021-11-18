@@ -90,7 +90,9 @@ class AddShoppingReactor: Reactor {
             case .new:
                 return Observable.empty()
             case .edit(let shopping):
-                return self.serviceProvider.shoppingService.deleteShopping(deleteShopping: shopping).map { Mutate.sendErrorMessage(!$0)}
+                let user = self.currentState.user
+                return self.serviceProvider.shoppingService.deleteShopping(deleteShopping: shopping, currentUser: user)
+                    .map { Mutate.sendErrorMessage(!$0)}
             }
         }
     }

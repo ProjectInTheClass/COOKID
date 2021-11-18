@@ -130,13 +130,27 @@ class UserService: BaseService, UserServiceType {
     }
     
     func updateUserImage(user: User, profileImage: UIImage?, completion: @escaping (Bool) -> Void) {
-        self.serviceProvider.repoProvider.firestorageImageRepo.uploadUserImage(userID: user.id, image: profileImage) { result in
+        repoProvider.firestorageImageRepo.uploadUserImage(userID: user.id, image: profileImage) { [weak self] result in
+            guard let self = self else {
+                completion(false)
+                return }
             switch result {
             case .success(let url):
-                self.defaultUserInfo.image = url
-                self.currentUser.onNext(self.defaultUserInfo)
+                guard let url = url else {
+                    completion(false)
+                    return }
+                self.repoProvider.firestoreUserRepo.transactionUserImageURL(userID: user.id, imageURL: url.absoluteString) { success in
+                    if success {
+                        self.defaultUserInfo.image = url
+                        self.currentUser.onNext(self.defaultUserInfo)
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
+                }
             case .failure(let error):
                 print(error)
+                completion(false)
             }
         }
     }

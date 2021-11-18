@@ -54,6 +54,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                 self.coordinator?.navigateSignInVC(viewModel: self.viewModel)
             }
         }
+        viewModel.fetchInitialDate()
     }
     
     // MARK: - Functions
@@ -129,7 +130,6 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     func bindViewModel() {
         
         viewModel.output.posts
-            .observe(on: MainScheduler.asyncInstance)
             .bind(to: tableView.rx.items(cellIdentifier: "postCell",
                                          cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
@@ -256,8 +256,6 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                 }
             })
             .disposed(by: rx.disposeBag)
-        
-        viewModel.fetchInitialDate()
     }
     
     func updateTableViewCell(cell: PostTableViewCell, index: Int) {
