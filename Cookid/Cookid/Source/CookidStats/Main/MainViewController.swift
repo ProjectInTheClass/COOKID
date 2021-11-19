@@ -10,7 +10,7 @@ import SwiftUI
 import RxSwift
 import RxCocoa
 import NSObject_Rx
-// import Firebase
+import FirebaseAnalytics
 
 class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
@@ -139,19 +139,26 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         todayMealButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                coordinator?.navigateAddTodayMeal()
+                
+                let num = [0]
+                let _ = num[1]
+                
+//                coordinator?.navigateAddTodayMeal()
+//                Analytics.logEvent("addMeal_todayMeals", parameters: nil)
             })
             .disposed(by: rx.disposeBag)
         
         addMealButton.rx.tap
             .subscribe(onNext: { [unowned self] in
                 coordinator?.navigateAddMealVC(mode: .new)
+                Analytics.logEvent("addMeal_meal", parameters: nil)
             })
             .disposed(by: rx.disposeBag)
         
         addShoppingButton.rx.tap
             .subscribe(onNext: { [unowned self] in
                 coordinator?.navigateAddShoppingVC(mode: .new)
+                Analytics.logEvent("addShopping_shopping", parameters: nil)
             })
             .disposed(by: rx.disposeBag)
         

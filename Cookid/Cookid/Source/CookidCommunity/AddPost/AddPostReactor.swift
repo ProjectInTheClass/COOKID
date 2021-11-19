@@ -11,6 +11,7 @@ import RxCocoa
 import ReactorKit
 import YPImagePicker
 import Kingfisher
+import FirebaseAnalytics
 
 enum PostEditViewMode {
     case new
@@ -93,6 +94,10 @@ class AddPostReactor: Reactor {
         case .inputStar(let star):
             return Observable.just(Mutation.setStar(star))
         case .uploadPostButtonTapped:
+            Analytics.logEvent("addPostButton_tap", parameters: nil)
+            Analytics.logEvent(AnalyticsEventPostScore, parameters: [
+                AnalyticsParameterScore: self.currentState.star
+            ])
             return Observable.concat([
                 Observable.just(Mutation.setLoading(true)),
                 self.uploadPost(mode: self.mode, user: self.currentState.user,
@@ -180,10 +185,5 @@ class AddPostReactor: Reactor {
             }
             return Disposables.create()
         }
-        
-        
-        
-        
     }
-    
 }

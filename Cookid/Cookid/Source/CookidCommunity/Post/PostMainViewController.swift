@@ -14,6 +14,7 @@ import NaverThirdPartyLogin
 import Then
 import SnapKit
 import ReactorKit
+import FirebaseAnalytics
 
 class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBased {
 
@@ -185,6 +186,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
         rankingButton.rx.tap
             .bind { [unowned self] in
                 self.coordinator?.navigateRankingVC(viewModel: self.viewModel)
+                Analytics.logEvent("rankingCheckButton", parameters: nil)
             }
             .disposed(by: rx.disposeBag)
         
