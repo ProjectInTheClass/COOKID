@@ -1104,7 +1104,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+			shellScript = "\"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 		03B2049226D712BC0099C269 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
