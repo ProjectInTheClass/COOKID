@@ -12,7 +12,6 @@ import SnapKit
 import Then
 import RxKeyboard
 import ReactorKit
-import Lottie
 
 class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
     

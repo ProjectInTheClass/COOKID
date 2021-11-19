@@ -8,6 +8,7 @@
 import RxSwift
 import RxCocoa
 import NSObject_Rx
+import FirebaseAnalytics
 
 class LocalSignInViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
 
@@ -67,6 +68,7 @@ class LocalSignInViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             .bind(onNext: { [weak self] user in
                 guard let self = self else { return }
                 serviceProvider.userService.creatUser(user: user) { self.output.isError.accept(!$0) }
+                Analytics.setUserProperty(user.userType.rawValue, forName: "user_type")
             })
             .disposed(by: disposeBag)
     }

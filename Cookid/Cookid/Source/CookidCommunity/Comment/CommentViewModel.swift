@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import NSObject_Rx
+import FirebaseAnalytics
 
 class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     
@@ -58,6 +59,7 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                     output.user,
                 input.commentContent))
             .bind { [weak self] comment, user, content in
+                Analytics.logEvent("addCommentButton_tap", parameters: nil)
                 guard let self = self else { return }
                 if let comment = comment {
                     self.uploadSubComment(user: user, content: content, parentComment: comment)
