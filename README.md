@@ -60,6 +60,8 @@
 
 ### CI/CD, Test
 * Unit Test : XCTest
+* CI : Bitrise
+* CD : Fastlane
 
 ### 앱어트리뷰션
 * Firebase Analytics
