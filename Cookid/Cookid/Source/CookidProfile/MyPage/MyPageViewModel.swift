@@ -9,6 +9,8 @@ import Foundation
 import RxSwift
 import RxCocoa
 import NSObject_Rx
+import FirebaseCrashlytics
+import FirebaseAnalytics
 
 class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
    
@@ -75,6 +77,11 @@ class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                             resultSelector: { ($0, $1) })
             .bind(onNext: { (image, user) in
                 serviceProvider.userService.updateUserImage(user: user, profileImage: image, completion: { _ in })
+                Crashlytics.crashlytics().setUserID(user.id)
+                Crashlytics.crashlytics().setCustomValue(image.size, forKey: "image_size")
+                Analytics.logEvent("check_imagesize", parameters: [
+                    "imagesize": image.size
+                ])
             })
             .disposed(by: disposeBag)
         
