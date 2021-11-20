@@ -139,12 +139,8 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         todayMealButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                
-                let num = [0]
-                let _ = num[1]
-                
-//                coordinator?.navigateAddTodayMeal()
-//                Analytics.logEvent("addMeal_todayMeals", parameters: nil)
+                coordinator?.navigateAddTodayMeal()
+                Analytics.logEvent("addMeal_todayMeals", parameters: nil)
             })
             .disposed(by: rx.disposeBag)
         
