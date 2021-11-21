@@ -23,16 +23,6 @@ class LocalNotificationManager {
     
     static private var notifications = [LocalNotification]()
     
-    static func requestPermission() {
-        UNUserNotificationCenter
-            .current()
-            .requestAuthorization(options: [.alert, .badge, .alert]) { granted, error in
-                if granted == true && error == nil {
-                    
-                }
-            }
-    }
-    
     static func addNotification() {
         notifications.append(LocalNotification(id: UUID().uuidString, title: "새로운 달입니다!", body: "새로운 가계부 진행시켜 🏃‍♀️"))
         notifications.append(LocalNotification(id: UUID().uuidString, title: "오늘은 어떤 음식을 드셨나요?", body: "오늘의 식사기록을 남겨볼까요? 🍽"))
@@ -75,7 +65,6 @@ class LocalNotificationManager {
     }
     
     static func setNotification() {
-        requestPermission()
         scheduleNotifications()
         addNotification()
     }
