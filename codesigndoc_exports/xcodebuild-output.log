@@ -1,0 +1,99 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace /Users/developer.paul/Desktop/Cookid/Cookid/Cookid.xcworkspace -scheme Cookid clean archive -archivePath /var/folders/c4/4rjc8kmx1z39xlw83dtt2x580000gn/T/__codesigndoc__263941096/Cookid.xcarchive
+
+User defaults from command line:
+    IDEArchivePathOverride = /var/folders/c4/4rjc8kmx1z39xlw83dtt2x580000gn/T/__codesigndoc__263941096/Cookid.xcarchive
+    IDEPackageSupportUseBuiltinSCM = YES
+
+Resolve Package Graph
+
+Resolved source packages:
+  RealmDatabase: https://github.com/realm/realm-core @ 11.6.0
+  leveldb: https://github.com/firebase/leveldb.git @ 1.22.2
+  Promises: https://github.com/google/promises.git @ 2.0.0
+  GoogleDataTransport: https://github.com/google/GoogleDataTransport.git @ 9.1.2
+  GoogleUtilities: https://github.com/google/GoogleUtilities.git @ 7.6.0
+  gRPC: https://github.com/firebase/grpc-SwiftPM.git @ 1.28.4
+  Kingfisher: https://github.com/onevcat/Kingfisher @ 7.0.0
+  abseil: https://github.com/firebase/abseil-cpp-SwiftPM.git @ 0.20200225.4
+  Realm: https://github.com/realm/realm-cocoa.git @ 10.19.0
+  nanopb: https://github.com/firebase/nanopb.git @ 2.30908.0
+  SwiftProtobuf: https://github.com/apple/swift-protobuf.git @ 1.18.0
+  GTMSessionFetcher: https://github.com/google/gtm-session-fetcher.git @ 1.7.0
+  GoogleAppMeasurement: https://github.com/google/GoogleAppMeasurement.git @ 8.9.1
+  BoringSSL-GRPC: https://github.com/firebase/boringssl-SwiftPM.git @ 0.7.2
+  Firebase: https://github.com/firebase/firebase-ios-sdk.git @ 8.9.1
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:448B4956-0450-5509-8F9A-853303295C04 }
+{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
+{ platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
+{ platform:iOS, id:c758a86bf23a268b3104b729f90ecc4219fafdb8, name:iPhone }
+{ platform:iOS Simulator, id:9161CD61-B29A-4F1F-93E0-1E72347D2F79, OS:15.0, name:iPhone 8 }
+{ platform:iOS Simulator, id:4B85161D-A338-465F-B2C6-F53B94144160, OS:15.0, name:iPhone 8 Plus }
+{ platform:iOS Simulator, id:8D446B48-CDD8-458E-B72A-30DEBEAABBAE, OS:15.0, name:iPhone 11 }
+{ platform:iOS Simulator, id:90A7750C-1EA8-4C01-9D6B-913F3C7BAF3B, OS:15.0, name:iPhone 11 Pro }
+{ platform:iOS Simulator, id:BF33E609-814D-407D-A21D-55AE21C0025F, OS:15.0, name:iPhone 11 Pro Max }
+{ platform:iOS Simulator, id:713FA471-B0BF-4BFA-B9E4-710498636F29, OS:15.0, name:iPhone 12 }
+{ platform:iOS Simulator, id:AEC3383E-F443-4B47-ACFF-7DAA7B9C86BA, OS:15.0, name:iPhone 12 Pro }
+{ platform:iOS Simulator, id:89AF6060-8197-429F-8C12-22C61D883509, OS:15.0, name:iPhone 12 Pro Max }
+{ platform:iOS Simulator, id:41BECE2A-F556-488B-BBD5-650BA7CE7A3C, OS:15.0, name:iPhone 12 mini }
+{ platform:iOS Simulator, id:CCF04E89-A8A7-4C61-9D7E-A7192EFF7B56, OS:15.0, name:iPhone 13 }
+{ platform:iOS Simulator, id:C42994E4-1FA2-497D-9048-6A01387F990D, OS:15.0, name:iPhone 13 Pro }
+{ platform:iOS Simulator, id:456BCCF2-82AA-4F12-80C0-DEB941F41503, OS:15.0, name:iPhone 13 Pro Max }
+{ platform:iOS Simulator, id:B77C9EEA-ECEA-40C0-847B-F9AC8DBDFB4B, OS:15.0, name:iPhone 13 mini }
+{ platform:iOS Simulator, id:F314D9F5-18C9-485A-B396-0206EAB8ECD9, OS:15.0, name:iPhone SE (2nd generation) }
+{ platform:iOS Simulator, id:96673379-F27B-4225-A719-F1F7CB88F86C, OS:15.0, name:iPod touch (7th generation) }
+{ platform:iOS Simulator, id:4B83842E-EB52-411A-94AF-4F96E2458AD8, OS:15.0, name:iPad (9th generation) }
+{ platform:iOS Simulator, id:72F955A6-1FBA-48F4-8220-E72CC5DA9BCE, OS:15.0, name:iPad Air (4th generation) }
+{ platform:iOS Simulator, id:D016F34F-A336-46AE-B581-71B6BB7DDABE, OS:15.0, name:iPad Pro (9.7-inch) }
+{ platform:iOS Simulator, id:DC6974FC-16A1-4D0B-86B2-84719CCD9313, OS:15.0, name:iPad Pro (11-inch) (3rd generation) }
+{ platform:iOS Simulator, id:BC2AD034-1499-4A9D-B916-0471F9E1777C, OS:15.0, name:iPad Pro (12.9-inch) (5th generation) }
+{ platform:iOS Simulator, id:C5FAA4D9-B19E-4E3F-B62F-4D1045BBC182, OS:15.0, name:iPad mini (6th generation) }
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:448B4956-0450-5509-8F9A-853303295C04 }
+{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
+{ platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
+{ platform:iOS, id:c758a86bf23a268b3104b729f90ecc4219fafdb8, name:iPhone }
+{ platform:iOS Simulator, id:4B83842E-EB52-411A-94AF-4F96E2458AD8, OS:15.0, name:iPad (9th generation) }
+{ platform:iOS Simulator, id:72F955A6-1FBA-48F4-8220-E72CC5DA9BCE, OS:15.0, name:iPad Air (4th generation) }
+{ platform:iOS Simulator, id:D016F34F-A336-46AE-B581-71B6BB7DDABE, OS:15.0, name:iPad Pro (9.7-inch) }
+{ platform:iOS Simulator, id:DC6974FC-16A1-4D0B-86B2-84719CCD9313, OS:15.0, name:iPad Pro (11-inch) (3rd generation) }
+{ platform:iOS Simulator, id:BC2AD034-1499-4A9D-B916-0471F9E1777C, OS:15.0, name:iPad Pro (12.9-inch) (5th generation) }
+{ platform:iOS Simulator, id:C5FAA4D9-B19E-4E3F-B62F-4D1045BBC182, OS:15.0, name:iPad mini (6th generation) }
+{ platform:iOS Simulator, id:9161CD61-B29A-4F1F-93E0-1E72347D2F79, OS:15.0, name:iPhone 8 }
+{ platform:iOS Simulator, id:4B85161D-A338-465F-B2C6-F53B94144160, OS:15.0, name:iPhone 8 Plus }
+{ platform:iOS Simulator, id:8D446B48-CDD8-458E-B72A-30DEBEAABBAE, OS:15.0, name:iPhone 11 }
+{ platform:iOS Simulator, id:90A7750C-1EA8-4C01-9D6B-913F3C7BAF3B, OS:15.0, name:iPhone 11 Pro }
+{ platform:iOS Simulator, id:BF33E609-814D-407D-A21D-55AE21C0025F, OS:15.0, name:iPhone 11 Pro Max }
+{ platform:iOS Simulator, id:713FA471-B0BF-4BFA-B9E4-710498636F29, OS:15.0, name:iPhone 12 }
+{ platform:iOS Simulator, id:AEC3383E-F443-4B47-ACFF-7DAA7B9C86BA, OS:15.0, name:iPhone 12 Pro }
+{ platform:iOS Simulator, id:89AF6060-8197-429F-8C12-22C61D883509, OS:15.0, name:iPhone 12 Pro Max }
+{ platform:iOS Simulator, id:41BECE2A-F556-488B-BBD5-650BA7CE7A3C, OS:15.0, name:iPhone 12 mini }
+{ platform:iOS Simulator, id:CCF04E89-A8A7-4C61-9D7E-A7192EFF7B56, OS:15.0, name:iPhone 13 }
+{ platform:iOS Simulator, id:C42994E4-1FA2-497D-9048-6A01387F990D, OS:15.0, name:iPhone 13 Pro }
+{ platform:iOS Simulator, id:456BCCF2-82AA-4F12-80C0-DEB941F41503, OS:15.0, name:iPhone 13 Pro Max }
+{ platform:iOS Simulator, id:B77C9EEA-ECEA-40C0-847B-F9AC8DBDFB4B, OS:15.0, name:iPhone 13 mini }
+{ platform:iOS Simulator, id:F314D9F5-18C9-485A-B396-0206EAB8ECD9, OS:15.0, name:iPhone SE (2nd generation) }
+{ platform:iOS Simulator, id:96673379-F27B-4225-A719-F1F7CB88F86C, OS:15.0, name:iPod touch (7th generation) }
+
+note: Using new build system
+note: Build preparation complete
+
+** CLEAN SUCCEEDED **
+
+note: Using new build system
+note: Planning
+Analyze workspace
+
+Create build description
+Build description signature: 92be7e0b124930d083483f4af7e1e9d6
+Build description path: /Users/developer.paul/Library/Developer/Xcode/DerivedData/Cookid-bceevklemmakyjdvafswoegmxobz/Build/Intermediates.noindex/ArchiveIntermediates/Cookid/IntermediateBuildFilesPath/XCBuildData/92be7e0b124930d083483f4af7e1e9d6-desc.xcbuild
+
+note: Build preparation complete
+note: Building targets in parallel
+/Users/developer.paul/Desktop/Cookid/Cookid/Pods/Pods.xcodeproj: warning: The iOS deployment target 'IPHONEOS_DEPLOYMENT_TARGET' is set to 8.0, but the range of supported deployment target versions is 9.0 to 15.0.99. (in target 'WeakMapTable' from project 'Pods')
+/Users/developer.paul/Desktop/Cookid/Cookid/Pods/Pods.xcodeproj: warning: The iOS deployment target 'IPHONEOS_DEPLOYMENT_TARGET' is set to 8.0, but the range of supported deployment target versions is 9.0 to 15.0.99. (in target 'FSCalendar' from project 'Pods')
+/Users/developer.paul/Desktop/Cookid/Cookid/Pods/Pods.xcodeproj: warning: The iOS deployment target 'IPHONEOS_DEPLOYMENT_TARGET' is set to 8.0, but the range of supported deployment target versions is 9.0 to 15.0.99. (in target 'Then' from project 'Pods')
+error: Provisioning profile "iOS Team Provisioning Profile: com.hyungseokPark.Cookid" doesn't include the currently selected device "박형석의 Mac mini" (identifier 448B4956-0450-5509-8F9A-853303295C04). (in target 'Cookid' from project 'Cookid')
+** ARCHIVE FAILED **
