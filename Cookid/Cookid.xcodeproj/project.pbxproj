@@ -46,9 +46,6 @@
 		0330445A273F8CF8004F7578 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 03304459273F8CF8004F7578 /* FirebaseFirestoreSwift-Beta */; };
 		0330445C273F8CF8004F7578 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0330445B273F8CF8004F7578 /* FirebaseStorage */; };
 		0330445E273F8CF8004F7578 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 0330445D273F8CF8004F7578 /* FirebaseStorageSwift-Beta */; };
-		0330446027400A0E004F7578 /* FirestoreUserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330445F27400A0E004F7578 /* FirestoreUserTest.swift */; };
-		0330446227400A1D004F7578 /* FirestoreCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330446127400A1D004F7578 /* FirestoreCommentTest.swift */; };
-		0330446427400A36004F7578 /* StorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330446327400A36004F7578 /* StorageTest.swift */; };
 		033044662744EC24004F7578 /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 033044652744EC23004F7578 /* LaunchImage.png */; };
 		0331A9CF2711C3EA005EF05B /* PostCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */; };
 		0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E263271977FA001FD6A7 /* RankerImageView.swift */; };
@@ -98,7 +95,6 @@
 		03B3EB7C2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB7B2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift */; };
 		03B3EB84273C02BB004CACF4 /* CookidUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB83273C02BB004CACF4 /* CookidUITests.swift */; };
 		03B3EB86273C02BB004CACF4 /* CookidUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB85273C02BB004CACF4 /* CookidUITestsLaunchTests.swift */; };
-		03B3EB8D273C0436004CACF4 /* FirestorePostTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB8C273C0436004CACF4 /* FirestorePostTest.swift */; };
 		03B55AEE273D39B3008F7151 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03B55AED273D39B3008F7151 /* GoogleService-Info.plist */; };
 		03B55AF8273D40DC008F7151 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 03B55AF7273D40DC008F7151 /* Realm */; };
 		03B55AFA273D40DC008F7151 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03B55AF9273D40DC008F7151 /* RealmSwift */; };
@@ -1332,10 +1328,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0330446027400A0E004F7578 /* FirestoreUserTest.swift in Sources */,
-				0330446427400A36004F7578 /* StorageTest.swift in Sources */,
-				0330446227400A1D004F7578 /* FirestoreCommentTest.swift in Sources */,
-				03B3EB8D273C0436004CACF4 /* FirestorePostTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
