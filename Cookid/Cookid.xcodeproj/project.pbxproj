@@ -78,6 +78,10 @@
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
 		0395F6EF26B805A10091BB29 /* AddMealViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EE26B805A10091BB29 /* AddMealViewModel.swift */; };
 		0398E16B26FB3E6000E98F77 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0398E16A26FB3E6000E98F77 /* CommentViewController.swift */; };
+		03A897A8274BCD3400E48E2F /* StorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330446327400A36004F7578 /* StorageTest.swift */; };
+		03A897A9274BCD3800E48E2F /* FirestoreCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330446127400A1D004F7578 /* FirestoreCommentTest.swift */; };
+		03A897AA274BCD3D00E48E2F /* FirestoreUserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330445F27400A0E004F7578 /* FirestoreUserTest.swift */; };
+		03A897AB274BCD3F00E48E2F /* FirestorePostTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB8C273C0436004CACF4 /* FirestorePostTest.swift */; };
 		03AF306227166474005D53D0 /* AddMealReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF306127166474005D53D0 /* AddMealReactor.swift */; };
 		03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */; };
 		03B2049526D75DD50099C269 /* PictureSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049426D75DD50099C269 /* PictureSelectViewController.swift */; };
@@ -1328,6 +1332,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03A897AA274BCD3D00E48E2F /* FirestoreUserTest.swift in Sources */,
+				03A897A8274BCD3400E48E2F /* StorageTest.swift in Sources */,
+				03A897A9274BCD3800E48E2F /* FirestoreCommentTest.swift in Sources */,
+				03A897AB274BCD3F00E48E2F /* FirestorePostTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1511,7 +1519,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 2.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyungseokPark.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1540,7 +1548,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 2.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyungseokPark.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
