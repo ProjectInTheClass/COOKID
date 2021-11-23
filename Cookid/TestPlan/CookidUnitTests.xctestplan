@@ -12,7 +12,19 @@
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
-
+    {
+      "skippedTests" : [
+        "FirestoreCommentTest",
+        "FirestorePostTest",
+        "FirestoreUserTest",
+        "StorageTest"
+      ],
+      "target" : {
+        "containerPath" : "container:Cookid.xcodeproj",
+        "identifier" : "033D3C1D2709FF49009B29B9",
+        "name" : "CookidTests"
+      }
+    }
   ],
   "version" : 1
 }
