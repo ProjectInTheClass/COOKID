@@ -682,7 +682,10 @@
 		033D3C1F2709FF49009B29B9 /* CookidTests */ = {
 			isa = PBXGroup;
 			children = (
-				038A676A274D3507008ACD5E /* Firebase Tests */,
+				03B3EB8C273C0436004CACF4 /* FirestorePostTest.swift */,
+				0330445F27400A0E004F7578 /* FirestoreUserTest.swift */,
+				0330446127400A1D004F7578 /* FirestoreCommentTest.swift */,
+				0330446327400A36004F7578 /* StorageTest.swift */,
 				038A676B274D3549008ACD5E /* CookidUnitTests.swift */,
 			);
 			path = CookidTests;
@@ -728,17 +731,6 @@
 				0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */,
 			);
 			path = Manager;
-			sourceTree = "<group>";
-		};
-		038A676A274D3507008ACD5E /* Firebase Tests */ = {
-			isa = PBXGroup;
-			children = (
-				03B3EB8C273C0436004CACF4 /* FirestorePostTest.swift */,
-				0330445F27400A0E004F7578 /* FirestoreUserTest.swift */,
-				0330446127400A1D004F7578 /* FirestoreCommentTest.swift */,
-				0330446327400A36004F7578 /* StorageTest.swift */,
-			);
-			path = "Firebase Tests";
 			sourceTree = "<group>";
 		};
 		0390F53B2728EB8E00677651 /* Comment */ = {
