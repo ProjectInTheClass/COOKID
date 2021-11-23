@@ -72,6 +72,7 @@
 		037B7A26272EDFD0004E9320 /* StoryboardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A25272EDFD0004E9320 /* StoryboardProtocol.swift */; };
 		0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E3EB27045A00007F8AA5 /* RemoteUser.swift */; };
 		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
+		038A676C274D3549008ACD5E /* CookidUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038A676B274D3549008ACD5E /* CookidUnitTests.swift */; };
 		0390F53E2728EF4E00677651 /* YPImagePickerManaget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */; };
 		0390F54027299B7900677651 /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53F27299B7900677651 /* CommentHeaderView.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
@@ -224,6 +225,7 @@
 		0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellReactor.swift; sourceTree = "<group>"; };
 		0339E263271977FA001FD6A7 /* RankerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankerImageView.swift; sourceTree = "<group>"; };
 		0339E268271B81D3001FD6A7 /* CookidButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidButton.swift; sourceTree = "<group>"; };
+		0339E7D9274D49E30002D9C9 /* CookidUnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CookidUnitTests.xctestplan; sourceTree = "<group>"; };
 		033D3C1E2709FF49009B29B9 /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostReactor.swift; sourceTree = "<group>"; };
 		0348B8FB26D34463001BF3B7 /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 		037B7A23272EDF9F004E9320 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		037B7A25272EDFD0004E9320 /* StoryboardProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardProtocol.swift; sourceTree = "<group>"; };
 		0380E3EB27045A00007F8AA5 /* RemoteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteUser.swift; sourceTree = "<group>"; };
+		038A676B274D3549008ACD5E /* CookidUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidUnitTests.swift; sourceTree = "<group>"; };
 		0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePickerManaget.swift; sourceTree = "<group>"; };
 		0390F53F27299B7900677651 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
@@ -535,6 +538,7 @@
 		0322338F269212860092DD6D = {
 			isa = PBXGroup;
 			children = (
+				0339E7D8274D48EC0002D9C9 /* TestPlan */,
 				0322339A269212860092DD6D /* Cookid */,
 				033D3C1F2709FF49009B29B9 /* CookidTests */,
 				03B3EB82273C02BB004CACF4 /* CookidUITests */,
@@ -667,13 +671,19 @@
 			path = "Cookid Custom UIComponents";
 			sourceTree = "<group>";
 		};
+		0339E7D8274D48EC0002D9C9 /* TestPlan */ = {
+			isa = PBXGroup;
+			children = (
+				0339E7D9274D49E30002D9C9 /* CookidUnitTests.xctestplan */,
+			);
+			path = TestPlan;
+			sourceTree = "<group>";
+		};
 		033D3C1F2709FF49009B29B9 /* CookidTests */ = {
 			isa = PBXGroup;
 			children = (
-				03B3EB8C273C0436004CACF4 /* FirestorePostTest.swift */,
-				0330445F27400A0E004F7578 /* FirestoreUserTest.swift */,
-				0330446127400A1D004F7578 /* FirestoreCommentTest.swift */,
-				0330446327400A36004F7578 /* StorageTest.swift */,
+				038A676A274D3507008ACD5E /* Firebase Tests */,
+				038A676B274D3549008ACD5E /* CookidUnitTests.swift */,
 			);
 			path = CookidTests;
 			sourceTree = "<group>";
@@ -718,6 +728,17 @@
 				0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		038A676A274D3507008ACD5E /* Firebase Tests */ = {
+			isa = PBXGroup;
+			children = (
+				03B3EB8C273C0436004CACF4 /* FirestorePostTest.swift */,
+				0330445F27400A0E004F7578 /* FirestoreUserTest.swift */,
+				0330446127400A1D004F7578 /* FirestoreCommentTest.swift */,
+				0330446327400A36004F7578 /* StorageTest.swift */,
+			);
+			path = "Firebase Tests";
 			sourceTree = "<group>";
 		};
 		0390F53B2728EB8E00677651 /* Comment */ = {
@@ -1334,6 +1355,7 @@
 			files = (
 				03A897AA274BCD3D00E48E2F /* FirestoreUserTest.swift in Sources */,
 				03A897A8274BCD3400E48E2F /* StorageTest.swift in Sources */,
+				038A676C274D3549008ACD5E /* CookidUnitTests.swift in Sources */,
 				03A897A9274BCD3800E48E2F /* FirestoreCommentTest.swift in Sources */,
 				03A897AB274BCD3F00E48E2F /* FirestorePostTest.swift in Sources */,
 			);
