@@ -13,9 +13,22 @@ struct Comment {
     var parentID: String?
     var user: User
     var content: String
-    var timestamp: Date
-    var didLike: Bool = false
-    var likes: Int = 0
+    private(set) var timestamp: Date
+    private(set) var didLike: Bool = false
+    private(set) var likes: Int = 0
+    
+    mutating func setCurrentDate() {
+        self.timestamp = Date()
+    }
+    
+    mutating func like() {
+        if self.didLike {
+            self.likes -= 1
+        } else {
+            self.likes += 1
+        }
+        self.didLike.toggle()
+    }
 }
 
 struct CommentSection {

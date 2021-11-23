@@ -71,13 +71,13 @@ class PostCellReactor: Reactor {
         
         switch action {
         case .heartbuttonTapped(let isHeart):
-            self.postUpdateByHeart(post: post, isHeart: isHeart)
+            post.like()
             serviceProvider.postService.heartTransaction(sender: self.sender, currentUser: user, post: post, isHeart: isHeart)
             return Observable.concat([
                 Observable.just(Mutation.setHeart(isHeart)),
                 Observable.just(Mutation.setHeartCount(self.currentState.post.likes))])
         case .bookmarkButtonTapped(let isBookmark):
-            self.postUpdateByBookmark(post: post, isBookmark: isBookmark)
+            post.bookmark()
             serviceProvider.postService.bookmarkTransaction(sender: self.sender, currentUser: user, post: post, isBookmark: isBookmark)
             return Observable.concat([
                 Observable.just(Mutation.setBookmark(isBookmark)),
@@ -114,26 +114,6 @@ class PostCellReactor: Reactor {
         case .setCurrentPercent(let percent):
             newState.currentPercent = percent
             return newState
-        }
-    }
-    
-    func postUpdateByHeart(post: Post, isHeart: Bool) {
-        if isHeart {
-            post.likes += 1
-            post.didLike = isHeart
-        } else {
-            post.likes -= 1
-            post.didLike = isHeart
-        }
-    }
-    
-    func postUpdateByBookmark(post: Post, isBookmark: Bool) {
-        if isBookmark {
-            post.collections += 1
-            post.didCollect = isBookmark
-        } else {
-            post.collections -= 1
-            post.didCollect = isBookmark
         }
     }
     
