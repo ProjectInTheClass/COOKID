@@ -16,14 +16,26 @@ class Post {
     var mealBudget: Int
     var location: String
     var star: Int
-    var collections: Int
-    var likes: Int
-    var timeStamp: Date
-    var didLike: Bool
-    var didCollect: Bool
-    var commentCount: Int
+    private(set) var timeStamp: Date
+    private(set) var commentCount: Int
+    private(set) var didLike: Bool
+    private(set) var likes: Int
+    private(set) var didCollect: Bool
+    private(set) var collections: Int
     
-    init(postID: String, user: User, images: [URL?], likes: Int = 0, collections: Int = 0, star: Int, caption: String, mealBudget: Int, location: String, timeStamp: Date = Date(), didLike: Bool = false, didCollect: Bool = false, commentCount: Int = 0) {
+    init(postID: String,
+         user: User,
+         images: [URL?],
+         likes: Int = 0,
+         collections: Int = 0,
+         star: Int,
+         caption: String,
+         mealBudget: Int,
+         location: String,
+         timeStamp: Date = Date(),
+         didLike: Bool = false,
+         didCollect: Bool = false,
+         commentCount: Int = 0) {
         self.postID = postID
         self.user = user
         self.images = images
@@ -38,4 +50,27 @@ class Post {
         self.didCollect = didCollect
         self.commentCount = commentCount
     }
+    
+    func setCurrentDate() {
+        self.timeStamp = Date()
+    }
+    
+    func like() {
+        if self.didLike {
+            self.likes -= 1
+        } else {
+            self.likes += 1
+        }
+        self.didLike.toggle()
+    }
+    
+    func bookmark() {
+        if self.didCollect {
+            self.collections -= 1
+        } else {
+            self.collections += 1
+        }
+        self.didCollect.toggle()
+    }
+    
 }
