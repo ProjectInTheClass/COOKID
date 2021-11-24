@@ -1,0 +1,55 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+
+  desc "build app and upload to TestFlight"
+
+  lane :beta do
+    get_certificates
+    get_provisioning_profile
+    cocoapods(use_bundle_exec: false)
+    increment_build_number(
+        build_number: latest_testflight_build_number + 1
+    )
+    build_app(
+      configuration: "Debug"
+    )
+    upload_to_testflight(
+    skip_waiting_for_build_processing: true
+    )
+    slack(
+      message: "Testflight 배포에 성공했습니다!",
+      slack_url: "https://hooks.slack.com/services/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"
+    )
+  end
+
+  error do |lane, exception, options|
+    slack(
+      message: "에러 발생 : #{exception}",
+      success: false,
+      slack_url: "https://hooks.slack.com/services/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",
+    )
+  end
+
+  lane :tests do
+  run_tests(scheme: "MyAppTests",
+            slack_url: "https://hooks.slack.com/services/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",
+            slack_channel: "#ios-모바일-앱-개발")
+  end
+
+end

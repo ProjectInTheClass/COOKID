@@ -24,6 +24,14 @@
         "identifier" : "033D3C1D2709FF49009B29B9",
         "name" : "CookidTests"
       }
+    },
+    {
+      "enabled" : false,
+      "target" : {
+        "containerPath" : "container:Cookid.xcodeproj",
+        "identifier" : "03B3EB80273C02BB004CACF4",
+        "name" : "CookidUITests"
+      }
     }
   ],
   "version" : 1

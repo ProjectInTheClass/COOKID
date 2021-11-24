@@ -72,6 +72,16 @@
                ReferencedContainer = "container:Cookid.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "032BE8FB274E19D100980C39"
+               BuildableName = "SnapshotHelper.xctest"
+               BlueprintName = "SnapshotHelper"
+               ReferencedContainer = "container:Cookid.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -94,6 +104,12 @@
             ReferencedContainer = "container:Cookid.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-FIRDebugEnabled"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
