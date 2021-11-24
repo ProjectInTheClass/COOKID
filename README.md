@@ -54,6 +54,7 @@
 
 ### 백앤드
 * Kakao, Naver, Apple Auth
+* Firebase Cloud Messaging
 * Firebase Firestore
 * Firebase Storage
 * Local DB: Realm, KeyChain, FileManager, UserDefault
