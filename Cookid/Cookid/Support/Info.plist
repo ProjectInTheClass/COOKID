@@ -25,7 +25,7 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakaob80501f14838bee643dab9d0e68e786d</string>
+				<string>kakaoe09da44a9b3c91d2106ab8f25300097b</string>
 			</array>
 		</dict>
 		<dict>
@@ -40,7 +40,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>3</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>naversearchapp</string>

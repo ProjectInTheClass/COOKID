@@ -33,7 +33,6 @@ typedef enum {
 } OAuthLoginState;
 
 #define kServiceAppUrlScheme    @"naverlogin"
-
 #define kConsumerKey            @"Fo7ttKzMrGe_l76CbMUt"
 #define kConsumerSecret         @"FsF3SIcavd"
 #define kServiceAppName         @"Cookid"
