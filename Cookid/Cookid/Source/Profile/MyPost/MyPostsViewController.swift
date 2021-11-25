@@ -21,17 +21,43 @@ class MyPostsViewController: UIViewController, View {
     private let tableView = UITableView(frame: .zero, style: .plain).then {
         $0.register(MyPostTableViewCell.self, forCellReuseIdentifier: myPostCellIdentifier)
         $0.backgroundColor = .systemBackground
+        $0.separatorStyle = .none
+    }
+    
+    private let backgroundImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+        $0.image = UIImage(named: "placeholder")
+    }
+    
+    private let backgroundLabel = UILabel().then {
+        $0.text = "내 글이 없습니다.\n추천하고 싶은 식사를 포스팅 해보세요."
+        $0.textAlignment = .center
+        $0.textColor = .systemGray4
+        $0.numberOfLines = 2
+    }
+    
+    private lazy var backgroundStackView = UIStackView(arrangedSubviews: [backgroundImage, backgroundLabel]).then {
+        $0.axis = .vertical
+        $0.alignment = .center
+        $0.distribution = .fill
+        $0.spacing = 10
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
         makeConstraints()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        configureUI()
     }
     
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        tableView.separatorStyle = .none
+        
+        backgroundImage.layer.cornerRadius = backgroundImage.frame.height / 2
+        backgroundImage.layer.masksToBounds = true
     }
     
     func bind(reactor: MyPostReactor) {
@@ -47,6 +73,10 @@ class MyPostsViewController: UIViewController, View {
         
         reactor.state.map { $0.myPosts }
         .observe(on: MainScheduler.instance)
+        .do(onNext: { [weak self] posts in
+            guard let self = self else { return }
+            self.backgroundStackView.isHidden = posts.count != 0
+        })
         .bind(to: tableView.rx.items(cellIdentifier: MyPostsViewController.myPostCellIdentifier, cellType: MyPostTableViewCell.self)) { _, item, cell in
             cell.reactor = MyPostTableViewCellReactor(post: item, serviceProvider: reactor.serviceProvider)
             cell.settingButton.rx.tap
@@ -73,6 +103,15 @@ class MyPostsViewController: UIViewController, View {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.bottom.left.right.equalToSuperview()
+        }
+        
+        view.addSubview(backgroundStackView)
+        backgroundStackView.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        
+        backgroundImage.snp.makeConstraints { make in
+            make.width.height.equalTo(view.snp.width).multipliedBy(0.33)
         }
     }
 }
