@@ -24,17 +24,42 @@ class MyBookmarkViewController: UIViewController, View {
         $0.size(100)
     }
     
+    private let backgroundImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+        $0.image = UIImage(named: "placeholder")
+    }
+    
+    private let backgroundLabel = UILabel().then {
+        $0.text = "북마크 기록이 없습니다.\n마음에 드시는 포스팅을 북마킹 하세요."
+        $0.textAlignment = .center
+        $0.textColor = .systemGray4
+        $0.numberOfLines = 2
+    }
+    
+    private lazy var backgroundStackView = UIStackView(arrangedSubviews: [backgroundImage, backgroundLabel]).then {
+        $0.axis = .vertical
+        $0.alignment = .center
+        $0.distribution = .fill
+        $0.spacing = 10
+    }
+    
     var coordinator: MyPageCoordinator?
     var disposeBag: DisposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
         makeConstraints()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        configureUI()
     }
     
     func configureUI() {
         view.backgroundColor = .systemBackground
+        backgroundImage.layer.cornerRadius = backgroundImage.frame.height / 2
+        backgroundImage.layer.masksToBounds = true
     }
     
     func makeConstraints() {
@@ -47,11 +72,24 @@ class MyBookmarkViewController: UIViewController, View {
             make.width.height.equalTo(100)
             make.centerX.centerY.equalToSuperview()
         }
+        
+        view.addSubview(backgroundStackView)
+        backgroundStackView.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        
+        backgroundImage.snp.makeConstraints { make in
+            make.width.height.equalTo(view.snp.width).multipliedBy(0.33)
+        }
     }
     
     func bind(reactor: MyBookmarkReactor) {
         
         reactor.state.map { $0.bookmarkPosts }
+        .do(onNext: { [weak self] posts in
+            guard let self = self else { return }
+            self.backgroundStackView.isHidden = posts.count != 0
+        })
         .bind(to: collectionView.rx.items(cellIdentifier: CELLIDENTIFIER.myBookmarkCollectionViewCell, cellType: MyBookmarkCollectionViewCell.self)) { _, item, cell in
             cell.reactor = PostCellReactor(sender: self, post: item, serviceProvider: reactor.serviceProvider)
         }

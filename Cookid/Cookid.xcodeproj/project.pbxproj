@@ -17,6 +17,8 @@
 		030D4AE8273010C9005C0FFF /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE7273010C9005C0FFF /* MealService.swift */; };
 		030D4AEB273040D8005C0FFF /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 030D4AEA273040D8005C0FFF /* UserInfo.storyboard */; };
 		030D4AED27317577005C0FFF /* ConsumptionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AEC27317577005C0FFF /* ConsumptionDetail.swift */; };
+		0315C1FE274FCB2A00748497 /* PostReactorUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0315C1FD274FCB2800748497 /* PostReactorUnitTests.swift */; };
+		0315C200274FCC2800748497 /* CommentReactorUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0315C1FF274FCC2700748497 /* CommentReactorUnitTests.swift */; };
 		031C8F46274A00D200991898 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 031C8F45274A00D200991898 /* FirebaseMessaging */; };
 		031DDF6027099C23001F12C3 /* KeyChainAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */; };
 		0322339C269212860092DD6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339B269212860092DD6D /* AppDelegate.swift */; };
@@ -193,6 +195,8 @@
 		030D4AE7273010C9005C0FFF /* MealService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealService.swift; sourceTree = "<group>"; };
 		030D4AEA273040D8005C0FFF /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
 		030D4AEC27317577005C0FFF /* ConsumptionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumptionDetail.swift; sourceTree = "<group>"; };
+		0315C1FD274FCB2800748497 /* PostReactorUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReactorUnitTests.swift; sourceTree = "<group>"; };
+		0315C1FF274FCC2700748497 /* CommentReactorUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentReactorUnitTests.swift; sourceTree = "<group>"; };
 		031DDF5E27093D7A001F12C3 /* Cookid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cookid.entitlements; sourceTree = "<group>"; };
 		031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainAuthRepo.swift; sourceTree = "<group>"; };
 		03223398269212860092DD6D /* Cookid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookid.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -508,9 +512,9 @@
 				032233B02692765C0092DD6D /* Entity */,
 				032233B1269276680092DD6D /* Model */,
 				DB0D7D722694980B009B2D51 /* Service */,
-				03B2048B26D5D9270099C269 /* CookidStats */,
-				03F2ED7126ED92C900CFE87C /* CookidCommunity */,
-				2417EAB426E58CF7006F2785 /* CookidProfile */,
+				03B2048B26D5D9270099C269 /* Cookid */,
+				03F2ED7126ED92C900CFE87C /* Community */,
+				2417EAB426E58CF7006F2785 /* Profile */,
 				032233B4269276840092DD6D /* View */,
 			);
 			path = Source;
@@ -675,6 +679,8 @@
 				0330446127400A1D004F7578 /* FirestoreCommentTest.swift */,
 				0330446327400A36004F7578 /* StorageTest.swift */,
 				038A676B274D3549008ACD5E /* CookidUnitTests.swift */,
+				0315C1FD274FCB2800748497 /* PostReactorUnitTests.swift */,
+				0315C1FF274FCC2700748497 /* CommentReactorUnitTests.swift */,
 			);
 			path = CookidTests;
 			sourceTree = "<group>";
@@ -745,7 +751,7 @@
 			path = MainCustomView;
 			sourceTree = "<group>";
 		};
-		03B2048B26D5D9270099C269 /* CookidStats */ = {
+		03B2048B26D5D9270099C269 /* Cookid */ = {
 			isa = PBXGroup;
 			children = (
 				2417EAB226E58CDD006F2785 /* LocalSignIn */,
@@ -753,7 +759,7 @@
 				030D4AD627300675005C0FFF /* AddMeal */,
 				030D4AD7273006B0005C0FFF /* AddShopping */,
 			);
-			path = CookidStats;
+			path = Cookid;
 			sourceTree = "<group>";
 		};
 		03B3EB722738B03A004CACF4 /* Notice */ = {
@@ -833,7 +839,7 @@
 			path = PostCustomView;
 			sourceTree = "<group>";
 		};
-		03F2ED7126ED92C900CFE87C /* CookidCommunity */ = {
+		03F2ED7126ED92C900CFE87C /* Community */ = {
 			isa = PBXGroup;
 			children = (
 				030D4AE927302E9A005C0FFF /* RemoteSignIn */,
@@ -842,7 +848,7 @@
 				0390F53B2728EB8E00677651 /* Comment */,
 				03E42ED426C4DBB0005D7B5E /* Ranking */,
 			);
-			path = CookidCommunity;
+			path = Community;
 			sourceTree = "<group>";
 		};
 		2417EAB226E58CDD006F2785 /* LocalSignIn */ = {
@@ -858,7 +864,7 @@
 			path = LocalSignIn;
 			sourceTree = "<group>";
 		};
-		2417EAB426E58CF7006F2785 /* CookidProfile */ = {
+		2417EAB426E58CF7006F2785 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				030D4ADE27300A2C005C0FFF /* MyPage */,
@@ -867,7 +873,7 @@
 				030D4ADC273009D8005C0FFF /* MyBookmark */,
 				030D4ADD273009E4005C0FFF /* MyRecipe */,
 			);
-			path = CookidProfile;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		244B2B0F26E4A0BF001226F0 /* FirebaseRepository */ = {
@@ -1334,9 +1340,11 @@
 			files = (
 				03A897AA274BCD3D00E48E2F /* FirestoreUserTest.swift in Sources */,
 				03A897A8274BCD3400E48E2F /* StorageTest.swift in Sources */,
+				0315C1FE274FCB2A00748497 /* PostReactorUnitTests.swift in Sources */,
 				038A676C274D3549008ACD5E /* CookidUnitTests.swift in Sources */,
 				03A897A9274BCD3800E48E2F /* FirestoreCommentTest.swift in Sources */,
 				03A897AB274BCD3F00E48E2F /* FirestorePostTest.swift in Sources */,
+				0315C200274FCC2800748497 /* CommentReactorUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1569,7 +1577,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1595,7 +1603,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1619,7 +1627,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1643,7 +1651,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

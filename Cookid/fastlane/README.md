@@ -21,11 +21,6 @@ or alternatively using `brew install fastlane`
 fastlane ios beta
 ```
 build app and upload to TestFlight
-### ios tests
-```
-fastlane ios tests
-```
-
 
 ----
 
