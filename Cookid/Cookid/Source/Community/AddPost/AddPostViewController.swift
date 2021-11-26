@@ -32,6 +32,8 @@ class AddPostViewController: UIViewController, StoryboardView, StoryboardBased {
         $0.hidesWhenStopped = true
     }
     
+    let placeholderString: String = "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)"
+    
     var disposeBag: DisposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -173,7 +175,9 @@ extension AddPostViewController: UITextViewDelegate, UITextFieldDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.darkGray {
-            textView.text = nil
+            if textView.text == placeholderString {
+                textView.text = nil
+            }
             textView.textColor = UIColor.black
         }
         addScrollView.scrollToBottom()
@@ -181,7 +185,7 @@ extension AddPostViewController: UITextViewDelegate, UITextFieldDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text == "" {
-            textView.text = "맛있게 하셨던 식사에 대해서 알려주세요\n시간, 가게이름, 메뉴, 간단한 레시피 등\n추천하신 이유를 적어주세요:)"
+            textView.text = placeholderString
             textView.textColor = UIColor.darkGray
         }
     }
