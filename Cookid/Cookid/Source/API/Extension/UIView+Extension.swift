@@ -1,67 +1,12 @@
 //
-//  Extension.swift
+//  UIView+Extension.swift
 //  Cookid
 //
-//  Created by 박형석 on 2021/07/05.
+//  Created by 박형석 on 2021/11/27.
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
-import YPImagePicker
 import Kingfisher
-
-extension UIPageViewController {
-    
-    func goToNextPage(animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
-        guard let currentPage = viewControllers?[0] else { return }
-        guard let nextPage = dataSource?.pageViewController(self, viewControllerAfter: currentPage) else { return }
-        setViewControllers([nextPage], direction: .forward, animated: animated, completion: completion)
-    }
-    
-}
-
-extension Date {
-    
-    func dateToString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
-        return dateFormatter.string(from: self)
-    }
-    
-    func convertDateToString(format: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        let dateString = dateFormatter.string(from: self)
-        return dateString
-        
-    }
-    
-    var startOfMonth: Date {
-        let components = Calendar.current.dateComponents([.year, .month], from: self)
-        return Calendar.current.date(from: components)!
-    }
-    
-    var endOfMonth: Date {
-        var components = DateComponents()
-        components.month = 1
-        components.second = -1
-        return Calendar.current.date(byAdding: components, to: startOfMonth)!
-    }
-    
-    func dateToInt() -> Int {
-        return Int(self.timeIntervalSince1970)
-    }
-    
-}
-
-extension String {
-    func stringToDate() -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
-        return dateFormatter.date(from: self)
-    }
-}
 
 extension UIView {
     
@@ -154,34 +99,4 @@ extension UIImageView {
                          ])
     }
     
-}
-
-extension UIColor {
-    
-    convenience init(red: Int, green: Int, blue: Int, a: Int = 0xFF) {
-        self.init(
-            red: CGFloat(red) / 255.0,
-            green: CGFloat(green) / 255.0,
-            blue: CGFloat(blue) / 255.0,
-            alpha: CGFloat(a) / 255.0
-        )
-    }
-    
-    convenience init(rgb: Int) {
-        self.init(
-            red: (rgb >> 16) & 0xFF,
-            green: (rgb >> 8) & 0xFF,
-            blue: rgb & 0xFF
-        )
-    }
-    
-    // let's suppose alpha is the first component (ARGB)
-    convenience init(argb: Int) {
-        self.init(
-            red: (argb >> 16) & 0xFF,
-            green: (argb >> 8) & 0xFF,
-            blue: argb & 0xFF,
-            a: (argb >> 24) & 0xFF
-        )
-    }
 }

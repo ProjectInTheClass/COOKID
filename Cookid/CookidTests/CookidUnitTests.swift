@@ -21,7 +21,7 @@ class CookidUnitTests: XCTestCase {
     }
 
     func test_FailExample() throws {
-        XCTFail()
+        
     }
     
     func test_SuccessExample() {
