@@ -15,7 +15,6 @@ protocol RealmMealRepoType {
     func deleteMeal(meal: Meal, completion: @escaping (Bool) -> Void)
 }
 
-
 class RealmMealRepo: BaseRepository, RealmMealRepoType {
     
     func fetchMeals() -> [LocalMeal]? {

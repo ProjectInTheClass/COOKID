@@ -42,5 +42,4 @@ class MyBookmarkCollectionViewCellReactor: Reactor {
         return Observable.merge(mutation, user)
     }
     
-    
 }

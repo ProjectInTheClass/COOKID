@@ -33,7 +33,6 @@
 		032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233CE2692A90B0092DD6D /* SecondPageViewController.swift */; };
 		032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D02692A91A0092DD6D /* ThirdPageViewController.swift */; };
 		032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D22692A94D0092DD6D /* FourthPageViewController.swift */; };
-		032233D72692F0160092DD6D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D62692F0160092DD6D /* Extension.swift */; };
 		032233D92692F8ED0092DD6D /* LocalSignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233D82692F8ED0092DD6D /* LocalSignInViewModel.swift */; };
 		032233DE2693057C0092DD6D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233DD2693057C0092DD6D /* User.swift */; };
 		03250E0E2712654900425036 /* CommentCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03250E0D2712654900425036 /* CommentCellReactor.swift */; };
@@ -66,6 +65,16 @@
 		035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */; };
 		035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */; };
 		0363F1F82706C7CD0017680D /* NaverAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */; };
+		037A77B927527A710021BBA7 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77B827527A700021BBA7 /* String+Extension.swift */; };
+		037A77BB27527A820021BBA7 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77BA27527A820021BBA7 /* Date+Extension.swift */; };
+		037A77BD27527A8F0021BBA7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77BC27527A8F0021BBA7 /* UIView+Extension.swift */; };
+		037A77BF27527B290021BBA7 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77BE27527B290021BBA7 /* UIColor+Extension.swift */; };
+		037A77C127527B9A0021BBA7 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77C027527B9A0021BBA7 /* UIViewController+Extension.swift */; };
+		037A77C427527C120021BBA7 /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77C327527C120021BBA7 /* FirebaseConstants.swift */; };
+		037A77C627527C530021BBA7 /* DarkModeContants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77C527527C530021BBA7 /* DarkModeContants.swift */; };
+		037A77C827527C700021BBA7 /* NetworkContants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77C727527C700021BBA7 /* NetworkContants.swift */; };
+		037A77CA27527C9F0021BBA7 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77C927527C9F0021BBA7 /* UIConstants.swift */; };
+		037A77CC27527CB30021BBA7 /* DBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77CB27527CB30021BBA7 /* DBConstants.swift */; };
 		037B7A0C272D7AEF004E9320 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A0B272D7AEF004E9320 /* BaseViewController.swift */; };
 		037B7A15272D7C30004E9320 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A14272D7C30004E9320 /* ServiceProvider.swift */; };
 		037B7A17272D7CB3004E9320 /* RepositoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */; };
@@ -163,7 +172,6 @@
 		24BA287726F8E85F005D344E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BA287626F8E85F005D344E /* CommentTableViewCell.swift */; };
 		24C86C6C26FF6F8000E84477 /* AddPostImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */; };
 		4255C87D6C8D5A6C8AAFDBA1 /* Pods_CookidTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C02D874ED96A95A539EEFD /* Pods_CookidTests.framework */; };
-		C6BFF46226949AA7006295F5 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BFF46126949AA7006295F5 /* Constant.swift */; };
 		DB61715226C9577B008F497C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61715126C9577B008F497C /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -214,7 +222,6 @@
 		032233CE2692A90B0092DD6D /* SecondPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPageViewController.swift; sourceTree = "<group>"; };
 		032233D02692A91A0092DD6D /* ThirdPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPageViewController.swift; sourceTree = "<group>"; };
 		032233D22692A94D0092DD6D /* FourthPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthPageViewController.swift; sourceTree = "<group>"; };
-		032233D62692F0160092DD6D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		032233D82692F8ED0092DD6D /* LocalSignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSignInViewModel.swift; sourceTree = "<group>"; };
 		032233DD2693057C0092DD6D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		03250E0D2712654900425036 /* CommentCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellReactor.swift; sourceTree = "<group>"; };
@@ -244,6 +251,16 @@
 		035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarViewController.swift; sourceTree = "<group>"; };
 		0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthRepo.swift; sourceTree = "<group>"; };
+		037A77B827527A700021BBA7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		037A77BA27527A820021BBA7 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		037A77BC27527A8F0021BBA7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		037A77BE27527B290021BBA7 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		037A77C027527B9A0021BBA7 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		037A77C327527C120021BBA7 /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
+		037A77C527527C530021BBA7 /* DarkModeContants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeContants.swift; sourceTree = "<group>"; };
+		037A77C727527C700021BBA7 /* NetworkContants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkContants.swift; sourceTree = "<group>"; };
+		037A77C927527C9F0021BBA7 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
+		037A77CB27527CB30021BBA7 /* DBConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBConstants.swift; sourceTree = "<group>"; };
 		037B7A0B272D7AEF004E9320 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		037B7A14272D7C30004E9320 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProvider.swift; sourceTree = "<group>"; };
@@ -342,7 +359,6 @@
 		315E1B49EB52F86958E2CED3 /* Pods-CookidTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookidTests.debug.xcconfig"; path = "Target Support Files/Pods-CookidTests/Pods-CookidTests.debug.xcconfig"; sourceTree = "<group>"; };
 		46C02D874ED96A95A539EEFD /* Pods_CookidTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookidTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92784250C9969CCBA901BA20 /* Pods_Cookid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cookid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6BFF46126949AA7006295F5 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		DB61715126C9577B008F497C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		F431FF06FC6CBE03E157E905 /* Pods-Cookid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cookid.release.xcconfig"; path = "Target Support Files/Pods-Cookid/Pods-Cookid.release.xcconfig"; sourceTree = "<group>"; };
 		F9537FA5A2A0EEC2493683E1 /* Pods-CookidTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookidTests.release.xcconfig"; path = "Target Support Files/Pods-CookidTests/Pods-CookidTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -505,9 +521,9 @@
 			children = (
 				0322339B269212860092DD6D /* AppDelegate.swift */,
 				0322339D269212860092DD6D /* SceneDelegate.swift */,
-				032233C526927EF90092DD6D /* DummyData */,
 				032233D52692F00B0092DD6D /* API */,
 				03E42ECD26C4172E005D7B5E /* Coordinator */,
+				037B7A27272EE06D004E9320 /* Manager */,
 				032233AF2692764F0092DD6D /* Repository */,
 				032233B02692765C0092DD6D /* Entity */,
 				032233B1269276680092DD6D /* Model */,
@@ -640,10 +656,11 @@
 		032233D52692F00B0092DD6D /* API */ = {
 			isa = PBXGroup;
 			children = (
+				032233C526927EF90092DD6D /* DummyData */,
 				037B7A0A272D7AE1004E9320 /* Base */,
 				037B7A13272D7BF1004E9320 /* Protocol */,
+				037A77C227527BF50021BBA7 /* Constants */,
 				037B7A1E272EC8D5004E9320 /* Extension */,
-				037B7A27272EE06D004E9320 /* Manager */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -685,6 +702,18 @@
 			path = CookidTests;
 			sourceTree = "<group>";
 		};
+		037A77C227527BF50021BBA7 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				037A77C927527C9F0021BBA7 /* UIConstants.swift */,
+				037A77C527527C530021BBA7 /* DarkModeContants.swift */,
+				037A77CB27527CB30021BBA7 /* DBConstants.swift */,
+				037A77C727527C700021BBA7 /* NetworkContants.swift */,
+				037A77C327527C120021BBA7 /* FirebaseConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		037B7A0A272D7AE1004E9320 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -711,8 +740,11 @@
 		037B7A1E272EC8D5004E9320 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				032233D62692F0160092DD6D /* Extension.swift */,
-				C6BFF46126949AA7006295F5 /* Constant.swift */,
+				037A77B827527A700021BBA7 /* String+Extension.swift */,
+				037A77BA27527A820021BBA7 /* Date+Extension.swift */,
+				037A77BC27527A8F0021BBA7 /* UIView+Extension.swift */,
+				037A77C027527B9A0021BBA7 /* UIViewController+Extension.swift */,
+				037A77BE27527B290021BBA7 /* UIColor+Extension.swift */,
 				241523B3269D24860077941A /* Function.swift */,
 			);
 			path = Extension;
@@ -1204,12 +1236,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				0398E16B26FB3E6000E98F77 /* CommentViewController.swift in Sources */,
+				037A77CC27527CB30021BBA7 /* DBConstants.swift in Sources */,
 				035E4921269597D4002CC084 /* MealTimeCollectionViewCell.swift in Sources */,
 				032233BA269277520092DD6D /* Meal.swift in Sources */,
+				037A77BF27527B290021BBA7 /* UIColor+Extension.swift in Sources */,
 				0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */,
 				0390F53E2728EF4E00677651 /* YPImagePickerManaget.swift in Sources */,
 				037B7A19272D9F1A004E9320 /* BaseService.swift in Sources */,
 				0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */,
+				037A77BD27527A8F0021BBA7 /* UIView+Extension.swift in Sources */,
 				0339E269271B81D3001FD6A7 /* CookidButton.swift in Sources */,
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
 				03D3046826FDFA7D00042CB7 /* AddPostCollectionReusableView.swift in Sources */,
@@ -1218,6 +1253,7 @@
 				03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */,
 				0390F54027299B7900677651 /* CommentHeaderView.swift in Sources */,
 				03B3EB742738B057004CACF4 /* Notice.swift in Sources */,
+				037A77BB27527A820021BBA7 /* Date+Extension.swift in Sources */,
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
 				03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */,
@@ -1246,9 +1282,11 @@
 				03F2ED6C26ED916900CFE87C /* PostHeaderView.swift in Sources */,
 				030D4AD2272F797C005C0FFF /* AddShoppingReactor.swift in Sources */,
 				03B2049526D75DD50099C269 /* PictureSelectViewController.swift in Sources */,
+				037A77C127527B9A0021BBA7 /* UIViewController+Extension.swift in Sources */,
 				037B7A22272ECCE0004E9320 /* BaseRepository.swift in Sources */,
 				03D8C1E726E8927700238CB6 /* MyMealsCollectionViewCell.swift in Sources */,
 				03B3EB6B273744BB004CACF4 /* MyRecipeViewController.swift in Sources */,
+				037A77C827527C700021BBA7 /* NetworkContants.swift in Sources */,
 				035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */,
 				03DB84C0273D70170069276F /* FirebaseConvertable.swift in Sources */,
 				241523B4269D24860077941A /* Function.swift in Sources */,
@@ -1260,7 +1298,6 @@
 				03B3EB782739173C004CACF4 /* UpdateUserInfoViewController.swift in Sources */,
 				244B2B1126E4A0DB001226F0 /* FirestoreUserRepo.swift in Sources */,
 				032233C726927F0C0092DD6D /* DummyData.swift in Sources */,
-				C6BFF46226949AA7006295F5 /* Constant.swift in Sources */,
 				032233DE2693057C0092DD6D /* User.swift in Sources */,
 				03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */,
 				03F2ED7326ED92D500CFE87C /* PostViewModel.swift in Sources */,
@@ -1271,7 +1308,6 @@
 				03D660C7270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift in Sources */,
 				03D3045D26FDE2F300042CB7 /* AddPostReactor.swift in Sources */,
 				0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */,
-				032233D72692F0160092DD6D /* Extension.swift in Sources */,
 				03D8C1FD26EBBC9800238CB6 /* PostService.swift in Sources */,
 				244B2B0826E24062001226F0 /* ImageRepo.swift in Sources */,
 				03B2049926D7B8AC0099C269 /* Menu.swift in Sources */,
@@ -1283,11 +1319,14 @@
 				0322339E269212860092DD6D /* SceneDelegate.swift in Sources */,
 				03D3046426FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift in Sources */,
 				03F2ED9226F38D7C00CFE87C /* MainCoordinator.swift in Sources */,
+				037A77C427527C120021BBA7 /* FirebaseConstants.swift in Sources */,
 				030D4AE227300D99005C0FFF /* CoodinatorProtocol.swift in Sources */,
 				030D4AE6273010BD005C0FFF /* UserService.swift in Sources */,
 				03D8C1FB26EBB92A00238CB6 /* FirebaseStorageRepo.swift in Sources */,
 				0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */,
+				037A77C627527C530021BBA7 /* DarkModeContants.swift in Sources */,
 				03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */,
+				037A77B927527A710021BBA7 /* String+Extension.swift in Sources */,
 				03D8C1F626EBB85200238CB6 /* RemotePost.swift in Sources */,
 				03D8C1EF26EB6D8C00238CB6 /* FirestorePostRepo.swift in Sources */,
 				03D660C4270B4C6B0044FE1E /* MyBookmarkViewController.swift in Sources */,
@@ -1323,6 +1362,7 @@
 				03250E162714359A00425036 /* AddTodayMealViewController.swift in Sources */,
 				0348B8FC26D34463001BF3B7 /* Shopping.swift in Sources */,
 				03E42ED126C41766005D7B5E /* AppCoordinator.swift in Sources */,
+				037A77CA27527C9F0021BBA7 /* UIConstants.swift in Sources */,
 				03D8C1F326EB7E0500238CB6 /* Comment.swift in Sources */,
 				031DDF6027099C23001F12C3 /* KeyChainAuthRepo.swift in Sources */,
 				03250E1827146D3C00425036 /* AddTodayReactor.swift in Sources */,

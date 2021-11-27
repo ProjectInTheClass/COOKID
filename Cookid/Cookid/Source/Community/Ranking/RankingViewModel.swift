@@ -37,10 +37,8 @@ class RankingViewModel: ViewModelType, HasDisposeBag {
         cookidRankers
             .map { users -> [User] in
                 var topRankers = [User]()
-                for (index, user) in users.enumerated() {
-                    if index < 3 {
-                        topRankers.append(user)
-                    }
+                for (index, user) in users.enumerated() where index < 3 {
+                    topRankers.append(user)
                 }
                 return topRankers
             }
