@@ -11,6 +11,8 @@ identifier_name:
         - id
         - URL
         - GlobalAPIKey
+        
+empty_enum_arguments: false
 
 trailing_whitespace:
     ignores_empty_lines: true

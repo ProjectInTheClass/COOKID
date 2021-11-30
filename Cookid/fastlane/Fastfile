@@ -46,6 +46,11 @@ platform :ios do
 
   end
 
+  lane :upload_appstore do 
+    release()
+    deliver
+  end
+
   error do |lane, exception, options|
     slack(
       message: "에러 발생 : #{exception}",
