@@ -20,7 +20,7 @@ enum MainCollectionViewSection {
 
 extension MainCollectionViewSection: SectionModelType {
     typealias Item = MainCollectionViewItem
-
+   
     var header: String {
         switch self {
         case .mealSection:
