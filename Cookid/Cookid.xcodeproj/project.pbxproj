@@ -40,7 +40,6 @@
 		03250E162714359A00425036 /* AddTodayMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03250E152714359A00425036 /* AddTodayMealViewController.swift */; };
 		03250E1827146D3C00425036 /* AddTodayReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03250E1727146D3C00425036 /* AddTodayReactor.swift */; };
 		0327F0C3274E2E3C00231E86 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0327F0C2274E2E3C00231E86 /* GoogleService-Info.plist */; };
-		032BE908274E1AA700980C39 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032BE907274E1AA700980C39 /* SnapshotHelper.swift */; };
 		03304452273F8CF8004F7578 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 03304451273F8CF8004F7578 /* FirebaseAnalytics */; };
 		03304454273F8CF8004F7578 /* FirebaseAnalyticsSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 03304453273F8CF8004F7578 /* FirebaseAnalyticsSwift-Beta */; };
 		03304456273F8CF8004F7578 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 03304455273F8CF8004F7578 /* FirebaseCrashlytics */; };
@@ -228,7 +227,6 @@
 		03250E152714359A00425036 /* AddTodayMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodayMealViewController.swift; sourceTree = "<group>"; };
 		03250E1727146D3C00425036 /* AddTodayReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodayReactor.swift; sourceTree = "<group>"; };
 		0327F0C2274E2E3C00231E86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		032BE907274E1AA700980C39 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		0330445F27400A0E004F7578 /* FirestoreUserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUserTest.swift; sourceTree = "<group>"; };
 		0330446127400A1D004F7578 /* FirestoreCommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCommentTest.swift; sourceTree = "<group>"; };
 		0330446327400A36004F7578 /* StorageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTest.swift; sourceTree = "<group>"; };
@@ -808,7 +806,6 @@
 			children = (
 				03B3EB83273C02BB004CACF4 /* CookidUITests.swift */,
 				03B3EB85273C02BB004CACF4 /* CookidUITestsLaunchTests.swift */,
-				032BE907274E1AA700980C39 /* SnapshotHelper.swift */,
 			);
 			path = CookidUITests;
 			sourceTree = "<group>";
@@ -1394,7 +1391,6 @@
 			files = (
 				03B3EB84273C02BB004CACF4 /* CookidUITests.swift in Sources */,
 				03B3EB86273C02BB004CACF4 /* CookidUITestsLaunchTests.swift in Sources */,
-				032BE908274E1AA700980C39 /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1617,7 +1613,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1643,7 +1639,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1667,7 +1663,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1691,7 +1687,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

@@ -9,15 +9,4 @@ import XCTest
 
 class CookidUITests: XCTestCase {
 
-    override func setUp() {
-//        continueAfterFailure = false
-//        let app = XCUIApplication()
-//        setupSnapshot(app)
-//        app.launch()
-        
-    }
-    
-    func testScreenshots() {
-//                snapshot("0Launch")
-    }
 }
