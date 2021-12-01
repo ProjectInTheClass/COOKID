@@ -37,12 +37,14 @@
 
 ### 반응형 프로그래밍 및 커뮤니티 기술
 * RxSwift, RxCocoa, RxDataSource, RxKeyboard, NSObject+Rx
+* ReactorKit
 
 ### 백앤드
 * Kakao, Naver, Apple Auth
 * Firebase Cloud Messaging
 * Firebase Firestore
 * Firebase Storage
+
 * Local DB: Realm, fileManager, UserDefault, KeyChain
 
 ### 앱 사용 분석
@@ -67,10 +69,9 @@
 * PanModal
 * PagingKit
 
-# 5. 업데이트 내역 및 예정
+# 5. 업데이트 내역
 
 * 1.0.1 앱 출시 버전
-
 * 1.0.2 버그 수정, 다크 모드 지원, 식사 & 쇼핑 CRUD관련 사용자 편의 개선, 랭킹 페이지 제작, 리팩토링, 로컬 노티피케이션 추가
-
 * 2.0 버그 수정, 애플 계정 전환, FCM, Realm 연동, Bitrise & fastlane / 온라인 서비스 : 카카오, 네이버, 애플, Firestore, , 뷰제작: 마이페이지(나의 모든 소비, 프로필, 북마크, 나의 글, 레시피는 뷰만), 모든 통계는 메인페이지, 랭킹페이지 변경(베스트 집밥러, 베스트 레시피), 자유게시판(식사추천) 제작
+
