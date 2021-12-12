@@ -57,10 +57,11 @@
 ### Test
 * Unit Test : XCTest
 
-### 개발 아키텍처
+### 개발 아키텍처 및 디자인 패턴
 * Rx + MVVM + Coordinator Pattern
 * ReactorKit
 * Singletone Pattern
+* Provider
 
 ### 이외에 사용한 오픈소스
 * Kingfisher
