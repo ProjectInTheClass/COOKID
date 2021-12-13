@@ -526,8 +526,8 @@
 				032233B02692765C0092DD6D /* Entity */,
 				032233B1269276680092DD6D /* Model */,
 				DB0D7D722694980B009B2D51 /* Service */,
-				03B2048B26D5D9270099C269 /* Cookid */,
-				03F2ED7126ED92C900CFE87C /* Community */,
+				03B2048B26D5D9270099C269 /* CookidManager */,
+				03F2ED7126ED92C900CFE87C /* CookidCommunity */,
 				2417EAB426E58CF7006F2785 /* Profile */,
 				032233B4269276840092DD6D /* View */,
 			);
@@ -781,7 +781,7 @@
 			path = MainCustomView;
 			sourceTree = "<group>";
 		};
-		03B2048B26D5D9270099C269 /* Cookid */ = {
+		03B2048B26D5D9270099C269 /* CookidManager */ = {
 			isa = PBXGroup;
 			children = (
 				2417EAB226E58CDD006F2785 /* LocalSignIn */,
@@ -789,7 +789,7 @@
 				030D4AD627300675005C0FFF /* AddMeal */,
 				030D4AD7273006B0005C0FFF /* AddShopping */,
 			);
-			path = Cookid;
+			path = CookidManager;
 			sourceTree = "<group>";
 		};
 		03B3EB722738B03A004CACF4 /* Notice */ = {
@@ -868,7 +868,7 @@
 			path = PostCustomView;
 			sourceTree = "<group>";
 		};
-		03F2ED7126ED92C900CFE87C /* Community */ = {
+		03F2ED7126ED92C900CFE87C /* CookidCommunity */ = {
 			isa = PBXGroup;
 			children = (
 				030D4AE927302E9A005C0FFF /* RemoteSignIn */,
@@ -877,7 +877,7 @@
 				0390F53B2728EB8E00677651 /* Comment */,
 				03E42ED426C4DBB0005D7B5E /* Ranking */,
 			);
-			path = Community;
+			path = CookidCommunity;
 			sourceTree = "<group>";
 		};
 		2417EAB226E58CDD006F2785 /* LocalSignIn */ = {
@@ -1566,7 +1566,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.codershigh.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1596,7 +1596,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.codershigh.Cookid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
