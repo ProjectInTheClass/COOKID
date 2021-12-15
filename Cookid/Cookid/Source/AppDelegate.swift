@@ -22,6 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Firebase
         FirebaseApp.configure()
         
+        if ProcessInfo.processInfo.environment["unit_tests"] == "true" {
+          print("Setting up Firebase emulator localhost:8080")
+          let settings = Firestore.firestore().settings
+          settings.host = "localhost:8080"
+          settings.isPersistenceEnabled = false
+          settings.isSSLEnabled = false
+          Firestore.firestore().settings = settings
+        }
+        
         // Realm
         let config = Realm.Configuration(
             schemaVersion: 5,
