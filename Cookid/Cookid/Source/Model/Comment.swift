@@ -8,9 +8,9 @@
 import Foundation
 
 struct Comment {
-    var commentID: String
-    var postID: String
-    var parentID: String?
+    let commentID: String
+    let postID: String
+    let parentID: String?
     var user: User
     var content: String
     private(set) var timestamp: Date
@@ -28,6 +28,12 @@ struct Comment {
             self.likes += 1
         }
         self.didLike.toggle()
+    }
+}
+
+extension Comment: Equatable {
+    static func == (lhs: Comment, rhs: Comment) -> Bool {
+        return lhs.commentID == rhs.commentID
     }
 }
 

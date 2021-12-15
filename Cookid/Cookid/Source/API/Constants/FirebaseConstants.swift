@@ -8,7 +8,6 @@
 import Foundation
 
 enum FirebaseError: String, Error {
-    
     case postUpdateError = "⚠️ 포스트를 업데이트하는데 실패했습니다."
     case postFetchError = "⚠️ 포스트를 가져오는데 실패했습니다."
     case deletePostError = "⚠️ 포스트를 삭제하는데 실패했습니다."

@@ -44,6 +44,7 @@ class FirestorePostTest: XCTestCase {
         self.currentUser = nil
         self.newPost = nil
         self.updatedPost = nil
+        self.clearFirestore()
     }
 
     func test_WhenUserCreatePost() {
