@@ -21,7 +21,6 @@ class FirestoreUserTest: XCTestCase {
 
     override func tearDownWithError() throws {
         self.user = nil
-        self.clearFirestore()
     }
     
     func test_connectLocaUserWithRemoteUser() {

@@ -1036,9 +1036,9 @@
                         <viewLayoutGuide key="safeArea" id="F6M-XL-jSt"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="zeJ-35-je9" firstAttribute="trailing" secondItem="F6M-XL-jSt" secondAttribute="trailing" id="1cJ-8W-lAD"/>
+                            <constraint firstItem="zeJ-35-je9" firstAttribute="trailing" secondItem="ICD-PW-BAD" secondAttribute="trailing" id="1cJ-8W-lAD"/>
                             <constraint firstItem="eKh-ar-gs6" firstAttribute="centerY" secondItem="ICD-PW-BAD" secondAttribute="centerY" id="9fl-F3-1IK"/>
-                            <constraint firstItem="zeJ-35-je9" firstAttribute="leading" secondItem="F6M-XL-jSt" secondAttribute="leading" id="LXs-xd-WGR"/>
+                            <constraint firstItem="zeJ-35-je9" firstAttribute="leading" secondItem="ICD-PW-BAD" secondAttribute="leading" id="LXs-xd-WGR"/>
                             <constraint firstItem="zeJ-35-je9" firstAttribute="top" secondItem="ICD-PW-BAD" secondAttribute="top" id="NpH-M8-8f9"/>
                             <constraint firstItem="eKh-ar-gs6" firstAttribute="width" secondItem="ICD-PW-BAD" secondAttribute="width" multiplier="0.75" id="YMk-GE-X9P"/>
                             <constraint firstAttribute="bottom" secondItem="zeJ-35-je9" secondAttribute="bottom" id="cso-ee-UlR"/>
@@ -1075,9 +1075,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mjO-Bj-6F6">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mjO-Bj-6F6">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fgl-zM-7Ur">
@@ -1230,8 +1229,12 @@
                         <viewLayoutGuide key="safeArea" id="ggW-RB-DBb"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="mjO-Bj-6F6" secondAttribute="bottom" id="AGK-I1-vUj"/>
                             <constraint firstItem="Fgl-zM-7Ur" firstAttribute="centerY" secondItem="fZd-SK-irV" secondAttribute="centerY" id="K7g-FO-jKj"/>
+                            <constraint firstItem="mjO-Bj-6F6" firstAttribute="trailing" secondItem="ggW-RB-DBb" secondAttribute="trailing" id="Mzr-gS-ubP"/>
+                            <constraint firstItem="mjO-Bj-6F6" firstAttribute="top" secondItem="fZd-SK-irV" secondAttribute="top" id="PjY-4p-n9u"/>
                             <constraint firstItem="Fgl-zM-7Ur" firstAttribute="centerX" secondItem="fZd-SK-irV" secondAttribute="centerX" id="kt6-ic-XUt"/>
+                            <constraint firstItem="mjO-Bj-6F6" firstAttribute="leading" secondItem="ggW-RB-DBb" secondAttribute="leading" id="qcO-Pw-3cB"/>
                             <constraint firstItem="Fgl-zM-7Ur" firstAttribute="width" secondItem="fZd-SK-irV" secondAttribute="width" multiplier="0.75" id="w6F-FD-PE4"/>
                         </constraints>
                     </view>
@@ -1554,7 +1557,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="SMq-hS-Y3Q">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="103.66666666666666"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

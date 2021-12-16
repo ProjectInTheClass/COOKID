@@ -89,7 +89,6 @@
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
 		0398E16B26FB3E6000E98F77 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0398E16A26FB3E6000E98F77 /* CommentViewController.swift */; };
-		039C4FD8276999A8009C0715 /* XCTest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039C4FD7276999A8009C0715 /* XCTest+Extension.swift */; };
 		03A897A8274BCD3400E48E2F /* StorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330446327400A36004F7578 /* StorageTest.swift */; };
 		03A897A9274BCD3800E48E2F /* FirestoreCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330446127400A1D004F7578 /* FirestoreCommentTest.swift */; };
 		03A897AA274BCD3D00E48E2F /* FirestoreUserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330445F27400A0E004F7578 /* FirestoreUserTest.swift */; };
@@ -274,7 +273,6 @@
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
 		0395F6EC26B805360091BB29 /* AddMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewController.swift; sourceTree = "<group>"; };
 		0398E16A26FB3E6000E98F77 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
-		039C4FD7276999A8009C0715 /* XCTest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Extension.swift"; sourceTree = "<group>"; };
 		03AF306127166474005D53D0 /* AddMealReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealReactor.swift; sourceTree = "<group>"; };
 		03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShoppingViewController.swift; sourceTree = "<group>"; };
 		03B2049426D75DD50099C269 /* PictureSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureSelectViewController.swift; sourceTree = "<group>"; };
@@ -745,7 +743,6 @@
 				037A77BC27527A8F0021BBA7 /* UIView+Extension.swift */,
 				037A77C027527B9A0021BBA7 /* UIViewController+Extension.swift */,
 				037A77BE27527B290021BBA7 /* UIColor+Extension.swift */,
-				039C4FD7276999A8009C0715 /* XCTest+Extension.swift */,
 				241523B3269D24860077941A /* Function.swift */,
 			);
 			path = Extension;
@@ -1241,7 +1238,6 @@
 				032233BA269277520092DD6D /* Meal.swift in Sources */,
 				037A77BF27527B290021BBA7 /* UIColor+Extension.swift in Sources */,
 				0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */,
-				039C4FD8276999A8009C0715 /* XCTest+Extension.swift in Sources */,
 				0390F53E2728EF4E00677651 /* YPImagePickerManaget.swift in Sources */,
 				037B7A19272D9F1A004E9320 /* BaseService.swift in Sources */,
 				0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */,
