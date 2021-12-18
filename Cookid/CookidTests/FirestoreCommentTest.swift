@@ -26,7 +26,6 @@ class FirestoreCommentTest: XCTestCase {
     override func tearDownWithError() throws {
         self.currentUser = nil
         self.newComment = nil
-        self.clearFirestore()
     }
 
     func test_FirestoreCreateComment() {
