@@ -54,6 +54,8 @@
 		0348B8FC26D34463001BF3B7 /* Shopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B8FB26D34463001BF3B7 /* Shopping.swift */; };
 		0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */; };
 		0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */; };
+		034A3827276FB5900059B9F8 /* PhotoSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A3826276FB5900059B9F8 /* PhotoSelectViewController.swift */; };
+		034A3829276FB84C0059B9F8 /* PhotoollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A3828276FB84C0059B9F8 /* PhotoollectionViewCell.swift */; };
 		03525F742707E72D006C8B40 /* KakaoAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03525F732707E72D006C8B40 /* KakaoAuthRepo.swift */; };
 		03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */; };
 		035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E491C26956F92002CC084 /* MealTableViewCell.swift */; };
@@ -240,6 +242,8 @@
 		0348B8FB26D34463001BF3B7 /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
 		0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSectionModel.swift; sourceTree = "<group>"; };
 		0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCollectionViewCell.swift; sourceTree = "<group>"; };
+		034A3826276FB5900059B9F8 /* PhotoSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectViewController.swift; sourceTree = "<group>"; };
+		034A3828276FB84C0059B9F8 /* PhotoollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoollectionViewCell.swift; sourceTree = "<group>"; };
 		03525F732707E72D006C8B40 /* KakaoAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthRepo.swift; sourceTree = "<group>"; };
 		03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		035E491C26956F92002CC084 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
@@ -408,6 +412,8 @@
 				032233B7269276DB0092DD6D /* MainViewController.swift */,
 				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
 				03B2049426D75DD50099C269 /* PictureSelectViewController.swift */,
+				034A3826276FB5900059B9F8 /* PhotoSelectViewController.swift */,
+				034A3828276FB84C0059B9F8 /* PhotoollectionViewCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1321,6 +1327,7 @@
 				037A77C427527C120021BBA7 /* FirebaseConstants.swift in Sources */,
 				030D4AE227300D99005C0FFF /* CoodinatorProtocol.swift in Sources */,
 				030D4AE6273010BD005C0FFF /* UserService.swift in Sources */,
+				034A3829276FB84C0059B9F8 /* PhotoollectionViewCell.swift in Sources */,
 				03D8C1FB26EBB92A00238CB6 /* FirebaseStorageRepo.swift in Sources */,
 				0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */,
 				037A77C627527C530021BBA7 /* DarkModeContants.swift in Sources */,
@@ -1328,6 +1335,7 @@
 				037A77B927527A710021BBA7 /* String+Extension.swift in Sources */,
 				03D8C1F626EBB85200238CB6 /* RemotePost.swift in Sources */,
 				03D8C1EF26EB6D8C00238CB6 /* FirestorePostRepo.swift in Sources */,
+				034A3827276FB5900059B9F8 /* PhotoSelectViewController.swift in Sources */,
 				03D660C4270B4C6B0044FE1E /* MyBookmarkViewController.swift in Sources */,
 				24BA287726F8E85F005D344E /* CommentTableViewCell.swift in Sources */,
 				030C4ACD272A720D00630F08 /* HeartButton.swift in Sources */,

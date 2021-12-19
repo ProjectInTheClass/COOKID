@@ -275,6 +275,13 @@ class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePick
                     cvc.modalPresentationStyle = .automatic
                     self.presentPanModal(cvc)
                 }
+                let pictureAction = UIAlertAction(title: "사진 찾기", style: .default) { _ in
+                    let cvc = PictureSelectViewController()
+                    cvc.reactor = reactor
+                    cvc.modalTransitionStyle = .crossDissolve
+                    cvc.modalPresentationStyle = .automatic
+                    self.presentPanModal(cvc)
+                }
                 alertController.addAction(pictureAction)
                 present(alertController, animated: true, completion: nil)
             })
