@@ -8,8 +8,11 @@
 import UIKit
 import SnapKit
 import Then
+import RxCocoa
+import RxSwift
+import ReactorKit
 
-class PhotoSelectViewController: BaseViewController {
+class PhotoSelectViewController: BaseViewController, View {
     
     private let searchController = UISearchController(searchResultsController: nil).then {
         $0.searchBar.placeholder = "검색어를 입력하세요"
@@ -40,6 +43,10 @@ class PhotoSelectViewController: BaseViewController {
             make.top.equalToSuperview().offset(view.safeAreaInsets.top)
             make.left.right.bottom.equalToSuperview()
         }
+    }
+    
+    func bind(reactor: AddMealReactor) {
+        
     }
     
 }

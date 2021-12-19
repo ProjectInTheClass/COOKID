@@ -411,9 +411,6 @@
 				035E492626975815002CC084 /* MainViewModel.swift */,
 				032233B7269276DB0092DD6D /* MainViewController.swift */,
 				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
-				03B2049426D75DD50099C269 /* PictureSelectViewController.swift */,
-				034A3826276FB5900059B9F8 /* PhotoSelectViewController.swift */,
-				034A3828276FB84C0059B9F8 /* PhotoollectionViewCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -423,6 +420,9 @@
 			children = (
 				03AF306127166474005D53D0 /* AddMealReactor.swift */,
 				0395F6EC26B805360091BB29 /* AddMealViewController.swift */,
+				03B2049426D75DD50099C269 /* PictureSelectViewController.swift */,
+				034A3826276FB5900059B9F8 /* PhotoSelectViewController.swift */,
+				034A3828276FB84C0059B9F8 /* PhotoollectionViewCell.swift */,
 				03250E1727146D3C00425036 /* AddTodayReactor.swift */,
 				03250E152714359A00425036 /* AddTodayMealViewController.swift */,
 			);
