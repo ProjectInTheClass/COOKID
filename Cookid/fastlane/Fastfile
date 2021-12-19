@@ -17,17 +17,10 @@ default_platform(:ios)
 
 platform :ios do
 
-  # commandLine에서 입력한 매개변수 저장
+  # commandLine에서 입력한 매개변수 캡처
+  # 명령어 입력시 fastlane submit_for_review v:5.0.0
   before_all do |lane, options|
    # ...
-  end
-
-  desc "Push only description and meta info"
-  lane :meta do
-      deliver(
-      skip_screenshots: true,
-      skip_metadata: false
-      )
   end
 
   desc "Push a new beta build to TestFlight"
@@ -35,20 +28,64 @@ platform :ios do
     increment_build_number(xcodeproj: "Cookid.xcodeproj")
     build_app(workspace: "Cookid.xcworkspace", scheme: "Cookid")
     upload_to_testflight
+    slack(
+      message: "TestFlight 배포에 성공했습니다!",
+      slack_url: "https://hooks.slack.com/services/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"
+    )
   end
 
-  desc "Push a new beta build to TestFlight"
-  lane :beta do
-    increment_build_number(xcodeproj: "XCODE_PROJECT.xcodeproj")
-    build_app(workspace: "XCODE_WORKSPACE_NAME.xcworkspace", scheme: "XCODE_PROJECT_SCHEME", include_bitcode: false)
-    upload_to_testflight
+  desc "Push only description and meta info"
+  lane :meta do
+    deliver(
+      skip_screenshots: true,
+      skip_metadata: false
+    )
+    slack(
+      message: "metadata 업로드에 성공했습니다!",
+      slack_url: "https://hooks.slack.com/services/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"
+    )
   end
 
-
+  desc "Push a new release build to the App Store"
+  lane :release do
+    increment_build_number(xcodeproj: "XCODE_PROJECT_NAME.xcodeproj")
+    build_app(workspace: "XCODE_PROJECT_WORKSPACE_NAME.xcworkspace", scheme: "XCODE_PROJECT_SCHEME_NAME", include_bitcode: false)
+    deliver(
+      submit_for_review: true,
+      automatic_release: true,
+      force: true, # Skip HTMl report verification
+      skip_screenshots: true,
+      skip_metadata: false,
+      submission_information: {
+        add_id_info_limits_tracking: true,
+        add_id_info_serves_ads: true,
+        add_id_info_tracks_action: true,
+        add_id_info_tracks_install: true,
+        add_id_info_uses_idfa: true,
+        content_rights_has_rights: false,
+        content_rights_contains_third_party_content: false,
+        export_compliance_platform: 'ios',
+        export_compliance_compliance_required: false,
+        export_compliance_encryption_updated: false,
+        export_compliance_app_type: nil,
+        export_compliance_uses_encryption: false,
+        export_compliance_is_exempt: false,
+        export_compliance_contains_third_party_cryptography: false,
+        export_compliance_contains_proprietary_cryptography: false,
+        export_compliance_available_on_french_store: false
+      }
+    )
+    slack(
+      message: "Appstore 배포에 성공했습니다!",
+      slack_url: "https://hooks.slack.com/services/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"
+    )
+  end
 
   # Appstore에서 새 버전 만들기, 터미널에서 Version number, 검토를 위해 Testflight
   desc "Submit the release build to the App Store for review"
+  # do |options| -> 매개변수 캡처를 위해서 사용
   lane :submit_for_review do |options|
+    # 버전 번호만 제공되면 추가로 실행된다. 만약 v:~~ 이 부분을 건너뛰면 작동하지 않음
     if options[:v]
         # increment_build_number(xcodeproj: "XCODE_PROJECT.xcodeproj")
         # build_app(workspace: "XCODE_WORKSPACE_NAME.xcworkspace", scheme: "XCODE_PROJECT_SCHEME", include_bitcode: false)
@@ -57,7 +94,7 @@ platform :ios do
             submit_for_review: true,
             automatic_release: true,
             force: true, # Skip HTMl report verification
-            skip_binary_upload: true, # We are using the last build
+            skip_binary_upload: true, # beta lane에서 빌드한 최근 빌드를 사용, 만약 다른 빌드가 있다면 그것을 사용
             skip_screenshots: true,
             skip_metadata: false,
             submission_information: {
@@ -78,6 +115,10 @@ platform :ios do
                 export_compliance_contains_proprietary_cryptography: false,
                 export_compliance_available_on_french_store: false
             }
+        )
+        slack(
+        message: "Appstore 심사에 제출했습니다!",
+        slack_url: "https://hooks.slack.com/services/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"
         )
     end
   end
