@@ -122,4 +122,13 @@ platform :ios do
         )
     end
   end
+
+  error do |lane, exception, options|
+    slack(
+      message: "에러 발생 : #{exception}",
+      success: false,
+      slack_url: "https://hooks.slack.com/services/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",
+    )
+  end
+
 end
