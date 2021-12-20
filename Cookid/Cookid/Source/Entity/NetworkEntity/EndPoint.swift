@@ -6,8 +6,15 @@
 //
 
 import Foundation
+import Alamofire
 
-struct EndPoint {
+struct Endpoint<R>: ResponRequestable {
+    typealias Response = R
+    var baseURL: String
     var path: String
-    var 
+    var method: HTTPMethod
+    var queryParameters: Encodable?
+    var bodyParameters: Encodable?
+    var headers: [String : String]?
+    var sampleData: Data?
 }
