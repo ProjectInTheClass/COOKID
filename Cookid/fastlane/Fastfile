@@ -25,9 +25,7 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    get_certificates
-    get_provisioning_profile
-    build_app(workspace: "Cookid.xcworkspace", scheme: "Cookid")
+    build_app(scheme: "Cookid")
     upload_to_testflight
     slack(
       message: "TestFlight 배포에 성공했습니다!",
