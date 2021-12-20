@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import Kingfisher
 
 class PhotoollectionViewCell: UICollectionViewCell {
     static let identifier = "PhotoollectionViewCell"
@@ -31,5 +32,9 @@ class PhotoollectionViewCell: UICollectionViewCell {
         photo.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    func updateUI(photo: Photo) {
+        self.photo.kf.setImage(with: photo.url)
     }
 }

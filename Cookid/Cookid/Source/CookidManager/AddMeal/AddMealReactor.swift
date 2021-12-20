@@ -9,6 +9,7 @@ import UIKit
 import ReactorKit
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 enum MealEditMode {
     case new
@@ -26,6 +27,8 @@ class AddMealReactor: Reactor {
         case price(String?)
         case upload
         case delete
+        case imageURL(URL?)
+        case query(String)
     }
     
     enum Mutate {
@@ -38,6 +41,9 @@ class AddMealReactor: Reactor {
         case setMealType(MealType)
         case setError(Bool)
         case setPriceValidation(Bool?)
+        case setURLToImage(UIImage)
+        case setQuery(String)
+        case setPhotos([Photo])
     }
     
     struct State {
@@ -49,6 +55,8 @@ class AddMealReactor: Reactor {
         var mealTime: MealTime = .breakfast
         var mealType: MealType = .dineOut
         var menus: [Menu]  = MenuService.shared.menus
+        var photos = [Photo]()
+        var query: String = ""
         var isError: Bool?
         var priceValid: Bool?
     }
@@ -69,8 +77,9 @@ class AddMealReactor: Reactor {
     }
     
     func transform(mutation: Observable<Mutate>) -> Observable<Mutate> {
-        let user = serviceProvider.userService.currentUser.map { Mutate.setUser($0) }
-        return Observable.merge(mutation, user)
+        let user = serviceProvider.userService.currentUser.map { Mutation.setUser($0) }
+        let photos = serviceProvider.photoService.fetchPhotos(query: self.currentState.query).map { Mutation.setPhotos($0) }
+        return Observable.merge(mutation, user, photos)
     }
     
     func mutate(action: Action) -> Observable<Mutate> {
@@ -118,6 +127,10 @@ class AddMealReactor: Reactor {
                 return Observable.empty()
             }
             
+        case .imageURL(let url):
+            return self.urlToImage(url: url).map { Mutation.setURLToImage($0) }
+        case .query(let query):
+            return .just(.setQuery(query))
         }
     }
     
@@ -126,32 +139,30 @@ class AddMealReactor: Reactor {
         switch mutation {
         case .setImage(let image):
             newState.image = image
-            return newState
         case .setDate(let date):
             newState.date = date
-            return newState
         case .setName(let name):
             newState.name = name
-            return newState
         case .setPrice(let price):
             newState.price = price
-            return newState
         case .setMealTime(let mealTime):
             newState.mealTime = mealTime
-            return newState
         case .setMealType(let mealType):
             newState.mealType = mealType
-            return newState
         case .setError(let isError):
             newState.isError = isError
-            return newState
         case .setPriceValidation(let priceValid):
             newState.priceValid = priceValid
-            return newState
         case .setUser(let user):
             newState.user = user
-            return newState
+        case .setURLToImage(let image):
+            newState.image = image
+        case .setQuery(let query):
+            newState.query = query
+        case .setPhotos(let photos):
+            newState.photos = photos
         }
+        return newState
     }
     
     private let charSet: CharacterSet = {
@@ -163,6 +174,25 @@ class AddMealReactor: Reactor {
         guard let text = text, text != "" else { return nil }
         guard text.rangeOfCharacter(from: charSet) == nil else { return false }
         return true
+    }
+    
+    func urlToImage(url: URL?) -> Observable<UIImage> {
+        return Observable<UIImage>.create { observer in
+            guard let url = url else {
+                observer.onError(NetWorkingError.failure)
+                return Disposables.create()
+            }
+            KingfisherManager.shared.retrieveImage(with: url) { result in
+                switch result {
+                case .success(let result):
+                    observer.onNext(result.image)
+                    observer.onCompleted()
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
     }
     
 }

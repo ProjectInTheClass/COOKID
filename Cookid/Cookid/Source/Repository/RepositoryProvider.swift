@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol RepositoryProviderType : AnyObject {
     var firestorePostRepo: PostRepoType { get }
@@ -16,6 +17,7 @@ protocol RepositoryProviderType : AnyObject {
     var realmUserRepo: RealmUserRepoType { get }
     var realmMealRepo: RealmMealRepoType { get }
     var realmShoppingRepo: RealmShoppingRepo { get }
+    var afUnsplashRepo: AlamofireRepositoryType { get }
 }
 
 final class RepositoryProvider: RepositoryProviderType {
@@ -27,4 +29,5 @@ final class RepositoryProvider: RepositoryProviderType {
     lazy var firestoreCommentRepo: CommentRepoType = FirestoreCommentRepo(repoProvider: self)
     lazy var firestorageImageRepo: StorageImageRepo = FirebaseStorageRepo(repoProvider: self)
     lazy var firestoreUserRepo: UserRepoType = FirestoreUserRepo(repoProvider: self)
+    lazy var afUnsplashRepo: AlamofireRepositoryType = AFUnsplashRepo(sessionManager: Session.default)
 }
