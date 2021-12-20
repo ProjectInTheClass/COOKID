@@ -49,16 +49,21 @@ class PhotoSelectViewController: BaseViewController, View {
             make.left.right.bottom.equalToSuperview()
         }
     }
-    
+   
     func bind(reactor: AddMealReactor) {
         
-        
+        reactor.state.map { $0.photos }
+        .bind(to: collectionView.rx.items(cellIdentifier: PhotoollectionViewCell.identifier, cellType: PhotoollectionViewCell.self)) { index, item, cell in
+            cell.updateUI(photo: item)
+        }
+        .disposed(by: disposeBag)
         
         Observable
-            .zip(collectionView.rx.modelSelected(URL.self),
+            .zip(collectionView.rx.modelSelected(Photo.self),
                  collectionView.rx.itemSelected)
-            .bind(onNext: { (url: URL, indexPath: IndexPath) in
-                
+            .bind(onNext: { (photo: Photo, indexPath: IndexPath) in
+                self.collectionView.deselectItem(at: indexPath, animated: false)
+                reactor.action.onNext(.imageURL(photo.url))
             })
             .disposed(by: disposeBag)
         

@@ -27,10 +27,6 @@ platform :ios do
   lane :beta do
     build_app(scheme: "Cookid", include_bitcode: true)
     upload_to_testflight
-    slack(
-      message: "TestFlight 배포에 성공했습니다!",
-      slack_url: "https://hooks.slack.com/services/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"
-    )
   end
 
   desc "Push only description and meta info"
@@ -38,10 +34,6 @@ platform :ios do
     deliver(
       skip_screenshots: true,
       skip_metadata: false
-    )
-    slack(
-      message: "metadata 업로드에 성공했습니다!",
-      slack_url: "https://hooks.slack.com/services/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"
     )
   end
 
@@ -72,10 +64,6 @@ platform :ios do
         export_compliance_contains_proprietary_cryptography: false,
         export_compliance_available_on_french_store: false
       }
-    )
-    slack(
-      message: "Appstore 배포에 성공했습니다!",
-      slack_url: "https://hooks.slack.com/services/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"
     )
   end
 
@@ -120,13 +108,4 @@ platform :ios do
         )
     end
   end
-
-  error do |lane, exception, options|
-    slack(
-      message: "에러 발생 : #{exception}",
-      success: false,
-      slack_url: "https://hooks.slack.com/services/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",
-    )
-  end
-
 end

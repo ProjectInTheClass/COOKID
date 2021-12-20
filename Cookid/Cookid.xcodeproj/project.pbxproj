@@ -64,6 +64,8 @@
 		034A384227702FF80059B9F8 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A384127702FF80059B9F8 /* Requestable.swift */; };
 		034A3844277030DE0059B9F8 /* ResponRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A3843277030DE0059B9F8 /* ResponRequestable.swift */; };
 		034A384627703BCC0059B9F8 /* AlamofireRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A384527703BCC0059B9F8 /* AlamofireRepositoryType.swift */; };
+		034A38482770CF7C0059B9F8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A38472770CF7C0059B9F8 /* Photo.swift */; };
+		034A384A2770D2BC0059B9F8 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A38492770D2BC0059B9F8 /* PhotoService.swift */; };
 		03525F742707E72D006C8B40 /* KakaoAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03525F732707E72D006C8B40 /* KakaoAuthRepo.swift */; };
 		03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */; };
 		035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E491C26956F92002CC084 /* MealTableViewCell.swift */; };
@@ -258,6 +260,8 @@
 		034A384127702FF80059B9F8 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		034A3843277030DE0059B9F8 /* ResponRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponRequestable.swift; sourceTree = "<group>"; };
 		034A384527703BCC0059B9F8 /* AlamofireRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireRepositoryType.swift; sourceTree = "<group>"; };
+		034A38472770CF7C0059B9F8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		034A38492770D2BC0059B9F8 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
 		03525F732707E72D006C8B40 /* KakaoAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthRepo.swift; sourceTree = "<group>"; };
 		03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		035E491C26956F92002CC084 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
@@ -631,6 +635,7 @@
 				03B2049826D7B8AC0099C269 /* Menu.swift */,
 				03D8C1F226EB7E0500238CB6 /* Comment.swift */,
 				03D8C1F026EB6FD600238CB6 /* Post.swift */,
+				034A38472770CF7C0059B9F8 /* Photo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1020,6 +1025,7 @@
 				030D4AE7273010C9005C0FFF /* MealService.swift */,
 				241523AF269D093E0077941A /* ShoppingService.swift */,
 				03B2049A26D7BA830099C269 /* MenuService.swift */,
+				034A38492770D2BC0059B9F8 /* PhotoService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1394,6 +1400,7 @@
 				030C4ACF272A721600630F08 /* BookmarkButton.swift in Sources */,
 				03CFDA9127073C2F008F99C0 /* AppleAuthRepo.swift in Sources */,
 				24B081B126DFD21300379087 /* RealmUserRepo.swift in Sources */,
+				034A38482770CF7C0059B9F8 /* Photo.swift in Sources */,
 				2417EABC26E5A562006F2785 /* MyPageHeaderViewController.swift in Sources */,
 				037B7A26272EDFD0004E9320 /* StoryboardProtocol.swift in Sources */,
 				037B7A17272D7CB3004E9320 /* RepositoryProvider.swift in Sources */,
@@ -1414,6 +1421,7 @@
 				24B081BA26DFD23500379087 /* LocalUser.swift in Sources */,
 				033D3C2C270A7C96009B29B9 /* MyPostReactor.swift in Sources */,
 				03D8C1F126EB6FD600238CB6 /* Post.swift in Sources */,
+				034A384A2770D2BC0059B9F8 /* PhotoService.swift in Sources */,
 				03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */,
 				03250E162714359A00425036 /* AddTodayMealViewController.swift in Sources */,
 				034A3830277022310059B9F8 /* EndPoint.swift in Sources */,

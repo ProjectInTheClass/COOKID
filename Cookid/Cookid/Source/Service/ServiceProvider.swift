@@ -14,6 +14,7 @@ protocol ServiceProviderType: AnyObject {
     var commentService: CommentServiceType { get }
     var mealService: MealServiceType { get }
     var shoppingService: ShoppingServiceType { get }
+    var photoService: PhotoServiceType { get }
 }
 
 final class ServiceProvider: ServiceProviderType {
@@ -26,4 +27,5 @@ final class ServiceProvider: ServiceProviderType {
     lazy var userService: UserServiceType = UserService(serviceProvider: self, repoProvider: repoProvider)
     lazy var postService: PostServiceType = PostService(serviceProvider: self, repoProvider: repoProvider)
     lazy var commentService: CommentServiceType = CommentService(serviceProvider: self, repoProvider: repoProvider)
+    lazy var photoService: PhotoServiceType = PhotoService(serviceProvider: self, repoProvider: repoProvider)
 }
