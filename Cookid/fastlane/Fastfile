@@ -25,7 +25,7 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    build_app(scheme: "Cookid")
+    build_app(scheme: "Cookid", include_bitcode: false)
     upload_to_testflight
     slack(
       message: "TestFlight 배포에 성공했습니다!",
