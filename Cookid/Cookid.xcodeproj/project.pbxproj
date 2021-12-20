@@ -56,6 +56,9 @@
 		0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */; };
 		034A3827276FB5900059B9F8 /* PhotoSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A3826276FB5900059B9F8 /* PhotoSelectViewController.swift */; };
 		034A3829276FB84C0059B9F8 /* PhotoollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A3828276FB84C0059B9F8 /* PhotoollectionViewCell.swift */; };
+		034A382E277021390059B9F8 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A382D277021390059B9F8 /* NetworkResponse.swift */; };
+		034A3830277022310059B9F8 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A382F277022310059B9F8 /* EndPoint.swift */; };
+		034A3834277025E80059B9F8 /* SessionManagerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A3833277025E80059B9F8 /* SessionManagerType.swift */; };
 		03525F742707E72D006C8B40 /* KakaoAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03525F732707E72D006C8B40 /* KakaoAuthRepo.swift */; };
 		03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */; };
 		035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E491C26956F92002CC084 /* MealTableViewCell.swift */; };
@@ -135,7 +138,6 @@
 		03D8C1F826EBB85F00238CB6 /* RemoteComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1F726EBB85F00238CB6 /* RemoteComment.swift */; };
 		03D8C1FB26EBB92A00238CB6 /* FirebaseStorageRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1FA26EBB92A00238CB6 /* FirebaseStorageRepo.swift */; };
 		03D8C1FD26EBBC9800238CB6 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1FC26EBBC9800238CB6 /* PostService.swift */; };
-		03DB84C0273D70170069276F /* FirebaseConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DB84BF273D70170069276F /* FirebaseConvertable.swift */; };
 		03E42ED126C41766005D7B5E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED026C41766005D7B5E /* AppCoordinator.swift */; };
 		03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */; };
 		03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */; };
@@ -244,6 +246,9 @@
 		0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCollectionViewCell.swift; sourceTree = "<group>"; };
 		034A3826276FB5900059B9F8 /* PhotoSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectViewController.swift; sourceTree = "<group>"; };
 		034A3828276FB84C0059B9F8 /* PhotoollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoollectionViewCell.swift; sourceTree = "<group>"; };
+		034A382D277021390059B9F8 /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
+		034A382F277022310059B9F8 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		034A3833277025E80059B9F8 /* SessionManagerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManagerType.swift; sourceTree = "<group>"; };
 		03525F732707E72D006C8B40 /* KakaoAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthRepo.swift; sourceTree = "<group>"; };
 		03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		035E491C26956F92002CC084 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
@@ -322,7 +327,6 @@
 		03D8C1FA26EBB92A00238CB6 /* FirebaseStorageRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageRepo.swift; sourceTree = "<group>"; };
 		03D8C1FC26EBBC9800238CB6 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		03DB84BA273D4AD30069276F /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		03DB84BF273D70170069276F /* FirebaseConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConvertable.swift; sourceTree = "<group>"; };
 		03E42ED026C41766005D7B5E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingMainViewController.swift; sourceTree = "<group>"; };
@@ -588,6 +592,8 @@
 		032233AF2692764F0092DD6D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */,
+				034A382A277020240059B9F8 /* UnsplashRepository */,
 				244B2B0F26E4A0BF001226F0 /* FirebaseRepository */,
 				24B081A926DFD1FA00379087 /* RealmRepository */,
 				03F2ED6026ED046700CFE87C /* AuthRepository */,
@@ -598,7 +604,8 @@
 		032233B02692765C0092DD6D /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				03DB84BF273D70170069276F /* FirebaseConvertable.swift */,
+				034A382C2770210F0059B9F8 /* NetworkEntity */,
+				034A382B277020640059B9F8 /* PhotoEntity */,
 				03D8C1F426EBB7E500238CB6 /* RemoteEntity */,
 				24B081B526DFD22100379087 /* LocalEntity */,
 			);
@@ -707,6 +714,30 @@
 			path = CookidTests;
 			sourceTree = "<group>";
 		};
+		034A382A277020240059B9F8 /* UnsplashRepository */ = {
+			isa = PBXGroup;
+			children = (
+				034A3833277025E80059B9F8 /* SessionManagerType.swift */,
+			);
+			path = UnsplashRepository;
+			sourceTree = "<group>";
+		};
+		034A382B277020640059B9F8 /* PhotoEntity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PhotoEntity;
+			sourceTree = "<group>";
+		};
+		034A382C2770210F0059B9F8 /* NetworkEntity */ = {
+			isa = PBXGroup;
+			children = (
+				034A382D277021390059B9F8 /* NetworkResponse.swift */,
+				034A382F277022310059B9F8 /* EndPoint.swift */,
+			);
+			path = NetworkEntity;
+			sourceTree = "<group>";
+		};
 		037A77C227527BF50021BBA7 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -736,8 +767,6 @@
 				037B7A25272EDFD0004E9320 /* StoryboardProtocol.swift */,
 				037B7A23272EDF9F004E9320 /* ViewModelProtocol.swift */,
 				030D4AE127300D99005C0FFF /* CoodinatorProtocol.swift */,
-				037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */,
-				037B7A14272D7C30004E9320 /* ServiceProvider.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -972,6 +1001,7 @@
 		DB0D7D722694980B009B2D51 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				037B7A14272D7C30004E9320 /* ServiceProvider.swift */,
 				030D4AE5273010BD005C0FFF /* UserService.swift */,
 				03D8C1FC26EBBC9800238CB6 /* PostService.swift */,
 				03F2ED8526F0343E00CFE87C /* CommentService.swift */,
@@ -1272,6 +1302,7 @@
 				03250E0E2712654900425036 /* CommentCellReactor.swift in Sources */,
 				03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */,
 				03B3EB7627390D88004CACF4 /* MyPageHeaderTableViewCell.swift in Sources */,
+				034A3834277025E80059B9F8 /* SessionManagerType.swift in Sources */,
 				2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */,
 				03D660D0270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift in Sources */,
 				03CCC4FA2726185D00647B5C /* CommentViewModel.swift in Sources */,
@@ -1289,11 +1320,11 @@
 				03B2049526D75DD50099C269 /* PictureSelectViewController.swift in Sources */,
 				037A77C127527B9A0021BBA7 /* UIViewController+Extension.swift in Sources */,
 				037B7A22272ECCE0004E9320 /* BaseRepository.swift in Sources */,
+				034A382E277021390059B9F8 /* NetworkResponse.swift in Sources */,
 				03D8C1E726E8927700238CB6 /* MyMealsCollectionViewCell.swift in Sources */,
 				03B3EB6B273744BB004CACF4 /* MyRecipeViewController.swift in Sources */,
 				037A77C827527C700021BBA7 /* NetworkContants.swift in Sources */,
 				035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */,
-				03DB84C0273D70170069276F /* FirebaseConvertable.swift in Sources */,
 				241523B4269D24860077941A /* Function.swift in Sources */,
 				035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */,
 				2417EAB626E58D0C006F2785 /* MyPageViewModel.swift in Sources */,
@@ -1367,6 +1398,7 @@
 				03D8C1F126EB6FD600238CB6 /* Post.swift in Sources */,
 				03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */,
 				03250E162714359A00425036 /* AddTodayMealViewController.swift in Sources */,
+				034A3830277022310059B9F8 /* EndPoint.swift in Sources */,
 				0348B8FC26D34463001BF3B7 /* Shopping.swift in Sources */,
 				03E42ED126C41766005D7B5E /* AppCoordinator.swift in Sources */,
 				037A77CA27527C9F0021BBA7 /* UIConstants.swift in Sources */,

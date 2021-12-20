@@ -19,7 +19,12 @@ class PhotoSelectViewController: BaseViewController, View {
         $0.hidesNavigationBarDuringPresentation = false
     }
     
-    private let collectionView = UICollectionView().then {
+    private let layout = UICollectionViewFlowLayout().then {
+        $0.scrollDirection = .vertical
+        $0.minimumInteritemSpacing = 1
+    }
+    
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
         $0.register(PhotoollectionViewCell.self, forCellWithReuseIdentifier: PhotoollectionViewCell.identifier)
         $0.backgroundColor = .systemBackground
     }
@@ -47,6 +52,25 @@ class PhotoSelectViewController: BaseViewController, View {
     
     func bind(reactor: AddMealReactor) {
         
+        
+        
+        Observable
+            .zip(collectionView.rx.modelSelected(URL.self),
+                 collectionView.rx.itemSelected)
+            .bind(onNext: { (url: URL, indexPath: IndexPath) in
+                
+            })
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
     }
-    
+}
+
+extension PhotoSelectViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = view.frame.size.width / 3
+        let height = width
+        return CGSize(width: width, height: height)
+    }
 }
