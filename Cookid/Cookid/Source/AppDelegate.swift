@@ -32,8 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
         // Kakao
-        KakaoSDKCommon.initSDK(appKey: "e09da44a9b3c91d2106ab8f25300097b")
-        
+        KakaoSDK.initSDK(appKey: "e09da44a9b3c91d2106ab8f25300097b")
+          
         // Naver
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()
         
