@@ -1,25 +1,28 @@
 PODS:
-  - Alamofire (5.4.4)
+  - Alamofire (5.5.0)
   - Differentiator (5.0.0)
   - FSCalendar (2.8.2)
-  - KakaoSDKAuth (2.8.1):
-    - KakaoSDKCommon (= 2.8.1)
-  - KakaoSDKCommon (2.8.1):
-    - KakaoSDKCommon/Common (= 2.8.1)
-    - KakaoSDKCommon/Network (= 2.8.1)
-  - KakaoSDKCommon/Common (2.8.1)
-  - KakaoSDKCommon/Network (2.8.1):
+  - KakaoSDKAuth (2.8.4):
+    - KakaoSDKCommon (= 2.8.4)
+  - KakaoSDKCommon (2.8.4):
+    - KakaoSDKCommon/Common (= 2.8.4)
+    - KakaoSDKCommon/Network (= 2.8.4)
+  - KakaoSDKCommon/Common (2.8.4)
+  - KakaoSDKCommon/Network (2.8.4):
     - Alamofire (~> 5.1)
-    - KakaoSDKCommon/Common (= 2.8.1)
-  - KakaoSDKUser (2.8.1):
-    - KakaoSDKAuth (= 2.8.1)
-  - lottie-ios (3.2.3)
+    - KakaoSDKCommon/Common (= 2.8.4)
+  - KakaoSDKUser (2.8.4):
+    - KakaoSDKAuth (= 2.8.4)
+  - lottie-ios (3.3.0)
   - naveridlogin-sdk-ios (4.1.3)
   - "NSObject+Rx (5.2.2)":
     - RxSwift (~> 6.2)
   - PagingKit (1.18.0)
   - PanModal (1.2.7)
   - PryntTrimmerView (4.0.2)
+  - Pure (1.1.4):
+    - Pure/Core (= 1.1.4)
+  - Pure/Core (1.1.4)
   - ReactorKit (3.1.0):
     - RxSwift (~> 6.0)
     - WeakMapTable (~> 1.1)
@@ -38,7 +41,8 @@ PODS:
   - RxSwift (6.2.0)
   - SnapKit (5.0.1)
   - SteviaLayout (4.7.3)
-  - SwiftLint (0.44.0)
+  - SwiftLint (0.45.1)
+  - Swinject (2.8.1)
   - Then (2.7.0)
   - WeakMapTable (1.2.0)
   - YPImagePicker (5.0.0):
@@ -55,6 +59,7 @@ DEPENDENCIES:
   - "NSObject+Rx"
   - PagingKit
   - PanModal
+  - Pure
   - ReactorKit
   - RxCocoa
   - RxDataSources
@@ -62,6 +67,7 @@ DEPENDENCIES:
   - RxSwift
   - SnapKit
   - SwiftLint
+  - Swinject
   - Then
   - YPImagePicker
 
@@ -79,6 +85,7 @@ SPEC REPOS:
     - PagingKit
     - PanModal
     - PryntTrimmerView
+    - Pure
     - ReactorKit
     - RxCocoa
     - RxDataSources
@@ -88,23 +95,25 @@ SPEC REPOS:
     - SnapKit
     - SteviaLayout
     - SwiftLint
+    - Swinject
     - Then
     - WeakMapTable
     - YPImagePicker
 
 SPEC CHECKSUMS:
-  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
-  KakaoSDKAuth: 3cf74660531ac85cd2c7931df8d90d562b0a8fe2
-  KakaoSDKCommon: 701ef2a9b92215a4bf131b2a6139c3586b5e8d99
-  KakaoSDKUser: c4bdbca17b05ce7a25c67176ac68b6b0c8b1db56
-  lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
+  KakaoSDKAuth: b9b693995f98b1821ccd22b39d383e1dede5ca45
+  KakaoSDKCommon: 33c9902ee9ce13e9d1cac3549896406229836ff5
+  KakaoSDKUser: d878977e0ba6b365cfeac3b6319cdf4231713bea
+  lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   naveridlogin-sdk-ios: b9d7c20677981177ed994ecb1c8c2b49f223277d
   "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
   PagingKit: 366cc22d74f4de7768bb31d8fcd49182f53e3ce7
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
+  Pure: 82d6f4438672a41d21ea6fadd126e1466db001c5
   ReactorKit: a06dd2a5c9339287aedf3dc821cfab6347eca106
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
@@ -113,11 +122,12 @@ SPEC CHECKSUMS:
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
-  SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
+  SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
+  Swinject: 97112918bd7e0785dc2df7036213f3c8cbba6586
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
   YPImagePicker: 1463a19a36244e209dcb03c30e63559c5afa9602
 
-PODFILE CHECKSUM: c541ca616519fb27d270a7fa4e908e8a54537a31
+PODFILE CHECKSUM: 28d015396cc9a68d92d7342fced9840a53c34c07
 
 COCOAPODS: 1.11.2
