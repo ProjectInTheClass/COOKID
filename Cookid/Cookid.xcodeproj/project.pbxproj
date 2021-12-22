@@ -94,6 +94,11 @@
 		037B7A26272EDFD0004E9320 /* StoryboardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A25272EDFD0004E9320 /* StoryboardProtocol.swift */; };
 		0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E3EB27045A00007F8AA5 /* RemoteUser.swift */; };
 		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
+		03908B1A2772382900A9AD7A /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03908B192772382900A9AD7A /* AppDependency.swift */; };
+		03908B1E2772C59900A9AD7A /* AppAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03908B1D2772C59900A9AD7A /* AppAssembly.swift */; };
+		03908B222772C6CE00A9AD7A /* RepositoryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03908B212772C6CE00A9AD7A /* RepositoryAssembly.swift */; };
+		03908B262772C6FD00A9AD7A /* PresenterAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03908B252772C6FD00A9AD7A /* PresenterAssembly.swift */; };
+		03908B282772C70700A9AD7A /* DomainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03908B272772C70700A9AD7A /* DomainAssembly.swift */; };
 		0390F53E2728EF4E00677651 /* YPImagePickerManaget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */; };
 		0390F54027299B7900677651 /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53F27299B7900677651 /* CommentHeaderView.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
@@ -289,6 +294,11 @@
 		037B7A23272EDF9F004E9320 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		037B7A25272EDFD0004E9320 /* StoryboardProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardProtocol.swift; sourceTree = "<group>"; };
 		0380E3EB27045A00007F8AA5 /* RemoteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteUser.swift; sourceTree = "<group>"; };
+		03908B192772382900A9AD7A /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
+		03908B1D2772C59900A9AD7A /* AppAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembly.swift; sourceTree = "<group>"; };
+		03908B212772C6CE00A9AD7A /* RepositoryAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryAssembly.swift; sourceTree = "<group>"; };
+		03908B252772C6FD00A9AD7A /* PresenterAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterAssembly.swift; sourceTree = "<group>"; };
+		03908B272772C70700A9AD7A /* DomainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainAssembly.swift; sourceTree = "<group>"; };
 		0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePickerManaget.swift; sourceTree = "<group>"; };
 		0390F53F27299B7900677651 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
@@ -542,6 +552,11 @@
 			children = (
 				0322339B269212860092DD6D /* AppDelegate.swift */,
 				0322339D269212860092DD6D /* SceneDelegate.swift */,
+				03908B192772382900A9AD7A /* AppDependency.swift */,
+				03908B1D2772C59900A9AD7A /* AppAssembly.swift */,
+				03908B212772C6CE00A9AD7A /* RepositoryAssembly.swift */,
+				03908B272772C70700A9AD7A /* DomainAssembly.swift */,
+				03908B252772C6FD00A9AD7A /* PresenterAssembly.swift */,
 				032233D52692F00B0092DD6D /* API */,
 				03E42ECD26C4172E005D7B5E /* Coordinator */,
 				037B7A27272EE06D004E9320 /* Manager */,
@@ -1324,11 +1339,13 @@
 				03586EAF26E4FD6A002A56C6 /* SignInViewController.swift in Sources */,
 				03B3EB7627390D88004CACF4 /* MyPageHeaderTableViewCell.swift in Sources */,
 				034A3834277025E80059B9F8 /* SessionManagerType.swift in Sources */,
+				03908B222772C6CE00A9AD7A /* RepositoryAssembly.swift in Sources */,
 				2417EAAE26E58CAB006F2785 /* MyPageViewController.swift in Sources */,
 				03D660D0270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift in Sources */,
 				03CCC4FA2726185D00647B5C /* CommentViewModel.swift in Sources */,
 				03F2ED8626F0343E00CFE87C /* CommentService.swift in Sources */,
 				03B3EB6F2737B575004CACF4 /* UserPhotoEditButton.swift in Sources */,
+				03908B282772C70700A9AD7A /* DomainAssembly.swift in Sources */,
 				034A383C27702A080059B9F8 /* NetworkResult.swift in Sources */,
 				03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
@@ -1343,6 +1360,7 @@
 				03B2049526D75DD50099C269 /* PictureSelectViewController.swift in Sources */,
 				037A77C127527B9A0021BBA7 /* UIViewController+Extension.swift in Sources */,
 				037B7A22272ECCE0004E9320 /* BaseRepository.swift in Sources */,
+				03908B1E2772C59900A9AD7A /* AppAssembly.swift in Sources */,
 				034A382E277021390059B9F8 /* NetworkResponse.swift in Sources */,
 				03D8C1E726E8927700238CB6 /* MyMealsCollectionViewCell.swift in Sources */,
 				03B3EB6B273744BB004CACF4 /* MyRecipeViewController.swift in Sources */,
@@ -1384,6 +1402,7 @@
 				030D4AE6273010BD005C0FFF /* UserService.swift in Sources */,
 				034A3829276FB84C0059B9F8 /* PhotoollectionViewCell.swift in Sources */,
 				03D8C1FB26EBB92A00238CB6 /* FirebaseStorageRepo.swift in Sources */,
+				03908B1A2772382900A9AD7A /* AppDependency.swift in Sources */,
 				0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */,
 				037A77C627527C530021BBA7 /* DarkModeContants.swift in Sources */,
 				03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */,
@@ -1408,6 +1427,7 @@
 				03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */,
 				24B081C426E0473F00379087 /* LocalShopping.swift in Sources */,
 				03F2ED9426F3916500CFE87C /* MyPageCoordinator.swift in Sources */,
+				03908B262772C6FD00A9AD7A /* PresenterAssembly.swift in Sources */,
 				038875B126A030F300D5D202 /* MainViewController.swift in Sources */,
 				03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */,
 				03F2ED7026ED929300CFE87C /* PostMainViewController.swift in Sources */,

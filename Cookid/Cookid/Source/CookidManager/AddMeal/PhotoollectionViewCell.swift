@@ -37,4 +37,7 @@ class PhotoollectionViewCell: UICollectionViewCell {
     func updateUI(photo: Photo) {
         self.photo.kf.setImage(with: photo.url)
     }
+    
+    
+    
 }
