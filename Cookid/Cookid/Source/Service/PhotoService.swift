@@ -15,15 +15,14 @@ protocol PhotoServiceType {
 class PhotoService: BaseService, PhotoServiceType {
     func fetchPhotos(query: String) -> Observable<[Photo]> {
         return Observable<[Photo]>.create { observer in
-            var endPoint: Endpoint<PhotoEntity>!
-            self.repoProvider.afUnsplashRepo.performRequest(with: endPoint) { result in
-                switch result {
-                case .success(_):
-                    print("success")
-                case .failure(let error):
-                    print(error)
-                }
-            }
+//            self.repoProvider.afUnsplashRepo.performRequest(with: endPoint) { result in
+//                switch result {
+//                case .success(_):
+//                    print("success")
+//                case .failure(let error):
+//                    print(error)
+//                }
+//            }
             return Disposables.create()
         }
     }

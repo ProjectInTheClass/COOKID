@@ -11,21 +11,12 @@ import NaverThirdPartyLogin
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
+    var window: UIWindow?
     let repoProvider = RepositoryProvider()
     lazy var serviceProvider = ServiceProvider(repoProvider: repoProvider)
     lazy var coordinator = AppCoordinator(serviceProvider: serviceProvider,
                                           repoProvider: repoProvider)
     
-    var window: UIWindow?
-    private let dependency: AppDependency
-    
-    private override init() {
-        self.dependency = AppDependency.resolve()
-        super.init()
-    }
-    
-   
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
