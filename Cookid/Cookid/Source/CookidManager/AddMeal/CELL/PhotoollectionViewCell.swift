@@ -10,8 +10,8 @@ import SnapKit
 import Then
 import Kingfisher
 
-class PhotoollectionViewCell: UICollectionViewCell {
-    static let identifier = "PhotoollectionViewCell"
+class PhotoCollectionViewCell: UICollectionViewCell {
+    static let identifier = "PhotoCollectionViewCell"
     
     private let photo = UIImageView().then {
         $0.contentMode = .scaleAspectFill
