@@ -67,6 +67,7 @@
 		035E492726975815002CC084 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492626975815002CC084 /* MainViewModel.swift */; };
 		035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */; };
 		035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */; };
+		0361859B2794336A00F1F16B /* CookidManagerMainUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361859A2794336A00F1F16B /* CookidManagerMainUnitTests.swift */; };
 		0363F1F82706C7CD0017680D /* NaverAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */; };
 		037A77B927527A710021BBA7 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77B827527A700021BBA7 /* String+Extension.swift */; };
 		037A77BB27527A820021BBA7 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77BA27527A820021BBA7 /* Date+Extension.swift */; };
@@ -92,10 +93,6 @@
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
 		0398E16B26FB3E6000E98F77 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0398E16A26FB3E6000E98F77 /* CommentViewController.swift */; };
-		03A897A8274BCD3400E48E2F /* StorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330446327400A36004F7578 /* StorageTest.swift */; };
-		03A897A9274BCD3800E48E2F /* FirestoreCommentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330446127400A1D004F7578 /* FirestoreCommentTest.swift */; };
-		03A897AA274BCD3D00E48E2F /* FirestoreUserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330445F27400A0E004F7578 /* FirestoreUserTest.swift */; };
-		03A897AB274BCD3F00E48E2F /* FirestorePostTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB8C273C0436004CACF4 /* FirestorePostTest.swift */; };
 		03AF306227166474005D53D0 /* AddMealReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF306127166474005D53D0 /* AddMealReactor.swift */; };
 		03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2048926D5D8AE0099C269 /* AddShoppingViewController.swift */; };
 		03B2049526D75DD50099C269 /* PictureSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B2049426D75DD50099C269 /* PictureSelectViewController.swift */; };
@@ -111,8 +108,6 @@
 		03B3EB782739173C004CACF4 /* UpdateUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB772739173C004CACF4 /* UpdateUserInfoViewController.swift */; };
 		03B3EB7A27395E69004CACF4 /* MyPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB7927395E69004CACF4 /* MyPostTableViewCell.swift */; };
 		03B3EB7C2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB7B2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift */; };
-		03B3EB84273C02BB004CACF4 /* CookidUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB83273C02BB004CACF4 /* CookidUITests.swift */; };
-		03B3EB86273C02BB004CACF4 /* CookidUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B3EB85273C02BB004CACF4 /* CookidUITestsLaunchTests.swift */; };
 		03B55AF8273D40DC008F7151 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 03B55AF7273D40DC008F7151 /* Realm */; };
 		03B55AFA273D40DC008F7151 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03B55AF9273D40DC008F7151 /* RealmSwift */; };
 		03BA8459276C19C80059B8AB /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 03BA8458276C19C80059B8AB /* FirebaseMessaging */; };
@@ -185,13 +180,6 @@
 			remoteGlobalIDString = 03223397269212860092DD6D;
 			remoteInfo = Cookid;
 		};
-		03B3EB87273C02BB004CACF4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 03223390269212860092DD6D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 03223397269212860092DD6D;
-			remoteInfo = Cookid;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -228,9 +216,6 @@
 		03250E152714359A00425036 /* AddTodayMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodayMealViewController.swift; sourceTree = "<group>"; };
 		03250E1727146D3C00425036 /* AddTodayReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodayReactor.swift; sourceTree = "<group>"; };
 		0327F0C2274E2E3C00231E86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		0330445F27400A0E004F7578 /* FirestoreUserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUserTest.swift; sourceTree = "<group>"; };
-		0330446127400A1D004F7578 /* FirestoreCommentTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCommentTest.swift; sourceTree = "<group>"; };
-		0330446327400A36004F7578 /* StorageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTest.swift; sourceTree = "<group>"; };
 		033044652744EC23004F7578 /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImage.png; sourceTree = "<group>"; };
 		0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellReactor.swift; sourceTree = "<group>"; };
 		0339E263271977FA001FD6A7 /* RankerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankerImageView.swift; sourceTree = "<group>"; };
@@ -256,6 +241,7 @@
 		035E492626975815002CC084 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDayCollectionViewCell.swift; sourceTree = "<group>"; };
 		035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarViewController.swift; sourceTree = "<group>"; };
+		0361859A2794336A00F1F16B /* CookidManagerMainUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidManagerMainUnitTests.swift; sourceTree = "<group>"; };
 		0363F1F72706C7CD0017680D /* NaverAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthRepo.swift; sourceTree = "<group>"; };
 		037A77B827527A700021BBA7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		037A77BA27527A820021BBA7 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -295,10 +281,6 @@
 		03B3EB772739173C004CACF4 /* UpdateUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserInfoViewController.swift; sourceTree = "<group>"; };
 		03B3EB7927395E69004CACF4 /* MyPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostTableViewCell.swift; sourceTree = "<group>"; };
 		03B3EB7B2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostTableViewCellReactor.swift; sourceTree = "<group>"; };
-		03B3EB81273C02BB004CACF4 /* CookidUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		03B3EB83273C02BB004CACF4 /* CookidUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidUITests.swift; sourceTree = "<group>"; };
-		03B3EB85273C02BB004CACF4 /* CookidUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookidUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		03B3EB8C273C0436004CACF4 /* FirestorePostTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostTest.swift; sourceTree = "<group>"; };
 		03B3EB9D273D3136004CACF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		03BA8456276B8B280059B8AB /* libswift_Concurrency.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswift_Concurrency.tbd; path = usr/lib/swift/libswift_Concurrency.tbd; sourceTree = SDKROOT; };
 		03C04C892709C38300F72DB1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -397,13 +379,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		03B3EB7E273C02BB004CACF4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -413,6 +388,7 @@
 				035E492626975815002CC084 /* MainViewModel.swift */,
 				032233B7269276DB0092DD6D /* MainViewController.swift */,
 				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
+				0361859627942C1900F1F16B /* CELL */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -424,9 +400,7 @@
 				0395F6EC26B805360091BB29 /* AddMealViewController.swift */,
 				03B2049426D75DD50099C269 /* PictureSelectViewController.swift */,
 				034A3826276FB5900059B9F8 /* PhotoSelectViewController.swift */,
-				034A3828276FB84C0059B9F8 /* PhotoollectionViewCell.swift */,
-				03250E1727146D3C00425036 /* AddTodayReactor.swift */,
-				03250E152714359A00425036 /* AddTodayMealViewController.swift */,
+				0361858C2794286D00F1F16B /* CELL */,
 			);
 			path = AddMeal;
 			sourceTree = "<group>";
@@ -445,8 +419,7 @@
 			children = (
 				03F2ED7226ED92D500CFE87C /* PostViewModel.swift */,
 				03F2ED6F26ED929300CFE87C /* PostMainViewController.swift */,
-				0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */,
-				03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */,
+				0361858E2794291100F1F16B /* CELL */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -457,6 +430,7 @@
 				03D3045C26FDE2F300042CB7 /* AddPostReactor.swift */,
 				03F2ED7C26EDDC1400CFE87C /* AddPostViewController.swift */,
 				24C86C6B26FF6F7F00E84477 /* AddPostImageCollectionViewController.swift */,
+				0361858F2794293E00F1F16B /* CELL */,
 			);
 			path = AddPost;
 			sourceTree = "<group>";
@@ -466,8 +440,7 @@
 			children = (
 				033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */,
 				03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */,
-				03B3EB7B2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift */,
-				03B3EB7927395E69004CACF4 /* MyPostTableViewCell.swift */,
+				0361859427942B2D00F1F16B /* CELL */,
 			);
 			path = MyPost;
 			sourceTree = "<group>";
@@ -476,7 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */,
-				03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */,
+				0361859327942B2100F1F16B /* CELL */,
 			);
 			path = MyMeal;
 			sourceTree = "<group>";
@@ -486,8 +459,7 @@
 			children = (
 				03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */,
 				03D660C3270B4C6B0044FE1E /* MyBookmarkViewController.swift */,
-				03D660CF270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift */,
-				03D660C6270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift */,
+				0361859527942B4C00F1F16B /* CELL */,
 			);
 			path = MyBookmark;
 			sourceTree = "<group>";
@@ -504,13 +476,12 @@
 		030D4ADE27300A2C005C0FFF /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				03B3EB722738B03A004CACF4 /* Notice */,
 				2417EAB526E58D0C006F2785 /* MyPageViewModel.swift */,
 				2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */,
 				2417EABB26E5A562006F2785 /* MyPageHeaderViewController.swift */,
-				03B3EB7527390D88004CACF4 /* MyPageHeaderTableViewCell.swift */,
 				03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */,
 				03B3EB772739173C004CACF4 /* UpdateUserInfoViewController.swift */,
+				0361859227942AD600F1F16B /* CELL */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -528,18 +499,15 @@
 			children = (
 				0322339B269212860092DD6D /* AppDelegate.swift */,
 				0322339D269212860092DD6D /* SceneDelegate.swift */,
-				032233D52692F00B0092DD6D /* API */,
+				032233D52692F00B0092DD6D /* Cookid API */,
 				03E42ECD26C4172E005D7B5E /* Coordinator */,
 				037B7A27272EE06D004E9320 /* Manager */,
-				032233AF2692764F0092DD6D /* Repository */,
-				032233B02692765C0092DD6D /* Entity */,
+				032233AF2692764F0092DD6D /* Data */,
 				032233B1269276680092DD6D /* Model */,
 				DB0D7D722694980B009B2D51 /* Service */,
 				03B2048B26D5D9270099C269 /* CookidManager */,
 				03F2ED7126ED92C900CFE87C /* CookidCommunity */,
 				2417EAB426E58CF7006F2785 /* Cookid Profile */,
-				032233B4269276840092DD6D /* View */,
-				032233C8269280640092DD6D /* Storyboard */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -557,8 +525,9 @@
 			children = (
 				0339E7D8274D48EC0002D9C9 /* TestPlan */,
 				0322339A269212860092DD6D /* Cookid */,
+				031DDF5E27093D7A001F12C3 /* Cookid.entitlements */,
+				0327F0C2274E2E3C00231E86 /* GoogleService-Info.plist */,
 				033D3C1F2709FF49009B29B9 /* CookidTests */,
-				03B3EB82273C02BB004CACF4 /* CookidUITests */,
 				03223399269212860092DD6D /* Products */,
 				B008BFB8DB5CE687429BC064 /* Pods */,
 				5F40398FDBCA67CFF34A99D9 /* Frameworks */,
@@ -570,7 +539,6 @@
 			children = (
 				03223398269212860092DD6D /* Cookid.app */,
 				033D3C1E2709FF49009B29B9 /* CookidTests.xctest */,
-				03B3EB81273C02BB004CACF4 /* CookidUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -578,16 +546,14 @@
 		0322339A269212860092DD6D /* Cookid */ = {
 			isa = PBXGroup;
 			children = (
-				0327F0C2274E2E3C00231E86 /* GoogleService-Info.plist */,
-				031DDF5E27093D7A001F12C3 /* Cookid.entitlements */,
 				030D4AE427300EB3005C0FFF /* Source */,
-				030D4AE327300E66005C0FFF /* Support */,
 				032233B6269276920092DD6D /* Resources */,
+				030D4AE327300E66005C0FFF /* Support */,
 			);
 			path = Cookid;
 			sourceTree = "<group>";
 		};
-		032233AF2692764F0092DD6D /* Repository */ = {
+		032233AF2692764F0092DD6D /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */,
@@ -595,11 +561,12 @@
 				244B2B0F26E4A0BF001226F0 /* FirebaseRepository */,
 				24B081A926DFD1FA00379087 /* RealmRepository */,
 				03F2ED6026ED046700CFE87C /* AuthRepository */,
+				032233B02692765C0092DD6D /* DTO */,
 			);
-			path = Repository;
+			path = Data;
 			sourceTree = "<group>";
 		};
-		032233B02692765C0092DD6D /* Entity */ = {
+		032233B02692765C0092DD6D /* DTO */ = {
 			isa = PBXGroup;
 			children = (
 				034A382C2770210F0059B9F8 /* NetworkEntity */,
@@ -607,7 +574,7 @@
 				03D8C1F426EBB7E500238CB6 /* RemoteEntity */,
 				24B081B526DFD22100379087 /* LocalEntity */,
 			);
-			path = Entity;
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		032233B1269276680092DD6D /* Model */ = {
@@ -624,16 +591,6 @@
 				034A38472770CF7C0059B9F8 /* Photo.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		032233B4269276840092DD6D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				0339E267271B81AB001FD6A7 /* Cookid Custom UIComponents */,
-				0395B61626943B1F009289B7 /* MainCustomView */,
-				03F2ED6826ED913800CFE87C /* PostCustomView */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		032233B6269276920092DD6D /* Resources */ = {
@@ -654,29 +611,20 @@
 			path = DummyData;
 			sourceTree = "<group>";
 		};
-		032233C8269280640092DD6D /* Storyboard */ = {
+		032233D52692F00B0092DD6D /* Cookid API */ = {
 			isa = PBXGroup;
 			children = (
-				032233A1269212860092DD6D /* Main.storyboard */,
-				03F2ED6326ED906C00CFE87C /* Post.storyboard */,
-				030D4AEA273040D8005C0FFF /* UserInfo.storyboard */,
-			);
-			path = Storyboard;
-			sourceTree = "<group>";
-		};
-		032233D52692F00B0092DD6D /* API */ = {
-			isa = PBXGroup;
-			children = (
+				0339E267271B81AB001FD6A7 /* Cookid View */,
 				032233C526927EF90092DD6D /* DummyData */,
 				037B7A0A272D7AE1004E9320 /* Base */,
 				037B7A13272D7BF1004E9320 /* Protocol */,
 				037A77C227527BF50021BBA7 /* Constants */,
 				037B7A1E272EC8D5004E9320 /* Extension */,
 			);
-			path = API;
+			path = "Cookid API";
 			sourceTree = "<group>";
 		};
-		0339E267271B81AB001FD6A7 /* Cookid Custom UIComponents */ = {
+		0339E267271B81AB001FD6A7 /* Cookid View */ = {
 			isa = PBXGroup;
 			children = (
 				0339E263271977FA001FD6A7 /* RankerImageView.swift */,
@@ -688,7 +636,7 @@
 				0395B61726943B30009289B7 /* CustomProgressBar.swift */,
 				035E4922269681A0002CC084 /* CustomProgressCircleView.swift */,
 			);
-			path = "Cookid Custom UIComponents";
+			path = "Cookid View";
 			sourceTree = "<group>";
 		};
 		0339E7D8274D48EC0002D9C9 /* TestPlan */ = {
@@ -702,10 +650,7 @@
 		033D3C1F2709FF49009B29B9 /* CookidTests */ = {
 			isa = PBXGroup;
 			children = (
-				03B3EB8C273C0436004CACF4 /* FirestorePostTest.swift */,
-				0330445F27400A0E004F7578 /* FirestoreUserTest.swift */,
-				0330446127400A1D004F7578 /* FirestoreCommentTest.swift */,
-				0330446327400A36004F7578 /* StorageTest.swift */,
+				0361859A2794336A00F1F16B /* CookidManagerMainUnitTests.swift */,
 			);
 			path = CookidTests;
 			sourceTree = "<group>";
@@ -731,6 +676,110 @@
 				034A382D277021390059B9F8 /* NetworkResponse.swift */,
 			);
 			path = NetworkEntity;
+			sourceTree = "<group>";
+		};
+		0361858C2794286D00F1F16B /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				034A3828276FB84C0059B9F8 /* PhotoollectionViewCell.swift */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
+		0361858D2794288B00F1F16B /* AddToday */ = {
+			isa = PBXGroup;
+			children = (
+				03250E1727146D3C00425036 /* AddTodayReactor.swift */,
+				03250E152714359A00425036 /* AddTodayMealViewController.swift */,
+			);
+			path = AddToday;
+			sourceTree = "<group>";
+		};
+		0361858E2794291100F1F16B /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				0331A9CE2711C3EA005EF05B /* PostCellReactor.swift */,
+				03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */,
+				03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */,
+				03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */,
+				03F2ED7426EDD23A00CFE87C /* PostUserView.swift */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
+		0361858F2794293E00F1F16B /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */,
+				03D3046726FDFA7D00042CB7 /* AddPostCollectionReusableView.swift */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
+		036185902794299E00F1F16B /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				03250E0D2712654900425036 /* CommentCellReactor.swift */,
+				03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */,
+				24BA287626F8E85F005D344E /* CommentTableViewCell.swift */,
+				0390F53F27299B7900677651 /* CommentHeaderView.swift */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
+		0361859127942A9100F1F16B /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */,
+				03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
+		0361859227942AD600F1F16B /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				03B3EB7527390D88004CACF4 /* MyPageHeaderTableViewCell.swift */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
+		0361859327942B2100F1F16B /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
+		0361859427942B2D00F1F16B /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				03B3EB7B2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift */,
+				03B3EB7927395E69004CACF4 /* MyPostTableViewCell.swift */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
+		0361859527942B4C00F1F16B /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				03D660CF270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift */,
+				03D660C6270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift */,
+			);
+			path = CELL;
+			sourceTree = "<group>";
+		};
+		0361859627942C1900F1F16B /* CELL */ = {
+			isa = PBXGroup;
+			children = (
+				035E491C26956F92002CC084 /* MealTableViewCell.swift */,
+				035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */,
+				035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */,
+				0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */,
+				03B2049626D75E7E0099C269 /* PictureSelectCollectionViewCell.swift */,
+			);
+			path = CELL;
 			sourceTree = "<group>";
 		};
 		037A77C227527BF50021BBA7 /* Constants */ = {
@@ -794,31 +843,19 @@
 			children = (
 				03CCC4F92726185D00647B5C /* CommentViewModel.swift */,
 				0398E16A26FB3E6000E98F77 /* CommentViewController.swift */,
-				03250E0D2712654900425036 /* CommentCellReactor.swift */,
-				03CCC4F62725696B00647B5C /* ParentCommentTableViewCell.swift */,
-				24BA287626F8E85F005D344E /* CommentTableViewCell.swift */,
+				036185902794299E00F1F16B /* CELL */,
 			);
 			path = Comment;
-			sourceTree = "<group>";
-		};
-		0395B61626943B1F009289B7 /* MainCustomView */ = {
-			isa = PBXGroup;
-			children = (
-				035E491C26956F92002CC084 /* MealTableViewCell.swift */,
-				035E4920269597D4002CC084 /* MealTimeCollectionViewCell.swift */,
-				035E492826976B85002CC084 /* MealDayCollectionViewCell.swift */,
-				0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */,
-				03B2049626D75E7E0099C269 /* PictureSelectCollectionViewCell.swift */,
-			);
-			path = MainCustomView;
 			sourceTree = "<group>";
 		};
 		03B2048B26D5D9270099C269 /* CookidManager */ = {
 			isa = PBXGroup;
 			children = (
+				032233A1269212860092DD6D /* Main.storyboard */,
 				2417EAB226E58CDD006F2785 /* LocalSignIn */,
 				030D4AD5273004E2005C0FFF /* Main */,
 				030D4AD627300675005C0FFF /* AddMeal */,
+				0361858D2794288B00F1F16B /* AddToday */,
 				030D4AD7273006B0005C0FFF /* AddShopping */,
 			);
 			path = CookidManager;
@@ -831,15 +868,6 @@
 				03B3EB702738A85D004CACF4 /* NoticeDetailViewController.swift */,
 			);
 			path = Notice;
-			sourceTree = "<group>";
-		};
-		03B3EB82273C02BB004CACF4 /* CookidUITests */ = {
-			isa = PBXGroup;
-			children = (
-				03B3EB83273C02BB004CACF4 /* CookidUITests.swift */,
-				03B3EB85273C02BB004CACF4 /* CookidUITestsLaunchTests.swift */,
-			);
-			path = CookidUITests;
 			sourceTree = "<group>";
 		};
 		03D8C1F426EBB7E500238CB6 /* RemoteEntity */ = {
@@ -870,8 +898,7 @@
 			children = (
 				03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */,
 				03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */,
-				03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */,
-				03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */,
+				0361859127942A9100F1F16B /* CELL */,
 			);
 			path = Ranking;
 			sourceTree = "<group>";
@@ -887,22 +914,10 @@
 			path = AuthRepository;
 			sourceTree = "<group>";
 		};
-		03F2ED6826ED913800CFE87C /* PostCustomView */ = {
-			isa = PBXGroup;
-			children = (
-				03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */,
-				03F2ED7426EDD23A00CFE87C /* PostUserView.swift */,
-				03F2ED7A26EDD70000CFE87C /* PostImageCollectionViewCell.swift */,
-				03D3046326FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift */,
-				03D3046726FDFA7D00042CB7 /* AddPostCollectionReusableView.swift */,
-				0390F53F27299B7900677651 /* CommentHeaderView.swift */,
-			);
-			path = PostCustomView;
-			sourceTree = "<group>";
-		};
 		03F2ED7126ED92C900CFE87C /* CookidCommunity */ = {
 			isa = PBXGroup;
 			children = (
+				03F2ED6326ED906C00CFE87C /* Post.storyboard */,
 				030D4AE927302E9A005C0FFF /* RemoteSignIn */,
 				030D4AD8273006E8005C0FFF /* Post */,
 				030D4AD92730071C005C0FFF /* AddPost */,
@@ -928,6 +943,8 @@
 		2417EAB426E58CF7006F2785 /* Cookid Profile */ = {
 			isa = PBXGroup;
 			children = (
+				030D4AEA273040D8005C0FFF /* UserInfo.storyboard */,
+				03B3EB722738B03A004CACF4 /* Notice */,
 				030D4ADE27300A2C005C0FFF /* MyPage */,
 				030D4ADB273009D3005C0FFF /* MyMeal */,
 				030D4ADA273009CC005C0FFF /* MyPost */,
@@ -1065,24 +1082,6 @@
 			productReference = 033D3C1E2709FF49009B29B9 /* CookidTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		03B3EB80273C02BB004CACF4 /* CookidUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 03B3EB8B273C02BB004CACF4 /* Build configuration list for PBXNativeTarget "CookidUITests" */;
-			buildPhases = (
-				03B3EB7D273C02BB004CACF4 /* Sources */,
-				03B3EB7E273C02BB004CACF4 /* Frameworks */,
-				03B3EB7F273C02BB004CACF4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				03B3EB88273C02BB004CACF4 /* PBXTargetDependency */,
-			);
-			name = CookidUITests;
-			productName = CookidUITests;
-			productReference = 03B3EB81273C02BB004CACF4 /* CookidUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1097,10 +1096,7 @@
 					};
 					033D3C1D2709FF49009B29B9 = {
 						CreatedOnToolsVersion = 13.0;
-						TestTargetID = 03223397269212860092DD6D;
-					};
-					03B3EB80273C02BB004CACF4 = {
-						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1320;
 						TestTargetID = 03223397269212860092DD6D;
 					};
 				};
@@ -1125,7 +1121,6 @@
 			targets = (
 				03223397269212860092DD6D /* Cookid */,
 				033D3C1D2709FF49009B29B9 /* CookidTests */,
-				03B3EB80273C02BB004CACF4 /* CookidUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1146,13 +1141,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		033D3C1C2709FF49009B29B9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		03B3EB7F273C02BB004CACF4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1416,19 +1404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03A897AA274BCD3D00E48E2F /* FirestoreUserTest.swift in Sources */,
-				03A897A8274BCD3400E48E2F /* StorageTest.swift in Sources */,
-				03A897A9274BCD3800E48E2F /* FirestoreCommentTest.swift in Sources */,
-				03A897AB274BCD3F00E48E2F /* FirestorePostTest.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		03B3EB7D273C02BB004CACF4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				03B3EB84273C02BB004CACF4 /* CookidUITests.swift in Sources */,
-				03B3EB86273C02BB004CACF4 /* CookidUITestsLaunchTests.swift in Sources */,
+				0361859B2794336A00F1F16B /* CookidManagerMainUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1439,11 +1415,6 @@
 			isa = PBXTargetDependency;
 			target = 03223397269212860092DD6D /* Cookid */;
 			targetProxy = 033D3C222709FF49009B29B9 /* PBXContainerItemProxy */;
-		};
-		03B3EB88273C02BB004CACF4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 03223397269212860092DD6D /* Cookid */;
-			targetProxy = 03B3EB87273C02BB004CACF4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1729,6 +1700,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
@@ -1743,6 +1715,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "CookidTests/CookidTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cookid.app/Cookid";
@@ -1755,6 +1729,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = MBAJ2NCPU9;
@@ -1769,57 +1744,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "CookidTests/CookidTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cookid.app/Cookid";
-			};
-			name = Release;
-		};
-		03B3EB89273C02BB004CACF4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = MBAJ2NCPU9;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Cookid;
-			};
-			name = Debug;
-		};
-		03B3EB8A273C02BB004CACF4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = MBAJ2NCPU9;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DeveloperPaul.CookidUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Cookid;
 			};
 			name = Release;
 		};
@@ -1849,15 +1777,6 @@
 			buildConfigurations = (
 				033D3C252709FF49009B29B9 /* Debug */,
 				033D3C262709FF49009B29B9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		03B3EB8B273C02BB004CACF4 /* Build configuration list for PBXNativeTarget "CookidUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				03B3EB89273C02BB004CACF4 /* Debug */,
-				03B3EB8A273C02BB004CACF4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
