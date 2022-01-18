@@ -88,7 +88,7 @@
 		037B7A26272EDFD0004E9320 /* StoryboardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A25272EDFD0004E9320 /* StoryboardProtocol.swift */; };
 		0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E3EB27045A00007F8AA5 /* RemoteUser.swift */; };
 		038875B126A030F300D5D202 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032233B7269276DB0092DD6D /* MainViewController.swift */; };
-		0390F53E2728EF4E00677651 /* YPImagePickerManaget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */; };
+		0390F53E2728EF4E00677651 /* YPImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53D2728EF4E00677651 /* YPImagePickerManager.swift */; };
 		0390F54027299B7900677651 /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390F53F27299B7900677651 /* CommentHeaderView.swift */; };
 		0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395B61726943B30009289B7 /* CustomProgressBar.swift */; };
 		0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395F6EC26B805360091BB29 /* AddMealViewController.swift */; };
@@ -139,6 +139,20 @@
 		03E42EDA26C4E22F005D7B5E /* LocalSignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */; };
 		03E42EDD26C50968005D7B5E /* RankingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */; };
 		03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */; };
+		03E8B68E2795A6AA00EEAEF4 /* MyRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B68B2795A6AA00EEAEF4 /* MyRouter.swift */; };
+		03E8B68F2795A6AA00EEAEF4 /* RouterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B68C2795A6AA00EEAEF4 /* RouterType.swift */; };
+		03E8B6902795A6AA00EEAEF4 /* RequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B68D2795A6AA00EEAEF4 /* RequestParams.swift */; };
+		03E8B6932795A71400EEAEF4 /* PhotoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6922795A71400EEAEF4 /* PhotoAPI.swift */; };
+		03E8B6952795A72500EEAEF4 /* NetworkAPIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6942795A72500EEAEF4 /* NetworkAPIType.swift */; };
+		03E8B69C2795A79100EEAEF4 /* MyLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6992795A79100EEAEF4 /* MyLogger.swift */; };
+		03E8B69D2795A79100EEAEF4 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B69A2795A79100EEAEF4 /* SessionManager.swift */; };
+		03E8B69E2795A79100EEAEF4 /* MyInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B69B2795A79100EEAEF4 /* MyInterceptor.swift */; };
+		03E8B6A02795A7C400EEAEF4 /* Photographer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B69F2795A7C400EEAEF4 /* Photographer.swift */; };
+		03E8B6A22795A80700EEAEF4 /* MyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A12795A80700EEAEF4 /* MyColor.swift */; };
+		03E8B6A42795A80E00EEAEF4 /* MyFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A32795A80E00EEAEF4 /* MyFont.swift */; };
+		03E8B6A62796F5F300EEAEF4 /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A52796F5F300EEAEF4 /* AppAssembler.swift */; };
+		03E8B6A82797061B00EEAEF4 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */; };
+		03E8B6AA27970A7700EEAEF4 /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A927970A7700EEAEF4 /* ServiceAssembly.swift */; };
 		03F2ED6426ED906C00CFE87C /* Post.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03F2ED6326ED906C00CFE87C /* Post.storyboard */; };
 		03F2ED6A26ED914B00CFE87C /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */; };
 		03F2ED6C26ED916900CFE87C /* PostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */; };
@@ -261,7 +275,7 @@
 		037B7A23272EDF9F004E9320 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		037B7A25272EDFD0004E9320 /* StoryboardProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardProtocol.swift; sourceTree = "<group>"; };
 		0380E3EB27045A00007F8AA5 /* RemoteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteUser.swift; sourceTree = "<group>"; };
-		0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePickerManaget.swift; sourceTree = "<group>"; };
+		0390F53D2728EF4E00677651 /* YPImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePickerManager.swift; sourceTree = "<group>"; };
 		0390F53F27299B7900677651 /* CommentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentHeaderView.swift; sourceTree = "<group>"; };
 		0395B61726943B30009289B7 /* CustomProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressBar.swift; sourceTree = "<group>"; };
 		0395F6EC26B805360091BB29 /* AddMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealViewController.swift; sourceTree = "<group>"; };
@@ -314,6 +328,20 @@
 		03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSignInCoordinator.swift; sourceTree = "<group>"; };
 		03E42EDC26C50968005D7B5E /* RankingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingHeaderView.swift; sourceTree = "<group>"; };
 		03E42EDE26C76829005D7B5E /* RankingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingTableViewCell.swift; sourceTree = "<group>"; };
+		03E8B68B2795A6AA00EEAEF4 /* MyRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRouter.swift; sourceTree = "<group>"; };
+		03E8B68C2795A6AA00EEAEF4 /* RouterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterType.swift; sourceTree = "<group>"; };
+		03E8B68D2795A6AA00EEAEF4 /* RequestParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestParams.swift; sourceTree = "<group>"; };
+		03E8B6922795A71400EEAEF4 /* PhotoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAPI.swift; sourceTree = "<group>"; };
+		03E8B6942795A72500EEAEF4 /* NetworkAPIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPIType.swift; sourceTree = "<group>"; };
+		03E8B6992795A79100EEAEF4 /* MyLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLogger.swift; sourceTree = "<group>"; };
+		03E8B69A2795A79100EEAEF4 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		03E8B69B2795A79100EEAEF4 /* MyInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyInterceptor.swift; sourceTree = "<group>"; };
+		03E8B69F2795A7C400EEAEF4 /* Photographer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photographer.swift; sourceTree = "<group>"; };
+		03E8B6A12795A80700EEAEF4 /* MyColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyColor.swift; sourceTree = "<group>"; };
+		03E8B6A32795A80E00EEAEF4 /* MyFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFont.swift; sourceTree = "<group>"; };
+		03E8B6A52796F5F300EEAEF4 /* AppAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
+		03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
+		03E8B6A927970A7700EEAEF4 /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
 		03F2ED6326ED906C00CFE87C /* Post.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Post.storyboard; sourceTree = "<group>"; };
 		03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderView.swift; sourceTree = "<group>"; };
@@ -497,17 +525,12 @@
 		030D4AE427300EB3005C0FFF /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				0322339B269212860092DD6D /* AppDelegate.swift */,
-				0322339D269212860092DD6D /* SceneDelegate.swift */,
 				032233D52692F00B0092DD6D /* Cookid API */,
-				03E42ECD26C4172E005D7B5E /* Coordinator */,
-				037B7A27272EE06D004E9320 /* Manager */,
+				036185A12794368000F1F16B /* Application */,
+				037B7A27272EE06D004E9320 /* Infrastructure */,
 				032233AF2692764F0092DD6D /* Data */,
-				032233B1269276680092DD6D /* Model */,
-				DB0D7D722694980B009B2D51 /* Service */,
-				03B2048B26D5D9270099C269 /* CookidManager */,
-				03F2ED7126ED92C900CFE87C /* CookidCommunity */,
-				2417EAB426E58CF7006F2785 /* Cookid Profile */,
+				0361859D2794356000F1F16B /* Domain */,
+				036185A0279435DC00F1F16B /* Presenter */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -557,7 +580,6 @@
 			isa = PBXGroup;
 			children = (
 				037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */,
-				034A382A277020240059B9F8 /* AlamofireRepository */,
 				244B2B0F26E4A0BF001226F0 /* FirebaseRepository */,
 				24B081A926DFD1FA00379087 /* RealmRepository */,
 				03F2ED6026ED046700CFE87C /* AuthRepository */,
@@ -577,7 +599,7 @@
 			path = DTO;
 			sourceTree = "<group>";
 		};
-		032233B1269276680092DD6D /* Model */ = {
+		032233B1269276680092DD6D /* Entity */ = {
 			isa = PBXGroup;
 			children = (
 				032233DD2693057C0092DD6D /* User.swift */,
@@ -589,8 +611,9 @@
 				03D8C1F226EB7E0500238CB6 /* Comment.swift */,
 				03D8C1F026EB6FD600238CB6 /* Post.swift */,
 				034A38472770CF7C0059B9F8 /* Photo.swift */,
+				03E8B69F2795A7C400EEAEF4 /* Photographer.swift */,
 			);
-			path = Model;
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		032233B6269276920092DD6D /* Resources */ = {
@@ -603,19 +626,21 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		032233C526927EF90092DD6D /* DummyData */ = {
+		032233C526927EF90092DD6D /* Cookid DummyData */ = {
 			isa = PBXGroup;
 			children = (
 				032233C626927F0C0092DD6D /* DummyData.swift */,
 			);
-			path = DummyData;
+			path = "Cookid DummyData";
 			sourceTree = "<group>";
 		};
 		032233D52692F00B0092DD6D /* Cookid API */ = {
 			isa = PBXGroup;
 			children = (
+				0361859F2794359C00F1F16B /* Cookid Font */,
+				0361859E2794359300F1F16B /* Cookid Color */,
 				0339E267271B81AB001FD6A7 /* Cookid View */,
-				032233C526927EF90092DD6D /* DummyData */,
+				032233C526927EF90092DD6D /* Cookid DummyData */,
 				037B7A0A272D7AE1004E9320 /* Base */,
 				037B7A13272D7BF1004E9320 /* Protocol */,
 				037A77C227527BF50021BBA7 /* Constants */,
@@ -653,13 +678,6 @@
 				0361859A2794336A00F1F16B /* CookidManagerMainUnitTests.swift */,
 			);
 			path = CookidTests;
-			sourceTree = "<group>";
-		};
-		034A382A277020240059B9F8 /* AlamofireRepository */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AlamofireRepository;
 			sourceTree = "<group>";
 		};
 		034A382B277020640059B9F8 /* PhotoEntity */ = {
@@ -782,6 +800,60 @@
 			path = CELL;
 			sourceTree = "<group>";
 		};
+		0361859D2794356000F1F16B /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				DB0D7D722694980B009B2D51 /* Service */,
+				032233B1269276680092DD6D /* Entity */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		0361859E2794359300F1F16B /* Cookid Color */ = {
+			isa = PBXGroup;
+			children = (
+				03E8B6A12795A80700EEAEF4 /* MyColor.swift */,
+			);
+			path = "Cookid Color";
+			sourceTree = "<group>";
+		};
+		0361859F2794359C00F1F16B /* Cookid Font */ = {
+			isa = PBXGroup;
+			children = (
+				03E8B6A32795A80E00EEAEF4 /* MyFont.swift */,
+			);
+			path = "Cookid Font";
+			sourceTree = "<group>";
+		};
+		036185A0279435DC00F1F16B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				03E42ECD26C4172E005D7B5E /* Coordinator */,
+				03B2048B26D5D9270099C269 /* CookidManager */,
+				03F2ED7126ED92C900CFE87C /* CookidCommunity */,
+				2417EAB426E58CF7006F2785 /* Cookid Profile */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		036185A12794368000F1F16B /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				0322339B269212860092DD6D /* AppDelegate.swift */,
+				0322339D269212860092DD6D /* SceneDelegate.swift */,
+				03E8B6A52796F5F300EEAEF4 /* AppAssembler.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		036185A22794385C00F1F16B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				03E8B6962795A76500EEAEF4 /* NetworkAPI */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		037A77C227527BF50021BBA7 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -829,13 +901,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		037B7A27272EE06D004E9320 /* Manager */ = {
+		037B7A27272EE06D004E9320 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				036185A22794385C00F1F16B /* Network */,
 				DB61715126C9577B008F497C /* NotificationManager.swift */,
-				0390F53D2728EF4E00677651 /* YPImagePickerManaget.swift */,
+				0390F53D2728EF4E00677651 /* YPImagePickerManager.swift */,
 			);
-			path = Manager;
+			path = Infrastructure;
 			sourceTree = "<group>";
 		};
 		0390F53B2728EB8E00677651 /* Comment */ = {
@@ -852,6 +925,7 @@
 			isa = PBXGroup;
 			children = (
 				032233A1269212860092DD6D /* Main.storyboard */,
+				03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */,
 				2417EAB226E58CDD006F2785 /* LocalSignIn */,
 				030D4AD5273004E2005C0FFF /* Main */,
 				030D4AD627300675005C0FFF /* AddMeal */,
@@ -901,6 +975,37 @@
 				0361859127942A9100F1F16B /* CELL */,
 			);
 			path = Ranking;
+			sourceTree = "<group>";
+		};
+		03E8B6912795A6BA00EEAEF4 /* EndPoint */ = {
+			isa = PBXGroup;
+			children = (
+				03E8B68B2795A6AA00EEAEF4 /* MyRouter.swift */,
+				03E8B68D2795A6AA00EEAEF4 /* RequestParams.swift */,
+				03E8B68C2795A6AA00EEAEF4 /* RouterType.swift */,
+			);
+			path = EndPoint;
+			sourceTree = "<group>";
+		};
+		03E8B6962795A76500EEAEF4 /* NetworkAPI */ = {
+			isa = PBXGroup;
+			children = (
+				03E8B6942795A72500EEAEF4 /* NetworkAPIType.swift */,
+				03E8B6922795A71400EEAEF4 /* PhotoAPI.swift */,
+				03E8B6912795A6BA00EEAEF4 /* EndPoint */,
+				03E8B6982795A78500EEAEF4 /* AlamofireSession */,
+			);
+			path = NetworkAPI;
+			sourceTree = "<group>";
+		};
+		03E8B6982795A78500EEAEF4 /* AlamofireSession */ = {
+			isa = PBXGroup;
+			children = (
+				03E8B69B2795A79100EEAEF4 /* MyInterceptor.swift */,
+				03E8B6992795A79100EEAEF4 /* MyLogger.swift */,
+				03E8B69A2795A79100EEAEF4 /* SessionManager.swift */,
+			);
+			path = AlamofireSession;
 			sourceTree = "<group>";
 		};
 		03F2ED6026ED046700CFE87C /* AuthRepository */ = {
@@ -1015,6 +1120,7 @@
 			isa = PBXGroup;
 			children = (
 				037B7A14272D7C30004E9320 /* ServiceProvider.swift */,
+				03E8B6A927970A7700EEAEF4 /* ServiceAssembly.swift */,
 				030D4AE5273010BD005C0FFF /* UserService.swift */,
 				03D8C1FC26EBBC9800238CB6 /* PostService.swift */,
 				03F2ED8526F0343E00CFE87C /* CommentService.swift */,
@@ -1261,7 +1367,7 @@
 				032233BA269277520092DD6D /* Meal.swift in Sources */,
 				037A77BF27527B290021BBA7 /* UIColor+Extension.swift in Sources */,
 				0395F6ED26B805360091BB29 /* AddMealViewController.swift in Sources */,
-				0390F53E2728EF4E00677651 /* YPImagePickerManaget.swift in Sources */,
+				0390F53E2728EF4E00677651 /* YPImagePickerManager.swift in Sources */,
 				037B7A19272D9F1A004E9320 /* BaseService.swift in Sources */,
 				0395B61826943B30009289B7 /* CustomProgressBar.swift in Sources */,
 				037A77BD27527A8F0021BBA7 /* UIView+Extension.swift in Sources */,
@@ -1269,6 +1375,7 @@
 				032233D32692A94D0092DD6D /* FourthPageViewController.swift in Sources */,
 				03D3046826FDFA7D00042CB7 /* AddPostCollectionReusableView.swift in Sources */,
 				034A383E27702A5F0059B9F8 /* PhotoEntity.swift in Sources */,
+				03E8B68F2795A6AA00EEAEF4 /* RouterType.swift in Sources */,
 				03B3EB7A27395E69004CACF4 /* MyPostTableViewCell.swift in Sources */,
 				030D4AE027300BF9005C0FFF /* BaseViewModel.swift in Sources */,
 				03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */,
@@ -1295,14 +1402,18 @@
 				03B3EB6F2737B575004CACF4 /* UserPhotoEditButton.swift in Sources */,
 				034A383C27702A080059B9F8 /* NetworkResult.swift in Sources */,
 				03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */,
+				03E8B69E2795A79100EEAEF4 /* MyInterceptor.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
+				03E8B68E2795A6AA00EEAEF4 /* MyRouter.swift in Sources */,
 				03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */,
+				03E8B69D2795A79100EEAEF4 /* SessionManager.swift in Sources */,
 				03D660C9270B57B30044FE1E /* MyBookmarkReactor.swift in Sources */,
 				032233D92692F8ED0092DD6D /* LocalSignInViewModel.swift in Sources */,
 				03F2ED7526EDD23A00CFE87C /* PostUserView.swift in Sources */,
 				DB61715226C9577B008F497C /* NotificationManager.swift in Sources */,
 				03F2ED6C26ED916900CFE87C /* PostHeaderView.swift in Sources */,
 				030D4AD2272F797C005C0FFF /* AddShoppingReactor.swift in Sources */,
+				03E8B6902795A6AA00EEAEF4 /* RequestParams.swift in Sources */,
 				03B2049526D75DD50099C269 /* PictureSelectViewController.swift in Sources */,
 				037A77C127527B9A0021BBA7 /* UIViewController+Extension.swift in Sources */,
 				037B7A22272ECCE0004E9320 /* BaseRepository.swift in Sources */,
@@ -1311,10 +1422,12 @@
 				03B3EB6B273744BB004CACF4 /* MyRecipeViewController.swift in Sources */,
 				037A77C827527C700021BBA7 /* NetworkContants.swift in Sources */,
 				035E491D26956F92002CC084 /* MealTableViewCell.swift in Sources */,
+				03E8B6A22795A80700EEAEF4 /* MyColor.swift in Sources */,
 				241523B4269D24860077941A /* Function.swift in Sources */,
 				035E492B26987CFB002CC084 /* SelectCalendarViewController.swift in Sources */,
 				2417EAB626E58D0C006F2785 /* MyPageViewModel.swift in Sources */,
 				032233CB2692A8630092DD6D /* LocalSignInViewViewController.swift in Sources */,
+				03E8B69C2795A79100EEAEF4 /* MyLogger.swift in Sources */,
 				037B7A15272D7C30004E9320 /* ServiceProvider.swift in Sources */,
 				03D8C1F826EBB85F00238CB6 /* RemoteComment.swift in Sources */,
 				03B3EB782739173C004CACF4 /* UpdateUserInfoViewController.swift in Sources */,
@@ -1329,6 +1442,7 @@
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
 				03D660C7270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift in Sources */,
 				03D3045D26FDE2F300042CB7 /* AddPostReactor.swift in Sources */,
+				03E8B6952795A72500EEAEF4 /* NetworkAPIType.swift in Sources */,
 				0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */,
 				03D8C1FD26EBBC9800238CB6 /* PostService.swift in Sources */,
 				244B2B0826E24062001226F0 /* ImageRepo.swift in Sources */,
@@ -1337,9 +1451,12 @@
 				030D4AED27317577005C0FFF /* ConsumptionDetail.swift in Sources */,
 				03F2ED9026F3886700CFE87C /* PostCoordinator.swift in Sources */,
 				0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */,
+				03E8B6A02795A7C400EEAEF4 /* Photographer.swift in Sources */,
 				03E42EDA26C4E22F005D7B5E /* LocalSignInCoordinator.swift in Sources */,
 				0322339E269212860092DD6D /* SceneDelegate.swift in Sources */,
 				03D3046426FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift in Sources */,
+				03E8B6A62796F5F300EEAEF4 /* AppAssembler.swift in Sources */,
+				03E8B6A82797061B00EEAEF4 /* MainAssembly.swift in Sources */,
 				03F2ED9226F38D7C00CFE87C /* MainCoordinator.swift in Sources */,
 				037A77C427527C120021BBA7 /* FirebaseConstants.swift in Sources */,
 				030D4AE227300D99005C0FFF /* CoodinatorProtocol.swift in Sources */,
@@ -1349,8 +1466,10 @@
 				0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */,
 				037A77C627527C530021BBA7 /* DarkModeContants.swift in Sources */,
 				03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */,
+				03E8B6AA27970A7700EEAEF4 /* ServiceAssembly.swift in Sources */,
 				037A77B927527A710021BBA7 /* String+Extension.swift in Sources */,
 				03D8C1F626EBB85200238CB6 /* RemotePost.swift in Sources */,
+				03E8B6932795A71400EEAEF4 /* PhotoAPI.swift in Sources */,
 				03D8C1EF26EB6D8C00238CB6 /* FirestorePostRepo.swift in Sources */,
 				034A3827276FB5900059B9F8 /* PhotoSelectViewController.swift in Sources */,
 				03D660C4270B4C6B0044FE1E /* MyBookmarkViewController.swift in Sources */,
@@ -1375,6 +1494,7 @@
 				03F2ED7026ED929300CFE87C /* PostMainViewController.swift in Sources */,
 				03B2049B26D7BA830099C269 /* MenuService.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
+				03E8B6A42795A80E00EEAEF4 /* MyFont.swift in Sources */,
 				24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */,
 				037B7A0C272D7AEF004E9320 /* BaseViewController.swift in Sources */,
 				03F2ED8A26F06BC300CFE87C /* FirestoreCommentRepo.swift in Sources */,
