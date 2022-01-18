@@ -152,6 +152,7 @@
 		03E8B6A42795A80E00EEAEF4 /* MyFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A32795A80E00EEAEF4 /* MyFont.swift */; };
 		03E8B6A62796F5F300EEAEF4 /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A52796F5F300EEAEF4 /* AppAssembler.swift */; };
 		03E8B6A82797061B00EEAEF4 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */; };
+		03E8B6AA27970A7700EEAEF4 /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A927970A7700EEAEF4 /* ServiceAssembly.swift */; };
 		03F2ED6426ED906C00CFE87C /* Post.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03F2ED6326ED906C00CFE87C /* Post.storyboard */; };
 		03F2ED6A26ED914B00CFE87C /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */; };
 		03F2ED6C26ED916900CFE87C /* PostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */; };
@@ -340,6 +341,7 @@
 		03E8B6A32795A80E00EEAEF4 /* MyFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFont.swift; sourceTree = "<group>"; };
 		03E8B6A52796F5F300EEAEF4 /* AppAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
 		03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
+		03E8B6A927970A7700EEAEF4 /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
 		03F2ED6326ED906C00CFE87C /* Post.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Post.storyboard; sourceTree = "<group>"; };
 		03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderView.swift; sourceTree = "<group>"; };
@@ -1118,6 +1120,7 @@
 			isa = PBXGroup;
 			children = (
 				037B7A14272D7C30004E9320 /* ServiceProvider.swift */,
+				03E8B6A927970A7700EEAEF4 /* ServiceAssembly.swift */,
 				030D4AE5273010BD005C0FFF /* UserService.swift */,
 				03D8C1FC26EBBC9800238CB6 /* PostService.swift */,
 				03F2ED8526F0343E00CFE87C /* CommentService.swift */,
@@ -1463,6 +1466,7 @@
 				0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */,
 				037A77C627527C530021BBA7 /* DarkModeContants.swift in Sources */,
 				03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */,
+				03E8B6AA27970A7700EEAEF4 /* ServiceAssembly.swift in Sources */,
 				037A77B927527A710021BBA7 /* String+Extension.swift in Sources */,
 				03D8C1F626EBB85200238CB6 /* RemotePost.swift in Sources */,
 				03E8B6932795A71400EEAEF4 /* PhotoAPI.swift in Sources */,

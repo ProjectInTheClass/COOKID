@@ -10,6 +10,7 @@ import Swinject
 
 class AppAssembler {
     static let assembler = Assembler([
+        ServiceAssembly(),
         MainAssembly()
     ])
 }

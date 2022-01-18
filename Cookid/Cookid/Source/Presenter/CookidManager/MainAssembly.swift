@@ -16,13 +16,11 @@ class MainAssembly: Assembly {
             return PhotoAPI()
         }
         
-        container.register(PhotoServiceType.self, name: nil) { resolver in
-            let photoAPI = resolver.resolve(NetworkAPIType.self)!
-            return PhotoService(photoAPI: photoAPI)
-        }
+        
         
         container.register(AddMealReactor.self, name: "new") { resolver in
             let photoService = resolver.resolve(PhotoServiceType.self)!
+            
             return AddMealReactor(mode: .new, photoService: <#T##PhotoServiceType#>, userService: <#T##UserServiceType#>, mealService: <#T##MealServiceType#>)
         }
         
