@@ -11,33 +11,36 @@ import Then
 import Kingfisher
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-    static let identifier = "PhotoCollectionViewCell"
     
     private let photo = UIImageView().then {
         $0.contentMode = .scaleAspectFill
-        $0.backgroundColor = .black
+        $0.clipsToBounds = true
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureUI()
         makeConstraints()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("error", file: #file, line: #line)
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureUI() {
+        contentView.backgroundColor = .systemGray6
     }
     
     private func makeConstraints() {
         contentView.addSubview(photo)
         photo.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.left.bottom.right.equalToSuperview()
         }
     }
-    
-    func updateUI(photo: Photo) {
-        self.photo.kf.setImage(with: photo.url)
+}
+
+extension PhotoCollectionViewCell {
+    func rendering(photo: Photo) {
+        self.photo.kf.setImage(with: photo.image.url)
     }
-    
-    
-    
 }

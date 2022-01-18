@@ -15,69 +15,106 @@ import ReactorKit
 class PhotoSelectViewController: BaseViewController, View {
     
     private let searchController = UISearchController(searchResultsController: nil).then {
-        $0.searchBar.placeholder = "검색어를 입력하세요"
+        $0.searchBar.placeholder = "사진을 검색하세요."
         $0.hidesNavigationBarDuringPresentation = false
     }
     
-    private let layout = UICollectionViewFlowLayout().then {
+    private let flowLayout = UICollectionViewFlowLayout().then {
+        $0.minimumInteritemSpacing = 2
+        $0.minimumLineSpacing = 2
         $0.scrollDirection = .vertical
-        $0.minimumInteritemSpacing = 1
     }
     
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
-        $0.register(PhotoollectionViewCell.self, forCellWithReuseIdentifier: PhotoollectionViewCell.identifier)
-        $0.backgroundColor = .systemBackground
+    private lazy var photoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
+        $0.register(Reusable.photoCell)
     }
     
-    var viewModel: MainViewModel!
+    private let loadingView = UIActivityIndicatorView().then {
+        $0.hidesWhenStopped = true
+    }
+    
+    var disposeBag: DisposeBag = DisposeBag()
+    var coordinator: PhotoCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        makeConstraints()
         configureUI()
     }
     
-    func configureUI() {
-        self.view.backgroundColor = .systemBackground
+    private func configureUI() {
+        view.backgroundColor = .systemBackground
         self.navigationItem.searchController = searchController
-        self.navigationItem.title = "사진 검색"
+        self.navigationItem.title = "Search Photo"
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    override func setupConstraints() {
-        super.setupConstraints()
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(view.safeAreaInsets.top)
-            make.left.right.bottom.equalToSuperview()
+    private func makeConstraints() {
+        view.addSubview(photoCollectionView)
+        photoCollectionView.snp.makeConstraints { make in
+            make.top.left.bottom.right.equalToSuperview()
+        }
+        
+        view.addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
-   
-    func bind(reactor: AddMealReactor) {
+    
+    func bind(reactor: PhotoReactor) {
         
-        reactor.state.map { $0.photos }
-        .bind(to: collectionView.rx.items(cellIdentifier: PhotoollectionViewCell.identifier, cellType: PhotoollectionViewCell.self)) { index, item, cell in
-            cell.updateUI(photo: item)
-        }
+        reactor.state.map { $0.photoSections }
+        .bind(to: photoCollectionView.rx.items(dataSource: createDataSources()))
         .disposed(by: disposeBag)
         
-        Observable
-            .zip(collectionView.rx.modelSelected(Photo.self),
-                 collectionView.rx.itemSelected)
-            .bind(onNext: { (photo: Photo, indexPath: IndexPath) in
-                self.collectionView.deselectItem(at: indexPath, animated: false)
-                reactor.action.onNext(.imageURL(photo.url))
+        reactor.state.map { $0.isLoding }
+        .bind(to: loadingView.rx.isAnimating)
+        .disposed(by: disposeBag)
+        
+        searchController.searchBar.rx.text.orEmpty
+            .map { PhotoReactor.Action.inputQuery($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        searchController.searchBar.rx.searchButtonClicked
+            .map { PhotoReactor.Action.searchButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        Observable.zip(
+            photoCollectionView.rx.itemSelected,
+            photoCollectionView.rx.modelSelected(Photo.self))
+            .bind(onNext: { [weak self] (indexPath, photo) in
+                self?.photoCollectionView.deselectItem(at: indexPath, animated: false)
+                if let coordinator = self?.coordinator {
+                    coordinator.navigatePhotoDetail(photo: photo)
+                }
             })
             .disposed(by: disposeBag)
         
-        collectionView.rx.setDelegate(self)
+        photoCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }
+    
+    func createDataSources() -> RxCollectionViewSectionedReloadDataSource<SectionModel<Int, Photo>> {
+        return RxCollectionViewSectionedReloadDataSource<SectionModel<Int, Photo>>.init { datasource, collectionView, indexPath, item in
+            let cell = collectionView.dequeue(Reusable.photoCell, for: indexPath)
+            cell.rendering(photo: item)
+            return cell
+        }
+    }
+    
+    enum Reusable {
+        static let photoCell = ReusableCell<PhotoCollectionViewCell>()
+    }
+
 }
 
-extension PhotoSelectViewController: UICollectionViewDelegateFlowLayout {
+extension PhotoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = view.frame.size.width / 3
-        let height = width
+        let space: CGFloat = 2
+        let width: CGFloat = (view.bounds.width - (space*2))/3
+        let height: CGFloat = width
         return CGSize(width: width, height: height)
     }
 }
