@@ -63,11 +63,18 @@ class AddMealReactor: Reactor {
     
     let mode: MealEditMode
     let initialState: State
-    let serviceProvider: ServiceProviderType
+    let photoService: PhotoServiceType
+    let userService: UserServiceType
+    let mealService: MealServiceType
     
-    init(mode: MealEditMode, serviceProvider: ServiceProviderType) {
+    init(mode: MealEditMode,
+         photoService: PhotoServiceType,
+         userService: UserServiceType,
+         mealService: MealServiceType) {
         self.mode = mode
-        self.serviceProvider = serviceProvider
+        self.photoService = photoService
+        self.userService = userService
+        self.mealService = mealService
         switch mode {
         case .new:
             self.initialState = State()
@@ -77,8 +84,8 @@ class AddMealReactor: Reactor {
     }
     
     func transform(mutation: Observable<Mutate>) -> Observable<Mutate> {
-        let user = serviceProvider.userService.currentUser.map { Mutation.setUser($0) }
-        let photos = serviceProvider.photoService.fetchPhotos(query: self.currentState.query).map { Mutation.setPhotos($0) }
+        let user = userService.currentUser.map { Mutation.setUser($0) }
+        let photos = photoService.fetchPhotos(query: self.currentState.query).map { Mutation.setPhotos($0) }
         return Observable.merge(mutation, user, photos)
     }
     
@@ -110,18 +117,18 @@ class AddMealReactor: Reactor {
             switch mode {
             case .new:
                 let newMeal = Meal(id: UUID().uuidString, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-                return serviceProvider.mealService.create(meal: newMeal, currentUser: user)
+                return mealService.create(meal: newMeal, currentUser: user)
                     .map { Mutate.setError(!$0) }
             case .edit(let meal):
                 let newMeal = Meal(id: meal.id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-                return serviceProvider.mealService.update(updateMeal: newMeal)
+                return mealService.update(updateMeal: newMeal)
                     .map { Mutate.setError(!$0) }
             }
         case .delete:
             switch mode {
             case .edit(let meal):
                 let user = self.currentState.user
-                return serviceProvider.mealService.deleteMeal(meal: meal, currentUser: user)
+                return mealService.deleteMeal(meal: meal, currentUser: user)
                     .map { Mutate.setError(!$0) }
             default:
                 return Observable.empty()

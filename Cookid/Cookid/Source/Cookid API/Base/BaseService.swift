@@ -13,14 +13,18 @@ class BaseService: BaseRepository {
         self.serviceProvider = serviceProvider
         super.init(repoProvider: repoProvider)
     }
-    
+}
+
+extension BaseService {
     func convertEntityToPost(entity: PostEntity, currentUser: User, postUser: User, commentsCount: Int) -> Post {
         let didLike = entity.didLike.contains(currentUser.id)
         let didCollect = entity.didCollect.contains(currentUser.id)
         let imageURL = entity.images.map { URL(string: $0) }
         return Post(postID: entity.postID, user: postUser, images: imageURL, likes: entity.didLike.count, collections: entity.didCollect.count, star: entity.star, caption: entity.caption, mealBudget: entity.mealBudget, location: entity.location, timeStamp: entity.timestamp, didLike: didLike, didCollect: didCollect, commentCount: commentsCount)
     }
-    
+}
+
+extension BaseService {
     func convertEntityToUser(entity: UserEntity) -> User {
         return User(id: entity.id, image: URL(string: entity.imageURL), nickname: entity.nickname, determination: entity.determination, priceGoal: entity.priceGoal, userType: UserType.init(rawValue: entity.userType) ?? .preferDineIn, dineInCount: entity.dineInCount, cookidsCount: entity.cookidsCount)
     }

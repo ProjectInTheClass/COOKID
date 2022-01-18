@@ -12,7 +12,13 @@ protocol PhotoServiceType {
     func fetchPhotos(query: String) -> Observable<[Photo]>
 }
 
-class PhotoService: BaseService, PhotoServiceType {
+class PhotoService: PhotoServiceType {
+    
+    let photoAPI: NetworkAPIType
+    init(photoAPI: NetworkAPIType) {
+        self.photoAPI = photoAPI
+    }
+    
     func fetchPhotos(query: String) -> Observable<[Photo]> {
         return Observable<[Photo]>.create { observer in
 //            self.repoProvider.afUnsplashRepo.performRequest(with: endPoint) { result in

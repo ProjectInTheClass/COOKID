@@ -29,6 +29,8 @@ class PhotoSelectViewController: BaseViewController, View {
         $0.backgroundColor = .systemBackground
     }
     
+    var viewModel: MainViewModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()

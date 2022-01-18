@@ -150,6 +150,8 @@
 		03E8B6A02795A7C400EEAEF4 /* Photographer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B69F2795A7C400EEAEF4 /* Photographer.swift */; };
 		03E8B6A22795A80700EEAEF4 /* MyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A12795A80700EEAEF4 /* MyColor.swift */; };
 		03E8B6A42795A80E00EEAEF4 /* MyFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A32795A80E00EEAEF4 /* MyFont.swift */; };
+		03E8B6A62796F5F300EEAEF4 /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A52796F5F300EEAEF4 /* AppAssembler.swift */; };
+		03E8B6A82797061B00EEAEF4 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */; };
 		03F2ED6426ED906C00CFE87C /* Post.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03F2ED6326ED906C00CFE87C /* Post.storyboard */; };
 		03F2ED6A26ED914B00CFE87C /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */; };
 		03F2ED6C26ED916900CFE87C /* PostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */; };
@@ -336,6 +338,8 @@
 		03E8B69F2795A7C400EEAEF4 /* Photographer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photographer.swift; sourceTree = "<group>"; };
 		03E8B6A12795A80700EEAEF4 /* MyColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyColor.swift; sourceTree = "<group>"; };
 		03E8B6A32795A80E00EEAEF4 /* MyFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFont.swift; sourceTree = "<group>"; };
+		03E8B6A52796F5F300EEAEF4 /* AppAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
+		03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
 		03F2ED6326ED906C00CFE87C /* Post.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Post.storyboard; sourceTree = "<group>"; };
 		03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderView.swift; sourceTree = "<group>"; };
@@ -835,6 +839,7 @@
 			children = (
 				0322339B269212860092DD6D /* AppDelegate.swift */,
 				0322339D269212860092DD6D /* SceneDelegate.swift */,
+				03E8B6A52796F5F300EEAEF4 /* AppAssembler.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -843,7 +848,6 @@
 			isa = PBXGroup;
 			children = (
 				03E8B6962795A76500EEAEF4 /* NetworkAPI */,
-				03E8B6912795A6BA00EEAEF4 /* EndPoint */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -919,6 +923,7 @@
 			isa = PBXGroup;
 			children = (
 				032233A1269212860092DD6D /* Main.storyboard */,
+				03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */,
 				2417EAB226E58CDD006F2785 /* LocalSignIn */,
 				030D4AD5273004E2005C0FFF /* Main */,
 				030D4AD627300675005C0FFF /* AddMeal */,
@@ -983,9 +988,10 @@
 		03E8B6962795A76500EEAEF4 /* NetworkAPI */ = {
 			isa = PBXGroup;
 			children = (
-				03E8B6982795A78500EEAEF4 /* AlamofireSession */,
-				03E8B6922795A71400EEAEF4 /* PhotoAPI.swift */,
 				03E8B6942795A72500EEAEF4 /* NetworkAPIType.swift */,
+				03E8B6922795A71400EEAEF4 /* PhotoAPI.swift */,
+				03E8B6912795A6BA00EEAEF4 /* EndPoint */,
+				03E8B6982795A78500EEAEF4 /* AlamofireSession */,
 			);
 			path = NetworkAPI;
 			sourceTree = "<group>";
@@ -1446,6 +1452,8 @@
 				03E42EDA26C4E22F005D7B5E /* LocalSignInCoordinator.swift in Sources */,
 				0322339E269212860092DD6D /* SceneDelegate.swift in Sources */,
 				03D3046426FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift in Sources */,
+				03E8B6A62796F5F300EEAEF4 /* AppAssembler.swift in Sources */,
+				03E8B6A82797061B00EEAEF4 /* MainAssembly.swift in Sources */,
 				03F2ED9226F38D7C00CFE87C /* MainCoordinator.swift in Sources */,
 				037A77C427527C120021BBA7 /* FirebaseConstants.swift in Sources */,
 				030D4AE227300D99005C0FFF /* CoodinatorProtocol.swift in Sources */,
