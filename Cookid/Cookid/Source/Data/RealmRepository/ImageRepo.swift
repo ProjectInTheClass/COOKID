@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol ImageRepoType {
+protocol FileManagerRepoType {
     func saveImage(image: UIImage, id: String, completion: @escaping (Bool) -> Void)
     func loadImage(id: String) -> UIImage?
     func deleteImage(id: String, completion: @escaping (Bool) -> Void)
 }
 
-class ImageRepo: BaseRepository, ImageRepoType {
+class FileManagerRepo: BaseRepository, FileManagerRepoType {
     
     func saveImage(image: UIImage, id: String, completion: @escaping (Bool) -> Void) {
         guard let data = image.jpegData(compressionQuality: 0.5) else {

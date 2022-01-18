@@ -22,8 +22,9 @@ class ServiceAssembly: Assembly {
         }
         
         container.register(UserServiceType.self, name: nil) { resolver in
-            let photoAPI = resolver.resolve(NetworkAPIType.self)!
-            return UserService(serviceProvider: ServiceProvider(), repoProvider: RepositoryProvider())
+            let firestoreUserRepository = resolver.resolve(UserRepoType.self)!
+            let realmUserRepository = resolver.resolve(RealmUserRepoType.self)!
+            return UserService(firestoreUserRepo: firestoreUserRepository, realmUserRepo: realmUserRepository)
         }
     }
 }

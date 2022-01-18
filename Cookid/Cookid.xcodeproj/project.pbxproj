@@ -81,7 +81,6 @@
 		037A77CC27527CB30021BBA7 /* DBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037A77CB27527CB30021BBA7 /* DBConstants.swift */; };
 		037B7A0C272D7AEF004E9320 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A0B272D7AEF004E9320 /* BaseViewController.swift */; };
 		037B7A15272D7C30004E9320 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A14272D7C30004E9320 /* ServiceProvider.swift */; };
-		037B7A17272D7CB3004E9320 /* RepositoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */; };
 		037B7A19272D9F1A004E9320 /* BaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A18272D9F1A004E9320 /* BaseService.swift */; };
 		037B7A22272ECCE0004E9320 /* BaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A21272ECCE0004E9320 /* BaseRepository.swift */; };
 		037B7A24272EDF9F004E9320 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B7A23272EDF9F004E9320 /* ViewModelProtocol.swift */; };
@@ -154,6 +153,8 @@
 		03E8B6A82797061B00EEAEF4 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */; };
 		03E8B6AA27970A7700EEAEF4 /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A927970A7700EEAEF4 /* ServiceAssembly.swift */; };
 		03E8B6AC27970C9E00EEAEF4 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6AB27970C9D00EEAEF4 /* PhotoDetailViewController.swift */; };
+		03E8B6AE27970F4400EEAEF4 /* FirebaseAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6AD27970F4400EEAEF4 /* FirebaseAssembly.swift */; };
+		03E8B6B027970F5200EEAEF4 /* RealmAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6AF27970F5200EEAEF4 /* RealmAssembly.swift */; };
 		03F2ED6426ED906C00CFE87C /* Post.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03F2ED6326ED906C00CFE87C /* Post.storyboard */; };
 		03F2ED6A26ED914B00CFE87C /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */; };
 		03F2ED6C26ED916900CFE87C /* PostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */; };
@@ -270,7 +271,6 @@
 		037A77CB27527CB30021BBA7 /* DBConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBConstants.swift; sourceTree = "<group>"; };
 		037B7A0B272D7AEF004E9320 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		037B7A14272D7C30004E9320 /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
-		037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProvider.swift; sourceTree = "<group>"; };
 		037B7A18272D9F1A004E9320 /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
 		037B7A21272ECCE0004E9320 /* BaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRepository.swift; sourceTree = "<group>"; };
 		037B7A23272EDF9F004E9320 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -344,6 +344,8 @@
 		03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
 		03E8B6A927970A7700EEAEF4 /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
 		03E8B6AB27970C9D00EEAEF4 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
+		03E8B6AD27970F4400EEAEF4 /* FirebaseAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAssembly.swift; sourceTree = "<group>"; };
+		03E8B6AF27970F5200EEAEF4 /* RealmAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAssembly.swift; sourceTree = "<group>"; };
 		03F2ED6326ED906C00CFE87C /* Post.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Post.storyboard; sourceTree = "<group>"; };
 		03F2ED6926ED914B00CFE87C /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		03F2ED6B26ED916900CFE87C /* PostHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderView.swift; sourceTree = "<group>"; };
@@ -582,7 +584,7 @@
 		032233AF2692764F0092DD6D /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				037B7A16272D7CB3004E9320 /* RepositoryProvider.swift */,
+				03E8B6B12797122F00EEAEF4 /* Assembly */,
 				244B2B0F26E4A0BF001226F0 /* FirebaseRepository */,
 				24B081A926DFD1FA00379087 /* RealmRepository */,
 				03F2ED6026ED046700CFE87C /* AuthRepository */,
@@ -1011,6 +1013,15 @@
 			path = AlamofireSession;
 			sourceTree = "<group>";
 		};
+		03E8B6B12797122F00EEAEF4 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				03E8B6AD27970F4400EEAEF4 /* FirebaseAssembly.swift */,
+				03E8B6AF27970F5200EEAEF4 /* RealmAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
 		03F2ED6026ED046700CFE87C /* AuthRepository */ = {
 			isa = PBXGroup;
 			children = (
@@ -1404,6 +1415,7 @@
 				03F2ED8626F0343E00CFE87C /* CommentService.swift in Sources */,
 				03B3EB6F2737B575004CACF4 /* UserPhotoEditButton.swift in Sources */,
 				034A383C27702A080059B9F8 /* NetworkResult.swift in Sources */,
+				03E8B6AE27970F4400EEAEF4 /* FirebaseAssembly.swift in Sources */,
 				03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */,
 				03E8B69E2795A79100EEAEF4 /* MyInterceptor.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
@@ -1488,7 +1500,6 @@
 				034A38482770CF7C0059B9F8 /* Photo.swift in Sources */,
 				2417EABC26E5A562006F2785 /* MyPageHeaderViewController.swift in Sources */,
 				037B7A26272EDFD0004E9320 /* StoryboardProtocol.swift in Sources */,
-				037B7A17272D7CB3004E9320 /* RepositoryProvider.swift in Sources */,
 				030D4AE8273010C9005C0FFF /* MealService.swift in Sources */,
 				03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */,
 				24B081C426E0473F00379087 /* LocalShopping.swift in Sources */,
@@ -1502,6 +1513,7 @@
 				24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */,
 				037B7A0C272D7AEF004E9320 /* BaseViewController.swift in Sources */,
 				03F2ED8A26F06BC300CFE87C /* FirestoreCommentRepo.swift in Sources */,
+				03E8B6B027970F5200EEAEF4 /* RealmAssembly.swift in Sources */,
 				0331A9CF2711C3EA005EF05B /* PostCellReactor.swift in Sources */,
 				03525F742707E72D006C8B40 /* KakaoAuthRepo.swift in Sources */,
 				24B081BA26DFD23500379087 /* LocalUser.swift in Sources */,
