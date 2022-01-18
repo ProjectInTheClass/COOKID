@@ -16,13 +16,18 @@ class MainAssembly: Assembly {
             return PhotoAPI()
         }
         
-        
-        
         container.register(AddMealReactor.self, name: "new") { resolver in
             let photoService = resolver.resolve(PhotoServiceType.self)!
-            
-            return AddMealReactor(mode: .new, photoService: <#T##PhotoServiceType#>, userService: <#T##UserServiceType#>, mealService: <#T##MealServiceType#>)
+            let userService = resolver.resolve(UserServiceType.self)!
+            let mealService = resolver.resolve(MealServiceType.self)!
+            return AddMealReactor(mode: .new, photoService: photoService, userService: userService, mealService: mealService)
         }
         
+        container.register(PhotoSelectViewController.self, name: nil) { resolver in
+            let reactor = resolver.resolve(AddMealReactor.self)!
+            let vc = PhotoSelectViewController()
+            vc.reactor = reactor
+            return vc
+        }
     }
 }
