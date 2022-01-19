@@ -8,11 +8,7 @@
 import Foundation
 
 class BaseService: BaseRepository {
-    unowned let serviceProvider: ServiceProviderType
-    init(serviceProvider: ServiceProviderType, repoProvider: RepositoryProviderType) {
-        self.serviceProvider = serviceProvider
-        super.init(repoProvider: repoProvider)
-    }
+  
 }
 
 extension BaseService {

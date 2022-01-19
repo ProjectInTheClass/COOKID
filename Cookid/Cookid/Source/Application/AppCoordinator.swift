@@ -11,14 +11,7 @@ class AppCoordinator: CoordinatorType {
     
     var childCoordinator = [CoordinatorType]()
     var navigationController: UINavigationController?
-    let repoProvider: RepositoryProviderType
-    var serviceProvider: ServiceProviderType
     
-    init(serviceProvider: ServiceProviderType,
-         repoProvider: RepositoryProviderType) {
-        self.serviceProvider = serviceProvider
-        self.repoProvider = repoProvider
-    }
     
     // MARK: - START
     

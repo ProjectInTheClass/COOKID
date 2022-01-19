@@ -10,7 +10,6 @@ import Swinject
 
 class FirebaseAssembly: Assembly {
     func assemble(container: Container) {
-        
         container.register(StorageRepoType.self, name: nil) { resolver in
             return FirebaseStorageRepo()
         }

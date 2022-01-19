@@ -18,6 +18,14 @@ protocol CommentServiceType {
 
 class CommentService: BaseService, CommentServiceType {
     
+    let firestoreCommentRepo: CommentRepoType
+    let firestoreUserRepo: UserRepoType
+    init(firestoreCommentRepo: CommentRepoType,
+         firestoreUserRepo: UserRepoType) {
+        self.firestoreCommentRepo = firestoreCommentRepo
+        self.firestoreUserRepo = firestoreUserRepo
+    }
+    
     private var comments = [Comment]()
     private lazy var commentStore = BehaviorSubject(value: comments)
     
@@ -28,7 +36,7 @@ class CommentService: BaseService, CommentServiceType {
     func createComment(comment: Comment) {
         self.comments.append(comment)
         self.commentStore.onNext(self.comments)
-        self.repoProvider.firestoreCommentRepo.createComment(comment: comment) { result in
+        self.firestoreCommentRepo.createComment(comment: comment) { result in
             switch result {
             case .success(let success) :
                 print(success)
@@ -45,7 +53,7 @@ class CommentService: BaseService, CommentServiceType {
             self.commentStore.onNext(self.comments)
         }
         
-        self.repoProvider.firestoreCommentRepo.deleteComment(comment: comment) { result in
+        self.firestoreCommentRepo.deleteComment(comment: comment) { result in
             switch result {
             case .success(let success) :
                 print(success)
@@ -62,7 +70,7 @@ class CommentService: BaseService, CommentServiceType {
             self.commentStore.onNext(self.comments)
         }
         
-        self.repoProvider.firestoreCommentRepo.reportComment(comment: comment, user: currentUser) { result in
+        self.firestoreCommentRepo.reportComment(comment: comment, user: currentUser) { result in
             switch result {
             case .success(let success) :
                 print(success)
@@ -75,7 +83,7 @@ class CommentService: BaseService, CommentServiceType {
     // 백앤드에서 count만 가져올 수 있는지 찾아보자.
     func fetchCommentsCount(post: Post) -> Observable<Int> {
         return Observable.create { observer in
-            self.repoProvider.firestoreCommentRepo.fetchComments(postID: post.postID) { result in
+            self.firestoreCommentRepo.fetchComments(postID: post.postID) { result in
                 switch result {
                 case .success(let commentEntities):
                     observer.onNext(commentEntities.count)
@@ -88,7 +96,7 @@ class CommentService: BaseService, CommentServiceType {
     }
     
     func fetchComments(post: Post, currentUser: User, completion: @escaping ([Comment]) -> Void) {
-        self.repoProvider.firestoreCommentRepo.fetchComments(postID: post.postID) { [weak self] result in
+        self.firestoreCommentRepo.fetchComments(postID: post.postID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let entities):
@@ -103,7 +111,7 @@ class CommentService: BaseService, CommentServiceType {
                         return
                     }
                     
-                    self.repoProvider.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
+                    self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                         switch result {
                         case .success(let userEntity):
                             guard let userEntity = userEntity else {
