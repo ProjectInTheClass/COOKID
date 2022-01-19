@@ -27,18 +27,23 @@ class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     var input: Input
     var output: Output
     
-    override init(serviceProvider: ServiceProviderType) {
+    let userService: UserServiceType
+    let postService: PostServiceType
+    
+    init(userService: UserServiceType,
+         postService: PostServiceType) {
+        self.userService = userService
+        self.postService = postService
         self.input = Input()
         self.output = Output()
-        super.init(serviceProvider: serviceProvider)
         
-        let currentUser = serviceProvider.userService.currentUser
+        let currentUser = userService.currentUser
         
         currentUser
             .bind(to: output.user)
             .disposed(by: disposeBag)
         
-        serviceProvider.postService.totalPosts
+        postService.totalPosts
             .debug()
             .bind(to: output.posts)
             .disposed(by: disposeBag)
@@ -58,7 +63,7 @@ class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             .withUnretained(self)
             .bind(onNext: { owner, values in
                 owner.output.isLoading.accept(true)
-                owner.serviceProvider.postService.fetchLastPosts(currentUser: values.0) { success in
+                owner.postService.fetchLastPosts(currentUser: values.0) { success in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         owner.output.isLoading.accept(!success)
                     }
@@ -70,7 +75,7 @@ class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             .withLatestFrom(currentUser)
             .withUnretained(self)
             .bind(onNext: { owner, user in
-                owner.serviceProvider.postService.fetchLatestPosts(currentUser: user)
+                owner.postService.fetchLatestPosts(currentUser: user)
             })
             .disposed(by: disposeBag)
         
@@ -78,14 +83,14 @@ class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             .withLatestFrom(currentUser)
             .withUnretained(self)
             .bind(onNext: { owner, user in
-                owner.serviceProvider.postService.fetchLastPosts(currentUser: user, completion: { _ in })
+                owner.postService.fetchLastPosts(currentUser: user, completion: { _ in })
             })
             .disposed(by: disposeBag)
                 
     }
     
     func fetchInitialDate() {
-        serviceProvider.userService.loadMyInfo()
+        self.userService.loadMyInfo()
         input.fetchInitialPosts.accept(())
     }
     

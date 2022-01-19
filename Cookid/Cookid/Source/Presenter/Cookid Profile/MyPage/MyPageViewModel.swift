@@ -35,15 +35,26 @@ class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     var input: Input
     var output: Output
     
-    override init(serviceProvider: ServiceProviderType) {
+    let userService: UserServiceType
+    let mealService: MealServiceType
+    let shoppingService: ShoppingServiceType
+    let postService: PostServiceType
+    
+    init(userService: UserServiceType,
+         mealService: MealServiceType,
+         shoppingService: ShoppingServiceType,
+         postService: PostServiceType) {
+        self.userService = userService
+        self.mealService = mealService
+        self.shoppingService = shoppingService
+        self.postService = postService
         self.input = Input()
         self.output = Output()
-        super.init(serviceProvider: serviceProvider)
-        
-        let currentUser = serviceProvider.userService.currentUser
-        let meals = serviceProvider.mealService.mealList
-        let shoppings = serviceProvider.shoppingService.shoppingList
-        let myPosts = serviceProvider.postService.myTotalPosts
+
+        let currentUser = userService.currentUser
+        let meals = mealService.mealList
+        let shoppings = shoppingService.shoppingList
+        let myPosts = postService.myTotalPosts
         
         meals
             .bind(to: output.meals)
@@ -76,7 +87,7 @@ class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             .withLatestFrom(currentUser,
                             resultSelector: { ($0, $1) })
             .bind(onNext: { (image, user) in
-                serviceProvider.userService.updateUserImage(user: user, profileImage: image, completion: { _ in })
+                userService.updateUserImage(user: user, profileImage: image, completion: { _ in })
                 Crashlytics.crashlytics().setUserID(user.id)
                 Crashlytics.crashlytics().setCustomValue(image.size, forKey: "image_size")
                 Analytics.logEvent("check_imagesize", parameters: [
@@ -106,7 +117,7 @@ class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                 let determination = userInfo["determination"] as? String ?? currentUser.determination
                 let budget = userInfo["budget"] as? String ?? "\(currentUser.priceGoal)"
                 let newUser = User(id: currentUser.id, image: currentUser.image, nickname: nickName, determination: determination, priceGoal: Int(budget) ?? currentUser.priceGoal, userType: currentUser.userType, dineInCount: currentUser.dineInCount, cookidsCount: currentUser.cookidsCount)
-                serviceProvider.userService.updateUserInfo(user: newUser, completion: { success in
+                userService.updateUserInfo(user: newUser, completion: { success in
                     if success {
                         self.output.completionUpdate.accept(true)
                     }
@@ -116,8 +127,8 @@ class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     }
     
     func fetchInitialData(user: User) {
-        _ = serviceProvider.postService.fetchMyPosts(currentUser: user)
-        _ = serviceProvider.postService.fetchBookmarkedPosts(currentUser: user)
+        _ = self.postService.fetchMyPosts(currentUser: user)
+        _ = self.postService.fetchBookmarkedPosts(currentUser: user)
     }
     
 }

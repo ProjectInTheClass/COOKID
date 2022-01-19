@@ -15,6 +15,7 @@ class MainAssembly: Assembly {
         let userService = safeResolver.resolve(UserServiceType.self)!
         let mealService = safeResolver.resolve(MealServiceType.self)!
         let shoppingService = safeResolver.resolve(ShoppingServiceType.self)!
+        let postService = safeResolver.resolve(PostServiceType.self)!
         
         container.register(NetworkAPIType.self, name: nil) { resolver in
             return PhotoAPI()
@@ -32,21 +33,29 @@ class MainAssembly: Assembly {
             return vc
         }
         
+        container.register(MainViewModel.self, name: nil) { resolver in
+            return MainViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService)
+        }
+    
+        container.register(PostMainViewController.self, name: nil) { resolver in
+            return PostViewModel(userService: userService, postService: postService)
+        }
+        
+        container.register(MyPageViewModel.self, name: nil) { resolver in
+            return MyPageViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService, postService: postService)
+        }
+        
         container.register(UITabBarController.self, name: nil) { resolver in
             
             // 3가지 뷰컨 선언, TabVC에 넣기
-            
             var mainVC = MainViewController.instantiate(storyboardID: "Main")
-            mainVC.bind(viewModel: MainViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService))
+            mainVC.bind(viewModel: safeResolver.resolve(MainViewModel.self)!)
             
             var postMainVC = PostMainViewController.instantiate(storyboardID: "Post")
-            postMainVC.bind(viewModel: PostViewModel(serviceProvider: serviceProvider))
-            postMainVC.coordinator = self
+            postMainVC.bind(viewModel: safeResolver.resolve(PostViewModel.self)!)
             
             var myPageVC = MyPageViewController.instantiate(storyboardID: "UserInfo")
-            myPageVC.coordinator = self
-            myPageVC.bind(viewModel: MyPageViewModel(serviceProvider: serviceProvider))
-            
+            myPageVC.bind(viewModel: safeResolver.resolve(MyPageViewModel.self)!)
             
             // tabbar
             let tabBarController = UITabBarController()
@@ -55,7 +64,7 @@ class MainAssembly: Assembly {
             tabBarController.tabBar.items?[2].title = "마이페이지"
             tabBarController.modalPresentationStyle = .fullScreen
             tabBarController.modalTransitionStyle = .crossDissolve
-            
+            return tabBarController
         }
     }
 }
