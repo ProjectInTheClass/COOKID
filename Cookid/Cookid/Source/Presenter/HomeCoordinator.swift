@@ -6,21 +6,19 @@
 //
 
 import UIKit
+import Swinject
 
-class HomeCoordinator: CoordinatorType {
+final class HomeCoordinator: CoordinatorType {
     
-    var parentCoordinator : CoordinatorType
-    var childCoordinator: [CoordinatorType] = []
-    var serviceProvider: ServiceProviderType
-    var navigationController: UINavigationController?
-
-    init(parentCoordinator : CoordinatorType,
-         serviceProvider: ServiceProviderType) {
-        self.parentCoordinator = parentCoordinator
-        self.serviceProvider = serviceProvider
+    var assembler: Assembler
+    var navigationController: UINavigationController
+    init(assembler: Assembler,
+         navigationController: UINavigationController) {
+        self.assembler = assembler
+        self.navigationController = navigationController
     }
     
-    func start() -> UIViewController {
+    func start() {
       
         let mainCoordinator = MainCoordinator(parentCoordinator: self, serviceProvider: serviceProvider)
         let mainNVC = mainCoordinator.start()

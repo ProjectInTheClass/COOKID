@@ -6,24 +6,25 @@
 //
 
 import UIKit
+import Swinject
 
-class AppCoordinator: CoordinatorType {
+final class AppCoordinator: CoordinatorType {
+    var assembler: Assembler
+    var navigationController: UINavigationController
+    init(assembler: Assembler,
+         navigationController: UINavigationController) {
+        self.assembler = assembler
+        self.navigationController = navigationController
+    }
     
-    var childCoordinator = [CoordinatorType]()
-    var navigationController: UINavigationController?
-    
-    
-    // MARK: - START
-    
-    func start() -> UIViewController {
-        if repoProvider.realmUserRepo.fetchUser() != nil {
-            let homeCoordinator = HomeCoordinator(parentCoordinator: self, serviceProvider: serviceProvider)
-            childCoordinator.append(homeCoordinator)
-            return homeCoordinator.start()
+    func start() {
+        let realmUserRepo = assembler.resolver.resolve(RealmUserRepoType.self)!
+        if realmUserRepo.fetchUser() != nil {
+            let homeCoordinator = HomeCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+            homeCoordinator.start()
         } else {
-            let onBoardingCoordinator = LocalSignInCoordinator(parentCoordinator: self, serviceProvider: serviceProvider)
-            childCoordinator.append(onBoardingCoordinator)
-            return onBoardingCoordinator.start()
+            let onBoardingCoordinator = LocalSignInCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+            onBoardingCoordinator.start()
         }
     }
 }
