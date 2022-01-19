@@ -23,8 +23,16 @@ protocol UserServiceType {
 
 class UserService: BaseService, UserServiceType {
     
+    let firestoreUserRepo: UserRepoType
+    let realmUserRepo: RealmUserRepoType
+    init(firestoreUserRepo: UserRepoType,
+         realmUserRepo: RealmUserRepoType) {
+        self.firestoreUserRepo = firestoreUserRepo
+        self.realmUserRepo = realmUserRepo
+    }
+    
     /// Fetch from Realm
-    private lazy var defaultUserInfo = repoProvider.realmUserRepo.fetchUser().map { userentity -> User in
+    private lazy var defaultUserInfo = realmUserRepo.fetchUser().map { userentity -> User in
         return User(id: userentity.id.stringValue,
                     image: nil,
                     nickname: userentity.nickName,
@@ -39,7 +47,7 @@ class UserService: BaseService, UserServiceType {
     
     /// Create in Realm
     func creatUser(user: User, completion: @escaping (Bool) -> Void) {
-        self.repoProvider.realmUserRepo.createUser(user: user) { [weak self] success in
+        self.realmUserRepo.createUser(user: user) { [weak self] success in
             guard let self = self else { return }
             if success {
                 self.defaultUserInfo = user
@@ -56,7 +64,7 @@ class UserService: BaseService, UserServiceType {
         let connectedUser = User(id: localUser.id.stringValue, image: imageURL, nickname: localUser.nickName, determination: localUser.determination, priceGoal: localUser.goal, userType: UserType(rawValue: localUser.type) ?? .preferDineIn, dineInCount: dineInCount, cookidsCount: cookidsCount)
         self.defaultUserInfo = connectedUser
         self.currentUser.onNext(connectedUser)
-        self.repoProvider.firestoreUserRepo.createUser(user: connectedUser) { result in
+        self.firestoreUserRepo.createUser(user: connectedUser) { result in
             switch result {
             case .success(let success):
                 print(success)
@@ -70,7 +78,7 @@ class UserService: BaseService, UserServiceType {
     
     /// Fetch from Firebase
     func loadMyInfo() {
-        self.repoProvider.firestoreUserRepo.fetchUser(userID: self.defaultUserInfo.id) { [weak self] result in
+        self.firestoreUserRepo.fetchUser(userID: self.defaultUserInfo.id) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let entity):
@@ -89,7 +97,7 @@ class UserService: BaseService, UserServiceType {
     func fetchUserInfo(user: User) -> Observable<User> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.repoProvider.firestoreUserRepo.fetchUser(userID: user.id) { result in
+            self.firestoreUserRepo.fetchUser(userID: user.id) { result in
                 switch result {
                 case .success(let entity):
                     guard let entity = entity else { return }
@@ -105,14 +113,14 @@ class UserService: BaseService, UserServiceType {
     
     func updateUserInfo(user: User, completion: @escaping (Bool) -> Void) {
         // Realm에서 업데이트하기
-        self.repoProvider.realmUserRepo.updateUser(user: user) { [weak self] success in
+        self.realmUserRepo.updateUser(user: user) { [weak self] success in
             guard let self = self else { return }
             if success {
                 // Memory에서 업데이트하기
                 self.defaultUserInfo = user
                 self.currentUser.onNext(self.defaultUserInfo)
                 // Firebase에서 업데이트하기
-                self.repoProvider.firestoreUserRepo.updateUser(user: user, completion: { result in
+                self.firestoreUserRepo.updateUser(user: user, completion: { result in
                     switch result {
                     case .success(let success):
                         print(success)
@@ -130,7 +138,7 @@ class UserService: BaseService, UserServiceType {
     }
     
     func updateUserImage(user: User, profileImage: UIImage?, completion: @escaping (Bool) -> Void) {
-        repoProvider.firestorageImageRepo.uploadUserImage(userID: user.id, image: profileImage) { [weak self] result in
+        self.firestorageImageRepo.uploadUserImage(userID: user.id, image: profileImage) { [weak self] result in
             guard let self = self else {
                 completion(false)
                 return }
@@ -139,7 +147,7 @@ class UserService: BaseService, UserServiceType {
                 guard let url = url else {
                     completion(false)
                     return }
-                self.repoProvider.firestoreUserRepo.transactionUserImageURL(userID: user.id, imageURL: url.absoluteString) { success in
+                self.firestoreUserRepo.transactionUserImageURL(userID: user.id, imageURL: url.absoluteString) { success in
                     if success {
                         self.defaultUserInfo.image = url
                         self.currentUser.onNext(self.defaultUserInfo)
@@ -158,7 +166,7 @@ class UserService: BaseService, UserServiceType {
     func fetchCookidRankers() -> Observable<[User]> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.repoProvider.firestoreUserRepo.fetchCookidsRankers { result in
+            self.firestoreUserRepo.fetchCookidsRankers { result in
                 switch result {
                 case .success(let userEntities):
                     let users = userEntities.map { self.convertEntityToUser(entity: $0) }

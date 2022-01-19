@@ -6,21 +6,19 @@
 //
 
 import UIKit
+import Swinject
 
 class LocalSignInCoordinator: CoordinatorType {
     
-    var parentCoordinator : CoordinatorType?
-    var childCoordinator: [CoordinatorType] = []
-    var navigationController: UINavigationController?
-    var serviceProvider: ServiceProviderType
-    
-    init(parentCoordinator : CoordinatorType,
-         serviceProvider: ServiceProviderType) {
-        self.parentCoordinator = parentCoordinator
-        self.serviceProvider = serviceProvider
+    var assembler: Assembler
+    var navigationController: UINavigationController
+    init(assembler: Assembler,
+         navigationController: UINavigationController) {
+        self.assembler = assembler
+        self.navigationController = navigationController
     }
     
-    func start() -> UIViewController {
+    func start() {
         let pageVC = LocalSignInViewViewController(coordinator: self, serviceProvider: serviceProvider)
         return pageVC
     }

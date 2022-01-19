@@ -19,9 +19,18 @@ protocol ShoppingServiceType {
 }
 
 class ShoppingService: BaseService, ShoppingServiceType {
+    
+    let realmShoppingRepo: RealmShoppingRepoType
+    let firestoreUserRepo: UserRepoType
+    
+    init(realmShoppingRepo: RealmShoppingRepoType,
+         firestoreUserRepo: UserRepoType) {
+        self.realmShoppingRepo = realmShoppingRepo
+        self.firestoreUserRepo = firestoreUserRepo
+    }
    
     private var shoppings: [Shopping] = []
-    
+
     private lazy var shoppingStore = BehaviorSubject<[Shopping]>(value: shoppings)
     
     var initialShoppingCount: Int {
@@ -39,9 +48,9 @@ class ShoppingService: BaseService, ShoppingServiceType {
     func create(shopping: Shopping, currentUser: User) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.repoProvider.realmShoppingRepo.createShopping(shopping: shopping) { success in
+            self.realmShoppingRepo.createShopping(shopping: shopping) { success in
                 if success {
-                    self.repoProvider.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: true)
+                    self.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: true)
                     self.shoppings.append(shopping)
                     self.shoppingStore.onNext(self.shoppings)
                     observer.onNext(true)
@@ -54,7 +63,7 @@ class ShoppingService: BaseService, ShoppingServiceType {
     }
     
     func fetchShoppings() {
-        guard let localShoppings = self.repoProvider.realmShoppingRepo.fetchShoppings() else { return }
+        guard let localShoppings = self.realmShoppingRepo.fetchShoppings() else { return }
         let shoppings = localShoppings.map { localShopping -> Shopping in
             return Shopping(id: localShopping.id, date: localShopping.date, totalPrice: localShopping.price)
         }
@@ -65,7 +74,7 @@ class ShoppingService: BaseService, ShoppingServiceType {
     func update(updateShopping: Shopping) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.repoProvider.realmShoppingRepo.updateShopping(shopping: updateShopping) { success in
+            self.realmShoppingRepo.updateShopping(shopping: updateShopping) { success in
                 if success {
                     if let index = self.shoppings.firstIndex(where: { $0.id == updateShopping.id }) {
                         self.shoppings.remove(at: index)
@@ -84,12 +93,12 @@ class ShoppingService: BaseService, ShoppingServiceType {
     func deleteShopping(deleteShopping: Shopping, currentUser: User) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
-            self.repoProvider.realmShoppingRepo.deleteShopping(shopping: deleteShopping) { success in
+            self.realmShoppingRepo.deleteShopping(shopping: deleteShopping) { success in
                 if success {
                     if let index = self.shoppings.firstIndex(where: { $0.id == deleteShopping.id }) {
                         self.shoppings.remove(at: index)
                     }
-                    self.repoProvider.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: false)
+                    self.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: false)
                     self.shoppingStore.onNext(self.shoppings)
                     observer.onNext(true)
                 } else {

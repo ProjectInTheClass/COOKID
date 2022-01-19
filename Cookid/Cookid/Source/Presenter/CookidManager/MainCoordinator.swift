@@ -7,26 +7,21 @@
 
 import UIKit
 import ReactorKit
+import Swinject
 
 class MainCoordinator: CoordinatorType {
     
-    var childCoordinator: [CoordinatorType] = []
-    var parentCoordinator: CoordinatorType
-    var navigationController: UINavigationController?
-    var serviceProvider: ServiceProviderType
-    
-    init(parentCoordinator : CoordinatorType, serviceProvider: ServiceProviderType) {
-        self.parentCoordinator = parentCoordinator
-        self.serviceProvider = serviceProvider
+    var assembler: Assembler
+    var navigationController: UINavigationController
+    init(assembler: Assembler,
+         navigationController: UINavigationController) {
+        self.assembler = assembler
+        self.navigationController = navigationController
     }
     
-    func start() -> UIViewController {
-        var mainVC = MainViewController.instantiate(storyboardID: "Main")
-        mainVC.bind(viewModel: MainViewModel(serviceProvider: serviceProvider))
-        mainVC.coordinator = self
-        navigationController = UINavigationController(rootViewController: mainVC)
-        navigationBarConfigure()
-        return navigationController!
+    func start() {
+        let tabBarController = assembler.resolver.resolve(UITabBarController.self)!
+        navigationController.setViewControllers([tabBarController], animated: false)
     }
     
     private func navigationBarConfigure() {

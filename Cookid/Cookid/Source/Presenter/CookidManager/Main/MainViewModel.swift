@@ -44,19 +44,27 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     var output: Output
     let dataSource: RxCollectionViewSectionedReloadDataSource<MainCollectionViewSection>
     
-    override init(serviceProvider: ServiceProviderType) {
+    let userService: UserServiceType
+    let mealService: MealServiceType
+    let shoppingService: ShoppingServiceType
+    
+    init(userService: UserServiceType,
+         mealService: MealServiceType,
+         shoppingService: ShoppingServiceType) {
+        self.userService = userService
+        self.mealService = mealService
+        self.shoppingService = shoppingService
         self.input = Input()
         self.output = Output()
         self.dataSource = MainDataSource.dataSouce
-        super.init(serviceProvider: serviceProvider)
         
-        bindActionForOutput(serviceProvider: serviceProvider, input: input, output: output)
+        bindActionForOutput(input: input, output: output)
         
-        let currentUser = serviceProvider.userService.currentUser
-        let meals = serviceProvider.mealService.mealList
-        let shoppings = serviceProvider.shoppingService.shoppingList
-        let spotMonthMeals = serviceProvider.mealService.spotMonthMeals
-        let spotMonthShoppings = serviceProvider.shoppingService.spotMonthShoppings
+        let currentUser = userService.currentUser
+        let meals = mealService.mealList
+        let shoppings = shoppingService.shoppingList
+        let spotMonthMeals = mealService.spotMonthMeals
+        let spotMonthShoppings = shoppingService.spotMonthShoppings
         
         // user information output
         currentUser
@@ -159,11 +167,11 @@ class MainViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     
     // 이니셜 라이저 안에서는 실행되지 않는다. 기본적으로 가져와야 하는 데이터이기 때문에 따로 불러온다.
     func fetchDataForMain() {
-        serviceProvider.mealService.fetchMeals()
-        serviceProvider.shoppingService.fetchShoppings()
+        self.mealService.fetchMeals()
+        self.shoppingService.fetchShoppings()
     }
     
-    func bindActionForOutput(serviceProvider: ServiceProviderType, input: Input, output: Output) {
+    func bindActionForOutput(input: Input, output: Output) {
         
         input.leftButtonTapped
             .withUnretained(self)

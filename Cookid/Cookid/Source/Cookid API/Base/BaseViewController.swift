@@ -16,6 +16,7 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         self.view.setNeedsUpdateConstraints()
+        self.view.backgroundColor = .systemBackground
     }
     
     override func updateViewConstraints() {
@@ -24,6 +25,23 @@ class BaseViewController: UIViewController {
             self.didSetupConstraints = true
         }
         super.updateViewConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(showErrorPopup), name: NSNotification.Name("statusCode"), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("statusCode"), object: nil)
+    }
+    
+    @objc func showErrorPopup(_ notification: Notification) {
+        let statusCode = notification.object as! Int
+        if !(200..<300).contains(statusCode) {
+            print(String(describing: statusCode))
+        }
     }
     
     // overrride

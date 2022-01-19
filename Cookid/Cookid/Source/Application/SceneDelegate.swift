@@ -12,15 +12,16 @@ import NaverThirdPartyLogin
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    let repoProvider = RepositoryProvider()
-    lazy var serviceProvider = ServiceProvider(repoProvider: repoProvider)
-    lazy var coordinator = AppCoordinator(serviceProvider: serviceProvider,
-                                          repoProvider: repoProvider)
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        let rootNavigationController = UINavigationController()
+        let appAseembler = AppAssembler.assembler
+        let appCoordinator = AppCoordinator(assembler: appAseembler, navigationController: rootNavigationController)
+        appCoordinator.start()
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = coordinator.start()
+        window?.rootViewController = rootNavigationController
         window?.makeKeyAndVisible()
     }
     

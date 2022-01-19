@@ -7,25 +7,18 @@
 
 import UIKit
 
-class MyPageCoordinator: CoordinatorType {
+final class MyPageCoordinator: CoordinatorType {
     
-    var childCoordinator: [CoordinatorType] = []
-    var parentCoordinator: CoordinatorType
-    var navigationController: UINavigationController?
-    var serviceProvider: ServiceProviderType
-    
-    init(parentCoordinator : CoordinatorType, serviceProvider: ServiceProviderType) {
-        self.parentCoordinator = parentCoordinator
-        self.serviceProvider = serviceProvider
+    var assembler: Assembler
+    var navigationController: UINavigationController
+    init(assembler: Assembler,
+         navigationController: UINavigationController) {
+        self.assembler = assembler
+        self.navigationController = navigationController
     }
     
-    func start() -> UIViewController {
-        var myPageVC = MyPageViewController.instantiate(storyboardID: "UserInfo")
-        myPageVC.coordinator = self
-        myPageVC.bind(viewModel: MyPageViewModel(serviceProvider: serviceProvider))
-        navigationController = UINavigationController(rootViewController: myPageVC)
-        navigationBarConfigure()
-        return navigationController!
+    func start() {
+    
     }
     
     private func navigationBarConfigure() {

@@ -8,8 +8,14 @@
 import Foundation
 
 class BaseViewModel {
-    unowned let serviceProvider: ServiceProviderType
-    init(serviceProvider: ServiceProviderType) {
-        self.serviceProvider = serviceProvider
+    let userService: UserServiceType
+    let mealService: MealServiceType
+    let shoppingService: ShoppingServiceType
+    init(userService: UserServiceType,
+         mealService: MealServiceType,
+         shoppingService: ShoppingServiceType) {
+        self.userService = userService
+        self.mealService = mealService
+        self.shoppingService = shoppingService
     }
 }

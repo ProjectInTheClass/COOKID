@@ -8,10 +8,17 @@
 import Foundation
 import Swinject
 
-class AppAssembler {
+final class AppAssembler {
     static let assembler = Assembler([
+        // Data
+        FirebaseAssembly(),
+        RealmAssembly(),
+        // Domain
         ServiceAssembly(),
-        MainAssembly()
+        // Presenter
+        MainAssembly(),
+        PostAssembly(),
+        MyPageAssembly()
     ])
 }
 

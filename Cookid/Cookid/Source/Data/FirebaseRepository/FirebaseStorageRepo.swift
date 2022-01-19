@@ -12,14 +12,14 @@ import FirebaseStorageSwift
 typealias UserImageResult = (Result<URL?, FirebaseError>) -> Void
 typealias PostImagesResult = (Result<[URL?], FirebaseError>) -> Void
 
-protocol StorageImageRepo {
+protocol StorageRepoType {
     func uploadImages(postID: String, images: [UIImage], completion: @escaping PostImagesResult)
     func updateImages(postID: String, images: [UIImage], completion: @escaping PostImagesResult)
     func deleteImages(postID: String, completion: @escaping FirebaseResult)
     func uploadUserImage(userID: String, image: UIImage?, completion: @escaping UserImageResult)
 }
 
-class FirebaseStorageRepo: BaseRepository, StorageImageRepo {
+class FirebaseStorageRepo: BaseRepository, StorageRepoType {
     
     private let postImageStorage = Storage.storage().reference().child("postImage")
     private let userImageStorage = Storage.storage().reference().child("userImage")

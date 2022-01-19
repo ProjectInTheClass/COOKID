@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import Swinject
 
 protocol CoordinatorType {
-    var childCoordinator: [CoordinatorType] { get set }
-    var navigationController: UINavigationController? { get set }
-    var serviceProvider: ServiceProviderType { get set }
-    @discardableResult
-    func start() -> UIViewController
+    var assembler: Assembler { get set }
+    var navigationController: UINavigationController { get set }
+    init(assembler: Assembler,
+         navigationController: UINavigationController)
+    func start()
 }
