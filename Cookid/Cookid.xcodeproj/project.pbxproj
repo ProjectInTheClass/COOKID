@@ -129,7 +129,6 @@
 		03D8C1FB26EBB92A00238CB6 /* FirebaseStorageRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1FA26EBB92A00238CB6 /* FirebaseStorageRepo.swift */; };
 		03D8C1FD26EBBC9800238CB6 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1FC26EBBC9800238CB6 /* PostService.swift */; };
 		03E42ED126C41766005D7B5E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED026C41766005D7B5E /* AppCoordinator.swift */; };
-		03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */; };
 		03E42ED626C4DBD1005D7B5E /* RankingMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */; };
 		03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */; };
 		03E42EDA26C4E22F005D7B5E /* LocalSignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */; };
@@ -318,7 +317,6 @@
 		03D8C1FC26EBBC9800238CB6 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		03DB84BA273D4AD30069276F /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E42ED026C41766005D7B5E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		03E42ED526C4DBD1005D7B5E /* RankingMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingMainViewController.swift; sourceTree = "<group>"; };
 		03E42ED726C4DD2B005D7B5E /* RankingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewModel.swift; sourceTree = "<group>"; };
 		03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSignInCoordinator.swift; sourceTree = "<group>"; };
@@ -809,8 +807,6 @@
 		036185A0279435DC00F1F16B /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				03E42ED226C41D54005D7B5E /* HomeCoordinator.swift */,
-				03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */,
 				03B2048B26D5D9270099C269 /* CookidManager */,
 				03F2ED7126ED92C900CFE87C /* CookidCommunity */,
 				2417EAB426E58CF7006F2785 /* Cookid Profile */,
@@ -909,6 +905,7 @@
 			children = (
 				032233A1269212860092DD6D /* Main.storyboard */,
 				03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */,
+				03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */,
 				03F2ED9126F38D7C00CFE87C /* MainCoordinator.swift */,
 				2417EAB226E58CDD006F2785 /* LocalSignIn */,
 				030D4AD5273004E2005C0FFF /* Main */,
@@ -1432,7 +1429,6 @@
 				244B2B1126E4A0DB001226F0 /* FirestoreUserRepo.swift in Sources */,
 				032233C726927F0C0092DD6D /* DummyData.swift in Sources */,
 				032233DE2693057C0092DD6D /* User.swift in Sources */,
-				03E42ED326C41D54005D7B5E /* HomeCoordinator.swift in Sources */,
 				03F2ED7326ED92D500CFE87C /* PostViewModel.swift in Sources */,
 				03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */,
 				03E8B6B82797D0FF00EEAEF4 /* MyPageAssembly.swift in Sources */,

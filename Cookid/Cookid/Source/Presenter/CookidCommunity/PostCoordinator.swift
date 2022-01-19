@@ -10,23 +10,16 @@ import ReactorKit
 
 class PostCoordinator: CoordinatorType {
     
-    var childCoordinator: [CoordinatorType] = []
-    var parentCoordinator: CoordinatorType
-    var navigationController: UINavigationController?
-    var serviceProvider: ServiceProviderType
-    
-    init(parentCoordinator : CoordinatorType, serviceProvider: ServiceProviderType) {
-        self.parentCoordinator = parentCoordinator
-        self.serviceProvider = serviceProvider
+    var assembler: Assembler
+    var navigationController: UINavigationController
+    init(assembler: Assembler,
+         navigationController: UINavigationController) {
+        self.assembler = assembler
+        self.navigationController = navigationController
     }
     
-    func start() -> UIViewController {
-        var postMainVC = PostMainViewController.instantiate(storyboardID: "Post")
-        postMainVC.bind(viewModel: PostViewModel(serviceProvider: serviceProvider))
-        postMainVC.coordinator = self
-        navigationController = UINavigationController(rootViewController: postMainVC)
-        navigationBarConfigure()
-        return navigationController!
+    func start() {
+        
     }
     
     private func navigationBarConfigure() {

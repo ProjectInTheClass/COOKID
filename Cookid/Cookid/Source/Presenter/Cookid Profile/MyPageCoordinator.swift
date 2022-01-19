@@ -9,20 +9,16 @@ import UIKit
 
 final class MyPageCoordinator: CoordinatorType {
     
-    var assembler: AppAssembler!
-    init(assembler: AppAssembler) {
+    var assembler: Assembler
+    var navigationController: UINavigationController
+    init(assembler: Assembler,
+         navigationController: UINavigationController) {
         self.assembler = assembler
+        self.navigationController = navigationController
     }
     
-    var navigationController: UINavigationController?
-    
     func start() {
-        var myPageVC = MyPageViewController.instantiate(storyboardID: "UserInfo")
-        myPageVC.coordinator = self
-        myPageVC.bind(viewModel: MyPageViewModel(serviceProvider: serviceProvider))
-        navigationController = UINavigationController(rootViewController: myPageVC)
-        navigationBarConfigure()
-        return navigationController!
+    
     }
     
     private func navigationBarConfigure() {

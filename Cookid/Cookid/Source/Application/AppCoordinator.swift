@@ -20,11 +20,11 @@ final class AppCoordinator: CoordinatorType {
     func start() {
         let realmUserRepo = assembler.resolver.resolve(RealmUserRepoType.self)!
         if realmUserRepo.fetchUser() != nil {
-            let homeCoordinator = HomeCoordinator(assembler: self.assembler, navigationController: self.navigationController)
-            homeCoordinator.start()
+            let mainCoordinator = MainCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+            mainCoordinator.start()
         } else {
-            let onBoardingCoordinator = LocalSignInCoordinator(assembler: self.assembler, navigationController: self.navigationController)
-            onBoardingCoordinator.start()
+            let localSignInCoordinator = LocalSignInCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+            localSignInCoordinator.start()
         }
     }
 }
