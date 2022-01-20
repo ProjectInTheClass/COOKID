@@ -7,6 +7,7 @@
 
 import UIKit
 import ReactorKit
+import Swinject
 
 class PostCoordinator: CoordinatorType {
     
@@ -23,30 +24,30 @@ class PostCoordinator: CoordinatorType {
     }
     
     private func navigationBarConfigure() {
-        navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
-        navigationController?.navigationBar.barTintColor = .systemBackground
+        navigationController.navigationBar.tintColor = DefaultStyle.Color.tint
+        navigationController.navigationBar.barTintColor = .systemBackground
     }
     
     func navigateRankingVC(viewModel: PostViewModel) {
-        let rankingViewModel = RankingViewModel(serviceProvider: serviceProvider)
+        let rankingViewModel = assembler.resolver.resolve(RankingViewModel.self)!
         var vc = RankingMainViewController()
         vc.bind(viewModel: rankingViewModel)
         vc.modalPresentationStyle = .automatic
-        navigationController?.pushViewController(vc, animated: true)
+        navigationController.pushViewController(vc, animated: true)
     }
     
     func navigateSignInVC(viewModel: PostViewModel) {
         var signInVC = SignInViewController.instantiate(storyboardID: "UserInfo")
         signInVC.bind(viewModel: viewModel)
         signInVC.modalPresentationStyle = .overFullScreen
-        navigationController?.present(signInVC, animated: true)
+        navigationController.present(signInVC, animated: true)
     }
     
     func navigateAddPostVC(mode: PostEditViewMode, senderTag: Int) {
+        let reactor = assembler.resolver.resolve(AddPostReactor.self, argument: mode)!
         let addPostVC = AddPostViewController.instantiate(storyboardID: "Post")
-        let reactor = AddPostReactor(mode: mode, serviceProvider: serviceProvider)
         addPostVC.reactor = reactor
-        navigationController?.pushViewController(addPostVC, animated: true)
+        navigationController.pushViewController(addPostVC, animated: true)
         
         switch senderTag {
         case 1:

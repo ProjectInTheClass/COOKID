@@ -39,11 +39,18 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     
     var input: Input = Input()
     lazy var output: Output = Output(
-        user: self.serviceProvider.userService.currentUser)
+        user: self.userService.currentUser)
     
-    init(post: Post, serviceProvider: ServiceProviderType) {
+    let userService: UserServiceType
+    let commentService: CommentServiceType
+    
+    init(post: Post,
+         userService: UserServiceType,
+         commentService: CommentServiceType
+    ) {
+        self.userService = userService
+        self.commentService = commentService
         self.post = post
-        super.init(serviceProvider: serviceProvider)
         
         // 모든 저장 프로퍼티가 초기화가 되어 있어야 함수도 사용할 수 있다.
         input.commentContent
@@ -99,7 +106,7 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                 return subComment.commentID == comment.commentID }) else { return }
             
             output.commentSections[index].items.remove(at: subIndex)
-            serviceProvider.commentService.deleteComment(comment: comment)
+            self.commentService.deleteComment(comment: comment)
         } else {
             guard let index = output.commentSections.firstIndex(where: { section in
                 return section.header.commentID == comment.commentID
@@ -107,7 +114,7 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             
             output.commentSections[index].items.removeAll()
             output.commentSections.remove(at: index)
-            serviceProvider.commentService.deleteComment(comment: comment)
+            self.commentService.deleteComment(comment: comment)
         }
     }
     
@@ -119,7 +126,7 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                 return subComment.commentID == comment.commentID }) else { return }
             
             output.commentSections[index].items.remove(at: subIndex)
-            serviceProvider.commentService.reportComment(comment: comment, currentUser: user)
+            self.commentService.reportComment(comment: comment, currentUser: user)
         } else {
             guard let index = output.commentSections.firstIndex(where: { section in
                 return section.header.commentID == comment.commentID
@@ -127,7 +134,7 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
             
             output.commentSections[index].items.removeAll()
             output.commentSections.remove(at: index)
-            serviceProvider.commentService.reportComment(comment: comment, currentUser: user)
+            self.commentService.reportComment(comment: comment, currentUser: user)
         }
     }
     
@@ -143,7 +150,7 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         if let index = output.commentSections.firstIndex(where: { section in
             return section.header.commentID == parentComment.commentID
         }) {
-            serviceProvider.commentService.createComment(comment: newComment)
+            self.commentService.createComment(comment: newComment)
             output.commentSections[index].isOpened = true
             output.commentSections[index].items.append(newComment)
         }
@@ -160,11 +167,11 @@ class CommentViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                                  likes: 0)
         let newSection = CommentSection(header: newComment, items: [])
         output.commentSections.append(newSection)
-        serviceProvider.commentService.createComment(comment: newComment)
+        self.commentService.createComment(comment: newComment)
     }
     
     func fetchComments(user: User) {
-        serviceProvider.commentService.fetchComments(post: post, currentUser: user) { [weak self] comments in
+        self.commentService.fetchComments(post: post, currentUser: user) { [weak self] comments in
             guard let self = self else { return }
             self.output.commentSections = self.fetchCommentSection(comments: comments)
         }
