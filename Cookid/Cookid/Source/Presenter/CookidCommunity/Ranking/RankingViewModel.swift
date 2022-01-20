@@ -23,13 +23,13 @@ class RankingViewModel: ViewModelType, HasDisposeBag {
     
     var input: Input
     var output: Output
-    let serviceProvider: ServiceProviderType
+    let userService: UserServiceType
     
-    init(serviceProvider: ServiceProviderType) {
-        self.serviceProvider = serviceProvider
+    init(userService: UserServiceType) {
+        self.userService = userService
         
         let cookidRankers =
-        serviceProvider.userService.fetchCookidRankers()
+        userService.fetchCookidRankers()
             .map { $0.sorted(by: { $0.cookidsCount > $1.cookidsCount })}
             .asDriver(onErrorJustReturn: [])
         
