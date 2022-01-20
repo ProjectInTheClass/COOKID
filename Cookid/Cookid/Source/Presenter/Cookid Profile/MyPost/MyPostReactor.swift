@@ -29,19 +29,24 @@ class MyPostReactor: Reactor {
     }
     
     let initialState: State
-    let serviceProvider: ServiceProviderType
-    init(serviceProvider: ServiceProviderType) {
-        self.serviceProvider = serviceProvider
+    
+    let userService: UserServiceType
+    let postService: PostServiceType
+    
+    init(userService: UserServiceType,
+         postService: PostServiceType) {
+        self.userService = userService
+        self.postService = postService
         self.initialState = State()
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        let user = serviceProvider.userService.currentUser
+        let user = userService.currentUser
         let userMutation = user.map { Mutation.setUser($0) }
-        let totalMyPosts = serviceProvider.postService.myTotalPosts
+        let totalMyPosts = postService.myTotalPosts
             .map { Mutation.setMyPosts($0) }
         let fetchMyPosts =
-            user.flatMap(serviceProvider.postService.fetchMyPosts)
+            user.flatMap(postService.fetchMyPosts)
             .map { Mutation.setMyPosts($0) }
         return Observable.merge(mutation, totalMyPosts, userMutation, fetchMyPosts)
     }
@@ -49,7 +54,7 @@ class MyPostReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .deletePost(let post):
-            return self.serviceProvider.postService.deletePost(post: post)
+            return self.postService.deletePost(post: post)
                 .map { Mutation.setIsError(!$0) }
         }
     }

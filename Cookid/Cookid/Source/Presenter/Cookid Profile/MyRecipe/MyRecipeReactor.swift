@@ -24,10 +24,14 @@ class MyRecipeReactor: Reactor {
     }
     
     let initialState: State
-    let serviceProvider: ServiceProviderType
     
-    init(serviceProvider: ServiceProviderType) {
-        self.serviceProvider = serviceProvider
+    let userService: UserServiceType
+    let postService: PostServiceType
+    
+    init(userService: UserServiceType,
+         postService: PostServiceType) {
+        self.userService = userService
+        self.postService = postService
         self.initialState = State()
     }
 }
