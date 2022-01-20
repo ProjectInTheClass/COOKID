@@ -26,11 +26,14 @@ class MyBookmarkReactor: BaseViewModel, Reactor {
         var user: User = DummyData.shared.singleUser
     }
     
-    let initialState: State
+    let userService: UserServiceType
+    let postService: PostServiceType
     
-    override init(serviceProvider: ServiceProviderType) {
+    init(userService: UserServiceType,
+         postService: PostServiceType) {
+        self.userService = userService
+        self.postService = postService
         self.initialState = State()
-        super.init(serviceProvider: serviceProvider)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {

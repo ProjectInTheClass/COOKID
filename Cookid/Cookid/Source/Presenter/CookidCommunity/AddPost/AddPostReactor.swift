@@ -54,12 +54,17 @@ class AddPostReactor: Reactor {
     }
 
     let mode: PostEditViewMode
-    let serviceProvider: ServiceProviderType
     var initialState: State
+    let userService: UserServiceType
+    let postService: PostServiceType
     
-    init(mode: PostEditViewMode, serviceProvider: ServiceProviderType) {
+    init(mode: PostEditViewMode,
+         userService: UserServiceType,
+         postService: PostServiceType
+    ) {
+        self.userService = userService
+        self.postService = postService
         self.mode = mode
-        self.serviceProvider = serviceProvider
         switch mode {
         case .new:
             self.initialState = State(images: [], region: "")
@@ -69,7 +74,7 @@ class AddPostReactor: Reactor {
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        let user = serviceProvider.userService.currentUser
+        let user = userService.currentUser
             .map { Mutation.setUser($0) }
         switch mode {
         case .new:
@@ -140,14 +145,14 @@ class AddPostReactor: Reactor {
     func uploadPost(mode: PostEditViewMode, user: User, images: [UIImage], region: String, price: Int, star: Int, caption: String) -> Observable<Bool> {
         switch self.mode {
         case .new:
-            return serviceProvider.postService.createPost(user: user,
+            return postService.createPost(user: user,
                                                images: images,
                                                region: region,
                                                price: price,
                                                star: star,
                                                caption: caption)
         case .edit(let post):
-            return serviceProvider.postService.updatePost(originalPost: post,
+            return postService.updatePost(originalPost: post,
                                                images: images,
                                                region: region,
                                                price: price,

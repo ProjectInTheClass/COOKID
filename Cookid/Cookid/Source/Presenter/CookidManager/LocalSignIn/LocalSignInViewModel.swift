@@ -30,8 +30,10 @@ class LocalSignInViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     var input: Input = Input()
     var output: Output = Output()
     
-    override init(serviceProvider: ServiceProviderType) {
-        super.init(serviceProvider: serviceProvider)
+    let userService: UserServiceType
+    
+    init(userService: UserServiceType) {
+        self.userService = userService
         
         input.determination
             .map(validationText)
@@ -67,7 +69,7 @@ class LocalSignInViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
                     }))
             .bind(onNext: { [weak self] user in
                 guard let self = self else { return }
-                serviceProvider.userService.creatUser(user: user) { self.output.isError.accept(!$0) }
+                self.userService.creatUser(user: user) { self.output.isError.accept(!$0) }
                 Analytics.setUserProperty(user.userType.rawValue, forName: "user_type")
             })
             .disposed(by: disposeBag)

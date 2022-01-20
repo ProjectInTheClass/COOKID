@@ -8,14 +8,5 @@
 import Foundation
 
 class BaseViewModel {
-    let userService: UserServiceType
-    let mealService: MealServiceType
-    let shoppingService: ShoppingServiceType
-    init(userService: UserServiceType,
-         mealService: MealServiceType,
-         shoppingService: ShoppingServiceType) {
-        self.userService = userService
-        self.mealService = mealService
-        self.shoppingService = shoppingService
-    }
+    
 }

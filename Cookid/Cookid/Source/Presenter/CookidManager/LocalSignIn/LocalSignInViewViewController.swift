@@ -9,16 +9,15 @@ import UIKit
 
 class LocalSignInViewViewController: UIPageViewController {
     
-    let serviceProvider: ServiceProviderType
     let coordinator: LocalSignInCoordinator
     var pages = [UIViewController]()
     let pagesControl = UIPageControl()
     let initialPage = 0
     
     init(coordinator: LocalSignInCoordinator,
-         serviceProvider: ServiceProviderType) {
+         userService: UserServiceType) {
         self.coordinator = coordinator
-        self.serviceProvider = serviceProvider
+        self.userService = userService
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
     
@@ -37,7 +36,7 @@ class LocalSignInViewViewController: UIPageViewController {
         self.dataSource = self
         self.delegate = self
         
-        let viewModel = LocalSignInViewModel(serviceProvider: serviceProvider)
+        let viewModel = LocalSignInViewModel(userService: userService)
         
         var firstPage = FirstPageViewController.instantiate(storyboardID: "Main")
         firstPage.bind(viewModel: viewModel)
