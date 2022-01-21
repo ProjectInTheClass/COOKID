@@ -17,16 +17,12 @@ class MainAssembly: Assembly {
         let shoppingService = safeResolver.resolve(ShoppingServiceType.self)!
         let postService = safeResolver.resolve(PostServiceType.self)!
         
-        container.register(NetworkAPIType.self, name: nil) { resolver in
-            return PhotoAPI()
-        }
-        
-        container.register(AddMealReactor.self, name: "new") { resolver in
+        container.register(AddMealReactor.self) { (_, mode: MealEditMode) in
             let photoService = safeResolver.resolve(PhotoServiceType.self)!
-            return AddMealReactor(mode: .new, photoService: photoService, userService: userService, mealService: mealService)
+            return AddMealReactor(mode: mode, photoService: photoService, userService: userService, mealService: mealService)
         }
         
-        container.register(PhotoSelectViewController.self, name: nil) { resolver in
+        container.register(PhotoSelectViewController.self, name: nil) { _ in
             let reactor = safeResolver.resolve(AddMealReactor.self)!
             let vc = PhotoSelectViewController()
             vc.reactor = reactor
@@ -38,9 +34,9 @@ class MainAssembly: Assembly {
             return AddTodayReactor(userService: userService, mealService: mealService)
         }
         
-        container.register(AddTodayMealViewController.self, name: nil) { resolver in
+        container.register(AddTodayMealViewController.self, name: nil) { _ in
             let reactor = safeResolver.resolve(AddTodayReactor.self)!
-            let vc = AddTodayMealViewController.instantiate(storyboardID: "Post")
+            let vc = AddTodayMealViewController.instantiate(storyboardID: "Main")
             vc.reactor = reactor
             return vc
         }
@@ -57,34 +53,8 @@ class MainAssembly: Assembly {
             return vc
         }
         
-        container.register(MainViewModel.self, name: nil) { resolver in
-            return MainViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService)
-        }
-        
-        container.register(MyPageViewModel.self, name: nil) { resolver in
+        container.register(MyPageViewModel.self, name: nil) { _ in
             return MyPageViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService, postService: postService)
-        }
-        
-        container.register(UITabBarController.self, name: nil) { resolver in
-            
-            // 3가지 뷰컨 선언, TabVC에 넣기
-            var mainVC = MainViewController.instantiate(storyboardID: "Main")
-            mainVC.bind(viewModel: safeResolver.resolve(MainViewModel.self)!)
-            
-            var postMainVC = PostMainViewController.instantiate(storyboardID: "Post")
-            postMainVC.bind(viewModel: safeResolver.resolve(PostViewModel.self)!)
-            
-            var myPageVC = MyPageViewController.instantiate(storyboardID: "UserInfo")
-            myPageVC.bind(viewModel: safeResolver.resolve(MyPageViewModel.self)!)
-            
-            // tabbar
-            let tabBarController = UITabBarController()
-            tabBarController.setViewControllers([mainVC, postMainVC, myPageVC], animated: false)
-            tabBarController.tabBar.tintColor = DefaultStyle.Color.tint
-            tabBarController.tabBar.items?[2].title = "마이페이지"
-            tabBarController.modalPresentationStyle = .fullScreen
-            tabBarController.modalTransitionStyle = .crossDissolve
-            return tabBarController
         }
     }
 }

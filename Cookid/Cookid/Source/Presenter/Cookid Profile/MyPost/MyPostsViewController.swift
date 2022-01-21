@@ -93,7 +93,7 @@ class MyPostsViewController: UIViewController, View {
             resultSelector: { ($0, $1)})
             .bind { [unowned self] (post, indexPath) in
                 self.tableView.deselectRow(at: indexPath, animated: false)
-                postCoordinator.navigateCommentVC(post: post)
+                self.coordinator?.navigateCommentVC(post: post)
             }
             .disposed(by: disposeBag)
     }

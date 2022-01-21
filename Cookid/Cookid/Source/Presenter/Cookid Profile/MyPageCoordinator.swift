@@ -29,6 +29,15 @@ final class MyPageCoordinator: CoordinatorType {
         
     }
     
+    func navigateCommentVC(post: Post) {
+        guard let homeCoordinator = self.parentCoordinator as? HomeCoordinator else { return }
+        for coordinator in homeCoordinator.childCoordinator where coordinator === PostCoordinator.self {
+            if let postCoordinator = coordinator as? PostCoordinator {
+                postCoordinator.navigateCommentVC(post: post)
+            }
+        }
+    }
+    
     func navigateUserInfoVC() {
         let viewModel = assembler.resolver.resolve(MyPageViewModel.self)!
         var userInfoVC = UpdateUserInfoViewController.instantiate(storyboardID: "UserInfo")

@@ -24,6 +24,15 @@ final class PostCoordinator: CoordinatorType {
         
     }
     
+    func childDidFinish(_ child: CoordinatorType) {
+        for (index, coordinator) in childCoordinator.enumerated() {
+            if coordinator === child {
+                childCoordinator.remove(at: index)
+                break
+            }
+        }
+    }
+    
     private func navigationBarConfigure() {
         navigationController.navigationBar.tintColor = DefaultStyle.Color.tint
         navigationController.navigationBar.barTintColor = .systemBackground
@@ -62,36 +71,13 @@ final class PostCoordinator: CoordinatorType {
     }
     
     func navigateCommentVC(post: Post) {
-        let vc = assembler.resolver.resolve(CommentViewController.self, argument: post)!
-        vc.coordinator = self
-        vc.modalPresentationStyle = .overFullScreen
-        navigationController.pushViewController(vc, animated: true)
+        let commentCoordinator = CommentCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+        commentCoordinator.parentCoordinator = self
+        childCoordinator.append(commentCoordinator)
+        commentCoordinator.post = post
+        commentCoordinator.start()
     }
     
-    func presentAlertVCForDelete(post: Post, comment: Comment) {
-        let viewModel = assembler.resolver.resolve(CommentViewModel.self, argument: post)!
-        let alertVC = UIAlertController(title: "삭제하기", message: "댓글을 삭제하시겠습니까?\n한 번 삭제한 글을 복구가 불가능 합니다\n답글이 있는 경우 답글도 모두 삭제됩니다", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            viewModel.input.deleteButtonTapped.onNext(comment)
-        }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-        alertVC.addAction(okAction)
-        alertVC.addAction(cancelAction)
-        navigationController.present(alertVC, animated: true, completion: nil)
-    }
-
-    func presentAlertVCForReport(post: Post, comment: Comment) {
-        let viewModel = assembler.resolver.resolve(CommentViewModel.self, argument: post)!
-        let alertVC = UIAlertController(title: "신고하기", message: "댓글을 신고하시겠습니까?\n적극적인 신고로 깨끗한 환경을 만들어 주세요:)", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "신고", style: .destructive) { _ in
-            viewModel.input.reportButtonTapped.onNext(comment)
-        }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-        alertVC.addAction(okAction)
-        alertVC.addAction(cancelAction)
-        navigationController.present(alertVC, animated: true, completion: nil)
-    }
-
     func presentReportActionVC(sender: UIViewController?, post: Post, currentUser: User) {
         
         let reactor = assembler.resolver.resolve(PostCellReactor.self, arguments: post, sender)!
@@ -115,6 +101,7 @@ final class PostCoordinator: CoordinatorType {
         alertVC.addAction(cancelAction)
         navigationController.present(alertVC, animated: true, completion: nil)
     }
+    
 }
 
 

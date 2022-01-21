@@ -9,22 +9,21 @@ import UIKit
 
 class LocalSignInViewViewController: UIPageViewController {
     
-    let coordinator: LocalSignInCoordinator
     var pages = [UIViewController]()
     let pagesControl = UIPageControl()
     let initialPage = 0
-    let userService: UserServiceType
-    init(coordinator: LocalSignInCoordinator,
-         userService: UserServiceType) {
-        self.coordinator = coordinator
-        self.userService = userService
+    let viewModel: LocalSignInViewModel
+    var coordinator: LocalSignInCoordinator?
+    
+    init(viewModel: LocalSignInViewModel) {
+        self.viewModel = viewModel
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPages()
@@ -36,18 +35,16 @@ class LocalSignInViewViewController: UIPageViewController {
         self.dataSource = self
         self.delegate = self
         
-        let viewModel = LocalSignInViewModel(userService: userService)
-        
-        var firstPage = FirstPageViewController.instantiate(storyboardID: "Main")
+        var firstPage = FirstPageViewController.instantiate(storyboardID: "LocalSignIn")
         firstPage.bind(viewModel: viewModel)
         
-        var secondPage = SecondPageViewController.instantiate(storyboardID: "Main")
+        var secondPage = SecondPageViewController.instantiate(storyboardID: "LocalSignIn")
         secondPage.bind(viewModel: viewModel)
         
-        var thirdPage = ThirdPageViewController.instantiate(storyboardID: "Main")
+        var thirdPage = ThirdPageViewController.instantiate(storyboardID: "LocalSignIn")
         thirdPage.bind(viewModel: viewModel)
         
-        var fourthPage = FourthPageViewController.instantiate(storyboardID: "Main")
+        var fourthPage = FourthPageViewController.instantiate(storyboardID: "LocalSignIn")
         fourthPage.bind(viewModel: viewModel)
         fourthPage.coordinator = coordinator
         
@@ -98,9 +95,9 @@ extension LocalSignInViewViewController: UIPageViewControllerDataSource {
         } else {
             return pages.first
         }
-
+        
     }
-
+    
 }
 
 extension LocalSignInViewViewController: UIPageViewControllerDelegate {

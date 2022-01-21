@@ -76,7 +76,7 @@ class CommentViewController: UIViewController, ViewModelBindable {
     private let commentHeaderView = CommentHeaderView(frame: .zero)
     
     var viewModel: CommentViewModel!
-    var coordinator: PostCoordinator?
+    var coordinator: CommentCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +87,11 @@ class CommentViewController: UIViewController, ViewModelBindable {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureSubviewUI()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishCommenting()
     }
     
     private func configureUI() {
@@ -276,7 +281,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 .withLatestFrom(Observable.just(headerComment))
                 .bind(onNext: { [weak self] comment in
                     guard let self = self else { return }
-                    self.coordinator?.presentAlertVCForDelete(post: self.viewModel.post, comment: headerComment)
+                    self.coordinator?.presentAlertVCForDelete(comment: headerComment)
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -284,7 +289,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 .withLatestFrom(Observable.just(headerComment))
                 .bind(onNext: { [weak self] comment in
                     guard let self = self else { return }
-                    self.coordinator?.presentAlertVCForReport(post: self.viewModel.post, comment: headerComment)
+                    self.coordinator?.presentAlertVCForReport(comment: headerComment)
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -301,7 +306,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 .withLatestFrom(Observable.just(subComment))
                 .bind(onNext: { [weak self] comment in
                     guard let self = self else { return }
-                    self.coordinator?.presentAlertVCForDelete(post: self.viewModel.post, comment: subComment)
+                    self.coordinator?.presentAlertVCForDelete(comment: subComment)
                 })
                 .disposed(by: cell.disposeBag)
             
@@ -309,7 +314,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 .withLatestFrom(Observable.just(subComment))
                 .bind(onNext: { [weak self] comment in
                     guard let self = self else { return }
-                    self.coordinator?.presentAlertVCForReport(post: self.viewModel.post, comment: subComment)
+                    self.coordinator?.presentAlertVCForReport(comment: subComment)
                 })
                 .disposed(by: cell.disposeBag)
             

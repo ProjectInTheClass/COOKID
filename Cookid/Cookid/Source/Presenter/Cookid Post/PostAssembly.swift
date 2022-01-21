@@ -18,10 +18,6 @@ class PostAssembly: Assembly {
         let commentService = safeResolver.resolve(CommentServiceType.self)!
         
         // viewModel and reactor
-        container.register(PostViewModel.self, name: nil) { resolver in
-            return PostViewModel(userService: userService, postService: postService, shoppingService: shoppingService, mealService: mealService)
-        }
-        
         container.register(AddPostReactor.self, name: nil) { (_, mode: PostEditViewMode) in
             return AddPostReactor(mode: mode, userService: userService, postService: postService)
         }
@@ -39,16 +35,16 @@ class PostAssembly: Assembly {
         }
         
         // viewController
-        container.register(RankingMainViewController.self, name: nil) { resolver in
+        container.register(RankingMainViewController.self, name: nil) { _ in
             let rankingViewModel = safeResolver.resolve(RankingViewModel.self)!
             var vc = RankingMainViewController()
             vc.bind(viewModel: rankingViewModel)
             return vc
         }
         
-        container.register(SignInViewController.self, name: nil) { resolver in
+        container.register(SignInViewController.self, name: nil) { _ in
             let viewModel = safeResolver.resolve(PostViewModel.self)!
-            var vc = SignInViewController.instantiate(storyboardID: "UserInfo")
+            var vc = SignInViewController.instantiate(storyboardID: "RemoteSignIn")
             vc.bind(viewModel: viewModel)
             return vc
         }
@@ -59,10 +55,5 @@ class PostAssembly: Assembly {
             vc.bind(viewModel: viewModel)
             return vc
         }
-        
-        
-        
-        
-        
     }
 }

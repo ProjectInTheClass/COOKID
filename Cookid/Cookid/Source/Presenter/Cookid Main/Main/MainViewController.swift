@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 import FirebaseAnalytics
+import RxDataSources
 
 class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     
@@ -231,7 +232,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
             .disposed(by: rx.disposeBag)
         
         viewModel.output.mealDayList
-                .bind(to: mealDayCollectionView.rx.items(dataSource: viewModel.dataSource))
+                .bind(to: mealDayCollectionView.rx.items(dataSource: createDataSource()))
                 .disposed(by: rx.disposeBag)
                 
         mealDayCollectionView.rx.modelSelected(MainCollectionViewItem.self)
@@ -290,6 +291,24 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         viewModel.fetchDataForMain()
         
+    }
+    
+    func createDataSource() -> RxCollectionViewSectionedReloadDataSource<MainCollectionViewSection> {
+        typealias DataSource = RxCollectionViewSectionedReloadDataSource
+        let ds = DataSource<MainCollectionViewSection> { _, collectionView, indexPath, item -> UICollectionViewCell in
+            switch item {
+            case .meals(meal: let meal):
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELLIDENTIFIER.mainMealCell, for: indexPath) as? MealDayCollectionViewCell else { return UICollectionViewCell() }
+                cell.updateUI(meal: meal)
+                return cell
+                
+            case .shoppings(shopping: let shopping):
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELLIDENTIFIER.mainShoppingCell, for: indexPath) as? ShoppingCollectionViewCell else { return UICollectionViewCell() }
+                cell.updateUI(shopping: shopping)
+                return cell
+            }
+        }
+        return ds
     }
     
 }

@@ -38,7 +38,7 @@ class BaseViewController: UIViewController {
     }
     
     @objc func showErrorPopup(_ notification: Notification) {
-        let statusCode = notification.object as! Int
+        guard let statusCode = notification.object as? Int else { return }
         if !(200..<300).contains(statusCode) {
             print(String(describing: statusCode))
         }

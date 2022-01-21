@@ -15,12 +15,15 @@
 		030D4AE6273010BD005C0FFF /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE5273010BD005C0FFF /* UserService.swift */; };
 		030D4AE8273010C9005C0FFF /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE7273010C9005C0FFF /* MealService.swift */; };
 		030D4AEB273040D8005C0FFF /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 030D4AEA273040D8005C0FFF /* UserInfo.storyboard */; };
-		030D4AED27317577005C0FFF /* ConsumptionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AEC27317577005C0FFF /* ConsumptionDetail.swift */; };
 		031DDF6027099C23001F12C3 /* KeyChainAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */; };
 		0321D58F2799B3DE0081CB5B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0321D58E2799B3DE0081CB5B /* RealmSwift */; };
 		0321D593279AA4950081CB5B /* LocalSignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0321D592279AA4950081CB5B /* LocalSignIn.storyboard */; };
-		0321D596279AA5180081CB5B /* LocalSignInAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321D595279AA5180081CB5B /* LocalSignInAssembly.swift */; };
 		0321D59B279AA82A0081CB5B /* RemoteSignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0321D59A279AA82A0081CB5B /* RemoteSignIn.storyboard */; };
+		0321D59D279AC5BD0081CB5B /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321D59C279AC5BD0081CB5B /* HomeCoordinator.swift */; };
+		0321D5A1279AC7A20081CB5B /* HomeAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321D5A0279AC7A20081CB5B /* HomeAssembly.swift */; };
+		0321D5A3279ACDAB0081CB5B /* CommentCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321D5A2279ACDAA0081CB5B /* CommentCoordinator.swift */; };
+		0321D5A6279AD5DB0081CB5B /* NetworkAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321D5A5279AD5DA0081CB5B /* NetworkAssembly.swift */; };
+		0321D5A8279AD96C0081CB5B /* LocalSignInAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321D5A7279AD96C0081CB5B /* LocalSignInAssembly.swift */; };
 		0322339C269212860092DD6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339B269212860092DD6D /* AppDelegate.swift */; };
 		0322339E269212860092DD6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339D269212860092DD6D /* SceneDelegate.swift */; };
 		032233A3269212860092DD6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032233A1269212860092DD6D /* Main.storyboard */; };
@@ -53,7 +56,6 @@
 		0339E269271B81D3001FD6A7 /* CookidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339E268271B81D3001FD6A7 /* CookidButton.swift */; };
 		033D3C2C270A7C96009B29B9 /* MyPostReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */; };
 		0348B8FC26D34463001BF3B7 /* Shopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B8FB26D34463001BF3B7 /* Shopping.swift */; };
-		0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */; };
 		0348B90226D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */; };
 		034A3827276FB5900059B9F8 /* PhotoSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A3826276FB5900059B9F8 /* PhotoSelectViewController.swift */; };
 		034A3829276FB84C0059B9F8 /* PhotoollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A3828276FB84C0059B9F8 /* PhotoollectionViewCell.swift */; };
@@ -205,12 +207,15 @@
 		030D4AE5273010BD005C0FFF /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		030D4AE7273010C9005C0FFF /* MealService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealService.swift; sourceTree = "<group>"; };
 		030D4AEA273040D8005C0FFF /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
-		030D4AEC27317577005C0FFF /* ConsumptionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumptionDetail.swift; sourceTree = "<group>"; };
 		031DDF5E27093D7A001F12C3 /* Cookid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cookid.entitlements; sourceTree = "<group>"; };
 		031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainAuthRepo.swift; sourceTree = "<group>"; };
 		0321D592279AA4950081CB5B /* LocalSignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LocalSignIn.storyboard; sourceTree = "<group>"; };
-		0321D595279AA5180081CB5B /* LocalSignInAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSignInAssembly.swift; sourceTree = "<group>"; };
 		0321D59A279AA82A0081CB5B /* RemoteSignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RemoteSignIn.storyboard; sourceTree = "<group>"; };
+		0321D59C279AC5BD0081CB5B /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		0321D5A0279AC7A20081CB5B /* HomeAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAssembly.swift; sourceTree = "<group>"; };
+		0321D5A2279ACDAA0081CB5B /* CommentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCoordinator.swift; sourceTree = "<group>"; };
+		0321D5A5279AD5DA0081CB5B /* NetworkAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAssembly.swift; sourceTree = "<group>"; };
+		0321D5A7279AD96C0081CB5B /* LocalSignInAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSignInAssembly.swift; sourceTree = "<group>"; };
 		03223398269212860092DD6D /* Cookid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0322339B269212860092DD6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0322339D269212860092DD6D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -240,7 +245,6 @@
 		033D3C1E2709FF49009B29B9 /* CookidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		033D3C2B270A7C96009B29B9 /* MyPostReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostReactor.swift; sourceTree = "<group>"; };
 		0348B8FB26D34463001BF3B7 /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
-		0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSectionModel.swift; sourceTree = "<group>"; };
 		0348B90126D3D99A001BF3B7 /* ShoppingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCollectionViewCell.swift; sourceTree = "<group>"; };
 		034A3826276FB5900059B9F8 /* PhotoSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectViewController.swift; sourceTree = "<group>"; };
 		034A3828276FB84C0059B9F8 /* PhotoollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoollectionViewCell.swift; sourceTree = "<group>"; };
@@ -561,8 +565,18 @@
 		0321D597279AA5A90081CB5B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				0321D5A0279AC7A20081CB5B /* HomeAssembly.swift */,
+				0321D59C279AC5BD0081CB5B /* HomeCoordinator.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		0321D5A4279AD5BA0081CB5B /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				0321D5A5279AD5DA0081CB5B /* NetworkAssembly.swift */,
+			);
+			path = Assembly;
 			sourceTree = "<group>";
 		};
 		0322338F269212860092DD6D = {
@@ -601,6 +615,7 @@
 		032233AF2692764F0092DD6D /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				03E8B6B12797122F00EEAEF4 /* Assembly */,
 				244B2B0F26E4A0BF001226F0 /* FirebaseRepository */,
 				24B081A926DFD1FA00379087 /* RealmRepository */,
 				03F2ED6026ED046700CFE87C /* AuthRepository */,
@@ -624,12 +639,10 @@
 				032233DD2693057C0092DD6D /* User.swift */,
 				032233B9269277520092DD6D /* Meal.swift */,
 				0348B8FB26D34463001BF3B7 /* Shopping.swift */,
-				0348B8FD26D34E18001BF3B7 /* MainSectionModel.swift */,
-				030D4AEC27317577005C0FFF /* ConsumptionDetail.swift */,
-				03B2049826D7B8AC0099C269 /* Menu.swift */,
 				03D8C1F226EB7E0500238CB6 /* Comment.swift */,
 				03D8C1F026EB6FD600238CB6 /* Post.swift */,
 				034A38472770CF7C0059B9F8 /* Photo.swift */,
+				03B2049826D7B8AC0099C269 /* Menu.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -805,8 +818,8 @@
 		0361859D2794356000F1F16B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				03E8B6B42797BC0F00EEAEF4 /* Assembly */,
 				DB0D7D722694980B009B2D51 /* Service */,
-				032233B1269276680092DD6D /* Entity */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -908,6 +921,7 @@
 		037B7A27272EE06D004E9320 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				0321D5A4279AD5BA0081CB5B /* Assembly */,
 				036185A22794385C00F1F16B /* Network */,
 				DB61715126C9577B008F497C /* NotificationManager.swift */,
 				0390F53D2728EF4E00677651 /* YPImagePickerManager.swift */,
@@ -1002,15 +1016,8 @@
 		03E8B6B12797122F00EEAEF4 /* Assembly */ = {
 			isa = PBXGroup;
 			children = (
-				03E8B6AD27970F4400EEAEF4 /* FirebaseAssembly.swift */,
-			);
-			path = Assembly;
-			sourceTree = "<group>";
-		};
-		03E8B6B32797BBD200EEAEF4 /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
 				03E8B6AF27970F5200EEAEF4 /* RealmAssembly.swift */,
+				03E8B6AD27970F4400EEAEF4 /* FirebaseAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -1040,6 +1047,7 @@
 				03F2ED6326ED906C00CFE87C /* Post.storyboard */,
 				03E8B6B52797D0A200EEAEF4 /* PostAssembly.swift */,
 				03F2ED8F26F3886700CFE87C /* PostCoordinator.swift */,
+				0321D5A2279ACDAA0081CB5B /* CommentCoordinator.swift */,
 				030D4AD8273006E8005C0FFF /* Post */,
 				030D4AD92730071C005C0FFF /* AddPost */,
 				0390F53B2728EB8E00677651 /* Comment */,
@@ -1052,7 +1060,7 @@
 			isa = PBXGroup;
 			children = (
 				0321D592279AA4950081CB5B /* LocalSignIn.storyboard */,
-				0321D595279AA5180081CB5B /* LocalSignInAssembly.swift */,
+				0321D5A7279AD96C0081CB5B /* LocalSignInAssembly.swift */,
 				03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */,
 				0321D594279AA4EE0081CB5B /* SignIn */,
 			);
@@ -1065,12 +1073,12 @@
 				030D4AEA273040D8005C0FFF /* UserInfo.storyboard */,
 				03E8B6B72797D0FF00EEAEF4 /* MyPageAssembly.swift */,
 				03F2ED9326F3916500CFE87C /* MyPageCoordinator.swift */,
-				03B3EB722738B03A004CACF4 /* Notice */,
 				030D4ADE27300A2C005C0FFF /* MyPage */,
 				030D4ADB273009D3005C0FFF /* MyMeal */,
 				030D4ADA273009CC005C0FFF /* MyPost */,
 				030D4ADC273009D8005C0FFF /* MyBookmark */,
 				030D4ADD273009E4005C0FFF /* MyRecipe */,
+				03B3EB722738B03A004CACF4 /* Notice */,
 			);
 			path = "Cookid Profile";
 			sourceTree = "<group>";
@@ -1078,7 +1086,6 @@
 		244B2B0F26E4A0BF001226F0 /* FirebaseRepository */ = {
 			isa = PBXGroup;
 			children = (
-				03E8B6B12797122F00EEAEF4 /* Assembly */,
 				03D8C1FA26EBB92A00238CB6 /* FirebaseStorageRepo.swift */,
 				244B2B1026E4A0DB001226F0 /* FirestoreUserRepo.swift */,
 				03D8C1EE26EB6D8C00238CB6 /* FirestorePostRepo.swift */,
@@ -1090,7 +1097,6 @@
 		24B081A926DFD1FA00379087 /* RealmRepository */ = {
 			isa = PBXGroup;
 			children = (
-				03E8B6B32797BBD200EEAEF4 /* Assembly */,
 				244B2B0726E24062001226F0 /* ImageRepo.swift */,
 				24B081B026DFD21300379087 /* RealmUserRepo.swift */,
 				24B081CB26E10F7B00379087 /* RealmMealRepo.swift */,
@@ -1137,7 +1143,6 @@
 		DB0D7D722694980B009B2D51 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				03E8B6B42797BC0F00EEAEF4 /* Assembly */,
 				03D8C1FC26EBBC9800238CB6 /* PostService.swift */,
 				03F2ED8526F0343E00CFE87C /* CommentService.swift */,
 				241523AF269D093E0077941A /* ShoppingService.swift */,
@@ -1145,6 +1150,7 @@
 				030D4AE5273010BD005C0FFF /* UserService.swift */,
 				034A38492770D2BC0059B9F8 /* PhotoService.swift */,
 				03B2049A26D7BA830099C269 /* MenuService.swift */,
+				032233B1269276680092DD6D /* Entity */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1421,8 +1427,8 @@
 				03F2ED7D26EDDC1400CFE87C /* AddPostViewController.swift in Sources */,
 				03E8B69E2795A79100EEAEF4 /* MyInterceptor.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
+				0321D5A3279ACDAB0081CB5B /* CommentCoordinator.swift in Sources */,
 				03E8B68E2795A6AA00EEAEF4 /* MyRouter.swift in Sources */,
-				0321D596279AA5180081CB5B /* LocalSignInAssembly.swift in Sources */,
 				03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */,
 				03E8B69D2795A79100EEAEF4 /* SessionManager.swift in Sources */,
 				03D660C9270B57B30044FE1E /* MyBookmarkReactor.swift in Sources */,
@@ -1434,6 +1440,7 @@
 				03E8B6902795A6AA00EEAEF4 /* RequestParams.swift in Sources */,
 				03B2049526D75DD50099C269 /* PictureSelectViewController.swift in Sources */,
 				037A77C127527B9A0021BBA7 /* UIViewController+Extension.swift in Sources */,
+				0321D5A8279AD96C0081CB5B /* LocalSignInAssembly.swift in Sources */,
 				037B7A22272ECCE0004E9320 /* BaseRepository.swift in Sources */,
 				03D8C1E726E8927700238CB6 /* MyMealsCollectionViewCell.swift in Sources */,
 				03B3EB6B273744BB004CACF4 /* MyRecipeViewController.swift in Sources */,
@@ -1454,7 +1461,6 @@
 				03E42ED826C4DD2B005D7B5E /* RankingViewModel.swift in Sources */,
 				03E8B6B82797D0FF00EEAEF4 /* MyPageAssembly.swift in Sources */,
 				0363F1F82706C7CD0017680D /* NaverAuthRepo.swift in Sources */,
-				0348B8FE26D34E18001BF3B7 /* MainSectionModel.swift in Sources */,
 				032233CD2692A8F70092DD6D /* FirstPageViewController.swift in Sources */,
 				03D660C7270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift in Sources */,
 				03D3045D26FDE2F300042CB7 /* AddPostReactor.swift in Sources */,
@@ -1464,8 +1470,8 @@
 				244B2B0826E24062001226F0 /* ImageRepo.swift in Sources */,
 				03B2049926D7B8AC0099C269 /* Menu.swift in Sources */,
 				03B3EB7C2739FC5D004CACF4 /* MyPostTableViewCellReactor.swift in Sources */,
-				030D4AED27317577005C0FFF /* ConsumptionDetail.swift in Sources */,
 				03F2ED9026F3886700CFE87C /* PostCoordinator.swift in Sources */,
+				0321D5A6279AD5DB0081CB5B /* NetworkAssembly.swift in Sources */,
 				0380E3EC27045A00007F8AA5 /* RemoteUser.swift in Sources */,
 				03E42EDA26C4E22F005D7B5E /* LocalSignInCoordinator.swift in Sources */,
 				0322339E269212860092DD6D /* SceneDelegate.swift in Sources */,
@@ -1508,10 +1514,12 @@
 				038875B126A030F300D5D202 /* MainViewController.swift in Sources */,
 				03B2048A26D5D8AE0099C269 /* AddShoppingViewController.swift in Sources */,
 				03F2ED7026ED929300CFE87C /* PostMainViewController.swift in Sources */,
+				0321D5A1279AC7A20081CB5B /* HomeAssembly.swift in Sources */,
 				03B2049B26D7BA830099C269 /* MenuService.swift in Sources */,
 				032233CF2692A90B0092DD6D /* SecondPageViewController.swift in Sources */,
 				03E8B6A42795A80E00EEAEF4 /* MyFont.swift in Sources */,
 				24B081D126E10F8900379087 /* RealmShoppingRepo.swift in Sources */,
+				0321D59D279AC5BD0081CB5B /* HomeCoordinator.swift in Sources */,
 				037B7A0C272D7AEF004E9320 /* BaseViewController.swift in Sources */,
 				03F2ED8A26F06BC300CFE87C /* FirestoreCommentRepo.swift in Sources */,
 				03E8B6B027970F5200EEAEF4 /* RealmAssembly.swift in Sources */,

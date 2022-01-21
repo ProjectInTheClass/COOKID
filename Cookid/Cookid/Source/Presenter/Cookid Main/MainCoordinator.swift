@@ -58,7 +58,7 @@ final class MainCoordinator: CoordinatorType {
     }
     
     func navigateAddTodayMeal() {
-        let vc = assembler.resolver.resolve(AddMealViewController.self)!
+        let vc = assembler.resolver.resolve(AddTodayMealViewController.self)!
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
         navigationController.present(vc, animated: true, completion: nil)

@@ -11,15 +11,16 @@ import Swinject
 final class AppAssembler {
     static let assembler = Assembler([
         // Data
+        NetworkAssembly(),
         FirebaseAssembly(),
         RealmAssembly(),
         // Domain
         ServiceAssembly(),
         // Presenter
+        HomeAssembly(),
+        LocalSignInAssembly(),
         MainAssembly(),
         PostAssembly(),
         MyPageAssembly()
     ])
 }
-
-

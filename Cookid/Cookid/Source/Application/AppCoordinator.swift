@@ -22,10 +22,10 @@ final class AppCoordinator: CoordinatorType {
     func start() {
         let realmUserRepo = assembler.resolver.resolve(RealmUserRepoType.self)!
         if realmUserRepo.fetchUser() != nil {
-            let mainCoordinator = MainCoordinator(assembler: self.assembler, navigationController: self.navigationController)
-            mainCoordinator.parentCoordinator = self
-            childCoordinator.append(mainCoordinator)
-            mainCoordinator.start()
+            let homeCoordinator = HomeCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+            homeCoordinator.parentCoordinator = self
+            childCoordinator.append(homeCoordinator)
+            homeCoordinator.start()
         } else {
             let localSignInCoordinator = LocalSignInCoordinator(assembler: self.assembler, navigationController: self.navigationController)
             localSignInCoordinator.parentCoordinator = self

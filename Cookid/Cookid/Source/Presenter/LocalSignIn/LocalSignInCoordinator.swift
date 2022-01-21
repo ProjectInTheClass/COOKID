@@ -20,13 +20,18 @@ final class LocalSignInCoordinator: CoordinatorType {
     }
     
     func start() {
-        let userServie = assembler.resolver.resolve(UserServiceType.self)!
-        let pageVC = LocalSignInViewViewController(coordinator: self, userService: userServie)
-        self.navigationController.setViewControllers([pageVC], animated: false)
+        let vc = assembler.resolver.resolve(LocalSignInViewViewController.self)!
+        self.navigationController.setViewControllers([vc], animated: false)
     }
     
     func navigateHomeCoordinator() {
-        let tabBarController = assembler.resolver.resolve(UITabBarController.self)!
-        self.navigationController.setViewControllers([tabBarController], animated: false)
+        if let appCoordinator = parentCoordinator as? AppCoordinator {
+            for coordinator in appCoordinator.childCoordinator {
+                if let homeCoordinator = coordinator as? HomeCoordinator {
+                    self.navigationController.popViewController(animated: false)
+                    homeCoordinator.start()
+                }
+            }
+        }
     }
 }
