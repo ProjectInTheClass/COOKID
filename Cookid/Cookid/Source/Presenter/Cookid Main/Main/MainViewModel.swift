@@ -22,15 +22,15 @@ class MainViewModel: ViewModelType, HasDisposeBag {
     struct Output {
         let selectedDate = BehaviorRelay<Date>(value: Date())
         let userInfo = BehaviorRelay<User>(value: DummyData.shared.secondUser)
-        let recentMeals = PublishRelay<[Meal]>()
-        let adviceString = PublishRelay<String>()
+        let recentMeals = BehaviorRelay<[Meal]>(value: [])
+        let adviceString = BehaviorRelay<String>(value: "")
         let monthlyDetailed = PublishRelay<ConsumptionDetailed>()
-        let consumeProgressCalc = PublishRelay<Double>()
-        let averagePrice = PublishRelay<String>()
-        let dineInProgress = PublishRelay<CGFloat>()
-        let mostExpensiveMeal = PublishRelay<Meal>()
-        let mealDayList = PublishRelay<[MainCollectionViewSection]>()
-        let mealtimes = PublishRelay<[[Meal]]>()
+        let consumeProgressCalc = BehaviorRelay<Double>(value: 0)
+        let averagePrice = BehaviorRelay<String>(value: "")
+        let dineInProgress = BehaviorRelay<CGFloat>(value: 0.5)
+        let mostExpensiveMeal = BehaviorRelay<Meal>(value: DummyData.shared.mySingleMeal)
+        let mealDayList = BehaviorRelay<[MainCollectionViewSection]>(value: [])
+        let mealtimes = BehaviorRelay<[[Meal]]>(value: [])
     }
     
     // for calendar viewModel
@@ -59,11 +59,18 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         bindActionForOutput(input: input, output: output)
         
         let currentUser = userService.currentUser
-        let meals = mealService.mealList
-        let shoppings = shoppingService.shoppingList
-        let spotMonthMeals = mealService.spotMonthMeals
-        let spotMonthShoppings = shoppingService.spotMonthShoppings
         
+        let meals = Observable.merge(
+            mealService.mealList,
+            mealService.fetchMeals())
+        
+        let shoppings = Observable.merge(
+            shoppingService.shoppingList,
+            shoppingService.fetchShoppings())
+        
+        let spotMonthMeals = meals.map(sortSpotMonthMeals)
+        let spotMonthShoppings = shoppings.map(sortSpotMonthShoppings)
+
         // user information output
         currentUser
             .bind(to: output.userInfo)
@@ -163,14 +170,7 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         
     }
     
-    // 이니셜 라이저 안에서는 실행되지 않는다. 기본적으로 가져와야 하는 데이터이기 때문에 따로 불러온다.
-    func fetchDataForMain() {
-        self.mealService.fetchMeals()
-        self.shoppingService.fetchShoppings()
-    }
-    
     func bindActionForOutput(input: Input, output: Output) {
-        
         input.leftButtonTapped
             .withUnretained(self)
             .bind(onNext: { owner, _ in
@@ -194,6 +194,24 @@ class MainViewModel: ViewModelType, HasDisposeBag {
                 output.selectedDate.accept(date)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func sortSpotMonthMeals(meals: [Meal]) -> [Meal] {
+        let startDay = Date().startOfMonth
+        let endDay = Date().endOfMonth
+        let filteredByStart = meals.filter { $0.date > startDay }
+        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
+        let sortedMeals = filteredByEnd.sorted { $0.date > $1.date }
+        return sortedMeals
+    }
+    
+    private func sortSpotMonthShoppings(shoppings: [Shopping]) -> [Shopping] {
+        let startDay = Date().startOfMonth
+        let endDay = Date().endOfMonth
+        let filteredByStart = shoppings.filter { $0.date > startDay }
+        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
+        let sortedshoppings = filteredByEnd.sorted { $0.date > $1.date }
+        return sortedshoppings
     }
     
     func averagePriceToString(_ shoppingPrice: Int, _ mealPrice: Int) -> String {
@@ -286,7 +304,6 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         } else {
             return CGFloat(newDineInMeals.count) / CGFloat(meals.count)
         }
-        
     }
     
     func mealTimesCalc(_ meals: [Meal]) -> [[Meal]] {
@@ -396,55 +413,5 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         }
     }
     // swiftlint:enable cyclomatic_complexity
-
 }
 
-struct ConsumptionDetailed {
-    let month: String
-    let priceGoal: Int
-    let shoppingPrice: Int
-    let dineOutPrice: Int
-    let balance: Int
-}
-
-enum MainCollectionViewItem {
-    case meals(meal: Meal)
-    case shoppings(shopping: Shopping)
-}
-
-enum MainCollectionViewSection {
-    case mealSection(items: [MainCollectionViewItem])
-    case shoppingSection(items: [MainCollectionViewItem])
-}
-
-extension MainCollectionViewSection: SectionModelType {
-    typealias Item = MainCollectionViewItem
-   
-    var header: String {
-        switch self {
-        case .mealSection:
-            return "내 식사!"
-        case .shoppingSection:
-            return "내 쇼핑!"
-        }
-    }
-
-    var items: [Item] {
-        switch self {
-        case .mealSection(items: let items):
-            return items
-        case .shoppingSection(items: let items):
-            return items
-        }
-    }
-
-    init(original: Self, items: [Item]) {
-        switch original {
-        case .mealSection(items: _):
-            self = .mealSection(items: items)
-        case .shoppingSection(items: _):
-            self = .shoppingSection(items: items)
-        }
-    }
-
-}

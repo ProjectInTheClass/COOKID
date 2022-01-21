@@ -24,6 +24,7 @@
 		0321D5A3279ACDAB0081CB5B /* CommentCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321D5A2279ACDAA0081CB5B /* CommentCoordinator.swift */; };
 		0321D5A6279AD5DB0081CB5B /* NetworkAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321D5A5279AD5DA0081CB5B /* NetworkAssembly.swift */; };
 		0321D5A8279AD96C0081CB5B /* LocalSignInAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321D5A7279AD96C0081CB5B /* LocalSignInAssembly.swift */; };
+		0321D5AA279AFF4D0081CB5B /* MainSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321D5A9279AFF4D0081CB5B /* MainSectionModel.swift */; };
 		0322339C269212860092DD6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339B269212860092DD6D /* AppDelegate.swift */; };
 		0322339E269212860092DD6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339D269212860092DD6D /* SceneDelegate.swift */; };
 		032233A3269212860092DD6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032233A1269212860092DD6D /* Main.storyboard */; };
@@ -216,6 +217,7 @@
 		0321D5A2279ACDAA0081CB5B /* CommentCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCoordinator.swift; sourceTree = "<group>"; };
 		0321D5A5279AD5DA0081CB5B /* NetworkAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAssembly.swift; sourceTree = "<group>"; };
 		0321D5A7279AD96C0081CB5B /* LocalSignInAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSignInAssembly.swift; sourceTree = "<group>"; };
+		0321D5A9279AFF4D0081CB5B /* MainSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSectionModel.swift; sourceTree = "<group>"; };
 		03223398269212860092DD6D /* Cookid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0322339B269212860092DD6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0322339D269212860092DD6D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 		030D4AD5273004E2005C0FFF /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				0321D5A9279AFF4D0081CB5B /* MainSectionModel.swift */,
 				035E492626975815002CC084 /* MainViewModel.swift */,
 				032233B7269276DB0092DD6D /* MainViewController.swift */,
 				035E492A26987CFB002CC084 /* SelectCalendarViewController.swift */,
@@ -1407,6 +1410,7 @@
 				035E492926976B85002CC084 /* MealDayCollectionViewCell.swift in Sources */,
 				032233D12692A91A0092DD6D /* ThirdPageViewController.swift in Sources */,
 				03E42EDF26C76829005D7B5E /* RankingTableViewCell.swift in Sources */,
+				0321D5AA279AFF4D0081CB5B /* MainSectionModel.swift in Sources */,
 				241523B0269D093E0077941A /* ShoppingService.swift in Sources */,
 				03D8C1E126E852CD00238CB6 /* MyMealsViewController.swift in Sources */,
 				03AF306227166474005D53D0 /* AddMealReactor.swift in Sources */,

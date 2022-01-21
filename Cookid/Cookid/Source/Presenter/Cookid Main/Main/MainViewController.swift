@@ -289,8 +289,6 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
         
         mealTimeCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
         
-        viewModel.fetchDataForMain()
-        
     }
     
     func createDataSource() -> RxCollectionViewSectionedReloadDataSource<MainCollectionViewSection> {

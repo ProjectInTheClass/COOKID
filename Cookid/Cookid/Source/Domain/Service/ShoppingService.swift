@@ -11,14 +11,13 @@ import RxSwift
 protocol ShoppingServiceType {
     var initialShoppingCount: Int { get }
     var shoppingList: Observable<[Shopping]> { get }
-    var spotMonthShoppings: Observable<[Shopping]> { get }
     func create(shopping: Shopping, currentUser: User) -> Observable<Bool>
-    func fetchShoppings()
+    func fetchShoppings() -> Observable<[Shopping]>
     func update(updateShopping: Shopping) -> Observable<Bool>
     func deleteShopping(deleteShopping: Shopping, currentUser: User) -> Observable<Bool>
 }
 
-class ShoppingService: BaseService, ShoppingServiceType {
+class ShoppingService: ShoppingServiceType {
     
     let realmShoppingRepo: RealmShoppingRepoType
     let firestoreUserRepo: UserRepoType
@@ -28,9 +27,10 @@ class ShoppingService: BaseService, ShoppingServiceType {
         self.realmShoppingRepo = realmShoppingRepo
         self.firestoreUserRepo = firestoreUserRepo
     }
-   
+    
+    // MARK: - Shopping Storage
+    
     private var shoppings: [Shopping] = []
-
     private lazy var shoppingStore = BehaviorSubject<[Shopping]>(value: shoppings)
     
     var initialShoppingCount: Int {
@@ -41,10 +41,7 @@ class ShoppingService: BaseService, ShoppingServiceType {
         return shoppingStore
     }
     
-    var spotMonthShoppings: Observable<[Shopping]> {
-        return shoppingStore.map(sortSpotMonthShoppings)
-    }
-    
+    // MARK: - Shopping CRUD
     func create(shopping: Shopping, currentUser: User) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
@@ -62,13 +59,17 @@ class ShoppingService: BaseService, ShoppingServiceType {
         }
     }
     
-    func fetchShoppings() {
-        guard let localShoppings = self.realmShoppingRepo.fetchShoppings() else { return }
-        let shoppings = localShoppings.map { localShopping -> Shopping in
-            return Shopping(id: localShopping.id, date: localShopping.date, totalPrice: localShopping.price)
+    func fetchShoppings() -> Observable<[Shopping]> {
+        return Observable.create { observer in
+            guard let localShoppings = self.realmShoppingRepo.fetchShoppings() else {
+                return Disposables.create()
+            }
+            let shoppings = localShoppings.map { $0.toDomain() }
+            observer.onNext(shoppings)
+            self.shoppings = shoppings
+            self.shoppingStore.onNext(self.shoppings)
+            return Disposables.create()
         }
-        self.shoppings = shoppings
-        self.shoppingStore.onNext(self.shoppings)
     }
     
     func update(updateShopping: Shopping) -> Observable<Bool> {
@@ -108,14 +109,4 @@ class ShoppingService: BaseService, ShoppingServiceType {
             return Disposables.create()
         }
     }
-    
-    private func sortSpotMonthShoppings(shoppings: [Shopping]) -> [Shopping] {
-        let startDay = Date().startOfMonth
-        let endDay = Date().endOfMonth
-        let filteredByStart = shoppings.filter { $0.date > startDay }
-        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
-        let sortedshoppings = filteredByEnd.sorted { $0.date > $1.date }
-        return sortedshoppings
-    }
-    
 }

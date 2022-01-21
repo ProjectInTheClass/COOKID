@@ -63,9 +63,9 @@ class PostCellReactor: Reactor {
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
         let currentPercent =
         Observable.combineLatest(
-            self.mealService.spotMonthMeals,
+            self.mealService.mealList.map(sortSpotMonthMeals),
             self.userService.currentUser,
-            self.shoppingService.spotMonthShoppings,
+            self.shoppingService.shoppingList.map(sortSpotMonthShoppings),
             Observable.just(self.currentState.post),
             resultSelector: calculateCurrentPercent)
             .map { Mutation.setCurrentPercent($0) }
@@ -124,6 +124,24 @@ class PostCellReactor: Reactor {
             newState.currentPercent = percent
             return newState
         }
+    }
+    
+    private func sortSpotMonthMeals(meals: [Meal]) -> [Meal] {
+        let startDay = Date().startOfMonth
+        let endDay = Date().endOfMonth
+        let filteredByStart = meals.filter { $0.date > startDay }
+        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
+        let sortedMeals = filteredByEnd.sorted { $0.date > $1.date }
+        return sortedMeals
+    }
+    
+    private func sortSpotMonthShoppings(shoppings: [Shopping]) -> [Shopping] {
+        let startDay = Date().startOfMonth
+        let endDay = Date().endOfMonth
+        let filteredByStart = shoppings.filter { $0.date > startDay }
+        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
+        let sortedshoppings = filteredByEnd.sorted { $0.date > $1.date }
+        return sortedshoppings
     }
     
     func calculateCurrentPercent(_ meals: [Meal], _ user: User, _ shoppings: [Shopping], _ post: Post) -> Double {

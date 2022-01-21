@@ -121,12 +121,10 @@ class AddMealReactor: Reactor {
             switch mode {
             case .new:
                 let newMeal = Meal(id: UUID().uuidString, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-                return mealService.create(meal: newMeal, currentUser: user)
-                    .map { Mutate.setError(!$0) }
+                return mealService.create(meal: newMeal, currentUser: user).map { Mutate.setError(!$0) }
             case .edit(let meal):
                 let newMeal = Meal(id: meal.id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-                return mealService.update(updateMeal: newMeal)
-                    .map { Mutate.setError(!$0) }
+                return mealService.update(updateMeal: newMeal).map { Mutate.setError(!$0) }
             }
         case .delete:
             switch mode {

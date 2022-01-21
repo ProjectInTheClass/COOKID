@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import UIKit
 
 class LocalMeal: Object {
     @Persisted var id: String
@@ -24,5 +25,13 @@ class LocalMeal: Object {
         self.name = name
         self.mealType = mealType
         self.mealTime = mealTime
+    }
+}
+
+extension LocalMeal {
+    func toDomain(image: UIImage?) -> Meal {
+        let mealType = MealType(rawValue: mealType) ?? .dineIn
+        let mealTime = MealTime(rawValue: mealTime) ?? .dinner
+        return Meal(id: id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
     }
 }
