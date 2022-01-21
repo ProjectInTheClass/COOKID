@@ -25,7 +25,7 @@ class MyPageAssembly: Assembly {
         }
         
         container.register(MyBookmarkReactor.self) { resolver in
-            return MyBookmarkReactor(userService: userService, postService: postService)
+            return MyBookmarkReactor(userService: userService, postService: postService, shoppingService: shoppingService, mealService: mealService)
         }
         
         container.register(MyRecipeReactor.self) { resolver in

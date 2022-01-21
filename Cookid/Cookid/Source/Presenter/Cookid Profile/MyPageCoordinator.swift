@@ -9,7 +9,8 @@ import UIKit
 import Swinject
 
 final class MyPageCoordinator: CoordinatorType {
-    
+    var parentCoordinator: CoordinatorType?
+    var childCoordinator: [CoordinatorType] = []
     var assembler: Assembler
     var navigationController: UINavigationController
     init(assembler: Assembler,

@@ -91,15 +91,15 @@ class MyBookmarkViewController: UIViewController, View {
             self.backgroundStackView.isHidden = posts.count != 0
         })
         .bind(to: collectionView.rx.items(cellIdentifier: CELLIDENTIFIER.myBookmarkCollectionViewCell, cellType: MyBookmarkCollectionViewCell.self)) { _, item, cell in
-            cell.reactor = PostCellReactor(sender: self, post: item, serviceProvider: reactor.serviceProvider)
+            cell.reactor = PostCellReactor(sender: self, post: item, mealService: reactor.mealService, userService: reactor.userService, shoppingService: reactor.shoppingService, postService: reactor.postService)
         }
         .disposed(by: disposeBag)
         
         collectionView.rx.modelSelected(Post.self)
             .withUnretained(self)
             .bind { owner, post in
-                guard let postCoordinator = owner.coordinator?.parentCoordinator.childCoordinator[1] as? PostCoordinator else { return }
-                postCoordinator.navigateCommentVC(post: post)
+//                guard let postCoordinator = owner.coordinator?.parentCoordinator.childCoordinator[1] as? PostCoordinator else { return }
+//                postCoordinator.navigateCommentVC(post: post)
             }
             .disposed(by: disposeBag)
         

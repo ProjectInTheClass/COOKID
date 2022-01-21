@@ -247,7 +247,7 @@ extension MyPageHeaderViewController: UITableViewDataSource, UITableViewDelegate
             vc.notice = NoticeManager.notices[0]
             self.navigationController?.pushViewController(vc, animated: true)
         case 4:
-            coordinator?.navigateUserInfoVC(viewModel: viewModel)
+            coordinator?.navigateUserInfoVC()
         default:
             break
         }

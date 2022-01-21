@@ -12,7 +12,7 @@ import NSObject_Rx
 import FirebaseCrashlytics
 import FirebaseAnalytics
 
-class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
+class MyPageViewModel: ViewModelType, HasDisposeBag {
    
     struct Input {
         let userImageSelect = PublishRelay<UIImage>()

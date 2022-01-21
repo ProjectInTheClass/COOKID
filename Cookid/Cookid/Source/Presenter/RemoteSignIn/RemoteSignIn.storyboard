@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Sign In View Controller-->
+        <scene sceneID="G5f-ga-JYx">
+            <objects>
+                <viewController storyboardIdentifier="SignInViewController" id="AX2-Vu-NQf" customClass="SignInViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2TJ-OG-GEe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="signinBG" translatesAutoresizingMaskIntoConstraints="NO" id="er9-ST-SQY">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NKw-W8-ibp">
+                                <rect key="frame" x="35" y="407.33333333333331" width="344" height="200.66666666666669"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIV-La-bHm">
+                                        <rect key="frame" x="0.0" y="0.0" width="344" height="60.333333333333336"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="ZIV-La-bHm" secondAttribute="height" multiplier="20:3.5" id="PXF-A7-Y5x"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="18"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="  애플로 로그인" image="applelogo" catalog="system">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="21"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ckn-te-pgy">
+                                        <rect key="frame" x="0.0" y="70.333333333333371" width="344" height="60"/>
+                                        <color key="backgroundColor" red="0.03021929227" green="0.77913218740000001" blue="0.35237377879999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="17"/>
+                                        <state key="normal" title="네이버로 로그인" image="naverIcon">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="512-SW-hhY">
+                                        <rect key="frame" x="0.0" y="140.33333333333331" width="344" height="60.333333333333343"/>
+                                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="17"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="  카카오로 로그인">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                            <imageReference key="image" image="message.fill" catalog="system" symbolScale="medium"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="19"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5hT-Gh-UR3">
+                                <rect key="frame" x="35" y="221.66666666666669" width="344" height="155.66666666666669"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Vt-8Z-THw">
+                                        <rect key="frame" x="0.0" y="0.0" width="137" height="54"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9r-nf-sdh">
+                                                <rect key="frame" x="0.0" y="0.0" width="74.333333333333329" height="54"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="45"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrZ-1j-JVe">
+                                                <rect key="frame" x="74.333333333333329" y="0.0" width="62.666666666666671" height="54"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="45"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="온라인 서비스 이용" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUi-Hi-DTj">
+                                        <rect key="frame" x="0.0" y="64.000000000000028" width="223.66666666666666" height="36"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2TK-gH-tzO">
+                                        <rect key="frame" x="0.0" y="110.00000000000004" width="228.66666666666666" height="45.666666666666671"/>
+                                        <string key="text">다른 집밥러들과 함께 하세요!
+훨씬 더 좋은 경험이 될거에요:)</string>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="19"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52J-nI-rtK">
+                                <rect key="frame" x="35" y="628" width="344" height="30"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="쿠키드 온라인 둘러보기">
+                                    <fontDescription key="titleFontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="17"/>
+                                </buttonConfiguration>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*둘러보기시의 활동은 저장되지 않습니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKD-f8-htn">
+                                <rect key="frame" x="88.000000000000014" y="668" width="238.33333333333337" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="syi-3B-Yx1"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="er9-ST-SQY" firstAttribute="trailing" secondItem="syi-3B-Yx1" secondAttribute="trailing" id="4ub-Gs-dWf"/>
+                            <constraint firstItem="52J-nI-rtK" firstAttribute="height" secondItem="512-SW-hhY" secondAttribute="height" multiplier="0.5" id="NOM-XA-auD"/>
+                            <constraint firstItem="syi-3B-Yx1" firstAttribute="bottom" secondItem="CKD-f8-htn" secondAttribute="bottom" constant="50" id="PCV-vw-ZwX"/>
+                            <constraint firstItem="52J-nI-rtK" firstAttribute="width" secondItem="NKw-W8-ibp" secondAttribute="width" id="QFM-eA-7kQ"/>
+                            <constraint firstItem="NKw-W8-ibp" firstAttribute="centerX" secondItem="2TJ-OG-GEe" secondAttribute="centerX" id="TVF-VT-Ark"/>
+                            <constraint firstItem="5hT-Gh-UR3" firstAttribute="leading" secondItem="2TJ-OG-GEe" secondAttribute="leading" constant="35" id="Unn-oH-htv"/>
+                            <constraint firstItem="er9-ST-SQY" firstAttribute="top" secondItem="2TJ-OG-GEe" secondAttribute="top" id="Wbz-tG-6rQ"/>
+                            <constraint firstItem="52J-nI-rtK" firstAttribute="centerX" secondItem="NKw-W8-ibp" secondAttribute="centerX" id="bBA-wH-Myx"/>
+                            <constraint firstItem="5hT-Gh-UR3" firstAttribute="leading" secondItem="NKw-W8-ibp" secondAttribute="leading" id="eZD-gu-XQs"/>
+                            <constraint firstItem="CKD-f8-htn" firstAttribute="centerX" secondItem="2TJ-OG-GEe" secondAttribute="centerX" id="huK-i9-2hL"/>
+                            <constraint firstItem="CKD-f8-htn" firstAttribute="top" secondItem="52J-nI-rtK" secondAttribute="bottom" constant="10" id="jT9-cD-s0K"/>
+                            <constraint firstItem="52J-nI-rtK" firstAttribute="top" secondItem="NKw-W8-ibp" secondAttribute="bottom" constant="20" id="m5a-Qs-okV"/>
+                            <constraint firstItem="5hT-Gh-UR3" firstAttribute="trailing" secondItem="NKw-W8-ibp" secondAttribute="trailing" id="nRk-0B-EnA"/>
+                            <constraint firstAttribute="trailing" secondItem="5hT-Gh-UR3" secondAttribute="trailing" constant="35" id="rJz-cD-vec"/>
+                            <constraint firstAttribute="bottom" secondItem="er9-ST-SQY" secondAttribute="bottom" id="u9d-YZ-Rlb"/>
+                            <constraint firstItem="er9-ST-SQY" firstAttribute="leading" secondItem="syi-3B-Yx1" secondAttribute="leading" id="zWc-Qe-1cc"/>
+                            <constraint firstItem="NKw-W8-ibp" firstAttribute="top" secondItem="5hT-Gh-UR3" secondAttribute="bottom" constant="30" id="zh8-4a-Ra1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="appleSignInButton" destination="ZIV-La-bHm" id="VxH-Fx-hdZ"/>
+                        <outlet property="kakaoSignInButton" destination="512-SW-hhY" id="z1L-qn-rvZ"/>
+                        <outlet property="kidLabel" destination="mrZ-1j-JVe" id="KQZ-NM-Drp"/>
+                        <outlet property="naverSignInButton" destination="Ckn-te-pgy" id="KDx-8i-9de"/>
+                        <outlet property="testOnlineButton" destination="52J-nI-rtK" id="nC5-Tl-DY5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GiD-iw-Yk3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-646.37681159420299" y="-590.625"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="applelogo" catalog="system" width="103" height="128"/>
+        <image name="message.fill" catalog="system" width="128" height="113"/>
+        <image name="naverIcon" width="50" height="50"/>
+        <image name="signinBG" width="800" height="1200"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

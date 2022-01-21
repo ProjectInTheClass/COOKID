@@ -53,7 +53,7 @@ class AppleAuthRepo {
         self.viewModel.userService.uploadUserImage(userID: localUser.id.stringValue, image: image) { result in
             switch result {
             case .success(let imageURL):
-                self.viewModel.serviceProvider.userService.connectUser(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
+                self.viewModel.userService.connectUser(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
                     if success {
                         completion(true)
                     } else {

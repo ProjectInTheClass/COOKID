@@ -11,7 +11,6 @@
 		030C4ACF272A721600630F08 /* BookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030C4ACE272A721600630F08 /* BookmarkButton.swift */; };
 		030C4AD1272A721F00630F08 /* StarSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030C4AD0272A721F00630F08 /* StarSlider.swift */; };
 		030D4AD2272F797C005C0FFF /* AddShoppingReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AD1272F797C005C0FFF /* AddShoppingReactor.swift */; };
-		030D4AE027300BF9005C0FFF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4ADF27300BF9005C0FFF /* BaseViewModel.swift */; };
 		030D4AE227300D99005C0FFF /* CoodinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE127300D99005C0FFF /* CoodinatorProtocol.swift */; };
 		030D4AE6273010BD005C0FFF /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE5273010BD005C0FFF /* UserService.swift */; };
 		030D4AE8273010C9005C0FFF /* MealService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AE7273010C9005C0FFF /* MealService.swift */; };
@@ -19,6 +18,9 @@
 		030D4AED27317577005C0FFF /* ConsumptionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D4AEC27317577005C0FFF /* ConsumptionDetail.swift */; };
 		031DDF6027099C23001F12C3 /* KeyChainAuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */; };
 		0321D58F2799B3DE0081CB5B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0321D58E2799B3DE0081CB5B /* RealmSwift */; };
+		0321D593279AA4950081CB5B /* LocalSignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0321D592279AA4950081CB5B /* LocalSignIn.storyboard */; };
+		0321D596279AA5180081CB5B /* LocalSignInAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321D595279AA5180081CB5B /* LocalSignInAssembly.swift */; };
+		0321D59B279AA82A0081CB5B /* RemoteSignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0321D59A279AA82A0081CB5B /* RemoteSignIn.storyboard */; };
 		0322339C269212860092DD6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339B269212860092DD6D /* AppDelegate.swift */; };
 		0322339E269212860092DD6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322339D269212860092DD6D /* SceneDelegate.swift */; };
 		032233A3269212860092DD6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 032233A1269212860092DD6D /* Main.storyboard */; };
@@ -199,7 +201,6 @@
 		030C4ACE272A721600630F08 /* BookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButton.swift; sourceTree = "<group>"; };
 		030C4AD0272A721F00630F08 /* StarSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarSlider.swift; sourceTree = "<group>"; };
 		030D4AD1272F797C005C0FFF /* AddShoppingReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShoppingReactor.swift; sourceTree = "<group>"; };
-		030D4ADF27300BF9005C0FFF /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		030D4AE127300D99005C0FFF /* CoodinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoodinatorProtocol.swift; sourceTree = "<group>"; };
 		030D4AE5273010BD005C0FFF /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		030D4AE7273010C9005C0FFF /* MealService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealService.swift; sourceTree = "<group>"; };
@@ -207,6 +208,9 @@
 		030D4AEC27317577005C0FFF /* ConsumptionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumptionDetail.swift; sourceTree = "<group>"; };
 		031DDF5E27093D7A001F12C3 /* Cookid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cookid.entitlements; sourceTree = "<group>"; };
 		031DDF5F27099C22001F12C3 /* KeyChainAuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainAuthRepo.swift; sourceTree = "<group>"; };
+		0321D592279AA4950081CB5B /* LocalSignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LocalSignIn.storyboard; sourceTree = "<group>"; };
+		0321D595279AA5180081CB5B /* LocalSignInAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSignInAssembly.swift; sourceTree = "<group>"; };
+		0321D59A279AA82A0081CB5B /* RemoteSignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RemoteSignIn.storyboard; sourceTree = "<group>"; };
 		03223398269212860092DD6D /* Cookid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cookid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0322339B269212860092DD6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0322339D269212860092DD6D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -535,9 +539,30 @@
 		030D4AE927302E9A005C0FFF /* RemoteSignIn */ = {
 			isa = PBXGroup;
 			children = (
+				0321D59A279AA82A0081CB5B /* RemoteSignIn.storyboard */,
 				03586EAE26E4FD6A002A56C6 /* SignInViewController.swift */,
 			);
 			path = RemoteSignIn;
+			sourceTree = "<group>";
+		};
+		0321D594279AA4EE0081CB5B /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				032233D82692F8ED0092DD6D /* LocalSignInViewModel.swift */,
+				032233CA2692A8630092DD6D /* LocalSignInViewViewController.swift */,
+				032233CC2692A8F70092DD6D /* FirstPageViewController.swift */,
+				032233CE2692A90B0092DD6D /* SecondPageViewController.swift */,
+				032233D02692A91A0092DD6D /* ThirdPageViewController.swift */,
+				032233D22692A94D0092DD6D /* FourthPageViewController.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		0321D597279AA5A90081CB5B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		0322338F269212860092DD6D = {
@@ -805,8 +830,11 @@
 		036185A0279435DC00F1F16B /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				03B2048B26D5D9270099C269 /* CookidManager */,
-				03F2ED7126ED92C900CFE87C /* CookidCommunity */,
+				0321D597279AA5A90081CB5B /* Home */,
+				2417EAB226E58CDD006F2785 /* LocalSignIn */,
+				030D4AE927302E9A005C0FFF /* RemoteSignIn */,
+				03B2048B26D5D9270099C269 /* Cookid Main */,
+				03F2ED7126ED92C900CFE87C /* Cookid Post */,
 				2417EAB426E58CF7006F2785 /* Cookid Profile */,
 			);
 			path = Presenter;
@@ -849,7 +877,6 @@
 			children = (
 				037B7A21272ECCE0004E9320 /* BaseRepository.swift */,
 				037B7A18272D9F1A004E9320 /* BaseService.swift */,
-				030D4ADF27300BF9005C0FFF /* BaseViewModel.swift */,
 				037B7A0B272D7AEF004E9320 /* BaseViewController.swift */,
 			);
 			path = Base;
@@ -898,20 +925,18 @@
 			path = Comment;
 			sourceTree = "<group>";
 		};
-		03B2048B26D5D9270099C269 /* CookidManager */ = {
+		03B2048B26D5D9270099C269 /* Cookid Main */ = {
 			isa = PBXGroup;
 			children = (
 				032233A1269212860092DD6D /* Main.storyboard */,
 				03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */,
-				03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */,
 				03F2ED9126F38D7C00CFE87C /* MainCoordinator.swift */,
-				2417EAB226E58CDD006F2785 /* LocalSignIn */,
 				030D4AD5273004E2005C0FFF /* Main */,
 				030D4AD627300675005C0FFF /* AddMeal */,
 				0361858D2794288B00F1F16B /* AddToday */,
 				030D4AD7273006B0005C0FFF /* AddShopping */,
 			);
-			path = CookidManager;
+			path = "Cookid Main";
 			sourceTree = "<group>";
 		};
 		03B3EB722738B03A004CACF4 /* Notice */ = {
@@ -1009,30 +1034,27 @@
 			path = AuthRepository;
 			sourceTree = "<group>";
 		};
-		03F2ED7126ED92C900CFE87C /* CookidCommunity */ = {
+		03F2ED7126ED92C900CFE87C /* Cookid Post */ = {
 			isa = PBXGroup;
 			children = (
 				03F2ED6326ED906C00CFE87C /* Post.storyboard */,
 				03E8B6B52797D0A200EEAEF4 /* PostAssembly.swift */,
 				03F2ED8F26F3886700CFE87C /* PostCoordinator.swift */,
-				030D4AE927302E9A005C0FFF /* RemoteSignIn */,
 				030D4AD8273006E8005C0FFF /* Post */,
 				030D4AD92730071C005C0FFF /* AddPost */,
 				0390F53B2728EB8E00677651 /* Comment */,
 				03E42ED426C4DBB0005D7B5E /* Ranking */,
 			);
-			path = CookidCommunity;
+			path = "Cookid Post";
 			sourceTree = "<group>";
 		};
 		2417EAB226E58CDD006F2785 /* LocalSignIn */ = {
 			isa = PBXGroup;
 			children = (
-				032233D82692F8ED0092DD6D /* LocalSignInViewModel.swift */,
-				032233CA2692A8630092DD6D /* LocalSignInViewViewController.swift */,
-				032233CC2692A8F70092DD6D /* FirstPageViewController.swift */,
-				032233CE2692A90B0092DD6D /* SecondPageViewController.swift */,
-				032233D02692A91A0092DD6D /* ThirdPageViewController.swift */,
-				032233D22692A94D0092DD6D /* FourthPageViewController.swift */,
+				0321D592279AA4950081CB5B /* LocalSignIn.storyboard */,
+				0321D595279AA5180081CB5B /* LocalSignInAssembly.swift */,
+				03E42ED926C4E22F005D7B5E /* LocalSignInCoordinator.swift */,
+				0321D594279AA4EE0081CB5B /* SignIn */,
 			);
 			path = LocalSignIn;
 			sourceTree = "<group>";
@@ -1230,6 +1252,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0321D59B279AA82A0081CB5B /* RemoteSignIn.storyboard in Resources */,
+				0321D593279AA4950081CB5B /* LocalSignIn.storyboard in Resources */,
 				032233A8269212870092DD6D /* Launch.storyboard in Resources */,
 				032233A5269212870092DD6D /* Assets.xcassets in Resources */,
 				03F2ED6426ED906C00CFE87C /* Post.storyboard in Resources */,
@@ -1370,7 +1394,6 @@
 				03D3046826FDFA7D00042CB7 /* AddPostCollectionReusableView.swift in Sources */,
 				03E8B68F2795A6AA00EEAEF4 /* RouterType.swift in Sources */,
 				03B3EB7A27395E69004CACF4 /* MyPostTableViewCell.swift in Sources */,
-				030D4AE027300BF9005C0FFF /* BaseViewModel.swift in Sources */,
 				03F2ED7B26EDD70000CFE87C /* PostImageCollectionViewCell.swift in Sources */,
 				0390F54027299B7900677651 /* CommentHeaderView.swift in Sources */,
 				03B3EB742738B057004CACF4 /* Notice.swift in Sources */,
@@ -1399,6 +1422,7 @@
 				03E8B69E2795A79100EEAEF4 /* MyInterceptor.swift in Sources */,
 				0322339C269212860092DD6D /* AppDelegate.swift in Sources */,
 				03E8B68E2795A6AA00EEAEF4 /* MyRouter.swift in Sources */,
+				0321D596279AA5180081CB5B /* LocalSignInAssembly.swift in Sources */,
 				03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */,
 				03E8B69D2795A79100EEAEF4 /* SessionManager.swift in Sources */,
 				03D660C9270B57B30044FE1E /* MyBookmarkReactor.swift in Sources */,

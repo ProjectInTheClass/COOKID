@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ehP-XY-jm9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -63,139 +62,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dl4-Se-zta" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="295.6521739130435" y="87.723214285714278"/>
-        </scene>
-        <!--Sign In View Controller-->
-        <scene sceneID="0dk-6m-cKj">
-            <objects>
-                <viewController storyboardIdentifier="SignInViewController" id="6u0-kM-HoP" customClass="SignInViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="o9O-jj-sjM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="signinBG" translatesAutoresizingMaskIntoConstraints="NO" id="GQq-oN-X1z">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                            </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ka8-CA-Yjw">
-                                <rect key="frame" x="35" y="407.33333333333331" width="344" height="200.66666666666669"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IwP-yA-GBc">
-                                        <rect key="frame" x="0.0" y="0.0" width="344" height="60.333333333333336"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="IwP-yA-GBc" secondAttribute="height" multiplier="20:3.5" id="C5e-hb-kgB"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="18"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="  애플로 로그인" image="applelogo" catalog="system">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="21"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ou-iV-uH4">
-                                        <rect key="frame" x="0.0" y="70.333333333333371" width="344" height="60"/>
-                                        <color key="backgroundColor" red="0.03021929227" green="0.77913218740000001" blue="0.35237377879999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="17"/>
-                                        <state key="normal" title="네이버로 로그인" image="naverIcon">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g4s-aD-TBS">
-                                        <rect key="frame" x="0.0" y="140.33333333333331" width="344" height="60.333333333333343"/>
-                                        <color key="backgroundColor" systemColor="systemYellowColor"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="17"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="  카카오로 로그인">
-                                            <color key="titleColor" systemColor="labelColor"/>
-                                            <imageReference key="image" image="message.fill" catalog="system" symbolScale="medium"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="19"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hsy-Nu-EMy">
-                                <rect key="frame" x="35" y="221.66666666666669" width="344" height="155.66666666666669"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hAT-N2-5Gb">
-                                        <rect key="frame" x="0.0" y="0.0" width="137" height="54"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ph5-rE-3l6">
-                                                <rect key="frame" x="0.0" y="0.0" width="74.333333333333329" height="54"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="45"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Omd-Nh-wT7">
-                                                <rect key="frame" x="74.333333333333329" y="0.0" width="62.666666666666671" height="54"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="45"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="온라인 서비스 이용" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puR-6o-yY3">
-                                        <rect key="frame" x="0.0" y="64.000000000000028" width="223.66666666666666" height="36"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="30"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeA-31-w2r">
-                                        <rect key="frame" x="0.0" y="110.00000000000004" width="228.66666666666666" height="45.666666666666671"/>
-                                        <string key="text">다른 집밥러들과 함께 하세요!
-훨씬 더 좋은 경험이 될거에요:)</string>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="19"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUX-pz-ZeG">
-                                <rect key="frame" x="35" y="628" width="344" height="30"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="쿠키드 온라인 둘러보기">
-                                    <fontDescription key="titleFontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="17"/>
-                                </buttonConfiguration>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*둘러보기시의 활동은 저장되지 않습니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oTC-UQ-ORB">
-                                <rect key="frame" x="88.000000000000014" y="668" width="238.33333333333337" height="18"/>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="sKn-Zu-3a9"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Ka8-CA-Yjw" firstAttribute="top" secondItem="Hsy-Nu-EMy" secondAttribute="bottom" constant="30" id="1gp-ww-laa"/>
-                            <constraint firstItem="xUX-pz-ZeG" firstAttribute="centerX" secondItem="Ka8-CA-Yjw" secondAttribute="centerX" id="4Ax-tP-8ch"/>
-                            <constraint firstAttribute="trailing" secondItem="Hsy-Nu-EMy" secondAttribute="trailing" constant="35" id="4Um-Pl-SLm"/>
-                            <constraint firstItem="oTC-UQ-ORB" firstAttribute="top" secondItem="xUX-pz-ZeG" secondAttribute="bottom" constant="10" id="Bka-f4-aPu"/>
-                            <constraint firstItem="Hsy-Nu-EMy" firstAttribute="leading" secondItem="Ka8-CA-Yjw" secondAttribute="leading" id="FKC-5k-UGc"/>
-                            <constraint firstItem="xUX-pz-ZeG" firstAttribute="height" secondItem="g4s-aD-TBS" secondAttribute="height" multiplier="0.5" id="Hc6-SK-K7v"/>
-                            <constraint firstItem="GQq-oN-X1z" firstAttribute="trailing" secondItem="sKn-Zu-3a9" secondAttribute="trailing" id="HdX-A6-7ph"/>
-                            <constraint firstAttribute="bottom" secondItem="GQq-oN-X1z" secondAttribute="bottom" id="IT6-pZ-GLg"/>
-                            <constraint firstItem="xUX-pz-ZeG" firstAttribute="top" secondItem="Ka8-CA-Yjw" secondAttribute="bottom" constant="20" id="R5J-70-gje"/>
-                            <constraint firstItem="xUX-pz-ZeG" firstAttribute="width" secondItem="Ka8-CA-Yjw" secondAttribute="width" id="bpL-RS-fu2"/>
-                            <constraint firstItem="Hsy-Nu-EMy" firstAttribute="trailing" secondItem="Ka8-CA-Yjw" secondAttribute="trailing" id="djE-Ty-W9J"/>
-                            <constraint firstItem="GQq-oN-X1z" firstAttribute="top" secondItem="o9O-jj-sjM" secondAttribute="top" id="lP4-Lm-pVD"/>
-                            <constraint firstItem="Hsy-Nu-EMy" firstAttribute="leading" secondItem="o9O-jj-sjM" secondAttribute="leading" constant="35" id="ljC-ea-C3i"/>
-                            <constraint firstItem="sKn-Zu-3a9" firstAttribute="bottom" secondItem="oTC-UQ-ORB" secondAttribute="bottom" constant="50" id="mQc-aC-HGh"/>
-                            <constraint firstItem="oTC-UQ-ORB" firstAttribute="centerX" secondItem="o9O-jj-sjM" secondAttribute="centerX" id="sSl-3D-D05"/>
-                            <constraint firstItem="Ka8-CA-Yjw" firstAttribute="centerX" secondItem="o9O-jj-sjM" secondAttribute="centerX" id="viP-AD-hNx"/>
-                            <constraint firstItem="GQq-oN-X1z" firstAttribute="leading" secondItem="sKn-Zu-3a9" secondAttribute="leading" id="w9h-Wz-ry2"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="appleSignInButton" destination="IwP-yA-GBc" id="cb1-LO-K8o"/>
-                        <outlet property="kakaoSignInButton" destination="g4s-aD-TBS" id="hi9-S4-qza"/>
-                        <outlet property="kidLabel" destination="Omd-Nh-wT7" id="HQM-6r-K6N"/>
-                        <outlet property="naverSignInButton" destination="6ou-iV-uH4" id="bfh-sJ-K3s"/>
-                        <outlet property="testOnlineButton" destination="xUX-pz-ZeG" id="i7T-mg-6Jr"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8U2-6l-gsJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-646.37681159420299" y="-590.625"/>
         </scene>
         <!--Update User Info View Controller-->
         <scene sceneID="s0d-6b-0kx">
@@ -351,7 +217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="297" y="-589"/>
+            <point key="canvasLocation" x="2000" y="-163"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nI6-em-dy4">
@@ -411,7 +277,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tpe-W7-WUu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1230" y="326"/>
+            <point key="canvasLocation" x="1229" y="437"/>
         </scene>
         <!--My Page Header View Controller-->
         <scene sceneID="XlV-XU-49K">
@@ -427,7 +293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="57B-sd-txn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1230" y="-262"/>
+            <point key="canvasLocation" x="1229" y="-163"/>
         </scene>
         <!--Paging Menu View Controller-->
         <scene sceneID="zB1-EG-eY7">
@@ -442,7 +308,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asi-At-RHH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1988" y="145"/>
+            <point key="canvasLocation" x="2000" y="251"/>
         </scene>
         <!--Paging Content View Controller-->
         <scene sceneID="KwG-Rg-q0s">
@@ -457,19 +323,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fnn-k1-Z37" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2001" y="395"/>
+            <point key="canvasLocation" x="2000" y="506"/>
         </scene>
     </scenes>
     <resources>
-        <image name="applelogo" catalog="system" width="103" height="128"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="message.fill" catalog="system" width="128" height="113"/>
-        <image name="naverIcon" width="50" height="50"/>
         <image name="person.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="signinBG" width="800" height="1200"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

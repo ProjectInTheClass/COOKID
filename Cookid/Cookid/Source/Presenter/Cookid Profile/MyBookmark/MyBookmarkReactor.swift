@@ -10,7 +10,7 @@ import ReactorKit
 import RxCocoa
 import RxSwift
 
-class MyBookmarkReactor: BaseViewModel, Reactor {
+class MyBookmarkReactor: Reactor {
     
     enum Action {
         
@@ -28,12 +28,18 @@ class MyBookmarkReactor: BaseViewModel, Reactor {
     
     let userService: UserServiceType
     let postService: PostServiceType
+    let mealService: MealServiceType
+    let shoppingService: ShoppingServiceType
     let initialState: State
     
     init(userService: UserServiceType,
-         postService: PostServiceType) {
+         postService: PostServiceType,
+         shoppingService: ShoppingServiceType,
+         mealService: MealServiceType) {
         self.userService = userService
         self.postService = postService
+        self.mealService = mealService
+        self.shoppingService = shoppingService
         self.initialState = State()
     }
     

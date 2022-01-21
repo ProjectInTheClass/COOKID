@@ -14,7 +14,7 @@ protocol UserServiceType {
     var currentUser: BehaviorSubject<User> { get }
     func creatUser(user: User, completion: @escaping (Bool) -> Void)
     func fetchLocalUser() -> LocalUser?
-    func uploadUserImage(userID: String, image: UIImage)
+    func uploadUserImage(userID: String, image: UIImage?, completion: @escaping (Result<URL?, Error>)->Void)
     func connectUser(localUser: LocalUser, imageURL: URL?, dineInCount: Int, cookidsCount: Int, completion: @escaping (Bool) -> Void)
     func loadMyInfo()
     func fetchUserInfo(user: User) -> Observable<User>
@@ -54,8 +54,15 @@ class UserService: BaseService, UserServiceType {
         return realmUserRepo.fetchUser()
     }
     
-    func uploadUserImage(userID: String, image: UIImage) {
-        firestorageImageRepo.uploadUserImage(userID: userID, image: image)
+    func uploadUserImage(userID: String, image: UIImage?, completion: @escaping (Result<URL?, Error>)->Void) {
+        self.firestorageImageRepo.uploadUserImage(userID: userID, image: image) { result in
+            switch result {
+            case .success(let url):
+                completion(.success(url))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
     
     /// Create in Realm

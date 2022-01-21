@@ -9,6 +9,8 @@ import UIKit
 import Swinject
 
 final class AppCoordinator: CoordinatorType {
+    var parentCoordinator: CoordinatorType?
+    var childCoordinator: [CoordinatorType] = []
     var assembler: Assembler
     var navigationController: UINavigationController
     init(assembler: Assembler,
@@ -21,9 +23,13 @@ final class AppCoordinator: CoordinatorType {
         let realmUserRepo = assembler.resolver.resolve(RealmUserRepoType.self)!
         if realmUserRepo.fetchUser() != nil {
             let mainCoordinator = MainCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+            mainCoordinator.parentCoordinator = self
+            childCoordinator.append(mainCoordinator)
             mainCoordinator.start()
         } else {
             let localSignInCoordinator = LocalSignInCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+            localSignInCoordinator.parentCoordinator = self
+            childCoordinator.append(localSignInCoordinator)
             localSignInCoordinator.start()
         }
     }
