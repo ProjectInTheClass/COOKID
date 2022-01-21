@@ -44,15 +44,18 @@ class AddTodayReactor: Reactor {
     }
     
     let initialState: State
-    let serviceProvider: ServiceProviderType
+    let userService: UserServiceType
+    let mealService: MealServiceType
     
-    init(serviceProvider: ServiceProviderType) {
-        self.serviceProvider = serviceProvider
+    init(userService: UserServiceType,
+         mealService: MealServiceType) {
+        self.userService = userService
+        self.mealService = mealService
         self.initialState = State()
     }
     
     func transform(mutation: Observable<Mutate>) -> Observable<Mutate> {
-        let user = serviceProvider.userService.currentUser.map { Mutate.setUser($0) }
+        let user = self.userService.currentUser.map { Mutate.setUser($0) }
         return Observable.merge(mutation, user)
     }
     
@@ -76,9 +79,9 @@ class AddTodayReactor: Reactor {
             let dinnerMeal = makeTodayMeal(action: .dinnerPrice("저녁식사"), price: self.currentState.dinnerMealPrice)
             let user = self.currentState.user
             let createMeals = Observable<Bool>.combineLatest(
-                serviceProvider.mealService.create(meal: breakfastMeal, currentUser: user),
-                serviceProvider.mealService.create(meal: lunchMeal, currentUser: user),
-                serviceProvider.mealService.create(meal: dinnerMeal, currentUser: user)
+                self.mealService.create(meal: breakfastMeal, currentUser: user),
+                self.mealService.create(meal: lunchMeal, currentUser: user),
+                self.mealService.create(meal: dinnerMeal, currentUser: user)
             ) { b1, b2, b3 in return b1 || b2 || b3 }
             
             return Observable.concat([

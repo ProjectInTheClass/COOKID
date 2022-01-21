@@ -10,6 +10,7 @@ import ReactorKit
 import RxSwift
 import RxCocoa
 import Kingfisher
+import Differentiator
 
 enum MealEditMode {
     case new
@@ -29,6 +30,7 @@ class AddMealReactor: Reactor {
         case delete
         case imageURL(URL?)
         case query(String)
+        case searchButtonTapped
     }
     
     enum Mutate {
@@ -43,7 +45,8 @@ class AddMealReactor: Reactor {
         case setPriceValidation(Bool?)
         case setURLToImage(UIImage)
         case setQuery(String)
-        case setPhotos([Photo])
+        case setPhotos([SectionModel<Int, Photo>])
+        case setLoading(Bool)
     }
     
     struct State {
@@ -55,10 +58,11 @@ class AddMealReactor: Reactor {
         var mealTime: MealTime = .breakfast
         var mealType: MealType = .dineOut
         var menus: [Menu]  = MenuService.shared.menus
-        var photos = [Photo]()
+        var photoSections = [SectionModel<Int, Photo>]()
         var query: String = ""
         var isError: Bool?
         var priceValid: Bool?
+        var isLoading: Bool = false
     }
     
     let mode: MealEditMode
@@ -85,8 +89,8 @@ class AddMealReactor: Reactor {
     
     func transform(mutation: Observable<Mutate>) -> Observable<Mutate> {
         let user = userService.currentUser.map { Mutation.setUser($0) }
-        let photos = photoService.fetchPhotos(query: self.currentState.query).map { Mutation.setPhotos($0) }
-        return Observable.merge(mutation, user, photos)
+//        let photos = photoService.fetchPhotos(query: self.currentState.query).map { Mutation.setPhotos($0) }
+        return Observable.merge(mutation, user)
     }
     
     func mutate(action: Action) -> Observable<Mutate> {
@@ -138,6 +142,8 @@ class AddMealReactor: Reactor {
             return self.urlToImage(url: url).map { Mutation.setURLToImage($0) }
         case .query(let query):
             return .just(.setQuery(query))
+        case .searchButtonTapped:
+            return .empty()
         }
     }
     
@@ -166,8 +172,10 @@ class AddMealReactor: Reactor {
             newState.image = image
         case .setQuery(let query):
             newState.query = query
-        case .setPhotos(let photos):
-            newState.photos = photos
+        case .setPhotos(let photoSections):
+            newState.photoSections = photoSections
+        case .setLoading(let isLoading):
+            newState.isLoading = isLoading
         }
         return newState
     }

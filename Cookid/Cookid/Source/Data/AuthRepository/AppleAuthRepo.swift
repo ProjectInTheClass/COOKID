@@ -46,11 +46,11 @@ class AppleAuthRepo {
     }
     
     func fetchAppleUserInfo(completion: @escaping (Bool) -> Void) {
-        guard let localUser = self.viewModel.serviceProvider.repoProvider.realmUserRepo.fetchUser() else { return }
-        let initialDineInCount = self.viewModel.serviceProvider.mealService.initialDineInMeal
-        let initialCookidsCount = initialDineInCount + self.viewModel.serviceProvider.shoppingService.initialShoppingCount
+        guard let localUser = self.viewModel.userService.fetchLocalUser() else { return }
+        let initialDineInCount = self.viewModel.mealService.initialDineInMeal
+        let initialCookidsCount = initialDineInCount + self.viewModel.shoppingService.initialShoppingCount
         let image = UIImage(named: "personPlaceholder")
-        self.viewModel.serviceProvider.repoProvider.firestorageImageRepo.uploadUserImage(userID: localUser.id.stringValue, image: image) { result in
+        self.viewModel.userService.uploadUserImage(userID: localUser.id.stringValue, image: image) { result in
             switch result {
             case .success(let imageURL):
                 self.viewModel.serviceProvider.userService.connectUser(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in

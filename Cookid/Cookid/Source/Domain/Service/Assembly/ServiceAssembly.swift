@@ -35,10 +35,10 @@ class ServiceAssembly: Assembly {
         }
         
         container.register(UserServiceType.self, name: nil) { resolver in
-            return UserService(firestoreUserRepo: firestoreUserRepository, realmUserRepo: realmUserRepository)
+            return UserService(firestoreUserRepo: firestoreUserRepository, realmUserRepo: realmUserRepository, firestorageImageRepo: firestorageImageRepository)
         }
         
-        container.register(PostServiceType, name: nil) { resolver in
+        container.register(PostServiceType.self, name: nil) { resolver in
             return PostService(firestorageImageRepo: firestorageImageRepository, firestorePostRepo: firestorePostRepository, firestoreCommentRepo: firestoreCommentRepository, firestoreUserRepo: firestoreUserRepository)
         }
         

@@ -247,7 +247,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
             
             let headerComment = viewModel.output.commentSections[indexPath.section].header
             
-            cell.reactor = CommentCellReactor(post: viewModel.post, comment: headerComment, serviceProvider: viewModel.serviceProvider)
+            cell.reactor = CommentCellReactor(post: viewModel.post, comment: headerComment, userService: viewModel.userService)
             
             self.cellStateUpdate(cell: cell, target: viewModel.output.commentSections[indexPath.section])
             

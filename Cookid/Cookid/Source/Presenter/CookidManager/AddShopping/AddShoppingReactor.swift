@@ -40,12 +40,17 @@ class AddShoppingReactor: Reactor {
         var isError: Bool?
     }
     
-    let serviceProvider: ServiceProviderType
     let mode: ShoppingEditMode
     let initialState: State
     
-    init(mode: ShoppingEditMode, serviceProvider: ServiceProviderType) {
-        self.serviceProvider = serviceProvider
+    let userService: UserServiceType
+    let shoppingService: ShoppingServiceType
+    
+    init(mode: ShoppingEditMode,
+         userService: UserServiceType,
+         shoppingService: ShoppingServiceType) {
+        self.userService = userService
+        self.shoppingService = shoppingService
         self.mode = mode
         switch mode {
         case .new:
@@ -56,7 +61,7 @@ class AddShoppingReactor: Reactor {
     }
     
     func transform(mutation: Observable<Mutate>) -> Observable<Mutate> {
-        let user = serviceProvider.userService.currentUser.map { Mutate.setUser($0) }
+        let user = self.userService.currentUser.map { Mutate.setUser($0) }
         return Observable.merge(mutation, user)
     }
     
@@ -78,12 +83,12 @@ class AddShoppingReactor: Reactor {
                                            date: date,
                                            totalPrice: price)
                 let user = self.currentState.user
-                return self.serviceProvider.shoppingService.create(shopping: newShopping, currentUser: user).map { Mutate.sendErrorMessage(!$0) }
+                return self.shoppingService.create(shopping: newShopping, currentUser: user).map { Mutate.sendErrorMessage(!$0) }
             case .edit(let shopping):
                 let updateShopping = Shopping(id: shopping.id,
                                            date: date,
                                            totalPrice: price)
-                return self.serviceProvider.shoppingService.update(updateShopping: updateShopping).map { Mutate.sendErrorMessage(!$0) }
+                return self.shoppingService.update(updateShopping: updateShopping).map { Mutate.sendErrorMessage(!$0) }
             }
         case .deleteButtonTapped:
             switch mode {
@@ -91,7 +96,7 @@ class AddShoppingReactor: Reactor {
                 return Observable.empty()
             case .edit(let shopping):
                 let user = self.currentState.user
-                return self.serviceProvider.shoppingService.deleteShopping(deleteShopping: shopping, currentUser: user)
+                return self.shoppingService.deleteShopping(deleteShopping: shopping, currentUser: user)
                     .map { Mutate.sendErrorMessage(!$0)}
             }
         }

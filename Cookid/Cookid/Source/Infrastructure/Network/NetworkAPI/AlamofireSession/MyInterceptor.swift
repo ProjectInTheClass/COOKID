@@ -24,7 +24,7 @@ final class MyInterceptor: RequestInterceptor {
         do {
             request = try URLEncodedFormParameterEncoder().encode(commonParams, into: request)
         } catch {
-            print(NetworkError.urlRequestConvert)
+            print(NetworkError.adaptError)
         }
         
         completion(.success(request))

@@ -27,18 +27,38 @@ class MainAssembly: Assembly {
         }
         
         container.register(PhotoSelectViewController.self, name: nil) { resolver in
-            let reactor = resolver.resolve(AddMealReactor.self)!
+            let reactor = safeResolver.resolve(AddMealReactor.self)!
             let vc = PhotoSelectViewController()
+            vc.reactor = reactor
+            return vc
+        }
+        
+        // AddToday
+        container.register(AddTodayReactor.self, name: nil) { resolver in
+            return AddTodayReactor(userService: userService, mealService: mealService)
+        }
+        
+        container.register(AddTodayMealViewController.self, name: nil) { resolver in
+            let reactor = safeResolver.resolve(AddTodayReactor.self)!
+            let vc = AddTodayMealViewController.instantiate(storyboardID: "Post")
+            vc.reactor = reactor
+            return vc
+        }
+        
+        // AddShopping
+        container.register(AddShoppingReactor.self, name: nil) { (_, mode: ShoppingEditMode) in
+            return AddShoppingReactor(mode: mode, userService: userService, shoppingService: shoppingService)
+        }
+        
+        container.register(AddShoppingViewController.self, name: nil) { (_, mode: ShoppingEditMode) in
+            let reactor = safeResolver.resolve(AddShoppingReactor.self, argument: mode)!
+            let vc = AddShoppingViewController()
             vc.reactor = reactor
             return vc
         }
         
         container.register(MainViewModel.self, name: nil) { resolver in
             return MainViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService)
-        }
-    
-        container.register(PostMainViewController.self, name: nil) { resolver in
-            return PostViewModel(userService: userService, postService: postService)
         }
         
         container.register(MyPageViewModel.self, name: nil) { resolver in

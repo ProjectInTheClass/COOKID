@@ -135,7 +135,11 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                                          cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
                 cell.coordinator = self.coordinator
-                let cellReactor = PostCellReactor(sender: self, post: item, serviceProvider: self.viewModel.serviceProvider)
+                let cellReactor = PostCellReactor(sender: self, post: item,
+                                                  mealService: self.viewModel.mealService,
+                                                  userService: self.viewModel.userService,
+                                                  shoppingService: self.viewModel.shoppingService,
+                                                  postService: self.viewModel.postService)
                 cell.reactor = cellReactor
                 
                 self.updateTableViewCell(cell: cell, index: index)

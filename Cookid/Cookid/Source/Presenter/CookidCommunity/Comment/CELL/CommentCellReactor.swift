@@ -25,15 +25,15 @@ class CommentCellReactor: Reactor {
     }
     
     let initialState: State
-    let serviceProvider: ServiceProviderType
+    let userService: UserServiceType
     
-    init(post: Post, comment: Comment, serviceProvider: ServiceProviderType) {
-        self.serviceProvider = serviceProvider
+    init(post: Post, comment: Comment, userService: UserServiceType) {
+        self.userService = userService
         self.initialState = State(comment: comment, post: post)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        let user = serviceProvider.userService.currentUser
+        let user = self.userService.currentUser
             .map { Mutation.setUser($0) }
         return .merge(mutation, user)
     }

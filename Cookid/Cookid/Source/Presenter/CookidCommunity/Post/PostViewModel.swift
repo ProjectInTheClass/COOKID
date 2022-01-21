@@ -29,9 +29,15 @@ class PostViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
     
     let userService: UserServiceType
     let postService: PostServiceType
+    let shoppingService: ShoppingServiceType
+    let mealService: MealServiceType
     
     init(userService: UserServiceType,
-         postService: PostServiceType) {
+         postService: PostServiceType,
+         shoppingService: ShoppingServiceType,
+         mealService: MealServiceType) {
+        self.shoppingService
+        self.mealService
         self.userService = userService
         self.postService = postService
         self.input = Input()

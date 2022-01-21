@@ -11,8 +11,10 @@ import Then
 import RxCocoa
 import RxSwift
 import ReactorKit
+import ReusableKit
+import RxDataSources
 
-class PhotoSelectViewController: BaseViewController, View {
+class PhotoSelectViewController: UIViewController, View {
     
     private let searchController = UISearchController(searchResultsController: nil).then {
         $0.searchBar.placeholder = "사진을 검색하세요."
@@ -34,7 +36,7 @@ class PhotoSelectViewController: BaseViewController, View {
     }
     
     var disposeBag: DisposeBag = DisposeBag()
-    var coordinator: PhotoCoordinator?
+    var coordinator: MainCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,23 +63,23 @@ class PhotoSelectViewController: BaseViewController, View {
         }
     }
     
-    func bind(reactor: PhotoReactor) {
+    func bind(reactor: AddMealReactor) {
         
         reactor.state.map { $0.photoSections }
         .bind(to: photoCollectionView.rx.items(dataSource: createDataSources()))
         .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.isLoding }
+                  
+        reactor.state.map { $0.isLoading }
         .bind(to: loadingView.rx.isAnimating)
         .disposed(by: disposeBag)
         
         searchController.searchBar.rx.text.orEmpty
-            .map { PhotoReactor.Action.inputQuery($0) }
+            .map { AddMealReactor.Action.query($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         searchController.searchBar.rx.searchButtonClicked
-            .map { PhotoReactor.Action.searchButtonTapped }
+            .map { AddMealReactor.Action.searchButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -86,9 +88,9 @@ class PhotoSelectViewController: BaseViewController, View {
             photoCollectionView.rx.modelSelected(Photo.self))
             .bind(onNext: { [weak self] (indexPath, photo) in
                 self?.photoCollectionView.deselectItem(at: indexPath, animated: false)
-                if let coordinator = self?.coordinator {
-                    coordinator.navigatePhotoDetail(photo: photo)
-                }
+//                if let coordinator = self?.coordinator {
+//                    coordinator.navigatePhotoDetail(photo: photo)
+//                }
             })
             .disposed(by: disposeBag)
         
@@ -110,7 +112,7 @@ class PhotoSelectViewController: BaseViewController, View {
 
 }
 
-extension PhotoViewController: UICollectionViewDelegateFlowLayout {
+extension PhotoSelectViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let space: CGFloat = 2
         let width: CGFloat = (view.bounds.width - (space*2))/3

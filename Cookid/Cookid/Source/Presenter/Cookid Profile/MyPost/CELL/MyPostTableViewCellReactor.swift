@@ -26,14 +26,15 @@ class MyPostTableViewCellReactor: Reactor {
     }
     
     let initialState: State
-    let serviceProvider: ServiceProviderType
-    init(post: Post, serviceProvider: ServiceProviderType) {
-        self.serviceProvider = serviceProvider
+    let userService: UserServiceType
+    init(post: Post,
+         userService: UserServiceType) {
+        self.userService = userService
         self.initialState = State(post: post)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        let user = serviceProvider.userService.currentUser.map { Mutation.setUser($0) }
+        let user = self.userService.currentUser.map { Mutation.setUser($0) }
         return Observable.merge(mutation, user)
     }
     

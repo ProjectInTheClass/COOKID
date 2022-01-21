@@ -9,7 +9,7 @@ import UIKit
 import ReactorKit
 import Swinject
 
-class PostCoordinator: CoordinatorType {
+final class PostCoordinator: CoordinatorType {
     
     var assembler: Assembler
     var navigationController: UINavigationController
@@ -63,16 +63,13 @@ class PostCoordinator: CoordinatorType {
         }
     }
     
-    func navigateCommentVC(rootNaviVC: UINavigationController?, post: Post) {
+    func navigateCommentVC(post: Post) {
         var commentVC = CommentViewController()
-        let viewModel = CommentViewModel(post: post, serviceProvider: serviceProvider)
+        let viewModel = self.assembler.resolver.resolve(CommentViewModel.self, argument: post)!
         commentVC.bind(viewModel: viewModel)
         commentVC.coordinator = self
         commentVC.modalPresentationStyle = .overFullScreen
-        if let rootNaviVC = rootNaviVC {
-            rootNaviVC.pushViewController(commentVC, animated: true)
-        } else {
-            navigationController?.pushViewController(commentVC, animated: true)
+        navigationController.pushViewController(commentVC, animated: true)
         }
     }
     
@@ -84,7 +81,7 @@ class PostCoordinator: CoordinatorType {
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
-        navigationController?.present(alertVC, animated: true, completion: nil)
+        navigationController.present(alertVC, animated: true, completion: nil)
     }
     
     func presentAlertVCForReport(viewModel: CommentViewModel, comment: Comment) {
@@ -95,7 +92,7 @@ class PostCoordinator: CoordinatorType {
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
-        navigationController?.present(alertVC, animated: true, completion: nil)
+        navigationController.present(alertVC, animated: true, completion: nil)
     }
     
     func presentReportActionVC(reactor: PostCellReactor, post: Post, currentUser: User) {
@@ -117,7 +114,7 @@ class PostCoordinator: CoordinatorType {
             alertVC.addAction(reportAction)
         }
         alertVC.addAction(cancelAction)
-        navigationController?.present(alertVC, animated: true, completion: nil)
+        navigationController.present(alertVC, animated: true, completion: nil)
     }
     
 }

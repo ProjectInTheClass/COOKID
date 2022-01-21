@@ -23,11 +23,11 @@ extension RouterType {
     /// Returns a `URLRequest` or throws if an `Error` was encountered.
     func asURLRequest() throws -> URLRequest {
         guard let url = URL(string: self.baseURLString) else {
-            throw NetworkError.urlConvert
+            throw NetworkError.componentRequest
         }
         
         guard var urlRequest = try? URLRequest(url: url.appendingPathComponent(self.path), method: self.httpMethod, headers: self.headers) else {
-            throw NetworkError.urlRequestConvert
+            throw NetworkError.componentRequest
         }
         
         switch self.parameters {

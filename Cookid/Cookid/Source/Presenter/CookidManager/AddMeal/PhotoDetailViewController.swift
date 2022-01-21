@@ -60,3 +60,9 @@ extension PhotoDetailViewController {
         self.photo.kf.setImage(with: photo.image.url)
     }
 }
+
+extension PhotoDetailViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.photo
+    }
+}

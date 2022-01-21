@@ -28,6 +28,7 @@ class MyBookmarkReactor: BaseViewModel, Reactor {
     
     let userService: UserServiceType
     let postService: PostServiceType
+    let initialState: State
     
     init(userService: UserServiceType,
          postService: PostServiceType) {
@@ -38,11 +39,11 @@ class MyBookmarkReactor: BaseViewModel, Reactor {
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
         
-        let user = serviceProvider.userService.currentUser
+        let user = self.userService.currentUser
         let userMutation = user.map { Mutation.setUser($0) }
         let fetchedPosts = Observable.merge(
-            serviceProvider.postService.bookmaredTotalPosts,
-            user.flatMap(serviceProvider.postService.fetchBookmarkedPosts(currentUser:)))
+            self.postService.bookmaredTotalPosts,
+            user.flatMap(self.postService.fetchBookmarkedPosts(currentUser:)))
             .map { Mutation.setPosts($0) }
         return Observable.merge(mutation, userMutation, fetchedPosts)
     }

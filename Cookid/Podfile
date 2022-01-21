@@ -22,8 +22,8 @@ def pods
  pod 'KakaoSDKCommon'
  pod 'KakaoSDKAuth'
  pod 'KakaoSDKUser'
- pod 'Pure'
  pod 'Swinject'
+ pod 'ReusableKit'
 end
 
 target 'Cookid' do

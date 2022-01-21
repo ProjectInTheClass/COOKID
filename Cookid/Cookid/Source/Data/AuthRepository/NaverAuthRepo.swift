@@ -52,12 +52,12 @@ class NaverAutoRepo {
             switch response.result {
             case .success(let object as [String:Any]):
                 guard let localUser = self.viewModel.serviceProvider.repoProvider.realmUserRepo.fetchUser() else { return }
-                let initialDineInCount = self.viewModel.serviceProvider.mealService.initialDineInMeal
-                let initialCookidsCount = initialDineInCount + self.viewModel.serviceProvider.shoppingService.initialShoppingCount
+                let initialDineInCount = self.viewModel.mealService.initialDineInMeal
+                let initialCookidsCount = initialDineInCount + self.viewModel.shoppingService.initialShoppingCount
                 guard let newResponse = object["response"] as? [String:Any] else { return }
                 if let imageURLString = newResponse["profile_image"] as? String {
                     let imageURL = URL(string: imageURLString)!
-                    self.viewModel.serviceProvider.userService.connectUser(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
+                    self.viewModel.userService.connectUser(localUser: localUser, imageURL: imageURL, dineInCount: initialDineInCount, cookidsCount: initialCookidsCount) { success in
                         if success {
                             completion(true)
                         } else {

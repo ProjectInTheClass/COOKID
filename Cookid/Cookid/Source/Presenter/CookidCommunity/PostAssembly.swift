@@ -17,7 +17,11 @@ class PostAssembly: Assembly {
         let postService = safeResolver.resolve(PostServiceType.self)!
         let commentService = safeResolver.resolve(CommentServiceType.self)!
         
-        container.register(AddPostReactor.self) { _, mode: PostEditViewMode in
+        container.register(PostViewModel.self, name: nil) { resolver in
+            return PostViewModel(userService: userService, postService: postService, shoppingService: shoppingService, mealService: mealService)
+        }
+        
+        container.register(AddPostReactor.self, name: nil) { (_, mode: PostEditViewMode) in
             return AddPostReactor(mode: mode, userService: userService, postService: postService)
         }
         
@@ -25,7 +29,7 @@ class PostAssembly: Assembly {
             return RankingViewModel(userService: userService)
         }
         
-        container.resolve(CommentViewModel.self) { _, post: Post in
+        container.register(CommentViewModel.self) { (_, post: Post) in
             return CommentViewModel(post: post, userService: userService, commentService: commentService)
         }
     }

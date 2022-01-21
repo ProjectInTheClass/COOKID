@@ -29,15 +29,15 @@ class MyBookmarkCollectionViewCellReactor: Reactor {
     }
     
     let initialState: State
-    let serviceProvider: ServiceProviderType
+    let userService: UserServiceType
     
-    init(post: Post, serviceProvider: ServiceProviderType) {
-        self.serviceProvider = serviceProvider
+    init(post: Post, userService: UserServiceType) {
+        self.userService = userService
         self.initialState = State(post: post, isHeart: post.didLike, isBookmark: post.didCollect)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-        let user = serviceProvider.userService.currentUser
+        let user = self.userService.currentUser
             .map { Mutation.setUser($0) }
         return Observable.merge(mutation, user)
     }

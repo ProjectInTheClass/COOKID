@@ -99,7 +99,7 @@ class MyBookmarkViewController: UIViewController, View {
             .withUnretained(self)
             .bind { owner, post in
                 guard let postCoordinator = owner.coordinator?.parentCoordinator.childCoordinator[1] as? PostCoordinator else { return }
-                postCoordinator.navigateCommentVC(rootNaviVC: owner.coordinator?.navigationController, post: post)
+                postCoordinator.navigateCommentVC(post: post)
             }
             .disposed(by: disposeBag)
         

@@ -78,10 +78,10 @@ class MyPostsViewController: UIViewController, View {
             self.backgroundStackView.isHidden = posts.count != 0
         })
         .bind(to: tableView.rx.items(cellIdentifier: MyPostsViewController.myPostCellIdentifier, cellType: MyPostTableViewCell.self)) { _, item, cell in
-            cell.reactor = MyPostTableViewCellReactor(post: item, serviceProvider: reactor.serviceProvider)
+            cell.reactor = MyPostTableViewCellReactor(post: item, userService: reactor.userService)
             cell.settingButton.rx.tap
                 .bind {
-                    self.coordinator?.presentEditActionSheet(reactor: reactor, post: item)
+                    self.coordinator?.presentEditActionSheet(post: item)
                 }
                 .disposed(by: cell.disposeBag)
         }
@@ -93,8 +93,7 @@ class MyPostsViewController: UIViewController, View {
             resultSelector: { ($0, $1)})
             .bind { [unowned self] (post, indexPath) in
                 self.tableView.deselectRow(at: indexPath, animated: false)
-                guard let postCoordinator = self.coordinator?.parentCoordinator.childCoordinator[1] as? PostCoordinator else { return }
-                postCoordinator.navigateCommentVC(rootNaviVC: self.coordinator?.navigationController, post: post)
+                postCoordinator.navigateCommentVC(post: post)
             }
             .disposed(by: disposeBag)
     }

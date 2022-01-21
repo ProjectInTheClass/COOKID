@@ -9,7 +9,7 @@ import UIKit
 import ReactorKit
 import Swinject
 
-class MainCoordinator: CoordinatorType {
+final class MainCoordinator: CoordinatorType {
     
     var assembler: Assembler
     var navigationController: UINavigationController
@@ -25,9 +25,9 @@ class MainCoordinator: CoordinatorType {
     }
     
     private func navigationBarConfigure() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
-        navigationController?.navigationBar.barTintColor = .systemBackground
+        navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.navigationBar.tintColor = DefaultStyle.Color.tint
+        navigationController.navigationBar.barTintColor = .systemBackground
     }
     
     func navigateSelectCalendarVC(viewModel: MainViewModel) {
@@ -35,34 +35,32 @@ class MainCoordinator: CoordinatorType {
         vc.bind(viewModel: viewModel)
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
-        navigationController?.present(vc, animated: true, completion: nil)
+        navigationController.present(vc, animated: true, completion: nil)
     }
     
     func navigateAddMealVC(mode: MealEditMode) {
         let vc = AddMealViewController.instantiate(storyboardID: "Main")
-        vc.reactor = AddMealReactor(mode: mode, serviceProvider: serviceProvider)
+        vc.reactor = assembler.resolver.resolve(AddMealReactor.self, argument: mode)!
         vc.coordinator = self
         vc.modalPresentationStyle = .custom
         vc.modalTransitionStyle = .crossDissolve
         vc.view.backgroundColor = .clear
-        navigationController?.present(vc, animated: true, completion: nil)
+        navigationController.present(vc, animated: true, completion: nil)
     }
     
     func navigateAddShoppingVC(mode: ShoppingEditMode) {
-        let vc = AddShoppingViewController()
-        vc.reactor = AddShoppingReactor(mode: mode, serviceProvider: serviceProvider)
+        let vc = assembler.resolver.resolve(AddShoppingViewController.self, argument: mode)!
         vc.coordinator = self
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
-        navigationController?.present(vc, animated: true, completion: nil)
+        navigationController.present(vc, animated: true, completion: nil)
     }
     
     func navigateAddTodayMeal() {
-        let vc = AddTodayMealViewController.instantiate(storyboardID: "Main")
-        vc.reactor = AddTodayReactor(serviceProvider: serviceProvider)
+        let vc = assembler.resolver.resolve(AddMealViewController.self)!
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
-        navigationController?.present(vc, animated: true, completion: nil)
+        navigationController.present(vc, animated: true, completion: nil)
     }
     
     func presentDeleteAlert(root: UIViewController, reactor: AddShoppingReactor) {
