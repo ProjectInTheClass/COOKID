@@ -21,14 +21,7 @@ class MainAssembly: Assembly {
             let photoService = safeResolver.resolve(PhotoServiceType.self)!
             return AddMealReactor(mode: mode, photoService: photoService, userService: userService, mealService: mealService)
         }
-        
-        container.register(PhotoSelectViewController.self, name: nil) { _ in
-            let reactor = safeResolver.resolve(AddMealReactor.self)!
-            let vc = PhotoSelectViewController()
-            vc.reactor = reactor
-            return vc
-        }
-        
+     
         // AddToday
         container.register(AddTodayReactor.self, name: nil) { resolver in
             return AddTodayReactor(userService: userService, mealService: mealService)

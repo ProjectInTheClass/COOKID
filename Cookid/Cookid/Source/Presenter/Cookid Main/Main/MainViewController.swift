@@ -288,6 +288,9 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
                 .disposed(by: rx.disposeBag)
         
         mealTimeCollectionView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+         
+        viewModel.shoppingService.fetchShoppings()
+        viewModel.mealService.fetchMeals()
         
     }
     

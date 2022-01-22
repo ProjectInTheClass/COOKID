@@ -20,30 +20,31 @@ final class HomeCoordinator: CoordinatorType {
     }
     
     func start() {
-        let mainCoordinator = MainCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+        
+        let mainVC = assembler.resolver.resolve(MainViewController.self)!
+        let mainNVC = UINavigationController(rootViewController: mainVC)
+        let mainCoordinator = MainCoordinator(assembler: self.assembler, navigationController: mainNVC)
+        mainVC.coordinator = mainCoordinator
         mainCoordinator.parentCoordinator = self
         childCoordinator.append(mainCoordinator)
         
-        let mainVC = assembler.resolver.resolve(MainViewController.self)!
-        mainVC.coordinator = mainCoordinator
-        
+        let postMainVC = assembler.resolver.resolve(PostMainViewController.self)!
+        let postMainNVC = UINavigationController(rootViewController: postMainVC)
         let postCoordinator = PostCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+        postMainVC.coordinator = postCoordinator
         postCoordinator.parentCoordinator = self
         childCoordinator.append(postCoordinator)
         
-        let postMainVC = assembler.resolver.resolve(PostMainViewController.self)!
-        postMainVC.coordinator = postCoordinator
-        
+        let myPageVC = assembler.resolver.resolve(MyPageViewController.self)!
+        let myPageNVC = UINavigationController(rootViewController: myPageVC)
         let myPageCoordinator = MyPageCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+        myPageVC.coordinator = myPageCoordinator
         myPageCoordinator.parentCoordinator = self
         childCoordinator.append(myPageCoordinator)
         
-        let myPageVC = assembler.resolver.resolve(MyPageViewController.self)!
-        myPageVC.coordinator = myPageCoordinator
-        
         // tabbar
         let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([mainVC, postMainVC, myPageVC], animated: false)
+        tabBarController.setViewControllers([mainNVC, postMainNVC, myPageNVC], animated: false)
         tabBarController.tabBar.tintColor = DefaultStyle.Color.tint
         tabBarController.tabBar.items?[0].title = "소비내역"
         tabBarController.tabBar.items?[1].title = "식사추천"

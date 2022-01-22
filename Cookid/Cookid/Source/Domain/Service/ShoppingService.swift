@@ -10,9 +10,9 @@ import RxSwift
 
 protocol ShoppingServiceType {
     var initialShoppingCount: Int { get }
-    var shoppingList: Observable<[Shopping]> { get }
+    var shoppingStore: BehaviorSubject<[Shopping]> { get }
     func create(shopping: Shopping, currentUser: User) -> Observable<Bool>
-    func fetchShoppings() -> Observable<[Shopping]>
+    func fetchShoppings()
     func update(updateShopping: Shopping) -> Observable<Bool>
     func deleteShopping(deleteShopping: Shopping, currentUser: User) -> Observable<Bool>
 }
@@ -31,17 +31,14 @@ class ShoppingService: ShoppingServiceType {
     // MARK: - Shopping Storage
     
     private var shoppings: [Shopping] = []
-    private lazy var shoppingStore = BehaviorSubject<[Shopping]>(value: shoppings)
+    lazy var shoppingStore = BehaviorSubject<[Shopping]>(value: shoppings)
+    
+    // MARK: - Shopping CRUD
     
     var initialShoppingCount: Int {
         return shoppings.count
     }
     
-    var shoppingList: Observable<[Shopping]> {
-        return shoppingStore
-    }
-    
-    // MARK: - Shopping CRUD
     func create(shopping: Shopping, currentUser: User) -> Observable<Bool> {
         return Observable.create { [weak self] observer in
             guard let self = self else { return Disposables.create() }
@@ -51,30 +48,25 @@ class ShoppingService: ShoppingServiceType {
                     self.shoppings.append(shopping)
                     self.shoppingStore.onNext(self.shoppings)
                     observer.onNext(true)
+                    observer.onCompleted()
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
             return Disposables.create()
         }
     }
     
-    func fetchShoppings() -> Observable<[Shopping]> {
-        return Observable.create { observer in
-            guard let localShoppings = self.realmShoppingRepo.fetchShoppings() else {
-                return Disposables.create()
-            }
-            let shoppings = localShoppings.map { $0.toDomain() }
-            observer.onNext(shoppings)
-            self.shoppings = shoppings
-            self.shoppingStore.onNext(self.shoppings)
-            return Disposables.create()
-        }
+    func fetchShoppings() {
+        guard let localShoppings = self.realmShoppingRepo.fetchShoppings() else { return }
+        let shoppings = localShoppings.map { $0.toDomain() }
+        self.shoppings = shoppings
+        self.shoppingStore.onNext(self.shoppings)
     }
     
     func update(updateShopping: Shopping) -> Observable<Bool> {
-        return Observable.create { [weak self] observer in
-            guard let self = self else { return Disposables.create() }
+        return Observable.create { observer in
             self.realmShoppingRepo.updateShopping(shopping: updateShopping) { success in
                 if success {
                     if let index = self.shoppings.firstIndex(where: { $0.id == updateShopping.id }) {
@@ -83,8 +75,10 @@ class ShoppingService: ShoppingServiceType {
                     }
                     self.shoppingStore.onNext(self.shoppings)
                     observer.onNext(true)
+                    observer.onCompleted()
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
             return Disposables.create()
@@ -92,8 +86,7 @@ class ShoppingService: ShoppingServiceType {
     }
     
     func deleteShopping(deleteShopping: Shopping, currentUser: User) -> Observable<Bool> {
-        return Observable.create { [weak self] observer in
-            guard let self = self else { return Disposables.create() }
+        return Observable.create { observer in
             self.realmShoppingRepo.deleteShopping(shopping: deleteShopping) { success in
                 if success {
                     if let index = self.shoppings.firstIndex(where: { $0.id == deleteShopping.id }) {
@@ -102,8 +95,10 @@ class ShoppingService: ShoppingServiceType {
                     self.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: false)
                     self.shoppingStore.onNext(self.shoppings)
                     observer.onNext(true)
+                    observer.onCompleted()
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
             return Disposables.create()

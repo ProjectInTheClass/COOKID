@@ -63,9 +63,9 @@ class PostCellReactor: Reactor {
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
         let currentPercent =
         Observable.combineLatest(
-            self.mealService.mealList.map(sortSpotMonthMeals),
+            self.mealService.mealStore.map(sortSpotMonthMeals),
             self.userService.currentUser,
-            self.shoppingService.shoppingList.map(sortSpotMonthShoppings),
+            self.shoppingService.shoppingStore.map(sortSpotMonthShoppings),
             Observable.just(self.currentState.post),
             resultSelector: calculateCurrentPercent)
             .map { Mutation.setCurrentPercent($0) }

@@ -93,6 +93,7 @@ class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePick
         settingPickerInTextField(mealtimeTF)
         dimmingButton.backgroundColor = .black
         scrollView.delegate = self
+        imagePicker.delegate = self
     }
     
     private func settingPickerInTextField(_ textfield: UITextField) {
@@ -250,10 +251,12 @@ class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePick
         
         addPhotoButton.rx.tap
             .bind(onNext: { [unowned self] in
+               
                 let alertController = UIAlertController(title: "메뉴 사진 업로드", message: "어디에서 메뉴의 사진을 업로드 할까요?", preferredStyle: .actionSheet)
+                
                 let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
                 alertController.addAction(cancelAction)
-                imagePicker.delegate = self
+                
                 if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                     let photoAction = UIAlertAction(title: "사진 라이브러리", style: .default) { _ in
                         imagePicker.sourceType = .photoLibrary
@@ -275,13 +278,14 @@ class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePick
                     cvc.modalPresentationStyle = .automatic
                     self.presentPanModal(cvc)
                 }
-                let photoAction = UIAlertAction(title: "사진 찾기", style: .default) { _ in
-                    let pvc = PhotoSelectViewController()
-                    pvc.reactor = reactor
-                    self.navigationController?.pushViewController(pvc, animated: true)
+                let photoSearchAction = UIAlertAction(title: "사진 찾기", style: .default) { _ in
+                    let vc = PhotoSelectViewController()
+                    vc.reactor = reactor
+                    let nvc = UINavigationController(rootViewController: vc)
+                    self.present(nvc, animated: true, completion: nil)
                 }
                 alertController.addAction(pictureAction)
-                alertController.addAction(photoAction)
+                alertController.addAction(photoSearchAction)
                 present(alertController, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
@@ -297,8 +301,10 @@ class AddMealViewController: UIViewController, UIScrollViewDelegate, UIImagePick
     private func bindStateWithView(reactor: AddMealReactor) {
         
         reactor.state.map { $0.isError }
+        .observe(on: MainScheduler.asyncInstance)
+        .compactMap { $0 }
+        .distinctUntilChanged()
         .bind(onNext: { [unowned self] isError in
-            guard let isError = isError else { return }
             isError ? errorAlert(selfView: self, errorMessage: "식사를 추가 작업에 실패했습니다ㅠㅠ") {
                 self.dismiss(animated: true, completion: nil)
             }

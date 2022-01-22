@@ -50,7 +50,6 @@ class PostViewModel: ViewModelType, HasDisposeBag {
             .disposed(by: disposeBag)
         
         postService.totalPosts
-            .debug()
             .bind(to: output.posts)
             .disposed(by: disposeBag)
         

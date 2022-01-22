@@ -20,17 +20,20 @@ class MainViewModel: ViewModelType, HasDisposeBag {
     }
     
     struct Output {
+        // Calendar
         let selectedDate = BehaviorRelay<Date>(value: Date())
+        // User
         let userInfo = BehaviorRelay<User>(value: DummyData.shared.secondUser)
-        let recentMeals = BehaviorRelay<[Meal]>(value: [])
-        let adviceString = BehaviorRelay<String>(value: "")
+        // consumption
+        let adviceString = PublishRelay<String>()
         let monthlyDetailed = PublishRelay<ConsumptionDetailed>()
-        let consumeProgressCalc = BehaviorRelay<Double>(value: 0)
-        let averagePrice = BehaviorRelay<String>(value: "")
-        let dineInProgress = BehaviorRelay<CGFloat>(value: 0.5)
-        let mostExpensiveMeal = BehaviorRelay<Meal>(value: DummyData.shared.mySingleMeal)
-        let mealDayList = BehaviorRelay<[MainCollectionViewSection]>(value: [])
-        let mealtimes = BehaviorRelay<[[Meal]]>(value: [])
+        let consumeProgressCalc = PublishRelay<Double>()
+        let averagePrice = PublishRelay<String>()
+        let dineInProgress = PublishRelay<CGFloat>()
+        let mostExpensiveMeal = PublishRelay<Meal>()
+        let recentMeals = PublishRelay<[Meal]>()
+        let mealDayList = PublishRelay<[MainCollectionViewSection]>()
+        let mealtimes = PublishRelay<[[Meal]]>()
     }
     
     // for calendar viewModel
@@ -60,13 +63,8 @@ class MainViewModel: ViewModelType, HasDisposeBag {
         
         let currentUser = userService.currentUser
         
-        let meals = Observable.merge(
-            mealService.mealList,
-            mealService.fetchMeals())
-        
-        let shoppings = Observable.merge(
-            shoppingService.shoppingList,
-            shoppingService.fetchShoppings())
+        let meals = mealService.mealStore
+        let shoppings = shoppingService.shoppingStore
         
         let spotMonthMeals = meals.map(sortSpotMonthMeals)
         let spotMonthShoppings = shoppings.map(sortSpotMonthShoppings)

@@ -26,25 +26,25 @@ class ServiceAssembly: Assembly {
             return PhotoService(photoAPI: photoAPI)
         }
         
-        container.register(MealServiceType.self, name: nil) { resolver in
+        container.register(MealServiceType.self, name: nil) { _ in
             return MealService(fileManagerRepo: fileManagerRepository, realmMealRepo: realmMealRepository, firestoreUserRepo: firestoreUserRepository)
-        }
+        }.inObjectScope(.container)
         
         container.register(ShoppingServiceType.self, name: nil) { resolver in
             return ShoppingService(realmShoppingRepo: realmShoppingRepository, firestoreUserRepo: firestoreUserRepository)
-        }
+        }.inObjectScope(.container)
         
-        container.register(UserServiceType.self, name: nil) { resolver in
+        container.register(UserServiceType.self, name: nil) { _ in
             return UserService(firestoreUserRepo: firestoreUserRepository, realmUserRepo: realmUserRepository, firestorageImageRepo: firestorageImageRepository)
-        }
+        }.inObjectScope(.container)
         
-        container.register(PostServiceType.self, name: nil) { resolver in
+        container.register(PostServiceType.self, name: nil) { _ in
             return PostService(firestorageImageRepo: firestorageImageRepository, firestorePostRepo: firestorePostRepository, firestoreCommentRepo: firestoreCommentRepository, firestoreUserRepo: firestoreUserRepository)
-        }
+        }.inObjectScope(.container)
         
-        container.register(CommentServiceType.self, name: nil) { resolver in
+        container.register(CommentServiceType.self, name: nil) { _ in
             return CommentService(firestoreCommentRepo: firestoreCommentRepository, firestoreUserRepo: firestoreUserRepository)
-        }
+        }.inObjectScope(.container)
         
     }
 }

@@ -10,19 +10,19 @@ import Swinject
 
 class FirebaseAssembly: Assembly {
     func assemble(container: Container) {
-        container.register(StorageRepoType.self, name: nil) { resolver in
+        container.register(StorageRepoType.self, name: nil) { _ in
             return FirebaseStorageRepo()
         }
         
-        container.register(UserRepoType.self, name: nil) { resolver in
+        container.register(UserRepoType.self, name: nil) { _ in
             return FirestoreUserRepo()
         }
         
-        container.register(PostRepoType.self, name: nil) { resolver in
+        container.register(PostRepoType.self, name: nil) { _ in
             return FirestorePostRepo()
-        }
+        }.inObjectScope(.container)
         
-        container.register(CommentRepoType.self, name: nil) { resolver in
+        container.register(CommentRepoType.self, name: nil) { _ in
             return FirestoreCommentRepo()
         }
     }

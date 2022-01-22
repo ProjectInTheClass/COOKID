@@ -141,7 +141,8 @@ class AddMealReactor: Reactor {
         case .query(let query):
             return .just(.setQuery(query))
         case .searchButtonTapped:
-            return .empty()
+            let query = self.currentState.query
+            return photoService.fetchPhotos(query: query).map { Mutation.setPhotos([SectionModel<Int, Photo>.init(model: 0, items: $0)])}
         }
     }
     

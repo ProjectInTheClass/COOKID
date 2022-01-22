@@ -10,10 +10,10 @@ import RxSwift
 import RxCocoa
 
 protocol MealServiceType {
+    var mealStore: BehaviorSubject<[Meal]> { get }
     var initialDineInMeal: Int { get }
-    var mealList: Observable<[Meal]> { get }
     func create(meal: Meal?, currentUser: User) -> Observable<Bool>
-    func fetchMeals() -> Observable<[Meal]>
+    func fetchMeals()
     func update(updateMeal: Meal) -> Observable<Bool>
     func deleteMeal(meal: Meal, currentUser: User) -> Observable<Bool>
 }
@@ -34,48 +34,49 @@ class MealService: MealServiceType {
     // MARK: - Meal Storage
     
     private var meals: [Meal] = []
-    private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
+    lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
+    
+    // MARK: - Meal CRUD
     
     var initialDineInMeal: Int {
         return meals.filter { $0.mealType == .dineIn }.count
     }
     
-    var mealList: Observable<[Meal]> {
-        return mealStore
+    func fetchMeals() {
+        guard let localMeals = self.realmMealRepo.fetchMeals() else { return }
+        let meals = localMeals.map { model -> Meal in
+            let image = self.fileManagerRepo.loadImage(id: model.id)
+            return model.toDomain(image: image)
+        }
+        self.meals = meals
+        self.mealStore.onNext(self.meals)
     }
-    
-    // MARK: - Meal CRUD
     
     func create(meal: Meal?, currentUser: User) -> Observable<Bool> {
         guard let meal = meal else {
             return Observable.just(false)
         }
         return Observable<Bool>.create { observer in
-            self.fileManagerRepo.saveImage(image: meal.image ?? UIImage(named: "salad")!, id: meal.id) { _ in }
-            self.realmMealRepo.createMeal(meal: meal) { success in
+            self.fileManagerRepo.saveImage(image: meal.image ?? UIImage(named: "salad")!, id: meal.id) { success in
                 if success {
-                    self.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: true)
-                    self.meals.append(meal)
-                    self.mealStore.onNext(self.meals)
-                    observer.onNext(true)
+                    self.realmMealRepo.createMeal(meal: meal) { success in
+                        if success {
+                            self.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: true)
+                            self.meals.append(meal)
+                            self.mealStore.onNext(self.meals)
+                            observer.onNext(true)
+                            observer.onCompleted()
+                        } else {
+                            observer.onNext(false)
+                            observer.onCompleted()
+                        }
+                    }
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
-            return Disposables.create()
-        }
-    }
-    
-    func fetchMeals() -> Observable<[Meal]> {
-        return Observable.create { observer in
-            guard let localMeals = self.realmMealRepo.fetchMeals() else { return Disposables.create() }
-            let meals = localMeals.map { model -> Meal in
-                let image = self.fileManagerRepo.loadImage(id: model.id)
-                return model.toDomain(image: image)
-            }
-            observer.onNext(meals)
-            self.meals = meals
-            self.mealStore.onNext(self.meals)
+            
             return Disposables.create()
         }
     }
@@ -92,8 +93,10 @@ class MealService: MealServiceType {
                     }
                     self.mealStore.onNext(self.meals)
                     observer.onNext(true)
+                    observer.onCompleted()
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
             return Disposables.create()
@@ -111,8 +114,10 @@ class MealService: MealServiceType {
                     self.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: false)
                     self.mealStore.onNext(self.meals)
                     observer.onNext(true)
+                    observer.onCompleted()
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
             return Disposables.create()

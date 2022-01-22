@@ -13,11 +13,12 @@ import RxSwift
 import ReactorKit
 import ReusableKit
 import RxDataSources
+import Kingfisher
 
 class PhotoSelectViewController: UIViewController, View {
     
     private let searchController = UISearchController(searchResultsController: nil).then {
-        $0.searchBar.placeholder = "사진을 검색하세요."
+        $0.searchBar.placeholder = "영어로 검색해 주세요."
         $0.hidesNavigationBarDuringPresentation = false
     }
     
@@ -47,7 +48,7 @@ class PhotoSelectViewController: UIViewController, View {
     private func configureUI() {
         view.backgroundColor = .systemBackground
         self.navigationItem.searchController = searchController
-        self.navigationItem.title = "Search Photo"
+        self.navigationItem.title = "사진 찾기"
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
@@ -88,9 +89,8 @@ class PhotoSelectViewController: UIViewController, View {
             photoCollectionView.rx.modelSelected(Photo.self))
             .bind(onNext: { [weak self] (indexPath, photo) in
                 self?.photoCollectionView.deselectItem(at: indexPath, animated: false)
-//                if let coordinator = self?.coordinator {
-//                    coordinator.navigatePhotoDetail(photo: photo)
-//                }
+                reactor.action.onNext(AddMealReactor.Action.imageURL(photo.image.url))
+                self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
         
@@ -99,7 +99,7 @@ class PhotoSelectViewController: UIViewController, View {
     }
     
     func createDataSources() -> RxCollectionViewSectionedReloadDataSource<SectionModel<Int, Photo>> {
-        return RxCollectionViewSectionedReloadDataSource<SectionModel<Int, Photo>>.init { datasource, collectionView, indexPath, item in
+        return RxCollectionViewSectionedReloadDataSource<SectionModel<Int, Photo>>.init { _, collectionView, indexPath, item in
             let cell = collectionView.dequeue(Reusable.photoCell, for: indexPath)
             cell.rendering(photo: item)
             return cell

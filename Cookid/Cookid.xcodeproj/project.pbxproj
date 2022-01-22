@@ -151,7 +151,6 @@
 		03E8B6A62796F5F300EEAEF4 /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A52796F5F300EEAEF4 /* AppAssembler.swift */; };
 		03E8B6A82797061B00EEAEF4 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */; };
 		03E8B6AA27970A7700EEAEF4 /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6A927970A7700EEAEF4 /* ServiceAssembly.swift */; };
-		03E8B6AC27970C9E00EEAEF4 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6AB27970C9D00EEAEF4 /* PhotoDetailViewController.swift */; };
 		03E8B6AE27970F4400EEAEF4 /* FirebaseAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6AD27970F4400EEAEF4 /* FirebaseAssembly.swift */; };
 		03E8B6B027970F5200EEAEF4 /* RealmAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6AF27970F5200EEAEF4 /* RealmAssembly.swift */; };
 		03E8B6B62797D0A200EEAEF4 /* PostAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E8B6B52797D0A200EEAEF4 /* PostAssembly.swift */; };
@@ -344,7 +343,6 @@
 		03E8B6A52796F5F300EEAEF4 /* AppAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
 		03E8B6A72797061B00EEAEF4 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
 		03E8B6A927970A7700EEAEF4 /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
-		03E8B6AB27970C9D00EEAEF4 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		03E8B6AD27970F4400EEAEF4 /* FirebaseAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAssembly.swift; sourceTree = "<group>"; };
 		03E8B6AF27970F5200EEAEF4 /* RealmAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAssembly.swift; sourceTree = "<group>"; };
 		03E8B6B52797D0A200EEAEF4 /* PostAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAssembly.swift; sourceTree = "<group>"; };
@@ -435,7 +433,6 @@
 				0395F6EC26B805360091BB29 /* AddMealViewController.swift */,
 				03B2049426D75DD50099C269 /* PictureSelectViewController.swift */,
 				034A3826276FB5900059B9F8 /* PhotoSelectViewController.swift */,
-				03E8B6AB27970C9D00EEAEF4 /* PhotoDetailViewController.swift */,
 				0361858C2794286D00F1F16B /* CELL */,
 			);
 			path = AddMeal;
@@ -1482,7 +1479,6 @@
 				03D3046426FDE8BE00042CB7 /* AddPostImageCollectionViewCell.swift in Sources */,
 				03E8B6A62796F5F300EEAEF4 /* AppAssembler.swift in Sources */,
 				03E8B6A82797061B00EEAEF4 /* MainAssembly.swift in Sources */,
-				03E8B6AC27970C9E00EEAEF4 /* PhotoDetailViewController.swift in Sources */,
 				03F2ED9226F38D7C00CFE87C /* MainCoordinator.swift in Sources */,
 				037A77C427527C120021BBA7 /* FirebaseConstants.swift in Sources */,
 				030D4AE227300D99005C0FFF /* CoodinatorProtocol.swift in Sources */,

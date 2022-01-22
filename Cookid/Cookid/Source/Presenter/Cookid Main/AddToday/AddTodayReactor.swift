@@ -83,12 +83,13 @@ class AddTodayReactor: Reactor {
                 self.mealService.create(meal: lunchMeal, currentUser: user),
                 self.mealService.create(meal: dinnerMeal, currentUser: user)
             ) { b1, b2, b3 in return b1 || b2 || b3 }
-            
+
             return Observable.concat([
                 Observable.just(Mutation.setIsLoading(true)),
                 createMeals.map { Mutation.isError(!$0) },
                 Observable.just(Mutation.setIsLoading(false))
             ])
+            return .empty()
         }
     }
     
