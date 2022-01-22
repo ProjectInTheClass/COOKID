@@ -22,12 +22,8 @@ class PostAssembly: Assembly {
             return AddPostReactor(mode: mode, userService: userService, postService: postService)
         }
         
-        container.register(RankingViewModel.self, name: nil) { resolver in
+        container.register(RankingViewModel.self, name: nil) { _ in
             return RankingViewModel(userService: userService)
-        }
-        
-        container.register(CommentViewModel.self) { (_, post: Post) in
-            return CommentViewModel(post: post, userService: userService, commentService: commentService)
         }
         
         container.register(PostCellReactor.self, name: nil) { (_, post: Post, sender: UIViewController) in
@@ -47,6 +43,11 @@ class PostAssembly: Assembly {
             var vc = SignInViewController.instantiate(storyboardID: "RemoteSignIn")
             vc.bind(viewModel: viewModel)
             return vc
+        }
+        
+        // comment
+        container.register(CommentViewModel.self) { (_, post: Post) in
+            return CommentViewModel(post: post, userService: userService, commentService: commentService)
         }
         
         container.register(CommentViewController.self, name: nil) { (_, post: Post) in

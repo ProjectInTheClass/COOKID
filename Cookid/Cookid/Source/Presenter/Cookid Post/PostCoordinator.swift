@@ -72,13 +72,13 @@ final class PostCoordinator: CoordinatorType {
     
     func navigateCommentVC(post: Post) {
         let commentCoordinator = CommentCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+        commentCoordinator.post = post
         commentCoordinator.parentCoordinator = self
         childCoordinator.append(commentCoordinator)
-        commentCoordinator.post = post
         commentCoordinator.start()
     }
     
-    func presentReportActionVC(sender: UIViewController?, post: Post, currentUser: User) {
+    func presentReportActionVC(sender: UIViewController, post: Post, currentUser: User) {
         
         let reactor = assembler.resolver.resolve(PostCellReactor.self, arguments: post, sender)!
         let alertVC = UIAlertController(title: "포스팅 관리", message: "신고나 삭제된 게시물은 복구할 수 없습니다.\n깨끗한 공유문화를 위해서 함께 해주세요!", preferredStyle: .actionSheet)

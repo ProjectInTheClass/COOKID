@@ -13,7 +13,7 @@ final class CommentCoordinator: CoordinatorType {
     var childCoordinator: [CoordinatorType] = []
     var assembler: Assembler
     var navigationController: UINavigationController
-    var post: Post!
+    var post: Post?
     
     init(assembler: Assembler, navigationController: UINavigationController) {
         self.assembler = assembler
@@ -21,6 +21,7 @@ final class CommentCoordinator: CoordinatorType {
     }
     
     func start() {
+        guard let post = self.post else { return }
         let vc = assembler.resolver.resolve(CommentViewController.self, argument: post)!
         vc.coordinator = self
         vc.modalPresentationStyle = .overFullScreen

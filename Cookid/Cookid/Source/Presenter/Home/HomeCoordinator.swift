@@ -19,10 +19,17 @@ final class HomeCoordinator: CoordinatorType {
         self.navigationController = navigationController
     }
     
+    private func configureNavigationController() {
+        self.navigationController.isNavigationBarHidden = true
+    }
+    
     func start() {
+        
+        configureNavigationController()
         
         let mainVC = assembler.resolver.resolve(MainViewController.self)!
         let mainNVC = UINavigationController(rootViewController: mainVC)
+        mainNVC.navigationBar.prefersLargeTitles = true
         let mainCoordinator = MainCoordinator(assembler: self.assembler, navigationController: mainNVC)
         mainVC.coordinator = mainCoordinator
         mainCoordinator.parentCoordinator = self
@@ -30,14 +37,16 @@ final class HomeCoordinator: CoordinatorType {
         
         let postMainVC = assembler.resolver.resolve(PostMainViewController.self)!
         let postMainNVC = UINavigationController(rootViewController: postMainVC)
-        let postCoordinator = PostCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+        postMainNVC.navigationBar.prefersLargeTitles = false
+        let postCoordinator = PostCoordinator(assembler: self.assembler, navigationController: postMainNVC)
         postMainVC.coordinator = postCoordinator
         postCoordinator.parentCoordinator = self
         childCoordinator.append(postCoordinator)
         
         let myPageVC = assembler.resolver.resolve(MyPageViewController.self)!
         let myPageNVC = UINavigationController(rootViewController: myPageVC)
-        let myPageCoordinator = MyPageCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+        myPageNVC.navigationBar.prefersLargeTitles = false
+        let myPageCoordinator = MyPageCoordinator(assembler: self.assembler, navigationController: myPageNVC)
         myPageVC.coordinator = myPageCoordinator
         myPageCoordinator.parentCoordinator = self
         childCoordinator.append(myPageCoordinator)
@@ -53,4 +62,5 @@ final class HomeCoordinator: CoordinatorType {
         tabBarController.modalTransitionStyle = .crossDissolve
         navigationController.setViewControllers([tabBarController], animated: false)
     }
+    
 }

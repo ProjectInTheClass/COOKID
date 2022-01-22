@@ -113,6 +113,7 @@ class MainViewController: UIViewController, ViewModelBindable, StoryboardBased {
     }
     
     private func configureNavTab() {
+        self.navigationItem.prompt = nil
         self.navigationItem.title = "\(Date().convertDateToString(format: "M월")) 목표 🏳️‍🌈"
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.tabBarItem.image = UIImage(systemName: "house")

@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import SwiftUI
 
 typealias UserResult = (Result<UserEntity?, FirebaseError>) -> Void
 typealias RankersResult = (Result<[UserEntity], FirebaseError>) -> Void
@@ -89,7 +90,7 @@ class FirestoreUserRepo: BaseRepository, UserRepoType {
     }
     
     func transactionUserImageURL(userID: String, imageURL: String, completion: @escaping (Bool) -> Void) {
-        userDB.document(userID).firestore.runTransaction { [weak self] transaction, errorPointer in
+        userDB.document(userID).firestore.runTransaction { [weak self] (transaction: Transaction, errorPointer: ErrorPointer) -> Any? in
             guard let self = self else { return nil }
             let userDocument: DocumentSnapshot
             do {
@@ -115,7 +116,7 @@ class FirestoreUserRepo: BaseRepository, UserRepoType {
     }
     
     func transactionCookidsCount(userID: String, isAdd: Bool) {
-        userDB.document(userID).firestore.runTransaction { [weak self] transaction, errorPointer in
+        userDB.document(userID).firestore.runTransaction { [weak self] (transaction: Transaction, errorPointer: ErrorPointer) -> Any? in
             guard let self = self else { return nil }
             let userDocument: DocumentSnapshot
             do {

@@ -21,8 +21,7 @@ final class MainCoordinator: CoordinatorType {
     }
     
     func start() {
-        let tabBarController = assembler.resolver.resolve(UITabBarController.self)!
-        navigationController.setViewControllers([tabBarController], animated: false)
+        
     }
     
     private func navigationBarConfigure() {
