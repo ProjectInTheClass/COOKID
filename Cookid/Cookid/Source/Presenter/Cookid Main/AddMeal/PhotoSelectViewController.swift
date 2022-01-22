@@ -29,6 +29,7 @@ class PhotoSelectViewController: UIViewController, View {
     }
     
     private lazy var photoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
+        $0.backgroundColor = DefaultStyle.Color.bgTint
         $0.register(Reusable.photoCell)
     }
     
@@ -46,7 +47,7 @@ class PhotoSelectViewController: UIViewController, View {
     }
     
     private func configureUI() {
-        view.backgroundColor = .systemBackground
+        self.view.backgroundColor = DefaultStyle.Color.bgTint
         self.navigationItem.searchController = searchController
         self.navigationItem.title = "사진 찾기"
         self.navigationItem.hidesSearchBarWhenScrolling = false
