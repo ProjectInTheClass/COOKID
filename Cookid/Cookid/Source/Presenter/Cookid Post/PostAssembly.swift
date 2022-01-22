@@ -48,7 +48,7 @@ class PostAssembly: Assembly {
         // comment
         container.register(CommentViewModel.self) { (_, post: Post) in
             return CommentViewModel(post: post, userService: userService, commentService: commentService)
-        }
+        }.inObjectScope(.container)
         
         container.register(CommentViewController.self, name: nil) { (_, post: Post) in
             let viewModel = safeResolver.resolve(CommentViewModel.self, argument: post)!
