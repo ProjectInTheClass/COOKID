@@ -89,7 +89,7 @@ class FirestoreUserRepo: BaseRepository, UserRepoType {
     }
     
     func transactionUserImageURL(userID: String, imageURL: String, completion: @escaping (Bool) -> Void) {
-        userDB.document(userID).firestore.runTransaction { [weak self] transaction, errorPointer in
+        userDB.document(userID).firestore.runTransaction { [weak self] (transaction, errorPointer) -> Any? in
             guard let self = self else { return nil }
             let userDocument: DocumentSnapshot
             do {
@@ -115,7 +115,7 @@ class FirestoreUserRepo: BaseRepository, UserRepoType {
     }
     
     func transactionCookidsCount(userID: String, isAdd: Bool) {
-        userDB.document(userID).firestore.runTransaction { [weak self] transaction, errorPointer in
+        userDB.document(userID).firestore.runTransaction { [weak self] (transaction, errorPointer) -> Any? in
             guard let self = self else { return nil }
             let userDocument: DocumentSnapshot
             do {

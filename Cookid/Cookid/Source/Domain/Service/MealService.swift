@@ -2,7 +2,7 @@
 //  Service.swift
 //  Cookid
 //
-//  Created by 김동환 on 2021/07/06.
+//  Created by 박형석 on 2021/07/06.
 //
 
 import UIKit
@@ -10,16 +10,15 @@ import RxSwift
 import RxCocoa
 
 protocol MealServiceType {
+    var mealStore: BehaviorSubject<[Meal]> { get }
     var initialDineInMeal: Int { get }
-    var mealList: Observable<[Meal]> { get }
-    var spotMonthMeals: Observable<[Meal]> { get }
     func create(meal: Meal?, currentUser: User) -> Observable<Bool>
     func fetchMeals()
     func update(updateMeal: Meal) -> Observable<Bool>
     func deleteMeal(meal: Meal, currentUser: User) -> Observable<Bool>
 }
 
-class MealService: BaseService, MealServiceType {
+class MealService: MealServiceType {
     
     let fileManagerRepo: FileManagerRepoType
     let realmMealRepo: RealmMealRepoType
@@ -31,67 +30,62 @@ class MealService: BaseService, MealServiceType {
         self.realmMealRepo = realmMealRepo
         self.firestoreUserRepo = firestoreUserRepo
     }
-  
+    
+    // MARK: - Meal Storage
+    
     private var meals: [Meal] = []
-    private lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
+    lazy var mealStore = BehaviorSubject<[Meal]>(value: meals)
+    
+    // MARK: - Meal CRUD
     
     var initialDineInMeal: Int {
         return meals.filter { $0.mealType == .dineIn }.count
     }
     
-    var mealList: Observable<[Meal]> {
-        return mealStore
+    func fetchMeals() {
+        guard let localMeals = self.realmMealRepo.fetchMeals() else { return }
+        let meals = localMeals.map { model -> Meal in
+            let image = self.fileManagerRepo.loadImage(id: model.id)
+            return model.toDomain(image: image)
+        }
+        self.meals = meals
+        self.mealStore.onNext(self.meals)
     }
-    
-    var spotMonthMeals: Observable<[Meal]> {
-        return mealStore.map(sortSpotMonthMeals)
-    }
-    
-    // MARK: - Meal Storage
     
     func create(meal: Meal?, currentUser: User) -> Observable<Bool> {
         guard let meal = meal else {
             return Observable.just(false)
         }
-        return Observable<Bool>.create { [weak self] observer in
-            guard let self = self else { return Disposables.create() }
-            self.fileManagerRepo.saveImage(image: meal.image ?? UIImage(named: "salad")!, id: meal.id) { _ in }
-            self.realmMealRepo.createMeal(meal: meal) {  success in
+        return Observable<Bool>.create { observer in
+            self.fileManagerRepo.saveImage(image: meal.image ?? UIImage(named: "salad")!, id: meal.id) { success in
                 if success {
-                    self.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: true)
-                    self.meals.append(meal)
-                    self.mealStore.onNext(self.meals)
-                    observer.onNext(true)
+                    self.realmMealRepo.createMeal(meal: meal) { success in
+                        if success {
+                            self.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: true)
+                            self.meals.append(meal)
+                            self.mealStore.onNext(self.meals)
+                            observer.onNext(true)
+                            observer.onCompleted()
+                        } else {
+                            observer.onNext(false)
+                            observer.onCompleted()
+                        }
+                    }
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
+            
             return Disposables.create()
         }
-    }
-    
-    func fetchMeals() {
-        guard let meals = self.realmMealRepo.fetchMeals() else { return }
-        let mealModels = meals.map {  model -> Meal in
-            let id = model.id
-            let price = model.price
-            let date = model.date
-            let name = model.name
-            let image = self.fileManagerRepo.loadImage(id: model.id)
-            let mealType = MealType(rawValue: model.mealType) ?? .dineIn
-            let mealTime = MealTime(rawValue: model.mealTime) ?? .dinner
-            return Meal(id: id, price: price, date: date, name: name, image: image, mealType: mealType, mealTime: mealTime)
-        }
-        self.meals = mealModels
-        self.mealStore.onNext(self.meals)
     }
     
     func update(updateMeal: Meal) -> Observable<Bool> {
         print("update")
         return Observable.create { observer in
             self.fileManagerRepo.saveImage(image: updateMeal.image ?? UIImage(named: "salad")!, id: updateMeal.id) { _ in }
-            self.realmMealRepo.updateMeal(meal: updateMeal) { [weak self] success in
-                guard let self = self else { return }
+            self.realmMealRepo.updateMeal(meal: updateMeal) { success in
                 if success {
                     if let index = self.meals.firstIndex(where: { $0.id == updateMeal.id }) {
                         self.meals.remove(at: index)
@@ -99,8 +93,10 @@ class MealService: BaseService, MealServiceType {
                     }
                     self.mealStore.onNext(self.meals)
                     observer.onNext(true)
+                    observer.onCompleted()
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
             return Disposables.create()
@@ -110,8 +106,7 @@ class MealService: BaseService, MealServiceType {
     func deleteMeal(meal: Meal, currentUser: User) -> Observable<Bool> {
         return Observable.create { observer in
             self.fileManagerRepo.deleteImage(id: meal.id) { _ in }
-            self.realmMealRepo.deleteMeal(meal: meal) { [weak self] success in
-                guard let self = self else { return }
+            self.realmMealRepo.deleteMeal(meal: meal) { success in
                 if success {
                     if let index = self.meals.firstIndex(where: { $0.id == meal.id }) {
                         self.meals.remove(at: index)
@@ -119,20 +114,13 @@ class MealService: BaseService, MealServiceType {
                     self.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: false)
                     self.mealStore.onNext(self.meals)
                     observer.onNext(true)
+                    observer.onCompleted()
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
             return Disposables.create()
         }
-    }
-    
-    private func sortSpotMonthMeals(meals: [Meal]) -> [Meal] {
-        let startDay = Date().startOfMonth
-        let endDay = Date().endOfMonth
-        let filteredByStart = meals.filter { $0.date > startDay }
-        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
-        let sortedMeals = filteredByEnd.sorted { $0.date > $1.date }
-        return sortedMeals
     }
 }

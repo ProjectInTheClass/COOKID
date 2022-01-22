@@ -786,11 +786,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-## Pure
+## ReactorKit
 
 The MIT License (MIT)
 
-Copyright (c) 2018 Suyeol Jeon (xoul.kr)
+Copyright (c) 2017 Suyeol Jeon (xoul.kr)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -811,11 +811,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-## ReactorKit
+## ReusableKit
 
 The MIT License (MIT)
 
-Copyright (c) 2017 Suyeol Jeon (xoul.kr)
+Copyright (c) 2016 Suyeol Jeon (xoul.kr)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

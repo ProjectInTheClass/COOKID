@@ -7,6 +7,7 @@
 
 import UIKit
 import PagingKit
+import ReactorKit
 
 class MyPageDetailViewController: UIViewController, ViewModelBindable {
     
@@ -25,16 +26,16 @@ class MyPageDetailViewController: UIViewController, ViewModelBindable {
         myMealsVC.coordinator = coordinator
         
         let myBookmarkVC = MyBookmarkViewController()
-        myBookmarkVC.reactor = MyBookmarkReactor(serviceProvider: viewModel.serviceProvider)
+        myBookmarkVC.reactor = MyBookmarkReactor(userService: viewModel.userService, postService: viewModel.postService, shoppingService: viewModel.shoppingService, mealService: viewModel.mealService)
         myBookmarkVC.coordinator = coordinator
         
         let myPostVC = MyPostsViewController()
         myPostVC.coordinator = coordinator
-        myPostVC.reactor = MyPostReactor(serviceProvider: viewModel.serviceProvider)
+        myPostVC.reactor = MyPostReactor(userService: viewModel.userService, postService: viewModel.postService)
         
         let myRecipeVC = MyRecipeViewController()
         myRecipeVC.coordinator = coordinator
-        myRecipeVC.reactor = MyRecipeReactor(serviceProvider: viewModel.serviceProvider)
+        myRecipeVC.reactor = MyRecipeReactor(userService: viewModel.userService, postService: viewModel.postService)
         
         dataSource = [(menuTitle: "식사들", vc: myMealsVC), (menuTitle: "내 글", vc: myPostVC), (menuTitle: "북마크", vc: myBookmarkVC), (menuTitle: "레시피", vc: myRecipeVC)]
         

@@ -21,3 +21,9 @@ class LocalShopping: Object {
         self.price = price
     }
 }
+
+extension LocalShopping {
+    func toDomain() -> Shopping {
+        return Shopping(id: id, date: date, totalPrice: price)
+    }
+}

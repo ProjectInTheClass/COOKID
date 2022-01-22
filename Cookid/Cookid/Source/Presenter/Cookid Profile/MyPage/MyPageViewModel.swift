@@ -12,7 +12,7 @@ import NSObject_Rx
 import FirebaseCrashlytics
 import FirebaseAnalytics
 
-class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
+class MyPageViewModel: ViewModelType, HasDisposeBag {
    
     struct Input {
         let userImageSelect = PublishRelay<UIImage>()
@@ -52,8 +52,8 @@ class MyPageViewModel: BaseViewModel, ViewModelType, HasDisposeBag {
         self.output = Output()
 
         let currentUser = userService.currentUser
-        let meals = mealService.mealList
-        let shoppings = shoppingService.shoppingList
+        let meals = mealService.mealStore
+        let shoppings = shoppingService.shoppingStore
         let myPosts = postService.myTotalPosts
         
         meals

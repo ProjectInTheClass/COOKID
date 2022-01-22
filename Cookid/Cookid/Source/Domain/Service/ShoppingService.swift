@@ -10,15 +10,14 @@ import RxSwift
 
 protocol ShoppingServiceType {
     var initialShoppingCount: Int { get }
-    var shoppingList: Observable<[Shopping]> { get }
-    var spotMonthShoppings: Observable<[Shopping]> { get }
+    var shoppingStore: BehaviorSubject<[Shopping]> { get }
     func create(shopping: Shopping, currentUser: User) -> Observable<Bool>
     func fetchShoppings()
     func update(updateShopping: Shopping) -> Observable<Bool>
     func deleteShopping(deleteShopping: Shopping, currentUser: User) -> Observable<Bool>
 }
 
-class ShoppingService: BaseService, ShoppingServiceType {
+class ShoppingService: ShoppingServiceType {
     
     let realmShoppingRepo: RealmShoppingRepoType
     let firestoreUserRepo: UserRepoType
@@ -28,21 +27,16 @@ class ShoppingService: BaseService, ShoppingServiceType {
         self.realmShoppingRepo = realmShoppingRepo
         self.firestoreUserRepo = firestoreUserRepo
     }
-   
+    
+    // MARK: - Shopping Storage
+    
     private var shoppings: [Shopping] = []
-
-    private lazy var shoppingStore = BehaviorSubject<[Shopping]>(value: shoppings)
+    lazy var shoppingStore = BehaviorSubject<[Shopping]>(value: shoppings)
+    
+    // MARK: - Shopping CRUD
     
     var initialShoppingCount: Int {
         return shoppings.count
-    }
-    
-    var shoppingList: Observable<[Shopping]> {
-        return shoppingStore
-    }
-    
-    var spotMonthShoppings: Observable<[Shopping]> {
-        return shoppingStore.map(sortSpotMonthShoppings)
     }
     
     func create(shopping: Shopping, currentUser: User) -> Observable<Bool> {
@@ -54,8 +48,10 @@ class ShoppingService: BaseService, ShoppingServiceType {
                     self.shoppings.append(shopping)
                     self.shoppingStore.onNext(self.shoppings)
                     observer.onNext(true)
+                    observer.onCompleted()
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
             return Disposables.create()
@@ -64,16 +60,13 @@ class ShoppingService: BaseService, ShoppingServiceType {
     
     func fetchShoppings() {
         guard let localShoppings = self.realmShoppingRepo.fetchShoppings() else { return }
-        let shoppings = localShoppings.map { localShopping -> Shopping in
-            return Shopping(id: localShopping.id, date: localShopping.date, totalPrice: localShopping.price)
-        }
+        let shoppings = localShoppings.map { $0.toDomain() }
         self.shoppings = shoppings
         self.shoppingStore.onNext(self.shoppings)
     }
     
     func update(updateShopping: Shopping) -> Observable<Bool> {
-        return Observable.create { [weak self] observer in
-            guard let self = self else { return Disposables.create() }
+        return Observable.create { observer in
             self.realmShoppingRepo.updateShopping(shopping: updateShopping) { success in
                 if success {
                     if let index = self.shoppings.firstIndex(where: { $0.id == updateShopping.id }) {
@@ -82,8 +75,10 @@ class ShoppingService: BaseService, ShoppingServiceType {
                     }
                     self.shoppingStore.onNext(self.shoppings)
                     observer.onNext(true)
+                    observer.onCompleted()
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
             return Disposables.create()
@@ -91,8 +86,7 @@ class ShoppingService: BaseService, ShoppingServiceType {
     }
     
     func deleteShopping(deleteShopping: Shopping, currentUser: User) -> Observable<Bool> {
-        return Observable.create { [weak self] observer in
-            guard let self = self else { return Disposables.create() }
+        return Observable.create { observer in
             self.realmShoppingRepo.deleteShopping(shopping: deleteShopping) { success in
                 if success {
                     if let index = self.shoppings.firstIndex(where: { $0.id == deleteShopping.id }) {
@@ -101,21 +95,13 @@ class ShoppingService: BaseService, ShoppingServiceType {
                     self.firestoreUserRepo.transactionCookidsCount(userID: currentUser.id, isAdd: false)
                     self.shoppingStore.onNext(self.shoppings)
                     observer.onNext(true)
+                    observer.onCompleted()
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
             return Disposables.create()
         }
     }
-    
-    private func sortSpotMonthShoppings(shoppings: [Shopping]) -> [Shopping] {
-        let startDay = Date().startOfMonth
-        let endDay = Date().endOfMonth
-        let filteredByStart = shoppings.filter { $0.date > startDay }
-        let filteredByEnd = filteredByStart.filter { $0.date < endDay }
-        let sortedshoppings = filteredByEnd.sorted { $0.date > $1.date }
-        return sortedshoppings
-    }
-    
 }

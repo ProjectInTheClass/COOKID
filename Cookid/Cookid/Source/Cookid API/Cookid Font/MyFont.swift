@@ -8,5 +8,5 @@
 import UIKit
 
 enum MyFont {
-    static let APPLE_COLOR_EMOJI = "Apple Color Emoji"
+    static let ApplColorEmoji = "Apple Color Emoji"
 }

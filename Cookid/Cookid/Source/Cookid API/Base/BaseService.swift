@@ -28,8 +28,4 @@ extension BaseService {
     func convertEntityToComment(commentUser: User, entity: CommentEntity) -> Comment {
         return Comment(commentID: entity.commentID, postID: entity.postID, parentID: entity.parentID, user: commentUser, content: entity.content, timestamp: entity.timestamp)
     }
-    
-    func convertEntityToPhoto(entity: PhotoEntity) -> Photo {
-        return Photo(url: entity.url, timeStamp: entity.timeStamp)
-    }
 }

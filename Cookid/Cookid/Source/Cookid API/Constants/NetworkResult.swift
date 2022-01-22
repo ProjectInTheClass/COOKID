@@ -10,4 +10,6 @@ import Foundation
 enum NetworkError: Error {
     case statusCode
     case componentRequest
+    case adaptError
+    case retryError
 }

@@ -16,16 +16,12 @@ class MyPageAssembly: Assembly {
         let shoppingService = safeResolver.resolve(ShoppingServiceType.self)!
         let postService = safeResolver.resolve(PostServiceType.self)!
         
-        container.register(MyPageViewModel.self, name: nil) { resolver in
-            return MyPageViewModel(userService: userService, mealService: mealService, shoppingService: shoppingService, postService: postService)
-        }
-        
         container.register(MyPostReactor.self) { resolver in
             return MyPostReactor(userService: userService, postService: postService)
         }
         
         container.register(MyBookmarkReactor.self) { resolver in
-            return MyBookmarkReactor(userService: userService, postService: postService)
+            return MyBookmarkReactor(userService: userService, postService: postService, shoppingService: shoppingService, mealService: mealService)
         }
         
         container.register(MyRecipeReactor.self) { resolver in
