@@ -11,13 +11,11 @@ import Swinject
 final class CommentCoordinator: CoordinatorType {
     var parentCoordinator: CoordinatorType?
     var childCoordinator: [CoordinatorType] = []
-    var assembler: Assembler
-    var navigationController: UINavigationController
     var post: Post?
-    
-    init(assembler: Assembler, navigationController: UINavigationController) {
+    var assembler: Assembler
+    var navigationController: UINavigationController?
+    init(assembler: Assembler) {
         self.assembler = assembler
-        self.navigationController = navigationController
     }
     
     func start() {
@@ -25,7 +23,7 @@ final class CommentCoordinator: CoordinatorType {
         let vc = assembler.resolver.resolve(CommentViewController.self, argument: post)!
         vc.coordinator = self
         vc.modalPresentationStyle = .overFullScreen
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func didFinishCommenting() {
@@ -44,7 +42,7 @@ final class CommentCoordinator: CoordinatorType {
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
-        navigationController.present(alertVC, animated: true, completion: nil)
+        navigationController?.present(alertVC, animated: true, completion: nil)
     }
 
     func presentAlertVCForReport(comment: Comment) {
@@ -57,7 +55,7 @@ final class CommentCoordinator: CoordinatorType {
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
-        navigationController.present(alertVC, animated: true, completion: nil)
+        navigationController?.present(alertVC, animated: true, completion: nil)
     }
     
 }

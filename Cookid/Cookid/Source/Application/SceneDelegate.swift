@@ -14,16 +14,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let rootNavigationController = UINavigationController()
-        let appAseembler = AppAssembler.resolve()
-        let appCoordinator = AppCoordinator(assembler: appAseembler, navigationController: rootNavigationController)
-        appCoordinator.start()
-        
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)
-        window?.tintColor = DefaultStyle.Color.labelTint
-        window?.rootViewController = rootNavigationController
-        window?.makeKeyAndVisible()
+        let appAseembler = AppAssembler.resolve()
+        let appCoordinator = AppCoordinator(assembler: appAseembler)
+        appCoordinator.window = UIWindow(windowScene: windowScene)
+        appCoordinator.start()
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

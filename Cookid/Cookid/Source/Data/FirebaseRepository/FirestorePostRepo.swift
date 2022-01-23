@@ -101,6 +101,13 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
             } else if let querySnapshot = querySnapshot {
                 do {
                     let postEntity = try querySnapshot.documents.compactMap { try $0.data(as: PostEntity.self) }
+                    if let lastPostEntity = postEntity.last {
+                        guard let pastDate = Calendar.current.date(byAdding: .second, value: -1, to: lastPostEntity.timestamp) else { return }
+                        self.currentDate = pastDate
+                        completion(.success(postEntity))
+                    } else {
+                        completion(.success([]))
+                    }
                     completion(.success(postEntity))
                 } catch let error {
                     print("Error fetching postEntity to Firestore: \(error)")
@@ -116,7 +123,7 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
         postDB
             .whereField("timestamp", isLessThanOrEqualTo: currentDate)
             .order(by: "timestamp", descending: true).limit(to: 10)
-            .getDocuments { [weak self] querySnapshot, error in
+            .getDocuments { [weak self] (querySnapshot, error) in
                 guard let self = self else { return }
                 if let error = error {
                     print("Error fetching postEntity to Firestore: \(error)")
@@ -125,8 +132,8 @@ class FirestorePostRepo: BaseRepository, PostRepoType {
                     do {
                         let postEntity = try querySnapshot.documents.compactMap { try $0.data(as: PostEntity.self) }
                         if let lastPostEntity = postEntity.last {
-                            guard let testPateDate = Calendar.current.date(byAdding: .second, value: -1, to: lastPostEntity.timestamp) else { return }
-                            self.currentDate = testPateDate
+                            guard let pastDate = Calendar.current.date(byAdding: .second, value: -1, to: lastPostEntity.timestamp) else { return }
+                            self.currentDate = pastDate
                             completion(.success(postEntity))
                         } else {
                             completion(.success([]))

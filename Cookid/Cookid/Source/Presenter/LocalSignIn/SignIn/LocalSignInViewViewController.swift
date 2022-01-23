@@ -28,6 +28,7 @@ class LocalSignInViewViewController: UIPageViewController {
         super.viewDidLoad()
         setupPages()
         setupPageControl()
+        view.backgroundColor = DefaultStyle.Color.bgTint
     }
     
     private func setupPages() {

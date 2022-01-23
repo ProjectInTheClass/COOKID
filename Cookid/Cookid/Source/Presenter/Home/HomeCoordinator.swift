@@ -7,20 +7,20 @@
 
 import Foundation
 import Swinject
+import UIKit
 
 final class HomeCoordinator: CoordinatorType {
     var parentCoordinator: CoordinatorType?
     var childCoordinator: [CoordinatorType] = []
     var assembler: Assembler
-    var navigationController: UINavigationController
+    var navigationController: UINavigationController?
     
-    init(assembler: Assembler, navigationController: UINavigationController) {
+    init(assembler: Assembler) {
         self.assembler = assembler
-        self.navigationController = navigationController
     }
     
     private func configureNavigationController() {
-        self.navigationController.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     func start() {
@@ -30,7 +30,8 @@ final class HomeCoordinator: CoordinatorType {
         let mainVC = assembler.resolver.resolve(MainViewController.self)!
         let mainNVC = UINavigationController(rootViewController: mainVC)
         mainNVC.navigationBar.prefersLargeTitles = true
-        let mainCoordinator = MainCoordinator(assembler: self.assembler, navigationController: mainNVC)
+        let mainCoordinator = MainCoordinator(assembler: self.assembler)
+        mainCoordinator.navigationController = mainNVC
         mainVC.coordinator = mainCoordinator
         mainCoordinator.parentCoordinator = self
         childCoordinator.append(mainCoordinator)
@@ -38,16 +39,18 @@ final class HomeCoordinator: CoordinatorType {
         let postMainVC = assembler.resolver.resolve(PostMainViewController.self)!
         let postMainNVC = UINavigationController(rootViewController: postMainVC)
         postMainNVC.navigationBar.prefersLargeTitles = false
-        let postCoordinator = PostCoordinator(assembler: self.assembler, navigationController: postMainNVC)
+        let postCoordinator = PostCoordinator(assembler: self.assembler)
+        postCoordinator.navigationController = postMainNVC
         postMainVC.coordinator = postCoordinator
         postCoordinator.parentCoordinator = self
         childCoordinator.append(postCoordinator)
         
         let myPageVC = assembler.resolver.resolve(MyPageViewController.self)!
         let myPageNVC = UINavigationController(rootViewController: myPageVC)
-        myPageNVC.navigationBar.prefersLargeTitles = false
-        let myPageCoordinator = MyPageCoordinator(assembler: self.assembler, navigationController: myPageNVC)
+        let myPageCoordinator = MyPageCoordinator(assembler: self.assembler)
+        myPageCoordinator.navigationController = myPageNVC
         myPageVC.coordinator = myPageCoordinator
+        myPageNVC.navigationBar.prefersLargeTitles = false
         myPageCoordinator.parentCoordinator = self
         childCoordinator.append(myPageCoordinator)
         
@@ -60,7 +63,7 @@ final class HomeCoordinator: CoordinatorType {
         tabBarController.tabBar.items?[2].title = "마이페이지"
         tabBarController.modalPresentationStyle = .fullScreen
         tabBarController.modalTransitionStyle = .crossDissolve
-        navigationController.setViewControllers([tabBarController], animated: false)
+        self.navigationController?.setViewControllers([tabBarController], animated: false)
     }
     
 }

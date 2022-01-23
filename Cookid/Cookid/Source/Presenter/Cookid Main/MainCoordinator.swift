@@ -13,11 +13,9 @@ final class MainCoordinator: CoordinatorType {
     var parentCoordinator: CoordinatorType?
     var childCoordinator: [CoordinatorType] = []
     var assembler: Assembler
-    var navigationController: UINavigationController
-    init(assembler: Assembler,
-         navigationController: UINavigationController) {
+    var navigationController: UINavigationController?
+    init(assembler: Assembler) {
         self.assembler = assembler
-        self.navigationController = navigationController
     }
     
     func start() {
@@ -25,9 +23,9 @@ final class MainCoordinator: CoordinatorType {
     }
     
     private func navigationBarConfigure() {
-        navigationController.navigationBar.prefersLargeTitles = true
-        navigationController.navigationBar.tintColor = DefaultStyle.Color.tint
-        navigationController.navigationBar.barTintColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
+        navigationController?.navigationBar.barTintColor = .systemBackground
     }
     
     func navigateSelectCalendarVC(viewModel: MainViewModel) {
@@ -35,7 +33,7 @@ final class MainCoordinator: CoordinatorType {
         vc.bind(viewModel: viewModel)
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
-        navigationController.present(vc, animated: true, completion: nil)
+        navigationController?.present(vc, animated: true, completion: nil)
     }
     
     func navigateAddMealVC(mode: MealEditMode) {
@@ -45,7 +43,7 @@ final class MainCoordinator: CoordinatorType {
         vc.modalPresentationStyle = .custom
         vc.modalTransitionStyle = .crossDissolve
         vc.view.backgroundColor = .clear
-        navigationController.present(vc, animated: true, completion: nil)
+        navigationController?.present(vc, animated: true, completion: nil)
     }
     
     func navigateAddShoppingVC(mode: ShoppingEditMode) {
@@ -53,14 +51,14 @@ final class MainCoordinator: CoordinatorType {
         vc.coordinator = self
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
-        navigationController.present(vc, animated: true, completion: nil)
+        navigationController?.present(vc, animated: true, completion: nil)
     }
     
     func navigateAddTodayMeal() {
         let vc = assembler.resolver.resolve(AddTodayMealViewController.self)!
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overFullScreen
-        navigationController.present(vc, animated: true, completion: nil)
+        navigationController?.present(vc, animated: true, completion: nil)
     }
     
     func presentDeleteAlert(root: UIViewController, reactor: AddShoppingReactor) {

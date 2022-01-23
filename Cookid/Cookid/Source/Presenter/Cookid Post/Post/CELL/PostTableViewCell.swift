@@ -50,19 +50,15 @@ class PostTableViewCell: UITableViewCell, View {
         // MARK: - Reactor Binding
         
         // 포스트에서 변경되지 않는 값
-        reactor.state.map { $0.post }
-        .withUnretained(self)
-        .bind(onNext: { owner, post in
-            owner.makeUpUserView(post: post)
-            owner.userNicknameLabel.text = post.user.nickname
-            owner.dateLabel.text = post.timeStamp.convertDateToString(format: "yy.MM.dd")
-            owner.postCaptionLabel.text = post.caption
-            owner.makeUpStarPoint(post: post)
-            owner.setPageControl(post: post)
-            owner.makeUpComments(commentCount: post.commentCount)
-        })
-        .disposed(by: disposeBag)
-        
+        let post = reactor.post
+        self.makeUpUserView(post: post)
+        self.userNicknameLabel.text = post.user.nickname
+        self.dateLabel.text = post.timeStamp.convertDateToString(format: "yy.MM.dd")
+        self.postCaptionLabel.text = post.caption
+        self.makeUpStarPoint(post: post)
+        self.setPageControl(post: post)
+        self.makeUpComments(commentCount: post.commentCount)
+       
         reactor.state.map { $0.currentPercent }
         .withUnretained(self)
         .bind(onNext: { owner, value in
@@ -73,6 +69,7 @@ class PostTableViewCell: UITableViewCell, View {
         // 포스트에서 변경되는 값, 좋아요, 북마크, 숫자
         reactor.state.map { $0.isHeart }
         .withUnretained(self)
+        .observe(on:MainScheduler.asyncInstance)
         .bind(onNext: { owner, isHeart in
             owner.heartButton.setState(isHeart)
         })
@@ -80,6 +77,7 @@ class PostTableViewCell: UITableViewCell, View {
         
         reactor.state.map { $0.heartCount }
         .withUnretained(self)
+        .observe(on:MainScheduler.asyncInstance)
         .bind { owner, heartCount in
             owner.makeUpLikes(heartCount: heartCount)
         }
@@ -87,6 +85,7 @@ class PostTableViewCell: UITableViewCell, View {
         
         reactor.state.map { $0.isBookmark }
         .withUnretained(self)
+        .observe(on:MainScheduler.asyncInstance)
         .bind(onNext: { owner, isBookmark in
             owner.bookmarkButton.setState(isBookmark)
         })
@@ -94,6 +93,7 @@ class PostTableViewCell: UITableViewCell, View {
         
         reactor.state.map { $0.bookmarkCount }
         .withUnretained(self)
+        .observe(on:MainScheduler.asyncInstance)
         .bind { owner, bookmarkCount in
             owner.makeUpBookmark(bookmarkCount: bookmarkCount)
         }
@@ -114,21 +114,22 @@ class PostTableViewCell: UITableViewCell, View {
         commentListButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { owner, _ in
-                owner.coordinator?.navigateCommentVC(post: reactor.currentState.post)
+                owner.coordinator?.navigateCommentVC(post: reactor.post)
             })
             .disposed(by: disposeBag)
         
         reportButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { owner, _ in
-                owner.coordinator?.presentReportActionVC(sender: PostMainViewController(), post: reactor.currentState.post, currentUser: reactor.currentState.user)
+                owner.coordinator?.presentReportActionVC(reactor: reactor)
             })
             .disposed(by: disposeBag)
         
         imageCollectionView.delegate = nil
         imageCollectionView.dataSource = nil
         
-        Observable.just(reactor.currentState.post.images)
+        Observable.just(reactor.post.images)
+            .observe(on:MainScheduler.asyncInstance)
             .bind(to: imageCollectionView.rx.items(cellIdentifier: "imageCell",
                                                    cellType: PostImageCollectionViewCell.self)) { _, item, cell in
                 cell.updateUI(imageURL: item)

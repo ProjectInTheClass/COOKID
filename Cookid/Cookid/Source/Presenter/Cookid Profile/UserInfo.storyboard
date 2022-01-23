@@ -17,31 +17,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="MH5-dO-eni">
-                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
-                                <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rBf-0J-3HI">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="140" id="wDg-pg-dpH"/>
-                                        </constraints>
-                                    </containerView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TH-Pw-YI7">
-                                        <rect key="frame" x="0.0" y="140" width="414" height="503"/>
-                                        <connections>
-                                            <segue destination="767-ax-dT6" kind="embed" identifier="detailSegue" id="SBR-bW-gcK"/>
-                                        </connections>
-                                    </containerView>
-                                </subviews>
-                            </stackView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-x0-Nt8">
+                                <rect key="frame" x="0.0" y="44" width="414" height="47"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="OxK-iy-wPK"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="Z8M-JH-EHW" kind="embed" id="dFJ-oe-bim"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Boe-PT-gOE">
+                                <rect key="frame" x="0.0" y="91" width="414" height="596"/>
+                                <connections>
+                                    <segue destination="4T5-lf-MOA" kind="embed" id="Sid-VV-pJF"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UOe-zw-poI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="MH5-dO-eni" firstAttribute="bottom" secondItem="UOe-zw-poI" secondAttribute="bottom" id="9D0-l8-ygq"/>
-                            <constraint firstItem="MH5-dO-eni" firstAttribute="top" secondItem="UOe-zw-poI" secondAttribute="top" id="IY3-o8-mUA"/>
-                            <constraint firstItem="MH5-dO-eni" firstAttribute="leading" secondItem="UOe-zw-poI" secondAttribute="leading" id="OEu-PR-i0Z"/>
-                            <constraint firstItem="MH5-dO-eni" firstAttribute="trailing" secondItem="UOe-zw-poI" secondAttribute="trailing" id="VZ2-z0-6Zn"/>
+                            <constraint firstItem="Boe-PT-gOE" firstAttribute="top" secondItem="wRv-x0-Nt8" secondAttribute="bottom" id="5Lm-XN-PzY"/>
+                            <constraint firstItem="Boe-PT-gOE" firstAttribute="leading" secondItem="KxS-X6-GHs" secondAttribute="leading" id="R2g-Gv-vcW"/>
+                            <constraint firstItem="wRv-x0-Nt8" firstAttribute="top" secondItem="UOe-zw-poI" secondAttribute="top" id="TXs-Nj-dvR"/>
+                            <constraint firstItem="wRv-x0-Nt8" firstAttribute="leading" secondItem="KxS-X6-GHs" secondAttribute="leading" id="c5u-12-KsN"/>
+                            <constraint firstAttribute="trailing" secondItem="Boe-PT-gOE" secondAttribute="trailing" id="krP-EJ-iwT"/>
+                            <constraint firstItem="Boe-PT-gOE" firstAttribute="bottom" secondItem="UOe-zw-poI" secondAttribute="bottom" id="tzf-jG-Xjw"/>
+                            <constraint firstAttribute="trailing" secondItem="wRv-x0-Nt8" secondAttribute="trailing" id="z6h-3g-JzR"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="ltJ-Jx-j90"/>
@@ -55,9 +57,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="headerView" destination="rBf-0J-3HI" id="geW-1t-qlM"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dl4-Se-zta" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -217,7 +216,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2000" y="-163"/>
+            <point key="canvasLocation" x="1962" y="-280"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nI6-em-dy4">
@@ -237,48 +236,6 @@
             </objects>
             <point key="canvasLocation" x="-645.60000000000002" y="87.931034482758619"/>
         </scene>
-        <!--My Page Detail View Controller-->
-        <scene sceneID="yI4-3k-lfH">
-            <objects>
-                <viewController id="767-ax-dT6" customClass="MyPageDetailViewController" customModule="Cookid" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="a9p-mE-xQA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="503"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-x0-Nt8">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="47"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="47" id="OxK-iy-wPK"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="Z8M-JH-EHW" kind="embed" id="dFJ-oe-bim"/>
-                                </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Boe-PT-gOE">
-                                <rect key="frame" x="0.0" y="47" width="414" height="456"/>
-                                <connections>
-                                    <segue destination="4T5-lf-MOA" kind="embed" id="Sid-VV-pJF"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="hcj-X4-1cD"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="Boe-PT-gOE" firstAttribute="top" secondItem="wRv-x0-Nt8" secondAttribute="bottom" id="Irk-N5-LVR"/>
-                            <constraint firstAttribute="trailing" secondItem="wRv-x0-Nt8" secondAttribute="trailing" id="KPC-oO-d9g"/>
-                            <constraint firstItem="wRv-x0-Nt8" firstAttribute="leading" secondItem="a9p-mE-xQA" secondAttribute="leading" id="N9k-ch-PyM"/>
-                            <constraint firstItem="hcj-X4-1cD" firstAttribute="bottom" secondItem="Boe-PT-gOE" secondAttribute="bottom" id="Oec-6U-2Ve"/>
-                            <constraint firstItem="wRv-x0-Nt8" firstAttribute="top" secondItem="a9p-mE-xQA" secondAttribute="top" id="VQc-c9-ZDU"/>
-                            <constraint firstItem="Boe-PT-gOE" firstAttribute="leading" secondItem="a9p-mE-xQA" secondAttribute="leading" id="of0-j2-nQA"/>
-                            <constraint firstAttribute="trailing" secondItem="Boe-PT-gOE" secondAttribute="trailing" id="wae-LU-7qU"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tpe-W7-WUu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1229" y="437"/>
-        </scene>
         <!--My Page Header View Controller-->
         <scene sceneID="XlV-XU-49K">
             <objects>
@@ -293,7 +250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="57B-sd-txn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1229" y="-163"/>
+            <point key="canvasLocation" x="1206" y="-280"/>
         </scene>
         <!--Paging Menu View Controller-->
         <scene sceneID="zB1-EG-eY7">
@@ -308,14 +265,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asi-At-RHH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2000" y="251"/>
+            <point key="canvasLocation" x="1206" y="147"/>
         </scene>
         <!--Paging Content View Controller-->
         <scene sceneID="KwG-Rg-q0s">
             <objects>
                 <viewController id="4T5-lf-MOA" customClass="PagingContentViewController" customModule="PagingKit" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eAJ-DG-dXK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="456"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="596"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Oci-sU-h10"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -323,7 +280,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fnn-k1-Z37" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2000" y="506"/>
+            <point key="canvasLocation" x="1206" y="466"/>
         </scene>
     </scenes>
     <resources>

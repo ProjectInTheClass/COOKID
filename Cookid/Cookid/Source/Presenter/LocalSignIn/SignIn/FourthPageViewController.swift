@@ -23,6 +23,7 @@ class FourthPageViewController: UIViewController, ViewModelBindable, StoryboardB
         super.viewDidLoad()
         self.determineStackView.alpha = 0
         self.finishPageButton.alpha = 0
+        view.backgroundColor = DefaultStyle.Color.bgTint
     }
     
     override func viewDidAppear(_ animated: Bool) {

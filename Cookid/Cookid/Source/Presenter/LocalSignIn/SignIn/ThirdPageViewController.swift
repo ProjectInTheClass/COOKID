@@ -17,6 +17,7 @@ class ThirdPageViewController: UIViewController, ViewModelBindable, StoryboardBa
     override func viewDidLoad() {
         super.viewDidLoad()
         mealTypeStackView.alpha = 0
+        view.backgroundColor = DefaultStyle.Color.bgTint
     }
     
     override func viewDidAppear(_ animated: Bool) {

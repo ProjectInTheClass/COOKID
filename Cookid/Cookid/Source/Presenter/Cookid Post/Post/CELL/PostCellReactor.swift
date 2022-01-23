@@ -30,7 +30,6 @@ class PostCellReactor: Reactor {
     }
     
     struct State {
-        var post: Post
         var currentPercent: Double
         var isHeart: Bool
         var isBookmark: Bool
@@ -46,8 +45,10 @@ class PostCellReactor: Reactor {
     let shoppingService: ShoppingServiceType
     let postService: PostServiceType
     let sender: UIViewController
+    let post: Post
     
-    init(sender: UIViewController, post: Post,
+    init(sender: UIViewController,
+         post: Post,
          mealService: MealServiceType,
          userService: UserServiceType,
          shoppingService: ShoppingServiceType,
@@ -57,7 +58,8 @@ class PostCellReactor: Reactor {
         self.shoppingService = shoppingService
         self.postService = postService
         self.sender = sender
-        self.initialState = State(post: post, currentPercent: 0, isHeart: post.didLike, isBookmark: post.didCollect, heartCount: post.likes, bookmarkCount: post.collections)
+        self.post = post
+        self.initialState = State(currentPercent: 0, isHeart: post.didLike, isBookmark: post.didCollect, heartCount: post.likes, bookmarkCount: post.collections)
     }
     
     func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
@@ -66,7 +68,7 @@ class PostCellReactor: Reactor {
             self.mealService.mealStore.map(sortSpotMonthMeals),
             self.userService.currentUser,
             self.shoppingService.shoppingStore.map(sortSpotMonthShoppings),
-            Observable.just(self.currentState.post),
+            Observable.just(self.post),
             resultSelector: calculateCurrentPercent)
             .map { Mutation.setCurrentPercent($0) }
         let user = self.userService.currentUser
@@ -75,7 +77,6 @@ class PostCellReactor: Reactor {
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
-        let post = self.currentState.post
         let user = self.currentState.user
         
         switch action {
@@ -84,13 +85,13 @@ class PostCellReactor: Reactor {
             self.postService.heartTransaction(sender: self.sender, currentUser: user, post: post, isHeart: isHeart)
             return Observable.concat([
                 Observable.just(Mutation.setHeart(isHeart)),
-                Observable.just(Mutation.setHeartCount(self.currentState.post.likes))])
+                Observable.just(Mutation.setHeartCount(self.post.likes))])
         case .bookmarkButtonTapped(let isBookmark):
             post.bookmark()
             self.postService.bookmarkTransaction(sender: self.sender, currentUser: user, post: post, isBookmark: isBookmark)
             return Observable.concat([
                 Observable.just(Mutation.setBookmark(isBookmark)),
-                Observable.just(Mutation.setBookmarkCount(self.currentState.post.collections))])
+                Observable.just(Mutation.setBookmarkCount(self.post.collections))])
         case .deleteButtonTapped(let post):
             return self.postService.deletePost(post: post).map { Mutation.deletePost(!$0) }
         case .reportButtonTapped(let post):

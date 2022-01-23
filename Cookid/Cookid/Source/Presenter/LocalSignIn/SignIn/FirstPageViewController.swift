@@ -31,6 +31,7 @@ class FirstPageViewController: UIViewController, ViewModelBindable, StoryboardBa
         announceLabel.alpha = 0
         nicknameStackView.alpha = 0
         nextPageButton.isEnabled = false
+        view.backgroundColor = DefaultStyle.Color.bgTint
     }
     
     override func viewDidAppear(_ animated: Bool) {
