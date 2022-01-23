@@ -32,14 +32,14 @@
 * SwiftLint
 
 ### 뷰 드로잉
-* Interface builder, Storyboard
+* Interface builder : Storyboard
 * Code : Then, SnapKit
 
 ### 반응형 프로그래밍 및 커뮤니티 기술
 * RxSwift, RxCocoa, RxDataSource, RxKeyboard, NSObject+Rx
 
 ### 백앤드
-* Kakao, Naver, Apple Auth
+* Kakao, Apple Auth (Naver Auth)
 * Firebase Cloud Messaging
 * Firebase Firestore
 * Firebase Storage
@@ -51,17 +51,14 @@
 * Firebase Crashlytics
 
 ### CI/CD Pipeline
-* Bitrise : Github -> Bitrise -> fastlane
 * Fastlane : fastlane -> Testflight / App Store
 
-### Test
-* Unit Test : XCTest
-
 ### 개발 아키텍처 및 디자인 패턴
-* Rx + MVVM + Coordinator Pattern
+* Clean Architectrue + MVVM
+* Coordinator Pattern
 * ReactorKit
 * Singletone Pattern
-* Provider
+* Swinject
 
 ### 이외에 사용한 오픈소스
 * Kingfisher
@@ -71,7 +68,38 @@
 
 # 5. 업데이트 내역
 
-* 1.0.1 앱 출시 버전
-* 1.0.2 버그 수정, 다크 모드 지원, 식사 & 쇼핑 CRUD관련 사용자 편의 개선, 랭킹 페이지 제작, 리팩토링, 로컬 노티피케이션 추가
-* 2.0 버그 수정, 애플 계정 전환, FCM, Realm 연동, Bitrise & fastlane / 온라인 서비스 : 카카오, 네이버, 애플, Firestore, , 뷰제작: 마이페이지(나의 모든 소비, 프로필, 북마크, 나의 글, 레시피는 뷰만), 모든 통계는 메인페이지, 랭킹페이지 변경(베스트 집밥러, 베스트 레시피), 자유게시판(식사추천) 제작
+* 1.0.1<br/>
+** 앱 출시
+
+* 1.0.2<br/>
+** 버그 수정
+** 다크 모드 지원
+** 식사 & 쇼핑 CRUD관련 UX 개선
+** 랭킹 페이지 제작
+** 로컬 노티피케이션 추가
+
+* 2.0<br/>
+** 버그 수정
+** 식사 및 쇼핑 관리 성능 최적화를 위한 DB 변경(Realm)
+** 로그인 : 카카오, 네이버, 애플 로그인 / 로컬 이용과 네트워크 이용 두 가지 동시에 사용
+** UX : 모든 뷰의 가독성 및 키보드 반응성 조정
+** UI: 모든 통계는 메인페이지, 자유게시판(식사추천) 제작, 랭킹페이지 변경, 마이페이지(나의 모든 소비, 프로필, 북마크, 나의 글, 레시피는 뷰만)
+** 앱 사용성 체크 : Analytics & Crashlytics
+** 클라우드 메시지 : FCM
+** 배포 자동화 : Fastlane
+
+* 2.1<br/>
+** 버그 수정 및 개선
+** 오늘 하루 식사 간편 기록하기 기능 추가
+
+* 2.2 - 2.3 <br/>
+** Naver 로그인 허가 문제로 인해 지원하지 않도록 수정
+** iphone max에서 일부 화면 버그 수정
+** 애플 동시성 문제로 인한 버그 수정
+
+* 2.4<br/>
+** 식사 추가시 사진 검색 및 추가 기능
+** 버그 수정 : 신고한 글 포스트에 있는 버그 수정, 포스트 새로고침 후 지난 글 가져오기 수정
+
+
 
