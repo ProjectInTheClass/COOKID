@@ -26,10 +26,6 @@ class PostAssembly: Assembly {
             return RankingViewModel(userService: userService)
         }
         
-        container.register(PostCellReactor.self, name: nil) { (_, post: Post, sender: UIViewController) in
-            return PostCellReactor(sender: sender, post: post, mealService: mealService, userService: userService, shoppingService: shoppingService, postService: postService)
-        }
-        
         // viewController
         container.register(RankingMainViewController.self, name: nil) { _ in
             let rankingViewModel = safeResolver.resolve(RankingViewModel.self)!
@@ -48,7 +44,7 @@ class PostAssembly: Assembly {
         // comment
         container.register(CommentViewModel.self) { (_, post: Post) in
             return CommentViewModel(post: post, userService: userService, commentService: commentService)
-        }.inObjectScope(.container)
+        }
         
         container.register(CommentViewController.self, name: nil) { (_, post: Post) in
             let viewModel = safeResolver.resolve(CommentViewModel.self, argument: post)!

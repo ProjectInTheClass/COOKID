@@ -45,9 +45,9 @@ final class HomeCoordinator: CoordinatorType {
         
         let myPageVC = assembler.resolver.resolve(MyPageViewController.self)!
         let myPageNVC = UINavigationController(rootViewController: myPageVC)
-        myPageNVC.navigationBar.prefersLargeTitles = false
         let myPageCoordinator = MyPageCoordinator(assembler: self.assembler, navigationController: myPageNVC)
         myPageVC.coordinator = myPageCoordinator
+        myPageNVC.navigationBar.prefersLargeTitles = false
         myPageCoordinator.parentCoordinator = self
         childCoordinator.append(myPageCoordinator)
         

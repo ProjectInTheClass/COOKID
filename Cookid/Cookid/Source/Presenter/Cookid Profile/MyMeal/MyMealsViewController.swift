@@ -89,8 +89,7 @@ class MyMealsViewController: UIViewController, ViewModelBindable {
         collectionView.rx.modelSelected(Meal.self)
             .bind(onNext: { [unowned self] meal in
                 print("tapped")
-//                guard let mainCoordinator = coordinator?.parentCoordinator.childCoordinator.first as? MainCoordinator else { return }
-//                mainCoordinator.navigateAddMealVC(mode: .edit(meal))
+                coordinator?.navigateAddMealVC(mode: .edit(meal))
             })
             .disposed(by: rx.disposeBag)
     }

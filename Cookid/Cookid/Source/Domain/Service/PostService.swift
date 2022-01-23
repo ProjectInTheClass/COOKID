@@ -262,10 +262,10 @@ class PostService: BaseService, PostServiceType {
     }
     
     func heartTransaction(sender: UIViewController, currentUser: User, post: Post, isHeart: Bool) {
+        self.synchronizeAllStore(sender: sender, post: post, bookheart: false)
         self.firestorePostRepo.heartPost(userID: currentUser.id, postID: post.postID, isHeart: isHeart) { result in
             switch result {
             case .success(let success):
-                self.synchronizeAllStore(sender: sender, post: post)
                 print(success.rawValue)
             case .failure(let error):
                 print(error.rawValue)
@@ -274,6 +274,7 @@ class PostService: BaseService, PostServiceType {
     }
     
     func bookmarkTransaction(sender: UIViewController, currentUser: User, post: Post, isBookmark: Bool) {
+        self.synchronizeAllStore(sender: sender, post: post, bookheart: true)
         self.firestorePostRepo.bookmarkPost(userID: currentUser.id, postID: post.postID, isBookmark: isBookmark) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -287,7 +288,6 @@ class PostService: BaseService, PostServiceType {
                         self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
                     }
                 }
-                self.synchronizeAllStore(sender: sender, post: post)
                 print(success.rawValue)
             case .failure(let error):
                 print(error.rawValue)
@@ -295,22 +295,26 @@ class PostService: BaseService, PostServiceType {
         }
     }
     
-    private func synchronizeAllStore(sender: UIViewController, post: Post) {
+    private func synchronizeAllStore(sender: UIViewController, post: Post, bookheart: Bool) {
         switch sender {
         case is PostMainViewController:
-            if self.myPosts.contains(where: { $0.postID == post.postID }) {
+            if let myPost = self.myPosts.first(where: { $0.postID == post.postID }) {
+                bookheart ? myPost.bookmark() : myPost.like()
                 self.myPostStore.onNext(self.myPosts)
             }
             
-            if self.bookmarkedPosts.contains(where: { $0.postID == post.postID }) {
+            if let bookmarkPost = self.bookmarkedPosts.first(where: { $0.postID == post.postID }) {
+                bookheart ? bookmarkPost.bookmark() : bookmarkPost.like()
                 self.bookmarkedPostStore.onNext(self.bookmarkedPosts)
             }
         case is MyBookmarkViewController:
-            if self.posts.contains(where: { $0.postID == post.postID }) {
+            if let post = self.posts.first(where: { $0.postID == post.postID }) {
+                bookheart ? post.bookmark() : post.like()
                 self.postStore.onNext(self.posts)
             }
             
-            if self.myPosts.contains(where: { $0.postID == post.postID }) {
+            if let myPost = self.myPosts.first(where: { $0.postID == post.postID }) {
+                bookheart ? myPost.bookmark() : myPost.like()
                 self.myPostStore.onNext(self.myPosts)
             }
         default:
@@ -358,14 +362,20 @@ class PostService: BaseService, PostServiceType {
     
     private func makePostsWithFetchedEntity(postEntities: [PostEntity], currentUser: User, completion: @escaping ([Post]) -> Void) {
         var fetchedPosts = [Post]()
-        let dispathGroup = DispatchGroup()
+        let dispatchGroup = DispatchGroup()
         postEntities.forEach { entity in
-            dispathGroup.enter()
+            dispatchGroup.enter()
+            
+            guard !entity.isReported.contains(currentUser.id) else {
+                dispatchGroup.leave()
+                return
+            }
+            
             self.firestoreUserRepo.fetchUser(userID: entity.userID) { result in
                 switch result {
                 case .success(let userEntity):
                     guard let userEntity = userEntity else {
-                        dispathGroup.leave()
+                        dispatchGroup.leave()
                         return
                     }
                     let postUser = self.convertEntityToUser(entity: userEntity)
@@ -374,19 +384,19 @@ class PostService: BaseService, PostServiceType {
                         case .success(let count):
                             let post = self.convertEntityToPost(entity: entity, currentUser: currentUser, postUser: postUser, commentsCount: count)
                             fetchedPosts.append(post)
-                            dispathGroup.leave()
+                            dispatchGroup.leave()
                         case .failure(let error):
-                            dispathGroup.leave()
+                            dispatchGroup.leave()
                             print(error.rawValue)
                         }
                     }
                 case .failure(let error):
                     print(error.rawValue)
-                    dispathGroup.leave()
+                    dispatchGroup.leave()
                 }
             }
         }
-        dispathGroup.notify(queue: .main) {
+        dispatchGroup.notify(queue: .main) {
             completion(fetchedPosts)
         }
     }

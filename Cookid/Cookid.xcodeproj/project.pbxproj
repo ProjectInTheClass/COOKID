@@ -121,7 +121,6 @@
 		03D660C7270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660C6270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift */; };
 		03D660C9270B57B30044FE1E /* MyBookmarkReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */; };
 		03D660D0270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D660CF270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift */; };
-		03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */; };
 		03D8C1E126E852CD00238CB6 /* MyMealsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */; };
 		03D8C1E726E8927700238CB6 /* MyMealsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */; };
 		03D8C1E926EA52BB00238CB6 /* MyPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */; };
@@ -312,7 +311,6 @@
 		03D660C6270B56E90044FE1E /* MyBookmarkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkCollectionViewCell.swift; sourceTree = "<group>"; };
 		03D660C8270B57B30044FE1E /* MyBookmarkReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkReactor.swift; sourceTree = "<group>"; };
 		03D660CF270D938B0044FE1E /* MyBookmarkCollectionViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkCollectionViewCellReactor.swift; sourceTree = "<group>"; };
-		03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDetailViewController.swift; sourceTree = "<group>"; };
 		03D8C1E026E852CD00238CB6 /* MyMealsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealsViewController.swift; sourceTree = "<group>"; };
 		03D8C1E626E8927700238CB6 /* MyMealsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealsCollectionViewCell.swift; sourceTree = "<group>"; };
 		03D8C1E826EA52BB00238CB6 /* MyPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostsViewController.swift; sourceTree = "<group>"; };
@@ -512,7 +510,6 @@
 				2417EAB526E58D0C006F2785 /* MyPageViewModel.swift */,
 				2417EAAD26E58CAB006F2785 /* MyPageViewController.swift */,
 				2417EABB26E5A562006F2785 /* MyPageHeaderViewController.swift */,
-				03D8C1CE26E7A7F600238CB6 /* MyPageDetailViewController.swift */,
 				03B3EB772739173C004CACF4 /* UpdateUserInfoViewController.swift */,
 				0361859227942AD600F1F16B /* CELL */,
 			);
@@ -1487,7 +1484,6 @@
 				03D8C1FB26EBB92A00238CB6 /* FirebaseStorageRepo.swift in Sources */,
 				0339E264271977FA001FD6A7 /* RankerImageView.swift in Sources */,
 				037A77C627527C530021BBA7 /* DarkModeContants.swift in Sources */,
-				03D8C1CF26E7A7F600238CB6 /* MyPageDetailViewController.swift in Sources */,
 				03E8B6AA27970A7700EEAEF4 /* ServiceAssembly.swift in Sources */,
 				037A77B927527A710021BBA7 /* String+Extension.swift in Sources */,
 				03D8C1F626EBB85200238CB6 /* RemotePost.swift in Sources */,

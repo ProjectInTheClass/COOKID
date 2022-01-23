@@ -30,12 +30,21 @@ final class MyPageCoordinator: CoordinatorType {
     }
     
     func navigateCommentVC(post: Post) {
-        guard let homeCoordinator = self.parentCoordinator as? HomeCoordinator else { return }
-        for coordinator in homeCoordinator.childCoordinator where coordinator === PostCoordinator.self {
-            if let postCoordinator = coordinator as? PostCoordinator {
-                postCoordinator.navigateCommentVC(post: post)
-            }
-        }
+        let commentCoordinator = CommentCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+        commentCoordinator.post = post
+        commentCoordinator.parentCoordinator = self
+        childCoordinator.append(commentCoordinator)
+        commentCoordinator.start()
+    }
+    
+    func navigateAddMealVC(mode: MealEditMode) {
+        let vc = AddMealViewController.instantiate(storyboardID: "Main")
+        vc.reactor = assembler.resolver.resolve(AddMealReactor.self, argument: mode)!
+        vc.coordinator = nil
+        vc.modalPresentationStyle = .custom
+        vc.modalTransitionStyle = .crossDissolve
+        vc.view.backgroundColor = .clear
+        navigationController.present(vc, animated: true, completion: nil)
     }
     
     func navigateUserInfoVC() {
@@ -55,7 +64,7 @@ final class MyPageCoordinator: CoordinatorType {
         }
         let updateAction = UIAlertAction(title: "수정하기", style: .default) { _ in
             let addPostVC = AddPostViewController.instantiate(storyboardID: "Post")
-            let reactor = self.assembler.resolver.resolve(AddPostReactor.self)!
+            let reactor = self.assembler.resolver.resolve(AddPostReactor.self, argument: PostEditViewMode.edit(post))!
             addPostVC.reactor = reactor
             self.navigationController.pushViewController(addPostVC, animated: true)
         }

@@ -30,7 +30,7 @@ class ServiceAssembly: Assembly {
             return MealService(fileManagerRepo: fileManagerRepository, realmMealRepo: realmMealRepository, firestoreUserRepo: firestoreUserRepository)
         }.inObjectScope(.container)
         
-        container.register(ShoppingServiceType.self, name: nil) { resolver in
+        container.register(ShoppingServiceType.self, name: nil) { _ in
             return ShoppingService(realmShoppingRepo: realmShoppingRepository, firestoreUserRepo: firestoreUserRepository)
         }.inObjectScope(.container)
         

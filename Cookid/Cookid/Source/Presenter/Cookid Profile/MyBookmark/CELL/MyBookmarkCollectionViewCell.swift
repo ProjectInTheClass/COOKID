@@ -122,18 +122,13 @@ class MyBookmarkCollectionViewCell: UICollectionViewCell, View {
     
     func bind(reactor: PostCellReactor) {
         
-        reactor.state.map { $0.post }
-        .withUnretained(self)
-        .bind(onNext: { owner, post in
-            if let url = post.images.first {
-                owner.postImage.setImageWithKf(url: url)
-            }
-            owner.heartButton.setState(post.didLike)
-            owner.dateLabel.text = post.timeStamp.convertDateToString(format: "MM월 dd일")
-            owner.priceLabel.text = intToString(post.mealBudget)
-            owner.regionLabel.text = post.location
-        })
-        .disposed(by: disposeBag)
+        if let url = reactor.post.images.first {
+            self.postImage.setImageWithKf(url: url)
+        }
+        self.heartButton.setState(reactor.post.didLike)
+        self.dateLabel.text = reactor.post.timeStamp.convertDateToString(format: "MM월 dd일")
+        self.priceLabel.text = intToString(reactor.post.mealBudget)
+        self.regionLabel.text = reactor.post.location
         
         reactor.state.map { $0.isHeart }
         .withUnretained(self)

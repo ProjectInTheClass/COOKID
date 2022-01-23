@@ -131,6 +131,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
     func bindViewModel() {
         
         viewModel.output.posts
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: tableView.rx.items(cellIdentifier: "postCell",
                                          cellType: PostTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else { return }
@@ -160,6 +161,7 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
                     .disposed(by: cell.disposeBag)
                 
                 cellReactor.state.map { $0.isError }
+                .observe(on:MainScheduler.asyncInstance)
                 .bind { isError in
                     if isError {
                         errorAlert(selfView: self, errorMessage: "네트워크 작업에 실패했습니다\n다시 시도해 주세요", completion: {})
@@ -172,17 +174,17 @@ class PostMainViewController: UIViewController, ViewModelBindable, StoryboardBas
             .disposed(by: rx.disposeBag)
         
         tableView.rx.contentOffset
-            .withUnretained(self)
-            .filter { owner, offset in
+            .filter { offset in
                 // 첫 filtering
-                guard owner.tableView.visibleCells.count > 0 else { return false }
+                guard self.tableView.visibleCells.count > 0 else { return false }
                 guard offset.y > 0 else { return false }
-                guard owner.tableView.frame.height > 0 else { return false }
+                guard self.tableView.frame.height > 0 else { return false }
                 // 1: 테이블뷰의 크기 + offset(아래로 탐색하는 거리)
                 // 2: 테이블뷰 내부 셀들의 합
                 // 전체 컨텐츠 탐색을 완료하기 100 전에 로딩하기
-                return offset.y + owner.tableView.frame.height >= owner.tableView.contentSize.height - 50
+                return offset.y + self.tableView.frame.height >= self.tableView.contentSize.height - 50
             }
+            .distinctUntilChanged()
             .map { _ in }
             .bind(to: viewModel.input.fetchPastPosts)
             .disposed(by: rx.disposeBag)
