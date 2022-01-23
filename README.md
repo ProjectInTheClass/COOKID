@@ -16,19 +16,18 @@
 
 # 3. 핵심 기능 📱
 
-* 메인 : 소비현황과 나의 식생활을 한 눈에 확인할 수 있습니다.<br/> 목표 식비, 쇼핑, 외식, 잔액, 그래프를 통해 식비 소비 현황에 대한 정보를 제공합니다. 또 지난 식사 데이터를 분석하여 식비를 관리할 수 있도록 돕는 통계를 제공합니다.
+* 소비내역 : 소비현황과 나의 식생활을 한 눈에 확인할 수 있습니다.<br/> 목표 식비, 쇼핑, 외식, 잔액, 그래프를 통해 식비 소비 현황에 대한 정보를 제공합니다. 또 지난 식사 데이터를 분석하여 식비를 관리할 수 있도록 돕는 통계를 제공합니다.
 
-<iframe width="956" height="538" src="https://www.youtube.com/embed/ozv4q2ov3Mk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<iframe width="640" height="360" src="https://youtu.be/_xoOTyBvccA" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+[![소비내역](http://img.youtube.com/vi/_xoOTyBvccA/0.jpg)](https://youtu.be/_xoOTyBvccA) 
 
 * 식사추천 : 맛있게 먹은 식사를 추천하는 커뮤니티입니다. 식사 장소와 가격, 별점, 후기, 사진 등을 통해 좋은 식사 경험을 나누고, 해당 식사가 현재 예산에 적합한지 확인할 수 있습니다. 해당 포스트에 좋아요와 북마크로 인터렉션 할 수 있고 댓글과 대댓글로 서로 소통할 수 있습니다.
 
-<iframe width="640" height="360" src="https://youtu.be/HmcKmbjdrBk" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+[![식사추천](http://img.youtube.com/vi/HmcKmbjdrBk/0.jpg)](https://youtu.be/HmcKmbjdrBk) 
+
 
 * 마이페이지 : 사용자의 활동을 보여주는 곳입니다. 사용자의 정보 수정 및 문의를 할 수 있고, 모든 식사 내역, 자신이 포스팅한 글, 북마크한 글을 저장해주고 보여줍니다.
 
-<iframe width="640" height="360" src="https://youtu.be/qDYA15srJDM" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+[![마이페이지](http://img.youtube.com/vi/qDYA15srJDM/0.jpg)](https://youtu.be/qDYA15srJDM) 
 
 # 4. 기술 스택 🛠
 
