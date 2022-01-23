@@ -13,11 +13,9 @@ final class PostCoordinator: CoordinatorType {
     var parentCoordinator: CoordinatorType?
     var childCoordinator: [CoordinatorType] = []
     var assembler: Assembler
-    var navigationController: UINavigationController
-    init(assembler: Assembler,
-         navigationController: UINavigationController) {
+    var navigationController: UINavigationController?
+    init(assembler: Assembler) {
         self.assembler = assembler
-        self.navigationController = navigationController
     }
     
     func start() {
@@ -32,27 +30,27 @@ final class PostCoordinator: CoordinatorType {
     }
     
     private func navigationBarConfigure() {
-        navigationController.navigationBar.tintColor = DefaultStyle.Color.tint
-        navigationController.navigationBar.barTintColor = .systemBackground
+        navigationController?.navigationBar.tintColor = DefaultStyle.Color.tint
+        navigationController?.navigationBar.barTintColor = .systemBackground
     }
     
     func navigateRankingVC() {
         let vc = assembler.resolver.resolve(RankingMainViewController.self)!
         vc.modalPresentationStyle = .automatic
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func navigateSignInVC() {
         let vc = assembler.resolver.resolve(SignInViewController.self)!
         vc.modalPresentationStyle = .overFullScreen
-        navigationController.present(vc, animated: true)
+        navigationController?.present(vc, animated: true)
     }
     
     func navigateAddPostVC(mode: PostEditViewMode, senderTag: Int) {
         let reactor = assembler.resolver.resolve(AddPostReactor.self, argument: mode)!
         let vc = AddPostViewController.instantiate(storyboardID: "Post")
         vc.reactor = reactor
-        navigationController.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
         
         switch senderTag {
         case 1:
@@ -69,7 +67,8 @@ final class PostCoordinator: CoordinatorType {
     }
     
     func navigateCommentVC(post: Post) {
-        let commentCoordinator = CommentCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+        let commentCoordinator = CommentCoordinator(assembler: self.assembler)
+        commentCoordinator.navigationController = self.navigationController
         commentCoordinator.post = post
         commentCoordinator.parentCoordinator = self
         childCoordinator.append(commentCoordinator)
@@ -96,7 +95,7 @@ final class PostCoordinator: CoordinatorType {
             alertVC.addAction(reportAction)
         }
         alertVC.addAction(cancelAction)
-        navigationController.present(alertVC, animated: true, completion: nil)
+        navigationController?.present(alertVC, animated: true, completion: nil)
     }
     
 }

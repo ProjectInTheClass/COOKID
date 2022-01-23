@@ -12,25 +12,29 @@ final class AppCoordinator: CoordinatorType {
     var parentCoordinator: CoordinatorType?
     var childCoordinator: [CoordinatorType] = []
     var assembler: Assembler
-    var navigationController: UINavigationController
-    init(assembler: Assembler,
-         navigationController: UINavigationController) {
+    var navigationController: UINavigationController? = UINavigationController()
+    var window: UIWindow?
+    init(assembler: Assembler) {
         self.assembler = assembler
-        self.navigationController = navigationController
     }
     
     func start() {
         let realmUserRepo = assembler.resolver.resolve(RealmUserRepoType.self)!
         if realmUserRepo.fetchUser() != nil {
-            let homeCoordinator = HomeCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+            let homeCoordinator = HomeCoordinator(assembler: self.assembler)
+            homeCoordinator.navigationController = navigationController
             homeCoordinator.parentCoordinator = self
             childCoordinator.append(homeCoordinator)
             homeCoordinator.start()
         } else {
-            let localSignInCoordinator = LocalSignInCoordinator(assembler: self.assembler, navigationController: self.navigationController)
+            let localSignInCoordinator = LocalSignInCoordinator(assembler: self.assembler)
+            localSignInCoordinator.navigationController = navigationController
             localSignInCoordinator.parentCoordinator = self
             childCoordinator.append(localSignInCoordinator)
             localSignInCoordinator.start()
         }
+        window?.tintColor = DefaultStyle.Color.labelTint
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
     }
 }

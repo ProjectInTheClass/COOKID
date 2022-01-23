@@ -22,6 +22,7 @@ class SecondPageViewController: UIViewController, ViewModelBindable, StoryboardB
         super.viewDidLoad()
         monthlyGoalStackView.alpha = 0
         nextPageButton.isEnabled = false
+        view.backgroundColor = DefaultStyle.Color.bgTint
     }
     
     override func viewDidAppear(_ animated: Bool) {

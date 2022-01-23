@@ -12,26 +12,20 @@ final class LocalSignInCoordinator: CoordinatorType {
     var parentCoordinator: CoordinatorType?
     var childCoordinator: [CoordinatorType] = []
     var assembler: Assembler
-    var navigationController: UINavigationController
-    init(assembler: Assembler,
-         navigationController: UINavigationController) {
+    var navigationController: UINavigationController?
+    init(assembler: Assembler) {
         self.assembler = assembler
-        self.navigationController = navigationController
     }
     
     func start() {
         let vc = assembler.resolver.resolve(LocalSignInViewViewController.self)!
-        self.navigationController.setViewControllers([vc], animated: false)
+        vc.coordinator = self
+        self.navigationController?.setViewControllers([vc], animated: false)
     }
     
     func navigateHomeCoordinator() {
         if let appCoordinator = parentCoordinator as? AppCoordinator {
-            for coordinator in appCoordinator.childCoordinator {
-                if let homeCoordinator = coordinator as? HomeCoordinator {
-                    self.navigationController.popViewController(animated: false)
-                    homeCoordinator.start()
-                }
-            }
+            appCoordinator.start()
         }
     }
 }
